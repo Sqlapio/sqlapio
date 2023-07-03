@@ -492,7 +492,7 @@
                                                     <div>
                                                         <label style="font-size: 15px;" class="form-check-label"
                                                             for="flexCheckDefault">
-                                                            Himpertencion
+                                                            Hipertensión
                                                         </label>
                                                     </div>
                                                 </div>
@@ -518,7 +518,7 @@
                                                     <div>
                                                         <label style="font-size: 15px;" class="form-check-label"
                                                             for="flexCheckDefault">
-                                                            Osteoporozis
+                                                            Osteoporosis 
                                                         </label>
                                                     </div>
                                                 </div>

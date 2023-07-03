@@ -1,0 +1,29 @@
+{
+  "hash": "7cc37c2d",
+  "browserHash": "0e14d884",
+  "optimized": {
+    "bootstrap": {
+      "src": "../../node_modules/bootstrap/dist/js/bootstrap.esm.js",
+      "file": "bootstrap.js",
+      "fileHash": "ce26c52a",
+      "needsInterop": false
+    },
+    "chart.js/auto": {
+      "src": "../../node_modules/chart.js/auto/auto.js",
+      "file": "chart__js_auto.js",
+      "fileHash": "1a8df36f",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "ca8eca9f",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-QLU32RQJ": {
+      "file": "chunk-QLU32RQJ.js"
+    }
+  }
+}
