@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Center;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CenterList extends Seeder
 {
@@ -13,7 +14,7 @@ class CenterList extends Seeder
      */
     public function run(): void
     {
-        Center::create([
+        DB::table('centers')->insert([
             'description' => 'CENTRO MEDICO AMAZONAS, C.A',
             'state' => 'AMAZONAS',
         ],

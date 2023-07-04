@@ -14,11 +14,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(CenterList::class);
-        $this->call(PathologyList::class);
-        $this->call(StateList::class);
-        $this->call(SpecialtyList::class);
-        $this->call(UserAdmin::class);
+        $this->call([
+            CenterList::class,
+            PathologyList::class,
+            StateList::class,
+            SpecialtyList::class,
+            UserAdmin::class
+        ]);
 
     }
 }
