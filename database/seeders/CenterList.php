@@ -1407,7 +1407,7 @@ class CenterList extends Seeder
                         'description' => 'Hospital Universitario de Maracibo',
                         'state' => 'ZULIA',
                     ]
-                ];
+        ];
         Center::insert($data);
     }
 }
