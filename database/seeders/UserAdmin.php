@@ -18,7 +18,8 @@ class UserAdmin extends Seeder
             'name' => 'Admin',
             'last_name' => 'Sqlapio',
             'email' => 'admin@gmail.com',
-            'password' => Hash::make('As123456')
+            'password' => Hash::make('As123456'),
+            'role' => 'medico'
         ]);
     }
 }

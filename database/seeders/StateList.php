@@ -13,77 +13,83 @@ class StateList extends Seeder
      */
     public function run(): void
     {
-        State::create([
-            'description' => 'Amazonas',
-        ],
-        [
-            'description' => 'Anzoátegui',
-        ],
-        [
-            'description' => 'Apure',
-        ],
-        [
-            'description' => 'Aragua',
-        ],
-        [
-            'description' => 'Barinas',
-        ],
-        [
-            'description' => 'Bolívar',
-        ],
-        [
-            'description' => 'Carabobo',
-        ],
-        [
-            'description' => 'Cojedes',
-        ],
-        [
-            'description' => 'Delta Amacuro',
-        ],
-        [
-            'description' => 'Distrito Capital',
-        ],
-        [
-            'description' => 'Falcón',
-        ],
-        [
-            'description' => 'Guárico',
-        ],
-        [
-            'description' => 'Lara',
-        ],
-        [
-            'description' => 'Mérida',
-        ],
-        [
-            'description' => 'Miranda',
-        ],
-        [
-            'description' => 'Monagas',
-        ],
-        [
-            'description' => 'Nueva Esparta',
-        ],
-        [
-            'description' => 'Portuguesa',
-        ],
-        [
-            'description' => 'Sucre',
-        ],
-        [
-            'description' => 'Táchira',
-        ],
-        [
-            'description' => 'Trujillo',
-        ],
-        [
-            'description' => 'Vargas',
-        ],
-        [
-            'description' => 'Yaracuy',
-        ],
-        [
-            'description' => 'Zulia',
-        ]);
+        $data = [
+
+            [
+                'description' => 'Amazonas',
+            ],
+            [
+                'description' => 'Anzoátegui',
+            ],
+            [
+                'description' => 'Apure',
+            ],
+            [
+                'description' => 'Aragua',
+            ],
+            [
+                'description' => 'Barinas',
+            ],
+            [
+                'description' => 'Bolívar',
+            ],
+            [
+                'description' => 'Carabobo',
+            ],
+            [
+                'description' => 'Cojedes',
+            ],
+            [
+                'description' => 'Delta Amacuro',
+            ],
+            [
+                'description' => 'Distrito Capital',
+            ],
+            [
+                'description' => 'Falcón',
+            ],
+            [
+                'description' => 'Guárico',
+            ],
+            [
+                'description' => 'Lara',
+            ],
+            [
+                'description' => 'Mérida',
+            ],
+            [
+                'description' => 'Miranda',
+            ],
+            [
+                'description' => 'Monagas',
+            ],
+            [
+                'description' => 'Nueva Esparta',
+            ],
+            [
+                'description' => 'Portuguesa',
+            ],
+            [
+                'description' => 'Sucre',
+            ],
+            [
+                'description' => 'Táchira',
+            ],
+            [
+                'description' => 'Trujillo',
+            ],
+            [
+                'description' => 'Vargas',
+            ],
+            [
+                'description' => 'Yaracuy',
+            ],
+            [
+                'description' => 'Zulia',
+            ]
+        ];
+
+        State::insert($data);
+
     }
 }
