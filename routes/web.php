@@ -57,8 +57,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::group(array('prefix' => 'setting'), function () {
             Route::get('/user', [User::class, 'render'])->name('User');
-            Route::get('/user/edit/{id}', [User::class, 'render'])->name('UserEdit');
             Route::get('/profile', [Profile::class, 'render'])->name('Profile');
+            Route::post('/update-profile', [Register::class, 'update'])->name('update-profile');
             Route::get('/suscription', [Suscription::class, 'render'])->name('Suscription');
         });
     });
