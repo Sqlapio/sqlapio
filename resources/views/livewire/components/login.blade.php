@@ -72,7 +72,7 @@
         <div class="container-fluid text-center">
             <div class="row justify-content-center">
                 <div class="col-sm-3 col-md-3	col-lg-3 col-xl-3 col-xxl-3 loginDric">
-                    <div class="logoZone">
+                    <div class="">
                         <img class="img" src="{{ asset('img/logo-nav.png') }}" class="logo">
                         <h1 class="margin-global">Iniciar Sesión</h1>
                     </div>
