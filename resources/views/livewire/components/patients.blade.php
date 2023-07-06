@@ -331,10 +331,7 @@
                                 <form id="form-patients" method="post" action="/">
                                     {{ csrf_field() }}
                                     <div class="row">
-
-                                        <div id="alert" class="alert alert-success">
-
-                                        </div>
+                                        <div id="alert" class="alert alert-success"></div>
                                         @if ($errors->any())
                                             <div class="alert alert-danger">
                                                 @foreach ($errors->all() as $message)

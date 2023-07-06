@@ -10,10 +10,7 @@
 </style>
 <script>
     function ShowformUser(item) {
-        // var id = '12';
-        // var url = "{{ route('UserEdit', ':id') }}";
-        // url = url.replace(':id', id);
-        // location.href = url;
+     
         console.log(item);
         $("#names").val(item.names);
         $("#lastname").val(item.lastName);

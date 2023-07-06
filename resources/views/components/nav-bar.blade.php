@@ -304,11 +304,7 @@
 
  <script>
    function logout(){
-
-    console.log("sdd");
-        // var url = "{{ route('UserEdit', ':id') }}";
         var url = "/";
-        // url = url.replace(':id', id);
         location.href = url;
     }
  </script>

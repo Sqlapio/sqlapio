@@ -76,13 +76,11 @@
                     required: "Contraseña es obligatoria",
                     minlength: "Contraseña debe ser mayor a 6 caracteres",
                     maxlength: "Contraseña debe ser menor a 8 caracteres",
-                    // pattern: "pattern",
                 },
                 password_confrimation: {
                     required: "Confirmar Contraseña es obligatoria",
                     minlength: "Confirmar Contraseña debe ser mayor a 6 caracteres",
                     maxlength: "Confirmar Contraseña debe ser menor a 8 caracteres",
-                    // pattern: "pattern",
                 },
                 rol: {
                     required: "Rol es obligatorio",
@@ -216,8 +214,8 @@
                                 <div style="display: none">
                                     <x-load-spinner show="{{ $show }}" />
                                 </div>
-                                <div class="row justify-content-end">
-                                    <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2 mt-3">
+                                <div class="d-flex justify-content-center">
+                                    <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2 mt-3" style="margin-left: 7%">
                                         <button type="" class="btn btnPrimary">Registrar</button>
                                     </div>
                                     <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2 mt-3">                                        
@@ -225,8 +223,8 @@
                                     </div>
                                 </div>                               
                                 {{ Form::close() }}                              
-                                <div class="row mt-3 text-end">
-                                    <div class="col div-col">
+                                <div class="d-flex mt-3">
+                                    <div class="col div-col mt-3">
                                         <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-02.png') }}" alt="">
                                     </div>
                                 </div>
