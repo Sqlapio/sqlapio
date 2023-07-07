@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             CenterList::class,
+            CityList::class,
             PathologyList::class,
             StateList::class,
             SpecialtyList::class,
