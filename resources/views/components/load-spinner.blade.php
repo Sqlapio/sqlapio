@@ -1,6 +1,6 @@
 <style>
     .shadow-div {
-        box-shadow: 0 0 0 64em rgba(68, 82, 95, 0.144);
+        box-shadow: 0 0 0 64em rgba(8, 42, 73, 0.144);
     }
 
     .spinnner {

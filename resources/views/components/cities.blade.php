@@ -3,8 +3,8 @@
     $cities = City::all();
 @endphp
 <div class="Icon-inside">
-    <select name="state" id="state" class="form-control">
-        <option value="">Seleccione el estado</option>
+    <select name="city" id="city" class="form-control">
+        <option value="">Seleccione el ciudad</option>
         @foreach ($cities as $item)
             <option value={{ $item->description }}>{{ $item->description }}</option>
         @endforeach
