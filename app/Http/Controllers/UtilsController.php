@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class UtilsController extends Controller {
+
 	static function get_action($value) {
 		if ($value == '1') {
 			return 'login';
@@ -22,6 +23,9 @@ class UtilsController extends Controller {
 		if ($value == '5') {
 			return 'patient register';
 		}
+		if ($value == '6') {
+			return 'patient history register';
+		}
 	}
 
 	/**
@@ -34,7 +38,7 @@ class UtilsController extends Controller {
 	 * @param id
 	 * @param array request
 	 */
-	static public function update_registro($id, $request) {
+	static function update_registro($id, $request) {
 		try {
 
 			$update = DB::table('users')
