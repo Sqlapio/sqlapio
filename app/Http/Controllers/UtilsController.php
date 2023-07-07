@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
 use App\Models\City;
 use App\Models\Patient;
 use App\Models\State;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 
 class UtilsController extends Controller {
@@ -27,6 +29,9 @@ class UtilsController extends Controller {
 		}
 		if ($value == '6') {
 			return 'patient history register';
+		}
+		if ($value == '7') {
+			return 'appointment register';
 		}
 	}
 
@@ -79,6 +84,18 @@ class UtilsController extends Controller {
 	{
 		$patients = Patient::all();
 		return $patients;
+	}
+
+	static function get_appointments($id)
+	{
+		$appointments = Appointment::where('user_id', $id)->get();
+
+		if($appointments = ''){
+			return '';
+		}else{
+			return $appointments;
+		}
+		
 	}
 
 }

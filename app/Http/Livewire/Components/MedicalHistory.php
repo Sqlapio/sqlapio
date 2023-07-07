@@ -32,6 +32,7 @@ class MedicalHistory extends Component
             }
 
             $history = new History();
+            $history->cod_history   = date('dmY').'-'.$cod_patient;
             $history->patient_id    = $patient_id;
             $history->cod_patient   = $cod_patient;
             $history->history_date  = date('d-m-Y');
