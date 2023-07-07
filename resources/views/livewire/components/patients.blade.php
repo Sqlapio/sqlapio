@@ -126,10 +126,39 @@
                 },
                 zip_code: {
                     required: true,
+                    onlyNumber: true
                 },
-                // pathologies: {
-                //     required: true,
-                // },
+                re_name: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 50,
+                },
+                re_last_name: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 50,
+                },
+                re_email: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 50,
+                    email: true
+                },
+                re_ci: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 8,
+                    onlyNumber: true
+                },
+                re_phone: {
+                    required: true,
+                },
+                phone: {
+                    required: true,
+                },
+                profession: {
+                    required: true,
+                }
             },
             messages: {
                 name: {
@@ -179,6 +208,37 @@
                 zip_code: {
                     required: "Codigo de area es obligatorio",
                 },
+                re_name: {
+                    required: "Nombre del representante es obligatorio",
+                    minlength: "Nombre del representante debe ser mayor a 3 caracteres",
+                    maxlength: "Nombre del representante debe ser menor a 50 caracteres",
+                },
+                re_last_name: {
+                    required: "Apellido del representante es obligatorio",
+                    minlength: "Apellido del representante debe ser mayor a 3 caracteres",
+                    maxlength: "Apellido del representante debe ser menor a 50 caracteres",
+                },
+                re_email: {
+                    required: "Correo del representante es obligatorio",
+                    minlength: "Correo debe ser mayor a 6 caracteres",
+                    maxlength: "Correo debe ser menor a 8 caracteres",
+                    email: "Correo incorrecto"
+                },
+                re_ci: {
+                    required: "Cedula del representante es obligatorio",
+                    minlength: "Cedula del representante  debe ser mayor a 5 caracteres",
+                    maxlength: "Cedula del representante  debe ser menor a 8 caracteres",
+                },
+                re_phone: {
+                    required: "Telefono del representante es obligatorio",
+                },
+                profession: {
+                    required: "Profesion es obligatoria",
+                },
+                phone: {
+                    required: "Telfono es obligatorio",
+                }
+
             },
 
 
@@ -252,16 +312,38 @@
         }
     }
 
-    function handlerPhandlerPatologia(e, id) {
-        if ($(`#${id}`).is(':checked')) {
-            pathologiesArray.push(e.target.value);
-            console.log(pathologiesArray);
-            $('#pathologies').val(pathologiesArray);
+    function handlerAge(e) {
+        if (Number($("#age").val()) >= 18) {
+            $('#data-rep').hide();
+            $('#is_minor').val(false);
+            $('#email').rules('add', {
+                required: true,
+                minlength: 3,
+                maxlength: 50,
+                email: true
+
+            });
+
+
         } else {
-            pathologiesArray = pathologiesArray.filter(elem => elem !== e.target.value);
-            $('#pathologies').val(pathologiesArray);
+            $("#email").rules("remove");
+            $('#data-rep').show();
+            $('#is_minor').val(true);
+
         }
     }
+
+    // se comente funcion para las patolpogias
+    // function handlerPhandlerPatologia(e, id) {
+    //     if ($(`#${id}`).is(':checked')) {
+    //         pathologiesArray.push(e.target.value);
+    //         console.log(pathologiesArray);
+    //         $('#pathologies').val(pathologiesArray);
+    //     } else {
+    //         pathologiesArray = pathologiesArray.filter(elem => elem !== e.target.value);
+    //         $('#pathologies').val(pathologiesArray);
+    //     }
+    // }
 </script>
 
 @section('content')
@@ -331,6 +413,7 @@
                                 <form id="form-patients" method="post" action="/">
                                     {{ csrf_field() }}
                                     <div class="row">
+                                        <input type="hidden" name="is_minor" id="is_minor" value="false">
                                         <div id="alert" class="alert alert-success"></div>
                                         @if ($errors->any())
                                             <div class="alert alert-danger">
@@ -368,13 +451,14 @@
                                                         id="ci" name="ci" type="text" value="">
                                                     <i class="bi bi-telephone"></i>
                                                 </div>
-                                            </diV>
+                                            </div>
                                         </div>
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="floating-label-group">
                                                 <input placeholder="Fecha de Nacimiento" class="form-control "
                                                     id="birthdate" id="datepicker" name="birthdate" type="date"
-                                                    value="" onchange="calculateAge(event,'age')">
+                                                    value=""
+                                                    onchange="calculateAge(event,'age'), handlerAge(event)">
                                             </div>
                                         </diV>
 
@@ -383,11 +467,11 @@
                                                 <div class="Icon-inside">
                                                     <input autocomplete="off" placeholder="Edad"
                                                         class="form-control @error('age') is-invalid @enderror"
-                                                        id="age" name="age" type="text" value=""
-                                                        readonly="true">
+                                                        id="age" name="age" type="text" value=" "
+                                                        readonly>
                                                     <i class="bi bi-person-circle"></i>
                                                 </div>
-                                            </diV>
+                                            </div>
                                         </div>
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="floating-label-group">
@@ -411,11 +495,8 @@
                                                         id="email" name="email" type="text" value="">
                                                     <i class="bi bi-person-circle"></i>
                                                 </div>
-                                            </diV>
+                                            </div>
                                         </div>
-
-
-
 
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="floating-label-group">
@@ -428,7 +509,28 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
+                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <input autocomplete="off" placeholder="Telefono"
+                                                        class="form-control @error('phone') is-invalid @enderror"
+                                                        id="phone" name="phone" type="text" value="">
+                                                    <i class="bi bi-person-circle"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <input autocomplete="off" placeholder="Profesion"
+                                                        class="form-control @error('profession') is-invalid @enderror"
+                                                        id="profession" name="profession" type="text" value="">
+                                                    <i class="bi bi-person-circle"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <input autocomplete="off" placeholder="Dirección"
@@ -436,10 +538,10 @@
                                                         id="address" name="address" type="text" value="">
                                                     <i class="bi bi-person-circle"></i>
                                                 </div>
-                                            </diV>
+                                            </div>
                                         </div>
 
-                                        <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
+                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <input autocomplete="off" placeholder="Codigo de Area"
@@ -447,12 +549,77 @@
                                                         id="zip_code" name="zip_code" type="text" value="">
                                                     <i class="bi bi-person-circle"></i>
                                                 </div>
-                                            </diV>
+                                            </div>
                                         </div>
+                                        {{-- data del representante --}}
+                                        <div class="row mt-3" id="data-rep" style="display: none">
+                                            <hr>
+                                            <h1>Datos del representante</h1>
+                                            <hr>
 
-                                        <input type="hidden" name="pathologies[]" id="pathologies" value="">
+                                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <input autocomplete="off" placeholder="Nombre del representante"
+                                                            class="form-control @error('re_name') is-invalid @enderror"
+                                                            id="re_name" name="re_name" type="text" value="">
+                                                        <i class="bi bi-person-circle"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
 
-                                        <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <input autocomplete="off"
+                                                            placeholder="Apellidos del representante"
+                                                            class="form-control @error('re_last_name') is-invalid @enderror"
+                                                            id="re_last_name" name="re_last_name" type="text"
+                                                            value="">
+                                                        <i class="bi bi-person-circle"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+
+                                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <input autocomplete="off" placeholder="Cedula del representante"
+                                                            class="form-control @error('re_ci') is-invalid @enderror"
+                                                            id="re_ci" name="re_ci" type="text" value="">
+                                                        <i class="bi bi-person-circle"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+                                            <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <input autocomplete="off" placeholder="Correo del representante"
+                                                            class="form-control @error('re_email') is-invalid @enderror"
+                                                            id="re_email" name="re_email" type="text"
+                                                            value="">
+                                                        <i class="bi bi-person-circle"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+
+                                            <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <input autocomplete="off" placeholder="Telefono del representante"
+                                                            class="form-control @error('re_phone') is-invalid @enderror"
+                                                            id="re_phone" name="re_phone" type="text"
+                                                            value="">
+                                                        <i class="bi bi-person-circle"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+                                        </div>
+                                        {{-- end --}}
+
+                                        {{-- <input type="hidden" name="pathologies[]" id="pathologies" value=""> --}}
+
+                                        {{-- <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
                                             <div class="floating-label-group">
                                                 <div class="form-check" style="display: flex; ">
                                                     <div style="margin-right: 30px;">
@@ -521,7 +688,7 @@
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
 
                                     <div style="margin-top: 20px;" class="row">
