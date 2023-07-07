@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
+            $table->string('cod_history')->unique();
             $table->string('patient_id');
             // codigo del paciente = cedula del paciente
             $table->string('cod_patient');
