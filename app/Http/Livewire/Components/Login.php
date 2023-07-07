@@ -16,11 +16,6 @@ class Login extends Component {
 
 	public $show;
 
-	public function render() {
-		$this->show = true;
-		return view('livewire.components.login', ['show' => $this->show]);
-	}
-
 	public function rules() {
 		$rules = [
 			'username' => 'required|min:3|max:50',
@@ -99,5 +94,17 @@ class Login extends Component {
 			}
 
 		}
+	}
+
+	public function logout()
+	{
+		Session::flush();
+        Auth::logout();
+        return redirect('login');
+	}
+
+	public function render() {
+		$this->show = true;
+		return view('livewire.components.login', ['show' => $this->show]);
 	}
 }
