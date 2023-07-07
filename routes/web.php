@@ -62,4 +62,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/suscription', [Suscription::class, 'render'])->name('Suscription');
         });
     });
+
+    /**
+     * Logout
+     */
+    Route::get('/logout', [Login::class, 'logout'])->name('logout');
 });

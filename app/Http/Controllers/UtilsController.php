@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\City;
+use App\Models\Patient;
+use App\Models\State;
 use Illuminate\Support\Facades\DB;
 
 class UtilsController extends Controller {
@@ -59,6 +61,24 @@ class UtilsController extends Controller {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_registro()', $message);
 		}
+	}
+
+	static function get_cities()
+	{
+		$cities = City::all();
+		return $cities;
+	}
+
+	static function get_states()
+	{
+		$states = State::all();
+		return $states;
+	}
+
+	static function get_patients()
+	{
+		$patients = Patient::all();
+		return $patients;
 	}
 
 }

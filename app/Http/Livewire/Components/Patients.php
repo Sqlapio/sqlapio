@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Components;
 
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\UtilsController;
 use App\Models\Patient;
 use Illuminate\Http\Request;
 use Livewire\Component;
@@ -155,6 +156,10 @@ class Patients extends Component
     }
     public function render()
     {
-        return view('livewire.components.patients');
+        $patients = UtilsController::get_patients();
+        $cities = UtilsController::get_cities();
+        $states = UtilsController::get_states();
+    
+        return view('livewire.components.patients', compact('patients', 'cities', 'states'));
     }
 }
