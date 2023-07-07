@@ -57,6 +57,7 @@
 @endpush
 @section('content')
     <div>
+        {{ var_export($appointments) }}
         <div class="container-fluid">
             <div class="row mt-2">
                 <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
