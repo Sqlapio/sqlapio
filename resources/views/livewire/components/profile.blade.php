@@ -228,7 +228,7 @@
                                             <div class="form-group">
                                                 <input autocomplete="off" placeholder="Fecha de  Nacimiento"
                                                     class="form-control @error('birthdate') is-invalid @enderror"
-                                                    id="birthdate" name="birthdate" type="date" value="">
+                                                    id="birthdate" name="birthdate" type="date" value="" onchange="calculateAge(event,'age')">
                                             </diV>
                                         </div>
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
@@ -236,7 +236,7 @@
                                                 <div class="Icon-inside">
                                                     <input autocomplete="off" placeholder="Edad"
                                                         class="form-control @error('age') is-invalid @enderror"
-                                                        id="age" name="age" type="text" value="">
+                                                        id="age" name="age" type="text" value="" readonly>
                                                     <i class="bi bi-geo-alt"></i>
                                                 </div>
                                             </diV>

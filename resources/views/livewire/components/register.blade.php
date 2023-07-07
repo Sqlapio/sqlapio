@@ -223,7 +223,7 @@
                                     </div>
                                 </div>                               
                                 {{ Form::close() }}                              
-                                <div class="d-flex mt-3">
+                                <div class="d-flex  mt-3">
                                     <div class="col div-col mt-3">
                                         <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-02.png') }}" alt="">
                                     </div>
