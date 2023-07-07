@@ -111,7 +111,7 @@
                         </div>
                     </div>
                     <div id="spinner" style="display: none">
-                        <x-load-spinner show="{{ $show }}" />
+                        <x-load-spinner/>
                     </div>
                     <button type="" class="btn btnPrimary"><span class="">Entrar</span></button>
                 </div>
