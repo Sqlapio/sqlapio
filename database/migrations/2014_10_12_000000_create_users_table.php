@@ -36,7 +36,6 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('address')->nullable();
             $table->string('zip_code')->nullable();
-            $table->json('pathologies')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
