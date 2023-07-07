@@ -1,15 +1,29 @@
  <style>
      .img {
-         width: 80%;
+         width: 60%;
          height: auto;
 
      }
 
+     .icon-user {
+         width: 20%;
+         height: 20%;
+         margin: 15% 0% 0% 10%;
+     }
+
+     .icon-logout {
+         width: 20%;
+         height: 20%;
+         margin: 15% 0% 0% 10%;
+
+     }
+
      .img2 {
-         width: 70%;
+         width: 50%;
          height: auto;
          border-radius: 10px;
-         margin-top: 14%;
+         margin-top: 10%;
+         margin-top: 10%;
      }
 
 
@@ -32,7 +46,7 @@
 
      .div-left {
          padding: 0px 0px;
-         margin-left: 36%;
+         margin-left: 38%;
      }
 
      .strong {
@@ -55,9 +69,9 @@
 
 
      @media only screen and (max-width: 300px) {
-        #logo1{
-            margin-right: -5% !important;
-        }
+         #logo1 {
+             margin-right: -5% !important;
+         }
 
          .img {
              width: 40px;
@@ -65,9 +79,10 @@
          }
 
          .img2 {
-             width: 45px;
+             width: 40px;
              height: auto;
              border-radius: 10px;
+             margin-top: 23%;
          }
 
          .img3 {
@@ -87,9 +102,7 @@
              padding: -2px 0px 0px 50px;
          }
 
-         i {
-             display: none;
-         }
+
 
          .strong {
              /* margin: 30px; */
@@ -106,9 +119,9 @@
 
 
      @media only screen and (max-width: 390px) {
-        #logo1{
-            margin-right: -5% !important;
-        }
+         #logo1 {
+             margin-right: -5% !important;
+         }
 
          .img {
              width: 40px;
@@ -116,9 +129,10 @@
          }
 
          .img2 {
-             width: 45px;
+             width: 40px;
              height: auto;
              border-radius: 10px;
+             margin-top: 23%;
          }
 
          .img3 {
@@ -138,8 +152,18 @@
              padding: -2px 0px 0px 50px;
          }
 
-         i {
-             display: none;
+
+         .icon-user {
+             width: 10%;
+             height: 20%;
+             margin: 15% 0% 0% 10%;
+         }
+
+         .icon-logout {
+             width: 10%;
+             height: 20%;
+             margin: 15% 0% 0% 10%;
+
          }
 
          .strong {
@@ -156,18 +180,20 @@
      }
 
      @media only screen and (max-width: 400px) {
-        #logo1{
-            margin-right: -5% !important;
-        }
+         #logo1 {
+             margin-right: -5% !important;
+         }
+
          .img {
              width: 40px;
              height: auto;
          }
 
          .img2 {
-             width: 45px;
+             width: 40px;
              height: auto;
              border-radius: 10px;
+             margin-top: 23%;
          }
 
          .img3 {
@@ -187,9 +213,7 @@
              padding: -2px 0px 0px 50px;
          }
 
-         i {
-             display: none;
-         }
+
 
          .strong {
              color: white;
@@ -205,18 +229,20 @@
 
      @media only screen and (max-width: 600px) {
 
-        #logo1{
-            margin-right: -5% !important;
-        }
+         #logo1 {
+             margin-right: -5% !important;
+         }
+
          .img {
              width: 40px;
              height: auto;
          }
 
          .img2 {
-             width: 45px;
+             width: 40px;
              height: auto;
              border-radius: 10px;
+             margin-top: 23%;
          }
 
          .img3 {
@@ -236,9 +262,7 @@
              padding: -2px 0px 0px 50px;
          }
 
-         i {
-             display: none;
-         }
+
 
          .strong {
              color: white;
@@ -290,7 +314,10 @@
              </div>
 
              <div class=" d-flex col-sm-1 md-1 lg-1 xl-1 xxl-1  div-left">
-                 <h6 class="strong"> {{ Auth::user()->name }} {{ Auth::user()->last_name }} <i class="bi bi-person-fill"></i> <strong><i onclick="logout();" class="bi bi-escape"></i></strong></h6>
+                 <h6 class="strong"> {{ Auth::user()->name }} {{ Auth::user()->last_name }}</h6>
+                 <img class="icon-user" src="{{ asset('img/iconos-sq-usuario.png') }}" alt="">
+                 <img class="icon-logout" src="{{ asset('img/iconos-sq.png') }}" alt="" onclick="logout();">
+
              </div>
          </div>
      </div>
@@ -303,8 +330,8 @@
  </div>
 
  <script>
-   function logout(){
-        var url = "/";
-        location.href = url;
-    }
+     function logout() {
+         var url = "/";
+         location.href = url;
+     }
  </script>
