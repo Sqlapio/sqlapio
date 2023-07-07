@@ -1,12 +1,10 @@
 @extends('layouts.app')
 @section('title', 'Login')
 <style>
-
-.img{
-    width: 50% !important;
-    height: auto;
-}
-
+    .img {
+        width: 50% !important;
+        height: auto;
+    }
 </style>
 <script src="{{ asset('assets/jquery.js') }}"></script>
 <script src="{{ asset('jquery-validation-1.19.5/dist/jquery.validate.min.js') }}" type="text/javascript"></script>
@@ -78,6 +76,11 @@
                     </div>
                     {{ Form::open(['url' => '/login', 'method' => 'post', 'id' => 'form-login']) }}
                     {{ csrf_field() }}
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
                     @if ($errors->any())
                         <div class="alert alert-danger">
@@ -108,7 +111,7 @@
                         </div>
                     </div>
                     <div id="spinner" style="display: none">
-                        <x-load-spinner show="{{ $show }}" />
+                        <x-load-spinner/>
                     </div>
                     <button type="" class="btn btnPrimary"><span class="">Entrar</span></button>
                 </div>
@@ -116,7 +119,7 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
-                    <a href="{{route('Register')}}">Registrar Usuario</a>
+                    <a href="{{ route('Register') }}">Registrar Usuario</a>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                     <a href="">Recuperar Contraseña</a>
