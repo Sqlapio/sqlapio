@@ -14,9 +14,7 @@ class Patients extends Component
     public function store(Request $request)
     {
         try {
-
-            if ($request->is_minor) {
-
+            if ($request->is_minor == "true") {
                 $validate_data = $request->validate(
                     [
     
@@ -24,7 +22,7 @@ class Patients extends Component
                         'last_name'     => 'required|min:3|max:50',
                         're_name'       => 'required|min:3|max:50',
                         're_last_name'  => 'required|min:3|max:50',
-                        're_email'      => 'required|email|unique:users',
+                        're_email'      => 'required|email|unique:patients',
                         're_ci'         => 'required',
                         're_phone'      => 'required',
                         'birthdate'     => 'required',
@@ -82,14 +80,13 @@ class Patients extends Component
                 $patient->save();
     
             } else {
-    
                 $validate_data = $request->validate(
                     [
     
                         'name'          => 'required|min:3|max:50',
                         'last_name'     => 'required|min:3|max:50',
                         'ci'            => 'required|min:5|max:8',
-                        'email'         => 'required|email|unique:users',
+                        'email'         => 'required|email|unique:patient',
                         'phone'         => 'required',
                         'profession'    => 'required',
                         'genere'        => 'required',
@@ -141,6 +138,7 @@ class Patients extends Component
                 $patient->address = $request->address;
                 $patient->zip_code = $request->zip_code;
                 $patient->save();
+
             }
 
             $action = '5';
@@ -149,6 +147,7 @@ class Patients extends Component
             return true;
             
         } catch (\Throwable $th) {
+            dd($th);
             $message = $th->getMessage();
 			dd('Error Livewire.Components.Patient.store()', $message);
         }
