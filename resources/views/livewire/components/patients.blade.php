@@ -374,9 +374,21 @@
                                             <div class="floating-label-group">
                                                 <input placeholder="Fecha de Nacimiento" class="form-control "
                                                     id="birthdate" id="datepicker" name="birthdate" type="date"
-                                                    value="">
+                                                    value="" onchange="calculateAge(event,'age')">
                                             </div>
                                         </diV>
+
+                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <input autocomplete="off" placeholder="Edad"
+                                                        class="form-control @error('age') is-invalid @enderror"
+                                                        id="age" name="age" type="text" value=""
+                                                        readonly="true">
+                                                    <i class="bi bi-person-circle"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="floating-label-group">
                                                 <div class="Icon-inside">
@@ -403,16 +415,7 @@
                                         </div>
 
 
-                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Edad"
-                                                        class="form-control @error('age') is-invalid @enderror"
-                                                        id="age" name="age" type="text" value="">
-                                                    <i class="bi bi-person-circle"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
+
 
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="floating-label-group">
@@ -515,15 +518,15 @@
                                                     <div>
                                                         <label style="font-size: 15px;" class="form-check-label"
                                                             for="flexCheckDefault">
-                                                            Osteoporosis 
+                                                            Osteoporosis
                                                         </label>
                                                     </div>
                                                 </div>
                                                 <div class="form-check" style="display: flex; ">
                                                     <div style="margin-right: 30px;">
-                                                        <input onclick="handlerPhandlerPatologia(event,'Fiebre_Amarilla');" value="Fiebre_Amarilla"
-                                                            class="form-check" name="checked" type="checkbox"
-                                                            id="Fiebre_Amarilla">
+                                                        <input onclick="handlerPhandlerPatologia(event,'Fiebre_Amarilla');"
+                                                            value="Fiebre_Amarilla" class="form-check" name="checked"
+                                                            type="checkbox" id="Fiebre_Amarilla">
                                                     </div>
                                                     <div>
                                                         <label style="font-size: 15px;" class="form-check-label"

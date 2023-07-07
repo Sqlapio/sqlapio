@@ -100,7 +100,7 @@
                             </div>
 
                             <div class="row" id="row-form-paciente" style="display: none;   margin-bottom: -27%;">
-                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-2">
+                                <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-2">
                                     <div class="floating-label-group">
                                         <div class="Icon-inside">
                                             <label for="exampleFormControlTextarea1" class="floating-label">Nombre</label>
@@ -110,7 +110,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-2">
+                                <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-2">
                                     <div class="floating-label-group">
                                         <div class="Icon-inside">
                                             <label for="exampleFormControlTextarea1"
@@ -121,7 +121,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-2">
+                                <div class="col-sm-6 md-6 lg-6 xl-6 xxl-4 mt-2">
+                                    <div class="floating-label-group">
+                                        <div class="Icon-inside">
+                                            <label for="exampleFormControlTextarea1"
+                                                class="floating-label">Cedula de indentidad</label>
+                                            <input autocomplete="off" class="form-control inputChange" id="ci"
+                                                name="ci" type="text" value="">
+                                            <i class="bi bi-list"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-2">
                                     <div class="floating-label-group">
                                         <div class="Icon-inside">
                                             <label for="exampleFormControlTextarea1" class="floating-label">Fecha de
@@ -132,7 +143,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-2">
+                                <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-2">
                                     <div class="floating-label-group">
                                         <div class="Icon-inside">
                                             <label class="floating-label">Sexo</label>
@@ -141,14 +152,14 @@
                                                 data-val-required="Género es requerido" id="SEX_ID"
                                                 name="PACIENTE.SEX_ID" title="Sexo">
                                                 <option value="1">Femenino</option>
-                                                <option value="2">;Masculino</option>
+                                                <option value="2">Masculino</option>
                                                 <option value="0">Sin determinar</option>
                                             </select>
                                             <i class="bi bi-gender-ambiguous"></i>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-2">
+                                <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-2">
                                     <div class="floating-label-group">
                                         <div class="Icon-inside">
                                             <label for="exampleFormControlTextarea1"
@@ -159,7 +170,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-2">
+                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2">
                                     <div class="floating-label-group">
                                         <div class="Icon-inside">
                                             <label for="exampleFormControlTextarea1" class="floating-label">Email</label>
@@ -169,7 +180,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-2">
+                                <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-2">
                                     <div class="floating-label-group">
                                         <div class="Icon-inside">
                                             <label class="floating-label">Aseguradora</label>
@@ -185,22 +196,11 @@
                                             <i class="bi bi-list"></i>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-2">
+                                </div>                           
+                                <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-2">
                                     <div class="floating-label-group">
                                         <div class="Icon-inside">
-                                            <label for="exampleFormControlTextarea1"
-                                                class="floating-label">NIF/CIF</label>
-                                            <input autocomplete="off" class="form-control inputChange" id=""
-                                                name="" type="text" value="">
-                                            <i class="bi bi-list"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-2">
-                                    <div class="floating-label-group">
-                                        <div class="Icon-inside">
-                                            <label class="floating-label">Estado</label>
+                                            <label class="floating-label">Convenio</label>
                                             <select class="form-control form-textbox-input combo-textbox-input valid"
                                                 data-val="true"
                                                 data-val-number="The field PAC_CRM_EST_ID must be a number."

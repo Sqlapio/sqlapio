@@ -1,6 +1,14 @@
 @extends('layouts.app')
 @section('title', 'Registro de Usuario')
 <style>
+    .btn-1 {
+        margin-left: 7%;
+    }
+
+    .btn-2 {
+        margin-left: -5%;
+    }
+
     .mt {
         margin-top: 15rem !important;
     }
@@ -13,6 +21,19 @@
 
     .div-col {
         margin-bottom: -85px !important;
+
+    }
+
+    @media only screen and (max-width: 390px) {
+        .btn-2 {
+            margin-left: 6%;
+        }
+
+        .logoSq {
+        width: 30%;
+        height: auto;
+        margin-top: -14% !important;
+    }
 
     }
 </style>
@@ -129,9 +150,6 @@
             <div class="row justify-content-center mt">
                 <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
                     <div class="card">
-                        <div class="card-header collapseBtn text-center">
-                            <span>Registro de usuario</span>
-                        </div>
                         <div class="card-body">
                             {{ Form::open(['url' => 'register', 'method' => 'post', 'id' => 'form-register']) }}
                             {{ csrf_field() }}
@@ -211,26 +229,27 @@
                                         </div>
                                     </diV>
                                 </div>
-                                <div style="display: none">
+                                <div id="spinner" style="display: none">
                                     <x-load-spinner show="{{ $show }}" />
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2 mt-3" style="margin-left: 7%">
+                                    <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2 mt-3 btn-1">
                                         <button type="" class="btn btnPrimary">Registrar</button>
                                     </div>
-                                    <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2 mt-3">                                        
+                                    <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2 mt-3 btn-2">
                                         <button type="button" class="btn btnSecond">Cancelar</button>
                                     </div>
-                                </div>                               
-                                {{ Form::close() }}                              
-                                <div class="d-flex mt-3">
+                                </div>
+                                {{ Form::close() }}
+                                <div class="d-flex  mt-3">
                                     <div class="col div-col mt-3">
-                                        <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-02.png') }}" alt="">
+                                        <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-02.png') }}"
+                                            alt="">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>

@@ -5,5 +5,6 @@ import * as bootstrap from 'bootstrap'
 import './mychart.js';
 import './mychartGrafica';
 import './mychartGraficaFac';
+import './utils';
 
 window.bootstrap = bootstrap;
