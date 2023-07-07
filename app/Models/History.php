@@ -22,6 +22,7 @@ class History extends Model
     protected $fillable = [
 
         'patient_id',
+        'cod_history',
         'cod_patient',
         'history_date',
         'weight',
