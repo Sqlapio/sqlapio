@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\City;
+use App\Models\History;
 use App\Models\Patient;
 use App\Models\State;
 use Illuminate\Support\Facades\App;
@@ -32,6 +33,9 @@ class UtilsController extends Controller {
 		}
 		if ($value == '7') {
 			return 'appointment register';
+		}
+		if ($value == '8') {
+			return 'interview register';
 		}
 	}
 
@@ -96,6 +100,12 @@ class UtilsController extends Controller {
 			return $appointments;
 		}
 		
+	}
+
+	static function get_history($id)
+	{
+		$history = History::where('id', $id)->get();
+		return $history;
 	}
 
 }
