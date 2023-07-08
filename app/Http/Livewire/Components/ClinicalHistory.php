@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Components;
 
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\UtilsController;
+use App\Models\History;
 use App\Models\Interview;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,11 +55,11 @@ class ClinicalHistory extends Component
         
     }
 
-    public function render(Request $request)
+    public function render(Request $request,$id)
     {
-        $history = UtilsController::get_history($request->patient_id);
-
-        return view('livewire.components.clinical-history', compact('history'));
+        $history = UtilsController::get_history(decrypt($id));
+        $Patient = UtilsController::get_one_patient(decrypt($id));
+        return view('livewire.components.clinical-history', compact('history','Patient'));
 
     }
 }

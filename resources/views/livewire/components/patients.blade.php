@@ -109,12 +109,12 @@
                 birthdate: {
                     required: true,
                 },
-                age: {
-                    required: true,
-                    onlyNumber: true,
-                    minlength: 1,
-                    maxlength: 3,
-                },
+                // age: {
+                //     required: true,
+                //     onlyNumber: true,
+                //     minlength: 1,
+                //     maxlength: 3,
+                // },
                 state: {
                     required: true,
                 },
@@ -191,11 +191,11 @@
                 birthdate: {
                     required: "Fecha de nacimiento es obligatorio",
                 },
-                age: {
-                    required: "Edad es obligatoria",
-                    minlength: "Edad debe ser mayor a 1 caracteres",
-                    maxlength: "Edad debe ser menor a 3 caracteres",
-                },
+                // age: {
+                //     required: "Edad es obligatoria",
+                //     minlength: "Edad debe ser mayor a 1 caracteres",
+                //     maxlength: "Edad debe ser menor a 3 caracteres",
+                // },
                 state: {
                     required: "Esatdo es obligatoria",
                 },
@@ -331,17 +331,6 @@
         }
     }
 
-    // se comente funcion para las patolpogias
-    // function handlerPhandlerPatologia(e, id) {
-    //     if ($(`#${id}`).is(':checked')) {
-    //         pathologiesArray.push(e.target.value);
-    //         console.log(pathologiesArray);
-    //         $('#pathologies').val(pathologiesArray);
-    //     } else {
-    //         pathologiesArray = pathologiesArray.filter(elem => elem !== e.target.value);
-    //         $('#pathologies').val(pathologiesArray);
-    //     }
-    // }
 </script>
 
 @section('content')
@@ -604,83 +593,10 @@
                                                 </diV>
                                             </div>
                                         </div>
-                                        {{-- end --}}
-
-                                        {{-- <input type="hidden" name="pathologies[]" id="pathologies" value=""> --}}
-
-                                        {{-- <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                            <div class="floating-label-group">
-                                                <div class="form-check" style="display: flex; ">
-                                                    <div style="margin-right: 30px;">
-                                                        <input onclick="handlerPhandlerPatologia(event,'Diabete');"
-                                                            class="form-check" name="checked" type="checkbox"
-                                                            id="Diabete" value="Diabete">
-                                                    </div>
-                                                    <div>
-                                                        <label style="font-size: 15px;" class="form-check-label"
-                                                            for="flexCheckDefault">
-                                                            Diabete
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-check" style="display: flex; ">
-                                                    <div style="margin-right: 30px;">
-                                                        <input onclick="handlerPhandlerPatologia(event,'Himpertencion');"
-                                                            value="Himpertencion" class="form-check" name="checked"
-                                                            type="checkbox" id="Himpertencion">
-                                                    </div>
-                                                    <div>
-                                                        <label style="font-size: 15px;" class="form-check-label"
-                                                            for="flexCheckDefault">
-                                                            Hipertensión
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-check" style="display: flex; ">
-                                                    <div style="margin-right: 30px;">
-                                                        <input onclick="handlerPhandlerPatologia(event,'Dermatología');"
-                                                            value="Dermatología" class="form-check" name="checked"
-                                                            type="checkbox" id="Dermatología">
-                                                    </div>
-                                                    <div>
-                                                        <label style="font-size: 15px;" class="form-check-label"
-                                                            for="flexCheckDefault">
-                                                            Dermatología
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-check" style="display: flex; ">
-                                                    <div style="margin-right: 30px;">
-                                                        <input onclick="handlerPhandlerPatologia(event,'Osteoporozis');"
-                                                            value="Osteoporozis" class="form-check" name="checked"
-                                                            type="checkbox" id="Osteoporozis">
-                                                    </div>
-                                                    <div>
-                                                        <label style="font-size: 15px;" class="form-check-label"
-                                                            for="flexCheckDefault">
-                                                            Osteoporosis
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-check" style="display: flex; ">
-                                                    <div style="margin-right: 30px;">
-                                                        <input onclick="handlerPhandlerPatologia(event,'Fiebre_Amarilla');"
-                                                            value="Fiebre_Amarilla" class="form-check" name="checked"
-                                                            type="checkbox" id="Fiebre_Amarilla">
-                                                    </div>
-                                                    <div>
-                                                        <label style="font-size: 15px;" class="form-check-label"
-                                                            for="flexCheckDefault">
-                                                            Fiebre Amarilla
-                                                        </label>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div> --}}
+                                        {{-- end --}}                                      
                                     </div>
 
-                                    <div style="margin-top: 20px;" class="row">
+                                    <div class="row mt-3">
                                         <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
                                             <div id="spinner" style="display: none">
                                                 <x-load-spinner show="true" />
@@ -690,7 +606,6 @@
                                         </div>
                                         <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
                                             <button type="button" class="btn btnSecond">Cancelar</button>
-
                                         </div>
                                     </div>
                                 </form>
@@ -751,12 +666,12 @@
                                                         alt="Imagen del paciente" class="img-responsive"
                                                         style="width:85px; height:64px;">
                                                 </div>
-                                                <p>Tef: {{ $item->phone }}</p>
-                                                <p>{{ $item->name }}</p>
-                                                <p>{{ $item->name }}</p>
-                                                <p>{{ $item->name }}</p>
-                                                <p>F.Nac: {{ $item->birthdate }}</p>
-                                                <p>{{ $item->email }}</p>
+                                                <p><strong>CI:</strong> {{ $item->ci }}</p>
+                                                <p><strong>Fec Nac:</strong> {{ $item->birthdate }}</p>
+                                                <p><strong>Genero:</strong> {{ $item->genere }}</p>
+                                                <p><strong>Correo:</strong> {{ $item->email }}</p>
+                                                <p><strong>Telefono:</strong> {{ $item->phone }}</p>
+                                                <p><strong>Direccion:</strong> {{ $item->address }}</p>
                                                 <hr>
                                                 <div class="button-patients-padre">
                                                     <div class="button-patients-hijo">
@@ -767,6 +682,11 @@
                                                         <a href="{{ route('MedicalRecord') }}">
                                                             <button type="button" class="btn bnt2 btnPrimary">Más
                                                                 información</button>
+                                                        </a>
+                                                    </div>
+                                                    <div class="button-patients-hijo">
+                                                        <a href="{{ route('ClinicalHistoryDetail', encrypt($item->id) ) }}">
+                                                            <button type="button" class="btn bnt2 btnSecond">Historia Clinica</button>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -782,13 +702,12 @@
                                                 <tr>
                                                     <th scope="col">#</th>
                                                     <th scope="col">Nombre</th>
-                                                    <th scope="col">Nº Historia</th>
-                                                    <th scope="col">Aseguradora</th>
-                                                    <th scope="col">Teléfono 1</th>
-                                                    <th scope="col">Género</th>
+                                                    <th scope="col">Cedula</th>
                                                     <th scope="col">Fecha de Nacimiento </th>
-                                                    <th scope="col">NIF</th>
+                                                    <th scope="col">Género</th>
+                                                    <th scope="col">Teléfono</th>
                                                     <th scope="col">Email</th>
+                                                    <th scope="col">Direccion</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -796,13 +715,12 @@
                                                     <tr>
                                                         <th scope="row">1</th>
                                                         <td>{{ $item->name }}</td>
-                                                        <td>{{ $item->name }}</td>
-                                                        <td>{{ $item->name }}</td>
-                                                        <td>{{ $item->name }}</td>
-                                                        <td>{{ $item->name }}</td>
-                                                        <td>{{ $item->name }}</td>
-                                                        <td>{{ $item->name }}</td>
-                                                        <td>{{ $item->name }}</td>
+                                                        <td>{{ $item->ci}}</td>
+                                                        <td>{{ $item->birthdate }}</td>
+                                                        <td>{{ $item->genere }}</td>
+                                                        <td>{{ $item->phone }}</td>
+                                                        <td>{{ $item->email }}</td>
+                                                        <td>{{ $item->address }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

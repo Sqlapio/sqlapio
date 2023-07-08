@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/setting', [setting::class, 'render'])->name('Setting');
         Route::get('/diary', [Diary::class, 'render'])->name('Diary');
         Route::get('/clinical-history', [ClinicalHistory::class, 'render'])->name('ClinicalHistory');
+        Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail');
         Route::get('/centers', [Centers::class, 'render'])->name('Centers');
         Route::get('/statistics', [Statistics::class, 'render'])->name('Statistics');
 
