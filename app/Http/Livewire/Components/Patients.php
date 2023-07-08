@@ -69,6 +69,7 @@ class Patients extends Component
                 $patient->re_last_name = $request->re_last_name;
                 $patient->re_ci = $request->re_ci;
                 $patient->re_email = $request->re_email;
+                $patient->is_minor = 'true';
                 $patient->re_phone = $request->re_phone;
                 $patient->genere = $request->genere;
                 $patient->birthdate = $request->birthdate;
