@@ -284,11 +284,6 @@
         })
     })
     let active = true;
-    $('#datepicker').datepicker({
-        format: "dd/mm/yyyy",
-        language: "es",
-        autoclose: true
-    });
 
     function showTable() {
         if (active) {
@@ -316,20 +311,23 @@
         if (Number($("#age").val()) >= 18) {
             $('#data-rep').hide();
             $('#is_minor').val(false);
-            $('#email').rules('add', {
-                required: true,
-                minlength: 3,
-                maxlength: 50,
-                email: true
-
-            });
-
-
+            $("#profesion-div").show();
+            $("#ci-div").show();
+            $("#email-div").show();
         } else {
-            $("#email").rules("remove");
+            // validar si el nino tienes menos de 8 anos
+            if (Number($("#age").val()) <= 8) {
+                $("#profesion-div").hide();
+                $("#ci-div").hide();
+                $("#email-div").hide();
+            } else {
+                $("#profesion-div").show();
+                $("#ci-div").show();
+                $("#email-div").show();
+            }
+
             $('#data-rep').show();
             $('#is_minor').val(true);
-
         }
     }
 
@@ -443,7 +441,7 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" id="ci-div">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <input autocomplete="off" placeholder="Cedula de indentidad"
@@ -487,7 +485,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" id="email-div">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <input autocomplete="off" placeholder="Correo Electronico"
@@ -510,7 +508,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" id="profesion-div">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <input autocomplete="off" placeholder="Profesion"
@@ -746,7 +744,7 @@
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" style="margin-top: 20px:">
                                             <div class="patients-div">
                                                 <p style="margin-top: 20px;" class="tabF"><a
-                                                        href="#">{{ $item->name." ".$item->last_name }}</a></p>
+                                                        href="#">{{ $item->name . ' ' . $item->last_name }}</a></p>
                                                 <div class="img">
                                                     <img id="imgPaciente2"
                                                         src="{{ asset('img/People-Client-Male-icon.png') }}"
@@ -815,7 +813,7 @@
                                 <div class="row">
                                     <div style="margin-top: 50px; " class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                         <div class="alert alert-info" role="alert">
-                                            <p>Número total de pacientes recuperados: 3</p>
+                                            <p>Número total de pacientes recuperados: {{ $patients->count() }}</p>
                                         </div>
                                     </div>
                                 </div>

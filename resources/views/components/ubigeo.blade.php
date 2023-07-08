@@ -9,10 +9,10 @@
     <div class="floating-label-group">
         <div class="Icon-inside">
             <select name="state" id="state" class="form-control"
-                onchange="handlerState(event,{{ $states }}, {{ $cities }})">
+                onchange="handlerState(event,{{ $cities }})">
                 <option value="">Seleccione el estado</option>
                 @foreach ($states as $item)
-                    <option value={{ $item->description }}>{{ $item->description }}</option>
+                    <option value={{ $item->id }}>{{ $item->description }}</option>
                 @endforeach
             </select>
             <i class="bi bi-gender-ambiguous"></i>
@@ -34,11 +34,11 @@
 
 <script>
     let cityFilte = [];
-    function handlerState(e, state, city) {
+    function handlerState(e,city) {
         $('#city').find('option').remove().end()
-        cityFilter = city.filter((elem) => elem.state === e.target.value.toUpperCase());
+        cityFilter = city.filter((elem) => Number(elem.state_id)  === Number(e.target.value));
         cityFilter.map((item) => {
-            $('#city').append(new Option(item.description, item.description));
+            $('#city').append(new Option(item.description, item.id));
         });
     }
 </script>
