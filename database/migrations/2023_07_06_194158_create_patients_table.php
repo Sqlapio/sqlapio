@@ -29,6 +29,7 @@ return new class extends Migration
             /**
              * Si el paciente es menor de edad
              */
+            $table->string('is_minor')->default('false');
             $table->string('re_name')->nullable();
             $table->string('re_last_name')->nullable();
             $table->string('re_ci')->nullable();

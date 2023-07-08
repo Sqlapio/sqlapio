@@ -34,6 +34,7 @@ class Patient extends Model
         'city',
         'address',
         'zip_code',
+        'is_minor',
         're_name',
         're_last_name',
         're_ci',
