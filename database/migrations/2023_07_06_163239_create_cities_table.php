@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
+            $table->string('state_id');
             $table->string('description');
             $table->string('state');
             $table->timestamps();
