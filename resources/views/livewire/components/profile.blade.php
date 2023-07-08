@@ -273,32 +273,8 @@
                                         </div>
 
                                 
-                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                                            <div class="floating-label-group">
-                                                <div class="Icon-inside">
-                                                    <select name="state" id="state" class="form-control">
-                                                        <option value="">Seleccione el estado</option>
-                                                        <option value="distro_captial">Distro Captial</option>
-                                                        <option value="aragua">Aragua</option>
-                                                        <option value="carabobo">Carabobo</option>
-                                                    </select>
-                                                    <i class="bi bi-gender-ambiguous"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                                            <div class="floating-label-group">
-                                                <div class="Icon-inside">
-                                                    <select name="city" id="city" class="form-control">
-                                                        <option value="">Seleccione la ciudad</option>
-                                                        <option value="Caracas">Caracas</option>
-                                                        <option value="valencia">valencia</option>
-                                                        <option value="valencia">Maracay</option>
-                                                    </select>
-                                                    <i class="bi bi-gender-ambiguous"></i>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <x-ubigeo />                                                                           
+
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
