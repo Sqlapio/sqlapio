@@ -497,8 +497,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    
-                                        <x-ubigeo />                                                                           
+
+                                        <x-ubigeo />
 
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="form-group">
@@ -742,104 +742,39 @@
                                 <hr>
 
                                 <div class="row" id="grip-patients">
-                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" style="margin-top: 20px:">
-                                        <div class="patients-div">
-                                            <p style="margin-top: 20px;" class="tabF"><a href="#">Gustavo
-                                                    Camacho</a></p>
-                                            <div class="img">
-                                                <img id="imgPaciente2"
-                                                    src="{{ asset('img/People-Client-Male-icon.png') }}"
-                                                    alt="Imagen del paciente" class="img-responsive"
-                                                    style="width:85px; height:64px;">
-                                            </div>
-                                            <p>Tef: 04127018390</p>
-                                            <p>Male</p>
-                                            <p>Nº Historia: 2</p>
-                                            <p>Private patient</p>
-                                            <p>F.Nac: domingo, 1 de enero de 1984</p>
-                                            <p>No eMail</p>
-                                            <hr>
-                                            <div class="button-patients-padre">
-                                                <div class="button-patients-hijo">
-                                                    <button type="button" class="btn  bnt2 btnPrimary">Citar
-                                                        Paciente</button>
+                                    @foreach ($patients as $item)
+                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" style="margin-top: 20px:">
+                                            <div class="patients-div">
+                                                <p style="margin-top: 20px;" class="tabF"><a
+                                                        href="#">{{ $item->name." ".$item->last_name }}</a></p>
+                                                <div class="img">
+                                                    <img id="imgPaciente2"
+                                                        src="{{ asset('img/People-Client-Male-icon.png') }}"
+                                                        alt="Imagen del paciente" class="img-responsive"
+                                                        style="width:85px; height:64px;">
                                                 </div>
-                                                <div class="button-patients-hijo">
-                                                    <a href="{{ route('MedicalRecord') }}">
-                                                        <button type="button" class="btn bnt2 btnPrimary">Más
-                                                            información</button>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" style="margin-top: 20px:">
-                                        <div class="patients-div">
-                                            <p style="margin-top: 20px;" class="tabF"><a href="#">Pdero
-                                                    Perez</a></p>
-                                            <div class="img">
-                                                <img id="imgPaciente2"
-                                                    src="{{ asset('img/People-Client-Male-icon.png') }}"
-                                                    alt="Imagen del paciente" class="img-responsive"
-                                                    style="width:85px; height:64px;">
-                                            </div>
-                                            <p>Tef: 04127018390</p>
-                                            <p>Male</p>
-                                            <p>Nº Historia: 2</p>
-                                            <p>Private patient</p>
-                                            <p>F.Nac: domingo, 1 de enero de 1984</p>
-                                            <p>No eMail</p>
-                                            <hr>
-
-                                            <div class="button-patients-padre">
-                                                <div class="button-patients-hijo">
-                                                    <button type="button" class="btn  bnt2 btnPrimary">Citar
-                                                        Paciente</button>
-                                                </div>
-                                                <div class="button-patients-hijo">
-                                                    <a href="{{ route('MedicalRecord') }}">
-                                                        <button type="button" class="btn bnt2 btnPrimary">Más
-                                                            información</button>
-                                                    </a>
+                                                <p>Tef: {{ $item->phone }}</p>
+                                                <p>{{ $item->name }}</p>
+                                                <p>{{ $item->name }}</p>
+                                                <p>{{ $item->name }}</p>
+                                                <p>F.Nac: {{ $item->birthdate }}</p>
+                                                <p>{{ $item->email }}</p>
+                                                <hr>
+                                                <div class="button-patients-padre">
+                                                    <div class="button-patients-hijo">
+                                                        <button type="button" class="btn  bnt2 btnPrimary">Citar
+                                                            Paciente</button>
+                                                    </div>
+                                                    <div class="button-patients-hijo">
+                                                        <a href="{{ route('MedicalRecord') }}">
+                                                            <button type="button" class="btn bnt2 btnPrimary">Más
+                                                                información</button>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-
-                                    </div>
-                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" style="margin-top: 20px;">
-                                        <div class="patients-div">
-                                            <p class="tabF"><a href="#">Wilfredo
-                                                    Palencia</a>
-                                            </p>
-                                            <div class="img">
-                                                <img id="imgPaciente2"
-                                                    src="{{ asset('img/People-Client-Male-icon.png') }}"
-                                                    alt="Imagen del paciente" class="img-responsive"
-                                                    style="width:85px; height:64px;">
-                                            </div>
-                                            <p>Tef: 04127018390</p>
-                                            <p>Male</p>
-                                            <p>Nº Historia: 2</p>
-                                            <p>Private patient</p>
-                                            <p>F.Nac: domingo, 1 de enero de 1984</p>
-                                            <p>No eMail</p>
-                                            <hr>
-                                            <div class="button-patients-padre">
-                                                <div class="button-patients-hijo">
-                                                    <button type="button" class="btn  bnt2 btnPrimary">Citar
-                                                        Paciente</button>
-                                                </div>
-                                                <div class="button-patients-hijo">
-                                                    <a href="{{ route('MedicalRecord') }}">
-                                                        <button type="button" class="btn bnt2 btnPrimary">Más
-                                                            información</button>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
+                                    @endforeach
                                 </div>
 
                                 <div class="row" style="display: none" id="table-patients">
@@ -859,46 +794,25 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Gustavo Camacho</td>
-                                                    <td>1</td>
-                                                    <td>Private patient</td>
-                                                    <td>04127018390</td>
-                                                    <td>Male</td>
-                                                    <td>domingo, 1 de enero de 1984</td>
-                                                    <td>16413109</td>
-                                                    <td>wilfredopalenciabb@gmail.com</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Jhonny Martinez</td>
-                                                    <td>2</td>
-                                                    <td>Private patient</td>
-                                                    <td>04127018390</td>
-                                                    <td>Male</td>
-                                                    <td>domingo, 1 de enero de 1984</td>
-                                                    <td>16413109</td>
-                                                    <td>wilfredopalenciabb@gmail.com</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Wilfredo Palencia</td>
-                                                    <td>3</td>
-                                                    <td>Matrix</td>
-                                                    <td>04127018390</td>
-                                                    <td>Male</td>
-                                                    <td>domingo, 1 de enero de 1984</td>
-                                                    <td>16413109</td>
-                                                    <td>wilfredopalenciabb@gmail.com</td>
-                                                </tr>
+                                                @foreach ($patients as $item)
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>{{ $item->name }}</td>
+                                                        <td>{{ $item->name }}</td>
+                                                        <td>{{ $item->name }}</td>
+                                                        <td>{{ $item->name }}</td>
+                                                        <td>{{ $item->name }}</td>
+                                                        <td>{{ $item->name }}</td>
+                                                        <td>{{ $item->name }}</td>
+                                                        <td>{{ $item->name }}</td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
 
                                 <div class="row">
-
                                     <div style="margin-top: 50px; " class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                         <div class="alert alert-info" role="alert">
                                             <p>Número total de pacientes recuperados: 3</p>

@@ -33,8 +33,7 @@
 
 
 <script>
-    let cityFilte = []
-
+    let cityFilte = [];
     function handlerState(e, state, city) {
         $('#city').find('option').remove().end()
         cityFilter = city.filter((elem) => elem.state === e.target.value.toUpperCase());
