@@ -15,7 +15,7 @@
                     <option value={{ $item->id }}>{{ $item->description }}</option>
                 @endforeach
             </select>
-            <i class="bi bi-gender-ambiguous"></i>
+            <i class="bi bi-flag"></i>
         </div>
     </div>
 </div>
@@ -24,9 +24,9 @@
     <div class="floating-label-group">
         <div class="Icon-inside">
             <select name="city" id="city" class="form-control">
-                <option value="">Seleccione el ciudad</option>
+                <option value="">Seleccione la ciudad</option>
             </select>
-            <i class="bi bi-gender-ambiguous"></i>
+            <i class="bi bi-flag"></i>
         </div>
     </div>
 </div>

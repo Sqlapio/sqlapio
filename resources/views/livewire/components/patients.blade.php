@@ -186,7 +186,7 @@
                     // pattern: "pattern",
                 },
                 genere: {
-                    required: "Genero es obligatorio",
+                    required: "Género es obligatorio",
                 },
                 birthdate: {
                     required: "Fecha de nacimiento es obligatorio",
@@ -239,9 +239,7 @@
                     required: "Telfono es obligatorio",
                 }
 
-            },
-
-
+            }
         })
 
         $.validator.addMethod("onlyNumber", function(value, element) {
@@ -433,10 +431,10 @@
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" id="ci-div">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Cedula de indentidad"
+                                                    <input autocomplete="off" placeholder="Cédula de indentidad"
                                                         class="form-control @error('ci') is-invalid @enderror"
                                                         id="ci" name="ci" type="text" value="">
-                                                    <i class="bi bi-telephone"></i>
+                                                        <i class="bi bi-person-vcard"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -466,7 +464,7 @@
                                                     <select name="genere" id="genere"
                                                         placeholder="Seleccione"class="form-control @error('genere') is-invalid @enderror"
                                                         class="form-control combo-textbox-input">
-                                                        <option value="">Seleccione Genero</option>
+                                                        <option value="">Seleccione Género</option>
                                                         <option value="femenino"> Femenino</option>
                                                         <option value="masculino">Masculino</option>
                                                     </select>
@@ -480,7 +478,7 @@
                                                     <input autocomplete="off" placeholder="Correo Electronico"
                                                         class="form-control @error('email') is-invalid @enderror"
                                                         id="email" name="email" type="text" value="">
-                                                    <i class="bi bi-person-circle"></i>
+                                                        <i class="bi bi-envelope-at"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -490,20 +488,20 @@
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Telefono"
+                                                    <input autocomplete="off" placeholder="Teléfono"
                                                         class="form-control @error('phone') is-invalid @enderror"
                                                         id="phone" name="phone" type="text" value="">
-                                                    <i class="bi bi-person-circle"></i>
+                                                        <i class="bi bi-telephone-forward"></i>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" id="profesion-div">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Profesion"
+                                                    <input autocomplete="off" placeholder="Profesión"
                                                         class="form-control @error('profession') is-invalid @enderror"
                                                         id="profession" name="profession" type="text" value="">
-                                                    <i class="bi bi-person-circle"></i>
+                                                        <i class="bi bi-journal-bookmark-fill"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -514,7 +512,7 @@
                                                     <input autocomplete="off" placeholder="Dirección"
                                                         class="form-control @error('address') is-invalid @enderror"
                                                         id="address" name="address" type="text" value="">
-                                                    <i class="bi bi-person-circle"></i>
+                                                          <i class="bi bi-geo"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -522,10 +520,10 @@
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Codigo de Area"
+                                                    <input autocomplete="off" placeholder="Código de Área"
                                                         class="form-control @error('zip_code') is-invalid @enderror"
                                                         id="zip_code" name="zip_code" type="text" value="">
-                                                    <i class="bi bi-person-circle"></i>
+                                                        <i class="bi bi-geo"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -562,10 +560,10 @@
                                             <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <input autocomplete="off" placeholder="Cedula del representante"
+                                                        <input autocomplete="off" placeholder="Cédula del representante"
                                                             class="form-control @error('re_ci') is-invalid @enderror"
                                                             id="re_ci" name="re_ci" type="text" value="">
-                                                        <i class="bi bi-person-circle"></i>
+                                                            <i class="bi bi-person-vcard"></i>
                                                     </div>
                                                 </diV>
                                             </div>
@@ -576,7 +574,7 @@
                                                             class="form-control @error('re_email') is-invalid @enderror"
                                                             id="re_email" name="re_email" type="text"
                                                             value="">
-                                                        <i class="bi bi-person-circle"></i>
+                                                            <i class="bi bi-envelope-at"></i>
                                                     </div>
                                                 </diV>
                                             </div>
@@ -584,11 +582,11 @@
                                             <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <input autocomplete="off" placeholder="Telefono del representante"
+                                                        <input autocomplete="off" placeholder="Teléfono del representante"
                                                             class="form-control @error('re_phone') is-invalid @enderror"
                                                             id="re_phone" name="re_phone" type="text"
                                                             value="">
-                                                        <i class="bi bi-person-circle"></i>
+                                                            <i class="bi bi-telephone-forward"></i>
                                                     </div>
                                                 </diV>
                                             </div>
@@ -601,7 +599,7 @@
                                             <div id="spinner" style="display: none">
                                                 <x-load-spinner show="true" />
                                             </div>
-                                            <input class="btn btnPrimary send " value="Enviar" type="submit" />
+                                            <input class="btn btnPrimary send " value="Guardar" type="submit" />
 
                                         </div>
                                         <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
@@ -668,10 +666,10 @@
                                                 </div>
                                                 <p><strong>CI:</strong> {{ $item->ci }}</p>
                                                 <p><strong>Fec Nac:</strong> {{ $item->birthdate }}</p>
-                                                <p><strong>Genero:</strong> {{ $item->genere }}</p>
+                                                <p><strong>Género:</strong> {{ $item->genere }}</p>
                                                 <p><strong>Correo:</strong> {{ $item->email }}</p>
-                                                <p><strong>Telefono:</strong> {{ $item->phone }}</p>
-                                                <p><strong>Direccion:</strong> {{ $item->address }}</p>
+                                                <p><strong>Teléfono:</strong> {{ $item->phone }}</p>
+                                                <p><strong>Dirección:</strong> {{ $item->address }}</p>
                                                 <hr>
                                                 <div class="button-patients-padre">
                                                     <div class="button-patients-hijo">
@@ -743,5 +741,4 @@
             </div>
         </div>
     </div>
-
 @endsection

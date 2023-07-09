@@ -45,7 +45,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/setting', [setting::class, 'render'])->name('Setting');
         Route::get('/diary', [Diary::class, 'render'])->name('Diary');
         Route::get('/clinical-history', [ClinicalHistory::class, 'render'])->name('ClinicalHistory');
-        Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail');
         Route::get('/centers', [Centers::class, 'render'])->name('Centers');
         Route::get('/statistics', [Statistics::class, 'render'])->name('Statistics');
 
@@ -53,6 +52,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/medical-record', [MedicalRecord::class, 'render'])->name('MedicalRecord');
             Route::get('/medical-history', [MedicalHistory::class, 'render'])->name('MedicalHistory');
             Route::post('/register-patients', [Patients::class, 'store'])->name('register-patients');
+            Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail');
+            Route::post('/clinical-history-create', [MedicalHistory::class, 'store'])->name('ClinicalHistoryCreate');
 
         });
 
