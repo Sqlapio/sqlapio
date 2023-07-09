@@ -103,6 +103,7 @@
                             $('#spinner').hide();
                             $("#alert").show()
                             $("#alert").text("Registro Exitioso");
+                            $("#form-mecal-histroy").trigger("reset");
                             setTimeout(() => {
                                 $("#alert").hide();
                             }, 3500);

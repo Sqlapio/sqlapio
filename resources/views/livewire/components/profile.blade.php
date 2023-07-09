@@ -149,6 +149,7 @@
                         $('#spinner').hide();
                         $("#alert").show()
                         $("#alert").text("Registro Exitioso");
+                        $("#form-profile").trigger("reset");
                         setTimeout(() => {
                             $("#alert").hide();
                         }, 3500);

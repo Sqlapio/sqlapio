@@ -267,6 +267,7 @@
                         $('#spinner').hide();
                         $("#alert").show()
                         $("#alert").text("Registro Exitioso");
+                        $("#form-patients").trigger("reset");
                         setTimeout(() => {
                             $("#alert").hide();
                         }, 3500);
