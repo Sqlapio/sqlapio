@@ -240,7 +240,7 @@
                                         <button type="" class="btn btnPrimary">Registrar</button>
                                     </div>
                                     <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2 mt-3 btn-2">
-                                        <button type="button" class="btn btnSecond">Cancelar</button>
+                                        <a href="/"><button type="button" class="btn btnSecond">Cancelar</button></a>
                                     </div>
                                 </div>
                                 {{ Form::close() }}
