@@ -5,7 +5,9 @@ namespace App\Http\Livewire\Components;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\UtilsController;
 use App\Models\Patient;
+use App\Models\Representative;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Patients extends Component
@@ -61,24 +63,43 @@ class Patients extends Component
     
                     ]
                 );
-    
+
+                // Guardamos la informacion del paciente menor de edad
                 $patient = new Patient();
                 $patient->name = $request->name;
                 $patient->last_name = $request->last_name;
-                $patient->re_name = $request->re_name;
-                $patient->re_last_name = $request->re_last_name;
-                $patient->re_ci = $request->re_ci;
-                $patient->re_email = $request->re_email;
-                $patient->is_minor = 'true';
-                $patient->re_phone = $request->re_phone;
                 $patient->genere = $request->genere;
                 $patient->birthdate = $request->birthdate;
+                $patient->is_minor = 'true';
                 $patient->age = $request->age;
                 $patient->state = $request->state;
                 $patient->city = $request->city;
                 $patient->address = $request->address;
                 $patient->zip_code = $request->zip_code;
+                $patient->user_id = $request->user_id;
+                $patient->center_id = $request->center_id;
                 $patient->save();
+
+                /**
+                 * Buscamos el ultimo paciente registrado por el medico
+                 * @return $id
+                 */
+                $patient_id = Patient::where('user_id', Auth::user()->id)->last();
+                foreach ($patient_id as $item) {    
+                    $id = $item->id;
+                }
+    
+                $re_patient = new Representative();
+                $re_patient->re_name = $request->name;
+                $re_patient->last_name = $request->last_name;
+                $re_patient->re_ci = $request->re_ci;
+                $re_patient->re_email = $request->re_email;
+                $re_patient->re_phone = $request->re_phone;
+                $re_patient->patient_id = $id;
+                $re_patient->save();
+
+                $action = '9';
+                ActivityLogController::store_log($action);
     
             } else {
                 $validate_data = $request->validate(
@@ -138,6 +159,8 @@ class Patients extends Component
                 $patient->city = $request->city;
                 $patient->address = $request->address;
                 $patient->zip_code = $request->zip_code;
+                $patient->user_id = $request->user_id;
+                $patient->center_id = $request->center_id;
                 $patient->save();
 
             }

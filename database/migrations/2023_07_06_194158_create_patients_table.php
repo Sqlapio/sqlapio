@@ -35,6 +35,8 @@ return new class extends Migration
             $table->string('re_ci')->nullable();
             $table->string('re_email')->nullable();
             $table->string('re_phone')->nullable();
+            $table->string('user_id');
+            $table->string('center_id');
             $table->timestamps();
         });
     }

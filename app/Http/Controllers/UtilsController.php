@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\City;
+use App\Models\DoctorCenter;
 use App\Models\History;
 use App\Models\Patient;
 use App\Models\State;
@@ -36,6 +37,12 @@ class UtilsController extends Controller {
 		}
 		if ($value == '8') {
 			return 'interview register';
+		}
+		if ($value == '9') {
+			return 'representative register';
+		}
+		if ($value == '10') {
+			return 'medical association to center';
 		}
 	}
 
@@ -107,6 +114,25 @@ class UtilsController extends Controller {
 		$history = History::where('id', $id)->get();
 		return $history;
 	}
+
+	static function get_patients_pag($value)
+	{
+		$patients_pagination = Patient::all()->paginate($value);
+		return $patients_pagination;
+	}
+
+	static function get_doctor_centers_pag($value)
+	{
+		$doctor_centers = DoctorCenter::all()->paginate($value);
+		return $doctor_centers;
+	}
+
+	static function get_doctor_centers($id)
+	{
+		$doctor_centers = DoctorCenter::where('id', $id)->get();
+		return $doctor_centers;
+	}
+
 
 	static function get_one_patient($id)
 	{
