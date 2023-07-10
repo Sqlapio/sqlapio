@@ -10,7 +10,6 @@ class uploadImage extends Component
 {
     public $classOne;
     public $classTwo;
-    public $showHeader;
     public $titlle;
 
 
@@ -20,14 +19,12 @@ class uploadImage extends Component
     public function __construct(
         $classOne='col-sm-4 md-4 lg-4 xl-4 xxl-4',
         $classTwo='col-sm-8 md-8 lg-8 xl-8 xxl-8',
-        $showHeader= true,
         $titlle="Cargar Imagen"
 
         )
     {
         $this->classOne = $classOne;
         $this->classTwo = $classTwo;
-        $this->showHeader = $showHeader;
         $this->titlle = $titlle;
 
 
