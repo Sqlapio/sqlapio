@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UtilsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Components\Login;
 use App\Http\Livewire\Components\Home;
@@ -64,6 +65,18 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/suscription', [Suscription::class, 'render'])->name('Suscription');
         });
     });
+
+    /**
+     * @method EndPoint
+     * lista de centros por medico
+     */
+    Route::get('/get_doctor_centers/{value}', [UtilsController::class, 'get_doctor_centers_pag'])->name('get_doctor_centers');
+
+    /**
+     * @method EndPoint
+     * lista de Paciente con paginacion
+     */
+    Route::get('/get_patients/{value}', [UtilsController::class, 'get_patients_pag'])->name('get_patients_pagination');
 
     /**
      * Logout
