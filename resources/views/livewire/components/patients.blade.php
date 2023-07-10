@@ -109,12 +109,12 @@
                 birthdate: {
                     required: true,
                 },
-                age: {
-                    required: true,
-                    onlyNumber: true,
-                    minlength: 1,
-                    maxlength: 3,
-                },
+                // age: {
+                //     required: true,
+                //     onlyNumber: true,
+                //     minlength: 1,
+                //     maxlength: 3,
+                // },
                 state: {
                     required: true,
                 },
@@ -186,16 +186,16 @@
                     // pattern: "pattern",
                 },
                 genere: {
-                    required: "Genero es obligatorio",
+                    required: "Género es obligatorio",
                 },
                 birthdate: {
                     required: "Fecha de nacimiento es obligatorio",
                 },
-                age: {
-                    required: "Edad es obligatoria",
-                    minlength: "Edad debe ser mayor a 1 caracteres",
-                    maxlength: "Edad debe ser menor a 3 caracteres",
-                },
+                // age: {
+                //     required: "Edad es obligatoria",
+                //     minlength: "Edad debe ser mayor a 1 caracteres",
+                //     maxlength: "Edad debe ser menor a 3 caracteres",
+                // },
                 state: {
                     required: "Esatdo es obligatoria",
                 },
@@ -239,9 +239,7 @@
                     required: "Telfono es obligatorio",
                 }
 
-            },
-
-
+            }
         })
 
         $.validator.addMethod("onlyNumber", function(value, element) {
@@ -269,6 +267,7 @@
                         $('#spinner').hide();
                         $("#alert").show()
                         $("#alert").text("Registro Exitioso");
+                        $("#form-patients").trigger("reset");
                         setTimeout(() => {
                             $("#alert").hide();
                         }, 3500);
@@ -284,11 +283,6 @@
         })
     })
     let active = true;
-    $('#datepicker').datepicker({
-        format: "dd/mm/yyyy",
-        language: "es",
-        autoclose: true
-    });
 
     function showTable() {
         if (active) {
@@ -316,34 +310,26 @@
         if (Number($("#age").val()) >= 18) {
             $('#data-rep').hide();
             $('#is_minor').val(false);
-            $('#email').rules('add', {
-                required: true,
-                minlength: 3,
-                maxlength: 50,
-                email: true
-
-            });
-
-
+            $("#profesion-div").show();
+            $("#ci-div").show();
+            $("#email-div").show();
         } else {
-            $("#email").rules("remove");
+            // validar si el nino tienes menos de 8 anos
+            if (Number($("#age").val()) <= 8) {
+                $("#profesion-div").hide();
+                $("#ci-div").hide();
+                $("#email-div").hide();
+            } else {
+                $("#profesion-div").show();
+                $("#ci-div").show();
+                $("#email-div").show();
+            }
+
             $('#data-rep').show();
             $('#is_minor').val(true);
-
         }
     }
 
-    // se comente funcion para las patolpogias
-    // function handlerPhandlerPatologia(e, id) {
-    //     if ($(`#${id}`).is(':checked')) {
-    //         pathologiesArray.push(e.target.value);
-    //         console.log(pathologiesArray);
-    //         $('#pathologies').val(pathologiesArray);
-    //     } else {
-    //         pathologiesArray = pathologiesArray.filter(elem => elem !== e.target.value);
-    //         $('#pathologies').val(pathologiesArray);
-    //     }
-    // }
 </script>
 
 @section('content')
@@ -443,13 +429,13 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" id="ci-div">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Cedula de indentidad"
+                                                    <input autocomplete="off" placeholder="Cédula de indentidad"
                                                         class="form-control @error('ci') is-invalid @enderror"
                                                         id="ci" name="ci" type="text" value="">
-                                                    <i class="bi bi-telephone"></i>
+                                                        <i class="bi bi-person-vcard"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -479,7 +465,7 @@
                                                     <select name="genere" id="genere"
                                                         placeholder="Seleccione"class="form-control @error('genere') is-invalid @enderror"
                                                         class="form-control combo-textbox-input">
-                                                        <option value="">Seleccione Genero</option>
+                                                        <option value="">Seleccione Género</option>
                                                         <option value="femenino"> Femenino</option>
                                                         <option value="masculino">Masculino</option>
                                                     </select>
@@ -487,36 +473,36 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" id="email-div">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <input autocomplete="off" placeholder="Correo Electronico"
                                                         class="form-control @error('email') is-invalid @enderror"
                                                         id="email" name="email" type="text" value="">
-                                                    <i class="bi bi-person-circle"></i>
+                                                        <i class="bi bi-envelope-at"></i>
                                                 </div>
                                             </div>
                                         </div>
-                                    
-                                        <x-ubigeo />                                                                           
+
+                                        <x-ubigeo />
 
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Telefono"
+                                                    <input autocomplete="off" placeholder="Teléfono"
                                                         class="form-control @error('phone') is-invalid @enderror"
                                                         id="phone" name="phone" type="text" value="">
-                                                    <i class="bi bi-person-circle"></i>
+                                                        <i class="bi bi-telephone-forward"></i>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" id="profesion-div">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Profesion"
+                                                    <input autocomplete="off" placeholder="Profesión"
                                                         class="form-control @error('profession') is-invalid @enderror"
                                                         id="profession" name="profession" type="text" value="">
-                                                    <i class="bi bi-person-circle"></i>
+                                                        <i class="bi bi-journal-bookmark-fill"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -527,7 +513,7 @@
                                                     <input autocomplete="off" placeholder="Dirección"
                                                         class="form-control @error('address') is-invalid @enderror"
                                                         id="address" name="address" type="text" value="">
-                                                    <i class="bi bi-person-circle"></i>
+                                                          <i class="bi bi-geo"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -535,10 +521,10 @@
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Codigo de Area"
+                                                    <input autocomplete="off" placeholder="Código de Área"
                                                         class="form-control @error('zip_code') is-invalid @enderror"
                                                         id="zip_code" name="zip_code" type="text" value="">
-                                                    <i class="bi bi-person-circle"></i>
+                                                        <i class="bi bi-geo"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -575,10 +561,10 @@
                                             <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <input autocomplete="off" placeholder="Cedula del representante"
+                                                        <input autocomplete="off" placeholder="Cédula del representante"
                                                             class="form-control @error('re_ci') is-invalid @enderror"
                                                             id="re_ci" name="re_ci" type="text" value="">
-                                                        <i class="bi bi-person-circle"></i>
+                                                            <i class="bi bi-person-vcard"></i>
                                                     </div>
                                                 </diV>
                                             </div>
@@ -589,7 +575,7 @@
                                                             class="form-control @error('re_email') is-invalid @enderror"
                                                             id="re_email" name="re_email" type="text"
                                                             value="">
-                                                        <i class="bi bi-person-circle"></i>
+                                                            <i class="bi bi-envelope-at"></i>
                                                     </div>
                                                 </diV>
                                             </div>
@@ -597,102 +583,28 @@
                                             <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <input autocomplete="off" placeholder="Telefono del representante"
+                                                        <input autocomplete="off" placeholder="Teléfono del representante"
                                                             class="form-control @error('re_phone') is-invalid @enderror"
                                                             id="re_phone" name="re_phone" type="text"
                                                             value="">
-                                                        <i class="bi bi-person-circle"></i>
+                                                            <i class="bi bi-telephone-forward"></i>
                                                     </div>
                                                 </diV>
                                             </div>
                                         </div>
-                                        {{-- end --}}
-
-                                        {{-- <input type="hidden" name="pathologies[]" id="pathologies" value=""> --}}
-
-                                        {{-- <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                            <div class="floating-label-group">
-                                                <div class="form-check" style="display: flex; ">
-                                                    <div style="margin-right: 30px;">
-                                                        <input onclick="handlerPhandlerPatologia(event,'Diabete');"
-                                                            class="form-check" name="checked" type="checkbox"
-                                                            id="Diabete" value="Diabete">
-                                                    </div>
-                                                    <div>
-                                                        <label style="font-size: 15px;" class="form-check-label"
-                                                            for="flexCheckDefault">
-                                                            Diabete
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-check" style="display: flex; ">
-                                                    <div style="margin-right: 30px;">
-                                                        <input onclick="handlerPhandlerPatologia(event,'Himpertencion');"
-                                                            value="Himpertencion" class="form-check" name="checked"
-                                                            type="checkbox" id="Himpertencion">
-                                                    </div>
-                                                    <div>
-                                                        <label style="font-size: 15px;" class="form-check-label"
-                                                            for="flexCheckDefault">
-                                                            Hipertensión
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-check" style="display: flex; ">
-                                                    <div style="margin-right: 30px;">
-                                                        <input onclick="handlerPhandlerPatologia(event,'Dermatología');"
-                                                            value="Dermatología" class="form-check" name="checked"
-                                                            type="checkbox" id="Dermatología">
-                                                    </div>
-                                                    <div>
-                                                        <label style="font-size: 15px;" class="form-check-label"
-                                                            for="flexCheckDefault">
-                                                            Dermatología
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-check" style="display: flex; ">
-                                                    <div style="margin-right: 30px;">
-                                                        <input onclick="handlerPhandlerPatologia(event,'Osteoporozis');"
-                                                            value="Osteoporozis" class="form-check" name="checked"
-                                                            type="checkbox" id="Osteoporozis">
-                                                    </div>
-                                                    <div>
-                                                        <label style="font-size: 15px;" class="form-check-label"
-                                                            for="flexCheckDefault">
-                                                            Osteoporosis
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-check" style="display: flex; ">
-                                                    <div style="margin-right: 30px;">
-                                                        <input onclick="handlerPhandlerPatologia(event,'Fiebre_Amarilla');"
-                                                            value="Fiebre_Amarilla" class="form-check" name="checked"
-                                                            type="checkbox" id="Fiebre_Amarilla">
-                                                    </div>
-                                                    <div>
-                                                        <label style="font-size: 15px;" class="form-check-label"
-                                                            for="flexCheckDefault">
-                                                            Fiebre Amarilla
-                                                        </label>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div> --}}
+                                        {{-- end --}}                                      
                                     </div>
 
-                                    <div style="margin-top: 20px;" class="row">
+                                    <div class="row mt-3">
                                         <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
                                             <div id="spinner" style="display: none">
                                                 <x-load-spinner show="true" />
                                             </div>
-                                            <input class="btn btnPrimary send " value="Enviar" type="submit" />
+                                            <input class="btn btnPrimary send " value="Guardar" type="submit" />
 
                                         </div>
                                         <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
                                             <button type="button" class="btn btnSecond">Cancelar</button>
-
                                         </div>
                                     </div>
                                 </form>
@@ -742,104 +654,44 @@
                                 <hr>
 
                                 <div class="row" id="grip-patients">
-                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" style="margin-top: 20px:">
-                                        <div class="patients-div">
-                                            <p style="margin-top: 20px;" class="tabF"><a href="#">Gustavo
-                                                    Camacho</a></p>
-                                            <div class="img">
-                                                <img id="imgPaciente2"
-                                                    src="{{ asset('img/People-Client-Male-icon.png') }}"
-                                                    alt="Imagen del paciente" class="img-responsive"
-                                                    style="width:85px; height:64px;">
-                                            </div>
-                                            <p>Tef: 04127018390</p>
-                                            <p>Male</p>
-                                            <p>Nº Historia: 2</p>
-                                            <p>Private patient</p>
-                                            <p>F.Nac: domingo, 1 de enero de 1984</p>
-                                            <p>No eMail</p>
-                                            <hr>
-                                            <div class="button-patients-padre">
-                                                <div class="button-patients-hijo">
-                                                    <button type="button" class="btn  bnt2 btnPrimary">Citar
-                                                        Paciente</button>
+                                    @foreach ($patients as $item)
+                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" style="margin-top: 20px:">
+                                            <div class="patients-div">
+                                                <p style="margin-top: 20px;" class="tabF"><a
+                                                        href="#">{{ $item->name . ' ' . $item->last_name }}</a></p>
+                                                <div class="img">
+                                                    <img id="imgPaciente2"
+                                                        src="{{ asset('img/People-Client-Male-icon.png') }}"
+                                                        alt="Imagen del paciente" class="img-responsive"
+                                                        style="width:85px; height:64px;">
                                                 </div>
-                                                <div class="button-patients-hijo">
-                                                    <a href="{{ route('MedicalRecord') }}">
-                                                        <button type="button" class="btn bnt2 btnPrimary">Más
-                                                            información</button>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" style="margin-top: 20px:">
-                                        <div class="patients-div">
-                                            <p style="margin-top: 20px;" class="tabF"><a href="#">Pdero
-                                                    Perez</a></p>
-                                            <div class="img">
-                                                <img id="imgPaciente2"
-                                                    src="{{ asset('img/People-Client-Male-icon.png') }}"
-                                                    alt="Imagen del paciente" class="img-responsive"
-                                                    style="width:85px; height:64px;">
-                                            </div>
-                                            <p>Tef: 04127018390</p>
-                                            <p>Male</p>
-                                            <p>Nº Historia: 2</p>
-                                            <p>Private patient</p>
-                                            <p>F.Nac: domingo, 1 de enero de 1984</p>
-                                            <p>No eMail</p>
-                                            <hr>
-
-                                            <div class="button-patients-padre">
-                                                <div class="button-patients-hijo">
-                                                    <button type="button" class="btn  bnt2 btnPrimary">Citar
-                                                        Paciente</button>
-                                                </div>
-                                                <div class="button-patients-hijo">
-                                                    <a href="{{ route('MedicalRecord') }}">
-                                                        <button type="button" class="btn bnt2 btnPrimary">Más
-                                                            información</button>
-                                                    </a>
+                                                <p><strong>CI:</strong> {{ $item->ci }}</p>
+                                                <p><strong>Fec Nac:</strong> {{ $item->birthdate }}</p>
+                                                <p><strong>Género:</strong> {{ $item->genere }}</p>
+                                                <p><strong>Correo:</strong> {{ $item->email }}</p>
+                                                <p><strong>Teléfono:</strong> {{ $item->phone }}</p>
+                                                <p><strong>Dirección:</strong> {{ $item->address }}</p>
+                                                <hr>
+                                                <div class="button-patients-padre">
+                                                    <div class="button-patients-hijo">
+                                                        <button type="button" class="btn  bnt2 btnPrimary">Citar
+                                                            Paciente</button>
+                                                    </div>
+                                                    <div class="button-patients-hijo">
+                                                        <a href="{{ route('MedicalRecord') }}">
+                                                            <button type="button" class="btn bnt2 btnPrimary">Más
+                                                                información</button>
+                                                        </a>
+                                                    </div>
+                                                    <div class="button-patients-hijo">
+                                                        <a href="{{ route('ClinicalHistoryDetail', encrypt($item->id) ) }}">
+                                                            <button type="button" class="btn bnt2 btnSecond">Historia Clinica</button>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-
-                                    </div>
-                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" style="margin-top: 20px;">
-                                        <div class="patients-div">
-                                            <p class="tabF"><a href="#">Wilfredo
-                                                    Palencia</a>
-                                            </p>
-                                            <div class="img">
-                                                <img id="imgPaciente2"
-                                                    src="{{ asset('img/People-Client-Male-icon.png') }}"
-                                                    alt="Imagen del paciente" class="img-responsive"
-                                                    style="width:85px; height:64px;">
-                                            </div>
-                                            <p>Tef: 04127018390</p>
-                                            <p>Male</p>
-                                            <p>Nº Historia: 2</p>
-                                            <p>Private patient</p>
-                                            <p>F.Nac: domingo, 1 de enero de 1984</p>
-                                            <p>No eMail</p>
-                                            <hr>
-                                            <div class="button-patients-padre">
-                                                <div class="button-patients-hijo">
-                                                    <button type="button" class="btn  bnt2 btnPrimary">Citar
-                                                        Paciente</button>
-                                                </div>
-                                                <div class="button-patients-hijo">
-                                                    <a href="{{ route('MedicalRecord') }}">
-                                                        <button type="button" class="btn bnt2 btnPrimary">Más
-                                                            información</button>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
+                                    @endforeach
                                 </div>
 
                                 <div class="row" style="display: none" id="table-patients">
@@ -849,59 +701,36 @@
                                                 <tr>
                                                     <th scope="col">#</th>
                                                     <th scope="col">Nombre</th>
-                                                    <th scope="col">Nº Historia</th>
-                                                    <th scope="col">Aseguradora</th>
-                                                    <th scope="col">Teléfono 1</th>
-                                                    <th scope="col">Género</th>
+                                                    <th scope="col">Cedula</th>
                                                     <th scope="col">Fecha de Nacimiento </th>
-                                                    <th scope="col">NIF</th>
+                                                    <th scope="col">Género</th>
+                                                    <th scope="col">Teléfono</th>
                                                     <th scope="col">Email</th>
+                                                    <th scope="col">Direccion</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Gustavo Camacho</td>
-                                                    <td>1</td>
-                                                    <td>Private patient</td>
-                                                    <td>04127018390</td>
-                                                    <td>Male</td>
-                                                    <td>domingo, 1 de enero de 1984</td>
-                                                    <td>16413109</td>
-                                                    <td>wilfredopalenciabb@gmail.com</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">2</th>
-                                                    <td>Jhonny Martinez</td>
-                                                    <td>2</td>
-                                                    <td>Private patient</td>
-                                                    <td>04127018390</td>
-                                                    <td>Male</td>
-                                                    <td>domingo, 1 de enero de 1984</td>
-                                                    <td>16413109</td>
-                                                    <td>wilfredopalenciabb@gmail.com</td>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Wilfredo Palencia</td>
-                                                    <td>3</td>
-                                                    <td>Matrix</td>
-                                                    <td>04127018390</td>
-                                                    <td>Male</td>
-                                                    <td>domingo, 1 de enero de 1984</td>
-                                                    <td>16413109</td>
-                                                    <td>wilfredopalenciabb@gmail.com</td>
-                                                </tr>
+                                                @foreach ($patients as $item)
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>{{ $item->name }}</td>
+                                                        <td>{{ $item->ci}}</td>
+                                                        <td>{{ $item->birthdate }}</td>
+                                                        <td>{{ $item->genere }}</td>
+                                                        <td>{{ $item->phone }}</td>
+                                                        <td>{{ $item->email }}</td>
+                                                        <td>{{ $item->address }}</td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
 
                                 <div class="row">
-
                                     <div style="margin-top: 50px; " class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                         <div class="alert alert-info" role="alert">
-                                            <p>Número total de pacientes recuperados: 3</p>
+                                            <p>Número total de pacientes recuperados: {{ $patients->count() }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -913,5 +742,4 @@
             </div>
         </div>
     </div>
-
 @endsection

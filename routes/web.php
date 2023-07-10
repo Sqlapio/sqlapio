@@ -52,6 +52,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/medical-record', [MedicalRecord::class, 'render'])->name('MedicalRecord');
             Route::get('/medical-history', [MedicalHistory::class, 'render'])->name('MedicalHistory');
             Route::post('/register-patients', [Patients::class, 'store'])->name('register-patients');
+            Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail');
+            Route::post('/clinical-history-create', [MedicalHistory::class, 'store'])->name('ClinicalHistoryCreate');
 
         });
 
