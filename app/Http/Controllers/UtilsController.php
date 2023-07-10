@@ -81,63 +81,124 @@ class UtilsController extends Controller {
 
 	static function get_cities()
 	{
-		$cities = City::all();
-		return $cities;
+		try {
+			$cities = City::all();
+			return $cities;
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_cities()', $message);
+		}
+		
 	}
 
 	static function get_states()
 	{
-		$states = State::all();
-		return $states;
+		try {
+			$states = State::all();
+			return $states;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_states()', $message);
+		}
+
 	}
 
 	static function get_patients()
 	{
-		$patients = Patient::all();
-		return $patients;
+		try {
+			$patients = Patient::all();
+			return $patients;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_patients()', $message);
+		}
+		
 	}
 
 	static function get_appointments($id)
 	{
-		$appointments = Appointment::where('user_id', $id)->get();
+		try {
+			$appointments = Appointment::where('user_id', $id)->get();
 
-		if($appointments = ''){
-			return '';
-		}else{
-			return $appointments;
+			if($appointments = ''){
+				return '';
+			}else{
+				return $appointments;
+			}
+			//code...
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_appointments()', $message);
 		}
 		
 	}
 
 	static function get_history($id)
 	{
-		$history = History::where('id', $id)->get();
-		return $history;
+		try {
+			$history = History::where('id', $id)->get();
+			return $history;
+			//code...
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_history()', $message);
+		}
+		
 	}
 
 	static function get_patients_pag($value)
 	{
-		$patients_pagination = Patient::all()->paginate($value);
-		return $patients_pagination;
+		try {
+			$patients_pagination = Patient::all()->paginate($value);
+			return $patients_pagination;
+			//code...
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_patients_pag()', $message);
+		}
+		
 	}
 
 	static function get_doctor_centers_pag($value)
 	{
-		$doctor_centers = DoctorCenter::all()->paginate($value);
-		return $doctor_centers;
+		try {
+			$doctor_centers = DoctorCenter::all()->paginate($value);
+			return $doctor_centers;
+			//code...
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_doctor_centers_pag()', $message);
+		}
+		
 	}
 
 	static function get_doctor_centers($id)
 	{
-		$doctor_centers = DoctorCenter::where('id', $id)->get();
-		return $doctor_centers;
+		try {
+			$doctor_centers = DoctorCenter::where('id', $id)->get();
+			return $doctor_centers;
+			//code...
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_doctor_centers()', $message);
+		}
+		
 	}
 
 
 	static function get_one_patient($id)
 	{
-		$Patient = Patient::where('id', $id)->first();
-		return $Patient;
+		try {
+			$Patient = Patient::where('id', $id)->first();
+			return $Patient;
+			//code...
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_one_patient()', $message);
+		}
+		
 	}
 
 }
