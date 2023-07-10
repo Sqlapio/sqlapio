@@ -149,6 +149,9 @@
         <div class="container-fluid">
             <div class="row justify-content-center mt">
                 <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
+                    <div class="text-center">
+                        <img class="img" src="{{ asset('img/registro.png') }}" class="">
+                    </div>
                     <div class="card">
                         <div class="card-body">
                             {{ Form::open(['url' => 'register', 'method' => 'post', 'id' => 'form-register']) }}
@@ -237,7 +240,7 @@
                                         <button type="" class="btn btnPrimary">Registrar</button>
                                     </div>
                                     <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2 mt-3 btn-2">
-                                        <button type="button" class="btn btnSecond">Cancelar</button>
+                                        <a href="/"><button type="button" class="btn btnSecond">Cancelar</button></a>
                                     </div>
                                 </div>
                                 {{ Form::close() }}

@@ -18,6 +18,14 @@
 
      }
 
+     .isotipo{
+        width: 80%;
+         height: 60px;
+         margin: 10% 0% 0% 10%;
+     }
+     .div-dos{
+        margin-left: 24%;
+     }
      .img2 {
          width: 50%;
          height: auto;
@@ -46,13 +54,14 @@
 
      .div-left {
          padding: 0px 0px;
-         margin-left: 38%;
+         margin-left: 4%;
+         margin-top: 10px;
      }
 
      .strong {
          /* margin: 30px; */
          color: white;
-         font-size: 10px;
+         font-size: 20px;
          /* margin-left: 80px; */
          margin-top: 25px;
 
@@ -67,10 +76,12 @@
      }
 
 
-
      @media only screen and (max-width: 300px) {
          #logo1 {
              margin-right: -5% !important;
+         }
+         .div-dos{
+            display: none !important;
          }
 
          .img {
@@ -94,6 +105,7 @@
          .div-left {
              padding: 0px 0px;
              margin-left: 0%;
+             margin-top: 0px;
          }
 
          .mt-div {
@@ -122,7 +134,9 @@
          #logo1 {
              margin-right: -5% !important;
          }
-
+         .div-dos{
+            display: none !important;
+         }
          .img {
              width: 40px;
              height: auto;
@@ -144,6 +158,7 @@
          .div-left {
              padding: 0px 0px;
              margin-left: 0%;
+             margin-top: 0px;
          }
 
          .mt-div {
@@ -205,6 +220,7 @@
          .div-left {
              padding: 0px 0px;
              margin-left: 0%;
+             margin-top: 0px;
          }
 
          .mt-div {
@@ -254,6 +270,7 @@
          .div-left {
              padding: 0px 0px;
              margin-left: 0%;
+             margin-top: 0px;
          }
 
          .mt-div {
@@ -311,6 +328,9 @@
                  <a href="{{ route('Statistics') }}" title="Estadistica">
                      <img class="img" src="{{ asset('img/V2/estadisticas.png') }}" alt="Estadistica">
                  </a>
+             </div>
+             <div class=" d-flex col-sm-1 md-1 lg-1 xl-1 xxl-1 div-dos">                
+                 <img class="isotipo" src="{{ asset('img/hedear-isotipo.png') }}" alt="" >
              </div>
 
              <div class=" d-flex col-sm-1 md-1 lg-1 xl-1 xxl-1  div-left">
