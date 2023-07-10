@@ -26,13 +26,11 @@
 </script>
 
 <div>
-    @if($showHeader === true)
     <hr>
     <div>
         <h5 class="collapseBtn">{{$titlle}}</h5>
     </div>
     <hr>
-    @endif
     <div class="row">
         <div class="{{$classOne}}">
             <div class="holder" style="display: none">
