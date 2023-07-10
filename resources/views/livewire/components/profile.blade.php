@@ -149,6 +149,7 @@
                         $('#spinner').hide();
                         $("#alert").show()
                         $("#alert").text("Registro Exitioso");
+                        $("#form-profile").trigger("reset");
                         setTimeout(() => {
                             $("#alert").hide();
                         }, 3500);
@@ -217,10 +218,10 @@
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Cedula de identidad"
+                                                    <input autocomplete="off" placeholder="Cédula de identidad"
                                                         class="form-control @error('ci') is-invalid @enderror"
                                                         id="ci" name="ci" type="text" value="">
-                                                    <i class="bi bi-telephone"></i>
+                                                        <i class="bi bi-person-vcard"></i>
                                                 </div>
                                             </diV>
                                         </div>
@@ -244,20 +245,20 @@
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Email"
+                                                    <input autocomplete="off" placeholder="Correo electrónico"
                                                         class="form-control @error('username') is-invalid @enderror"
                                                         id="username" name="username" type="text" readonly value="{!! !empty($user) ? $user->email : '' !!}">
-                                                    <i class="bi bi-envelope"></i>
+                                                        <i class="bi bi-envelope-at"></i>
                                                 </div>
                                             </diV>
                                         </div>
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Telefono"
+                                                    <input autocomplete="off" placeholder="Teléfono"
                                                         class="form-control @error('phone') is-invalid @enderror"
                                                         id="phone" name="phone" type="text" value="">
-                                                    <i class="bi bi-compass"></i>
+                                                        <i class="bi bi-telephone-forward"></i>
                                                 </div>
                                             </diV>
                                         </div>
@@ -267,7 +268,7 @@
                                                     <input autocomplete="off" placeholder="Dirección"
                                                         class="form-control @error('address') is-invalid @enderror"
                                                         id="address" name="address" type="text" value="">
-                                                    <i class="bi bi-telephone"></i>
+                                                        <i class="bi bi-geo"></i>
                                                 </div>
                                             </diV>
                                         </div>
@@ -278,10 +279,10 @@
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Codigo de area"
+                                                    <input autocomplete="off" placeholder="Código de area"
                                                         class="form-control @error('zip_code') is-invalid @enderror"
                                                         id="zip_code" name="zip_code" type="text" value="">
-                                                    <i class="bi bi-people"></i>
+                                                        <i class="bi bi-geo"></i>
                                                 </div>
                                             </diV>
                                         </div>

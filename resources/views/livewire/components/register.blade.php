@@ -149,6 +149,9 @@
         <div class="container-fluid">
             <div class="row justify-content-center mt">
                 <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
+                    <div class="text-center">
+                        <img class="img" src="{{ asset('img/registro.png') }}" class="">
+                    </div>
                     <div class="card">
                         <div class="card-body">
                             {{ Form::open(['url' => 'register', 'method' => 'post', 'id' => 'form-register']) }}
