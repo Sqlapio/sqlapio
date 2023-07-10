@@ -19,9 +19,9 @@
      }
 
      .isotipo{
-        width: 40%;
-         height: auto;
-         margin: 0% 0% 0% 10%;
+        width: 80%;
+         height: 60px;
+         margin: 10% 0% 0% 10%;
      }
      .div-dos{
         margin-left: 24%;
@@ -54,13 +54,14 @@
 
      .div-left {
          padding: 0px 0px;
-         margin-left: 7%;
+         margin-left: 4%;
+         margin-top: 10px;
      }
 
      .strong {
          /* margin: 30px; */
          color: white;
-         font-size: 10px;
+         font-size: 20px;
          /* margin-left: 80px; */
          margin-top: 25px;
 
@@ -104,6 +105,7 @@
          .div-left {
              padding: 0px 0px;
              margin-left: 0%;
+             margin-top: 0px;
          }
 
          .mt-div {
@@ -156,6 +158,7 @@
          .div-left {
              padding: 0px 0px;
              margin-left: 0%;
+             margin-top: 0px;
          }
 
          .mt-div {
@@ -217,6 +220,7 @@
          .div-left {
              padding: 0px 0px;
              margin-left: 0%;
+             margin-top: 0px;
          }
 
          .mt-div {
@@ -266,6 +270,7 @@
          .div-left {
              padding: 0px 0px;
              margin-left: 0%;
+             margin-top: 0px;
          }
 
          .mt-div {
