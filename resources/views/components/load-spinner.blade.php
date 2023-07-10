@@ -14,7 +14,6 @@
     }
 </style>
 <div class="shadow-div">
-    {{ $show }}
     <div class="row justify-content-center">
         <img class="spinnner" src="{{ asset('img/carga sqlapio.gif') }}" alt="">
     </div>

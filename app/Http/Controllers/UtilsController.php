@@ -108,4 +108,10 @@ class UtilsController extends Controller {
 		return $history;
 	}
 
+	static function get_one_patient($id)
+	{
+		$Patient = Patient::where('id', $id)->first();
+		return $Patient;
+	}
+
 }
