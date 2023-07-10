@@ -171,7 +171,6 @@ class Patients extends Component
             return true;
             
         } catch (\Throwable $th) {
-            dd($th);
             $message = $th->getMessage();
 			dd('Error Livewire.Components.Patient.store()', $message);
         }
