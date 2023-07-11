@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\Center;
 use App\Models\City;
 use App\Models\DoctorCenter;
 use App\Models\History;
@@ -197,6 +198,19 @@ class UtilsController extends Controller {
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_one_patient()', $message);
+		}
+		
+	}
+
+	static function get_centers()
+	{
+		try {
+			$centers = Center::all();
+			return $centers;
+			//code...
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_doctor_centers()', $message);
 		}
 		
 	}

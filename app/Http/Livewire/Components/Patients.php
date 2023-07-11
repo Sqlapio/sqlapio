@@ -15,6 +15,8 @@ class Patients extends Component
 
     public function store(Request $request)
     {
+        $user_id = Auth::user()->id;
+
         try {
             if ($request->is_minor == "true") {
                 $validate_data = $request->validate(
@@ -76,7 +78,7 @@ class Patients extends Component
                 $patient->city = $request->city;
                 $patient->address = $request->address;
                 $patient->zip_code = $request->zip_code;
-                $patient->user_id = $request->user_id;
+                $patient->user_id = $user_id;
                 $patient->center_id = $request->center_id;
                 $patient->save();
 
@@ -84,18 +86,15 @@ class Patients extends Component
                  * Buscamos el ultimo paciente registrado por el medico
                  * @return $id
                  */
-                $patient_id = Patient::where('user_id', Auth::user()->id)->last();
-                foreach ($patient_id as $item) {    
-                    $id = $item->id;
-                }
+                $patient_id = Patient::where('user_id', $user_id)->get()->last()->id;
     
                 $re_patient = new Representative();
-                $re_patient->re_name = $request->name;
-                $re_patient->last_name = $request->last_name;
+                $re_patient->re_name = $request->re_name;
+                $re_patient->re_last_name = $request->re_last_name;
                 $re_patient->re_ci = $request->re_ci;
                 $re_patient->re_email = $request->re_email;
                 $re_patient->re_phone = $request->re_phone;
-                $re_patient->patient_id = $id;
+                $re_patient->patient_id = $patient_id;
                 $re_patient->save();
 
                 $action = '9';
@@ -181,7 +180,8 @@ class Patients extends Component
         $patients = UtilsController::get_patients();
         $cities = UtilsController::get_cities();
         $states = UtilsController::get_states();
+        $centers = UtilsController::get_centers();
     
-        return view('livewire.components.patients', compact('patients', 'cities', 'states'));
+        return view('livewire.components.patients', compact('patients', 'cities', 'states', 'centers'));
     }
 }
