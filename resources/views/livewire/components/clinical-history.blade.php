@@ -1040,21 +1040,9 @@
                                 <input type="hidden" name="medications_supplements[]" id="medications_supplements"
                                     value="">
                                 <div class="row  mt-3">
-                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                        <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
-                                            <div class="floating-label-group">
-                                                <select onchange="eventeShow(event);"
-                                                    placeholder="Seleccione"class="form-control"
-                                                    class="form-control combo-textbox-input">
-                                                    <option value="1">prescripción de medicamentos</option>
-                                                    <option value="2">Prescripción de medicamentos con código
-                                                        de
-                                                        barras</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">                                     
 
-                                        <div class="row" id="div-hidden">
+                                        {{-- <div class="row" id="div-hidden">
                                             <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-3">
                                                 <button class="btn btn-outline-secondary"><i
                                                         class="bi bi-plus-lg"></i>Añadir grupo
@@ -1100,9 +1088,10 @@
                                                         class="bi bi-plus-lg"></i>Añadir grupo
                                                     medicación</button>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="row" id="div-show" style="display: none">
+                                        <div class="row" id="div-show">
+                                            <h1 class="text-center">Anadir Medicamento</h1>
                                             <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
                                                 <input placeholder="Medicamento" autocomplete="off"
                                                     class="form-control @error('names') is-invalid @enderror"
