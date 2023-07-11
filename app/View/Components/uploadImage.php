@@ -8,18 +8,18 @@ use Illuminate\View\Component;
 
 class UploadImage extends Component
 {
-    public $classOne;
-    public $classTwo;
+    public $class_one;
+    public $class_two;
     public $title;
 
 
     /**
      * Create a new component instance.
      */
-    public function __construct($classOne='col-sm-4 md-4 lg-4 xl-4 xxl-4',$classTwo='col-sm-8 md-8 lg-8 xl-8 xxl-8',$title="Cargar Imagen")
+    public function __construct($class_one='col-sm-4 md-4 lg-4 xl-4 xxl-4',$class_two='col-sm-8 md-8 lg-8 xl-8 xxl-8',$title="Cargar Imagen")
     {
-        $this->classOne = $classOne;
-        $this->classTwo = $classTwo;
+        $this->class_one = $class_one;
+        $this->class_two = $class_two;
         $this->title = $title;
     }
 
