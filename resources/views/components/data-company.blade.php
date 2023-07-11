@@ -184,7 +184,7 @@
             </diV>
         </div>
 
-        <x-upload-image titlle="Cargar Logo" />
+        <x-upload-image title="Cargar Logo" />
         <hr>
 
         <div class="row mt-3 justify-content-md-end">
