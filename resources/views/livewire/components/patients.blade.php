@@ -447,18 +447,7 @@
                                                     onchange="calculateAge(event,'age'), handlerAge(event)">
                                             </div>
                                         </diV>
-
-                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Edad"
-                                                        class="form-control @error('age') is-invalid @enderror"
-                                                        id="age" name="age" type="text" value=" "
-                                                        readonly>
-                                                    <i class="bi bi-person-circle"></i>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <input id="age" name="age" type="hidden" value="">                                       
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="floating-label-group">
                                                 <div class="Icon-inside">
@@ -525,6 +514,21 @@
                                                         class="form-control @error('zip_code') is-invalid @enderror"
                                                         id="zip_code" name="zip_code" type="text" value="">
                                                         <i class="bi bi-geo"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                            <div class="floating-label-group">
+                                                <div class="Icon-inside">
+                                                    <select name="center_id" id="center_id"
+                                                        placeholder="Seleccione"class="form-control @error('center_id') is-invalid @enderror"
+                                                        class="form-control combo-textbox-input">
+                                                        <option value="">Seleccione Centro</option>
+                                                        <option value="01"> Perez Carreno</option>
+                                                        <option value="02">Clinincas Caracas</option>
+                                                    </select>
+                                                    <i class="bi bi-gender-ambiguous"></i>
                                                 </div>
                                             </div>
                                         </div>

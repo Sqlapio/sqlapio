@@ -19,29 +19,17 @@
         let countNotPathological = 0;
         let countGynecological = 0;
         let countMedicationSupplements = 0;
+        let countMedicationAdd = 0;
 
         $(document).ready(() => {
+
+            $(".datePickert").datepicker({
+                language: 'es'
+            });
+
             $("#alert").hide();
             $('#form-mecal-histroy').validate({
                 rules: {
-                    countBackFamily: {
-                        required: true,
-                    },
-                    countAllergies: {
-                        required: true,
-                    },
-                    countDiagnosis: {
-                        required: true,
-                    },
-                    countSurgical: {
-                        required: true,
-                    },
-                    countNotPathological: {
-                        required: true,
-                    },
-                    countGynecological: {
-                        required: true,
-                    },
                     weight: {
                         required: true,
                         onlyNumber: true
@@ -52,24 +40,6 @@
                     },
                 },
                 messages: {
-                    countBackFamily: {
-                        required: "Debe seleccionar una opción",
-                    },
-                    countAllergies: {
-                        required: "Debe seleccionar una opción",
-                    },
-                    countDiagnosis: {
-                        required: "Debe seleccionar una opción",
-                    },
-                    countSurgical: {
-                        required: "Debe seleccionar una opción",
-                    },
-                    countNotPathological: {
-                        required: "Debe seleccionar una opción",
-                    },
-                    countGynecological: {
-                        required: "Debe seleccionar una opción",
-                    },
                     weight: {
                         required: "Peso es obligatorio",
                     },
@@ -119,16 +89,6 @@
             })
         })
 
-        function eventeShow(event) {
-            if (Number(event.target.value) === 1) {
-                $("#div-hidden").show();
-                $("#div-show").hide();
-            } else {
-                $("#div-hidden").hide();
-                $("#div-show").show();
-            }
-        }
-
         function handlerBackFamiliy(e) {
             if ($(`#${e.target.id}`).is(':checked')) {
                 countBackFamily = countBackFamily + 1;
@@ -142,20 +102,33 @@
                 $('#countBackFamily').val(countBackFamily);
             }
         }
-
+        //agregar alergia
         function handlerAllergies(e) {
-            if ($(`#${e.target.id}`).is(':checked')) {
-                allergies.push(e.target.value);
+            // validaciones para agragar cirugia
+            if ($('#type_alergia').val() === "") {
+                $("#type_alergia_span").text('Campo obligatorio');
+            } else if ($('#detalle_alergia').val() === "") {
+                $("#cirugia").text('');
+                $("#detalle_alergia_span").text('Campo obligatorio');
+            } else {
+                $("#detalle_alergia_span").text('');
+                var row = `
+                    <tr id="${countAllergies}">
+                    <td>${$('#type_alergia').val()}</td>
+                    <td>${$('#detalle_alergia').val()}</td>                 
+                    <td class="text-center"><span onclick="deleteAllergie(${countAllergies})" ><i class="bi bi-archive"></i></span></td>
+                    </tr>`;
+                $('#table-alergias').find('tbody').append(row);
+                let alergias =
+                    `${$('#type_alergia').val()},${$('#detalle_alergia').val()}`;
+                allergies.push(alergias);
                 $('#allergies').val(allergies);
                 countAllergies = countAllergies + 1;
                 $('#countAllergies').val(countAllergies);
-            } else {
-                allergies = allergies.filter(elem => elem !== e.target.value);
-                $('#allergies').val(allergies);
-                countAllergies = countAllergies - 1;
-                $('#countAllergies').val(countAllergies);
-
-            }
+                // limpiar campos
+                $('#type_alergia').val("");
+                $('#detalle_alergia').val("");
+            }        
         }
 
         function handlerDiagnosis(e) {
@@ -169,21 +142,6 @@
                 $('#history_pathological').val(history_pathological);
                 countDiagnosis = countDiagnosis - 1;
                 $('#countDiagnosis').val(countDiagnosis);
-
-            }
-        }
-
-        function handlerSurgical(e) {
-            if ($(`#${e.target.id}`).is(':checked')) {
-                history_surgical.push(e.target.value);
-                $('#history_surgical').val(history_surgical);
-                countSurgical = countSurgical + 1;
-                $('#countSurgical').val(countSurgical);
-            } else {
-                history_surgical = history_surgical.filter(elem => elem !== e.target.value);
-                $('#history_surgical').val(history_surgical);
-                countSurgical = countSurgical - 1;
-                $('#countSurgical').val(countSurgical);
 
             }
         }
@@ -216,6 +174,120 @@
                 $('#countGynecological').val(countGynecological);
             }
         }
+        //agregar medicamento
+        function addMedacition(e) {
+            // validaciones para agragar medicacion
+            if ($('#medicine').val() === "") {
+                $("#medicine_span").text('Campo obligatorio');
+            } else if ($('#dose').val() === "") {
+                $("#medicine_span").text('');
+                $("#dose_span").text('Campo obligatorio');
+            } else if ($('#patologi').val() === "") {
+                $("#dose_span").text('');
+                $("#patologi_span").text('Campo obligatorio');
+            } else if ($('#viaAdmin').val() === "") {
+                $("#patologi_span").text('');
+                $("#viaAdmin_span").text('Campo obligatorio');
+            } else if ($('#treatmentDuration').val() === "") {
+                $("#viaAdmin_span").text('');
+                $("#treatmentDuration_span").text('Campo obligatorio');
+            } else if ($('#dateIniTreatment').val() === "") {
+                $("#treatmentDuration_span").text('');
+                $("#dateIniTreatment_span").text('Campo obligatorio');
+            } else if ($('#dateEndTreatment').val() === "") {
+                $("#dateIniTreatment_span").text('');
+                $("#dateEndTreatment_span").text('Campo obligatorio');
+            } else if ($('#NUmberOrder').val() === "") {
+                $("#dateEndTreatment_span").text('');
+                $("#NUmberOrder_span").text('Campo obligatorio');
+            } else {
+                $("#NUmberOrder_span").text('');
+                var row = `
+                    <tr id="${countMedicationAdd}">
+                    <td>${$('#medicine').val()}</td>
+                    <td>${$('#dose').val()}</td>
+                    <td>${$('#patologi').val()}</td>
+                    <td>${$('#viaAdmin').val()}</td>
+                    <td>${$('#treatmentDuration').val()}</td>
+                    <td>${$('#dateIniTreatment').val()}</td>
+                    <td>${$('#dateEndTreatment').val()}</td>
+                    <td>${$('#NUmberOrder').val()}</td>
+                    <td class="text-center"><span onclick="deleteMedication(${countMedicationAdd})" ><i class="bi bi-archive"></i></span></td>
+                    </tr>`;
+                $('#table-medicamento').find('tbody').append(row);
+                let medication =
+                    `${$('#medicine').val()},${$('#dose').val()},${$('#patologi').val()},${$('#viaAdmin').val()},${$('#treatmentDuration').val()},${$('#dateIniTreatment').val()},${$('#dateEndTreatment').val()},${$('#NUmberOrder').val()}`
+                medications_supplements.push(medication);
+                $('#medications_supplements').val(medications_supplements);
+                countMedicationAdd = countMedicationAdd + 1;
+                $('#countMedicationAdd').val(countMedicationAdd);
+                // limpiar campos
+                $('#medicine').val("")
+                $('#dose').val("")
+                $('#patologi').val("")
+                $('#viaAdmin').val("")
+                $('#treatmentDuration').val("")
+                $('#dateIniTreatment').val("")
+                $('#dateEndTreatment').val("")
+                $('#NUmberOrder').val("")
+            }
+        }
+        //borrar medicamento
+        function deleteMedication(count) {
+            $('#table-medicamento tr#' + count).remove();
+            medications_supplements.splice(count, 1);
+            $('#medications_supplements').val(medications_supplements);
+            countMedicationAdd = countMedicationAdd - 1;
+            $('#countMedicationAdd').val(countMedicationAdd);
+
+        }
+        //agregar cirugia
+        function handlerSurgical(e) {
+            // validaciones para agragar cirugia
+            if ($('#cirugia').val() === "") {
+                $("#cirugia_span").text('Campo obligatorio');
+            } else if ($('#dateCirugia').val() === "") {
+                $("#cirugia").text('');
+                $("#dateCirugia_span").text('Campo obligatorio');
+            } else {
+                $("#dateCirugia_span").text('');
+                var row = `
+                    <tr id="${countSurgical}">
+                    <td>${$('#cirugia').val()}</td>
+                    <td>${$('#dateCirugia').val()}</td>                 
+                    <td class="text-center"><span onclick="deleteSurgical(${countSurgical})" ><i class="bi bi-archive"></i></span></td>
+                    </tr>`;
+                $('#table-cirugia').find('tbody').append(row);
+                let cirugia =
+                    `${$('#cirugia').val()},${$('#dateCirugia').val()}`;
+                history_surgical.push(cirugia);
+                $('#history_surgical').val(history_surgical);
+                countSurgical = countSurgical + 1;
+                $('#countSurgical').val(countSurgical);
+                // limpiar campos
+                $('#cirugia').val("");
+                $('#dateCirugia').val("");
+                console.log(history_surgical);
+            }
+        }
+        //borrar cirugia
+        function deleteSurgical(count) {
+            $('#table-cirugia tr#' + count).remove();
+            history_surgical.splice(count, 1);
+            $('#history_surgical').val(history_surgical);
+            countSurgical = countSurgical - 1;
+            $('#countSurgical').val(countSurgical);
+
+        }
+        //borrar alergias
+        function deleteAllergie(count) {
+            $('#table-alergias tr#' + count).remove();
+            allergies.splice(count, 1);
+            $('#allergies').val(allergies);
+            countAllergies = countAllergies - 1;
+            $('#countAllergies').val(countAllergies);
+
+        }
     </script>
 @endpush
 @section('content')
@@ -224,7 +296,7 @@
             <form id="form-mecal-histroy" method="post" action="/">
                 {{ csrf_field() }}
                 <div class="row mt-3">
-                    <input type="hidden" name="id" value="{{$Patient->id}}">
+                    <input type="hidden" name="id" value="{{ $Patient->id }}">
                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
                         <div class="card">
                             <div class="card-header collapseBtn">
@@ -325,44 +397,45 @@
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerBackFamiliy(event);" class="form-check"
-                                                        name="sin_interes" type="checkbox" id="sin_interes"
-                                                        value="Sin Interes">
+                                                        name="cancer" type="checkbox" id="cancer" value="Cancer">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
-                                                        Sin Interes
+                                                        Cancer
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
-                                                    <input onclick="handlerBackFamiliy(event);" value="HTA"
-                                                        class="form-check" name="HTA" type="checkbox" id="HTA">
+                                                    <input onclick="handlerBackFamiliy(event);" value="Diabetes"
+                                                        class="form-check" name="diabetes" type="checkbox" id="diabetes">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
-                                                        HTA
+                                                        Diabetes
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
-                                                    <input onclick="handlerBackFamiliy(event);" value="Diabete"
-                                                        class="form-check" name="Diabete" type="checkbox" id="Diabete">
+                                                    <input onclick="handlerBackFamiliy(event);" value="Tension alta"
+                                                        class="form-check" name="tension_alta" type="checkbox"
+                                                        id="tension_alta">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
-                                                        Diabete
+                                                        Tension alta
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerBackFamiliy(event);" value="Cardiacos"
-                                                        class="form-check" name="Cardiacos" type="checkbox" id="Cardiacos">
+                                                        class="form-check" name="Cardiacos" type="checkbox"
+                                                        id="Cardiacos">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
@@ -373,14 +446,14 @@
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
-                                                    <input onclick="handlerBackFamiliy(event);" value="Coagulooia"
-                                                        class="form-check" name="Coagulooia" type="checkbox"
-                                                        id="Coagulooia">
+                                                    <input onclick="handlerBackFamiliy(event);" value="Psiquiátricas"
+                                                        class="form-check" name="psiquiátricas" type="checkbox"
+                                                        id="psiquiátricas">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
-                                                        Coagulooia
+                                                        Psiquiátricas
                                                     </label>
                                                 </div>
                                             </div>
@@ -392,38 +465,25 @@
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerBackFamiliy(event);" class="form-check"
-                                                        name="Temblosis" type="checkbox" id="Temblosis"
-                                                        value="Temblosis">
+                                                        name="coagulación" type="checkbox" id="coagulación"
+                                                        value="Alteraciones en coagulación">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
-                                                        Temblosis venenosa</label>
+                                                        Alteraciones en coagulación</label>
                                                 </div>
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerBackFamiliy(event);" value="Embolia"
-                                                        class="form-check" name="Embolia" type="checkbox"
-                                                        id="Embolia">
+                                                        class="form-check" name="embolia" type="checkbox"
+                                                        id="embolia">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
-                                                        Embolia pulmorar
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerBackFamiliy(event);" value="Cancer"
-                                                        class="form-check" name="Cancer" type="checkbox"
-                                                        id="Cancer">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        Cancer
+                                                        Trombosis/Embolas
                                                     </label>
                                                 </div>
                                             </div>
@@ -470,175 +530,12 @@
                         </div>
                     </div>
                 </div>
-                {{-- alergias --}}
+                {{-- Antecedentes personales patológicos --}}
                 <div class="row  mt-3">
                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
                         <div class="card">
                             <div class="card-header collapseBtn">
-                                <h3>Alergias Conocidas</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <input type="hidden" name="allergies[]" id="allergies" value="">
-                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                                        <div class="floating-label-group">
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerAllergies(event);" class="form-check"
-                                                        name="NAMC" type="checkbox" id="NAMC" value="NAMC">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        NAMC
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerAllergies(event);" value="LACTAMICOS"
-                                                        class="form-check" name="LACTAMICOS" type="checkbox"
-                                                        id="LACTAMICOS">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        B-LACTAMICOS
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerAllergies(event);" value="SULFAMIDAS"
-                                                        class="form-check" name="SULFAMIDAS" type="checkbox"
-                                                        id="SULFAMIDAS">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        SULFAMIDAS Paciente
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerAllergies(event);" value="NOLOTIL"
-                                                        class="form-check" name="NOLOTIL" type="checkbox"
-                                                        id="NOLOTIL">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        NOLOTIL
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerAllergies(event);" value="IBUPROFENO"
-                                                        class="form-check" name="IBUPROFENO" type="checkbox"
-                                                        id="IBUPROFENO">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        IBUPROFENO
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                                        <div class="floating-label-group">
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerAllergies(event);" class="form-check"
-                                                        name="ANTOCOLBULCIVOS" type="checkbox" id="ANTOCOLBULCIVOS"
-                                                        value="ANTOCOLBULCIVOS">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        ANTOCOLBULCIVOS
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerAllergies(event);" value="INSULINA"
-                                                        class="form-check" name="INSULINA" type="checkbox"
-                                                        id="INSULINA">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        INSULINA
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerAllergies(event);" value="YODO"
-                                                        class="form-check" name="YODO" type="checkbox"
-                                                        id="YODO">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        YODO
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerAllergies(event);" value="LATEX"
-                                                        class="form-check" name="LATEX" type="checkbox"
-                                                        id="LATEX">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        LATEX
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerAllergies(event);" value="AINES"
-                                                        class="form-check" name="AINES" type="checkbox"
-                                                        id="AINES">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        AINES
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
-                                        <div class="input-group flex-nowrap">
-                                            <span class="input-group-text" id="">Total alergias</span>
-                                            <input type="text" id="countAllergies" name="countAllergies"
-                                                class="form-control" readonly value="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{-- Diagnóstico --}}
-                <div class="row  mt-3">
-                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                        <div class="card">
-                            <div class="card-header collapseBtn">
-                                <h3>Diagnóstico</h3>
+                                <h3>Antecedentes personales patológicos </h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -649,76 +546,282 @@
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerDiagnosis(event);" class="form-check"
-                                                        name="sin_diagnostico" type="checkbox" id="sin_diagnostico"
-                                                        value="sin_diagnostico">
+                                                        name="hepatitis" type="checkbox" id="hepatitis"
+                                                        value="Hepatitis">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
-                                                        Sin determinar
+                                                        Hepatitis
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
-                                                    <input onclick="handlerDiagnosis(event);" value="vision_borrosa"
-                                                        class="form-check" name="vision_borrosa" type="checkbox"
-                                                        id="vision_borrosa">
+                                                    <input onclick="handlerDiagnosis(event);" value="VIH/SIDA"
+                                                        class="form-check" name="VIH" type="checkbox"
+                                                        id="VIH">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
-                                                        Vision borrosa
+                                                        VIH/SIDA
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
-                                                    <input onclick="handlerDiagnosis(event);" value="perdida_peso"
-                                                        class="form-check" name="perdida_peso" type="checkbox"
-                                                        id="perdida_peso">
+                                                    <input onclick="handlerDiagnosis(event);" value="Gastritis/Ulceras                                                    "
+                                                        class="form-check" name="gastritis" type="checkbox"
+                                                        id="gastritis">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
-                                                        Perdida de peso inexplicada
+                                                        Gastritis/Ulceras
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
-                                                    <input onclick="handlerDiagnosis(event);" value="fatiga"
-                                                        class="form-check" name="fatiga" type="checkbox"
-                                                        id="fatiga">
+                                                    <input onclick="handlerDiagnosis(event);" value="Neurología"
+                                                        class="form-check" name="neurología" type="checkbox"
+                                                        id="neurología">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
-                                                        Fatiga
+                                                        Neurología
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
-                                                    <input onclick="handlerDiagnosis(event);" value="POLIDIPSIA"
-                                                        class="form-check" name="POLIDIPSIA" type="checkbox"
-                                                        id="POLIDIPSIA">
+                                                    <input onclick="handlerDiagnosis(event);" value="Ansiedad/Angustia"
+                                                        class="form-check" name="ansiedad" type="checkbox"
+                                                        id="ansiedad">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
-                                                        POLIDIPSIA-R631
+                                                        Ansiedad/Angustia
                                                     </label>
                                                 </div>
                                             </div>
-
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <div class="floating-label-group">
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerDiagnosis(event);" class="form-check"
+                                                        name="tiroides" type="checkbox" id="tiroides"
+                                                        value="Tiroides">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Tiroides
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerDiagnosis(event);" value="Lupus"
+                                                        class="form-check" name="lupus" type="checkbox"
+                                                        id="lupus">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Lupus
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerDiagnosis(event);" value="Enfermedad autoimmune"
+                                                        class="form-check" name="autoimmune" type="checkbox"
+                                                        id="autoimmune">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Enfermedad autoimmune
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerDiagnosis(event);" value="Diabetes Mellitus"
+                                                        class="form-check" name="mellitus" type="checkbox"
+                                                        id="mellitus">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Diabetes Mellitus
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerDiagnosis(event);" value="Presión arterial alta"
+                                                        class="form-check" name="presión_arterial" type="checkbox"
+                                                        id="presión_arterial">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Presión arterial alta
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <div class="floating-label-group">
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerDiagnosis(event);" class="form-check"
+                                                        name="cateter" type="checkbox" id="cateter"
+                                                        value="Tiene cateter venoso?">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Tiene cateter venoso?
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerDiagnosis(event);" value="Fracturas"
+                                                        class="form-check" name="fracturas" type="checkbox"
+                                                        id="fracturas">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Fracturas
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerDiagnosis(event);" value="Trombosis venosa"
+                                                        class="form-check" name="trombosis" type="checkbox"
+                                                        id="trombosis">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Trombosis venosa
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerDiagnosis(event);" value="Embolia pulmonar"
+                                                        class="form-check" name="embolia_pulmonar" type="checkbox"
+                                                        id="embolia_pulmonar">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Embolia pulmonar
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerDiagnosis(event);" value="Varices en piernas"
+                                                        class="form-check" name="varices_piernas" type="checkbox"
+                                                        id="varices_piernas">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Varices en piernas
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <div class="floating-label-group">
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerDiagnosis(event);" class="form-check"
+                                                        name="insuficiencia_arterial" type="checkbox" id="insuficiencia_arterial"
+                                                        value="Insuficiencia arterial">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Insuficiencia arterial
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerDiagnosis(event);" value="Coagulación anormal"
+                                                        class="form-check" name="coagulación_anormal" type="checkbox"
+                                                        id="coagulación_anormal">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Coagulación anormal
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerDiagnosis(event);" value="Moretones frecuentes"
+                                                        class="form-check" name="moretones" type="checkbox"
+                                                        id="moretones">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Moretones frecuentes
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerDiagnosis(event);" value="Sangrado anormal en cirugías previas"
+                                                        class="form-check" name="sangrado" type="checkbox"
+                                                        id="sangrado">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Sangrado anormal en cirugías previas
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerDiagnosis(event);" value="Sangrado anormal en cepillado dental"
+                                                        class="form-check" name="sangrado_dental" type="checkbox"
+                                                        id="sangrado_dental">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Sangrado anormal en cepillado dental
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
                                         <div class="input-group flex-nowrap">
-                                            <span class="input-group-text">Total Diagnóstico
+                                            <span class="input-group-text">Total patológicos
                                             </span>
                                             <input type="text" id="countDiagnosis" name="countDiagnosis"
                                                 class="form-control" readonly value="">
@@ -728,207 +831,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                {{-- historia quirúrgica --}}
-                <div class="row  mt-3">
-                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                        <div class="card">
-                            <div class="card-header collapseBtn">
-                                <h3>Historia quirúrgica</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <input type="hidden" name="history_surgical[]" id="history_surgical"
-                                        value="">
-                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                                        <div class="floating-label-group">
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerSurgical(event);" class="form-check"
-                                                        name="sin_quirúrgica" type="checkbox" id="sin_quirúrgica"
-                                                        value="sin_quirúrgica">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        Sin determinar
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerSurgical(event);"
-                                                        value="vision_borrosa_quirúrgica" class="form-check"
-                                                        name="vision_borrosa_quirúrgica" type="checkbox"
-                                                        id="vision_borrosa_quirúrgica">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        Vision borrosa
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerSurgical(event);"
-                                                        value="perdida_peso_quirúrgica" class="form-check"
-                                                        name="perdida_peso_quirúrgica" type="checkbox"
-                                                        id="perdida_peso_quirúrgica">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        Perdida de peso inexplicada
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerSurgical(event);" value="fatiga_quirúrgica"
-                                                        class="form-check" name="fatiga_quirúrgica" type="checkbox"
-                                                        id="fatiga_quirúrgica">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        Fatiga
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerSurgical(event);" value="POLIDIPSIA_quirúrgica"
-                                                        class="form-check" name="POLIDIPSIA_quirúrgica" type="checkbox"
-                                                        id="POLIDIPSIA_quirúrgica">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        POLIDIPSIA-R631
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
-                                        <div class="input-group flex-nowrap">
-                                            <span class="input-group-text">Total historia quirúrgica
-                                            </span>
-                                            <input type="text" id="countSurgical" name="countSurgical"
-                                                class="form-control" readonly value="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{-- historia ginecológica --}}
-                <div class="row  mt-3">
-                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                        <div class="card">
-                            <div class="card-header collapseBtn">
-                                <h3>Historia ginecológica</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <input type="hidden" name="history_gynecological[]" id="history_gynecological"
-                                        value="">
-                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                                        <div class="floating-label-group">
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerGynecological(event);" class="form-check"
-                                                        name="sin_diagnostico_Pathologica" type="checkbox"
-                                                        id="sin_diagnostico_gynecological"
-                                                        value="sin_diagnostico_gynecological">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        Sin determinar
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerGynecological(event);"
-                                                        value="vision_borrosa_gynecological" class="form-check"
-                                                        name="vision_borrosa_gynecological" type="checkbox"
-                                                        id="vision_borrosa_gynecological">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        Vision borrosa
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerGynecological(event);"
-                                                        value="perdida_peso_gynecological" class="form-check"
-                                                        name="perdida_peso_gynecological" type="checkbox"
-                                                        id="perdida_peso_gynecological">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        Perdida de peso inexplicada
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerGynecological(event);"
-                                                        value="fatiga_gynecological" class="form-check"
-                                                        name="fatiga_gynecological" type="checkbox"
-                                                        id="fatiga_gynecological">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        Fatiga
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-check" style="display: flex; ">
-                                                <div style="margin-right: 30px;">
-                                                    <input onclick="handlerGynecological(event);"
-                                                        value="POLIDIPSIA_gynecological" class="form-check"
-                                                        name="POLIDIPSIA_gynecological" type="checkbox"
-                                                        id="POLIDIPSIA_gynecological">
-                                                </div>
-                                                <div>
-                                                    <label style="font-size: 15px;" class="form-check-label"
-                                                        for="flexCheckDefault">
-                                                        POLIDIPSIA-R631
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
-                                        <div class="input-group flex-nowrap">
-                                            <span class="input-group-text">Total historia ginecológica
-                                            </span>
-                                            <input type="text" id="countGynecological" name="countGynecological"
-                                                class="form-control" readonly value="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{-- historia no patologica --}}
+                </div>              
+                {{-- historia Antecedentes personales no patológicos--}}
                 <div class="row  mt-3">
                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
                         <div class="card">
@@ -944,70 +848,70 @@
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerNotPathologica(event);" class="form-check"
-                                                        name="sin_diagnostico_no_patologica" type="checkbox"
-                                                        id="sin_diagnostico_no_patologica"
-                                                        value="sin_diagnostico_no_patologica">
+                                                        name="tabaco" type="checkbox"
+                                                        id="tabaco"
+                                                        value="Tabaco">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
-                                                        Sin determinar
+                                                        Tabaco
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerNotPathologica(event);"
-                                                        value="vision_borrosa_no_patologica" class="form-check"
-                                                        name="vision_borrosa_no_patologica" type="checkbox"
-                                                        id="vision_borrosa_no_patologica">
+                                                        value="Alcohol" class="form-check"
+                                                        name="Alcohol" type="checkbox"
+                                                        id="Alcohol">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
-                                                        Vision borrosa
+                                                        Alcohol
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerNotPathologica(event);"
-                                                        value="perdida_peso_no_patologica" class="form-check"
-                                                        name="perdida_peso_no_patologica" type="checkbox"
-                                                        id="perdida_peso_no_patologica">
+                                                        value="Drogas" class="form-check"
+                                                        name="Drogas" type="checkbox"
+                                                        id="Drogas">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
-                                                        Perdida de peso inexplicada
+                                                        Drogas
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerNotPathologica(event);"
-                                                        value="fatiga_no_patologica" class="form-check"
-                                                        name="fatiga_no_patologica" type="checkbox"
-                                                        id="fatiga_no_patologica">
+                                                        value="vacunas recientes" class="form-check"
+                                                        name="vacunas_recientes" type="checkbox"
+                                                        id="vacunas_recientes">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
-                                                        Fatiga
+                                                        Vacunas recientes
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerNotPathologica(event);"
-                                                        value="POLIDIPSIA_no_patologica" class="form-check"
-                                                        name="POLIDIPSIA_no_patologica" type="checkbox"
-                                                        id="POLIDIPSIA_no_patologica">
+                                                        value="Transfusiones sanguíneas" class="form-check"
+                                                        name="transfusiones_sanguíneas" type="checkbox"
+                                                        id="transfusiones_sanguíneas">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
-                                                        POLIDIPSIA-R631
+                                                        Transfusiones sanguíneas
                                                     </label>
                                                 </div>
                                             </div>
@@ -1029,170 +933,425 @@
                         </div>
                     </div>
                 </div>
-                {{-- Medicacion --}}
+                  {{-- historia ginecológica --}}
+                  <div class="row  mt-3">
+                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                        <div class="card">
+                            <div class="card-header collapseBtn">
+                                <h3>Historia ginecologicos si aplica </h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <input type="hidden" name="history_gynecological[]" id="history_gynecological"
+                                        value="">
+                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <div class="floating-label-group">
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerGynecological(event);" class="form-check"
+                                                        name="menstruation" type="checkbox"
+                                                        id="menstruation"
+                                                        value="menstruation">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Edad de la primera menstruation
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerGynecological(event);"
+                                                        value="Fecha ultima regla" class="form-check"
+                                                        name="Fecha_ultima_regla" type="checkbox"
+                                                        id="Fecha_ultima_regla">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Fecha ultima regla
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerGynecological(event);"
+                                                        value="Numero de embarazos" class="form-check"
+                                                        name="Numero_embarazos" type="checkbox"
+                                                        id="Numero_embarazos">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Numero de embarazos
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerGynecological(event);"
+                                                        value="Numero de partos" class="form-check"
+                                                        name="Numero_partos" type="checkbox"
+                                                        id="Numero_partos">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Numero de partos
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerGynecological(event);"
+                                                        value="Numero de cesáreas" class="form-check"
+                                                        name="Numero_cesáreas" type="checkbox"
+                                                        id="Numero_cesáreas">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        PNumero de cesáreas
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <div class="floating-label-group">
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerGynecological(event);" class="form-check"
+                                                        name="abortos" type="checkbox"
+                                                        id="abortos"
+                                                        value="abortos">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Numero de abortos
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerGynecological(event);"
+                                                        value=" En la actualidad utiliza algún anticonceptivo o cualquier otro 
+                                                        hormonal(pastillas, parches o inyección) ? + Cual?" class="form-check"
+                                                        name="actualidad" type="checkbox"
+                                                        id="actualidad">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        En la actualidad utiliza algún anticonceptivo o cualquier otro 
+                                                        hormonal(pastillas, parches o inyección) ? + Cual?                                                    </label>
+                                                </div>
+                                            </div>                                       
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text">Total historia ginecológica
+                                            </span>
+                                            <input type="text" id="countGynecological" name="countGynecological"
+                                                class="form-control" readonly value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- alergias --}}
                 <div class="row  mt-3">
                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
                         <div class="card">
                             <div class="card-header collapseBtn">
-                                <h3>Medicación</h3>
+                                <h3>Alergias Conocidas</h3>
                             </div>
                             <div class="card-body">
-                                <input type="hidden" name="medications_supplements[]" id="medications_supplements"
-                                    value="">
                                 <div class="row  mt-3">
-                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">                                     
-
-                                        {{-- <div class="row" id="div-hidden">
-                                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-3">
-                                                <button class="btn btn-outline-secondary"><i
-                                                        class="bi bi-plus-lg"></i>Añadir grupo
-                                                    medicación</button>
+                                    <input type="hidden" name="allergies[]" id="allergies" value="">
+                                    <h5 class="text-center collapseBtn">Añadir Alergias</h5>
+                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 ">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <input autocomplete="off" placeholder="tipo de alergia"
+                                                    class="form-control" id="type_alergia" name="type_alergia"
+                                                    type="text" value="">
+                                                <i class="bi bi-three-dots-vertical"></i>
                                             </div>
-                                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-3">
-                                                <button class="btn btn-outline-secondary"><i
-                                                        class="bi bi-plus-lg"></i>Añadir grupo
-                                                    medicación</button>
+                                            <span id="type_alergia_span" class="text-danger"></span>
+                                        </diV>
+                                    </div>
+                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <input autocomplete="off" placeholder="Detalle"
+                                                    class="form-control" id="detalle_alergia"
+                                                    name="detalle_alergia" type="text" value="">
+                                                <i class="bi bi-three-dots-vertical"></i>
                                             </div>
-                                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-3">
-                                                <button class="btn btn-outline-secondary"><i
-                                                        class="bi bi-plus-lg"></i>Añadir grupo
-                                                    medicación</button>
-                                            </div>
-                                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-3">
-                                                <button class="btn btn-outline-secondary"><i
-                                                        class="bi bi-plus-lg"></i>Añadir grupo
-                                                    medicación</button>
-                                            </div>
-                                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-3">
-                                                <button class="btn btn-outline-secondary"><i
-                                                        class="bi bi-plus-lg"></i>Añadir grupo
-                                                    medicación</button>
-                                            </div>
-                                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-3">
-                                                <button class="btn btn-outline-secondary"><i
-                                                        class="bi bi-plus-lg"></i>Añadir grupo
-                                                    medicación</button>
-                                            </div>
-                                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-3">
-                                                <button class="btn btn-outline-secondary"><i
-                                                        class="bi bi-plus-lg"></i>Añadir grupo
-                                                    medicación</button>
-                                            </div>
-                                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-3">
-                                                <button class="btn btn-outline-secondary"><i
-                                                        class="bi bi-plus-lg"></i>Añadir grupo
-                                                    medicación</button>
-                                            </div>
-                                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-3">
-                                                <button class="btn btn-outline-secondary"><i
-                                                        class="bi bi-plus-lg"></i>Añadir grupo
-                                                    medicación</button>
-                                            </div>
-                                        </div> --}}
-
-                                        <div class="row" id="div-show">
-                                            <h1 class="text-center">Anadir Medicamento</h1>
-                                            <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                                <input placeholder="Medicamento" autocomplete="off"
-                                                    class="form-control @error('names') is-invalid @enderror"
-                                                    id="names" name="names" type="text" value="">
-                                            </div>
-                                            <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                                <input placeholder="Dosis" autocomplete="off"
-                                                    class="form-control @error('names') is-invalid @enderror"
-                                                    id="names" name="names" type="text" value="">
-                                            </div>
-                                            <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                                <input placeholder="Posología" autocomplete="off"
-                                                    class="form-control @error('names') is-invalid @enderror"
-                                                    id="names" name="names" type="text" value="">
-                                            </div>
-                                            <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                                <input placeholder="Vía de administración" autocomplete="off"
-                                                    class="form-control @error('names') is-invalid @enderror"
-                                                    id="names" name="names" type="text" value="">
-                                            </div>
-                                            <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                                <input placeholder="Ud. por envase" autocomplete="off"
-                                                    class="form-control @error('names') is-invalid @enderror"
-                                                    id="names" name="names" type="text" value="">
-                                            </div>
-                                            <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                                <input placeholder="Num. de envases" autocomplete="off"
-                                                    class="form-control @error('names') is-invalid @enderror"
-                                                    id="names" name="names" type="text" value="">
-                                            </div>
-                                            <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                                <input placeholder="Frecuencia toma" autocomplete="off"
-                                                    class="form-control @error('names') is-invalid @enderror"
-                                                    id="names" name="names" type="text" value="">
-                                            </div>
-                                            <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                                <input placeholder="Duración tratamiento" autocomplete="off"
-                                                    class="form-control @error('names') is-invalid @enderror"
-                                                    id="names" name="names" type="text" value="">
-                                            </div>
-                                            <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                                <input placeholder="Fecha preescripción" autocomplete="off"
-                                                    class="form-control @error('names') is-invalid @enderror"
-                                                    id="dateP" name="names" type="date" value="">
-                                            </div>
-                                            <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                                <input placeholder="Fecha dispensación" autocomplete="off"
-                                                    class="form-control @error('names') is-invalid @enderror"
-                                                    id="dateD" name="names" type="date" value="">
-                                            </div>
-                                            <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                                <input placeholder="Nº Orden" autocomplete="off"
-                                                    class="form-control @error('names') is-invalid @enderror"
-                                                    id="names" name="names" type="text" value="">
-                                            </div>
-                                            <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                                <div class="floating-label-group">
-                                                    <select placeholder="Seleccione" class="form-control"
-                                                        class="form-control combo-textbox-input">
-                                                        <option value="1">Seleccione..</option>
-                                                        <option value="2">Lactantes</option>
-                                                        <option value="2">Ninos</option>
-                                                        <option value="2">Adultos</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                                <input placeholder="Medicamento" autocomplete="off"
-                                                    class="form-control @error('names') is-invalid @enderror"
-                                                    id="names" name="names" type="text" value="">
-                                            </div>
-                                            <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
-                                                <div class="floating-label-group">
-                                                    <label class="floating-label">Documentos del paciente</label>
-                                                    <select class="form-control form-textbox-input combo-textbox-input"
-                                                        id="ddlTratamientos" name="Lista Tratamientos">
-                                                        <option value="2">Docuemmtos</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
-                                                <div class="floating-label-group">
-                                                    <label class="floating-label">Consentimeiontos informados</label>
-                                                    <select class="form-control form-textbox-input combo-textbox-input"
-                                                        id="ddlTratamientos" name="Lista Tratamientos">
-                                                        <option value="1">Consentimeiontos</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-header">
-                                            <div class="row">
-                                                <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2  mt-2">
-                                                    <input class="btn btnPrimary send " value="Guardar" type="submit" />
-                                                </div>
-
-                                            </div>
+                                            <span id="detalle_alergia_span" class="text-danger"></span>
                                         </div>
                                     </div>
+                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <span type="" onclick="handlerAllergies(event)"
+                                            class="btn btn-outline-secondary"><i class="bi bi-plus-lg"></i>Añadir
+                                            Alergias</span>
+                                    </div>
+                                    <div class="col-sm-5 md-5 lg-5 xl-5 xxl-5" style="margin-top: 20px; width: 100%;">
+                                        <h6 class="collapseBtn">Lista de cirugias</h6>
+                                        <table class="table table-striped table-hover table-bordered" id="table-alergias">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Tipo de alergias</th>
+                                                    <th scope="col">Detalle</th>
+                                                    <th scope="col">Eliminar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                        <tfoot>
+                                            <div class="row mt-3">
+                                                <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
+                                                    <div class="input-group flex-nowrap">
+                                                        <span class="input-group-text" id="">Total
+                                                            alergias</span>
+                                                        <input type="text" id="countAllergies" name="countAllergies"
+                                                            class="form-control" readonly value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </tfoot>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- historia quirúrgica --}}
+                <div class="row  mt-3">
+                    <div class="card">
+                        <div class="card-header collapseBtn">
+                            <h3>Historia quirúrgica</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row  mt-3">
+                                <input type="hidden" name="history_surgical[]" id="history_surgical" value="">
+                                <h5 class="text-center collapseBtn">Añadir Cirugia</h5>
+                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 ">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <input autocomplete="off" placeholder="Cirugia" class="form-control"
+                                                id="cirugia" name="cirugia" type="text" value="">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </div>
+                                        <span id="cirugia_span" class="text-danger"></span>
+                                    </diV>
+                                </div>
+                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <input autocomplete="off" placeholder="Fecha fin"
+                                                class="form-control datePickert" id="dateCirugia" readonly
+                                                name="dateCirugia" type="text" value="">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </div>
+                                        <span id="dateCirugia_span" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                    <span type="" onclick="handlerSurgical(event)"
+                                        class="btn btn-outline-secondary"><i class="bi bi-plus-lg"></i>Añadir
+                                        Cirugia</span>
+                                </div>
+                                <div class="col-sm-5 md-5 lg-5 xl-5 xxl-5" style="margin-top: 20px; width: 100%;">
+                                    <h6 class="collapseBtn">Lista de cirugias</h6>
+                                    <table class="table table-striped table-hover table-bordered" id="table-cirugia">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Cirugia</th>
+                                                <th scope="col">Fecha</th>
+                                                <th scope="col">Eliminar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <tfoot>
+                                        <div class="row mt-3">
+                                            <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
+                                                <div class="input-group flex-nowrap">
+                                                    <span class="input-group-text">Total Cirugia
+                                                    </span>
+                                                    <input type="text" id="countSurgical" name="countSurgical"
+                                                        class="form-control" readonly value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tfoot>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                {{-- Medicacion --}}
+                <div class="row  mt-3">
+                    <div class="card">
+                        <div class="card-header collapseBtn">
+                            <h3>Medicación</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row  mt-3">
+                                <input type="hidden" name="medications_supplements[medications_supplements]"
+                                    id="medications_supplements" value="">
+                                <h5 class="text-center collapseBtn">Añadir Medicamento</h5>
+
+                                <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3 ">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <input autocomplete="off" placeholder="Medicamento" class="form-control"
+                                                id="medicine" name="medicine" type="text" value="">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </div>
+                                        <span id="medicine_span" class="text-danger"></span>
+                                    </diV>
+                                </div>
+                                <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <input autocomplete="off" placeholder="Dosis" class="form-control"
+                                                id="dose" name="dose" type="text" value="">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </div>
+                                        <span id="dose_span" class="text-danger"></span>
+                                    </diV>
+                                </div>
+                                <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <input autocomplete="off" placeholder="Patologia" class="form-control"
+                                                id="patologi" name="patologi" type="text" value="">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </div>
+                                        <span id="patologi_span" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <input autocomplete="off" placeholder="Via de administracion"
+                                                class="form-control" id="viaAdmin" name="viaAdmin" type="text"
+                                                value="">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </div>
+                                        <span id="viaAdmin_span" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <input autocomplete="off" placeholder="Duracion de tratameinto"
+                                                class="form-control" id="treatmentDuration" name="treatmentDuration"
+                                                type="text" value="">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </div>
+                                        <span id="treatmentDuration_span" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <input autocomplete="off" placeholder="Fecha inicio"
+                                                class="form-control datePickert" id="dateIniTreatment" readonly
+                                                name="dateIniTreatment" type="text" value="">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </div>
+                                        <span id="dateIniTreatment_span" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <input autocomplete="off" placeholder="Fecha fin"
+                                                class="form-control datePickert" id="dateEndTreatment" readonly
+                                                name="dateEndTreatment" type="text" value="">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </div>
+                                        <span id="dateEndTreatment_span" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <input autocomplete="off" placeholder="N-Orden" class="form-control"
+                                                id="NUmberOrder" name="NUmberOrder" type="text" value="">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </div>
+                                        <span id="NUmberOrder_span" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-3 offset-md-5">
+                                    <span type="" onclick="addMedacition(event)"
+                                        class="btn btn-outline-secondary"><i class="bi bi-plus-lg"></i>Añadir
+                                        medicamento</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12" style="margin-top: 20px; width: 100%;">
+                                    <h6 class="collapseBtn">Lista de medicamentos</h6>
+                                    <table class="table table-striped table-hover table-bordered" id="table-medicamento">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Medicamento</th>
+                                                <th scope="col">Dosis</th>
+                                                <th scope="col">Patologia</th>
+                                                <th scope="col">Via de administracion</th>
+                                                <th scope="col">Duracion de tratameinto</th>
+                                                <th scope="col">Fecha inicio</th>
+                                                <th scope="col">Fecha fin</th>
+                                                <th scope="col">N-Orden</th>
+                                                <th scope="col">Eliminar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <tfoot>
+                                        <div class="row mt-3">
+                                            <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
+                                                <div class="input-group flex-nowrap">
+                                                    <span class="input-group-text">Total de medicamientos
+                                                    </span>
+                                                    <input type="text" id="countMedicationAdd"
+                                                        name="countMedicationAdd" class="form-control" readonly
+                                                        value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tfoot>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2  mt-2">
+                                    <input class="btn btnPrimary send " value="Guardar" type="submit" />
+                                </div>
+
                             </div>
                         </div>
                     </div>
