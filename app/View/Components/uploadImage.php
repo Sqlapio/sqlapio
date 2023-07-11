@@ -6,28 +6,21 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class uploadImage extends Component
+class UploadImage extends Component
 {
     public $classOne;
     public $classTwo;
-    public $titlle;
+    public $title;
 
 
     /**
      * Create a new component instance.
      */
-    public function __construct(
-        $classOne='col-sm-4 md-4 lg-4 xl-4 xxl-4',
-        $classTwo='col-sm-8 md-8 lg-8 xl-8 xxl-8',
-        $titlle="Cargar Imagen"
-
-        )
+    public function __construct($classOne='col-sm-4 md-4 lg-4 xl-4 xxl-4',$classTwo='col-sm-8 md-8 lg-8 xl-8 xxl-8',$title="Cargar Imagen")
     {
         $this->classOne = $classOne;
         $this->classTwo = $classTwo;
-        $this->titlle = $titlle;
-
-
+        $this->title = $title;
     }
 
     /**
