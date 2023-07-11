@@ -84,7 +84,8 @@ class Centers extends Component
             ]           
        ];
 
-       $doctor_centers = UtilsController::get_doctor_centers(Auth::user()->id);
+       $user_id = Auth::user()->id;
+       $doctor_centers = UtilsController::get_doctor_centers($user_id);
 
         return view('livewire.components.centers', ['listUser' => $this->listUser]);
     }
