@@ -329,7 +329,6 @@
             $('#is_minor').val(true);
         }
     }
-
 </script>
 
 @section('content')
@@ -435,7 +434,7 @@
                                                     <input autocomplete="off" placeholder="Cédula de indentidad"
                                                         class="form-control @error('ci') is-invalid @enderror"
                                                         id="ci" name="ci" type="text" value="">
-                                                        <i class="bi bi-person-vcard"></i>
+                                                    <i class="bi bi-person-vcard"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -447,7 +446,7 @@
                                                     onchange="calculateAge(event,'age'), handlerAge(event)">
                                             </div>
                                         </diV>
-                                        <input id="age" name="age" type="hidden" value="">                                       
+                                        <input id="age" name="age" type="hidden" value="">
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="floating-label-group">
                                                 <div class="Icon-inside">
@@ -468,7 +467,7 @@
                                                     <input autocomplete="off" placeholder="Correo Electronico"
                                                         class="form-control @error('email') is-invalid @enderror"
                                                         id="email" name="email" type="text" value="">
-                                                        <i class="bi bi-envelope-at"></i>
+                                                    <i class="bi bi-envelope-at"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -481,7 +480,7 @@
                                                     <input autocomplete="off" placeholder="Teléfono"
                                                         class="form-control @error('phone') is-invalid @enderror"
                                                         id="phone" name="phone" type="text" value="">
-                                                        <i class="bi bi-telephone-forward"></i>
+                                                    <i class="bi bi-telephone-forward"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -491,7 +490,7 @@
                                                     <input autocomplete="off" placeholder="Profesión"
                                                         class="form-control @error('profession') is-invalid @enderror"
                                                         id="profession" name="profession" type="text" value="">
-                                                        <i class="bi bi-journal-bookmark-fill"></i>
+                                                    <i class="bi bi-journal-bookmark-fill"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -502,7 +501,7 @@
                                                     <input autocomplete="off" placeholder="Dirección"
                                                         class="form-control @error('address') is-invalid @enderror"
                                                         id="address" name="address" type="text" value="">
-                                                          <i class="bi bi-geo"></i>
+                                                    <i class="bi bi-geo"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -510,23 +509,24 @@
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Código de Área"
+                                                    <input autocomplete="off" placeholder="Localidad"
                                                         class="form-control @error('zip_code') is-invalid @enderror"
                                                         id="zip_code" name="zip_code" type="text" value="">
-                                                        <i class="bi bi-geo"></i>
+                                                    <i class="bi bi-geo"></i>
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="floating-label-group">
                                                 <div class="Icon-inside">
                                                     <select name="center_id" id="center_id"
                                                         placeholder="Seleccione"class="form-control @error('center_id') is-invalid @enderror"
                                                         class="form-control combo-textbox-input">
-                                                        <option value="">Seleccione Centro</option>
-                                                        <option value="01"> Perez Carreno</option>
-                                                        <option value="02">Clinincas Caracas</option>
+                                                        @foreach ($centers as $item)
+                                                            <option value={{ $item->id }}>{{ $item->description }}
+                                                            </option>
+                                                        @endforeach
+
                                                     </select>
                                                     <i class="bi bi-gender-ambiguous"></i>
                                                 </div>
@@ -568,7 +568,7 @@
                                                         <input autocomplete="off" placeholder="Cédula del representante"
                                                             class="form-control @error('re_ci') is-invalid @enderror"
                                                             id="re_ci" name="re_ci" type="text" value="">
-                                                            <i class="bi bi-person-vcard"></i>
+                                                        <i class="bi bi-person-vcard"></i>
                                                     </div>
                                                 </diV>
                                             </div>
@@ -579,7 +579,7 @@
                                                             class="form-control @error('re_email') is-invalid @enderror"
                                                             id="re_email" name="re_email" type="text"
                                                             value="">
-                                                            <i class="bi bi-envelope-at"></i>
+                                                        <i class="bi bi-envelope-at"></i>
                                                     </div>
                                                 </diV>
                                             </div>
@@ -591,12 +591,12 @@
                                                             class="form-control @error('re_phone') is-invalid @enderror"
                                                             id="re_phone" name="re_phone" type="text"
                                                             value="">
-                                                            <i class="bi bi-telephone-forward"></i>
+                                                        <i class="bi bi-telephone-forward"></i>
                                                     </div>
                                                 </diV>
                                             </div>
                                         </div>
-                                        {{-- end --}}                                      
+                                        {{-- end --}}
                                     </div>
 
                                     <div class="row mt-3">
@@ -688,8 +688,10 @@
                                                         </a>
                                                     </div>
                                                     <div class="button-patients-hijo">
-                                                        <a href="{{ route('ClinicalHistoryDetail', encrypt($item->id) ) }}">
-                                                            <button type="button" class="btn bnt2 btnSecond">Historia Clinica</button>
+                                                        <a
+                                                            href="{{ route('ClinicalHistoryDetail', encrypt($item->id)) }}">
+                                                            <button type="button" class="btn bnt2 btnSecond">Historia
+                                                                Clinica</button>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -718,7 +720,7 @@
                                                     <tr>
                                                         <th scope="row">1</th>
                                                         <td>{{ $item->name }}</td>
-                                                        <td>{{ $item->ci}}</td>
+                                                        <td>{{ $item->ci }}</td>
                                                         <td>{{ $item->birthdate }}</td>
                                                         <td>{{ $item->genere }}</td>
                                                         <td>{{ $item->phone }}</td>
