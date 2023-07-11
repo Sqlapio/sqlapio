@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class uploadImage extends Component
+class UploadImage extends Component
 {
     public $classOne;
     public $classTwo;
