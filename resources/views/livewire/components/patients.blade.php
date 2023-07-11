@@ -109,12 +109,6 @@
                 birthdate: {
                     required: true,
                 },
-                // age: {
-                //     required: true,
-                //     onlyNumber: true,
-                //     minlength: 1,
-                //     maxlength: 3,
-                // },
                 state: {
                     required: true,
                 },
@@ -170,7 +164,6 @@
                     required: "Apellidos es obligatorio",
                     minlength: "Apellidos debe ser mayor a 6 caracteres",
                     maxlength: "Apellidos debe ser menor a 8 caracteres",
-                    // pattern: "pattern",
                 },
 
                 email: {
@@ -183,7 +176,6 @@
                     required: "Cedula de identidad es obligatoria",
                     minlength: "Cedula de identidad  debe ser mayor a 5 caracteres",
                     maxlength: "Cedula de identidad  debe ser menor a 8 caracteres",
-                    // pattern: "pattern",
                 },
                 genere: {
                     required: "Género es obligatorio",
@@ -191,11 +183,6 @@
                 birthdate: {
                     required: "Fecha de nacimiento es obligatorio",
                 },
-                // age: {
-                //     required: "Edad es obligatoria",
-                //     minlength: "Edad debe ser mayor a 1 caracteres",
-                //     maxlength: "Edad debe ser menor a 3 caracteres",
-                // },
                 state: {
                     required: "Esatdo es obligatoria",
                 },
@@ -308,11 +295,27 @@
 
     function handlerAge(e) {
         if (Number($("#age").val()) >= 18) {
+            $("#email").rules('add', {
+                required: true,
+                minlength: 3,
+                maxlength: 50,
+                email: true
+            });
+            $("#profession").rules('add', {
+                required: true
+            });
+            $("#ci").rules('add', {
+                required: true,
+                minlength: 5,
+                maxlength: 8,
+                onlyNumber: true
+            });
             $('#data-rep').hide();
             $('#is_minor').val(false);
             $("#profesion-div").show();
             $("#ci-div").show();
             $("#email-div").show();
+
         } else {
             // validar si el nino tienes menos de 8 anos
             if (Number($("#age").val()) <= 8) {
@@ -323,6 +326,11 @@
                 $("#profesion-div").show();
                 $("#ci-div").show();
                 $("#email-div").show();
+                //remover valdaciones
+                $("#email").rules('remove');
+                $("#profession").rules('remove');
+                $("#ci").rules('remove');
+
             }
 
             $('#data-rep').show();
