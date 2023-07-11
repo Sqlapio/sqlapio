@@ -109,12 +109,6 @@
                 birthdate: {
                     required: true,
                 },
-                // age: {
-                //     required: true,
-                //     onlyNumber: true,
-                //     minlength: 1,
-                //     maxlength: 3,
-                // },
                 state: {
                     required: true,
                 },
@@ -170,7 +164,6 @@
                     required: "Apellidos es obligatorio",
                     minlength: "Apellidos debe ser mayor a 6 caracteres",
                     maxlength: "Apellidos debe ser menor a 8 caracteres",
-                    // pattern: "pattern",
                 },
 
                 email: {
@@ -183,7 +176,6 @@
                     required: "Cedula de identidad es obligatoria",
                     minlength: "Cedula de identidad  debe ser mayor a 5 caracteres",
                     maxlength: "Cedula de identidad  debe ser menor a 8 caracteres",
-                    // pattern: "pattern",
                 },
                 genere: {
                     required: "Género es obligatorio",
@@ -191,11 +183,6 @@
                 birthdate: {
                     required: "Fecha de nacimiento es obligatorio",
                 },
-                // age: {
-                //     required: "Edad es obligatoria",
-                //     minlength: "Edad debe ser mayor a 1 caracteres",
-                //     maxlength: "Edad debe ser menor a 3 caracteres",
-                // },
                 state: {
                     required: "Esatdo es obligatoria",
                 },
@@ -308,11 +295,27 @@
 
     function handlerAge(e) {
         if (Number($("#age").val()) >= 18) {
+            $("#email").rules('add', {
+                required: true,
+                minlength: 3,
+                maxlength: 50,
+                email: true
+            });
+            $("#profession").rules('add', {
+                required: true
+            });
+            $("#ci").rules('add', {
+                required: true,
+                minlength: 5,
+                maxlength: 8,
+                onlyNumber: true
+            });
             $('#data-rep').hide();
             $('#is_minor').val(false);
             $("#profesion-div").show();
             $("#ci-div").show();
             $("#email-div").show();
+
         } else {
             // validar si el nino tienes menos de 8 anos
             if (Number($("#age").val()) <= 8) {
@@ -323,13 +326,17 @@
                 $("#profesion-div").show();
                 $("#ci-div").show();
                 $("#email-div").show();
+                //remover valdaciones
+                $("#email").rules('remove');
+                $("#profession").rules('remove');
+                $("#ci").rules('remove');
+
             }
 
             $('#data-rep').show();
             $('#is_minor').val(true);
         }
     }
-
 </script>
 
 @section('content')
@@ -435,7 +442,7 @@
                                                     <input autocomplete="off" placeholder="Cédula de indentidad"
                                                         class="form-control @error('ci') is-invalid @enderror"
                                                         id="ci" name="ci" type="text" value="">
-                                                        <i class="bi bi-person-vcard"></i>
+                                                    <i class="bi bi-person-vcard"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -447,18 +454,7 @@
                                                     onchange="calculateAge(event,'age'), handlerAge(event)">
                                             </div>
                                         </diV>
-
-                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Edad"
-                                                        class="form-control @error('age') is-invalid @enderror"
-                                                        id="age" name="age" type="text" value=" "
-                                                        readonly>
-                                                    <i class="bi bi-person-circle"></i>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <input id="age" name="age" type="hidden" value="">
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="floating-label-group">
                                                 <div class="Icon-inside">
@@ -479,7 +475,7 @@
                                                     <input autocomplete="off" placeholder="Correo Electronico"
                                                         class="form-control @error('email') is-invalid @enderror"
                                                         id="email" name="email" type="text" value="">
-                                                        <i class="bi bi-envelope-at"></i>
+                                                    <i class="bi bi-envelope-at"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -492,7 +488,7 @@
                                                     <input autocomplete="off" placeholder="Teléfono"
                                                         class="form-control @error('phone') is-invalid @enderror"
                                                         id="phone" name="phone" type="text" value="">
-                                                        <i class="bi bi-telephone-forward"></i>
+                                                    <i class="bi bi-telephone-forward"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -502,7 +498,7 @@
                                                     <input autocomplete="off" placeholder="Profesión"
                                                         class="form-control @error('profession') is-invalid @enderror"
                                                         id="profession" name="profession" type="text" value="">
-                                                        <i class="bi bi-journal-bookmark-fill"></i>
+                                                    <i class="bi bi-journal-bookmark-fill"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -513,7 +509,7 @@
                                                     <input autocomplete="off" placeholder="Dirección"
                                                         class="form-control @error('address') is-invalid @enderror"
                                                         id="address" name="address" type="text" value="">
-                                                          <i class="bi bi-geo"></i>
+                                                    <i class="bi bi-geo"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -521,10 +517,26 @@
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Código de Área"
+                                                    <input autocomplete="off" placeholder="Localidad"
                                                         class="form-control @error('zip_code') is-invalid @enderror"
                                                         id="zip_code" name="zip_code" type="text" value="">
-                                                        <i class="bi bi-geo"></i>
+                                                    <i class="bi bi-geo"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                            <div class="floating-label-group">
+                                                <div class="Icon-inside">
+                                                    <select name="center_id" id="center_id"
+                                                        placeholder="Seleccione"class="form-control @error('center_id') is-invalid @enderror"
+                                                        class="form-control combo-textbox-input">
+                                                        @foreach ($centers as $item)
+                                                            <option value={{ $item->id }}>{{ $item->description }}
+                                                            </option>
+                                                        @endforeach
+
+                                                    </select>
+                                                    <i class="bi bi-gender-ambiguous"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -564,7 +576,7 @@
                                                         <input autocomplete="off" placeholder="Cédula del representante"
                                                             class="form-control @error('re_ci') is-invalid @enderror"
                                                             id="re_ci" name="re_ci" type="text" value="">
-                                                            <i class="bi bi-person-vcard"></i>
+                                                        <i class="bi bi-person-vcard"></i>
                                                     </div>
                                                 </diV>
                                             </div>
@@ -575,7 +587,7 @@
                                                             class="form-control @error('re_email') is-invalid @enderror"
                                                             id="re_email" name="re_email" type="text"
                                                             value="">
-                                                            <i class="bi bi-envelope-at"></i>
+                                                        <i class="bi bi-envelope-at"></i>
                                                     </div>
                                                 </diV>
                                             </div>
@@ -587,12 +599,12 @@
                                                             class="form-control @error('re_phone') is-invalid @enderror"
                                                             id="re_phone" name="re_phone" type="text"
                                                             value="">
-                                                            <i class="bi bi-telephone-forward"></i>
+                                                        <i class="bi bi-telephone-forward"></i>
                                                     </div>
                                                 </diV>
                                             </div>
                                         </div>
-                                        {{-- end --}}                                      
+                                        {{-- end --}}
                                     </div>
 
                                     <div class="row mt-3">
@@ -684,8 +696,10 @@
                                                         </a>
                                                     </div>
                                                     <div class="button-patients-hijo">
-                                                        <a href="{{ route('ClinicalHistoryDetail', encrypt($item->id) ) }}">
-                                                            <button type="button" class="btn bnt2 btnSecond">Historia Clinica</button>
+                                                        <a
+                                                            href="{{ route('ClinicalHistoryDetail', encrypt($item->id)) }}">
+                                                            <button type="button" class="btn bnt2 btnSecond">Historia
+                                                                Clinica</button>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -714,7 +728,7 @@
                                                     <tr>
                                                         <th scope="row">1</th>
                                                         <td>{{ $item->name }}</td>
-                                                        <td>{{ $item->ci}}</td>
+                                                        <td>{{ $item->ci }}</td>
                                                         <td>{{ $item->birthdate }}</td>
                                                         <td>{{ $item->genere }}</td>
                                                         <td>{{ $item->phone }}</td>
