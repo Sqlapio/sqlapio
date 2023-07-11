@@ -28,7 +28,7 @@
 <div>
     <hr>
     <div>
-        <h5 class="collapseBtn">{{$titlle}}</h5>
+        <h5 class="collapseBtn">{{$title}}</h5>
     </div>
     <hr>
     <div class="row">
