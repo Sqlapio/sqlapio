@@ -21,6 +21,8 @@ class Patient extends Model
      */
     protected $fillable = [
 
+        'user_id',
+        'center_id',
         'name',
         'last_name',
         'ci',
@@ -35,11 +37,6 @@ class Patient extends Model
         'address',
         'zip_code',
         'is_minor',
-        're_name',
-        're_last_name',
-        're_ci',
-        're_email',
-        're_phone',
 
     ];
 }
