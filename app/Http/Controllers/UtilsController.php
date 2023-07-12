@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMail;
 use App\Models\Appointment;
 use App\Models\Center;
 use App\Models\City;
@@ -9,8 +10,12 @@ use App\Models\DoctorCenter;
 use App\Models\History;
 use App\Models\Patient;
 use App\Models\State;
+use App\Models\User;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 
 class UtilsController extends Controller {
 
@@ -213,6 +218,44 @@ class UtilsController extends Controller {
 			dd('Error UtilsController.get_doctor_centers()', $message);
 		}
 		
+	}
+
+	static function send_mail($verification_code, $email)
+    {
+
+		try {
+			$mailData = [
+				'title' => 'Mail de SqlapioTechnology',
+				'body' => 'Verificacion de tu cuenta de correo electronico'
+			];
+			 
+			Mail::to($email)->send(new SendMail($mailData, $verification_code));
+			   
+			dd("Email is sent successfully.");
+			//code...
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.send_mail()', $message);
+		}
+        
+    }
+
+	static function verify_email($verification_code)
+	{
+		try {
+
+				$verify = DB::table('users')
+					->where('verification_code', $verification_code)
+					->update(['email_verified_at' => date('d-m-Y')]);
+
+				return redirect('/login')->with('success', 'Has confirmado correctamente tu correo!');
+			//code...
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.verify_email()', $message);
+		}
+		
+
 	}
 
 }
