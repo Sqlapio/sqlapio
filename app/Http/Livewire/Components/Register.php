@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Register extends Component {
@@ -52,12 +53,15 @@ class Register extends Component {
 				'email' => $request->email,
 				'password' => Hash::make($request->password),
 				'role' => $request->rol,
+				'verification_code' => Str::random(30)
 
 			]);
 
 			$action = '3';
 
 			ActivityLogController::store_log($action);
+
+			UtilsController::send_mail($user['verification_code'], $user['email']);
 
 			return redirect('/')->with('success', 'El registro inicial satisfactorio');
 

@@ -36,6 +36,12 @@ Route::post('/login', [Login::class, 'login'])->name('login');
 Route::get('/register-user', [Register::class, 'render'])->name('Register');
 Route::post('/register', [Register::class, 'store'])->name('Register-create');
 
+/**
+ * Ruta la verificacion de email
+ * al realizar el registro del usuario
+ */
+Route::get('/verify/{verification_code}', [UtilsController::class, 'verify_email']);
+
 
 Route::middleware(['auth'])->group(function () {
     
