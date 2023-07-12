@@ -2,6 +2,7 @@
 @section('title', 'Historia Clínica')
 <script src="{{ asset('jquery-ui-1.13.2/external/jquery/jquery.js') }}" type="text/javascript"></script>
 <script src="{{ asset('jquery-validation-1.19.5/dist/jquery.validate.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('jQuery-Mask-Plugin-master/dist/jquery.mask.min.js') }}" type="text/javascript"></script>
 
 @push('scripts')
     <script>
@@ -22,7 +23,7 @@
         let countMedicationAdd = 0;
 
         $(document).ready(() => {
-
+            $('.mask-input').mask('000,00');
             $(".datePickert").datepicker({
                 language: 'es'
             });
@@ -32,11 +33,9 @@
                 rules: {
                     weight: {
                         required: true,
-                        onlyNumber: true
                     },
                     height: {
                         required: true,
-                        onlyNumber: true
                     },
                 },
                 messages: {
@@ -47,11 +46,7 @@
                         required: "Altura es obligatoria",
                     },
                 }
-            });
-            $.validator.addMethod("onlyNumber", function(value, element) {
-                var pattern = /^\d+\.?\d*$/;
-                return pattern.test(value);
-            }, "Campo solo numero");
+            });        
 
             //envio del formulario
             $("#form-mecal-histroy").submit(function(event) {
@@ -128,7 +123,7 @@
                 // limpiar campos
                 $('#type_alergia').val("");
                 $('#detalle_alergia').val("");
-            }        
+            }
         }
 
         function handlerDiagnosis(e) {
@@ -361,7 +356,7 @@
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <input autocomplete="off" placeholder="Peso"
-                                                    class="form-control @error('weight') is-invalid @enderror"
+                                                    class="mask-input form-control @error('weight') is-invalid @enderror"
                                                     id="weight" name="weight" type="text" value="">
                                                 <i class="bi bi-three-dots-vertical"></i>
                                             </div>
@@ -371,7 +366,7 @@
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <input autocomplete="off" placeholder="Altura"
-                                                    class="form-control @error('height') is-invalid @enderror"
+                                                    class="mask-input form-control @error('height') is-invalid @enderror"
                                                     id="height" name="height" type="text" value="">
                                                 <i class="bi bi-three-dots-vertical"></i>
                                             </div>
@@ -571,7 +566,8 @@
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
-                                                    <input onclick="handlerDiagnosis(event);" value="Gastritis/Ulceras                                                    "
+                                                    <input onclick="handlerDiagnosis(event);"
+                                                        value="Gastritis/Ulceras                                                    "
                                                         class="form-check" name="gastritis" type="checkbox"
                                                         id="gastritis">
                                                 </div>
@@ -615,8 +611,7 @@
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerDiagnosis(event);" class="form-check"
-                                                        name="tiroides" type="checkbox" id="tiroides"
-                                                        value="Tiroides">
+                                                        name="tiroides" type="checkbox" id="tiroides" value="Tiroides">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
@@ -640,9 +635,9 @@
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
-                                                    <input onclick="handlerDiagnosis(event);" value="Enfermedad autoimmune"
-                                                        class="form-check" name="autoimmune" type="checkbox"
-                                                        id="autoimmune">
+                                                    <input onclick="handlerDiagnosis(event);"
+                                                        value="Enfermedad autoimmune" class="form-check"
+                                                        name="autoimmune" type="checkbox" id="autoimmune">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
@@ -666,9 +661,9 @@
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
-                                                    <input onclick="handlerDiagnosis(event);" value="Presión arterial alta"
-                                                        class="form-check" name="presión_arterial" type="checkbox"
-                                                        id="presión_arterial">
+                                                    <input onclick="handlerDiagnosis(event);"
+                                                        value="Presión arterial alta" class="form-check"
+                                                        name="presión_arterial" type="checkbox" id="presión_arterial">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
@@ -753,8 +748,8 @@
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerDiagnosis(event);" class="form-check"
-                                                        name="insuficiencia_arterial" type="checkbox" id="insuficiencia_arterial"
-                                                        value="Insuficiencia arterial">
+                                                        name="insuficiencia_arterial" type="checkbox"
+                                                        id="insuficiencia_arterial" value="Insuficiencia arterial">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
@@ -791,9 +786,9 @@
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
-                                                    <input onclick="handlerDiagnosis(event);" value="Sangrado anormal en cirugías previas"
-                                                        class="form-check" name="sangrado" type="checkbox"
-                                                        id="sangrado">
+                                                    <input onclick="handlerDiagnosis(event);"
+                                                        value="Sangrado anormal en cirugías previas" class="form-check"
+                                                        name="sangrado" type="checkbox" id="sangrado">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
@@ -804,9 +799,9 @@
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
-                                                    <input onclick="handlerDiagnosis(event);" value="Sangrado anormal en cepillado dental"
-                                                        class="form-check" name="sangrado_dental" type="checkbox"
-                                                        id="sangrado_dental">
+                                                    <input onclick="handlerDiagnosis(event);"
+                                                        value="Sangrado anormal en cepillado dental" class="form-check"
+                                                        name="sangrado_dental" type="checkbox" id="sangrado_dental">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
@@ -831,8 +826,8 @@
                             </div>
                         </div>
                     </div>
-                </div>              
-                {{-- historia Antecedentes personales no patológicos--}}
+                </div>
+                {{-- historia Antecedentes personales no patológicos --}}
                 <div class="row  mt-3">
                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
                         <div class="card">
@@ -848,9 +843,7 @@
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerNotPathologica(event);" class="form-check"
-                                                        name="tabaco" type="checkbox"
-                                                        id="tabaco"
-                                                        value="Tabaco">
+                                                        name="tabaco" type="checkbox" id="tabaco" value="Tabaco">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
@@ -861,9 +854,8 @@
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
-                                                    <input onclick="handlerNotPathologica(event);"
-                                                        value="Alcohol" class="form-check"
-                                                        name="Alcohol" type="checkbox"
+                                                    <input onclick="handlerNotPathologica(event);" value="Alcohol"
+                                                        class="form-check" name="Alcohol" type="checkbox"
                                                         id="Alcohol">
                                                 </div>
                                                 <div>
@@ -875,9 +867,8 @@
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
-                                                    <input onclick="handlerNotPathologica(event);"
-                                                        value="Drogas" class="form-check"
-                                                        name="Drogas" type="checkbox"
+                                                    <input onclick="handlerNotPathologica(event);" value="Drogas"
+                                                        class="form-check" name="Drogas" type="checkbox"
                                                         id="Drogas">
                                                 </div>
                                                 <div>
@@ -891,8 +882,7 @@
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerNotPathologica(event);"
                                                         value="vacunas recientes" class="form-check"
-                                                        name="vacunas_recientes" type="checkbox"
-                                                        id="vacunas_recientes">
+                                                        name="vacunas_recientes" type="checkbox" id="vacunas_recientes">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
@@ -933,8 +923,8 @@
                         </div>
                     </div>
                 </div>
-                  {{-- historia ginecológica --}}
-                  <div class="row  mt-3">
+                {{-- historia ginecológica --}}
+                <div class="row  mt-3">
                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
                         <div class="card">
                             <div class="card-header collapseBtn">
@@ -949,8 +939,7 @@
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerGynecological(event);" class="form-check"
-                                                        name="menstruation" type="checkbox"
-                                                        id="menstruation"
+                                                        name="menstruation" type="checkbox" id="menstruation"
                                                         value="menstruation">
                                                 </div>
                                                 <div>
@@ -978,8 +967,7 @@
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerGynecological(event);"
                                                         value="Numero de embarazos" class="form-check"
-                                                        name="Numero_embarazos" type="checkbox"
-                                                        id="Numero_embarazos">
+                                                        name="Numero_embarazos" type="checkbox" id="Numero_embarazos">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
@@ -990,9 +978,8 @@
                                             </div>
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
-                                                    <input onclick="handlerGynecological(event);"
-                                                        value="Numero de partos" class="form-check"
-                                                        name="Numero_partos" type="checkbox"
+                                                    <input onclick="handlerGynecological(event);" value="Numero de partos"
+                                                        class="form-check" name="Numero_partos" type="checkbox"
                                                         id="Numero_partos">
                                                 </div>
                                                 <div>
@@ -1006,8 +993,7 @@
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerGynecological(event);"
                                                         value="Numero de cesáreas" class="form-check"
-                                                        name="Numero_cesáreas" type="checkbox"
-                                                        id="Numero_cesáreas">
+                                                        name="Numero_cesáreas" type="checkbox" id="Numero_cesáreas">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
@@ -1024,9 +1010,7 @@
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerGynecological(event);" class="form-check"
-                                                        name="abortos" type="checkbox"
-                                                        id="abortos"
-                                                        value="abortos">
+                                                        name="abortos" type="checkbox" id="abortos" value="abortos">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
@@ -1039,17 +1023,17 @@
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerGynecological(event);"
                                                         value=" En la actualidad utiliza algún anticonceptivo o cualquier otro 
-                                                        hormonal(pastillas, parches o inyección) ? + Cual?" class="form-check"
-                                                        name="actualidad" type="checkbox"
+                                                        hormonal(pastillas, parches o inyección) ? + Cual?"
+                                                        class="form-check" name="actualidad" type="checkbox"
                                                         id="actualidad">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
-                                                        En la actualidad utiliza algún anticonceptivo o cualquier otro 
-                                                        hormonal(pastillas, parches o inyección) ? + Cual?                                                    </label>
+                                                        En la actualidad utiliza algún anticonceptivo o cualquier otro
+                                                        hormonal(pastillas, parches o inyección) ? + Cual? </label>
                                                 </div>
-                                            </div>                                       
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1078,23 +1062,29 @@
                                 <div class="row  mt-3">
                                     <input type="hidden" name="allergies[]" id="allergies" value="">
                                     <h5 class="text-center collapseBtn">Añadir Alergias</h5>
-                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 ">
+                                    <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <input autocomplete="off" placeholder="tipo de alergia"
-                                                    class="form-control" id="type_alergia" name="type_alergia"
-                                                    type="text" value="">
+                                                <select name="type_alergia" id="type_alergia"
+                                                    placeholder="Seleccione"class="form-control"
+                                                    class="form-control combo-textbox-input">
+                                                    <option value="">Seleccione tipo de alergia</option>
+                                                    <option value="Medicinas"> Medicinas</option>
+                                                    <option value="Alimentos">Alimentos</option>
+                                                    <option value="Latex">Latex</option>
+                                                    <option value="Otros">Otros</option>
+                                                </select>
                                                 <i class="bi bi-three-dots-vertical"></i>
+                                                <span id="type_alergia_span" class="text-danger"></span>
                                             </div>
-                                            <span id="type_alergia_span" class="text-danger"></span>
-                                        </diV>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                    <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <input autocomplete="off" placeholder="Detalle"
-                                                    class="form-control" id="detalle_alergia"
-                                                    name="detalle_alergia" type="text" value="">
+                                                <input autocomplete="off" placeholder="Detalle" class="form-control"
+                                                    id="detalle_alergia" name="detalle_alergia" type="text"
+                                                    value="">
                                                 <i class="bi bi-three-dots-vertical"></i>
                                             </div>
                                             <span id="detalle_alergia_span" class="text-danger"></span>
