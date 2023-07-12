@@ -158,7 +158,7 @@ class Patients extends Component
                 $patient->city = $request->city;
                 $patient->address = $request->address;
                 $patient->zip_code = $request->zip_code;
-                $patient->user_id = $request->user_id;
+                $patient->user_id = $user_id;
                 $patient->center_id = $request->center_id;
                 $patient->save();
 
