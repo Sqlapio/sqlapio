@@ -37,6 +37,27 @@
                     height: {
                         required: true,
                     },
+                    countBackFamily: {
+                        required: true,
+                    },
+                    countAllergies: {
+                        required: true,
+                    },
+                    countDiagnosis: {
+                        required: true,
+                    },
+                    countSurgical: {
+                        required: true,
+                    },
+                    countNotPathological: {
+                        required: true,
+                    },
+                    countMedicationAdd: {
+                        required: true,
+                    },
+                    countGynecological: {
+                        required: true
+                    }
                 },
                 messages: {
                     weight: {
@@ -45,8 +66,29 @@
                     height: {
                         required: "Altura es obligatoria",
                     },
+                    countBackFamily: {
+                        required: "Debe seleccionar uan opción"
+                    },
+                    countAllergies: {
+                        required: "Debe seleccionar uan opción"
+                    },
+                    countDiagnosis: {
+                        required: "Debe seleccionar uan opción"
+                    },
+                    countSurgical: {
+                        required: "Debe seleccionar uan opción"
+                    },
+                    countNotPathological: {
+                        required: "Debe seleccionar uan opción"
+                    },
+                    countMedicationAdd: {
+                        required: "Debe seleccionar uan opción"
+                    },
+                    countGynecological: {
+                        required: "Debe seleccionar uan opción"
+                    },
                 }
-            });        
+            });
 
             //envio del formulario
             $("#form-mecal-histroy").submit(function(event) {
@@ -287,8 +329,8 @@
 @endpush
 @section('content')
     <div>
-        <div class="container-fluid">
-            <form id="form-mecal-histroy" method="post" action="/">
+        <div class="container-fluid">            
+            <form id="form-mecal-histroy" method="post" action="/">              
                 {{ csrf_field() }}
                 <div class="row mt-3">
                     <input type="hidden" name="id" value="{{ $Patient->id }}">
@@ -505,6 +547,19 @@
                                                     <label style="font-size: 15px;" class="form-check-label"
                                                         for="flexCheckDefault">
                                                         COVID19
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerBackFamiliy(event);" value="na_back_family"
+                                                        class="form-check" name="na_back_family" type="checkbox"
+                                                        id="na_back_family">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        No aplica
                                                     </label>
                                                 </div>
                                             </div>
@@ -810,6 +865,20 @@
                                                     </label>
                                                 </div>
                                             </div>
+
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerDiagnosis(event);" value="na_Diagnosis"
+                                                        class="form-check" name="na_Diagnosis" type="checkbox"
+                                                        id="na_Diagnosis">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        No aplica
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -906,6 +975,20 @@
                                                 </div>
                                             </div>
 
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerNotPathologica(event);"
+                                                        value="na_NotPathologica" class="form-check"
+                                                        name="na_NotPathologica" type="checkbox" id="na_NotPathologica">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        No aplica
+                                                    </label>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -924,7 +1007,7 @@
                     </div>
                 </div>
                 {{-- historia ginecológica --}}
-                <div class="row  mt-3">
+                <div class="row  mt-3">                   
                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
                         <div class="card">
                             <div class="card-header collapseBtn">
@@ -1050,7 +1133,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>               
                 {{-- alergias --}}
                 <div class="row  mt-3">
                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
@@ -1335,9 +1418,7 @@
                                     </tfoot>
                                 </div>
                             </div>
-
-
-                            <div class="row">
+                            <div class="row justify-content-md-center mt-3">                              
                                 <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2  mt-2">
                                     <input class="btn btnPrimary send " value="Guardar" type="submit" />
                                 </div>
@@ -1345,6 +1426,7 @@
                             </div>
                         </div>
                     </div>
+                </div>                
             </form>
         </div>
     </div>
