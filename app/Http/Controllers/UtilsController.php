@@ -230,9 +230,7 @@ class UtilsController extends Controller {
 			];
 			 
 			Mail::to($email)->send(new SendMail($mailData, $verification_code));
-			   
-			dd("Email is sent successfully.");
-			//code...
+
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.send_mail()', $message);
@@ -242,11 +240,12 @@ class UtilsController extends Controller {
 
 	static function verify_email($verification_code)
 	{
+
 		try {
 
 				$verify = DB::table('users')
 					->where('verification_code', $verification_code)
-					->update(['email_verified_at' => date('d-m-Y')]);
+					->update(['email_verified_at' => date('Y-m-d H:m:ss')]);
 
 				return redirect('/login')->with('success', 'Has confirmado correctamente tu correo!');
 			//code...
