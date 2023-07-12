@@ -247,7 +247,7 @@ class UtilsController extends Controller {
 					->where('verification_code', $verification_code)
 					->update(['email_verified_at' => date('Y-m-d H:m:ss')]);
 
-				return redirect('/login')->with('success', 'Has confirmado correctamente tu correo!');
+				return redirect('/')->with('success', 'Has confirmado correctamente tu correo!');
 			//code...
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
