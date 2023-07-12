@@ -23,7 +23,7 @@
         let countMedicationAdd = 0;
 
         $(document).ready(() => {
-            $('.mask-input').mask('000,000');
+            $('.mask-input').mask('000,00');
             $(".datePickert").datepicker({
                 language: 'es'
             });
