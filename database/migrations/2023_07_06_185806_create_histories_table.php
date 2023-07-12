@@ -20,9 +20,9 @@ return new class extends Migration
             // fecha de registro de la historia clinica
             $table->string('history_date');
             // peso
-            $table->decimal('weight', 5, 5);
+            $table->string('weight');
             // altura
-            $table->decimal('height', 5, 5);
+            $table->string('height');
             // antecedentes familiares
             $table->json('back_family')->nullable();
             // alergias
