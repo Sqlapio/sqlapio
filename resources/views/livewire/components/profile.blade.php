@@ -15,7 +15,7 @@
 <script>
     $(document).ready(() => {
         $("#alert").hide()
-
+        $('.phone').mask('(0000) 000-00-00');
         $('#form-profile').validate({
             rules: {
                 name: {
@@ -234,7 +234,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <input autocomplete="off" placeholder="Teléfono"
-                                                        class="form-control @error('phone') is-invalid @enderror"
+                                                        class="form-control phone @error('phone') is-invalid @enderror"
                                                         id="phone" name="phone" type="text" value="{!! !empty($user) ? $user->phone : '' !!}">
                                                         <i class="bi bi-telephone-forward"></i>
                                                 </div>
