@@ -105,7 +105,7 @@ class Register extends Component {
 			$action = '4';
 			ActivityLogController::store_log($action);
 
-			return redirect('DashboardComponent')->with('success', 'Registro actualizado de forma satisfactoria');
+			return true;
 
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
