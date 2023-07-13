@@ -4,8 +4,6 @@
 <script src="{{ asset('assets/js/bootstrap-datepicker.js') }}"></script>
 <script src="{{ asset('assets/locales/bootstrap-datepicker.es.min.js') }}"></script>
 <script src="{{ asset('jquery-validation-1.19.5/dist/jquery.validate.min.js') }}" type="text/javascript"></script>
-<script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
-
 <style>
     body {
         font-family: 'Roboto', 'Inter', "Helvetica Neue", Helvetica, 'Source Sans Pro' !important;
