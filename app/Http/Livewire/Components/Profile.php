@@ -10,6 +10,6 @@ class Profile extends Component
     public function render()
     {
         $user = Auth::user();
-        return view('livewire.components.profile');
+        return view('livewire.components.profile', compact('user'));
     }
 }

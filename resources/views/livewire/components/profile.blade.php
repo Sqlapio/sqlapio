@@ -45,13 +45,7 @@
                 },
                 birthdate: {
                     required: true,
-                },
-                age: {
-                    required: true,
-                    onlyNumber: true,
-                    minlength: 1,
-                    maxlength: 3,
-                },
+                },              
                 state: {
                     required: true,
                 },
@@ -78,7 +72,6 @@
                     required: "Apellidos es obligatorio",
                     minlength: "Apellidos debe ser mayor a 6 caracteres",
                     maxlength: "Apellidos debe ser menor a 8 caracteres",
-                    // pattern: "pattern",
                 },
 
                 email: {
@@ -91,19 +84,13 @@
                     required: "Cedula de identidad es obligatoria",
                     minlength: "Cedula de identidad  debe ser mayor a 5 caracteres",
                     maxlength: "Cedula de identidad  debe ser menor a 8 caracteres",
-                    // pattern: "pattern",
                 },
                 genere: {
                     required: "Genero es obligatorio",
                 },
                 birthdate: {
                     required: "Fecha de nacimiento es obligatorio",
-                },
-                age: {
-                    required: "Edad es obligatoria",
-                    minlength: "Edad debe ser mayor a 1 caracteres",
-                    maxlength: "Edad debe ser menor a 3 caracteres",
-                },
+                },              
                 state: {
                     required: "Esatdo es obligatoria",
                 },
@@ -200,7 +187,7 @@
                                                 <div class="Icon-inside">
                                                     <input autocomplete="off" placeholder="Nombres"
                                                         class="form-control @error('name') is-invalid @enderror"
-                                                        id="name" name="name" type="text" readonly value="{!! !empty($user) ? $user->name : '' !!}">
+                                                        id="name" name="name" type="text"  value="{!! !empty($user) ? $user->name : '' !!}">
                                                     <i class="bi bi-person-circle"></i>
                                                 </div>
                                             </diV>
@@ -210,7 +197,7 @@
                                                 <div class="Icon-inside">
                                                     <input autocomplete="off" placeholder="Apellidos"
                                                         class="form-control @error('last_name') is-invalid @enderror"
-                                                        id="last_name" name="last_name" type="text" readonly value="{!! !empty($user) ? $user->last_name : '' !!}">
+                                                        id="last_name" name="last_name" type="text"  value="{!! !empty($user) ? $user->last_name : '' !!}">
                                                     <i class="bi bi-person-circle"></i>
                                                 </div>
                                             </diV>
@@ -220,7 +207,7 @@
                                                 <div class="Icon-inside">
                                                     <input autocomplete="off" placeholder="Cédula de identidad"
                                                         class="form-control @error('ci') is-invalid @enderror"
-                                                        id="ci" name="ci" type="text" value="">
+                                                        id="ci" name="ci" type="text" readonly value="{!! !empty($user) ? $user->ci : '' !!}">
                                                         <i class="bi bi-person-vcard"></i>
                                                 </div>
                                             </diV>
@@ -231,17 +218,8 @@
                                                     class="form-control @error('birthdate') is-invalid @enderror"
                                                     id="birthdate" name="birthdate" type="date" value="" onchange="calculateAge(event,'age')">
                                             </diV>
-                                        </div>
-                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Edad"
-                                                        class="form-control @error('age') is-invalid @enderror"
-                                                        id="age" name="age" type="text" value="" readonly>
-                                                    <i class="bi bi-geo-alt"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
+                                        </div> 
+                                        <input id="age" name="age" type="hidden" value="" >                                     
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
@@ -257,7 +235,7 @@
                                                 <div class="Icon-inside">
                                                     <input autocomplete="off" placeholder="Teléfono"
                                                         class="form-control @error('phone') is-invalid @enderror"
-                                                        id="phone" name="phone" type="text" value="">
+                                                        id="phone" name="phone" type="text" value="{!! !empty($user) ? $user->phone : '' !!}">
                                                         <i class="bi bi-telephone-forward"></i>
                                                 </div>
                                             </diV>
@@ -267,7 +245,7 @@
                                                 <div class="Icon-inside">
                                                     <input autocomplete="off" placeholder="Dirección"
                                                         class="form-control @error('address') is-invalid @enderror"
-                                                        id="address" name="address" type="text" value="">
+                                                        id="address" name="address" type="text" value="{!! !empty($user) ? $user->address : '' !!}">
                                                         <i class="bi bi-geo"></i>
                                                 </div>
                                             </diV>
@@ -279,9 +257,9 @@
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Código de area"
+                                                    <input autocomplete="off" placeholder="Localidad"
                                                         class="form-control @error('zip_code') is-invalid @enderror"
-                                                        id="zip_code" name="zip_code" type="text" value="">
+                                                        id="zip_code" name="zip_code" type="text" value="{!! !empty($user) ? $user->zip_code : '' !!}">
                                                         <i class="bi bi-geo"></i>
                                                 </div>
                                             </diV>
