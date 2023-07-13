@@ -207,7 +207,7 @@
                                                 <div class="Icon-inside">
                                                     <input autocomplete="off" placeholder="Cédula de identidad"
                                                         class="form-control @error('ci') is-invalid @enderror"
-                                                        id="ci" name="ci" type="text" readonly value="{!! !empty($user) ? $user->ci : '' !!}">
+                                                        id="ci" name="ci" type="text"  value="{!! !empty($user) ? $user->ci : '' !!}">
                                                         <i class="bi bi-person-vcard"></i>
                                                 </div>
                                             </diV>
