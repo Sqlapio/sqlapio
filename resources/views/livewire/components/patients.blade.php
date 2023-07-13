@@ -4,11 +4,17 @@
 <script src="{{ asset('assets/js/bootstrap-datepicker.js') }}"></script>
 <script src="{{ asset('assets/locales/bootstrap-datepicker.es.min.js') }}"></script>
 <script src="{{ asset('jquery-validation-1.19.5/dist/jquery.validate.min.js') }}" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+
 <style>
     body {
         font-family: 'Roboto', 'Inter', "Helvetica Neue", Helvetica, 'Source Sans Pro' !important;
         letter-spacing: -.022em;
         color: #1d1d1f;
+    }
+
+    .td-pad {
+        padding-top: 35px !important;
     }
 
     .borde {
@@ -76,9 +82,11 @@
 </style>
 <script>
     let pathologiesArray = [];
+    let patients = @json($patients);
     $(document).ready(() => {
+        let table = new DataTable('#table-patient');
         $("#alert").hide()
-
+        $('.phone').mask('(0000) 000-00-00');
         $('#form-patients').validate({
             rules: {
                 name: {
@@ -120,7 +128,6 @@
                 },
                 zip_code: {
                     required: true,
-                    onlyNumber: true
                 },
                 re_name: {
                     required: true,
@@ -250,6 +257,11 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
+                        console.log(response);
+
+                        let route = "{{ route('ClinicalHistoryDetail', ':id') }}";
+                        route = route.replace(':id', response.id);
+
                         $('#send').show();
                         $('#spinner').hide();
                         $("#alert").show()
@@ -258,6 +270,59 @@
                         setTimeout(() => {
                             $("#alert").hide();
                         }, 3500);
+
+                        //    agregando registro en la tabla pacientes    
+                        let row = `
+                    <tr>
+                    <td class="text-center td-pad">    
+                    <div class="row" >
+                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                    <div class="img">
+                    <img id="imgPaciente2"
+                    src="{{ asset('img/People-Client-Male-icon.png') }}"
+                    alt="Imagen del paciente" class="img-responsive"
+                    style="width:85px; height:64px;">
+                    </div>
+                    </div>
+                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                    <div>
+                    ${response.name}
+                    </div>
+                    </div>
+                    </div>
+                    </td>
+                    <td class="text-center td-pad">${response.ci}</td>
+                    <td class="text-center td-pad">${response.birthdate}</td>
+                    <td class="text-center td-pad">${response.genere}</td>
+                    <td class="text-center td-pad">${response.phone}</td>
+                    <td class="text-center td-pad">${response.email}</td>
+                    <td class="text-center td-pad">${response.address}</td>
+                    <td class="text-center">
+                    <div class="button-patients-padre">
+                    <div class="button-patients-hijo">
+                    <button type="button"
+                    class="btn  bnt2 btnPrimary">Citar
+                    Paciente</button>
+                    </div>
+                    <div class="button-patients-hijo">
+                    <a href="{{ route('MedicalRecord') }}">
+                    <button type="button"
+                    class="btn bnt2 btnPrimary">Más
+                    información</button>
+                    </a>
+                    </div>
+                    <div class="button-patients-hijo">
+                    <a
+                    href="${route}">
+                    <button type="button"
+                    class="btn bnt2 btnSecond">Historia
+                    Clinica</button>
+                    </a>
+                    </div>
+                    </div>
+                    </td>
+                    </tr>`;
+                        $('#table-patient').find('tbody').append(row);
                     },
                     error: function(error) {
                         $('#send').show();
@@ -273,8 +338,8 @@
 
     function showTable() {
         if (active) {
-            $('#grip-patients').hide();
-            $('#table-patients').show();
+            $('#grip-patients').show();
+            $('#table-patients').hide();
             $('#btns1').show();
             $('#btns2').show();
             $('#btns2').show();
@@ -282,8 +347,8 @@
             $('#btnShow').text('Ver listados');
             active = false;
         } else {
-            $('#table-patients').hide();
-            $('#grip-patients').show();
+            $('#table-patients').show();
+            $('#grip-patients').hide();
             $('#btnShow').text('Vista Tarjetas');
             $('#btns1').hide();
             $('#btns2').hide();
@@ -338,7 +403,6 @@
         }
     }
 </script>
-
 @section('content')
     <div>
         <div class="container-fluid text-center body">
@@ -486,7 +550,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <input autocomplete="off" placeholder="Teléfono"
-                                                        class="form-control @error('phone') is-invalid @enderror"
+                                                        class="form-control phone @error('phone') is-invalid @enderror"
                                                         id="phone" name="phone" type="text" value="">
                                                     <i class="bi bi-telephone-forward"></i>
                                                 </div>
@@ -596,7 +660,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <input autocomplete="off" placeholder="Teléfono del representante"
-                                                            class="form-control @error('re_phone') is-invalid @enderror"
+                                                            class="form-control phone @error('re_phone') is-invalid @enderror"
                                                             id="re_phone" name="re_phone" type="text"
                                                             value="">
                                                         <i class="bi bi-telephone-forward"></i>
@@ -665,7 +729,7 @@
 
                                 <hr>
 
-                                <div class="row" id="grip-patients">
+                                <div class="row" id="grip-patients" style="display: none">
                                     @foreach ($patients as $item)
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4" style="margin-top: 20px:">
                                             <div class="patients-div">
@@ -708,32 +772,73 @@
                                     @endforeach
                                 </div>
 
-                                <div class="row" style="display: none" id="table-patients">
+                                <div class="row"id="table-patients">
                                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12" style="margin-top: 20px:">
-                                        <table class="table table-striped table-bordered">
+                                        <table id="table-patient" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Nombre</th>
-                                                    <th scope="col">Cedula</th>
-                                                    <th scope="col">Fecha de Nacimiento </th>
-                                                    <th scope="col">Género</th>
-                                                    <th scope="col">Teléfono</th>
-                                                    <th scope="col">Email</th>
-                                                    <th scope="col">Direccion</th>
+                                                    <th class="text-center" scope="col">Nombre</th>
+                                                    <th class="text-center" scope="col">Cedula</th>
+                                                    <th class="text-center" scope="col">Fecha de Nacimiento </th>
+                                                    <th class="text-center" scope="col">Género</th>
+                                                    <th class="text-center" scope="col">Teléfono</th>
+                                                    <th class="text-center" scope="col">Email</th>
+                                                    <th class="text-center" scope="col">Direccion</th>
+                                                    <th class="text-center"scope="col">Acciones</th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($patients as $item)
                                                     <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>{{ $item->name }}</td>
-                                                        <td>{{ $item->ci }}</td>
-                                                        <td>{{ $item->birthdate }}</td>
-                                                        <td>{{ $item->genere }}</td>
-                                                        <td>{{ $item->phone }}</td>
-                                                        <td>{{ $item->email }}</td>
-                                                        <td>{{ $item->address }}</td>
+                                                        <td class="text-center td-pad">
+                                                            <div class="row">
+                                                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                                                    <div class="img">
+                                                                        <img id="imgPaciente2"
+                                                                            src="{{ asset('img/People-Client-Male-icon.png') }}"
+                                                                            alt="Imagen del paciente"
+                                                                            class="img-responsive"
+                                                                            style="width:85px; height:64px;">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                                                    <div>
+                                                                        {{ $item->name }}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center td-pad">{{ $item->ci }}</td>
+                                                        <td class="text-center td-pad">{{ $item->birthdate }}</td>
+                                                        <td class="text-center td-pad">{{ $item->genere }}</td>
+                                                        <td class="text-center td-pad">{{ $item->phone }}</td>
+                                                        <td class="text-center td-pad">{{ $item->email }}</td>
+                                                        <td class="text-center td-pad">{{ $item->address }}</td>
+                                                        <td class="text-center">
+                                                            <div class="button-patients-padre">
+                                                                <div class="button-patients-hijo">
+                                                                    <button type="button"
+                                                                        class="btn  bnt2 btnPrimary">Citar
+                                                                        Paciente</button>
+                                                                </div>
+                                                                <div class="button-patients-hijo">
+                                                                    <a href="{{ route('MedicalRecord') }}">
+                                                                        <button type="button"
+                                                                            class="btn bnt2 btnPrimary">Más
+                                                                            información</button>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="button-patients-hijo">
+                                                                    <a
+                                                                        href="{{ route('ClinicalHistoryDetail', encrypt($item->id)) }}">
+                                                                        <button type="button"
+                                                                            class="btn bnt2 btnSecond">Historia
+                                                                            Clinica</button>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

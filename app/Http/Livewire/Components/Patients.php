@@ -167,7 +167,7 @@ class Patients extends Component
             $action = '5';
             ActivityLogController::store_log($action);
 
-            return true;
+            return $patient;
             
         } catch (\Throwable $th) {
             $message = $th->getMessage();

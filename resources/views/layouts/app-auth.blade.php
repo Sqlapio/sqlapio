@@ -9,6 +9,7 @@
     @livewireStyles
 </head>
 @stack('scripts')
+<script src="{{ asset('jQuery-Mask-Plugin-master/dist/jquery.mask.min.js') }}" type="text/javascript"></script> --}}
 @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 <style>
     @import url('/fuentes/Roboto-Black.ttf');  
