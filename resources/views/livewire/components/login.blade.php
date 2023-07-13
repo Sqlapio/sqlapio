@@ -71,7 +71,7 @@
             <div class="row justify-content-center">
                 <div class="col-sm-3 col-md-3	col-lg-3 col-xl-3 col-xxl-3 loginDric">
                     <div class="">
-                        <img class="img" src="{{ asset('img/logo-nav.png') }}" class="logo">
+                        {{-- <img class="img" src="{{ asset('img/logo-nav.png') }}" class="logo"> --}}
                         <img class="img" src="{{ asset('img/iniciar-sesion.png') }}" class="">
                     </div>
                     {{ Form::open(['url' => '/login', 'method' => 'post', 'id' => 'form-login']) }}
