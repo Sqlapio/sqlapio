@@ -1,7 +1,5 @@
 @extends('layouts.app-auth')
 @section('title', 'Centros')
-<link rel="stylesheet" href="{{ asset('jquery-ui-1.13.2/jquery-ui.css') }}">
-<link rel="stylesheet" href="{{ asset('jquery-ui-1.13.2/jquery-ui.min.css') }}">
 <style>
     .datepicker-switch {
         background-color: #44525F !important;
