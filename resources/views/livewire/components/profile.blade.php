@@ -139,6 +139,8 @@
                         setTimeout(() => {
                             $("#alert").hide();
                         }, 3500);
+                        window.location.href = "{{ route('DashboardComponent') }}"
+                        
                     },
                     error: function(error) {
                         $('#send').show();
