@@ -1,6 +1,5 @@
 @extends('layouts.app-auth')
 @section('title', 'Configuración')
-<script src="{{ asset('jquery-ui-1.13.2/external/jquery/jquery.js') }}" type="text/javascript"></script>
 @section('content')
     <div>
         <div class="container-fluid">

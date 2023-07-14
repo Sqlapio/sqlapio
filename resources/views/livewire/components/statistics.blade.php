@@ -1,6 +1,6 @@
 @extends('layouts.app-auth')
 @section('title', 'Estadistica')
-<script src="{{ asset('jquery-ui-1.13.2/external/jquery/jquery.js') }}" type="text/javascript"></script>
+@vite(['resources/js/mychartGrafica.js','resources/js/mychartGraficaFac.js']);
 <style>
     .Icon-inside i {
         top: 20% !important
@@ -10,7 +10,6 @@
         height: 60px;
     }
 </style>
-
 @push('scripts')
     <script>
         function showResulTable() {

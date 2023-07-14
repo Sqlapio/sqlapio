@@ -1,83 +1,83 @@
 @extends('layouts.app-auth')
 @section('title', 'Historial Médico')
-<script src="{{ asset('jquery-ui-1.13.2/external/jquery/jquery.js') }}" type="text/javascript"></script>
-@section('content')
-    <style>
-        .ditaily-patients {
-            font-size: 15px;
-            text-align: justify;
+<style>
+    .ditaily-patients {
+        font-size: 15px;
+        text-align: justify;
+    }
+
+    .btns {
+        font-size: 10px;
+    }
+
+    .alert {
+        font-size: 15px;
+        text-align: justify;
+    }
+
+    .button-patients-padre {
+            text-align: left !important;
+            display: flex;
         }
 
-        .btns {
-            font-size: 10px;
+        .button-patients-hijo {
+            width: 100% !important;
         }
 
-        .alert {
-            font-size: 15px;
-            text-align: justify;
+        .hijo2 {
+            margin-top: 0% !important;
+        } 
+    .color-p {
+        background-color: #D9F4FF;
+        font-size: 15px;
+        text-align: justify;
+        border-radius: 0 !important;
+
+    }
+
+    .class-icon {
+        margin: 10px 10px 10px 10px;
+    }
+
+    .collapseBtn {
+        color: #428bca;
+    }
+
+    @media screen and (max-width: 600px) {
+        .btn {
+            margin: 10px 10px 10px 10px !important;
         }
+
+
 
         .button-patients-padre {
-                text-align: left !important;
-                display: flex;
-            }
-
-            .button-patients-hijo {
-                width: 100% !important;
-            }
-
-            .hijo2 {
-                margin-top: 0% !important;
-            } 
-        .color-p {
-            background-color: #D9F4FF;
-            font-size: 15px;
-            text-align: justify;
-            border-radius: 0 !important;
-
+            text-align: left !important;
+            display: flex;
         }
 
-        .class-icon {
-            margin: 10px 10px 10px 10px;
+        .button-patients-hijo {
+            width: 100% !important;
         }
 
-        .collapseBtn {
-            color: #428bca;
-        }
+        .hijo2 {
+            margin-top: 0% !important;
+        }         
 
-        @media screen and (max-width: 600px) {
-            .btn {
-                margin: 10px 10px 10px 10px !important;
+    }
+</style>
+@push('scripts')    
+<script>
+    $(document).ready(() => {
+        const collapseElementList = document.querySelectorAll('.collapse');
+        const collapseList = [...collapseElementList].map(collapseEl => {
+            if (collapseEl.id !== "navbarToggleExternalContent") {
+                new bootstrap.Collapse(collapseEl)
             }
-
-
-
-            .button-patients-padre {
-                text-align: left !important;
-                display: flex;
-            }
-
-            .button-patients-hijo {
-                width: 100% !important;
-            }
-
-            .hijo2 {
-                margin-top: 0% !important;
-            }         
-
-        }
-    </style>
-
-    <script>
-        $(document).ready(() => {
-            const collapseElementList = document.querySelectorAll('.collapse');
-            const collapseList = [...collapseElementList].map(collapseEl => {
-                if (collapseEl.id !== "navbarToggleExternalContent") {
-                    new bootstrap.Collapse(collapseEl)
-                }
-            })
         })
-    </script>
+    })
+</script>
+@endpush
+@section('content') 
     <div>
         <div class="container-fluid">
             <div class="row mt-3">
