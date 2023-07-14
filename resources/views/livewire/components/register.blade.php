@@ -30,120 +30,120 @@
         }
 
         .logoSq {
-        width: 30%;
-        height: auto;
-        margin-top: -14% !important;
-    }
+            width: 30%;
+            height: auto;
+            margin-top: -14% !important;
+        }
 
     }
 </style>
-<script src="{{ asset('assets/jquery.js') }}"></script>
-<script src="{{ asset('jquery-validation-1.19.5/dist/jquery.validate.min.js') }}" type="text/javascript"></script>
-<script>
-    $().ready(function() {
-        $('#form-register').validate({
-            rules: {
-                name: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 50,
+@push('scripts')
+    <script>
+        $().ready(function() {
+            $('#form-register').validate({
+                rules: {
+                    name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    last_name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    email: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                        email: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 8,
+                    },
+                    password_confrimation: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 8,
+                        handlerPass: true
+                    },
+                    rol: {
+                        required: true,
+                    },
                 },
-                last_name: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 50,
-                },
-                email: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 50,
-                    email: true
-                },
-                password: {
-                    required: true,
-                    minlength: 6,
-                    maxlength: 8,
-                },
-                password_confrimation: {
-                    required: true,
-                    minlength: 6,
-                    maxlength: 8,
-                    handlerPass: true
-                },
-                rol: {
-                    required: true,
-                },
-            },
-            messages: {
-                name: {
-                    required: "Nombres es obligatorio",
-                    minlength: "Nombres debe ser mayor a 3 caracteres",
-                    maxlength: "Nombres debe ser menor a 50 caracteres",
-                },
-                last_name: {
-                    required: "Apellidos es obligatorio",
-                    minlength: "Apellidos debe ser mayor a 6 caracteres",
-                    maxlength: "Apellidos debe ser menor a 8 caracteres",
-                    // pattern: "pattern",
-                },
+                messages: {
+                    name: {
+                        required: "Nombres es obligatorio",
+                        minlength: "Nombres debe ser mayor a 3 caracteres",
+                        maxlength: "Nombres debe ser menor a 50 caracteres",
+                    },
+                    last_name: {
+                        required: "Apellidos es obligatorio",
+                        minlength: "Apellidos debe ser mayor a 6 caracteres",
+                        maxlength: "Apellidos debe ser menor a 8 caracteres",
+                        // pattern: "pattern",
+                    },
 
-                email: {
-                    required: "Correo Electrónico es obligatorio",
-                    minlength: "Correo Electrónico debe ser mayor a 6 caracteres",
-                    maxlength: "Correo Electrónico debe ser menor a 8 caracteres",
-                    email: "Correo Electrónico incorrecto"
+                    email: {
+                        required: "Correo Electrónico es obligatorio",
+                        minlength: "Correo Electrónico debe ser mayor a 6 caracteres",
+                        maxlength: "Correo Electrónico debe ser menor a 8 caracteres",
+                        email: "Correo Electrónico incorrecto"
+                    },
+                    password: {
+                        required: "Contraseña es obligatoria",
+                        minlength: "Contraseña debe ser mayor a 6 caracteres",
+                        maxlength: "Contraseña debe ser menor a 8 caracteres",
+                    },
+                    password_confrimation: {
+                        required: "Confirmar Contraseña es obligatoria",
+                        minlength: "Confirmar Contraseña debe ser mayor a 6 caracteres",
+                        maxlength: "Confirmar Contraseña debe ser menor a 8 caracteres",
+                    },
+                    rol: {
+                        required: "Rol es obligatorio",
+                    },
                 },
-                password: {
-                    required: "Contraseña es obligatoria",
-                    minlength: "Contraseña debe ser mayor a 6 caracteres",
-                    maxlength: "Contraseña debe ser menor a 8 caracteres",
-                },
-                password_confrimation: {
-                    required: "Confirmar Contraseña es obligatoria",
-                    minlength: "Confirmar Contraseña debe ser mayor a 6 caracteres",
-                    maxlength: "Confirmar Contraseña debe ser menor a 8 caracteres",
-                },
-                rol: {
-                    required: "Rol es obligatorio",
-                },
-            },
-            invalidHandler: function(event, validator) {
+                invalidHandler: function(event, validator) {
 
-            },
-            submitHandler: function(form) {
-                $('#spinner').show();
-                $('.btnPrimary').hide();
-                form.submit();
-            }
+                },
+                submitHandler: function(form) {
+                    $('#spinner').show();
+                    $('.btnPrimary').hide();
+                    form.submit();
+                }
+            });
+
+            $.validator.addMethod("handlerPass", function(value, element) {
+                let validate = false;
+                if (value === $('#password').val()) {
+                    validate = true;
+                }
+                return validate;
+            }, "Contraseña no coinciden");
         });
 
-        $.validator.addMethod("handlerPass", function(value, element) {
-            let validate = false;
-            if (value === $('#password').val()) {
-                validate = true;
+        function showPass() {
+            let input = $("#password");
+            if (input[0].type === "password") {
+                input[0].type = "text";
+            } else {
+                input[0].type = "password";
             }
-            return validate;
-        }, "Contraseña no coinciden");
-    });
-
-    function showPass() {
-        let input = $("#password");
-        if (input[0].type === "password") {
-            input[0].type = "text";
-        } else {
-            input[0].type = "password";
         }
-    }
 
-    function showPassConfimation() {
-        let input = $("#password_confrimation");
-        if (input[0].type === "password") {
-            input[0].type = "text";
-        } else {
-            input[0].type = "password";
+        function showPassConfimation() {
+            let input = $("#password_confrimation");
+            if (input[0].type === "password") {
+                input[0].type = "text";
+            } else {
+                input[0].type = "password";
+            }
         }
-    }
-</script>
+    </script>
+@endpush
 @section('content')
     <div>
         <div class="container-fluid">
