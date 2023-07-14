@@ -6,8 +6,7 @@
         height: auto;
     }
 </style>
-<script src="{{ asset('assets/jquery.js') }}"></script>
-<script src="{{ asset('jquery-validation-1.19.5/dist/jquery.validate.min.js') }}" type="text/javascript"></script>
+@push('scripts')
 <script>
     $().ready(function() {
 
@@ -65,6 +64,7 @@
         }
     }
 </script>
+@endpush
 @section('content')
     <div>
         <div class="container-fluid text-center">

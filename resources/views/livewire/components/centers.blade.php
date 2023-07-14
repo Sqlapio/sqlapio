@@ -7,10 +7,8 @@
         background-color: #44525F !important;
     }
 </style>
-<script src="{{ asset('jquery-ui-1.13.2/external/jquery/jquery.js') }}" type="text/javascript"></script>
-<script src="{{ asset('jquery-ui-1.13.2/jquery-ui.min.js') }}" type="text/javascript"></script>
 @push('scripts')
-<script  type="module" src="{{ mix('resources/js/centers.js') }}"></script>
+@vite(['resources/js/centers.js']);
     <script>
         $(document).ready(() => {
             $("#datepicker").datepicker({

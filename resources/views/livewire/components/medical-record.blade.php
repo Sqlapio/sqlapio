@@ -1,7 +1,5 @@
 @extends('layouts.app-auth')
 @section('title', 'Detalle Médico')
-<script src="{{ asset('jquery-ui-1.13.2/external/jquery/jquery.js') }}" type="text/javascript"></script>
-
 <style>
     .ditaily-patients {
         font-size: 15px;

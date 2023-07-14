@@ -1,7 +1,5 @@
 @extends('layouts.app-auth')
 @section('title', 'Agenda')
-<link rel="stylesheet" href="{{ asset('jquery-ui-1.13.2/jquery-ui.css') }}">
-<link rel="stylesheet" href="{{ asset('jquery-ui-1.13.2/jquery-ui.min.css') }}">
 <style>
     .Icon-inside i {
         top: 30% !important
@@ -36,10 +34,8 @@
         text-align: start;
     }
 </style>
-@push('scripts')
-    <script src="{{ asset('jquery-ui-1.13.2/external/jquery/jquery.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('jquery-ui-1.13.2/jquery-ui.min.js') }}" type="text/javascript"></script>
-    <script  type="module" src="{{ mix('resources/js/dairy.js') }}"></script>
+@push('scripts')  
+    @vite(['resources/js/dairy.js'])
     <script>
         $(document).ready(() => {
             $("#dateNacNew").datepicker({
