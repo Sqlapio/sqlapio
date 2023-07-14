@@ -7,8 +7,14 @@
         color: #1d1d1f;
     }
 
+    .avatar {
+        width: 40%;
+        height: auto;
+        margin: -10px 0px 0px 0px;
+    }
+
     .td-pad {
-        padding-top: 35px !important;
+        padding-top: 20px !important;
     }
 
     .borde {
@@ -75,329 +81,329 @@
     }
 </style>
 @push('scripts')
-<script>
-    let pathologiesArray = [];
-    let patients = @json($patients);
-    $(document).ready(() => {
-        let table = new DataTable('#table-patient');
-        $("#alert").hide()
-        $('.phone').mask('(0000) 000-00-00');
-        $('#form-patients').validate({
-            rules: {
-                name: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 50,
+    <script>
+        let pathologiesArray = [];
+        let patients = @json($patients);
+        $(document).ready(() => {
+            new DataTable('#table-patient', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
                 },
-                last_name: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 50,
-                },
-                email: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 50,
-                    email: true
-                },
-                ci: {
-                    required: true,
-                    minlength: 5,
-                    maxlength: 8,
-                    onlyNumber: true
-                },
-                genere: {
-                    required: true,
-                },
-                birthdate: {
-                    required: true,
-                },
-                state: {
-                    required: true,
-                },
-                city: {
-                    required: true,
-                },
-                address: {
-                    required: true,
-                },
-                zip_code: {
-                    required: true,
-                },
-                re_name: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 50,
-                },
-                re_last_name: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 50,
-                },
-                re_email: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 50,
-                    email: true
-                },
-                re_ci: {
-                    required: true,
-                    minlength: 5,
-                    maxlength: 8,
-                    onlyNumber: true
-                },
-                re_phone: {
-                    required: true,
-                },
-                phone: {
-                    required: true,
-                },
-                profession: {
-                    required: true,
-                }
-            },
-            messages: {
-                name: {
-                    required: "Nombres es obligatorio",
-                    minlength: "Nombres debe ser mayor a 3 caracteres",
-                    maxlength: "Nombres debe ser menor a 50 caracteres",
-                },
-                last_name: {
-                    required: "Apellidos es obligatorio",
-                    minlength: "Apellidos debe ser mayor a 6 caracteres",
-                    maxlength: "Apellidos debe ser menor a 8 caracteres",
-                },
-
-                email: {
-                    required: "Correo Electrónico es obligatorio",
-                    minlength: "Correo Electrónico debe ser mayor a 6 caracteres",
-                    maxlength: "Correo Electrónico debe ser menor a 8 caracteres",
-                    email: "Correo Electrónico incorrecto"
-                },
-                ci: {
-                    required: "Cedula de identidad es obligatoria",
-                    minlength: "Cedula de identidad  debe ser mayor a 5 caracteres",
-                    maxlength: "Cedula de identidad  debe ser menor a 8 caracteres",
-                },
-                genere: {
-                    required: "Género es obligatorio",
-                },
-                birthdate: {
-                    required: "Fecha de nacimiento es obligatorio",
-                },
-                state: {
-                    required: "Esatdo es obligatoria",
-                },
-                city: {
-                    required: "Ciudad es obligatoria",
-                },
-                address: {
-                    required: "Direccion es obligatoria",
-                },
-                zip_code: {
-                    required: "Codigo de area es obligatorio",
-                },
-                re_name: {
-                    required: "Nombre del representante es obligatorio",
-                    minlength: "Nombre del representante debe ser mayor a 3 caracteres",
-                    maxlength: "Nombre del representante debe ser menor a 50 caracteres",
-                },
-                re_last_name: {
-                    required: "Apellido del representante es obligatorio",
-                    minlength: "Apellido del representante debe ser mayor a 3 caracteres",
-                    maxlength: "Apellido del representante debe ser menor a 50 caracteres",
-                },
-                re_email: {
-                    required: "Correo del representante es obligatorio",
-                    minlength: "Correo debe ser mayor a 6 caracteres",
-                    maxlength: "Correo debe ser menor a 8 caracteres",
-                    email: "Correo incorrecto"
-                },
-                re_ci: {
-                    required: "Cedula del representante es obligatorio",
-                    minlength: "Cedula del representante  debe ser mayor a 5 caracteres",
-                    maxlength: "Cedula del representante  debe ser menor a 8 caracteres",
-                },
-                re_phone: {
-                    required: "Telefono del representante es obligatorio",
-                },
-                profession: {
-                    required: "Profesion es obligatoria",
-                },
-                phone: {
-                    required: "Telfono es obligatorio",
-                }
-
-            }
-        })
-
-        $.validator.addMethod("onlyNumber", function(value, element) {
-            var pattern = /^\d+\.?\d*$/;
-            return pattern.test(value);
-        }, "Campo solo numero");
-
-        //envio del formulario
-        $("#form-patients").submit(function(event) {
-            event.preventDefault();
-            $("#form-patients").validate();
-            if ($("#form-patients").valid()) {
-                $('#send').hide();
-                $('#spinner').show();
-                var data = $('#form-patients').serialize();
-                $.ajax({
-                    url: '{{ route('register-patients') }}',
-                    type: 'POST',
-                    data: data,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                reponsive: true,
+            });
+            $("#alert").hide()
+            $('.phone').mask('(0000) 000-00-00');
+            $('#form-patients').validate({
+                rules: {
+                    name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
                     },
-                    success: function(response) {
-                        console.log(response);
-
-                        let route = "{{ route('ClinicalHistoryDetail', ':id') }}";
-                        route = route.replace(':id', response.id);
-
-                        $('#send').show();
-                        $('#spinner').hide();
-                        $("#alert").show()
-                        $("#alert").text("Registro Exitioso");
-                        $("#form-patients").trigger("reset");
-                        setTimeout(() => {
-                            $("#alert").hide();
-                        }, 3500);
-
-                        //    agregando registro en la tabla pacientes    
-                        let row = `
-                    <tr>
-                    <td class="text-center td-pad">    
-                    <div class="row" >
-                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                    <div class="img">
-                    <img id="imgPaciente2"
-                    src="{{ asset('img/People-Client-Male-icon.png') }}"
-                    alt="Imagen del paciente" class="img-responsive"
-                    style="width:85px; height:64px;">
-                    </div>
-                    </div>
-                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                    <div>
-                    ${response.name}
-                    </div>
-                    </div>
-                    </div>
-                    </td>
-                    <td class="text-center td-pad">${response.ci}</td>
-                    <td class="text-center td-pad">${response.birthdate}</td>
-                    <td class="text-center td-pad">${response.genere}</td>
-                    <td class="text-center td-pad">${response.phone}</td>
-                    <td class="text-center td-pad">${response.email}</td>
-                    <td class="text-center td-pad">${response.address}</td>
-                    <td class="text-center">
-                    <div class="button-patients-padre">
-                    <div class="button-patients-hijo">
-                    <button type="button"
-                    class="btn  bnt2 btnPrimary">Citar
-                    Paciente</button>
-                    </div>
-                    <div class="button-patients-hijo">
-                    <a href="{{ route('MedicalRecord') }}">
-                    <button type="button"
-                    class="btn bnt2 btnPrimary">Más
-                    información</button>
-                    </a>
-                    </div>
-                    <div class="button-patients-hijo">
-                    <a
-                    href="${route}">
-                    <button type="button"
-                    class="btn bnt2 btnSecond">Historia
-                    Clinica</button>
-                    </a>
-                    </div>
-                    </div>
-                    </td>
-                    </tr>`;
-                        $('#table-patient').find('tbody').append(row);
+                    last_name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
                     },
-                    error: function(error) {
-                        $('#send').show();
-                        $('#spinner').hide();
-                        console.log(error.responseJSON.errors);
-
+                    email: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                        email: true
+                    },
+                    ci: {
+                        required: true,
+                        minlength: 5,
+                        maxlength: 8,
+                        onlyNumber: true
+                    },
+                    genere: {
+                        required: true,
+                    },
+                    birthdate: {
+                        required: true,
+                    },
+                    state: {
+                        required: true,
+                    },
+                    city: {
+                        required: true,
+                    },
+                    address: {
+                        required: true,
+                    },
+                    zip_code: {
+                        required: true,
+                    },
+                    re_name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    re_last_name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    re_email: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                        email: true
+                    },
+                    re_ci: {
+                        required: true,
+                        minlength: 5,
+                        maxlength: 8,
+                        onlyNumber: true
+                    },
+                    re_phone: {
+                        required: true,
+                    },
+                    phone: {
+                        required: true,
+                    },
+                    profession: {
+                        required: true,
                     }
-                });
-            }
+                },
+                messages: {
+                    name: {
+                        required: "Nombres es obligatorio",
+                        minlength: "Nombres debe ser mayor a 3 caracteres",
+                        maxlength: "Nombres debe ser menor a 50 caracteres",
+                    },
+                    last_name: {
+                        required: "Apellidos es obligatorio",
+                        minlength: "Apellidos debe ser mayor a 6 caracteres",
+                        maxlength: "Apellidos debe ser menor a 8 caracteres",
+                    },
+
+                    email: {
+                        required: "Correo Electrónico es obligatorio",
+                        minlength: "Correo Electrónico debe ser mayor a 6 caracteres",
+                        maxlength: "Correo Electrónico debe ser menor a 8 caracteres",
+                        email: "Correo Electrónico incorrecto"
+                    },
+                    ci: {
+                        required: "Cedula de identidad es obligatoria",
+                        minlength: "Cedula de identidad  debe ser mayor a 5 caracteres",
+                        maxlength: "Cedula de identidad  debe ser menor a 8 caracteres",
+                    },
+                    genere: {
+                        required: "Género es obligatorio",
+                    },
+                    birthdate: {
+                        required: "Fecha de nacimiento es obligatorio",
+                    },
+                    state: {
+                        required: "Esatdo es obligatoria",
+                    },
+                    city: {
+                        required: "Ciudad es obligatoria",
+                    },
+                    address: {
+                        required: "Direccion es obligatoria",
+                    },
+                    zip_code: {
+                        required: "Codigo de area es obligatorio",
+                    },
+                    re_name: {
+                        required: "Nombre del representante es obligatorio",
+                        minlength: "Nombre del representante debe ser mayor a 3 caracteres",
+                        maxlength: "Nombre del representante debe ser menor a 50 caracteres",
+                    },
+                    re_last_name: {
+                        required: "Apellido del representante es obligatorio",
+                        minlength: "Apellido del representante debe ser mayor a 3 caracteres",
+                        maxlength: "Apellido del representante debe ser menor a 50 caracteres",
+                    },
+                    re_email: {
+                        required: "Correo del representante es obligatorio",
+                        minlength: "Correo debe ser mayor a 6 caracteres",
+                        maxlength: "Correo debe ser menor a 8 caracteres",
+                        email: "Correo incorrecto"
+                    },
+                    re_ci: {
+                        required: "Cedula del representante es obligatorio",
+                        minlength: "Cedula del representante  debe ser mayor a 5 caracteres",
+                        maxlength: "Cedula del representante  debe ser menor a 8 caracteres",
+                    },
+                    re_phone: {
+                        required: "Telefono del representante es obligatorio",
+                    },
+                    profession: {
+                        required: "Profesion es obligatoria",
+                    },
+                    phone: {
+                        required: "Telfono es obligatorio",
+                    }
+
+                }
+            })
+
+            $.validator.addMethod("onlyNumber", function(value, element) {
+                var pattern = /^\d+\.?\d*$/;
+                return pattern.test(value);
+            }, "Campo solo numero");
+
+            //envio del formulario
+            $("#form-patients").submit(function(event) {
+                event.preventDefault();
+                $("#form-patients").validate();
+                if ($("#form-patients").valid()) {
+                    $('#send').hide();
+                    $('#spinner').show();
+                    var data = $('#form-patients').serialize();
+                    $.ajax({
+                        url: '{{ route('register-patients') }}',
+                        type: 'POST',
+                        data: data,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            console.log(response);
+
+                            let route = "{{ route('ClinicalHistoryDetail', ':id') }}";
+                            route = route.replace(':id', response.id);
+
+                            $('#send').show();
+                            $('#spinner').hide();
+                            $("#alert").show()
+                            $("#alert").text("Registro Exitioso");
+                            $("#form-patients").trigger("reset");
+                            setTimeout(() => {
+                                $("#alert").hide();
+                            }, 3500);
+
+                            //    agregando registro en la tabla pacientes    
+                            let row = `
+                            <tr>
+                            <td class="text-center td-pad">
+                            <div class="d-flex">
+                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                            <div >
+                            <img
+                            class="avatar"
+                            src="{{ asset('img/People-Client-Male-icon.png') }}"
+                            alt="Imagen del paciente"
+                            class="img-responsive">
+                            </div>
+                            </div>
+                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                            <div>
+                            ${response.name}
+                            </div>
+                            </div>
+                            </div>
+                            </td>
+                            <td class="text-center td-pad">${response.ci}</td>
+                            <td class="text-center td-pad">${response.birthdate}</td>
+                            <td class="text-center td-pad">${response.genere}</td>
+                            <td class="text-center td-pad">${response.phone}</td>
+                            <td class="text-center td-pad">${response.email}</td>
+                            <td class="text-center td-pad">${response.address}</td>
+                            <td class="text-center">
+                            <div class="d-flex">
+                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                            <button type="button"
+                            class="btn  bnt2 btnPrimary">Citar
+                            Paciente</button>
+                            </div>
+                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                            <a href="{{ route('MedicalRecord') }}">
+                            <button type="button"
+                            class="btn bnt2 btnPrimary">Más
+                            información</button>
+                            </a>
+                            </div>
+                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                            <a
+                            href="${route}">
+                            <button type="button"
+                            class="btn bnt2 btnSecond">Historia
+                            Clinica</button>
+                            </a>
+                            </div>
+                            </div>
+                            </td>
+                            </tr>       
+               
+               `;
+                            $('#table-patient').find('tbody').append(row);
+                        },
+                        error: function(error) {
+                            $('#send').show();
+                            $('#spinner').hide();
+                            console.log(error.responseJSON.errors);
+
+                        }
+                    });
+                }
+            })
         })
-    })
-    let active = true;
+        let active = true;
 
-    function showTable() {
-        if (active) {
-            $('#grip-patients').show();
-            $('#table-patients').hide();
-            $('#btns1').show();
-            $('#btns2').show();
-            $('#btns2').show();
-            $('#btns4').show();
-            $('#btnShow').text('Ver listados');
-            active = false;
-        } else {
-            $('#table-patients').show();
-            $('#grip-patients').hide();
-            $('#btnShow').text('Vista Tarjetas');
-            $('#btns1').hide();
-            $('#btns2').hide();
-            $('#btns2').hide();
-            $('#btns4').hide();
-            active = true;
-        }
-    }
-
-    function handlerAge(e) {
-        if (Number($("#age").val()) >= 18) {
-            $("#email").rules('add', {
-                required: true,
-                minlength: 3,
-                maxlength: 50,
-                email: true
-            });
-            $("#profession").rules('add', {
-                required: true
-            });
-            $("#ci").rules('add', {
-                required: true,
-                minlength: 5,
-                maxlength: 8,
-                onlyNumber: true
-            });
-            $('#data-rep').hide();
-            $('#is_minor').val(false);
-            $("#profesion-div").show();
-            $("#ci-div").show();
-            $("#email-div").show();
-
-        } else {
-            // validar si el nino tienes menos de 8 anos
-            if (Number($("#age").val()) <= 8) {
-                $("#profesion-div").hide();
-                $("#ci-div").hide();
-                $("#email-div").hide();
+        function showTable() {
+            if (active) {
+                $('#grip-patients').show();
+                $('#table-patients').hide();
+                $('#btnShow').text('Ver listados');
+                active = false;
             } else {
+                $('#table-patients').show();
+                $('#grip-patients').hide();
+                $('#btnShow').text('Vista Tarjetas');
+                active = true;
+            }
+        }
+
+        function handlerAge(e) {
+            if (Number($("#age").val()) >= 18) {
+                $("#email").rules('add', {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 50,
+                    email: true
+                });
+                $("#profession").rules('add', {
+                    required: true
+                });
+                $("#ci").rules('add', {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 8,
+                    onlyNumber: true
+                });
+                $('#data-rep').hide();
+                $('#is_minor').val(false);
                 $("#profesion-div").show();
                 $("#ci-div").show();
                 $("#email-div").show();
-                //remover valdaciones
-                $("#email").rules('remove');
-                $("#profession").rules('remove');
-                $("#ci").rules('remove');
 
+            } else {
+                // validar si el nino tienes menos de 8 anos
+                if (Number($("#age").val()) <= 8) {
+                    $("#profesion-div").hide();
+                    $("#ci-div").hide();
+                    $("#email-div").hide();
+                } else {
+                    $("#profesion-div").show();
+                    $("#ci-div").show();
+                    $("#email-div").show();
+                    //remover valdaciones
+                    $("#email").rules('remove');
+                    $("#profession").rules('remove');
+                    $("#ci").rules('remove');
+
+                }
+
+                $('#data-rep').show();
+                $('#is_minor').val(true);
             }
-
-            $('#data-rep').show();
-            $('#is_minor').val(true);
         }
-    }
-</script>
+    </script>
 @endpush
 @section('content')
     <div>
@@ -577,7 +583,7 @@
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <input autocomplete="off" placeholder="Localidad"
+                                                    <input autocomplete="off" placeholder="Ubicación referencial"
                                                         class="form-control @error('zip_code') is-invalid @enderror"
                                                         id="zip_code" name="zip_code" type="text" value="">
                                                     <i class="bi bi-geo"></i>
@@ -695,27 +701,8 @@
                         </div>
                         <div class="card-body">
                             <div class="container text-center">
-                                <div class="row">
-                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                                        <select id="" name="FiltroPacientes" class="form-control"
-                                            style="width: 250px !important">
-                                            <option value="25">25 Registros máximos a recuperar</option>
-                                            <option value="50">50 Registros máximos a recuperar</option>
-                                            <option value="100" selected="">100 Registros máximos a recuperar
-                                            </option>
-                                            <option value="1000">1.000 Registros máximos a recuperar</option>
-                                            <option value="5000">5.000 Registros máximos a recuperar</option>
-                                        </select>
-                                    </div>
-
+                                <div class="row justify-content-md-end">
                                     <div class="col-sm-8 md-8 lg-8 xl-8 xxl-8 btns" style="font-size:10px;">
-                                        <button style="display:none" type="button" class="btn btnPrimary"
-                                            id="btns1"><i class="bi bi-card-list"></i> Seleccione</button>
-                                        <button style="display:none" type="button" class="btn btnPrimary"
-                                            id="btns2"><i class="bi bi-card-list"></i> Exportar todos los ccv</button>
-                                        <button id="btns4" style="display:none" type="button"
-                                            class="btn btnPrimary" id="btns3"><i class="bi bi-card-list"></i>
-                                            Exportar vistas los ccv</button>
                                         <button type="button" id="btnShow" class="btn btnPrimary"
                                             onclick="showTable()"><i class="bi bi-card-list"></i> Ver
                                             listados</button>
@@ -770,7 +757,8 @@
 
                                 <div class="row"id="table-patients">
                                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12" style="margin-top: 20px:">
-                                        <table id="table-patient" class="table table-striped table-bordered" style="width:100%">
+                                        <table id="table-patient" class="table table-striped table-bordered"
+                                            style="width:100%">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center" scope="col">Nombre</th>
@@ -788,14 +776,13 @@
                                                 @foreach ($patients as $item)
                                                     <tr>
                                                         <td class="text-center td-pad">
-                                                            <div class="row">
+                                                            <div class="d-flex">
                                                                 <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                                                                    <div class="img">
-                                                                        <img id="imgPaciente2"
+                                                                    <div>
+                                                                        <img class="avatar"
                                                                             src="{{ asset('img/People-Client-Male-icon.png') }}"
                                                                             alt="Imagen del paciente"
-                                                                            class="img-responsive"
-                                                                            style="width:85px; height:64px;">
+                                                                            class="img-responsive">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
@@ -812,20 +799,20 @@
                                                         <td class="text-center td-pad">{{ $item->email }}</td>
                                                         <td class="text-center td-pad">{{ $item->address }}</td>
                                                         <td class="text-center">
-                                                            <div class="button-patients-padre">
-                                                                <div class="button-patients-hijo">
+                                                            <div class="d-flex">
+                                                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                                                     <button type="button"
                                                                         class="btn  bnt2 btnPrimary">Citar
                                                                         Paciente</button>
                                                                 </div>
-                                                                <div class="button-patients-hijo">
+                                                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                                                     <a href="{{ route('MedicalRecord') }}">
                                                                         <button type="button"
                                                                             class="btn bnt2 btnPrimary">Más
                                                                             información</button>
                                                                     </a>
                                                                 </div>
-                                                                <div class="button-patients-hijo">
+                                                                <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                                                     <a
                                                                         href="{{ route('ClinicalHistoryDetail', encrypt($item->id)) }}">
                                                                         <button type="button"

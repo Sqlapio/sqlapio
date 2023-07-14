@@ -13,7 +13,6 @@
 <style>
     @import url('/fuentes/Roboto-Black.ttf');
     @import url('/fuentes/Roboto-Regular.ttf');
-    @import url('/fuentes/Roboto-Bold');
 
     body {
         font-family: 'Roboto-Regular',  !important;
