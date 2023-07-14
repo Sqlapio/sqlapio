@@ -23,6 +23,22 @@ return new class extends Migration
             $table->string('weight');
             // altura
             $table->string('height');
+            /**
+             * Campos agregados para mejorar la
+             * historia del paciente
+             */
+            $table->string('reason');
+            $table->string('current_illness');
+            $table->string('strain');
+            $table->string('temperature');
+            $table->string('breaths');
+            $table->string('pulse');
+            $table->string('saturation');
+            $table->string('condition');
+            $table->string('applied_studies');
+            $table->json('info_add')->nullable();
+            $table->json('history_vital_signs')->nullable();
+
             // antecedentes familiares
             $table->json('back_family')->nullable();
             // alergias
