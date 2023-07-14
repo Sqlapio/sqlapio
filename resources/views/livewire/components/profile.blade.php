@@ -263,11 +263,7 @@
                                                         <i class="bi bi-geo"></i>
                                                 </div>
                                             </diV>
-                                        </div>
-
-                                        {{-- <x-upload-image /> --}}
-
-                                        {{-- <hr> --}}
+                                        </div>                                       
                                         <div class="row mt-3 justify-content-md-end">
                                             <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
                                                 <input class="btn btnPrimary send " value="Guardar" type="submit" />
