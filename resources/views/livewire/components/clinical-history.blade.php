@@ -6,6 +6,7 @@
         let allergies = [];
         let history_pathological = [];
         let history_non_pathological = [];
+        let history_vital_signs = [];
         let history_surgical = [];
         let history_gynecological = [];
         let medications_supplements = [];
@@ -17,7 +18,7 @@
         let countGynecological = 0;
         let countMedicationSupplements = 0;
         let countMedicationAdd = 0;
-
+        let countVitalSigns = 0;
         $(document).ready(() => {
             $('.mask-input').mask('000,00');
             $(".datePickert").datepicker({
@@ -33,6 +34,30 @@
                     height: {
                         required: true,
                     },
+                    current_illness: {
+                        required: true
+                    },
+                    reason: {
+                        required: true
+                    },
+                    strain: {
+                        required: true
+                    },
+                    temperature: {
+                        required: true
+                    },
+                    breaths: {
+                        required: true
+                    },
+                    pulse: {
+                        required: true
+                    },
+                    saturation: {
+                        required: true
+                    },
+                    condition: {
+                        required: true
+                    },                   
                     countBackFamily: {
                         required: true,
                     },
@@ -53,6 +78,9 @@
                     },
                     countGynecological: {
                         required: true
+                    },
+                    countVitalSigns:{
+                        required:true                        
                     }
                 },
                 messages: {
@@ -83,6 +111,33 @@
                     countGynecological: {
                         required: "Debe seleccionar uan opción"
                     },
+                    current_illness: {
+                        required: "Altura es obligatoria",
+                    },
+                    reason: {
+                        required: "Motivo es obligatoria"
+                    },
+                    strain: {
+                        required: "Tesion es obligatoria"
+                    },
+                    temperature: {
+                        required: "Temperatura es obligatoria"
+                    },
+                    breaths: {
+                        required: "Respiraciones es obligatoria"
+                    },
+                    pulse: {
+                        required: "Pulso es obligatoria"
+                    },
+                    saturation: {
+                        required: "Saturacion es obligatoria"
+                    },
+                    condition: {
+                        required: "Condicion es obligatoria"
+                    },
+                    countVitalSigns:{
+                        required: "Debe seleccionar uan opción"
+                    }                
                 }
             });
 
@@ -321,76 +376,73 @@
             $('#countAllergies').val(countAllergies);
 
         }
+        // agregar signos vitales
+        function handlerVitalSigns(e) {
+            if ($(`#${e.target.id}`).is(':checked')) {
+                history_vital_signs.push(e.target.value);
+                $('#history_vital_signs').val(history_vital_signs);
+                countVitalSigns = countVitalSigns + 1;
+                $('#countVitalSigns').val(countVitalSigns);
+            } else {
+                history_vital_signs = history_vital_signs.filter(elem => elem !== e.target.value);
+                $('#history_vital_signs').val(history_vital_signs);
+                countVitalSigns = countVitalSigns - 1;
+                $('#countVitalSigns').val(countVitalSigns);
+            }
+        }    
+       
     </script>
 @endpush
 @section('content')
     <div>
-        <div class="container-fluid">            
-            <form id="form-mecal-histroy" method="post" action="/">              
+        <div class="container-fluid">
+            <form id="form-mecal-histroy" method="post" action="/">
                 {{ csrf_field() }}
                 <div class="row mt-3">
                     <input type="hidden" name="id" value="{{ $Patient->id }}">
                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
                         <div class="card">
                             <div class="card-header collapseBtn">
-                                <h3>Historia clínica</h3>
+                                <h3>Datos personales</h3>
                             </div>
                             <div class="card-body">
                                 <div class="row mt-3">
-                                    <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                        <div class="card">
-                                            <img src="{{ asset('img/People-Patient-Male-icon.png') }}" width="150"
-                                                height="150" alt="Imagen del paciente">
-                                        </div>
+                                    <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
+                                        <strong>Nombres y Apellidos:</strong><span>
+                                            {{ $Patient->name . ',' . $Patient->last_name }}</span>
+                                        <br>
+                                        <strong>Fecha de Nacimiento:</strong><span> {{ $Patient->birthdate }}</span>
+                                        <br>
+                                        <strong>Edad:</strong><span> {{ $Patient->age }}</span>
+                                        <br>
+                                        <strong>Cedula de identidad:</strong> <span> {{ $Patient->ci }}</span>
+                                        <br>
+                                        <strong>Lugar y fecha de nacimiento :</strong><span> {{ $Patient->address }}</span>
+                                        <br>
+                                        <strong>Teléfonos personal / otros:</strong><span> {{ $Patient->phone }}</span>
+                                        <br>
+                                        <strong>Correo electrónico:</strong><span> {{ $Patient->email }}</span>
                                     </div>
-                                    <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                        <span>Paciente:</span>
-                                        <br>
-                                        <span>{{ $Patient->name . ',' . $Patient->last_name }}</span>
-                                        <br>
-                                        <span>Fecha de Nacimiento:</span>
-                                        <br>
-                                        <span>{{ $Patient->birthdate }}</span>
-                                    </div>
-
-                                    <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                        <span>Atendido por:</span>
-                                        <br>
-                                        <span>MARTINEZ, JHONNY</span>
-                                        <br>
-                                        <span>Edad:</span>
-                                        <br>
-                                        <span>20 años</span>
-                                    </div>
-
-                                    <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                        <span>Día:</span>
-                                        <br>
-                                        <span>12/06/2022</span>
-                                        <br>
-                                        <span>Aseguradora:</span>
-                                        <br>
-                                        <span>Matrix</span>
-                                    </div>
-
-                                    <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                        <span>Hora de Cita:</span>
-                                        <br>
-                                        <span>10:15</span>
-                                        <br>
-                                        <span>Profesión:</span>
-                                    </div>
-
-                                    <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
-                                        <span>Inicio:</span>
-                                        <br>
-                                        <span>14:41</span>
-                                        <br>
-                                        <span>Referido:</span>
+                                    <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2 offset-3">
+                                        <img src="{{ asset('img/People-Patient-Male-icon.png') }}" width="150"
+                                            height="150" alt="Imagen del paciente">
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- datos pricipales --}}
+                <div class="row  mt-3">
+                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                        <div class="card">
+                            <div class="card-header collapseBtn">
+                                <h3>Datos principales de la historia</h3>
+                            </div>
+                            <div class="card-body">
                                 <div class="row mt-3">
-                                    <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
+                                    <input type="hidden" name="history_vital_signs[]" id="history_vital_signs" value="" >
+                                    <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <input autocomplete="off" placeholder="Peso"
@@ -400,7 +452,7 @@
                                             </div>
                                         </diV>
                                     </div>
-                                    <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
+                                    <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <input autocomplete="off" placeholder="Altura"
@@ -410,7 +462,231 @@
                                             </div>
                                         </diV>
                                     </div>
+
+                                    <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-3">
+                                        <div class="form-group">
+                                            <textarea placeholder="Motivo de la consulta" id="reason" name="reason" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-3">
+                                        <div class="form-group">
+                                            <textarea placeholder="Enfermedad Actual" id="current_illness" name="current_illness" class="form-control"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <div class="row mt-3">
+                                    <h5> <strong>Examen Físico:</strong><small> (Signos vitales)</small></h5>
+                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <input autocomplete="off" placeholder="Tension arterial"
+                                                    class="mask-input form-control @error('strain') is-invalid @enderror"
+                                                    id="strain" name="strain" type="text" value="">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </div>
+                                        </diV>
+                                    </div>
+                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <input autocomplete="off" placeholder="Tempetura"
+                                                    class="mask-input form-control @error('temperature') is-invalid @enderror"
+                                                    id="temperature" name="temperature" type="text" value="">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </div>
+                                        </diV>
+                                    </div>
+                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <input autocomplete="off" placeholder="respiraciones pp"
+                                                    class="mask-input form-control @error('breaths') is-invalid @enderror"
+                                                    id="breaths" name="breaths" type="text" value="">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </div>
+                                        </diV>
+                                    </div>
+
+                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <input autocomplete="off" placeholder="pulso"
+                                                    class="mask-input form-control @error('pulse') is-invalid @enderror"
+                                                    id="pulse" name="pulse" type="text" value="">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </div>
+                                        </diV>
+                                    </div>
+                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <input autocomplete="off" placeholder="saturación"
+                                                    class="mask-input form-control @error('saturation') is-invalid @enderror"
+                                                    id="saturation" name="saturation" type="text" value="">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </div>
+                                        </diV>
+                                    </div>
+
+                                    <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-1">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <select name="condition" id="condition"
+                                                    placeholder="Seleccione"class="form-control"
+                                                    class="form-control combo-textbox-input">
+                                                    <option value="">Seleccione Condición general</option>
+                                                    <option value="estable">Estable</option>
+                                                    <option value="regular">Regular</option>
+                                                    <option value="grave">Grave</option>
+                                                </select>
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                                <span id="condition_span" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-1">
+                                        <div class="form-group">
+                                            <textarea placeholder="Estudios realizados:" id="applied_studies" name="applied_studies" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-3">
+                                        <div class="floating-label-group">
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerVitalSigns(event);" class="form-check"
+                                                        name="Hidratado" type="checkbox" id="Hidratado"
+                                                        value="Hidratado">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Hidratado
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerVitalSigns(event);" value="Eupenico" class="form-check" name="Eupenico"
+                                                        type="checkbox" id="Eupenico">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Eupenico
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerVitalSigns(event);" value="Febril" class="form-check" name="Febril"
+                                                        type="checkbox" id="Febril">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Febril
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-3">
+                                        <div class="floating-label-group">
+
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerVitalSigns(event);" value="Neurologica" class="form-check"
+                                                        name="Neurologica" type="checkbox" id="Neurologica">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Esfera Neurologica (orientado en tiempo espacio y persona, fuerza
+                                                        muscular etc)
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerVitalSigns(event);" value="Glasgow" class="form-check"
+                                                        name="Glasgow" type="checkbox"
+                                                        id="Glasgow">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Glasgow (puntuación de la escala)
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerVitalSigns(event);" value="Esfera ORL " class="form-check"
+                                                        name="esfera_orl" type="checkbox" id="esfera_orl">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Esfera ORL (oídos, nariz, boca, cuello) </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerVitalSigns(event);" class="form-check"
+                                                        name="Esfera cardiopulmonar" type="checkbox" id="esfera_cardiopulmonar"
+                                                        value="esfera_cardiopulmonar">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Esfera cardiopulmonar (corazón y pulmones)
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerVitalSigns(event);" value="Esfera abdominal" class="form-check" name="esfera_abdominal"
+                                                        type="checkbox" id="esfera_abdominal">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Esfera abdominal (semiología abdominal)
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-check" style="display: flex; ">
+                                                <div style="margin-right: 30px;">
+                                                    <input onclick="handlerVitalSigns(event);" value="Extremidades" class="form-check" name="Extremidades"
+                                                        type="checkbox" id="Extremidades">
+                                                </div>
+                                                <div>
+                                                    <label style="font-size: 15px;" class="form-check-label"
+                                                        for="flexCheckDefault">
+                                                        Extremidades (si aplica)
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text">Total Signos vitales
+                                            </span>
+                                            <input type="text" id="countVitalSigns" name="countVitalSigns"
+                                                class="form-control" readonly value="">
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -442,7 +718,8 @@
                                             <div class="form-check" style="display: flex; ">
                                                 <div style="margin-right: 30px;">
                                                     <input onclick="handlerBackFamiliy(event);" value="Diabetes"
-                                                        class="form-check" name="diabetes" type="checkbox" id="diabetes">
+                                                        class="form-check" name="diabetes" type="checkbox"
+                                                        id="diabetes">
                                                 </div>
                                                 <div>
                                                     <label style="font-size: 15px;" class="form-check-label"
@@ -1003,7 +1280,7 @@
                     </div>
                 </div>
                 {{-- historia ginecológica --}}
-                <div class="row  mt-3">                   
+                <div class="row  mt-3">
                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
                         <div class="card">
                             <div class="card-header collapseBtn">
@@ -1129,7 +1406,7 @@
                             </div>
                         </div>
                     </div>
-                </div>               
+                </div>
                 {{-- alergias --}}
                 <div class="row  mt-3">
                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
@@ -1175,30 +1452,32 @@
                                             Alergias</span>
                                     </div>
                                     <div class="col-sm-5 md-5 lg-5 xl-5 xxl-5" style="margin-top: 20px; width: 100%;">
-                                        <h6 class="collapseBtn">Lista de cirugias</h6>
-                                        <table class="table table-striped table-hover table-bordered" id="table-alergias">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Tipo de alergias</th>
-                                                    <th scope="col">Detalle</th>
-                                                    <th scope="col">Eliminar</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                        <tfoot>
-                                            <div class="row mt-3">
-                                                <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
-                                                    <div class="input-group flex-nowrap">
-                                                        <span class="input-group-text" id="">Total
-                                                            alergias</span>
-                                                        <input type="text" id="countAllergies" name="countAllergies"
-                                                            class="form-control" readonly value="">
+                                        <h2 class="collapseBtn">Lista de cirugias</h6>
+                                            <table class="table table-striped table-hover table-bordered"
+                                                id="table-alergias">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Tipo de alergias</th>
+                                                        <th scope="col">Detalle</th>
+                                                        <th scope="col">Eliminar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                            <tfoot>
+                                                <div class="row mt-3">
+                                                    <div class="col-sm-3 md-3 lg-3 xl-3 xxl-3">
+                                                        <div class="input-group flex-nowrap">
+                                                            <span class="input-group-text" id="">Total
+                                                                alergias</span>
+                                                            <input type="text" id="countAllergies"
+                                                                name="countAllergies" class="form-control" readonly
+                                                                value="">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </tfoot>
+                                            </tfoot>
                                     </div>
                                 </div>
                             </div>
@@ -1382,7 +1661,8 @@
                             <div class="row">
                                 <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12" style="margin-top: 20px; width: 100%;">
                                     <h6 class="collapseBtn">Lista de medicamentos</h6>
-                                    <table class="table table-striped table-hover table-bordered" id="table-medicamento">
+                                    <table class="table table-striped table-hover table-bordered"
+                                        id="table-medicamento">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Medicamento</th>
@@ -1414,7 +1694,7 @@
                                     </tfoot>
                                 </div>
                             </div>
-                            <div class="row justify-content-md-center mt-3">                              
+                            <div class="row justify-content-md-center mt-3">
                                 <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2  mt-2">
                                     <input class="btn btnPrimary send " value="Guardar" type="submit" />
                                 </div>
@@ -1422,7 +1702,7 @@
                             </div>
                         </div>
                     </div>
-                </div>                
+                </div>
             </form>
         </div>
     </div>
