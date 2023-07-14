@@ -263,10 +263,8 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function(response) {
-                            console.log(response);
-
-                            let route = "{{ route('ClinicalHistoryDetail', ':id') }}";
-                            route = route.replace(':id', response.id);
+                            // let route = "{{ route('ClinicalHistoryDetail', ':id') }}";
+                            // route = route.replace(':id', response.id);
 
                             $('#send').show();
                             $('#spinner').hide();
@@ -276,62 +274,8 @@
                             setTimeout(() => {
                                 $("#alert").hide();
                             }, 3500);
+                            window.location.href = "{{ route('Patients') }}"
 
-                            //    agregando registro en la tabla pacientes    
-                            let row = `
-                            <tr>
-                            <td class="text-center td-pad">
-                            <div class="d-flex">
-                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                            <div >
-                            <img
-                            class="avatar"
-                            src="{{ asset('img/People-Client-Male-icon.png') }}"
-                            alt="Imagen del paciente"
-                            class="img-responsive">
-                            </div>
-                            </div>
-                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                            <div>
-                            ${response.name}
-                            </div>
-                            </div>
-                            </div>
-                            </td>
-                            <td class="text-center td-pad">${response.ci}</td>
-                            <td class="text-center td-pad">${response.birthdate}</td>
-                            <td class="text-center td-pad">${response.genere}</td>
-                            <td class="text-center td-pad">${response.phone}</td>
-                            <td class="text-center td-pad">${response.email}</td>
-                            <td class="text-center td-pad">${response.address}</td>
-                            <td class="text-center">
-                            <div class="d-flex">
-                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                            <button type="button"
-                            class="btn  bnt2 btnPrimary">Citar
-                            Paciente</button>
-                            </div>
-                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                            <a href="{{ route('MedicalRecord') }}">
-                            <button type="button"
-                            class="btn bnt2 btnPrimary">Más
-                            información</button>
-                            </a>
-                            </div>
-                            <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4">
-                            <a
-                            href="${route}">
-                            <button type="button"
-                            class="btn bnt2 btnSecond">Historia
-                            Clinica</button>
-                            </a>
-                            </div>
-                            </div>
-                            </td>
-                            </tr>       
-               
-               `;
-                            $('#table-patient').find('tbody').append(row);
                         },
                         error: function(error) {
                             $('#send').show();
