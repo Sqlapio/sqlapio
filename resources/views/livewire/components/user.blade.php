@@ -1,13 +1,12 @@
 @extends('layouts.app-auth')
 @section('title', 'Usuarios')
-<script src="{{ asset('assets/jquery.js') }}"></script>
-
 <style>
     img {
         margin-left: 10px;
         margin-bottom: 15px;
     }
 </style>
+@push('scripts')    
 <script>
     function ShowformUser(item) {
      
@@ -33,7 +32,7 @@
         $('#modal-info').show();
     }
 </script>
-
+@endpush
 @section('content')
     <div>
         <div class="container-fluid">

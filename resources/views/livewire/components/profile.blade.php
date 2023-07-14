@@ -1,7 +1,5 @@
 @extends('layouts.app-auth')
 @section('title', 'Perfil')
-<script src="{{ asset('assets/jquery.js') }}"></script>
-<script src="{{ asset('jquery-validation-1.19.5/dist/jquery.validate.min.js') }}" type="text/javascript"></script>
 <style>
     .collapseBtn {
         color: #428bca;
@@ -12,6 +10,7 @@
         margin-bottom: 15px;
     }
 </style>
+@push('scripts')    
 <script>
     $(document).ready(() => {
         $("#alert").hide()
@@ -152,6 +151,7 @@
         })
     })
 </script>
+@endpush
 @section('content')
     <div>
         <div class="container-fluid">

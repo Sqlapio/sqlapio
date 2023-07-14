@@ -8,6 +8,8 @@
     <title>@yield('title')</title>
     @livewireStyles
 </head>
+<script src="{{ asset('jquery-ui-1.13.2/external/jquery/jquery.js') }}"></script>
+<script src="{{ asset('jquery-validation-1.19.5/dist/jquery.validate.min.js') }}" type="text/javascript"></script>
 @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 <style>
     @import url('/fuentes/Roboto-Black.ttf');
@@ -23,7 +25,9 @@
 </style>
 
 <body>
+    @stack('scripts')
     @yield('content')
+
     @livewireScripts
 </body>
 
