@@ -1,7 +1,5 @@
 @extends('layouts.app-auth')
 @section('title', 'Agenda')
-<link rel="stylesheet" href="{{ asset('jquery-ui-1.13.2/jquery-ui.css') }}">
-<link rel="stylesheet" href="{{ asset('jquery-ui-1.13.2/jquery-ui.min.css') }}">
 <style>
     .Icon-inside i {
         top: 30% !important

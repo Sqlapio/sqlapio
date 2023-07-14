@@ -1,6 +1,6 @@
 @extends('layouts.app-auth')
 @section('title', 'Tablero')
-@vite(['resources/js/mychart.js']);
+@vite(['resources/js/mychart.js'])
 <style>
     body {
         font-size: 15px !important;
