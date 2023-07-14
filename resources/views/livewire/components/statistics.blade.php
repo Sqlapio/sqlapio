@@ -1,6 +1,9 @@
 @extends('layouts.app-auth')
 @section('title', 'Estadistica')
 <script src="{{ asset('jquery-ui-1.13.2/external/jquery/jquery.js') }}" type="text/javascript"></script>
+<script  type="module" src="{{ mix('resources/js/mychartGrafica.js') }}"></script>
+<script  type="module" src="{{ mix('resources/js/mychartGraficaFac.js') }}"></script>
+
 <style>
     .Icon-inside i {
         top: 20% !important

@@ -1,6 +1,7 @@
 @extends('layouts.app-auth')
 @section('title', 'Tablero')
 <script src="{{ asset('jquery-ui-1.13.2/external/jquery/jquery.js') }}" type="text/javascript"></script>
+<script  type="module" src="{{ mix('resources/js/mychart.js') }}"></script>
 <style>
     body {
         font-size: 15px !important;
