@@ -37,23 +37,15 @@
 @push('scripts')  
     @vite(['resources/js/dairy.js'])
     <script>
-        $(document).ready(() => {
-            $("#dateNacNew").datepicker({
-                language: 'es'
-            });
-
+        $(document).ready(() => {          
             $("#datepicker").datepicker({
-                language: 'es'
-            });
-            $("#dateCita").datepicker({
-                language: 'es'
-            });
+                language: 'es',
+            });           
         })
     </script>
 @endpush
 @section('content')
     <div>
-        {{ var_export($appointments) }}
         <div class="container-fluid">
             <div class="row mt-2">
                 <div class="col-sm-2 md-2 lg-2 xl-2 xxl-2">
@@ -131,13 +123,10 @@
                                 </div>
                                 <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-2">
                                     <div class="floating-label-group">
-                                        <div class="Icon-inside">
                                             <label for="exampleFormControlTextarea1" class="floating-label">Fecha de
                                                 nacimiento</label>
                                             <input class="form-control inputChange" id="dateNacNew" name="dateNacNew"
-                                                type="text" value="">
-                                            <i class="bi bi-calendar"></i>
-                                        </div>
+                                                type="date" value="">                                         
                                     </div>
                                 </div>
                                 <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-2">
@@ -254,13 +243,9 @@
 
                                 <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-2">
                                     <div class="floating-label-group">
-                                        <div class="Icon-inside">
                                             <label for="exampleFormControlTextarea1" class="floating-label">Fecha</label>
                                             <input autocomplete="off" class="form-control inputChange" id="dateCita"
-                                                name="dateCita" type="text" value="">
-                                            <i class="bi bi-calendar"></i>
-                                        </div>
-
+                                                name="dateCita" type="date" value="">                                          
                                     </div>
                                 </div>
                                 <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-2">
