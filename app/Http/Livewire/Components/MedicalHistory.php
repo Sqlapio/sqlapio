@@ -20,15 +20,15 @@ class MedicalHistory extends Component
 
             $patient = Patient::where('id',$request->id)->get();
             
-            foreach($patient as $item){
+            foreach($patient as $item)
+            {
                 $patient_id = $item->id;
                 if($item->ci == null){
                     // Paciente menor de edad
                     $cod_patient = $item->re_ci;
                 }else{
                     $cod_patient = $item->ci;
-                }
-                
+                }      
             }
 
             $history = new History();
@@ -38,6 +38,17 @@ class MedicalHistory extends Component
             $history->history_date  = date('d-m-Y');
             $history->weight = $request->weight;
             $history->height = $request->height;
+            $history->reason = $request->reason;
+            $history->current_illness = $request->current_illness;
+            $history->strain = $request->strain;
+            $history->temperature = $request->temperature;
+            $history->breaths = $request->breaths;
+            $history->pulse = $request->pulse;
+            $history->saturation = $request->saturation;
+            $history->condition = $request->condition;
+            $history->applied_studies = $request->applied_studies;
+            $history->info_add  = json_encode($request->info_add);
+            $history->history_vital_signs    = json_encode($request->history_vital_signs);
             $history->back_family  = json_encode($request->back_family);
             $history->allergies    = json_encode($request->allergies);
             $history->history_non_pathological  = json_encode($request->history_non_pathological);
@@ -58,9 +69,6 @@ class MedicalHistory extends Component
         }
     }
     
-
-
-
     public function render()
     {
         return view('livewire.components.medical-history');
