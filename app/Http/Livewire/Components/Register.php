@@ -1,0 +1,338 @@
+<?php
+
+namespace App\Http\Livewire\Components;
+
+use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\EstadisticaController;
+use App\Http\Controllers\UtilsController;
+use App\Models\Laboratory;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Livewire\Component;
+
+class Register extends Component {
+
+	public $show;
+
+	public function store(Request $request) 
+	{
+		/**
+		 * @param name
+		 * @param lastname
+		 * @param email
+		 * @param password
+		 *
+		 * Reglas de validacion + mensajes de validacion.
+		 *
+		 * NOTA: El resto de la informacion del usuario sera cargada desde el modulo de configuracion
+		 * al completar el registro
+		 */
+		if($request->rol == 'medico')
+		{
+			$rules = [
+				'name'      => 'required',
+				'last_name' => 'required',
+				'email'     => 'required|unique:users',
+				'password'  => 'required',
+			];
+	
+			$msj = [
+				'name'              => 'Campo requerido',
+				'last_name'         => 'Campo requerido',
+				'email'             => 'Campo requerido',
+				'email.unique'      => 'El email ya se encuentra registrado',
+				'password'          => 'Campo requerido',
+				'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
+				'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
+				'password.regex'    => 'Formato de contraseña  incorrecto',
+			];
+	
+			$validator = Validator::make($request->all(), $rules, $msj);
+	
+			if ($validator->fails()) {
+				return response()->json([
+					'success' => 'false',
+					'errors'  => $validator->errors()->all()
+				], 400);
+			}
+
+			try {
+
+				$user = User::create([
+
+					'name' 				=> $request->name,
+					'last_name' 		=> $request->last_name,
+					'email' 			=> $request->email,
+					'password' 			=> Hash::make($request->password),
+					'role'				=> $request->rol,
+					'verification_code' => Str::random(30)
+	
+				]);
+			
+			$action = '3';
+			ActivityLogController::store_log($action);
+
+			$dr_name = $user['name'].' '.$user['last_name'];
+			UtilsController::notification_register_mail($user['verification_code'], $user['email'], $dr_name, $type = 'm');
+
+			return redirect('/')->with('success', 'El registro inicial satisfactorio');
+
+			} catch (\Throwable $th) {
+				$message = $th->getMessage();
+				dd('Error Livewire.Components.Register.store()', $message);
+			}
+		}
+
+		if($request->rol == 'laboratorio')
+		{
+
+			$rules = [
+				'business_name' => 'required',
+				'email'     	=> 'required|unique:users',
+				'password'  	=> 'required',
+			];
+	
+			$msj = [
+				'business_name'     => 'Campo requerido',
+				'email'             => 'Campo requerido',
+				'email.unique'      => 'El email ya se encuentra registrado',
+				'password'          => 'Campo requerido',
+				'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
+				'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
+				'password.regex'    => 'Formato de contraseña  incorrecto',
+			];
+	
+			$validator = Validator::make($request->all(), $rules, $msj);
+	
+			if ($validator->fails()) {
+				return response()->json([
+					'success' => 'false',
+					'errors'  => $validator->errors()->all()
+				], 400);
+			}
+
+			try {
+
+				$user = User::create([
+
+					'business_name' 	=> $request->business_name,
+					'email' 			=> $request->email,
+					'password' 			=> Hash::make($request->password),
+					'role' 				=> $request->rol,
+					'verification_code' => Str::random(30),
+	
+				]);
+
+				/**
+				 * Solicitamos el id del laboratorio
+				 * para almacenar en la tabla laboratorios
+				 */
+				$laboratory = User::where('email', $request->email)->first();
+
+				$user = Laboratory::create([
+
+					'user_id'			=> $laboratory->id,
+					'business_name' 	=> $request->business_name,
+					'email' 			=> $request->email,
+	
+				]);
+			
+			$action = '16';
+
+			ActivityLogController::store_log($action);
+
+			// UtilsController::send_mail($user['verification_code'], $user['email']);
+
+			return redirect('/')->with('success', 'El registro inicial fue satisfactorio');
+
+			} catch (\Throwable $th) {
+				$message = $th->getMessage();
+				dd('Error Livewire.Components.Register.store()', $message);
+			}
+		}
+
+	}
+
+	public function update(Request $request)
+	{
+
+		try {		     
+
+			if($request->rol == 'medico')
+			{
+				$rules = [
+					'name' 		=> 'required',
+					'last_name'	=> 'required',
+					'ci' 		=> 'required',
+					'birthdate' => 'required',
+					'age' 		=> 'required',
+					'phone' 	=> 'required',
+					'state' 	=> 'required',
+					'city' 		=> 'required',
+					'address' 	=> 'required',
+					'zip_code' 	=> 'required',
+					'cod_mpps' 	=> 'required',
+				];
+	
+				$msj = [
+					'name' 		=> 'Campo requerido',
+					'last_name'	=> 'Campo requerido',
+					'ci' 		=> 'Campo requerido',
+					'birthdate' => 'Campo requerido',
+					'age' 		=> 'Campo requerido',
+					'phone' 	=> 'Campo requerido',
+					'state' 	=> 'Campo requerido',
+					'city' 		=> 'Campo requerido',
+					'address' 	=> 'Campo requerido',
+					'zip_code' 	=> 'Campo requerido',
+					'cod_mpps' 	=> 'Campo requerido',
+				];
+	
+				$validator = Validator::make($request->all(), $rules, $msj);
+	
+				if ($validator->fails()) 
+				{
+					return response()->json([
+						'success' => 'false',
+						'errors'  => $validator->errors()->all()
+					], 400);
+				}
+	
+				// informacion del usuario
+				$user = Auth::user();
+	
+				UtilsController::update_registro($user->id, $request);
+	
+				$action = '4';
+				ActivityLogController::store_log($action);
+	
+				/**
+				 * Acumulado para el manejo de estadisticas
+				 * @param state
+				 * @param 1 -> menor de edad
+				 */
+				EstadisticaController::accumulated_doctor($request->state);
+	
+				return true;
+			}
+
+			if($request->rol == 'laboratorio')
+			{
+				$rules = [
+					'rif' 		=> 'required',
+					'state' 	=> 'required',
+					'city' 		=> 'required',
+					'address' 	=> 'required',
+					'phone' 	=> 'required',
+					'license' 	=> 'required',
+					'type_laboratory' 	=> 'required',
+					'responsible' 		=> 'required',
+				];
+		
+				$msj = [
+					'rif' 		=> 'Campo requerido',
+					'state' 	=> 'Campo requerido',
+					'city' 		=> 'Campo requerido',
+					'address' 	=> 'Campo requerido',
+					'phone' 	=> 'Campo requerido',
+					'license' 	=> 'Campo requerido',
+					'type_laboratory' 	=> 'Campo requerido',
+					'responsible' 		=> 'Campo requerido',
+				];
+	
+				$validator = Validator::make($request->all(), $rules, $msj);
+	
+				if ($validator->fails()) 
+				{
+					return response()->json([
+						'success' => 'false',
+						'errors'  => $validator->errors()->all()
+					], 400);
+				}
+
+				/**
+				 * Capturamos la imagen del laboratorio si 
+				 * fue cargada por el usuario
+				 */
+
+				if (Str::contains($request->img, 'base64')) {
+					$file =  $request->img;
+					if ($file != null) {
+						$png = strstr($file, 'data:image/png;base64');
+						$jpg = strstr($file, 'data:image/jpg;base64');
+						$jpeg = strstr($file, 'data:image/jpeg;base64');
+						if ($png != null) {
+							$file = str_replace("data:image/png;base64,", "", $file);
+							$file = base64_decode($file);
+							$extension = ".png";
+						} elseif ($jpeg != null) {
+							$file = str_replace("data:image/jpeg;base64,", "", $file);
+							$file = base64_decode($file);
+							$extension = ".jpeg";
+						} elseif ($jpg != null) {
+							$file = str_replace("data:image/jpg;base64,", "", $file);
+							$file = base64_decode($file);
+							$extension = ".jpg";
+						}
+						$nameFile = uniqid() . $extension;
+
+						file_put_contents(public_path('imgs/') . $nameFile, $file);
+					}
+				} else {
+					$nameFile = $request->img;
+				} 
+	
+				// informacion del usuario
+				$laboratory = Auth::user();
+
+				$patient= Laboratory::updateOrCreate(['id' => $request->id],
+                [
+
+					'code_lab' 				=> 'SQ-LAB-'.random_int(11111111, 99999999),
+					'user_id' 				=> $laboratory->id,
+					'business_name' 		=> $request->business_name,
+					'email' 				=> $request->email,
+					'rif' 					=> $request->rif,
+					'state' 				=> $request->state,
+					'city' 					=> $request->city,
+					'address' 				=> $request->address,
+					'phone_1' 				=> $request->phone,
+					'license' 				=> $request->license,
+					'type_laboratory' 		=> $request->type_laboratory,
+					'responsible' 			=> $request->responsible,
+					'descripcion' 			=> $request->descripcion,
+					'website' 				=> $request->website,
+					'lab_img' 				=> $nameFile
+	
+				]);
+
+				$update = DB::table('users')
+					->where('id', $laboratory->id)
+					->update([
+						'status_register' => '2',
+				]);
+	
+				$action = '17';
+				ActivityLogController::store_log($action);
+	
+				return true;
+			}
+			
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error Livewire.Components.Register.store()', $message);
+		}
+
+	}
+
+	public function render() {
+		$this->show = true;
+		return view('livewire.components.register', ['show' => $this->show]);
+	}
+
+}

@@ -1,16 +1,18 @@
-### Hi there 👋
+## Requirements Package
 
-<!--
-**Sqlapio/sqlapio** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+## LARAVEL  10.12.0 **[Vehikl](https://laravel.com/)**
+## PHP > 8.1.0 
+## NODE  18.16.0 **[Vehikl](https://nodejs.org/en)**
+## NPM   9.6.7
+## COMPOSER  2.5.3 **[Vehikl](https://getcomposer.org/)**
 
-Here are some ideas to get you started:
+## Se recomienda usar nvm para manejar las versiones de node
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## Crear Componentes de Laravel
+## php artisan make:component FirsComponent
+
+## Crear Componentes de Livewire
+## php artisan make:livewire name-folder/nameComponents
+
+
+

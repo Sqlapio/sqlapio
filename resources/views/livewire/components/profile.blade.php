@@ -1,0 +1,543 @@
+@extends('layouts.app-auth')
+@section('title', 'Perfil')
+<style>
+    .sel {
+        margin-top: -6px !important;
+        padding-left: 18px !important;
+        padding-right: 7px !important;
+    }
+
+    .collapseBtn {
+        color: #428bca;
+    }
+
+    /* img {
+        margin-left: 10px;
+        margin-bottom: 15px;
+    } */
+
+    {
+        margin-top: -6px;
+    padding-left: 16px;
+    padding-right: 7px;
+    }
+</style>
+@push('scripts')
+    <script>
+        $(document).ready(() => {
+            $('#form-profile').validate({
+                rules: {
+                    name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    last_name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    email: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                        email: true
+                    },
+                    ci: {
+                        required: true,
+                        minlength: 5,
+                        maxlength: 8,
+                        onlyNumber: true
+                    },
+                    genere: {
+                        required: true,
+                    },
+                    birthdate: {
+                        required: true,
+                    },
+                    state: {
+                        required: true,
+                    },
+                    city: {
+                        required: true,
+                    },
+                    address: {
+                        required: true,
+                    },
+                    zip_code: {
+                        required: true,
+                    },
+                    phone: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    name: {
+                        required: "Nombres es obligatorio",
+                        minlength: "Nombres debe ser mayor a 3 caracteres",
+                        maxlength: "Nombres debe ser menor a 50 caracteres",
+                    },
+                    last_name: {
+                        required: "Apellidos es obligatorio",
+                        minlength: "Apellidos debe ser mayor a 6 caracteres",
+                        maxlength: "Apellidos debe ser menor a 8 caracteres",
+                    },
+
+                    email: {
+                        required: "Correo Electrónico es obligatorio",
+                        minlength: "Correo Electrónico debe ser mayor a 6 caracteres",
+                        maxlength: "Correo Electrónico debe ser menor a 8 caracteres",
+                        email: "Correo Electrónico incorrecto"
+                    },
+                    ci: {
+                        required: "Cédula de identidad es obligatoria",
+                        minlength: "Cédula de identidad  debe ser mayor a 5 caracteres",
+                        maxlength: "Cédula de identidad  debe ser menor a 8 caracteres",
+                    },
+                    genere: {
+                        required: "Género es obligatorio",
+                    },
+                    birthdate: {
+                        required: "Fecha de nacimiento es obligatorio",
+                    },
+                    state: {
+                        required: "Estado es obligatoria",
+                    },
+                    city: {
+                        required: "Ciudad es obligatoria",
+                    },
+                    address: {
+                        required: "Dirección es obligatoria",
+                    },
+                    zip_code: {
+                        required: "Código de area es obligatorio",
+                    },
+                    phone: {
+                        required: "Teléfono de area es obligatorio",
+                    },
+                    business_name: {
+                        required: "Nombre del laboratorio es obligatorio",
+                    },
+                    rif: {
+                        required: "Rif es obligatorio",
+                    },
+                    type_laboratory: {
+                        required: "Tipo de laboratorio es obligatorio",
+                    },
+                    responsible: {
+                        required: "Responsable es obligatorio",
+                    },
+                    license: {
+                        required: "Número de lincencia es obligatorio",
+                    },
+                    website:{
+                        url: "Debe colocar una url valida"
+                    }
+                },
+
+
+            });
+            $.validator.addMethod("onlyNumber", function(value, element) {
+                var pattern = /^\d+\.?\d*$/;
+                return pattern.test(value);
+            }, "Campo solo numero");
+
+            let img;
+            let user = @json($user);
+            if (user.role == 'medico') {
+                img = user.user_img;
+                $('#birthdate').val(user.birthdate).change();
+                $('#state').val(user.state).change();
+                $('#city').val(user.city).change();
+
+            } else {
+
+                $("#business_name").rules('add', {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 50,
+                });
+
+                $("#rif").rules('add', {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 17,
+                    // onlyNumber: true
+                });
+
+                $("#license").rules('add', {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 8,
+                    onlyNumber: true
+                });
+
+                $("#website").rules('add', {
+                    url:true,                   
+                });
+
+
+                $("#type_laboratory").rules('add', {
+                    required: true
+                });
+
+                $("#responsible").rules('add', {
+                    required: true
+                });
+                if (user.get_laboratorio) {
+                    img = user.get_laboratorio.lab_img;
+                    $('#state').val(user.get_laboratorio.state).change();
+                    $('#city').val(user.get_laboratorio.city).change();
+                    $('#type_laboratory').val(user.get_laboratorio.type_laboratory).change();
+                    $('#type_rif').val(user.get_laboratorio.rif[0]+"-").change();
+                    $('#rif').val(user.get_laboratorio.rif);
+                }
+            }
+
+            if (img != null) {
+                $(".holder").show();
+                let ulrImge = `{{ URL::asset('/imgs/${img}') }}`;
+                $(".holder").find('img').attr('src', ulrImge);
+                $("#img").val(img);
+            }
+
+            //envio del formulario
+            $("#form-profile").submit(function(event) {
+                event.preventDefault();
+                $("#form-profile").validate();
+                if ($("#form-profile").valid()) {
+                    $('#send').hide();
+                    $('#spinner').show();
+                    var data = $('#form-profile').serialize();
+                    $.ajax({
+                        url: '{{ route('update-profile') }}',
+                        type: 'POST',
+                        data: data,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            $('#send').show();
+                            $('#spinner').hide();
+                            $("#form-profile").trigger("reset");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Perfil actualizado exitosamente!',
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                window.location.href =
+                                    "{{ route('DashboardComponent') }}";
+                            });
+                        },
+                        error: function(error) {
+                            $('#send').show();
+                            $('#spinner').hide();
+                            console.log(error.responseJSON.errors);
+
+                        }
+                    });
+                }
+            })
+        });
+        function handlerTypeDoc(e){
+            $('#rif').val(e.target.value);
+        }
+    </script>
+@endpush
+@section('content')
+    <div>
+        <div class="container-fluid" style="padding: 3%">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                    <div class="accordion" id="accordion">
+                        <div class="accordion-item">
+                            <span class="accordion-header title" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-person"></i> Datos personales
+                                </button>
+                            </span>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    <form id="form-profile" method="post" action="/">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" id="rol" name="rol" value="{{ Auth::user()->role }}">
+                                        <div class="row mt-3 Form-edit-user">
+                                            @if (Auth::user()->role == 'medico')
+                                                {{-- rol medico --}}
+                                                <div class="row">
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
+                                                                <input autocomplete="off" placeholder=""
+                                                                    class="form-control mask-text @error('name') is-invalid @enderror"
+                                                                    id="name" name="name" type="text"
+                                                                    value="{!! !empty($user) ? $user->name : '' !!}">
+                                                                <i class="bi bi-person-circle" style="top: 30px"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
+                                                                <input autocomplete="off" placeholder=""
+                                                                    class="form-control mask-text @error('last_name') is-invalid @enderror"
+                                                                    id="last_name" name="last_name" type="text"
+                                                                    value="{!! !empty($user) ? $user->last_name : '' !!}">
+                                                                <i class="bi bi-person-circle" style="top: 30px"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Cédula de identidad</label>
+                                                                <input autocomplete="off" placeholder=""
+                                                                    class="form-control @error('ci') is-invalid @enderror"
+                                                                    id="ci" name="ci" type="text"
+                                                                    value="{!! !empty($user) ? $user->ci : '' !!}">
+                                                                <i class="bi bi-person-vcard" style="top: 30px"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+        
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="form-group">
+                                                            <label for="birthdate" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha de Nacimiento</label>
+                                                            <input autocomplete="off" placeholder=""
+                                                                class="form-control @error('birthdate') is-invalid @enderror"
+                                                                id="birthdate" name="birthdate" type="date" value=""
+                                                                onchange="calculateAge(event,'age')">
+                                                        </div>
+                                                    </div>
+                                                    <input id="age" name="age" type="hidden" value="">
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                            <label for="username" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo electrónico</label>
+                                                            <input autocomplete="off" placeholder=""
+                                                                    class="form-control @error('username') is-invalid @enderror"
+                                                                    id="username" name="username" type="text" readonly
+                                                                    value="{!! !empty($user) ? $user->email : '' !!}">
+                                                                <i class="bi bi-envelope-at" style="top: 30px"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono</label>
+                                                            <input autocomplete="off" placeholder=""
+                                                                    class="form-control phone @error('phone') is-invalid @enderror"
+                                                                    id="phone" name="phone" type="text"
+                                                                    value="{!! !empty($user) ? $user->phone : '' !!}">
+                                                                <i class="bi bi-telephone-forward" style="top: 30px"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="phone" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
+                                                                <textarea 
+                                                                    id="address" rows="3" id="address" name="address"
+                                                                    class="form-control @error('address') is-invalid @enderror" 
+                                                                    value="{!! !empty($user) ? $user->address : '' !!}"></textarea>
+                                                                <i class="bi bi-geo st-icon"></i>
+                                                            </div>
+
+                                                        </diV>
+                                                    </div>
+        
+                                                    <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"/>
+        
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                            <label for="zip_code" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Código Postal</label>
+                                                            <input autocomplete="off" placeholder=""
+                                                                    class="form-control mask-only-text @error('zip_code') is-invalid @enderror"
+                                                                    id="zip_code" name="zip_code" type="text"
+                                                                    value="{!! !empty($user) ? $user->zip_code : '' !!}">
+                                                                <i class="bi bi-geo" style="top: 30px"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+        
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                            <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">MPPS</label>
+                                                            <input autocomplete="off" placeholder="MPPS"
+                                                                    class="form-control mask-only-number @error('cod_mpps') is-invalid @enderror"
+                                                                    id="cod_mpps" name="cod_mpps" type="text"
+                                                                    value="{!! !empty($user) ? $user->cod_mpps : '' !!}">
+                                                                <i class="bi bi-geo" style="top: 30px"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <x-upload-image />
+                                                </div>
+                                            @else
+                                                {{-- rol laboratorio --}}
+                                                <div class="row">
+                                                    <input type="hidden" id="id" name="id"
+                                                        value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->id : '' !!}">
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                            <input autocomplete="off" placeholder="Nombre del laboratorio"
+                                                                    class="form-control mask-text  @error('business_name') is-invalid @enderror"
+                                                                    id="business_name" name="business_name" type="text"
+                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->business_name : '' !!}">
+                                                                <i class="bi bi-person-vcard"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 sel">
+                                                        <div class="floating-label-group">
+                                                            <select onchange="handlerTypeDoc(event)" name="type_rif" id="type_rif" class="form-control">
+                                                                <option value="">Tipo de documento</option>
+                                                                <option value="F-">Firma personal</option>
+                                                                <option value="J-">Jurídico</option>
+                                                                <option value="C-">Comuna</option>
+                                                                <option value="G-">Gubernamental</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                            <input autocomplete="off"
+                                                                    placeholder="Número de Identificación o RIF"
+                                                                    class="form-control mask-rif @error('rif') is-invalid @enderror"
+                                                                    id="rif" name="rif" type="text"
+                                                                    maxlength="17"
+                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->rif : '' !!}">
+                                                                <i class="bi bi-person-vcard"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                            <input autocomplete="off" placeholder="Correo electrónico"
+                                                                    class="form-control @error('email') is-invalid @enderror"
+                                                                    id="email" name="email" type="text" readonly
+                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->email : '' !!}">
+                                                                <i class="bi bi-envelope-at"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                            <input autocomplete="off" placeholder="Número de Licencia salud"
+                                                                    class="form-control mask-only-text @error('license') is-invalid @enderror"
+                                                                    id="license" name="license" type="text"
+                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->license : '' !!}">
+                                                                <i class="bi bi-geo"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                            <input autocomplete="off" placeholder="Teléfono"
+                                                                    class="form-control phone @error('phone') is-invalid @enderror"
+                                                                    id="phone" name="phone" type="text"
+                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->phone_1 : '' !!}">
+                                                                <i class="bi bi-telephone-forward"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <input autocomplete="off" placeholder="Dirección"
+                                                                    class="form-control mask-only-text @error('address') is-invalid @enderror"
+                                                                    id="address" name="address" type="text"
+                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->address : '' !!}">
+                                                                <i class="bi bi-geo"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+        
+                                                    <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 sel" />
+        
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 sel">
+                                                        <div class="floating-label-group">
+                                                            <div class="Icon-inside">
+                                                                <select name="type_laboratory" id="type_laboratory"
+                                                                    class="form-control">
+                                                                    <option value="">Seleccione tipo de laboratorio</option>
+                                                                    <option value="clinico">Laboratorio clínico</option>
+                                                                    <option value="investigacion">Laboratorio investigación
+                                                                    </option>
+                                                                    <option value="microbiológico">Laboratorio microbiológico
+                                                                    </option>
+                                                                    <option value="etc">etc</option>
+                                                                </select>
+                                                                <i class="bi bi-flag"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <input autocomplete="off" placeholder="Responsable o Director"
+                                                                    class="form-control mask-only-text @error('responsible') is-invalid @enderror"
+                                                                    id="responsible" name="responsible" type="text"
+                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->responsible : '' !!}">
+                                                                <i class="bi bi-geo"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+        
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <input autocomplete="off" placeholder="Sitio web"
+                                                                    class="form-control @error('website') is-invalid @enderror"
+                                                                    id="website" name="website" type="text"
+                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->website : '' !!}">
+                                                                <i class="bi bi-geo"></i>
+                                                            </div>
+                                                            <small style="font-size: 12px" class="collapseBtn">https://www.sitioweb.com</small>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <input autocomplete="off" placeholder="Descripción"
+                                                                    class="form-control mask-only-text @error('description') is-invalid @enderror"
+                                                                    id="description" name="description" type="text"
+                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->description : '' !!}">
+                                                                <i class="bi bi-geo"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    <x-upload-image />
+                                                </div>
+                                            @endif
+                                            <div class="row mt-3 justify-content-md-end">
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                                    <input class="btn btnPrimary send " value="Guardar" type="submit" style="margin-left: 20px"/>
+                                                    <button type="button" class="btn btnSecond btn6" style="margin-left: 20px">Cancelar</button>
+                                                </div>
+                                            </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+@endsection
