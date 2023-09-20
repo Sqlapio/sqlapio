@@ -1,0 +1,1275 @@
+@extends('layouts.app-auth')
+@section('title', 'Pacientes')
+<style>
+    .div-select {
+        padding-left: 16px !important;
+        padding-right: 7px !important;
+    }
+
+    body {
+        /* font-family: 'Roboto', 'Inter', "Helvetica Neue", Helvetica, 'Source Sans Pro' !important; */
+        letter-spacing: -.022em;
+        color: #1d1d1f;
+    }
+
+    .form-switch {
+        padding-left: 1.5em !important;
+    }
+
+    .avatar {
+        width: 45px !important;
+        height: auto !important;
+        margin: -5px 0px 0px 0px !important;
+    }
+
+    .table-avatar {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .td-pad {
+        padding-top: 20px !important;
+    }
+
+    .borde {
+        border-radius: 0 !important;
+    }
+
+    .img img {
+        max-height: 220px;
+        text-align: left;
+        margin-right: 70%;
+    }
+
+    #btn-margin {
+        margin-left: -14px !important;
+    }
+
+
+    @media screen and (max-width: 390px) {
+
+        #btn-margin {
+            margin-left: -14px !important;
+        }
+
+    }
+</style>
+@push('scripts')
+    @vite(['resources/js/dairy.js'])
+    <script>
+        let pathologiesArray = [];
+        let patients = @json($patients);
+        let centers = @json($centers);
+        let urlPostCreateAppointment = '{{ route('CreateAppointment') }}';
+        let urlDiary = "{{ route('Diary') }}";
+        let status = "";
+
+        $(document).ready(() => {
+
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            tooltipTriggerList.forEach(element => {
+                new bootstrap.Tooltip(element)
+            });
+
+            getUrl(urlPostCreateAppointment, urlDiary);
+            if (centers.length === 0) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Debe asociar  un centro!',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#42ABE2',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    window.location.href = "{{ route('Centers') }}";
+                });
+            }
+
+            $('#form-patients').validate({
+                rules: {
+                    name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    last_name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    email: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                        email: true
+                    },
+                    ci: {
+                        required: true,
+                        minlength: 5,
+                        maxlength: 8,
+                        onlyNumber: true
+                    },
+                    genere: {
+                        required: true,
+                    },
+                    birthdate: {
+                        required: true,
+                    },
+                    state: {
+                        required: true,
+                    },
+                    city: {
+                        required: true,
+                    },
+                    address: {
+                        required: true,
+                    },
+                    zip_code: {
+                        required: true,
+                    },
+                    re_name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    re_last_name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    re_email: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                        email: true
+                    },
+                    re_ci: {
+                        required: true,
+                        minlength: 5,
+                        maxlength: 8,
+                        onlyNumber: true
+                    },
+                    re_phone: {
+                        required: true,
+                    },
+                    phone: {
+                        required: true,
+                    },
+                    profession: {
+                        required: true,
+                    },
+                    center_id: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    name: {
+                        required: "Nombres es obligatorio",
+                        minlength: "Nombres debe ser mayor a 3 caracteres",
+                        maxlength: "Nombres debe ser menor a 50 caracteres",
+                    },
+                    last_name: {
+                        required: "Apellidos es obligatorio",
+                        minlength: "Apellidos debe ser mayor a 6 caracteres",
+                        maxlength: "Apellidos debe ser menor a 8 caracteres",
+                    },
+
+                    email: {
+                        required: "Correo Electrónico es obligatorio",
+                        minlength: "Correo Electrónico debe ser mayor a 6 caracteres",
+                        maxlength: "Correo Electrónico debe ser menor a 8 caracteres",
+                        email: "Correo Electrónico incorrecto"
+                    },
+                    ci: {
+                        required: "Cédula de identidad es obligatoria",
+                        minlength: "Cédula de identidad  debe ser mayor a 5 caracteres",
+                        maxlength: "Cédula de identidad  debe ser menor a 8 caracteres",
+                    },
+                    genere: {
+                        required: "Género es obligatorio",
+                    },
+                    birthdate: {
+                        required: "Fecha de nacimiento es obligatorio",
+                    },
+                    state: {
+                        required: "Esatdo es obligatoria",
+                    },
+                    city: {
+                        required: "Ciudad es obligatoria",
+                    },
+                    address: {
+                        required: "Direccion es obligatoria",
+                    },
+                    zip_code: {
+                        required: "Codigo de area es obligatorio",
+                    },
+                    re_name: {
+                        required: "Nombre del representante es obligatorio",
+                        minlength: "Nombre del representante debe ser mayor a 3 caracteres",
+                        maxlength: "Nombre del representante debe ser menor a 50 caracteres",
+                    },
+                    re_last_name: {
+                        required: "Apellido del representante es obligatorio",
+                        minlength: "Apellido del representante debe ser mayor a 3 caracteres",
+                        maxlength: "Apellido del representante debe ser menor a 50 caracteres",
+                    },
+                    re_email: {
+                        required: "Correo del representante es obligatorio",
+                        minlength: "Correo debe ser mayor a 6 caracteres",
+                        maxlength: "Correo debe ser menor a 8 caracteres",
+                        email: "Correo incorrecto"
+                    },
+                    re_ci: {
+                        required: "Cédula del representante es obligatorio",
+                        minlength: "Cédula del representante  debe ser mayor a 5 caracteres",
+                        maxlength: "Cédula del representante  debe ser menor a 8 caracteres",
+                    },
+                    re_phone: {
+                        required: "Telefono del representante es obligatorio",
+                    },
+                    profession: {
+                        required: "Profesion es obligatoria",
+                    },
+                    phone: {
+                        required: "Telfono es obligatorio",
+                    },
+                    center_id: {
+                        required: "Centro es obligatorio",
+                    }
+
+                }
+            });
+
+            $.validator.addMethod("onlyNumber", function(value, element) {
+                var pattern = /^\d+\.?\d*$/;
+                return pattern.test(value);
+            }, "Campo solo numero");
+
+            //envio del formulario
+            $("#form-patients").submit(function(event) {
+                event.preventDefault();
+                $("#form-patients").validate();
+                if ($("#form-patients").valid()) {
+                    $('#send').hide();
+                    $('#spinner').show();
+                    var data = $('#form-patients').serialize();
+                    $.ajax({
+                        url: "{{ route('register-patients') }}",
+                        type: 'POST',
+                        data: data,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            $('#send').show();
+                            $('#spinner').hide();
+                            $("#form-patients").trigger("reset");
+                            $(".holder").hide();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Paciente registrado exitosamente!',
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                // ajax para refrezcar la tabla  se comenta el codigo por el nuevo flujo
+                                // $.ajax({
+                                //     url: "{{ route('get_patients_pagination') }}",
+                                //     type: 'GET',
+                                //     headers: {
+                                //         'X-CSRF-TOKEN': $(
+                                //             'meta[name="csrf-token"]').attr(
+                                //             'content')
+                                //     },
+                                //     success: function(res) {
+                                //         let data = [];
+                                //         res.map((elem) => {
+                                //             let route =
+                                //                 "{{ route('ClinicalHistoryDetail', ':id') }}";
+                                //             let routeTow =
+                                //                 "{{ route('MedicalRecord', ':id') }}";
+                                //             routeTow = routeTow
+                                //                 .replace(':id', elem
+                                //                     .id);
+                                //             route = route.replace(
+                                //                 ':id', elem.id);
+                                //             let elemData = JSON
+                                //                 .stringify(elem);
+                                //             let ulrImge =
+                                //                 `{{ URL::asset('/imgs/${elem.patient_img}') }}`;
+                                //             elem.img =
+                                //                 `<img class="avatar" src="${ulrImge}" alt="">`;
+                                //             elem.btn = `
+                            //                 <div class="d-flex">
+                            //                 <div
+                            //                 class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                            //                 <button
+                            //                 onclick="editPatien(${elemData}); "
+                            //                 type="button"
+                            //                 class="btn btn-iSecond rounded-circle"
+                            //                 data-bs-toggle="tooltip"
+                            //                 data-bs-placement="top" title="Editar"><i
+                            //                 class="bi bi-pencil"></i></button>
+                            //                 </div>
+                            //                 <div
+                            //                 class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                            //                 <a href="${routeTow}">
+                            //                 <button type="button"
+                            //                 class="btn btn-iPrimary rounded-circle"
+                            //                 data-bs-toggle="tooltip"
+                            //                 data-bs-placement="top"
+                            //                 title="Consulta médica">
+                            //                 <i class="bi bi-file-earmark-text"></i>
+                            //                 </button>
+                            //                 </a>
+                            //                 </div>
+                            //                 <div
+                            //                 class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                            //                 <a
+                            //                 href="${route}">
+                            //                 <button type="button"
+                            //                 class="btn btn-iSecond rounded-circle"
+                            //                 data-bs-toggle="tooltip"
+                            //                 data-bs-placement="top"
+                            //                 title="Historia Clinica"><i
+                            //                 class="bi bi-file-earmark-text"></i>
+                            //                 </button>
+                            //                 </a>
+                            //                 </div>
+                            //                 </div>`;
+
+                                //                 elem.btn1=`<button
+                            //                 onclick="agendarCita(${elemData},${elemData})"
+                            //                 type="button" class="btn btnSecond"
+                            //                 data-bs-toggle="tooltip" data-bs-placement="left"
+                            //                 data-bs-custom-class="custom-tooltip" data-html="true"
+                            //                 title="Agendar cita">${elem.patient_code}</button>`
+                                //             data.push(elem);
+                                //         });
+
+                                //         new DataTable('#table-patient', {
+                                //             language: {
+                                //                 url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                                //             },
+                                //             bDestroy: true,
+                                //             data: data,
+                                //             columns: [{
+
+                                //                     data: 'img',
+                                //                     title: 'Imagen',
+                                //                     className: "text-center",
+                                //                 },
+                                //                 {
+
+                                //                     data: 'btn1',
+                                //                     title: 'Codigo paciente',
+                                //                     className: "text-center",
+                                //                 },
+
+                                //                 {
+                                //                     data: 'name',
+                                //                     title: 'Nombre',
+                                //                     className: "text-center",
+                                //                 },
+                                //                 {
+                                //                     data: 'ci_table',
+                                //                     title: 'Cédula',
+                                //                     className: "text-center",
+                                //                 },
+                                //                 {
+                                //                     data: 'birthdate',
+                                //                     title: 'Fecha de Nacimiento',
+                                //                     className: "text-center",
+                                //                 },
+
+                                //                 {
+                                //                     data: 'genere',
+                                //                     title: 'Género',
+                                //                     className: "text-center",
+                                //                 },
+                                //                 {
+                                //                     data: 'phone_table',
+                                //                     title: 'Teléfono',
+                                //                     className: "text-center",
+                                //                 },
+                                //                 {
+                                //                     data: 'email_table',
+                                //                     title: 'Email',
+                                //                     className: "text-center",
+                                //                 },
+                                //                 {
+                                //                     data: 'address',
+                                //                     title: 'Direccion',
+                                //                     className: "text-center",
+                                //                 },
+                                //                 {
+                                //                     data: 'btn',
+                                //                     title: 'Acciones',
+                                //                     className: "text-center",
+                                //                 }
+                                //             ],
+                                //         });                                    
+                                //     }
+                                // });
+                            });
+                        },
+                        error: function(error) {
+                            error.responseJSON.errors.map((elm) => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: elm,
+                                    allowOutsideClick: false,
+                                    confirmButtonColor: '#42ABE2',
+                                    confirmButtonText: 'Aceptar'
+                                }).then((result) => {
+                                    $('#send').show();
+                                    $('#spinner').hide();
+                                    $(".holder").hide();
+                                });
+                            });
+                        }
+                    });
+                }
+            });
+        });
+
+        function handlerAge(e) {
+            if (Number($("#age").val()) >= 18) {
+                $("#email").rules('add', {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 50,
+                    email: true
+                });
+                $("#profession").rules('add', {
+                    required: true
+                });
+                $("#ci").rules('add', {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 8,
+                    onlyNumber: true
+                });
+                $("#phone").rules('add', {
+                    required: true
+                });
+                //
+                $('#data-rep').hide();
+                $('#is_minor').val(false);
+                $("#profesion-div").show();
+                $("#ci-div").show();
+                $("#email-div").show();
+
+            } else {
+                // validar si el nino tienes menos de 8 anos
+                if (Number($("#age").val()) <= 8) {
+                    $("#profesion-div").hide();
+                    $("#ci-div").hide();
+                    $("#email-div").hide();
+                    $("#profession").rules('remove');
+                    $("#phone").rules('remove');
+
+                } else {
+                    $("#profesion-div").show();
+                    $("#ci-div").show();
+                    $("#email-div").show();
+                    //remover valdaciones
+                    $("#email").rules('remove');
+                    $("#profession").rules('remove');
+                    $("#ci").rules('remove');
+                    $("#phone").rules('remove');
+
+                }
+
+                $('#data-rep').show();
+                $('#is_minor').val(true);
+            }
+        }
+        //seteiar data en el formalario para su edicion
+        function editPatien(item, active = true) {
+            if (active) {
+                $(".collapse").collapse({
+                    toggle: false
+                });
+            }
+            $("#id").val(item.id);
+            $("#name").val(item.name);
+            $("#name").val(item.name);
+            $("#last_name").val(item.last_name);
+            $("#ci").val(item.ci);
+            $("#address").val(item.address);
+            $("#genere").val(item.genere).change();
+            $("#email").val(item.email);
+            $("#phone").val(item.phone);
+            $("#profession").val(item.profession);
+            $("#birthdate").val(item.birthdate).change();
+            $("#zip_code").val(item.zip_code);
+            $("#center_id").val(item.center_id).change();
+            $("#state").val(item.state).change();
+            $("#city").val(item.city).change();
+            $(".holder").show();
+            let ulrImge = `{{ URL::asset('/imgs/${item.patient_img}') }}`;
+            $(".holder").find('img').attr('src', ulrImge);
+            $("#img").val(item.patient_img);
+            if (item.is_minor === 'true') {
+                $("#re_name").val(item.get_reprensetative.re_name);
+                $("#re_last_name").val(item.get_reprensetative.re_last_name);
+                $("#re_ci").val(item.get_reprensetative.re_ci);
+                $("#re_email").val(item.get_reprensetative.re_email);
+                $("#re_phone").val(item.get_reprensetative.re_phone);
+            }
+
+        }
+
+        function refreshForm() {
+            $(".holder").hide();
+            $("#show-info-pat").hide();
+            $("#bnt-save").show();
+            $("#bnt-cons").hide();
+            $("#form-patients").trigger("reset");
+            $('#is_minor').val(false);
+            $('#id').val('');
+        }
+
+        function handlerPatExit(e) {
+            $("#search_patient").val('');
+            if ($(`#${e.target.id}`).is(':checked')) {
+                $('#content-patient').hide();
+                $('#content-search-pat').show();
+
+            } else {
+                refreshForm();
+                $('#bnt-cons').hide();
+                $('#bnt-dairy').hide();
+                $('#content-search-pat').hide();
+                $('#content-patient').show();
+            }
+
+        }
+
+        function searchPat() {
+            if ($('#search_patient').val() != '') {
+                let route = "{{ route('search-patient', ':value') }}";
+                route = route.replace(':value', `${$('#search_patient').val()}-${status}`);
+                $.ajax({
+                    url: route,
+                    type: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Operacion exitosamente!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            if (response.length > 1) {
+                                $('#show-info-pat').show();
+                                let data = [];
+                                response.map((elem) => {
+                                    let elemData = JSON.stringify(elem);
+                                    elem.btn = ` 
+                                                <button onclick='setValue(${elemData})'
+                                                type="button" class="btn-2 btnSecond">Realizar Consulta</button>
+                                                </div>`;
+                                    data.push(elem);
+                                })
+
+                                new DataTable('#table-show-info-pat', {
+                                    language: {
+                                        url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                                    },
+                                    bDestroy: true,
+                                    data: data,
+                                    columns: [{
+
+                                            data: 'name_full',
+                                            title: 'Nombre',
+                                            className: "text-center text-capitalize",
+                                        },
+                                        {
+
+                                            data: 'get_reprensetative.re_ci',
+                                            title: 'Cédula paciente',
+                                            className: "text-center",
+                                        },
+
+                                        {
+                                            data: 'birthdate',
+                                            title: 'Fecha de Nacimiento ',
+                                            className: "text-center",
+                                        },
+                                        {
+                                            data: 'genere',
+                                            title: 'Género',
+                                            className: "text-center text-capitalize",
+                                        },
+                                        {
+                                            data: 'btn',
+                                            title: 'Acciones',
+                                            className: "text-center",
+                                        }
+                                    ],
+                                });
+                            } else {
+                                if (response.is_minor != undefined) {
+                                    setValue(response);
+                                } else {
+                                    setValue(response[0]);
+                                }
+                            }
+
+
+                        });
+                    },
+                    error: function(error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: error.responseJSON.errors,
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                $('#send').show();
+                                $('#spinner').hide();
+                                $(".holder").hide();
+                            });                    
+                    }
+                });
+            }
+        }
+
+        function setValue(data) {
+            $('#content-search-pat').hide();
+            $('#show-info-pat').hide();
+            $('#search_patient').val('');
+            $('#content-patient').show();
+            $('#bnt-save').hide();
+            $('#bnt-cons').show();
+            $('#bnt-dairy').show();
+            $('#flexSwitchCheckChecked').prop('checked', false);
+            let url = "{{ route('MedicalRecord', ':id') }}";
+            url = url.replace(':id', data.id);
+            $("#bnt-cons").find('a').remove();
+            $("#bnt-dairy").find('button').remove();
+            $("#bnt-cons").append(
+                `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`);
+            let elemData = JSON.stringify(data);
+            let elemRep = JSON.stringify(data.get_reprensetative);
+            $("#bnt-dairy").append(
+                `<button onclick='agendarCita(${elemData},${elemRep});' type="button" class="btn btnPrimary">Agendar cita</button>`
+            );
+            editPatien(data, false);
+        }
+
+        function agendarCita(item, info) {
+            $('#exampleModal').modal('show');
+            if (item.is_minor == 'true') {
+                $("#name-pat").text(item.name + ' ' + item.last_name);
+                $("#email-pat").text(`${info.re_email} (Rep)`);
+                $("#phone-pat").text(`${info.re_phone} (Rep)`);
+                $("#ci-pat").text(`${info.re_ci} (Rep)`);
+                $("#genere-pat").text(item.genere);
+                $("#age-pat").text(item.age);
+                $("#patient_id").val(item.id);
+            } else {
+                $("#name-pat").text(item.name + ' ' + item.last_name);
+                $("#email-pat").text(item.email);
+                $("#phone-pat").text(item.phone);
+                $("#ci-pat").text(item.ci);
+                $("#genere-pat").text(item.genere);
+                $("#age-pat").text(item.age);
+                $("#patient_id").val(item.id);
+            }
+            $('#div-pat').show();
+            $("#img-pat").attr("src", `{{ URL::asset('/imgs/') }}/${item.patient_img}`);
+            $('#registrer-pac').attr("disabled", false);
+            $('#timeIni').focus()
+        }
+
+        function habdlerPatSearch(e) {
+            if (Number(e.target.value) === 0) {
+                status = true;
+            } else {
+                status = false;
+            }
+            $('#search_patient').attr('disabled', false)
+        }
+    </script>
+@endpush
+@section('content')
+    <div>
+        <div class="container-fluid body" style="padding: 3%">
+            <div class="accordion" id="accordion">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                        <div class="accordion-item">
+                            <span class="accordion-header title" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-plus-lg"></i> Nuevo paciente
+                                </button>
+                            </span>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordion">
+                                <div class="accordion-body">
+
+                                    <div class="row mt-3">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="form-check form-switch">
+                                                <label style="margin-top: 6px;" for="">Paciente registrado</label>
+                                                <input onclick="handlerPatExit(event)" style="width: 5em"
+                                                    class="form-check-input" type="checkbox" role="switch"
+                                                    id="flexSwitchCheckChecked" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3" id="content-search-pat" style="display: none">
+
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
+                                            style="margin-right: -120px;">
+                                            <div class="form-check form-check-inline">
+                                                <input onchange="habdlerPatSearch(event)" class="form-check-input"
+                                                    type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                                    value="0">
+                                                <label style="margin-top: 7px;" class="form-check-label"
+                                                    for="inlineRadio1">Mayor de edad</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input onchange="habdlerPatSearch(event)" class="form-check-input"
+                                                    type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                                    value="1">
+                                                <label style="margin-top: 7px;" class="form-check-label"
+                                                    for="inlineRadio2">Menor de edad</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                            <div class="form-group">
+                                                <label for="search_patient"
+                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Buscar
+                                                    paciente</label>
+                                                <input disabled maxlength="10" type="text"
+                                                    class="form-control mask-only-number" id="search_patient"
+                                                    name="search_patient" placeholder="Buscar paciente" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                            <button style="height: 65%;" onclick="searchPat()"
+                                                class="btn btnSecond">Buscar</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" id="show-info-pat" style="display: none">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <h5>Lista de paciente registrado bajo este documento de identidad</h5>
+                                            <table id="table-show-info-pat" class="table table-striped table-bordered"
+                                                style="width:100%; ">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center" scope="col">Nombre</th>
+                                                        <th class="text-center" scope="col">Cédula</th>
+                                                        <th class="text-center" scope="col">Fecha de Nacimiento </th>
+                                                        <th class="text-center" scope="col">Género</th>
+                                                        <th class="text-center"scope="col">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+
+                                    <div id="content-patient">
+                                        <form id="form-patients" method="post" action="/">
+                                            {{ csrf_field() }}
+                                            <div class="row" style="align-items: flex-end;">
+                                                <input type="hidden" name="is_minor" id="is_minor" value="false">
+                                                <input type="hidden" name="id" id="id" value="">
+                                                @if ($errors->any())
+                                                    <div class="alert alert-danger">
+                                                        @foreach ($errors->all() as $message)
+                                                            <span class="text-danger error-span">
+                                                                {{ $message }}</span><br />
+                                                        @endforeach
+                                                    </div>
+                                                @endif
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="phone" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
+                                                            <input autocomplete="off"
+                                                                class="form-control mask-text @error('name') is-invalid @enderror"
+                                                                id="name" name="name" type="text"
+                                                                value="">
+                                                            <i class="bi bi-person-circle st-icon"></i>
+                                                        </div>
+                                                    </diV>
+                                                </div>
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="phone" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
+                                                            <input autocomplete="off"
+                                                                class="form-control mask-text @error('last_name') is-invalid @enderror"
+                                                                id="last_name" name="last_name" type="text"
+                                                                value="">
+                                                            <i class="bi bi-person-circle st-icon"></i>
+                                                        </div>
+                                                    </diV>
+                                                </div>
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <div class="floating-label-group">
+                                                        <label for="phone" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha
+                                                            de
+                                                            Nacimiento</label>
+                                                        <input class="form-control " id="birthdate" name="birthdate"
+                                                            type="date" value=""
+                                                            onchange="calculateAge(event,'age'), handlerAge(event)">
+                                                    </div>
+                                                </diV>
+
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" id="email-div">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="phone" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
+                                                                Electronico</label>
+                                                            <input autocomplete="off"
+                                                                class="form-control @error('email') is-invalid @enderror"
+                                                                id="email" name="email" type="text"
+                                                                value="">
+                                                            <i class="bi bi-envelope-at st-icon"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" id="ci-div">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="phone" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Cédula
+                                                                de indentidad</label>
+                                                            <input autocomplete="off"
+                                                                class="form-control @error('ci') is-invalid @enderror"
+                                                                id="ci" name="ci" type="text"
+                                                                value="">
+                                                            <i class="bi bi-person-vcard st-icon"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="phone" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono</label>
+                                                            <input autocomplete="off" placeholder="Teléfono"
+                                                                class="form-control phone @error('phone') is-invalid @enderror"
+                                                                id="phone" name="phone" type="text"
+                                                                value="">
+                                                            <i class="bi bi-telephone-forward st-icon"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input id="age" name="age" type="hidden" value="">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <div class="floating-label-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="phone" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Género</label>
+                                                            <select name="genere" id="genere"
+                                                                placeholder="Seleccione"class="form-control @error('genere') is-invalid @enderror"
+                                                                class="form-control combo-textbox-input">
+                                                                <option value="">Seleccione</option>
+                                                                <option value="femenino"> Femenino</option>
+                                                                <option value="masculino">Masculino</option>
+                                                            </select>
+                                                            <i class="bi bi-gender-ambiguous st-icon"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <x-professions />
+                                                <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" />
+
+
+                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="phone" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
+                                                            <textarea id="address" name="address" class="form-control"></textarea>
+                                                            <i class="bi bi-geo st-icon"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="phone" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Código
+                                                                postal</label>
+                                                            <input autocomplete="off"
+                                                                class="form-control mask-only-text @error('zip_code') is-invalid @enderror"
+                                                                id="zip_code" name="zip_code" type="text"
+                                                                value="">
+                                                            <i class="bi bi-geo st-icon"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <x-centers_user class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" />
+                                                <x-upload-image />
+                                                {{-- data del representante --}}
+                                                <div class="row mt-3" id="data-rep" style="display: none">
+                                                    <hr>
+                                                    <h5>Datos del representante</h5>
+                                                    <hr>
+
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="phone" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombre
+                                                                    del representante</label>
+                                                                <input autocomplete="off"
+                                                                    class="form-control mask-text @error('re_name') is-invalid @enderror"
+                                                                    id="re_name" name="re_name" type="text"
+                                                                    value="">
+                                                                <i class="bi bi-person-circle st-icon"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="phone" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos
+                                                                    del representante</label>
+                                                                <input autocomplete="off"
+                                                                    class="form-control mask-text @error('re_last_name') is-invalid @enderror"
+                                                                    id="re_last_name" name="re_last_name" type="text"
+                                                                    value="">
+                                                                <i class="bi bi-person-circle st-icon"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="phone" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Cédula
+                                                                    del representante</label>
+                                                                <input autocomplete="off"
+                                                                    class="form-control @error('re_ci') is-invalid @enderror"
+                                                                    id="re_ci" name="re_ci" type="text"
+                                                                    value="">
+                                                                <i class="bi bi-person-vcard st-icon"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="phone" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono
+                                                                    del representante</label>
+                                                                <input autocomplete="off"
+                                                                    class="form-control phone @error('re_phone') is-invalid @enderror"
+                                                                    id="re_phone" name="re_phone" type="text"
+                                                                    value="">
+                                                                <i class="bi bi-telephone-forward st-icon"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="phone" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
+                                                                    del representante</label>
+                                                                <input autocomplete="off"
+                                                                    class="form-control @error('re_email') is-invalid @enderror"
+                                                                    id="re_email" name="re_email" type="text"
+                                                                    value="">
+                                                                <i class="bi bi-envelope-at st-icon"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                </div>
+                                                {{-- end --}}
+                                            </div>
+                                            <div class="row mt-3 justify-content-md-end">
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                    style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                                    <div id="bnt-dairy" style="display: none;margin-right: 10px"></div>
+                                                    <div id="bnt-cons" style="display: none;margin-right: 10px"></div>
+                                                    <input class="btn btnPrimary send " value="Guardar" type="submit" />
+                                                    <button style="margin-left: 20px;" type="button"
+                                                        onclick="refreshForm();" class="btn btnSecond ">Refrescar
+                                                        Fomulario</button>
+                                                </div>
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                    style="display: flex; justify-content: center;">
+                                                    <div id="spinner" style="display: none">
+                                                        <x-load-spinner show="true" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                        <div class="accordion-item">
+                            <span class="accordion-header title" id="headingTwo">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-card-list"></i> Lista de pacientes con consultas
+                                </button>
+                            </span>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    <div class="row" id="table-patients">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                            style="margin-top: 20px;">
+                                            <table id="table-patient" class="table table-striped table-bordered"
+                                                style="width:100%; ">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center" scope="col">Imagen</th>
+                                                        <th class="text-center" scope="col">Código paciente</th>
+                                                        <th class="text-center" scope="col">Nombre</th>
+                                                        <th class="text-center" scope="col">Cédula</th>
+                                                        <th class="text-center" scope="col">Fecha de Nacimiento </th>
+                                                        <th class="text-center" scope="col">Género</th>
+                                                        <th class="text-center" scope="col">Teléfono</th>
+                                                        <th class="text-center" scope="col">Email</th>
+                                                        <th class="text-center" scope="col">Dirección</th>
+                                                        <th class="text-center"scope="col">Acciones</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($patients as $item)
+                                                        <tr>
+                                                            <td class="table-avatar">
+                                                                <img class="avatar"
+                                                                    src="{{ asset('/imgs/' . $item->get_paciente->patient_img) }}"
+                                                                    alt="Imagen del paciente">
+                                                            </td>
+                                                            <td class="text-center td-pad">
+                                                                <button
+                                                                    onclick="agendarCita({{ $item->get_paciente }},{{ $item->get_paciente->get_reprensetative }})"
+                                                                    type="button" class="btn btnSecond"
+                                                                    data-bs-toggle="tooltip" data-bs-placement="left"
+                                                                    data-bs-custom-class="custom-tooltip" data-html="true"
+                                                                    title="Agendar cita">{{ $item->get_paciente->patient_code }}</button>
+                                                            </td>
+                                                            <td class="text-center td-pad">{{ $item->get_paciente->name }}
+                                                                {{ $item->get_paciente->last_name }}</td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_ci . '  (Rep)' : $item->get_paciente->ci }}
+                                                            </td>
+                                                            <td class="text-center td-pad">
+                                                                {{ date('d-m-Y', strtotime($item->get_paciente->birthdate)) }}
+                                                            </td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item->get_paciente->genere }}</td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_phone . '  (Rep)' : $item->get_paciente->phone }}
+                                                            </td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_email . '  (Rep)' : $item->get_paciente->email }}
+                                                            </td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item->get_paciente->address }}</td>
+                                                            <td class="text-center td-pad">
+                                                                <div class="d-flex">
+                                                                    <div
+                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <button
+                                                                            onclick="editPatien({{ json_encode($item->get_paciente) }},true); "
+                                                                            type="button"
+                                                                            class="btn btn-iSecond rounded-circle"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-placement="top" title="Editar"><i
+                                                                                class="bi bi-pencil"></i></button>
+                                                                    </div>
+                                                                    <div
+                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <a
+                                                                            href="{{ route('MedicalRecord', $item->get_paciente->id) }}">
+                                                                            <button type="button"
+                                                                                class="btn btn-iPrimary rounded-circle"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="top"
+                                                                                title="Consulta médica">
+                                                                                <i class="bi bi-file-earmark-text"></i>
+                                                                            </button>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div
+                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <a
+                                                                            href="{{ route('ClinicalHistoryDetail', $item->get_paciente->id) }}">
+                                                                            <button type="button"
+                                                                                class="btn btn-iSecond rounded-circle"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="top"
+                                                                                title="Historia Clinica"><i
+                                                                                    class="bi bi-file-earmark-text"></i>
+                                                                            </button>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+            id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="div-pat" style="display: none">
+                                <div class="d-flex mt-3">
+                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                        <div class="img">
+                                            <img id="img-pat" src="" width="150" height="150"
+                                                alt="Imagen del paciente">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                        <div>
+                                            <strong>Nombre: </strong><span class="text-capitalize" id="name-pat"></span>
+                                            <br>
+                                            <strong>Cédula: </strong><span id="ci-pat"></span>
+                                            <br>
+                                            <strong>Edad: </strong><span id="age-pat"></span>
+                                            <br>
+                                            <strong>Genero: </strong><span class="text-capitalize" id="genere-pat"></span>
+                                            <br>
+                                            <strong>Correo: </strong><span id="email-pat"></span>
+                                            <br>
+                                            <strong>Telefono: </strong><span id="phone-pat"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form action="" id="form-appointment">
+                                {{ csrf_field() }}
+                                <div class="row mt-3">
+                                    <input type="hidden" id="patient_id" name="patient_id" value="">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                        <div class="floating-label-group">
+                                            <label for="exampleFormControlTextarea1" class="floating-label">Fecha</label>
+                                            <input class="form-control inputChange " id="date_start" name="date_start"
+                                                type="date" value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                        <div class="floating-label-group">
+                                            <div class="Icon-inside">
+                                                <label class="floating-label">Tiempo Horario</label>
+                                                <select onchange="handlerTime(event)"
+                                                    class="form-control form-textbox-input combo-textbox-input valid"
+                                                    id="timeIni" name="timeIni">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="am">AM</option>
+                                                    <option value="pm">PM</option>
+                                                </select>
+                                                <i class="bi bi-stopwatch"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                        <div class="floating-label-group">
+                                            <div class="Icon-inside">
+                                                <label class="floating-label">Horarios de cita</label>
+                                                <select class="form-control form-textbox-input combo-textbox-input valid"
+                                                    id="hour_start" name="hour_start">
+                                                </select>
+                                                <i class="bi bi-stopwatch"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" />
+
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center">
+                                        <div class="form-check form-switch" style="padding-left: 13% !important;">
+                                            <input onchange="handlerPrice(event);" style="width: 5em"
+                                                class="form-check-input" type="checkbox" role="switch" id="showPrice"
+                                                value="">
+                                            <label style="margin-left: -88px;margin-top: 6px;" for="showPrice">Precio
+                                                de
+                                                la cita</label>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                        style="display: none" id="div-price">
+                                        <div class="form-floating mb-3">
+                                            <input maxlength="8" type="text" class="form-control mask-input-price"
+                                                id="price" name="price" placeholder="Precio">
+                                            <label for="searchPatients">Precio</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row text-center mt-3">
+                                        <div id="spinner" style="display: none">
+                                            <x-load-spinner show="true" />
+                                        </div>
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
+                                            style="margin-top: -4px" id="send">
+                                            <input class="btn btnPrimary" id="registrer-pac" value="Registrar"
+                                                type="submit" />
+                                        </div>
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-con"></div>
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
