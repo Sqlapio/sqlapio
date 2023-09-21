@@ -536,13 +536,7 @@
                         <span>Pacientes con referencias</span>
                     </div>
                     <div class="card-body">
-
-
-
                         <x-search-person/>
-
-
-
                         {{-- <div class="row" id="">
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
                                 style="margin-top: 20px:">
@@ -603,12 +597,8 @@
                                 </table>
                             </div>
                         </div> --}}
-
-
                     </div>
                 </div>
-
-
             </div>
         @endif
     </div>
