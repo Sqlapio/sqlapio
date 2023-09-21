@@ -108,34 +108,32 @@ class UtilsController extends Controller
 	{
 		try {
 
-			if(Str::contains($request->img, 'base64'))
-			{
-					$file =  $request->img;
-					if ($file != null) {
-						$png = strstr($file, 'data:image/png;base64');
-						$jpg = strstr($file, 'data:image/jpg;base64');
-						$jpeg = strstr($file, 'data:image/jpeg;base64');
-						if ($png != null) {
-							$file = str_replace("data:image/png;base64,", "", $file);
-							$file = base64_decode($file);
-							$extension = ".png";
-						} elseif ($jpeg != null) {
-							$file = str_replace("data:image/jpeg;base64,", "", $file);
-							$file = base64_decode($file);
-							$extension = ".jpeg";
-						} elseif ($jpg != null) {
-							$file = str_replace("data:image/jpg;base64,", "", $file);
-							$file = base64_decode($file);
-							$extension = ".jpg";
-						}
-						$nameFile = uniqid() . $extension;
-
-						file_put_contents(public_path('imgs/') . $nameFile, $file);
+			if (Str::contains($request->img, 'base64')) {
+				$file =  $request->img;
+				if ($file != null) {
+					$png = strstr($file, 'data:image/png;base64');
+					$jpg = strstr($file, 'data:image/jpg;base64');
+					$jpeg = strstr($file, 'data:image/jpeg;base64');
+					if ($png != null) {
+						$file = str_replace("data:image/png;base64,", "", $file);
+						$file = base64_decode($file);
+						$extension = ".png";
+					} elseif ($jpeg != null) {
+						$file = str_replace("data:image/jpeg;base64,", "", $file);
+						$file = base64_decode($file);
+						$extension = ".jpeg";
+					} elseif ($jpg != null) {
+						$file = str_replace("data:image/jpg;base64,", "", $file);
+						$file = base64_decode($file);
+						$extension = ".jpg";
 					}
+					$nameFile = uniqid() . $extension;
 
-			}else{
-					$nameFile = $request->img;
-			} 
+					file_put_contents(public_path('imgs/') . $nameFile, $file);
+				}
+			} else {
+				$nameFile = $request->img;
+			}
 
 			$update = DB::table('users')
 				->where('id', $id)
@@ -168,28 +166,27 @@ class UtilsController extends Controller
 			 * Funcion para cargar la imagen del medico
 			 * cuando actualiza sus datos
 			 */
-			
+
 			$nameFile = null;
 
 			$file =  $request->img;
-			if($file != null)
-			{
+			if ($file != null) {
 				$png = strstr($file, 'data:image/png;base64');
 				$jpg = strstr($file, 'data:image/jpg;base64');
 				$jpeg = strstr($file, 'data:image/jpeg;base64');
-					if ($png != null) {
-						$file = str_replace("data:image/png;base64,", "", $file);
-						$file = base64_decode($file);
-						$extension = ".png";
-					} elseif ($jpeg != null) {
-						$file = str_replace("data:image/jpeg;base64,", "", $file);
-						$file = base64_decode($file);
-						$extension = ".jpeg";
-					} elseif ($jpg != null) {
-						$file = str_replace("data:image/jpg;base64,", "", $file);
-						$file = base64_decode($file);
-						$extension = ".jpg";
-					}
+				if ($png != null) {
+					$file = str_replace("data:image/png;base64,", "", $file);
+					$file = base64_decode($file);
+					$extension = ".png";
+				} elseif ($jpeg != null) {
+					$file = str_replace("data:image/jpeg;base64,", "", $file);
+					$file = base64_decode($file);
+					$extension = ".jpeg";
+				} elseif ($jpg != null) {
+					$file = str_replace("data:image/jpg;base64,", "", $file);
+					$file = base64_decode($file);
+					$extension = ".jpg";
+				}
 				$nameFile = uniqid() . $extension;
 
 				file_put_contents(public_path('imgs/') . $nameFile, $file);
@@ -238,7 +235,7 @@ class UtilsController extends Controller
 	static function get_patients()
 	{
 		try {
-			$patients = Patient::all();		
+			$patients = Patient::all();
 			return $patients;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
@@ -255,12 +252,12 @@ class UtilsController extends Controller
 			foreach ($appointments as $key => $val) {
 				$data[$key] = [
 					'id' => $val->id,
-					'title' => substr($val->hour_start, 2).",".$val->get_patients->name.",".$val->get_patients->last_name,
+					'title' => substr($val->hour_start, 2) . "," . $val->get_patients->name . "," . $val->get_patients->last_name,
 					'start' => date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 0, -9),
 					'end' =>  date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 6, -3),
 					// 'allDay'=> true,
-					'rendering'=> 'background',
-					'color'=> $val->color,
+					'rendering' => 'background',
+					'color' => $val->color,
 					'extendedProps' => [
 						'id' =>  $val->id,
 						'price' => $val->price,
@@ -309,7 +306,7 @@ class UtilsController extends Controller
 			foreach ($patients_pagination as $key => $val) {
 				$patients[$key] = [
 					'id' 			=> $val->get_patient->id,
-					'name' 			=> $val->get_patient->name.' '.$val->get_patient->last_name,
+					'name' 			=> $val->get_patient->name . ' ' . $val->get_patient->last_name,
 					// 'last_name' 	=> $val->get_patient->last_name,
 					'patient_code' 	=> $val->get_patient->patient_code,
 					'ci' 			=> $val->get_patient->ci,
@@ -467,15 +464,14 @@ class UtilsController extends Controller
 				'title' => 'Bienvenidos a SQLAPIO.COM',
 				'name' => $name,
 			];
-			if($type == 'p'){
+			if ($type == 'p') {
 				$view = 'emails.register_patient';
 				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view));
 			}
-			if($type == 'm'){
+			if ($type == 'm') {
 				$view = 'emails.demoMail';
 				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view));
 			}
-			
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.send_mail()', $message);
@@ -514,7 +510,6 @@ class UtilsController extends Controller
 			$verify = DB::table('patients')
 				->where('verification_code', $verification_code)
 				->update(['email_verified_at' => $date]);
-
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.patient_verify_email()', $message);
@@ -534,7 +529,6 @@ class UtilsController extends Controller
 
 			Mail::to($email)->send(new NotificationDairy($mailData));
 			Mail::to($patient_email)->send(new NotificationPatient($mailData));
-			
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.notification_dairy_email()', $message);
@@ -635,10 +629,9 @@ class UtilsController extends Controller
 	{
 		try {
 
-			$patient_code = 'SQ-' . $ci . '-' .random_int(111, 999);
+			$patient_code = 'SQ-' . $ci . '-' . random_int(111, 999);
 
 			return $patient_code;
-			
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_image_patient()', $message);
@@ -661,16 +654,16 @@ class UtilsController extends Controller
 	 */
 	static function get_patient_boy_girl()
 	{
-		try {			
-				$patient_genere_femenino =  Patient::where('genere', '=','femenino')
+		try {
+			$patient_genere_femenino =  Patient::where('genere', '=', 'femenino')
 				->where('age', '<=', 11)
-				->count();		
+				->count();
 
-				$patient_genere_masculino  =  Patient::where('genere', '=','masculino')
+			$patient_genere_masculino  =  Patient::where('genere', '=', 'masculino')
 				->where('age', '<=', 11)
-				->count();				
-			
-			return ["femenino"=> $patient_genere_femenino ,'masculino' => $patient_genere_masculino ];
+				->count();
+
+			return ["femenino" => $patient_genere_femenino, 'masculino' => $patient_genere_masculino];
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_patient_boy_girl()', $message);
@@ -683,15 +676,15 @@ class UtilsController extends Controller
 	static function get_patient_teen()
 	{
 		try {
-			$patient_genere_femenino = Patient::where('genere', '=','femenino')
-				->WhereBetween('age', [12, 18])
-				->count();				
-
-				$patient_genere_masculino = Patient::where('genere', '=','masculino')
+			$patient_genere_femenino = Patient::where('genere', '=', 'femenino')
 				->WhereBetween('age', [12, 18])
 				->count();
 
-			return ["femenino"=> $patient_genere_femenino ,'masculino' => $patient_genere_masculino ];
+			$patient_genere_masculino = Patient::where('genere', '=', 'masculino')
+				->WhereBetween('age', [12, 18])
+				->count();
+
+			return ["femenino" => $patient_genere_femenino, 'masculino' => $patient_genere_masculino];
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_patient_teen()', $message);
@@ -704,14 +697,14 @@ class UtilsController extends Controller
 	static function get_patient_adult()
 	{
 		try {
-				$patient_genere_femenino =  Patient::where('genere', '=','femenino')
+			$patient_genere_femenino =  Patient::where('genere', '=', 'femenino')
 				->WhereBetween('age', [19, 40])
 				->count();
-				$patient_genere_masculino =  Patient::where('genere', '=','masculino')
+			$patient_genere_masculino =  Patient::where('genere', '=', 'masculino')
 				->WhereBetween('age', [19, 40])
 				->count();
 
-			return ["femenino"=> $patient_genere_femenino ,'masculino' => $patient_genere_masculino ];
+			return ["femenino" => $patient_genere_femenino, 'masculino' => $patient_genere_masculino];
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_patient_adult()', $message);
@@ -723,16 +716,16 @@ class UtilsController extends Controller
 	 */
 	static function get_patient_elderly()
 	{
-		try {		
-				$patient_genere_femenino =  Patient::where('genere', '=','femenino')
-				->where('age', '>', 41)			
+		try {
+			$patient_genere_femenino =  Patient::where('genere', '=', 'femenino')
+				->where('age', '>', 41)
 				->count();
 
-				$patient_genere_masculino =  Patient::where('genere', '=','masculino')
-				->where('age', '>', 41)			
+			$patient_genere_masculino =  Patient::where('genere', '=', 'masculino')
+				->where('age', '>', 41)
 				->count();
 
-			return ["femenino"=> $patient_genere_femenino ,'masculino' => $patient_genere_masculino ];
+			return ["femenino" => $patient_genere_femenino, 'masculino' => $patient_genere_masculino];
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_patient_elderly()', $message);
@@ -748,13 +741,12 @@ class UtilsController extends Controller
 		try {
 
 			$update = DB::table('appointments')
-			->where('code', $code)
-			->update([
-				'confirmation' => 1,
-			]);
+				->where('code', $code)
+				->update([
+					'confirmation' => 1,
+				]);
 
 			return true;
-
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.confirmation_dairy()', $message);
@@ -773,7 +765,6 @@ class UtilsController extends Controller
 		try {
 
 			Mail::to($patient_email)->send(new NotificationReferences($mailData));
-			
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.notification_ref_email()', $message);
@@ -787,7 +778,6 @@ class UtilsController extends Controller
 			$lab_img = Laboratory::where('email', $lab_email)->first();
 			$img = $lab_img->lab_img;
 			return $img;
-			
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_image_lab()', $message);
@@ -799,17 +789,13 @@ class UtilsController extends Controller
 		try {
 
 			$lab_img = Laboratory::where('email', $lab_email)->first();
-			if($lab_img != null)
-			{
+			if ($lab_img != null) {
 				$img = $lab_img->lab_img;
 				return $img;
+			} else {
 
-			}else{
-				
 				return null;
 			}
-			
-			
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_image_lab()', $message);
@@ -822,11 +808,9 @@ class UtilsController extends Controller
 
 			$reference = Reference::all();
 			return $reference;
-			
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_image_lab()', $message);
-
 		}
 	}
 
@@ -845,20 +829,17 @@ class UtilsController extends Controller
 					'ci' 		=>  $val->get_patient->ci,
 					'genere' 		=>  $val->get_patient->ci,
 					'phone' 		=>  $val->get_patient->ci,
-					'get_exam' =>$val->get_exam,
-					'get_studie' =>$val->get_studie,
+					'get_exam' => $val->get_exam,
+					'get_studie' => $val->get_studie,
 				];
 			}
 
 			// dd($references);
 
 			return $references;
-
-			
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_image_lab()', $message);
-
 		}
 	}
 	static function upload_result_exam(Request $request)
@@ -873,48 +854,47 @@ class UtilsController extends Controller
 			$user_id = Auth::user();
 			$laboratory = $user_id->get_laboratorio;
 			// dd($laboratory->code_lab, $request->code_ref, $request->cod_exam);
-			
-			 $nameFile = null;
 
-			 $file =  $request->img;
-			 if($file != null)
-			 {
-				 $png 	= strstr($file, 'data:image/png;base64');
-				 $jpg 	= strstr($file, 'data:image/jpg;base64');
-				 $jpeg 	= strstr($file, 'data:image/jpeg;base64');
-				 $pdf 	= strstr($file, 'data:application/pdf;base64');
-					 if ($png != null) {
-						 $file = str_replace("data:image/png;base64,", "", $file);
-						 $file = base64_decode($file);
-						 $extension = ".png";
-					 } elseif ($jpeg != null) {
-						 $file = str_replace("data:image/jpeg;base64,", "", $file);
-						 $file = base64_decode($file);
-						 $extension = ".jpeg";
-					 } elseif ($jpg != null) {
-						 $file = str_replace("data:image/jpg;base64,", "", $file);
-						 $file = base64_decode($file);
-						 $extension = ".jpg";
-					 }elseif ($pdf != null) {
-						 $file = str_replace("data:application/pdf;base64,", "", $file);
-						 $file = base64_decode($file);
-						 $extension = ".pdf";
-					 }
-				 $nameFile = uniqid() . $extension;
- 
-				 file_put_contents(public_path('imgs/') . $nameFile, $file);
-			 }
+			$nameFile = null;
 
-			for ($i = 0; $i < count($request->cod_exam); $i++){
+			$file =  $request->img;
+			if ($file != null) {
+				$png 	= strstr($file, 'data:image/png;base64');
+				$jpg 	= strstr($file, 'data:image/jpg;base64');
+				$jpeg 	= strstr($file, 'data:image/jpeg;base64');
+				$pdf 	= strstr($file, 'data:application/pdf;base64');
+				if ($png != null) {
+					$file = str_replace("data:image/png;base64,", "", $file);
+					$file = base64_decode($file);
+					$extension = ".png";
+				} elseif ($jpeg != null) {
+					$file = str_replace("data:image/jpeg;base64,", "", $file);
+					$file = base64_decode($file);
+					$extension = ".jpeg";
+				} elseif ($jpg != null) {
+					$file = str_replace("data:image/jpg;base64,", "", $file);
+					$file = base64_decode($file);
+					$extension = ".jpg";
+				} elseif ($pdf != null) {
+					$file = str_replace("data:application/pdf;base64,", "", $file);
+					$file = base64_decode($file);
+					$extension = ".pdf";
+				}
+				$nameFile = uniqid() . $extension;
+
+				file_put_contents(public_path('imgs/') . $nameFile, $file);
+			}
+
+			for ($i = 0; $i < count($request->cod_exam); $i++) {
 				$update = DB::table('exam_patients')
-				->where('cod_ref', $request->code_ref)
-				->where('cod_exam', $request->cod_exam[$i])
-				->update([
-					'laboratory_id' => $laboratory->id,
-					'cod_lab' => $laboratory->code_lab,
-					'file' => $nameFile,
-					'status' => 2,
-				]);
+					->where('cod_ref', $request->code_ref)
+					->where('cod_exam', $request->cod_exam[$i])
+					->update([
+						'laboratory_id' => $laboratory->id,
+						'cod_lab' => $laboratory->code_lab,
+						'file' => $nameFile,
+						'status' => 2,
+					]);
 			}
 
 			return true;
@@ -936,48 +916,47 @@ class UtilsController extends Controller
 
 			$user_id = Auth::user();
 			$laboratory = $user_id->get_laboratorio;
-			
-			 $nameFile = null;
 
-			 $file =  $request->img;
-			 if($file != null)
-			 {
-				 $png 	= strstr($file, 'data:image/png;base64');
-				 $jpg 	= strstr($file, 'data:image/jpg;base64');
-				 $jpeg 	= strstr($file, 'data:image/jpeg;base64');
-				 $pdf 	= strstr($file, 'data:application/pdf;base64');
-					 if ($png != null) {
-						 $file = str_replace("data:image/png;base64,", "", $file);
-						 $file = base64_decode($file);
-						 $extension = ".png";
-					 } elseif ($jpeg != null) {
-						 $file = str_replace("data:image/jpeg;base64,", "", $file);
-						 $file = base64_decode($file);
-						 $extension = ".jpeg";
-					 } elseif ($jpg != null) {
-						 $file = str_replace("data:image/jpg;base64,", "", $file);
-						 $file = base64_decode($file);
-						 $extension = ".jpg";
-					 }elseif ($pdf != null) {
-						 $file = str_replace("data:application/pdf;base64,", "", $file);
-						 $file = base64_decode($file);
-						 $extension = ".pdf";
-					 }
-				 $nameFile = uniqid() . $extension;
- 
-				 file_put_contents(public_path('imgs/') . $nameFile, $file);
-			 }
+			$nameFile = null;
 
-			 for ($i = 0; $i < count($request->cod_exam); $i++){
+			$file =  $request->img;
+			if ($file != null) {
+				$png 	= strstr($file, 'data:image/png;base64');
+				$jpg 	= strstr($file, 'data:image/jpg;base64');
+				$jpeg 	= strstr($file, 'data:image/jpeg;base64');
+				$pdf 	= strstr($file, 'data:application/pdf;base64');
+				if ($png != null) {
+					$file = str_replace("data:image/png;base64,", "", $file);
+					$file = base64_decode($file);
+					$extension = ".png";
+				} elseif ($jpeg != null) {
+					$file = str_replace("data:image/jpeg;base64,", "", $file);
+					$file = base64_decode($file);
+					$extension = ".jpeg";
+				} elseif ($jpg != null) {
+					$file = str_replace("data:image/jpg;base64,", "", $file);
+					$file = base64_decode($file);
+					$extension = ".jpg";
+				} elseif ($pdf != null) {
+					$file = str_replace("data:application/pdf;base64,", "", $file);
+					$file = base64_decode($file);
+					$extension = ".pdf";
+				}
+				$nameFile = uniqid() . $extension;
+
+				file_put_contents(public_path('imgs/') . $nameFile, $file);
+			}
+
+			for ($i = 0; $i < count($request->cod_exam); $i++) {
 				$update = DB::table('study_patients')
-				->where('cod_ref', $request->code_ref)
-				->where('cod_study', $request->cod_exam[$i])
-				->update([
-					'laboratory_id' => $laboratory->id,
-					'cod_lab' => $laboratory->code_lab,
-					'file' => $nameFile,
-					'status' => 2,
-				]);
+					->where('cod_ref', $request->code_ref)
+					->where('cod_study', $request->cod_exam[$i])
+					->update([
+						'laboratory_id' => $laboratory->id,
+						'cod_lab' => $laboratory->code_lab,
+						'file' => $nameFile,
+						'status' => 2,
+					]);
 			}
 
 			return true;
@@ -1019,7 +998,6 @@ class UtilsController extends Controller
 				->update([
 					'patient_counter' => $value + 1,
 				]);
-
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_patient_counter()', $message);
@@ -1035,7 +1013,6 @@ class UtilsController extends Controller
 				->update([
 					'medical_record_counter' => $value + 1,
 				]);
-			
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_mr_counter()', $message);
@@ -1045,36 +1022,31 @@ class UtilsController extends Controller
 	static function get_table_medical_record()
 	{
 		try {
-			
+
 			$user = Auth::user();
 			$medical_record = MedicalRecord::where('user_id', $user->id)->get()->unique('patient_id');
 			return $medical_record;
-
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_table_medical_record()', $message);
 		}
-		
 	}
 
-	static function search_person($row,$value){
-			$data = [];
-			if($row=="ci"){
-				$data = Reference::whereRelation(
-					'get_patient', 'ci',$value)->get();
+	static function search_person($value)
+	{
+		$data = [];
 
-			}else{
-				$resp = Reference::where('cod_ref',$value)->first();
-				$data = [
-					'cod_ref' => $resp->cod_ref,
-					'date' =>$resp->date, 
-					'cod_medical_record' =>$resp->cod_medical_record,
-					'get_exam' =>$resp->get_exam,
-					'get_studie' =>$resp->get_studie,
-					'get_patient' =>$resp->get_patient,
+		$resp = Reference::where('cod_ref', $value)->first();
+		$data = [
+			'cod_ref' => $resp->cod_ref,
+			'date' => $resp->date,
+			'cod_medical_record' => $resp->cod_medical_record,
+			'get_exam' => $resp->get_exam,
+			'get_studie' => $resp->get_studie,
+			'get_patient' => $resp->get_patient,
 
-				];
-			}
-			return $data;
+		];
+
+		return $data;
 	}
 }

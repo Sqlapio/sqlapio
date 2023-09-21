@@ -329,8 +329,9 @@
 
         function searchPerson() {
             if ($('#search_person').val() != '') {
-                let route = '{{ route('search_person', [':row', ':value']) }}';
-                route = route.replace(':row', row);
+                // let route = '{{ route('search_person', [':row', ':value']) }}';
+                let route = '{{ route("search_person", ":value") }}';
+                // route = route.replace(':row', row);
                 route = route.replace(':value', $('#search_person').val());
 
                 $.ajax({

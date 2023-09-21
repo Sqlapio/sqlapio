@@ -187,7 +187,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get/reference', [UtilsController::class, 'get_all_ref'])->name("get_ref");
 
         // pdf referencia
-        Route::get('/search_person/{row}/{value}', [UtilsController::class, 'search_person'])->name("search_person");
+        Route::get('/search_person/{value}', [UtilsController::class, 'search_person'])->name("search_person");
 
         // pdf referencia
         Route::get('/pdf/reference/{id}', [PDFController::class, 'PDF_ref'])->name("PDF_ref");
