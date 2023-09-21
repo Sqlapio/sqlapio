@@ -1,7 +1,5 @@
 <div>
-
-    <div class="row mt-3" id="content-search-pat">
-
+    <div class="row justify-content-center">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
             <div class="form-check form-check-inline">
                 <input onchange="handlerSearPerson(event)" class="form-check-input" type="radio" name="inlineRadioOptions"
@@ -14,7 +12,7 @@
                 <label style="margin-top: 7px;" class="form-check-label" for="inlineRadio2">Buscar por referencia</label>
             </div>
         </div>
-        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-4">
             <div class="form-group">
                 <label for="search_person"
                     class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Buscar
@@ -24,15 +22,13 @@
             </div>
         </div>
 
-        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1  mt-4">
             <button style="height: 65%;" onclick="searchPerson()" class="btn btnSecond">Buscar</button>
         </div>
     </div>
 </div>
 
-
 <script>
-
     let row = ""
     function handlerSearPerson(e) {
             if (Number(e.target.value) === 0) {
