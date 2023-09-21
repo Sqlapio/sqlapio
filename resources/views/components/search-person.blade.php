@@ -17,7 +17,7 @@
                 <label for="search_person"
                     class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Buscar
                     paciente </label>
-                <input maxlength="15" type="text" class="form-control" id="search_person"
+                <input maxlength="15" type="text" class="form-control mask-alfa-numeric" id="search_person"
                     name="search_person"  placeholder="Buscar paciente" value="">
             </div>
         </div>

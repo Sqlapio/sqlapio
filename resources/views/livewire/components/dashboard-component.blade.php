@@ -118,8 +118,7 @@
                             }).then((result) => {
                                 $('#ModalLoadResult').modal('toggle');
                                 $("#content-table-ref").hide();
-                                $('#search_person').val('')
-                                
+                                $('#search_person').val('');                                
                             });
                         },
                         error: function(error) {
