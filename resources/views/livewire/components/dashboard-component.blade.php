@@ -581,7 +581,7 @@
                                         <tr>
                                             <th class="text-center" scope="col">Fecha</th>
                                             <th class="text-center" scope="col">Referencia</th>
-                                            <th class="text-center" scope="col">Referencia consulta medica</th>
+                                            <th class="text-center" scope="col">Referencia consulta médica</th>
                                             <th class="text-center" scope="col">Nombres</th>
                                             <th class="text-center" scope="col">Cédula</th>
                                             <th class="text-center" scope="col">Género</th>
@@ -596,7 +596,77 @@
                                 </table>
                             </div>
                         </div>
+                    </div>                  
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                        <div class="card mt-3">
+                            <div class="card-header collapseBtn">
+                                <i class="bi bi-card-list"></i>
+                                <span>Examenes atendidos</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mt-3">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive mt-3"
+                                        style="margin-top: 20px:">
+                                        <table id="table-ref-examenes" class="table table-striped table-bordered"
+                                            style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" scope="col">Fecha</th>
+                                                    <th class="text-center" scope="col">Referencia</th>
+                                                    <th class="text-center" scope="col">código Examen</th>
+                                                    <th class="text-center" scope="col">Descripción</th>
+                                                    <th class="text-center" scope="col">Nombres</th>
+                                                    <th class="text-center" scope="col">Cédula</th>
+                                                    <th class="text-center" scope="col">Género</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
                     </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                        <div class="card mt-3">
+                            <div class="card-header collapseBtn">
+                                <i class="bi bi-card-list"></i>
+                                <span>Estudios atendidos</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mt-3">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive mt-3"
+                                        style="margin-top: 20px:">
+                                        <table id="table-ref-estudios" class="table table-striped table-bordered"
+                                            style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" scope="col">Fecha</th>
+                                                    <th class="text-center" scope="col">Referencia</th>
+                                                    <th class="text-center" scope="col">código Estudios</th>
+                                                    <th class="text-center" scope="col">Descripción</th>
+                                                    <th class="text-center" scope="col">Nombres</th>
+                                                    <th class="text-center" scope="col">Cédula</th>
+                                                    <th class="text-center" scope="col">Género</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         @endif
