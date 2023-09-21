@@ -26,6 +26,7 @@ use App\Models\Reference;
 use App\Models\Study;
 use App\Models\User;
 use App\Models\VitalSign;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -1054,5 +1055,26 @@ class UtilsController extends Controller
 			dd('Error UtilsController.get_table_medical_record()', $message);
 		}
 		
+	}
+
+	static function search_person($row,$value){
+			$data = [];
+			if($row=="ci"){
+				$data = Reference::whereRelation(
+					'get_patient', 'ci',$value)->get();
+
+			}else{
+				$resp = Reference::where('cod_ref',$value)->first();
+				$data = [
+					'cod_ref' => $resp->cod_ref,
+					'date' =>$resp->date, 
+					'cod_medical_record' =>$resp->cod_medical_record,
+					'get_exam' =>$resp->get_exam,
+					'get_studie' =>$resp->get_studie,
+					'get_patient' =>$resp->get_patient,
+
+				];
+			}
+			return $data;
 	}
 }

@@ -4,12 +4,12 @@
             <div class="form-check form-check-inline">
                 <input onchange="handlerSearPerson(event)" class="form-check-input" type="radio" name="inlineRadioOptions"
                     id="inlineRadio1" value="0">
-                <label style="margin-top: 7px;" class="form-check-label" for="inlineRadio1">Buscar por cedula</label>
+                <label style="margin-top: 7px;" class="form-check-label" for="inlineRadio1">Documento de identidad</label>
             </div>
             <div class="form-check form-check-inline">
                 <input onchange="handlerSearPerson(event)" class="form-check-input" type="radio"
                     name="inlineRadioOptions" id="inlineRadio2" value="1">
-                <label style="margin-top: 7px;" class="form-check-label" for="inlineRadio2">Buscar por referencia</label>
+                <label style="margin-top: 7px;" class="form-check-label" for="inlineRadio2">Referencia médica</label>
             </div>
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-4">
@@ -17,7 +17,7 @@
                 <label for="search_person"
                     class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Buscar
                     paciente </label>
-                <input maxlength="10" type="text" class="form-control mask-only-number" id="search_person"
+                <input maxlength="15" type="text" class="form-control" id="search_person"
                     name="search_person" disabled placeholder="Buscar paciente" value="">
             </div>
         </div>
@@ -27,56 +27,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    let row = ""
-    function handlerSearPerson(e) {
-            if (Number(e.target.value) === 0) {
-                row = 'ci';
-            } else {
-                row = 'code_ref';
-            }
-            $('#search_person').attr('disabled', false);
-        }
-
-    function searchPerson() {
-        if ($('#search_person').val() != '') {      
-                
-            let route = '{{ route("search_person",[":row",":value"]) }}';
-            route = route.replace(':row', row);
-            route = route.replace(':value', $('#search_person').val());
-
-            $.ajax({
-                url: route,
-                type: 'GET',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Operacion exitosamente!',
-                        allowOutsideClick: false,
-                        confirmButtonColor: '#42ABE2',
-                        confirmButtonText: 'Aceptar'
-                    }).then((result) => {                       
-
-                    });
-                },
-                error: function(error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: error.responseJSON.errors,
-                        allowOutsideClick: false,
-                        confirmButtonColor: '#42ABE2',
-                        confirmButtonText: 'Aceptar'
-                    }).then((result) => {
-                        $('#send').show();
-                        $('#spinner').hide();
-                        $(".holder").hide();
-                    });
-                }
-            });
-        }
-    }  
-</script>

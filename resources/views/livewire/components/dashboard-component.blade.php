@@ -50,6 +50,7 @@
         let count = 0;
         let exams_array = [];
         let studies_array = [];
+        let row = ""
 
         $(document).ready(() => {
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -116,7 +117,9 @@
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
                                 $('#ModalLoadResult').modal('toggle');
-                                refreshTable();
+                                $("#content-table-ref").hide();
+                                $('#search_person').val('')
+                                
                             });
                         },
                         error: function(error) {
@@ -221,41 +224,29 @@
             }
         }
 
-        function refreshTable() {
-            // ajax para refrezcar la tabla 
-            $.ajax({
-                url: '{{ route('get_ref') }}',
-                type: 'GET',
-                headers: {
-                    'X-CSRF-TOKEN': $(
-                        'meta[name="csrf-token"]').attr(
-                        'content')
-                },
-                success: function(res) {
-                    let data = [];
-                    res.map((elem) => {
-                        let route = "{{ route('PDF_ref', ':id') }}";
-                        route = route.replace(':id', elem.id);
-                        let get_exam = JSON.stringify(elem.get_exam);
-                        let get_studie = JSON.stringify(elem.get_studie);
-                        let elemetData = JSON.stringify(elem);
-                        elem.btn =
-                            `<button  onclick='showModal(${ elemetData },0,${ get_exam })'                         
+        function refreshTable(datatable) {
+            let route = "{{ route('PDF_ref', ':id') }}";
+            route = route.replace(':id', datatable.id);
+            let get_exam = JSON.stringify(datatable.get_exam);
+            let get_studie = JSON.stringify(datatable.get_studie);
+            let elemetData = JSON.stringify(datatable);
+            datatable.btn =
+                `<button  onclick='showModal(${ elemetData },0,${ get_exam })'                         
                                 data-bs-toggle='tooltip' data-bs-placement='right'
                                 data-bs-custom-class='custom-tooltip' data-html='true'
                                 title='Ver examenes' type='button' class='btn-2 btnPrimary'>
                                 <i class='bi bi-info-circle-fill'></i>
                                 </button>`;
-                        elem.btn1 =
-                            `<button onclick='showModal(${ elemetData },1,${ get_studie } )' 
+            datatable.btn1 =
+                `<button onclick='showModal(${ elemetData },1,${ get_studie } )' 
                             data-bs-toggle='tooltip' data-bs-placement='right'
                             data-bs-custom-class='custom-tooltip' data-html='true'
                             title='Ver estudios' type='button' class='btn-2 btnPrimary'>
                             <i class='bi bi-info-circle-fill'></i>
                     </button>`;
 
-                        elem.btn2 =
-                            ` <a target='_blank' href='${route}'>
+            datatable.btn2 =
+                ` <a target='_blank' href='${route}'>
                         <button type='button' data-bs-toggle='tooltip'
                         data-bs-placement='right'
                         data-bs-custom-class='custom-tooltip' data-html='true'
@@ -263,73 +254,118 @@
                         class='bi bi-file-earmark-pdf'></i></button>
                         </a>`;
 
+            let data = [datatable];
 
-                        data.push(elem);
-                    });
-
-
-                    new DataTable('#table-ref', {
-                        language: {
-                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
-                        },
-                        reponsive: true,
-                        bDestroy: true,
-                        data: data,
-                        columns: [{
-                                data: 'date',
-                                title: 'Fecha',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'cod_ref',
-                                title: 'Referencia',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'cod_medical_record',
-                                title: 'Referencia consulta medica',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'name',
-                                title: 'Nombres',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'ci',
-                                title: 'Cédula',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'genere',
-                                title: 'Género',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'phone',
-                                title: 'Teléfono',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'btn',
-                                title: 'Examenes',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'btn1',
-                                title: 'Estudios',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'btn2',
-                                title: 'Acciones',
-                                className: "text-center",
-                            },
-                        ],
-                    });
-                }
+            new DataTable('#table-ref', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                },
+                reponsive: true,
+                bDestroy: true,
+                data: data,
+                columns: [{
+                        data: 'date',
+                        title: 'Fecha',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'cod_ref',
+                        title: 'Referencia',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'cod_medical_record',
+                        title: 'Referencia consulta medica',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'get_patient.name',
+                        title: 'Nombres',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'get_patient.ci',
+                        title: 'Cédula',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'get_patient.genere',
+                        title: 'Género',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'get_patient.phone',
+                        title: 'Teléfono',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'btn',
+                        title: 'Examenes',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'btn1',
+                        title: 'Estudios',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'btn2',
+                        title: 'Acciones',
+                        className: "text-center",
+                    },
+                ],
             });
 
+        }
+
+        function handlerSearPerson(e) {
+            if (Number(e.target.value) === 0) {
+                row = 'ci';
+            } else {
+                row = 'code_ref';
+            }
+            $('#search_person').attr('disabled', false);
+        }
+
+        function searchPerson() {
+            if ($('#search_person').val() != '') {
+                let route = '{{ route('search_person', [':row', ':value']) }}';
+                route = route.replace(':row', row);
+                route = route.replace(':value', $('#search_person').val());
+
+                $.ajax({
+                    url: route,
+                    type: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Operacion exitosamente!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            $("#content-table-ref").show();
+                            refreshTable(response);
+                        });
+                    },
+                    error: function(error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: error.responseJSON.errors,
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            $('#send').show();
+                            $('#spinner').hide();
+                            $(".holder").hide();
+                        });
+                    }
+                });
+            }
         }
     </script>
 @endpush
@@ -536,8 +572,8 @@
                         <span>Pacientes con referencias</span>
                     </div>
                     <div class="card-body">
-                        <x-search-person/>
-                        {{-- <div class="row" id="">
+                        <x-search-person />
+                        <div class="row mt-3" id="content-table-ref" style="display: none">
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
                                 style="margin-top: 20px:">
                                 <table id="table-ref" class="table table-striped table-bordered" style="width:100%">
@@ -556,47 +592,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($ref as $item)
-                                            <tr>
-                                                <td class="text-center td-pad">{{ $item->date }}</td>
-                                                <td class="text-center td-pad">{{ $item->cod_ref }}</td>
-                                                <td class="text-center td-pad">{{ $item->cod_medical_record }}</td>
-                                                <td class="text-center td-pad">
-                                                    {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }}
-                                                </td>
-                                                <td class="text-center td-pad">{{ $item->get_patient->ci }}</td>
-                                                <td class="text-center td-pad">{{ $item->get_patient->genere }}</td>
-                                                <td class="text-center td-pad">{{ $item->get_patient->phone }}</td>
-                                                <td class="text-center td-pad"> <button
-                                                        onclick="showModal({{ $item }},0,{{ $item->get_exam }} )"
-                                                        data-bs-toggle="tooltip" data-bs-placement="right"
-                                                        data-bs-custom-class="custom-tooltip" data-html="true"
-                                                        title="Ver examenes" type="button" class="btn-2 btnPrimary">
-                                                        <i class="bi bi-info-circle-fill"></i>
-                                                    </button></td>
-                                                <td class="text-center td-pad"> <button
-                                                        onclick="showModal({{ $item }},1,{{ $item->get_studie }} )"
-                                                        data-bs-toggle="tooltip" data-bs-placement="right"
-                                                        data-bs-custom-class="custom-tooltip" data-html="true"
-                                                        title="Ver estudios" type="button" class="btn-2 btnPrimary">
-                                                        <i class="bi bi-info-circle-fill"></i>
-                                                    </button></td>
-
-                                                <td>
-                                                    <a target="_blank" href="{{ route('PDF_ref', $item->id) }}">
-                                                        <button type="button" data-bs-toggle="tooltip"
-                                                            data-bs-placement="right"
-                                                            data-bs-custom-class="custom-tooltip" data-html="true"
-                                                            title="Ver pdf" class="btn-2 btnSecond"><i
-                                                                class="bi bi-file-earmark-pdf"></i></button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>
