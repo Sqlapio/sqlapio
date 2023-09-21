@@ -850,13 +850,14 @@ class UtilsController extends Controller
 			 * Funcion para cargar la imagen del medico
 			 * cuando actualiza sus datos
 			 */
-			$data = json_decode($request->data);
+
 			$user_id = Auth::user();
 			$laboratory = $user_id->get_laboratorio;
+			// dd($laboratory->code_lab, $request->code_ref, $request->cod_exam);
 
 			$nameFile = null;
 
-			$file =  $data->img;
+			$file =  $request->img;
 			if ($file != null) {
 				$png 	= strstr($file, 'data:image/png;base64');
 				$jpg 	= strstr($file, 'data:image/jpg;base64');
@@ -884,22 +885,20 @@ class UtilsController extends Controller
 				file_put_contents(public_path('imgs/') . $nameFile, $file);
 			}
 
-			$data_exams = json_decode($data->exams_array);
-
-			for ($i = 0; $i < count($data_exams); $i++) {
+			for ($i = 0; $i < count($request->cod_exam); $i++) {
 				$update = DB::table('exam_patients')
-				->where('cod_ref', $data->code_ref)
-				->where('cod_exam', $data_exams[$i]->cod_exam)
-				->update([
-					'laboratory_id' => $laboratory->id,
-					'cod_lab' => $laboratory->code_lab,
-					'file' => $nameFile,
-					'status' => 2,
-				]);
+					->where('cod_ref', $request->code_ref)
+					->where('cod_exam', $request->cod_exam[$i])
+					->update([
+						'laboratory_id' => $laboratory->id,
+						'cod_lab' => $laboratory->code_lab,
+						'file' => $nameFile,
+						'status' => 2,
+					]);
 			}
 
 			return true;
-
+			//code...
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.upload_result_exam()', $message);
@@ -914,14 +913,13 @@ class UtilsController extends Controller
 			 * Funcion para cargar la imagen del medico
 			 * cuando actualiza sus datos
 			 */
-			$data = json_decode($request->data);
 
 			$user_id = Auth::user();
 			$laboratory = $user_id->get_laboratorio;
 
 			$nameFile = null;
 
-			$file =  $data->img;
+			$file =  $request->img;
 			if ($file != null) {
 				$png 	= strstr($file, 'data:image/png;base64');
 				$jpg 	= strstr($file, 'data:image/jpg;base64');
@@ -949,18 +947,16 @@ class UtilsController extends Controller
 				file_put_contents(public_path('imgs/') . $nameFile, $file);
 			}
 
-			$data_studies = json_decode($data->studies_array);
-
-			for ($i = 0; $i < count($data_studies); $i++) {
+			for ($i = 0; $i < count($request->cod_exam); $i++) {
 				$update = DB::table('study_patients')
-				->where('cod_ref', $data->code_ref)
-				->where('cod_study', $data_studies[$i]->cod_study)
-				->update([
-					'laboratory_id' => $laboratory->id,
-					'cod_lab' => $laboratory->code_lab,
-					'file' => $nameFile,
-					'status' => 2,
-				]);
+					->where('cod_ref', $request->code_ref)
+					->where('cod_study', $request->cod_exam[$i])
+					->update([
+						'laboratory_id' => $laboratory->id,
+						'cod_lab' => $laboratory->code_lab,
+						'file' => $nameFile,
+						'status' => 2,
+					]);
 			}
 
 			return true;
