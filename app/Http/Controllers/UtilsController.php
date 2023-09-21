@@ -846,11 +846,7 @@ class UtilsController extends Controller
 	{
 		try {
 
-			/**
-			 * Funcion para cargar la imagen del medico
-			 * cuando actualiza sus datos
-			 */
-
+			$data = json_decode($request->data);
 			$user_id = Auth::user();
 			$laboratory = $user_id->get_laboratorio;
 			// dd($laboratory->code_lab, $request->code_ref, $request->cod_exam);
@@ -909,10 +905,7 @@ class UtilsController extends Controller
 	{
 		try {
 
-			/**
-			 * Funcion para cargar la imagen del medico
-			 * cuando actualiza sus datos
-			 */
+			$data = json_decode($request->data);
 
 			$user_id = Auth::user();
 			$laboratory = $user_id->get_laboratorio;
