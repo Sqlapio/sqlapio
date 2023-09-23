@@ -26,6 +26,7 @@ class Laboratory extends Component
              */
             if($laboratory != null)
             {
+            $data_exam_res = [];
             $exams_res = ExamPatient::where('laboratory_id', $laboratory->id)
                 ->where('status', '2')
                 ->get();
@@ -49,7 +50,7 @@ class Laboratory extends Component
                             ]
                         ];
                     }else{
-                        $data_exam_res = [
+                        $data_exam_res[$key] = [
                             'date_ref'          => $value->date,
                             'date_upload_res'   => $value->date_result,
                             'cod_ref'       => $value->cod_ref,
@@ -59,7 +60,7 @@ class Laboratory extends Component
                                 'is_minor'      => $patient->is_minor,
                                 'full_name'     => $patient->name.' '.$patient->last_name,
                                 'name'          => $patient->name,
-                                're_ci'         => $patient->get_reprensetative->re_ci,
+                                'ci'         => $patient->get_reprensetative->re_ci,
                                 're_name'       => $patient->get_reprensetative->re_name,
                                 're_last_name'  => $patient->get_reprensetative->re_last_name,
                                 're_email'      => $patient->get_reprensetative->re_email,
@@ -68,16 +69,16 @@ class Laboratory extends Component
                         ];
                     }
                 }
-                if(isset($data_exam_res)){
-                    return $data_exam_res;
-                }else{
-                    return false;
-                }
-            }else{
+            //     if(isset($data_exam_res)){
+            //         return $data_exam_res;
+            //     }else{
+            //         return false;
+            //     }
+            // }else{
 
-                return false;
+            //     return false;
             }
-
+            return $data_exam_res;
         } catch (\Throwable $th) {
             $message = $th->getMessage();
 			dd('Error livewire.Laboratory.references_res()', $message);
@@ -99,6 +100,7 @@ class Laboratory extends Component
              */
             if($laboratory != null)
             {
+            $data_study_res = [];
             $study_res = StudyPatient::where('laboratory_id', $laboratory->id)
                 ->where('status', '2')
                 ->get();
@@ -106,11 +108,11 @@ class Laboratory extends Component
                     {
                         $patient = Patient::where('id', $value->patient_id)->first();
                         if($patient->is_minor != 'true'){
-                            $data_study_res = [
+                            $data_study_res[$key] = [
                                 'date_ref'          => $value->date,
                                 'date_upload_res'   => $value->date_result,
                                 'cod_ref'       => $value->cod_ref,
-                                'cod_exam'      => $value->cod_exam,
+                                'cod_study'      => $value->cod_study,
                                 'description'   => $value->description,
                                 'patient_info'  => [
                                     'full_name'     => $patient->name.' '.$patient->last_name,
@@ -122,17 +124,17 @@ class Laboratory extends Component
                                 ]
                             ];
                         }else{
-                            $data_study_res = [
+                            $data_study_res[$key] = [
                                 'date_ref'          => $value->date,
                                 'date_upload_res'   => $value->date_result,
                                 'cod_ref'       => $value->cod_ref,
-                                'cod_exam'      => $value->cod_exam,
+                                'cod_study'      => $value->cod_study,
                                 'description'   => $value->description,
                                 'patient_info'  => [
                                     'is_minor'      => $patient->is_minor,
                                     'full_name'     => $patient->name.' '.$patient->last_name,
                                     'name'          => $patient->name,
-                                    're_ci'         => $patient->get_reprensetative->re_ci,
+                                    'ci'         => $patient->get_reprensetative->re_ci,
                                     're_name'       => $patient->get_reprensetative->re_name,
                                     're_last_name'  => $patient->get_reprensetative->re_last_name,
                                     're_email'      => $patient->get_reprensetative->re_email,
@@ -141,21 +143,22 @@ class Laboratory extends Component
                             ];
                         }
                     }
-                    if(isset($data_study_res)){
-                        return $data_study_res;
-                    }else{
-                        return false;
-                    }
-            }else{
-                return false;
+                    // if(isset($data_study_res)){
+                    //     return $data_study_res;
+                    // }else{
+                    //     return false;
+                    // }
+            // }else{
+            //     return $data_study_res;
             }
+            return $data_study_res;
 
         } catch (\Throwable $th) {
             $message = $th->getMessage();
 			dd('Error livewire.Laboratory.references_res()', $message);
         }
         
-    }
+    }   
 
     public function render()
     {

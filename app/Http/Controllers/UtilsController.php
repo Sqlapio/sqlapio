@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Livewire\Components\Laboratory as ComponentsLaboratory;
 use App\Mail\NotificationDairy;
 use App\Mail\NotificationEmail;
 use App\Mail\NotificationPatient;
@@ -1050,4 +1051,14 @@ class UtilsController extends Controller
 
 		return $data;
 	}
+
+
+	static function responce_references() {
+
+        $data_exam_res = ComponentsLaboratory::res_exams();
+        
+        $data_study_res= ComponentsLaboratory::res_studies();      
+        
+        return ["data_exam_res"=>$data_exam_res,"data_study_res"=>$data_study_res];
+    }
 }
