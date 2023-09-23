@@ -6,6 +6,10 @@
         padding-right: 7px !important;
     }
 
+    .spinnner {
+        top: 92% !important;
+    }
+
     body {
         /* font-family: 'Roboto', 'Inter', "Helvetica Neue", Helvetica, 'Source Sans Pro' !important; */
         letter-spacing: -.022em;
@@ -51,6 +55,10 @@
         #btn-margin {
             margin-left: -14px !important;
         }
+
+        .spinnner {
+        top: 94% !important;
+    }
 
     }
 </style>
@@ -729,24 +737,24 @@
 
                                     <div class="row mt-3" id="content-search-pat" style="display: none">
 
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
-                                            style="margin-right: -120px;">
+                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mb-3 mt-3"
+                                            style="width: 318px;">
                                             <div class="form-check form-check-inline">
                                                 <input onchange="habdlerPatSearch(event)" class="form-check-input"
                                                     type="radio" name="inlineRadioOptions" id="inlineRadio1"
                                                     value="0">
-                                                <label style="margin-top: 7px;" class="form-check-label"
+                                                <label style="margin-top: 9px; font-size: 15px" class="form-check-label"
                                                     for="inlineRadio1">Mayor de edad</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input onchange="habdlerPatSearch(event)" class="form-check-input"
                                                     type="radio" name="inlineRadioOptions" id="inlineRadio2"
                                                     value="1">
-                                                <label style="margin-top: 7px;" class="form-check-label"
+                                                <label style="margin-top: 9px; font-size: 15px" class="form-check-label"
                                                     for="inlineRadio2">Menor de edad</label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <label for="search_patient"
                                                     class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Buscar
@@ -757,8 +765,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                            <button style="height: 65%;" onclick="searchPat()"
+                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-3">
+                                            <button style="margin-top: 2px;" onclick="searchPat()"
                                                 class="btn btnSecond">Buscar</button>
                                         </div>
                                     </div>
@@ -841,7 +849,7 @@
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
-                                                                Electronico</label>
+                                                                Electrónico</label>
                                                             <input autocomplete="off"
                                                                 class="form-control @error('email') is-invalid @enderror"
                                                                 id="email" name="email" type="text"
@@ -1013,9 +1021,11 @@
                                                     <div id="bnt-dairy" style="display: none;margin-right: 10px"></div>
                                                     <div id="bnt-cons" style="display: none;margin-right: 10px"></div>
                                                     <input class="btn btnPrimary send " value="Guardar" type="submit" />
-                                                    <button style="margin-left: 20px;" type="button"
-                                                        onclick="refreshForm();" class="btn btnSecond ">Refrescar
-                                                        Fomulario</button>
+                                                    <button style="margin-left: 20px; padding: 8px;" type="button"
+                                                        onclick="refreshForm();" class="btn btnSecond" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                        data-bs-custom-class="custom-tooltip" data-html="true"
+                                                        title="Limpiar Formulario">
+                                                        <i class="bi bi-eraser"></i>
                                                 </div>
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                     style="display: flex; justify-content: center;">
@@ -1076,11 +1086,11 @@
                                                                 <button
                                                                     onclick="agendarCita({{ $item->get_paciente }},{{ $item->get_paciente->get_reprensetative }})"
                                                                     type="button" class="btn btnSecond"
-                                                                    data-bs-toggle="tooltip" data-bs-placement="left"
+                                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                                     data-bs-custom-class="custom-tooltip" data-html="true"
                                                                     title="Agendar cita">{{ $item->get_paciente->patient_code }}</button>
                                                             </td>
-                                                            <td class="text-center td-pad">{{ $item->get_paciente->name }}
+                                                            <td class="text-center td-pad text-capitalize">{{ $item->get_paciente->name }}
                                                                 {{ $item->get_paciente->last_name }}</td>
                                                             <td class="text-center td-pad">
                                                                 {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_ci . '  (Rep)' : $item->get_paciente->ci }}
@@ -1088,7 +1098,7 @@
                                                             <td class="text-center td-pad">
                                                                 {{ date('d-m-Y', strtotime($item->get_paciente->birthdate)) }}
                                                             </td>
-                                                            <td class="text-center td-pad">
+                                                            <td class="text-center td-pad text-capitalize">
                                                                 {{ $item->get_paciente->genere }}</td>
                                                             <td class="text-center td-pad">
                                                                 {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_phone . '  (Rep)' : $item->get_paciente->phone }}
@@ -1107,7 +1117,7 @@
                                                                             type="button"
                                                                             class="btn btn-iSecond rounded-circle"
                                                                             data-bs-toggle="tooltip"
-                                                                            data-bs-placement="top" title="Editar"><i
+                                                                            data-bs-placement="bottom" title="Editar"><i
                                                                                 class="bi bi-pencil"></i></button>
                                                                     </div>
                                                                     <div
@@ -1117,7 +1127,7 @@
                                                                             <button type="button"
                                                                                 class="btn btn-iPrimary rounded-circle"
                                                                                 data-bs-toggle="tooltip"
-                                                                                data-bs-placement="top"
+                                                                                data-bs-placement="bottom"
                                                                                 title="Consulta médica">
                                                                                 <i class="bi bi-file-earmark-text"></i>
                                                                             </button>
@@ -1130,8 +1140,8 @@
                                                                             <button type="button"
                                                                                 class="btn btn-iSecond rounded-circle"
                                                                                 data-bs-toggle="tooltip"
-                                                                                data-bs-placement="top"
-                                                                                title="Historia Clinica"><i
+                                                                                data-bs-placement="bottom"
+                                                                                title="Historia Clínica"><i
                                                                                     class="bi bi-file-earmark-text"></i>
                                                                             </button>
                                                                         </a>
@@ -1159,9 +1169,10 @@
 
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                        <div class="modal-header title">
+                            <i class="bi bi-house"></i>
+                            <span style="padding-left: 5px">Agendar Cita</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div id="div-pat" style="display: none">
@@ -1195,24 +1206,10 @@
                                     <input type="hidden" id="patient_id" name="patient_id" value="">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="floating-label-group">
-                                            <label for="exampleFormControlTextarea1" class="floating-label">Fecha</label>
-                                            <input class="form-control inputChange " id="date_start" name="date_start"
-                                                type="date" value="">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                        <div class="floating-label-group">
                                             <div class="Icon-inside">
-                                                <label class="floating-label">Tiempo Horario</label>
-                                                <select onchange="handlerTime(event)"
-                                                    class="form-control form-textbox-input combo-textbox-input valid"
-                                                    id="timeIni" name="timeIni">
-                                                    <option value="">Seleccione</option>
-                                                    <option value="am">AM</option>
-                                                    <option value="pm">PM</option>
-                                                </select>
-                                                <i class="bi bi-stopwatch"></i>
+                                                <label for="date" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha</label>
+                                                <input class="form-control" id="date_start" name="date_start"
+                                                type="date" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -1220,11 +1217,26 @@
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="floating-label-group">
                                             <div class="Icon-inside">
-                                                <label class="floating-label">Horarios de cita</label>
-                                                <select class="form-control form-textbox-input combo-textbox-input valid"
-                                                    id="hour_start" name="hour_start">
-                                                </select>
-                                                <i class="bi bi-stopwatch"></i>
+                                                <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tiempo Horario</label>
+                                                    <select id="timeIni" name="timeIni"
+                                                        onchange="handlerTime(event)" class="form-control valid">
+                                                        <option value="">Seleccione</option>
+                                                        <option value="am">AM</option>
+                                                        <option value="pm">PM</option>
+                                                    </select>
+                                                    <i class="bi bi-stopwatch st-icon"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                        <div class="floating-label-group">
+                                            <div class="Icon-inside">
+                                                <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Horarios de cita</label>
+                                                    <select id="hour_start" name="hour_start" class="form-control valid"></select>
+                                                    <i class="bi bi-stopwatch st-icon"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -1232,11 +1244,11 @@
                                     <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" />
 
                                     <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center">
-                                        <div class="form-check form-switch" style="padding-left: 13% !important;">
+                                        <div class="form-check form-switch">
                                             <input onchange="handlerPrice(event);" style="width: 5em"
                                                 class="form-check-input" type="checkbox" role="switch" id="showPrice"
                                                 value="">
-                                            <label style="margin-left: -88px;margin-top: 6px;" for="showPrice">Precio
+                                            <label style="margin-left: -146px;margin-top: 8px; font-size: 15px" for="showPrice">Precio
                                                 de
                                                 la cita</label>
                                         </div>
@@ -1246,23 +1258,30 @@
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
                                         style="display: none" id="div-price">
                                         <div class="form-floating mb-3">
-                                            <input maxlength="8" type="text" class="form-control mask-input-price"
-                                                id="price" name="price" placeholder="Precio">
-                                            <label for="searchPatients">Precio</label>
+                                            <div class="Icon-inside">
+                                                <label for="searchPatients" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Precio</label>
+                                                <input maxlength="8" type="text"
+                                                    class="form-control mask-input-price" id="price" name="price"
+                                                    id="searchPatients" value="">
+                                                <i class="bi bi-cash st-icon"></i>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="row text-center mt-3">
-                                        <div id="spinner" style="display: none">
-                                            <x-load-spinner show="true" />
-                                        </div>
+                                    <div class="row text-center mt-3 mb-4">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
                                             style="margin-top: -4px" id="send">
                                             <input class="btn btnPrimary" id="registrer-pac" value="Registrar"
-                                                type="submit" />
+                                            type="submit" />
+                                            
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-con"></div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell"></div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div id="spinner" style="display: none">
+                                                <x-load-spinner show="true" />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </form>

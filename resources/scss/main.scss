@@ -55,6 +55,10 @@ body {
     padding-right: 6px;
 }
 
+.accordion-button:focus {
+    border-color: none
+}
+
 .loginDric{
     // margin-top: 295px;
     margin-bottom: auto; 
@@ -1495,9 +1499,9 @@ div.ui-jqgrid {
 }
 
 #table-patients table, #table-alergias_wrapper table, #table-medical-record-one table, 
-#table-cirugia_wrapper table, #table-medicamento_wrapper table {
-    font-size: 12px;
-    border-top: 1px solid rgba(0, 0, 0, 0.3);
+#table-cirugia_wrapper table, #table-medicamento_wrapper table, #DataTables_Table_0_wrapper table {
+font-size: 12px;
+border-top: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 #table-centers_length, #table-patient_length, #DataTables_Table_0_length, #table-alergias_length, #table-cirugia_length, #table-medicamento_length,
@@ -1610,4 +1614,22 @@ div.ui-jqgrid {
 
 .table-footer{
     text-align: center !important;
+}
+
+.tooltip-inner {
+    background-color: #42abe2;
+    box-shadow: 0px 0px 4px black;
+    opacity: 1 !important;
+}
+.tooltip.bs-tooltip-right .tooltip-arrow::before {
+    border-right-color: #42abe2 !important;
+}
+.tooltip.bs-tooltip-left .tooltip-arrow::before {
+    border-left-color: #42abe2 !important;
+}
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+    border-bottom-color: #42abe2 !important;
+}
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+    border-top-color: #42abe2 !important;
 }

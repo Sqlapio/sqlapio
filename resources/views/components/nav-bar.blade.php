@@ -11,7 +11,7 @@
     }
 
     .logo-nav {
-        width: 10%;
+        width: 140px;
         height: auto;
         position: absolute;
         top: 0;
@@ -405,7 +405,7 @@
         }
 
         .nav-text {
-            justify-content: initial;
+            justify-content: flex-end;
         }
 
         .dropdown-menu[data-bs-popper] {
@@ -440,6 +440,61 @@
             color: white;
         }
     }
+
+    @media (min-width: 768px) and (max-width: 992px) {
+
+        .icon-p {
+            justify-content: flex-start;
+        }
+
+        .logo-use {
+            height: auto;
+            border-radius: 50%;
+        }
+
+        .img-nav {
+            width: 26px;
+            height: auto;
+        }
+
+        .nav-text {
+            justify-content: flex-end;
+        }
+
+        .dropdown-menu[data-bs-popper] {
+            top: 82%;
+            left: 64%;
+            margin-top: var(--bs-dropdown-spacer);
+        }
+
+        .nav-column {
+            padding-top: 40px;
+            width: 100%;
+            padding-left: 0px;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+
+        .nav-item span {
+            padding-left: 20px
+        }
+
+        .div-left {
+            padding: 0px 0px;
+            margin-left: 0%;
+            margin-top: 0px;
+        }
+
+        .strong {
+            color: white;
+        }
+    }
+
+
 </style>
 <div>
     <div class="container-fluid">

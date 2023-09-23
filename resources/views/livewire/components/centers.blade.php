@@ -260,7 +260,7 @@
         <div class="container-fluid" style="padding: 3%">
             <div class="row mt-2">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
-                    <h5>Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}</h5>
+                    <h5 class="text-capitalize">Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}</h5>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                     <div class="accordion" id="accordion">

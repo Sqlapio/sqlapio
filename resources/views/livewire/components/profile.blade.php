@@ -69,6 +69,9 @@
                     },
                     phone: {
                         required: true,
+                    },
+                    cod_mpps: {
+                        required: true,
                     }
                 },
                 messages: {
@@ -132,6 +135,9 @@
                     },
                     website:{
                         url: "Debe colocar una url valida"
+                    },
+                    cod_mpps:{
+                        required: "MPPS es obligatorio"
                     }
                 },
 
