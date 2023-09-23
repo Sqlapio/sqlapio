@@ -192,6 +192,9 @@ Route::middleware(['auth'])->group(function () {
         // pdf referencia
         Route::get('/pdf/reference/{id}', [PDFController::class, 'PDF_ref'])->name("PDF_ref");
 
+        // Referencias atendidas
+        Route::get('/references/res', [Laboratory::class, 'responce_references'])->name("references_res");
+
      });
 
 });
