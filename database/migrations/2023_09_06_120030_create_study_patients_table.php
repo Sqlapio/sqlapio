@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('laboratory_id')->nullable();
             $table->string('cod_lab')->nullable();
             $table->string('file')->nullable();
+            $table->string('date_result')->nullable();
             $table->timestamps();
         });
     }
