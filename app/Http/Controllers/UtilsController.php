@@ -92,6 +92,9 @@ class UtilsController extends Controller
 		if ($value == '17') {
 			return 'update data of laboratory';
 		}
+		if ($value == '18') {
+			return 'update email';
+		}
 	}
 
 	/**
@@ -891,6 +894,7 @@ class UtilsController extends Controller
 					'cod_lab' => $laboratory->code_lab,
 					'file' => $nameFile,
 					'status' => 2,
+					'date_result' => date('d-m-Y'),
 				]);
 			}
 
@@ -952,6 +956,7 @@ class UtilsController extends Controller
 					'cod_lab' => $laboratory->code_lab,
 					'file' => $nameFile,
 					'status' => 2,
+					'date_result' => date('d-m-Y'),
 				]);
 			}
 

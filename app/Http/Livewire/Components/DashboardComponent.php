@@ -20,7 +20,11 @@ class DashboardComponent extends Component
         $boy_girl = UtilsController::get_patient_boy_girl();
         $teen = UtilsController::get_patient_teen();
         $adult = UtilsController::get_patient_adult();     
-        $ref = UtilsController::get_ref();  
+        $ref = UtilsController::get_ref();
+        $res_exams = Laboratory::res_exams();
+        $res_studies = Laboratory::res_studies();
+        
+        // $res_studies = Laboratory::res_studies();
     
         return view(
             'livewire.components.dashboard-component',
@@ -34,7 +38,9 @@ class DashboardComponent extends Component
                 'boy_girl',
                 'teen',
                 'adult',
-                'ref'
+                'ref',
+                'res_exams',
+                'res_studies'
             )
         );
     }

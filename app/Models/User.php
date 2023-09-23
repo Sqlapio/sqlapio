@@ -58,6 +58,7 @@ class User extends Authenticatable {
 		 */
 		'status_register',
 		'user_img',
+		'digital_signature',
 		'cod_mpps',
 
 		/**
