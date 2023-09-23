@@ -118,7 +118,8 @@
                             }).then((result) => {
                                 $('#ModalLoadResult').modal('toggle');
                                 $("#content-table-ref").hide();
-                                $('#search_person').val('');                                
+                                $('#search_person').val('');
+                                get_data_table()
                             });
                         },
                         error: function(error) {
@@ -329,7 +330,7 @@
         function searchPerson() {
             if ($('#search_person').val() != '') {
                 // let route = '{{ route('search_person', [':row', ':value']) }}';
-                let route = '{{ route("search_person", ":value") }}';
+                let route = '{{ route('search_person', ':value') }}';
                 // route = route.replace(':row', row);
                 route = route.replace(':value', $('#search_person').val());
 
@@ -366,6 +367,123 @@
                     }
                 });
             }
+        }
+
+        function get_data_table(data) {
+            $.ajax({
+                url: '{{ route('references_res') }}',
+                type: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    ///refrezcar table examenes
+                    new DataTable('#table-ref-examenes', {
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                        },
+                        reponsive: true,
+                        bDestroy: true,
+                        data: response.data_exam_res,
+                        columns: [{
+                                data: 'date_ref',
+                                title: 'Fecha referencia',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'cod_ref',
+                                title: 'Referencia',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'cod_exam',
+                                title: 'código Examen',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'description',
+                                title: 'Descripción',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'date_upload_res',
+                                title: 'Fecha resultado',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'patient_info.full_name',
+                                title: 'Nombres',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'patient_info.ci',
+                                title: 'Cédula',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'patient_info.genere',
+                                title: 'Género',
+                                className: "text-center",
+                            }                          
+                        ],
+                    });
+                    ///refrezcar table estudios
+                    new DataTable('#table-ref-estudios', {
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                        },
+                        reponsive: true,
+                        bDestroy: true,
+                        data: response.data_study_res,
+                        columns: [{
+                                data: 'date_ref',
+                                title: 'Fecha referencia',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'cod_ref',
+                                title: 'Referencia',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'cod_study',
+                                title: 'código Examen',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'description',
+                                title: 'Descripción',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'date_upload_res',
+                                title: 'Fecha resultado',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'patient_info.full_name',
+                                title: 'Nombres',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'patient_info.ci',
+                                title: 'Cédula',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'patient_info.genere',
+                                title: 'Género',
+                                className: "text-center",
+                            }                          
+                        ],
+                    });
+
+                },
+                error: function(error) {
+
+                }
+            });
+
         }
     </script>
 @endpush
@@ -596,7 +714,7 @@
                                 </table>
                             </div>
                         </div>
-                    </div>                  
+                    </div>
                 </div>
 
                 <div class="row">
@@ -614,25 +732,37 @@
                                             style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center" scope="col">Fecha</th>
+                                                    <th class="text-center" scope="col">Fecha referencia</th>
                                                     <th class="text-center" scope="col">Referencia</th>
                                                     <th class="text-center" scope="col">código Examen</th>
                                                     <th class="text-center" scope="col">Descripción</th>
+                                                    <th class="text-center" scope="col">Fecha resultado</th>
                                                     <th class="text-center" scope="col">Nombres</th>
                                                     <th class="text-center" scope="col">Cédula</th>
                                                     <th class="text-center" scope="col">Género</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach ($res_exams as $key => $item)
+                                                    <tr>
+                                                        <td class="text-center"> {{ $item['date_ref'] }}</td>
+                                                        <td class="text-center"> {{ $item['cod_ref'] }}</td>
+                                                        <td class="text-center"> {{ $item['cod_exam'] }}</td>
+                                                        <td class="text-center"> {{ $item['description'] }}</td>
+                                                        <td class="text-center"> {{ $item['date_upload_res'] }}</td>
+                                                        <td class="text-center"> {{ $item['patient_info']['full_name'] }}
+                                                        </td>
+                                                        <td class="text-center"> {{ $item['patient_info']['ci'] }}</td>
+                                                        <td class="text-center"> {{ $item['patient_info']['genere'] }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                         <div class="card mt-3">
@@ -648,16 +778,31 @@
                                             style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center" scope="col">Fecha</th>
+                                                    <th class="text-center" scope="col">Fecha referencia</th>
                                                     <th class="text-center" scope="col">Referencia</th>
                                                     <th class="text-center" scope="col">código Estudios</th>
                                                     <th class="text-center" scope="col">Descripción</th>
+                                                    <th class="text-center" scope="col">Fecha resultado</th>
                                                     <th class="text-center" scope="col">Nombres</th>
                                                     <th class="text-center" scope="col">Cédula</th>
                                                     <th class="text-center" scope="col">Género</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach ($res_studies as $key => $item)
+                                                    <tr>
+                                                        <td class="text-center"> {{ $item['date_ref'] }}</td>
+                                                        <td class="text-center"> {{ $item['cod_ref'] }}</td>
+                                                        <td class="text-center"> {{ $item['cod_study'] }}</td>
+                                                        <td class="text-center"> {{ $item['description'] }}</td>
+                                                        <td class="text-center"> {{ $item['date_upload_res'] }}</td>
+                                                        <td class="text-center"> {{ $item['patient_info']['full_name'] }}
+                                                        </td>
+                                                        <td class="text-center"> {{ $item['patient_info']['ci'] }}</td>
+                                                        <td class="text-center"> {{ $item['patient_info']['genere'] }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
