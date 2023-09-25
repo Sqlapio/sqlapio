@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Livewire\Components\Laboratory as ComponentsLaboratory;
 use App\Mail\NotificationDairy;
 use App\Mail\NotificationEmail;
 use App\Mail\NotificationPatient;
@@ -91,6 +92,9 @@ class UtilsController extends Controller
 		}
 		if ($value == '17') {
 			return 'update data of laboratory';
+		}
+		if ($value == '18') {
+			return 'update email';
 		}
 	}
 
@@ -891,6 +895,7 @@ class UtilsController extends Controller
 					'cod_lab' => $laboratory->code_lab,
 					'file' => $nameFile,
 					'status' => 2,
+					'date_result' => date('d-m-Y'),
 				]);
 			}
 
@@ -952,6 +957,7 @@ class UtilsController extends Controller
 					'cod_lab' => $laboratory->code_lab,
 					'file' => $nameFile,
 					'status' => 2,
+					'date_result' => date('d-m-Y'),
 				]);
 			}
 
@@ -1046,4 +1052,14 @@ class UtilsController extends Controller
 
 		return $data;
 	}
+
+
+	static function responce_references() {
+
+        $data_exam_res = ComponentsLaboratory::res_exams();
+        
+        $data_study_res= ComponentsLaboratory::res_studies();      
+        
+        return ["data_exam_res"=>$data_exam_res,"data_study_res"=>$data_study_res];
+    }
 }

@@ -33,6 +33,7 @@ class StudyPatient extends Model
         'status',
         'cod_lab',
         'file',
+        'date_result'
     ];
 
     public function get_user(): BelongsTo

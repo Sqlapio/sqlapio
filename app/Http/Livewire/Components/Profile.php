@@ -43,6 +43,16 @@ class Profile extends Component
         }
         
     }
+
+    public function update_email(Request $request)
+    {
+        $user = User::where('id', $request->id)->first();
+        $update = DB::table('users')
+				->where('id', $user->id)
+				->update([
+					'email' => $request->email,
+				]);
+    }
    
     public function render()
     {
