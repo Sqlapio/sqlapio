@@ -376,12 +376,12 @@
             <div class="accordion" id="accordion">
                 <div class="container-fluid" style="padding: 3%">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                        <div class="accordion-item">
+                        <div class="accordion-item accordion-dashboard">
                             <span class="accordion-header title" id="headingOne">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-plus-lg"></i> Citas del día 
+                                    <i class="bi bi-calendar2-check"></i> Citas del día 
                                 </button>
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
@@ -471,12 +471,12 @@
                     </div>
 
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                        <div class="accordion-item">
+                        <div class="accordion-item accordion-dashboard">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-plus-lg"></i> Estadísticas
+                                    <i class="bi bi-graph-up"></i> Estadísticas
                                 </button>
                             </span>
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"

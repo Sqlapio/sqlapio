@@ -259,12 +259,12 @@
     <div>
         <div class="container-fluid" style="padding: 3%">
             <div class="row mt-2">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
+                {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
                     <h5 class="text-capitalize">Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}</h5>
-                </div>
+                </div> --}}
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                     <div class="accordion" id="accordion">
-                        <div class="accordion-item">
+                        <div class="accordion-item accordion-centers">
                             <span class="accordion-header title" id="headingOne">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-plus-lg"></i> Centros

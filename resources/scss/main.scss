@@ -44,6 +44,10 @@ body {
     text-shadow: 1px 2px 6px rgba(0,0,0,0.6);
 }
 
+.accordion {
+    --bs-accordion-btn-focus-box-shadow: none;
+}
+
 .accordion-button {
     background-color: #42abe2 !important;
     color: white !important;
@@ -1498,10 +1502,35 @@ div.ui-jqgrid {
     margin-top: 20px;
 }
 
+.accordion-patients {
+    box-shadow: 0px 0px 10px 0px rgba(107,96,13,0.7); 
+    border: 1px solid rgb(107 96 13 / 53%);
+}
+
+.accordion-dashboard {
+    box-shadow: 0px 0px 10px 0px rgb(49 165 225 / 77%); 
+    border: 1px solid rgb(49 165 225 / 53%);
+}
+
+.accordion-diary {
+    box-shadow: 0px 0px 10px 0px rgb(203 108 108); 
+    border: 1px solid rgb(49 165 225 / 53%);
+}
+
+.accordion-profile {
+    box-shadow: 0px 0px 10px 0px rgb(98 98 98);
+    border: 1px solid rgb(98 98 98 / 53%);
+}
+
+.accordion-centers {
+    box-shadow: 0px 0px 10px 0px rgb(50 115 36);
+    border: 1px solid rgb(50 115 36 / 53%);
+}
+
 #table-patients table, #table-alergias_wrapper table, #table-medical-record-one table, 
 #table-cirugia_wrapper table, #table-medicamento_wrapper table, #DataTables_Table_0_wrapper table {
-font-size: 12px;
-border-top: 1px solid rgba(0, 0, 0, 0.3);
+    font-size: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 #table-centers_length, #table-patient_length, #DataTables_Table_0_length, #table-alergias_length, #table-cirugia_length, #table-medicamento_length,
@@ -1539,78 +1568,6 @@ border-top: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     overflow: hidden;
 }
-
-
-
-// @media screen and (max-width: 600px) {
-//     table {
-//         border: 0;
-//     }
-
-//     table caption {
-//         font-size: 1.3em;
-//     }
-
-//     table thead {
-//         border: none;
-//         clip: rect(0 0 0 0);
-//         height: 1px;
-//         margin: -1px;
-//         overflow: hidden;
-//         padding: 0;
-//         position: absolute;
-//         width: 1px;
-//     }
-
-//     table tr {
-//         border-bottom: 3px solid #ddd;
-//         display: block;
-//         margin-bottom: .625em;
-//     }
-
-//     table td {
-//         border-bottom: 1px solid #ddd;
-//         display: block;
-//         font-size: .8em;
-//         text-align: center;
-//     }
-
-//     table td::before {
-//         /*
-// * aria-label has no advantage, it won't be read inside a table
-// content: attr(aria-label);
-// */
-//         content: attr(data-label);
-//         float: left;
-//         font-weight: bold;
-//         text-transform: uppercase;
-//     }
-
-//     table td:last-child {
-//         border-bottom: 0;
-//     }
-
-//     #btns1 {
-//         margin: 5px 5px 5px 5px;
-//     }
-
-//     /* #btns2{
-//         margin: 5px 5px 5px 5px;
-//     } */
-//     .btns {
-//         margin-top: 20px !important;
-//     }
-
-//     #btns4 {
-//         margin: 5px 19px 5px 5px;
-//     }
-
-//     .btn6 {
-//         margin-top: 20px !important;
-//     }
-
-// }
-
 
 .table-footer{
     text-align: center !important;
