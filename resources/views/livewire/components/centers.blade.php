@@ -20,6 +20,14 @@
         height: 50px; 
         width: 50px;
     }
+
+    @media only screen and (max-width: 576px) {
+
+        .spinner-md img{
+            top: 93%;
+        }
+
+    }
 </style>
 @push('scripts')
     @vite(['resources/js/centers.js'])
@@ -259,15 +267,15 @@
     <div>
         <div class="container-fluid" style="padding: 3%">
             <div class="row mt-2">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
-                    <h5>Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}</h5>
-                </div>
+                {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
+                    <h5 class="text-capitalize">Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}</h5>
+                </div> --}}
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                     <div class="accordion" id="accordion">
-                        <div class="accordion-item">
+                        <div class="accordion-item accordion-centers">
                             <span class="accordion-header title" id="headingOne">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-plus-lg"></i> Centros
+                                    <i class="bi bi-building"></i> Centros
                                 </button>
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
@@ -324,9 +332,9 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header title">
-                            <i class="bi bi-house"></i>
+                            <i class="bi bi-building"></i>
                             <span style="padding-left: 5px">Asociar centro</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                         </div>
                         <div class="modal-body">
                             <form id="form-centers" method="post" action="/">
