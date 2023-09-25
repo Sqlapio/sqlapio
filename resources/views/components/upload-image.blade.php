@@ -48,13 +48,13 @@
         <div class="{{ $class_two }}">
             <div class="mb-3">
                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 8px; margin-top: 4px">Cargar imagen</label>
-                <input type="file" class="form-control" id="file" name="file">
+                <input type="file" class="form-control" id="file" name="file"  accept=".jpg, .jpeg, .png">
                 <input type="hidden" name="img" id="img">
             </div>
         </div>
         <div class="{{ $class_one }}">
             <div class="holder" style="display: none">
-                <img width="100" height="100" id="imgPreview" src="#" alt="pic" style="border-radius: 9%" />
+                <img width="100" height="100" id="imgPreview" src="#" alt="pic" style="border-radius: 9%; object-fit: cover;" />
             </div>
         </div>
     </div>

@@ -494,15 +494,115 @@
             <div class="accordion" id="accordion">
                 <div class="container-fluid" style="padding: 3%">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                        <div class="accordion-item">
+                        <div class="accordion-item accordion-dashboard">
                             <span class="accordion-header title" id="headingOne">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-plus-lg"></i> Estadísticas
+                                    <i class="bi bi-calendar2-check"></i> Citas del día 
                                 </button>
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    <div class="row"id="table-patients">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                            style="margin-top: 20px:">
+                                            <div id="spinner" style="display: none" class="spinner-md">
+                                                <x-load-spinner show="true" />
+                                            </div>
+                                            <table id="table-patient" class="table table-striped table-bordered"
+                                                style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center" scope="col">Fecha</th>
+                                                        <th class="text-center" scope="col">Hora</th>
+                                                        <th class="text-center" scope="col">Nombre</th>
+                                                        <th class="text-center" scope="col">Cédula</th>
+                                                        <th class="text-center" scope="col">Género</th>
+                                                        <th class="text-center" scope="col">Teléfono</th>
+                                                        <th class="text-center" scope="col">Email</th>
+                                                        <th class="text-center" scope="col">Confirmación</th>
+                                                        <th class="text-center" scope="col">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($appointments as $item)
+                                                        <tr>
+                                                            <td class="text-center td-pad">
+                                                                {{ date('d-m-Y', strtotime($item['extendedProps']['data_app'])) }}
+                                                            </td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }}
+                                                            </td>
+                                                            <td class="text-center td-pad text-capitalize">
+                                                                {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }}
+                                                            </td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item['extendedProps']['ci'] }}</td>
+                                                            <td class="text-center td-pad text-capitalize">
+                                                                {{ $item['extendedProps']['genere'] }}</td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item['extendedProps']['phone'] }}</td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item['extendedProps']['email'] }}</td>
+                                                            <td class="text-center td-pad">
+                                                                @if ($item['extendedProps']['confirmation'] != 0)
+                                                                    <span
+                                                                        class="badge rounded-pill bg-success">Confimada</span>
+                                                                @else
+                                                                    <span class="badge rounded-pill bg-secondary">Sin
+                                                                        confirmar</span>
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex" style="justify-content: center;">
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <a href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
+                                                                            <button type="button"
+                                                                                class="btn btn-iPrimary rounded-circle"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="Consulta médica">
+                                                                                <i class="bi bi-file-earmark-text"></i>
+                                                                            </button>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="margin-left: 10px">
+                                                                            <button type="button"
+                                                                                class="btn btn-iSecond rounded-circle"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="Cancelar Cita"
+                                                                                onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
+                                                                                <i class="bi bi-calendar-x"></i>
+                                                                            </button>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                        <div class="accordion-item accordion-dashboard">
+                            <span class="accordion-header title" id="headingTwo">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-graph-up"></i> Estadísticas
+                                </button>
+                            </span>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
@@ -545,99 +645,6 @@
                                                     <canvas id="countGereral"></canvas>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                        <div class="accordion-item">
-                            <span class="accordion-header title" id="headingTwo">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-plus-lg"></i> Citas del dia
-                                </button>
-                            </span>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                                data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <div class="row"id="table-patients">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                            style="margin-top: 20px:">
-                                            <div id="spinner" style="display: none" class="spinner-md">
-                                                <x-load-spinner show="true" />
-                                            </div>
-                                            <table id="table-patient" class="table table-striped table-bordered"
-                                                style="width:100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-center" scope="col">Fecha</th>
-                                                        <th class="text-center" scope="col">Hora</th>
-                                                        <th class="text-center" scope="col">Nombres</th>
-                                                        <th class="text-center" scope="col">Cédula</th>
-                                                        <th class="text-center" scope="col">Género</th>
-                                                        <th class="text-center" scope="col">Teléfono</th>
-                                                        <th class="text-center" scope="col">Email</th>
-                                                        <th class="text-center" scope="col">Confirmacion</th>
-                                                        <th class="text-center" scope="col">Acciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($appointments as $item)
-                                                        <tr>
-                                                            <td class="text-center td-pad">
-                                                                {{ date('d-m-Y', strtotime($item['extendedProps']['data_app'])) }}
-                                                            </td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }}
-                                                            </td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }}
-                                                            </td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item['extendedProps']['ci'] }}</td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item['extendedProps']['genere'] }}</td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item['extendedProps']['phone'] }}</td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item['extendedProps']['email'] }}</td>
-                                                            <td class="text-center td-pad">
-                                                                @if ($item['extendedProps']['confirmation'] != 0)
-                                                                    <span
-                                                                        class="badge rounded-pill bg-success">Confimada</span>
-                                                                @else
-                                                                    <span class="badge rounded-pill bg-secondary">Sin
-                                                                        confirmar</span>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex" id="btns-div">
-                                                                    <div
-                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a
-                                                                            href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
-                                                                            <button type="button"
-                                                                                class="btn-2 btnPrimary">Consulta
-                                                                                medica</button>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
-                                                                        id="btn-margin">
-                                                                        <button type="button"
-                                                                            onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')"
-                                                                            class="btn-2 btnSecond">Cancelar Cita
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -748,9 +755,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                         <div class="card mt-3">
@@ -881,7 +885,6 @@
                         </div>
 
                     </div>
-
                 </div>
             </div>
         @endif
@@ -894,7 +897,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title"></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                     </div>
                     <div class="modal-body">
                         <form id="form-load-img" method="post" action="/">

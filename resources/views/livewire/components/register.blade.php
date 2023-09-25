@@ -3,11 +3,14 @@
 <style>
 
     .mt {
-        margin-top: 15rem !important;
+        margin-top: 10rem !important;
+    }
+
+    .spinner-md img{
+        top: 92%;
     }
 
     .logoSq {
-        
         width: 50% !important;
         height: auto;
         margin-top: -15% !important;
@@ -29,7 +32,7 @@
     }
     .btn-bg img:last-of-type {
         position: absolute;
-        top: 320px;
+        top: 240px;
         bottom: 0;
         opacity: 0;
     }
@@ -38,6 +41,18 @@
         opacity: 1;
         /* position: relative; */
     }
+
+    .hover12 {
+	background: #1abc9c;
+}
+.hover12 img {
+	opacity: 1;
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+.hover12:hover img {
+	opacity: .5;
+}
     
 
     @media only screen and (max-width: 768px) {
@@ -69,6 +84,10 @@
             display: flex;
             justify-content: center;
         }
+
+        .spinner-md img{
+        top: 92%;
+    }
     }
 
 </style>
@@ -208,17 +227,21 @@
                     <div class="text-center">
                         <img class="img" src="{{ asset('img/registro.png') }}" class="">
                     </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                     <div class="container" style="display: flex; justify-content: center;">
                         <div id="btn-rol" class="row justify-content-center">
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 btn-bg">
                                 <img 
-                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 data-bs-custom-class="custom-tooltip" data-html="true"
                                 title="Registrar como médico"                          
                                 onclick="handlerRol('medico')" src="{{ asset('/img/V2/Boton_medico.png') }}"
                                 height="auto" alt="avatar">
                                 <img 
-                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 data-bs-custom-class="custom-tooltip" data-html="true"
                                 title="Registrar como médico"                          
                                 onclick="handlerRol('medico')" src="{{ asset('/img/V2/Boton_medico_bg.png') }}"
@@ -226,13 +249,13 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 btn-bg">
                                 <img
-                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 data-bs-custom-class="custom-tooltip" data-html="true"
                                 title="Registrar como laboratorio"                                                       
                                 onclick="handlerRol('laboratorio')" src="{{ asset('/img/V2/Boton_laboratorio.png') }}"
                                     width="350" height="auto" alt="avatar">
                                 <img
-                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 data-bs-custom-class="custom-tooltip" data-html="true"
                                 title="Registrar como laboratorio"                                                       
                                 onclick="handlerRol('laboratorio')" src="{{ asset('/img/V2/Boton_laboratorio_bg.png') }}"
@@ -341,13 +364,13 @@
                                         </diV>
                                     </div>
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <div id="spinner" style="display: none">
+                                        <div id="spinner" style="display: none" class="spinner-md">
                                             <x-load-spinner show="{{ $show }}" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-3" style="display: flex; justify-content: space-around;">
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-3 mb-3" style="display: flex; justify-content: space-around;">
                                         <button type="" class="btn btnPrimary">Registrar</button>
                                         <a href="/"><button type="button" class="btn btnSecond btn2">Cancelar</button></a>
                                     </div>

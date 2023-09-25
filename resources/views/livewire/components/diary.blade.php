@@ -19,7 +19,7 @@
     }
 
     .form-switch {
-        padding-left: 0% !important;
+        padding-left: 1.5em !important;
     }
 
     .input-check {
@@ -62,7 +62,7 @@
         <div class="container-fluid" style="padding: 3%">
             <div class="row mt-2">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                    <div class="card">
+                    <div class="card accordion-diary">
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id='calendar'></div>
@@ -79,10 +79,10 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header title">
-                                <i class="bi bi-house"></i>
+                                <i class="bi bi-calendar-week"></i>
                                 <span style="padding-left: 5px">Agendar Cita</span>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                    aria-label="Close" style="font-size: 12px;"></button>
                             </div>
                             <div class="modal-body">
                                 <div id="div-pat" style="display: none">
@@ -243,17 +243,15 @@
                                         <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" />
 
                                         <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center">
-                                            <div class="form-check form-switch" style="padding-left: 13% !important;">
+                                            <div class="form-check form-switch">
                                                 <input onchange="handlerPrice(event);" style="width: 5em"
-                                                    class="form-check-input" type="checkbox" role="switch"
-                                                    id="showPrice" value="">
-                                                <label style="margin-left: -88px;margin-top: 6px;" for="showPrice">Precio
+                                                    class="form-check-input" type="checkbox" role="switch" id="showPrice"
+                                                    value="">
+                                                <label style="margin-left: -146px;margin-top: 8px; font-size: 15px" for="showPrice">Precio
                                                     de
                                                     la cita</label>
                                             </div>
                                         </div>
-
-
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
                                             style="display: none" id="div-price">
                                             <div class="form-floating mb-3">
@@ -263,7 +261,6 @@
                                                 <label for="searchPatients">Precio</label>
                                             </div>
                                         </div>
-
                                     </div>
 
                                     <div class="row text-center mt-3">
