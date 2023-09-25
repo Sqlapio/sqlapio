@@ -19,6 +19,7 @@ class Laboratory extends Component
             $user = Auth::user();
 
             $laboratory = ModelsLaboratory::where('user_id', $user->id)->first();
+            $data_exam_res = [];
 
             /**
              * Logica para recuperar los examenes realizados
@@ -26,7 +27,6 @@ class Laboratory extends Component
              */
             if($laboratory != null)
             {
-            $data_exam_res = [];
             $exams_res = ExamPatient::where('laboratory_id', $laboratory->id)
                 ->where('status', '2')
                 ->get();
@@ -91,7 +91,7 @@ class Laboratory extends Component
         try {
             
             $user = Auth::user();
-
+            $data_study_res = [];
             $laboratory = ModelsLaboratory::where('user_id', $user->id)->first();
 
             /**
@@ -100,7 +100,6 @@ class Laboratory extends Component
              */
             if($laboratory != null)
             {
-            $data_study_res = [];
             $study_res = StudyPatient::where('laboratory_id', $laboratory->id)
                 ->where('status', '2')
                 ->get();
