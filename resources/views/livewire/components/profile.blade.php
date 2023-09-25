@@ -18,8 +18,8 @@
 
     {
         margin-top: -6px;
-    padding-left: 16px;
-    padding-right: 7px;
+        padding-left: 16px;
+        padding-right: 7px;
     }
 </style>
 @push('scripts')
@@ -68,6 +68,9 @@
                         required: true,
                     },
                     phone: {
+                        required: true,
+                    },
+                    cod_mpps: {
                         required: true,
                     }
                 },
@@ -132,6 +135,9 @@
                     },
                     website:{
                         url: "Debe colocar una url valida"
+                    },
+                    cod_mpps:{
+                        required: "MPPS es obligatorio"
                     }
                 },
 
@@ -247,18 +253,21 @@
     </script>
 @endpush
 @section('content')
-    <div>
         <div class="container-fluid" style="padding: 3%">
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                    <div class="accordion" id="accordion">
-                        <div class="accordion-item">
+            <div class="accordion" id="accordion">
+                {{-- datos del paciente --}}
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                        <div class="accordion-item accordion-profile">
                             <span class="accordion-header title" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-person"></i> Datos personales
                                 </button>
                             </span>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <form id="form-profile" method="post" action="/">
                                         {{ csrf_field() }}
@@ -530,7 +539,72 @@
                                                     <button type="button" class="btn btnSecond btn6" style="margin-left: 20px">Cancelar</button>
                                                 </div>
                                             </div>
+                                        </div>
                                     </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- actualizacion de correo Electronico --}}
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                        <div class="accordion-item accordion-profile">
+                            <span class="accordion-header title" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-envelope-at st-icon"></i> Actualización de Correo Electrónico
+                                </button>
+                            </span>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" id="email-div">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <label for="phone" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nuevo Correo
+                                                    Electrónico</label>
+                                                <input autocomplete="off"
+                                                    class="form-control"
+                                                    id="act-email" name="act-email" type="text"
+                                                    value="">
+                                                <i class="bi bi-envelope-at st-icon"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3 justify-content-md-end">
+                                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                            <input class="btn btnPrimary send " value="Guardar" type="submit" style="margin-left: 20px"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                {{-- firma Digital --}}
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                        <div class="accordion-item accordion-profile">
+                            <span class="accordion-header title" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-file-earmark-text"></i> Firma Digital
+                                </button>
+                            </span>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    <x-upload-image />
+                                    <div class="row mt-3 justify-content-md-end">
+                                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                            <input class="btn btnPrimary send" value="Guardar" type="submit" style="margin-left: 20px"/>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -538,6 +612,4 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
 @endsection
