@@ -417,12 +417,12 @@
                                                             <td class="text-center td-pad">
                                                                 {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }}
                                                             </td>
-                                                            <td class="text-center td-pad">
+                                                            <td class="text-center td-pad text-capitalize">
                                                                 {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }}
                                                             </td>
                                                             <td class="text-center td-pad">
                                                                 {{ $item['extendedProps']['ci'] }}</td>
-                                                            <td class="text-center td-pad">
+                                                            <td class="text-center td-pad text-capitalize">
                                                                 {{ $item['extendedProps']['genere'] }}</td>
                                                             <td class="text-center td-pad">
                                                                 {{ $item['extendedProps']['phone'] }}</td>
@@ -438,22 +438,27 @@
                                                                 @endif
                                                             </td>
                                                             <td>
-                                                                <div class="d-flex" id="btns-div">
-                                                                    <div
-                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a
-                                                                            href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
+                                                                <div class="d-flex" style="justify-content: center;">
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <a href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
                                                                             <button type="button"
-                                                                                class="btn-2 btnPrimary">Consulta
-                                                                                médica</button>
+                                                                                class="btn btn-iPrimary rounded-circle"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="Consulta médica">
+                                                                                <i class="bi bi-file-earmark-text"></i>
+                                                                            </button>
                                                                         </a>
                                                                     </div>
-                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
-                                                                        id="btn-margin">
-                                                                        <button type="button"
-                                                                            onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')"
-                                                                            class="btn-2 btnSecond">Cancelar Cita
-                                                                        </button>
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="margin-left: 10px">
+                                                                            <button type="button"
+                                                                                class="btn btn-iSecond rounded-circle"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="Cancelar Cita"
+                                                                                onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
+                                                                                <i class="bi bi-calendar-x"></i>
+                                                                            </button>
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -681,7 +686,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title"></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                     </div>
                     <div class="modal-body">
                         <form id="form-load-img" method="post" action="/">

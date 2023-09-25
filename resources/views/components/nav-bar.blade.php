@@ -1,7 +1,8 @@
 <style>
     .logo-use {
         width: 45px;
-        height: auto;
+        height: 45px;
+        object-fit: cover;
         border-radius: 50%;
         border: 2px solid #42abe2;
     }
@@ -139,12 +140,6 @@
 
 
     @media only screen and (max-width: 300px) {
-        .logo-use {
-            width: 37%;
-            height: auto;
-            border-radius: 50%;
-        }
-
 
         .div-dos {
             display: none !important;
@@ -273,11 +268,6 @@
 
     @media (min-width: 391px) and (max-width: 400px) {
 
-        .logo-use {
-            height: auto;
-            border-radius: 50%;
-        }
-
         .logo-nav {
             width: 30%;
             margin-top: -9px;
@@ -330,11 +320,6 @@
 
         .icon-p {
             justify-content: flex-start;
-        }
-
-        .logo-use {
-            height: auto;
-            border-radius: 50%;
         }
 
         .logo-nav {
@@ -394,11 +379,6 @@
             justify-content: flex-start;
         }
 
-        .logo-use {
-            height: auto;
-            border-radius: 50%;
-        }
-
         .img-nav {
             width: 26px;
             height: auto;
@@ -445,11 +425,6 @@
 
         .icon-p {
             justify-content: flex-start;
-        }
-
-        .logo-use {
-            height: auto;
-            border-radius: 50%;
         }
 
         .img-nav {

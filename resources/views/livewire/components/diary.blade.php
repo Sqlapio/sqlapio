@@ -82,7 +82,7 @@
                                 <i class="bi bi-calendar-week"></i>
                                 <span style="padding-left: 5px">Agendar Cita</span>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                    aria-label="Close" style="font-size: 12px;"></button>
                             </div>
                             <div class="modal-body">
                                 <div id="div-pat" style="display: none">

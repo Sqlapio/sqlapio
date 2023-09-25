@@ -5,18 +5,24 @@
         list-style-type: none;
     }
 
-    /* .td-pad {
-        padding-top: 20px !important;
-    } */
+    .spinnner {
+        top: 104rem !important;
+        left: 77%;
+    }
 
-    /* .input-bst {
-        width: 100%;
-    } */
+    @media only screen and (max-width: 390px) {
+        .spinnner {
+            top: 164rem !important;
+            left: 102px;
+        }
+    }
 
-    /* .input-bst-can {
-        width: 97%;
-
-    } */
+    @media only screen and (max-width: 768px) {
+        .spinnner {
+            top: 100rem !important;
+            left: 60%;
+        }
+    }
 </style>
 @push('scripts')
     <script>
@@ -326,7 +332,7 @@
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row">
-                                        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2">
+                                        <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2">
                                             <img src="{{ asset('/imgs/' . $Patient->patient_img) }}" width="150"
                                                 height="150" alt="Imagen del paciente">
                                         </div>
@@ -483,7 +489,7 @@
 
                                         <div class="row mt-3">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <div id="spinner" style="display: none">
+                                                <div id="spinner" style="display: none" class="spinner-md">
                                                     <x-load-spinner show="true" />
                                                 </div>
                                             </div>
@@ -491,10 +497,12 @@
                                         <div class="row mt-3 justify-content-md-end">
                                             <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                 id="send" style="display: flex; justify-content: flex-end;">
-                                                <input class="btn btnPrimary send" value="Guardar Consulta"
-                                                    type="submit" />
-                                                <button onclick="resetForm()" class="btn btnSecond" type="button"
-                                                    style="margin-left: 20px;">Refrescar formulario</button>
+                                                <input class="btn btnPrimary send" value="Guardar Consulta" type="submit" />
+                                                <button style="margin-left: 20px; padding: 8px;" type="button"
+                                                    onclick="refreshForm();" class="btn btnSecond" data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
+                                                    title="Limpiar Formulario">
+                                                    <i class="bi bi-eraser"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </form>
@@ -543,7 +551,10 @@
                                                                     href="{{ route('PDF_medical_record', $item['id']) }}">
                                                                     <button type="button"
                                                                         class="btn refresf btn-iSecond rounded-circle"><i
-                                                                            class="bi bi-file-earmark-pdf"></i></button>
+                                                                            class="bi bi-file-earmark-pdf" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                                            data-bs-custom-class="custom-tooltip" data-html="true"
+                                                                            title="ver PDF"></i>
+                                                                    </button>
                                                                 </a></td>
                                                         </tr>
                                                     @endforeach

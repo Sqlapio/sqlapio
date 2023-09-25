@@ -1590,3 +1590,7 @@ div.ui-jqgrid {
 .tooltip.bs-tooltip-top .tooltip-arrow::before {
     border-top-color: #42abe2 !important;
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(80%) sepia(28%) saturate(7125%) hue-rotate(171deg) brightness(92%) contrast(92%);
+}

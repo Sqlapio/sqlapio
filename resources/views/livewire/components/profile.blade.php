@@ -554,7 +554,7 @@
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-envelope-at st-icon"></i> Actualización de correo Electrónico
+                                    <i class="bi bi-envelope-at st-icon"></i> Actualización de Correo Electrónico
                                 </button>
                             </span>
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
@@ -593,7 +593,7 @@
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> Firma
+                                    <i class="bi bi-file-earmark-text"></i> Firma Digital
                                 </button>
                             </span>
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"

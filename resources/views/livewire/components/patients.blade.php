@@ -21,9 +21,10 @@
     }
 
     .avatar {
+        border-radius: 50%;
         width: 45px !important;
-        height: auto !important;
-        margin: -5px 0px 0px 0px !important;
+        height: 45px !important;
+        border: 2px solid #44525f;
     }
 
     .table-avatar {
@@ -31,9 +32,9 @@
         vertical-align: middle;
     }
 
-    .td-pad {
+    /* .td-pad {
         padding-top: 20px !important;
-    }
+    } */
 
     .borde {
         border-radius: 0 !important;
@@ -1022,10 +1023,11 @@
                                                     <div id="bnt-cons" style="display: none;margin-right: 10px"></div>
                                                     <input class="btn btnPrimary send " value="Guardar" type="submit" />
                                                     <button style="margin-left: 20px; padding: 8px;" type="button"
-                                                        onclick="refreshForm();" class="btn btnSecond" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        data-bs-custom-class="custom-tooltip" data-html="true"
-                                                        title="Limpiar Formulario">
+                                                        onclick="refreshForm();" class="btn btnSecond" data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
+                                                        title="Limpiar Formulario"
+                                                        >
                                                         <i class="bi bi-eraser"></i>
+                                                    </button>
                                                 </div>
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                     style="display: flex; justify-content: center;">
@@ -1082,7 +1084,7 @@
                                                                     src="{{ asset('/imgs/' . $item->get_paciente->patient_img) }}"
                                                                     alt="Imagen del paciente">
                                                             </td>
-                                                            <td class="text-center td-pad">
+                                                            <td class="text-center">
                                                                 <button
                                                                     onclick="agendarCita({{ $item->get_paciente }},{{ $item->get_paciente->get_reprensetative }})"
                                                                     type="button" class="btn btnSecond"
@@ -1090,40 +1092,38 @@
                                                                     data-bs-custom-class="custom-tooltip" data-html="true"
                                                                     title="Agendar cita">{{ $item->get_paciente->patient_code }}</button>
                                                             </td>
-                                                            <td class="text-center td-pad text-capitalize">{{ $item->get_paciente->name }}
+                                                            <td class="text-center text-capitalize">{{ $item->get_paciente->name }}
                                                                 {{ $item->get_paciente->last_name }}</td>
-                                                            <td class="text-center td-pad">
+                                                            <td class="text-center">
                                                                 {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_ci . '  (Rep)' : $item->get_paciente->ci }}
                                                             </td>
-                                                            <td class="text-center td-pad">
+                                                            <td class="text-center">
                                                                 {{ date('d-m-Y', strtotime($item->get_paciente->birthdate)) }}
                                                             </td>
-                                                            <td class="text-center td-pad text-capitalize">
+                                                            <td class="text-center text-capitalize">
                                                                 {{ $item->get_paciente->genere }}</td>
-                                                            <td class="text-center td-pad">
+                                                            <td class="text-center">
                                                                 {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_phone . '  (Rep)' : $item->get_paciente->phone }}
                                                             </td>
-                                                            <td class="text-center td-pad">
+                                                            <td class="text-center">
                                                                 {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_email . '  (Rep)' : $item->get_paciente->email }}
                                                             </td>
-                                                            <td class="text-center td-pad">
+                                                            <td class="text-center">
                                                                 {{ $item->get_paciente->address }}</td>
-                                                            <td class="text-center td-pad">
+                                                            <td class="text-center">
                                                                 <div class="d-flex">
-                                                                    <div
-                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                         <button
                                                                             onclick="editPatien({{ json_encode($item->get_paciente) }},true); "
                                                                             type="button"
                                                                             class="btn btn-iSecond rounded-circle"
                                                                             data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom" title="Editar"><i
-                                                                                class="bi bi-pencil"></i></button>
+                                                                            data-bs-placement="bottom" title="Editar">
+                                                                            <i class="bi bi-pencil"></i>
+                                                                        </button>
                                                                     </div>
-                                                                    <div
-                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a
-                                                                            href="{{ route('MedicalRecord', $item->get_paciente->id) }}">
+                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <a href="{{ route('MedicalRecord', $item->get_paciente->id) }}">
                                                                             <button type="button"
                                                                                 class="btn btn-iPrimary rounded-circle"
                                                                                 data-bs-toggle="tooltip"
@@ -1135,14 +1135,13 @@
                                                                     </div>
                                                                     <div
                                                                         class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a
-                                                                            href="{{ route('ClinicalHistoryDetail', $item->get_paciente->id) }}">
+                                                                        <a href="{{ route('ClinicalHistoryDetail', $item->get_paciente->id) }}">
                                                                             <button type="button"
                                                                                 class="btn btn-iSecond rounded-circle"
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
-                                                                                title="Historia Clínica"><i
-                                                                                    class="bi bi-file-earmark-text"></i>
+                                                                                title="Historia Clínica">
+                                                                                <i class="bi bi-file-earmark-text"></i>
                                                                             </button>
                                                                         </a>
                                                                     </div>
@@ -1172,7 +1171,7 @@
                         <div class="modal-header title">
                             <i class="bi bi-calendar-week"></i>
                             <span style="padding-left: 5px">Agendar Cita</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                         </div>
                         <div class="modal-body">
                             <div id="div-pat" style="display: none">
