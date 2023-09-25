@@ -5,18 +5,24 @@
         list-style-type: none;
     }
 
-    /* .td-pad {
-        padding-top: 20px !important;
-    } */
+    .spinnner {
+        top: 104rem !important;
+        left: 77%;
+    }
 
-    /* .input-bst {
-        width: 100%;
-    } */
+    @media only screen and (max-width: 390px) {
+        .spinnner {
+            top: 164rem !important;
+            left: 102px;
+        }
+    }
 
-    /* .input-bst-can {
-        width: 97%;
-
-    } */
+    @media only screen and (max-width: 768px) {
+        .spinnner {
+            top: 100rem !important;
+            left: 60%;
+        }
+    }
 </style>
 @push('scripts')
     <script>
@@ -326,12 +332,12 @@
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row">
-                                        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2">
+                                        <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2">
                                             <img src="{{ asset('/imgs/' . $Patient->patient_img) }}" width="150"
                                                 height="150" alt="Imagen del paciente">
                                         </div>
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                            <strong>Nombre:</strong><span>
+                                            <strong>Nombre:</strong><span class="text-capitalize">
                                                 {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                             <br>
                                             <strong>Fecha de Nacimiento:</strong><span>
@@ -340,10 +346,10 @@
                                             <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
                                             <br>
                                             <strong>{{ $Patient->is_minor === 'true' ? 'Cédula de identidad del representante:' : 'Cédula de identidad:' }}</strong>
-                                            <span>
+                                            <span >
                                                 {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                             <br>
-                                            <strong>Genero:</strong> <span> {{ $Patient->genere }}</span>
+                                            <strong>Genero:</strong> <span class="text-capitalize"> {{ $Patient->genere }}</span>
                                             <br>
                                             <strong>Nº Historial:</strong><span> {{ $Patient->get_history->cod_history }}
                                             </span>
@@ -441,7 +447,7 @@
                                                             <li> <label><input type="checkbox" onclick="setExams(event)"
                                                                         name="chk{{ $key }}"
                                                                         id="{{ $key }}"
-                                                                        value="{{ $item->cod_exam . '|' . $item->description }}">{{ $item->description }}</label><br>
+                                                                        value="{{ $item->cod_exam . '|' . $item->description }}"> {{ $item->description }}</label><br>
                                                             </li>
                                                         </ul>
                                                     @endforeach
@@ -468,7 +474,7 @@
                                                                         name="chk{{ $key }}"
                                                                         id="chectt{{ $key }}"
                                                                         onclick="setStudy(event)"
-                                                                        value="{{ $item->cod_study . '|' . $item->description }}">{{ $item->description }}</label><br>
+                                                                        value="{{ $item->cod_study . '|' . $item->description }}"> {{ $item->description }}</label><br>
                                                             </li>
                                                         </ul>
                                                     @endforeach
@@ -483,7 +489,7 @@
 
                                         <div class="row mt-3">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <div id="spinner" style="display: none">
+                                                <div id="spinner" style="display: none" class="spinner-md">
                                                     <x-load-spinner show="true" />
                                                 </div>
                                             </div>
@@ -491,10 +497,12 @@
                                         <div class="row mt-3 justify-content-md-end">
                                             <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                 id="send" style="display: flex; justify-content: flex-end;">
-                                                <input class="btn btnPrimary send" value="Guardar Consulta"
-                                                    type="submit" />
-                                                <button onclick="resetForm()" class="btn btnSecond" type="button"
-                                                    style="margin-left: 20px;">Refrescar formulario</button>
+                                                <input class="btn btnPrimary send" value="Guardar Consulta" type="submit" />
+                                                <button style="margin-left: 20px; padding: 8px;" type="button"
+                                                    onclick="refreshForm();" class="btn btnSecond" data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
+                                                    title="Limpiar Formulario">
+                                                    <i class="bi bi-eraser"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </form>
@@ -534,7 +542,7 @@
                                                     @foreach ($medical_record_user as $item)
                                                         <tr onclick="showDataEdit({{ json_encode($item) }});">
                                                             <td class="text-center td-pad">{{ $item['date'] }}</td>
-                                                            <td class="text-center td-pad">{{ $item['name_patient'] }}
+                                                            <td class="text-center td-pad text-capitalize">{{ $item['name_patient'] }}
                                                             </td>
                                                             <td class="text-center td-pad">{{ $item['code_patient'] }}
                                                             </td>
@@ -542,8 +550,11 @@
                                                             <td class="text-center td-pad"><a target="_blank"
                                                                     href="{{ route('PDF_medical_record', $item['id']) }}">
                                                                     <button type="button"
-                                                                        class="btn-2 refresf btnSecond"><i
-                                                                            class="bi bi-file-earmark-pdf"></i></button>
+                                                                        class="btn refresf btn-iSecond rounded-circle"><i
+                                                                            class="bi bi-file-earmark-pdf" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                                            data-bs-custom-class="custom-tooltip" data-html="true"
+                                                                            title="ver PDF"></i>
+                                                                    </button>
                                                                 </a></td>
                                                         </tr>
                                                     @endforeach

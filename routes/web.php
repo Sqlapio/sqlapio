@@ -16,6 +16,7 @@ use App\Http\Livewire\Components\Suscription;
 use App\Http\Livewire\Components\Diary;
 use App\Http\Livewire\Components\ClinicalHistory;
 use App\Http\Livewire\Components\Centers;
+use App\Http\Livewire\Components\Laboratory;
 use App\Http\Livewire\Components\Statistics;
 use App\Http\Livewire\Components\Register;
 use App\Models\Patient;
@@ -191,6 +192,9 @@ Route::middleware(['auth'])->group(function () {
 
         // pdf referencia
         Route::get('/pdf/reference/{id}', [PDFController::class, 'PDF_ref'])->name("PDF_ref");
+
+        // Referencias atendidas
+        Route::get('/references/res', [UtilsController::class, 'responce_references'])->name("references_res");
 
      });
 

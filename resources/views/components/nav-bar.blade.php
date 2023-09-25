@@ -1,7 +1,8 @@
 <style>
     .logo-use {
         width: 45px;
-        height: auto;
+        height: 45px;
+        object-fit: cover;
         border-radius: 50%;
         border: 2px solid #42abe2;
     }
@@ -11,7 +12,7 @@
     }
 
     .logo-nav {
-        width: 10%;
+        width: 140px;
         height: auto;
         position: absolute;
         top: 0;
@@ -139,12 +140,6 @@
 
 
     @media only screen and (max-width: 300px) {
-        .logo-use {
-            width: 37%;
-            height: auto;
-            border-radius: 50%;
-        }
-
 
         .div-dos {
             display: none !important;
@@ -273,11 +268,6 @@
 
     @media (min-width: 391px) and (max-width: 400px) {
 
-        .logo-use {
-            height: auto;
-            border-radius: 50%;
-        }
-
         .logo-nav {
             width: 30%;
             margin-top: -9px;
@@ -330,11 +320,6 @@
 
         .icon-p {
             justify-content: flex-start;
-        }
-
-        .logo-use {
-            height: auto;
-            border-radius: 50%;
         }
 
         .logo-nav {
@@ -394,18 +379,13 @@
             justify-content: flex-start;
         }
 
-        .logo-use {
-            height: auto;
-            border-radius: 50%;
-        }
-
         .img-nav {
             width: 26px;
             height: auto;
         }
 
         .nav-text {
-            justify-content: initial;
+            justify-content: flex-end;
         }
 
         .dropdown-menu[data-bs-popper] {
@@ -440,6 +420,56 @@
             color: white;
         }
     }
+
+    @media (min-width: 768px) and (max-width: 992px) {
+
+        .icon-p {
+            justify-content: flex-start;
+        }
+
+        .img-nav {
+            width: 26px;
+            height: auto;
+        }
+
+        .nav-text {
+            justify-content: flex-end;
+        }
+
+        .dropdown-menu[data-bs-popper] {
+            top: 82%;
+            left: 64%;
+            margin-top: var(--bs-dropdown-spacer);
+        }
+
+        .nav-column {
+            padding-top: 40px;
+            width: 100%;
+            padding-left: 0px;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+
+        .nav-item span {
+            padding-left: 20px
+        }
+
+        .div-left {
+            padding: 0px 0px;
+            margin-left: 0%;
+            margin-top: 0px;
+        }
+
+        .strong {
+            color: white;
+        }
+    }
+
+
 </style>
 <div>
     <div class="container-fluid">

@@ -8,7 +8,7 @@
         height: auto;
         position: absolute;
         text-align: center;
-        top: 68%;
+        top: 64%;
         z-index: 3;
     }
 

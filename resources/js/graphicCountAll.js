@@ -158,7 +158,7 @@ function get_history_register(countHistoryRegister) {
 
 function get_genere(boy_girl, teen) {
   let data = {
-    labels: ["Niños", "Jovenes"],
+    labels: ["Niños", "Jóvenes"],
     datasets: [
       {
         label: "Femenino",
