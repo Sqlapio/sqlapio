@@ -424,7 +424,7 @@
                                 data: 'patient_info.genere',
                                 title: 'Género',
                                 className: "text-center",
-                            }                          
+                            }
                         ],
                     });
                     ///refrezcar table estudios
@@ -474,7 +474,7 @@
                                 data: 'patient_info.genere',
                                 title: 'Género',
                                 className: "text-center",
-                            }                          
+                            }
                         ],
                     });
 
@@ -499,7 +499,7 @@
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-calendar2-check"></i> Citas del día 
+                                    <i class="bi bi-calendar2-check"></i> Citas del día
                                 </button>
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
@@ -522,6 +522,7 @@
                                                         <th class="text-center" scope="col">Género</th>
                                                         <th class="text-center" scope="col">Teléfono</th>
                                                         <th class="text-center" scope="col">Email</th>
+                                                        <th class="text-center" scope="col">Centro de salud</th>
                                                         <th class="text-center" scope="col">Confirmación</th>
                                                         <th class="text-center" scope="col">Acciones</th>
                                                     </tr>
@@ -547,6 +548,8 @@
                                                             <td class="text-center td-pad">
                                                                 {{ $item['extendedProps']['email'] }}</td>
                                                             <td class="text-center td-pad">
+                                                                {{ $item['extendedProps']['center'] }}</td>
+                                                            <td class="text-center td-pad">
                                                                 @if ($item['extendedProps']['confirmation'] != 0)
                                                                     <span
                                                                         class="badge rounded-pill bg-success">Confimada</span>
@@ -557,8 +560,10 @@
                                                             </td>
                                                             <td>
                                                                 <div class="d-flex" style="justify-content: center;">
-                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                        <a href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
+                                                                    <div
+                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <a
+                                                                            href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
                                                                             <button type="button"
                                                                                 class="btn btn-iPrimary rounded-circle"
                                                                                 data-bs-toggle="tooltip"
@@ -568,15 +573,15 @@
                                                                             </button>
                                                                         </a>
                                                                     </div>
-                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="margin-left: 10px">
-                                                                            <button type="button"
-                                                                                class="btn btn-iSecond rounded-circle"
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                title="Cancelar Cita"
-                                                                                onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
-                                                                                <i class="bi bi-calendar-x"></i>
-                                                                            </button>
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
+                                                                        style="margin-left: 10px">
+                                                                        <button type="button"
+                                                                            class="btn btn-iSecond rounded-circle"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom" title="Cancelar Cita"
+                                                                            onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
+                                                                            <i class="bi bi-calendar-x"></i>
+                                                                        </button>
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -588,7 +593,7 @@
                                     </div>
                                 </div>
 
-                                
+
                             </div>
                         </div>
                     </div>
@@ -721,7 +726,7 @@
                                 </table>
                             </div>
                         </div>
-                    </div>                  
+                    </div>
                 </div>
 
                 <div class="row">
@@ -755,9 +760,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                         <div class="card mt-3">
@@ -791,6 +793,7 @@
                         </div>
 
                     </div>
+
                 </div>
 
                 <div class="row">
@@ -899,7 +902,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title"></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            style="font-size: 12px;"></button>
                     </div>
                     <div class="modal-body">
                         <form id="form-load-img" method="post" action="/">

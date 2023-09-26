@@ -58,8 +58,8 @@
         }
 
         .spinnner {
-        top: 94% !important;
-    }
+            top: 94% !important;
+        }
 
     }
 </style>
@@ -72,6 +72,7 @@
         let urlPostCreateAppointment = '{{ route('CreateAppointment') }}';
         let urlDiary = "{{ route('Diary') }}";
         let status = "";
+        let url = "{{ route('MedicalRecord', ':id') }}";
 
         $(document).ready(() => {
 
@@ -271,7 +272,7 @@
                         success: function(response) {
                             $('#send').show();
                             $('#spinner').hide();
-                            $("#form-patients").trigger("reset");
+                            // $("#form-patients").trigger("reset");
                             $(".holder").hide();
                             Swal.fire({
                                 icon: 'success',
@@ -280,145 +281,11 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
-                                // ajax para refrezcar la tabla  se comenta el codigo por el nuevo flujo
-                                // $.ajax({
-                                //     url: "{{ route('get_patients_pagination') }}",
-                                //     type: 'GET',
-                                //     headers: {
-                                //         'X-CSRF-TOKEN': $(
-                                //             'meta[name="csrf-token"]').attr(
-                                //             'content')
-                                //     },
-                                //     success: function(res) {
-                                //         let data = [];
-                                //         res.map((elem) => {
-                                //             let route =
-                                //                 "{{ route('ClinicalHistoryDetail', ':id') }}";
-                                //             let routeTow =
-                                //                 "{{ route('MedicalRecord', ':id') }}";
-                                //             routeTow = routeTow
-                                //                 .replace(':id', elem
-                                //                     .id);
-                                //             route = route.replace(
-                                //                 ':id', elem.id);
-                                //             let elemData = JSON
-                                //                 .stringify(elem);
-                                //             let ulrImge =
-                                //                 `{{ URL::asset('/imgs/${elem.patient_img}') }}`;
-                                //             elem.img =
-                                //                 `<img class="avatar" src="${ulrImge}" alt="">`;
-                                //             elem.btn = `
-                            //                 <div class="d-flex">
-                            //                 <div
-                            //                 class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                            //                 <button
-                            //                 onclick="editPatien(${elemData}); "
-                            //                 type="button"
-                            //                 class="btn btn-iSecond rounded-circle"
-                            //                 data-bs-toggle="tooltip"
-                            //                 data-bs-placement="top" title="Editar"><i
-                            //                 class="bi bi-pencil"></i></button>
-                            //                 </div>
-                            //                 <div
-                            //                 class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                            //                 <a href="${routeTow}">
-                            //                 <button type="button"
-                            //                 class="btn btn-iPrimary rounded-circle"
-                            //                 data-bs-toggle="tooltip"
-                            //                 data-bs-placement="top"
-                            //                 title="Consulta médica">
-                            //                 <i class="bi bi-file-earmark-text"></i>
-                            //                 </button>
-                            //                 </a>
-                            //                 </div>
-                            //                 <div
-                            //                 class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                            //                 <a
-                            //                 href="${route}">
-                            //                 <button type="button"
-                            //                 class="btn btn-iSecond rounded-circle"
-                            //                 data-bs-toggle="tooltip"
-                            //                 data-bs-placement="top"
-                            //                 title="Historia Clinica"><i
-                            //                 class="bi bi-file-earmark-text"></i>
-                            //                 </button>
-                            //                 </a>
-                            //                 </div>
-                            //                 </div>`;
-
-                                //                 elem.btn1=`<button
-                            //                 onclick="agendarCita(${elemData},${elemData})"
-                            //                 type="button" class="btn btnSecond"
-                            //                 data-bs-toggle="tooltip" data-bs-placement="left"
-                            //                 data-bs-custom-class="custom-tooltip" data-html="true"
-                            //                 title="Agendar cita">${elem.patient_code}</button>`
-                                //             data.push(elem);
-                                //         });
-
-                                //         new DataTable('#table-patient', {
-                                //             language: {
-                                //                 url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
-                                //             },
-                                //             bDestroy: true,
-                                //             data: data,
-                                //             columns: [{
-
-                                //                     data: 'img',
-                                //                     title: 'Imagen',
-                                //                     className: "text-center",
-                                //                 },
-                                //                 {
-
-                                //                     data: 'btn1',
-                                //                     title: 'Codigo paciente',
-                                //                     className: "text-center",
-                                //                 },
-
-                                //                 {
-                                //                     data: 'name',
-                                //                     title: 'Nombre',
-                                //                     className: "text-center",
-                                //                 },
-                                //                 {
-                                //                     data: 'ci_table',
-                                //                     title: 'Cédula',
-                                //                     className: "text-center",
-                                //                 },
-                                //                 {
-                                //                     data: 'birthdate',
-                                //                     title: 'Fecha de Nacimiento',
-                                //                     className: "text-center",
-                                //                 },
-
-                                //                 {
-                                //                     data: 'genere',
-                                //                     title: 'Género',
-                                //                     className: "text-center",
-                                //                 },
-                                //                 {
-                                //                     data: 'phone_table',
-                                //                     title: 'Teléfono',
-                                //                     className: "text-center",
-                                //                 },
-                                //                 {
-                                //                     data: 'email_table',
-                                //                     title: 'Email',
-                                //                     className: "text-center",
-                                //                 },
-                                //                 {
-                                //                     data: 'address',
-                                //                     title: 'Direccion',
-                                //                     className: "text-center",
-                                //                 },
-                                //                 {
-                                //                     data: 'btn',
-                                //                     title: 'Acciones',
-                                //                     className: "text-center",
-                                //                 }
-                                //             ],
-                                //         });                                    
-                                //     }
-                                // });
+                                url = url.replace(':id', response.id);
+                                $("#bnt-cons").show();
+                                $("#bnt-cons").find('a').remove();
+                                $("#bnt-cons").append(
+                                `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`);                              
                             });
                         },
                         error: function(error) {
@@ -633,17 +500,17 @@
                         });
                     },
                     error: function(error) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: error.responseJSON.errors,
-                                allowOutsideClick: false,
-                                confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
-                            }).then((result) => {
-                                $('#send').show();
-                                $('#spinner').hide();
-                                $(".holder").hide();
-                            });                    
+                        Swal.fire({
+                            icon: 'error',
+                            title: error.responseJSON.errors,
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            $('#send').show();
+                            $('#spinner').hide();
+                            $(".holder").hide();
+                        });
                     }
                 });
             }
@@ -658,7 +525,6 @@
             $('#bnt-cons').show();
             $('#bnt-dairy').show();
             $('#flexSwitchCheckChecked').prop('checked', false);
-            let url = "{{ route('MedicalRecord', ':id') }}";
             url = url.replace(':id', data.id);
             $("#bnt-cons").find('a').remove();
             $("#bnt-dairy").find('button').remove();
@@ -704,6 +570,20 @@
                 status = false;
             }
             $('#search_patient').attr('disabled', false)
+        }
+
+        function handlerEmail(e,email) {
+            if (e.target.value === email) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Accion no permitida, el correo se encuentra logueado en el sistema!',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#42ABE2',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    $('#email').val('');
+                });
+            }
         }
     </script>
 @endpush
@@ -851,7 +731,11 @@
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
                                                                 Electrónico</label>
+                                                                @php
+                                                                 $email  = Auth::user()->email;
+                                                                @endphp
                                                             <input autocomplete="off"
+                                                                onchange='handlerEmail(event,@json($email))'
                                                                 class="form-control @error('email') is-invalid @enderror"
                                                                 id="email" name="email" type="text"
                                                                 value="">
@@ -1006,6 +890,7 @@
                                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
                                                                     del representante</label>
                                                                 <input autocomplete="off"
+                                                                    onchange='handlerEmail(event,@json($email))'
                                                                     class="form-control @error('re_email') is-invalid @enderror"
                                                                     id="re_email" name="re_email" type="text"
                                                                     value="">
@@ -1023,9 +908,9 @@
                                                     <div id="bnt-cons" style="display: none;margin-right: 10px"></div>
                                                     <input class="btn btnPrimary send " value="Guardar" type="submit" />
                                                     <button style="margin-left: 20px; padding: 8px;" type="button"
-                                                        onclick="refreshForm();" class="btn btnSecond" data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
-                                                        title="Limpiar Formulario"
-                                                        >
+                                                        onclick="refreshForm();" class="btn btnSecond"
+                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                        data-html="true" title="Limpiar Formulario">
                                                         <i class="bi bi-eraser"></i>
                                                     </button>
                                                 </div>
@@ -1071,7 +956,7 @@
                                                         <th class="text-center" scope="col">Género</th>
                                                         <th class="text-center" scope="col">Teléfono</th>
                                                         <th class="text-center" scope="col">Email</th>
-                                                        <th class="text-center" scope="col">Dirección</th>
+                                                        <th class="text-center" scope="col">Centro de salud</th>
                                                         <th class="text-center"scope="col">Acciones</th>
 
                                                     </tr>
@@ -1092,7 +977,8 @@
                                                                     data-bs-custom-class="custom-tooltip" data-html="true"
                                                                     title="Agendar cita">{{ $item->get_paciente->patient_code }}</button>
                                                             </td>
-                                                            <td class="text-center text-capitalize">{{ $item->get_paciente->name }}
+                                                            <td class="text-center text-capitalize">
+                                                                {{ $item->get_paciente->name }}
                                                                 {{ $item->get_paciente->last_name }}</td>
                                                             <td class="text-center">
                                                                 {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_ci . '  (Rep)' : $item->get_paciente->ci }}
@@ -1109,10 +995,11 @@
                                                                 {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_email . '  (Rep)' : $item->get_paciente->email }}
                                                             </td>
                                                             <td class="text-center">
-                                                                {{ $item->get_paciente->address }}</td>
+                                                                {{ $item->get_center->description }}</td>
                                                             <td class="text-center">
                                                                 <div class="d-flex">
-                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                    <div
+                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                         <button
                                                                             onclick="editPatien({{ json_encode($item->get_paciente) }},true); "
                                                                             type="button"
@@ -1122,8 +1009,10 @@
                                                                             <i class="bi bi-pencil"></i>
                                                                         </button>
                                                                     </div>
-                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a href="{{ route('MedicalRecord', $item->get_paciente->id) }}">
+                                                                    <div
+                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <a
+                                                                            href="{{ route('MedicalRecord', $item->get_paciente->id) }}">
                                                                             <button type="button"
                                                                                 class="btn btn-iPrimary rounded-circle"
                                                                                 data-bs-toggle="tooltip"
@@ -1135,7 +1024,8 @@
                                                                     </div>
                                                                     <div
                                                                         class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a href="{{ route('ClinicalHistoryDetail', $item->get_paciente->id) }}">
+                                                                        <a
+                                                                            href="{{ route('ClinicalHistoryDetail', $item->get_paciente->id) }}">
                                                                             <button type="button"
                                                                                 class="btn btn-iSecond rounded-circle"
                                                                                 data-bs-toggle="tooltip"
@@ -1171,7 +1061,8 @@
                         <div class="modal-header title">
                             <i class="bi bi-calendar-week"></i>
                             <span style="padding-left: 5px">Agendar Cita</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                style="font-size: 12px;"></button>
                         </div>
                         <div class="modal-body">
                             <div id="div-pat" style="display: none">
@@ -1206,9 +1097,10 @@
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="floating-label-group">
                                             <div class="Icon-inside">
-                                                <label for="date" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha</label>
+                                                <label for="date" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha</label>
                                                 <input class="form-control" id="date_start" name="date_start"
-                                                type="date" value="">
+                                                    type="date" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -1217,14 +1109,15 @@
                                         <div class="floating-label-group">
                                             <div class="Icon-inside">
                                                 <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tiempo Horario</label>
-                                                    <select id="timeIni" name="timeIni"
-                                                        onchange="handlerTime(event)" class="form-control valid">
-                                                        <option value="">Seleccione</option>
-                                                        <option value="am">AM</option>
-                                                        <option value="pm">PM</option>
-                                                    </select>
-                                                    <i class="bi bi-stopwatch st-icon"></i>
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tiempo
+                                                    Horario</label>
+                                                <select id="timeIni" name="timeIni" onchange="handlerTime(event)"
+                                                    class="form-control valid">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="am">AM</option>
+                                                    <option value="pm">PM</option>
+                                                </select>
+                                                <i class="bi bi-stopwatch st-icon"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -1233,9 +1126,11 @@
                                         <div class="floating-label-group">
                                             <div class="Icon-inside">
                                                 <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Horarios de cita</label>
-                                                    <select id="hour_start" name="hour_start" class="form-control valid"></select>
-                                                    <i class="bi bi-stopwatch st-icon"></i>
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Horarios
+                                                    de cita</label>
+                                                <select id="hour_start" name="hour_start"
+                                                    class="form-control valid"></select>
+                                                <i class="bi bi-stopwatch st-icon"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -1247,7 +1142,8 @@
                                             <input onchange="handlerPrice(event);" style="width: 5em"
                                                 class="form-check-input" type="checkbox" role="switch" id="showPrice"
                                                 value="">
-                                            <label style="margin-left: -146px;margin-top: 8px; font-size: 15px" for="showPrice">Precio
+                                            <label style="margin-left: -146px;margin-top: 8px; font-size: 15px"
+                                                for="showPrice">Precio
                                                 de
                                                 la cita</label>
                                         </div>
@@ -1258,7 +1154,8 @@
                                         style="display: none" id="div-price">
                                         <div class="form-floating mb-3">
                                             <div class="Icon-inside">
-                                                <label for="searchPatients" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Precio</label>
+                                                <label for="searchPatients" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Precio</label>
                                                 <input maxlength="8" type="text"
                                                     class="form-control mask-input-price" id="price" name="price"
                                                     id="searchPatients" value="">
@@ -1271,8 +1168,8 @@
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
                                             style="margin-top: -4px" id="send">
                                             <input class="btn btnPrimary" id="registrer-pac" value="Registrar"
-                                            type="submit" />
-                                            
+                                                type="submit" />
+
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-con"></div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell"></div>
