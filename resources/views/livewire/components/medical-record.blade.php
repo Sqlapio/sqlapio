@@ -392,7 +392,7 @@
                                                             class="form-control combo-textbox-input">
                                                             <option value="">Seleccione</option>
                                                             @foreach ($doctor_centers as $item)
-                                                                <option value="{{ $item->id }}">
+                                                                <option value="{{ $item->center_id }}">
                                                                     {{ $item->get_center->description }}</option>
                                                             @endforeach
                                                         </select>
