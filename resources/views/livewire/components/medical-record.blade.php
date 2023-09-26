@@ -10,6 +10,11 @@
         left: 77%;
     }
 
+    .img-medical {
+        border-radius: 20px; 
+        border: 3px solid #47525e;
+    }
+
     @media only screen and (max-width: 390px) {
         .spinnner {
             top: 164rem !important;
@@ -32,6 +37,12 @@
         let exams_array =  [];
         let studies_array =  [];
         $(document).ready(() => {
+
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            tooltipTriggerList.forEach(element => {
+                new bootstrap.Tooltip(element)
+            });
+            
             let doctor_centers = @json($doctor_centers);
             let validate_histroy = @json($validate_histroy);
 
@@ -332,9 +343,9 @@
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row">
-                                        <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2">
+                                        <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 180px;">
                                             <img src="{{ asset('/imgs/' . $Patient->patient_img) }}" width="150"
-                                                height="150" alt="Imagen del paciente">
+                                                height="150" alt="Imagen del paciente" class="img-medical">
                                         </div>
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                                             <strong>Nombre:</strong><span class="text-capitalize">
@@ -497,7 +508,7 @@
                                         <div class="row mt-3 justify-content-md-end">
                                             <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                 id="send" style="display: flex; justify-content: flex-end;">
-                                                <input class="btn btnPrimary send" value="Guardar Consulta" type="submit" />
+                                                <input class="btn btnPrimary send" value="Guardar Consulta" type="submit"/>
                                                 <button style="margin-left: 20px; padding: 8px;" type="button"
                                                     onclick="refreshForm();" class="btn btnSecond" data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
                                                     title="Limpiar Formulario">

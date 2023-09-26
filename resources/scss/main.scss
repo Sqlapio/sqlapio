@@ -3,6 +3,7 @@
 html{
     height: 100%;
     position: relative;
+    overflow-x: hidden;
 }
 
 body {
@@ -1488,15 +1489,15 @@ div.ui-jqgrid {
     color:#42abe2;
    }
    
-   .custom-tooltip {
-    --bs-tooltip-bg: var(--bs-primary);
-  }
+//    .custom-tooltip {
+//     --bs-tooltip-bg: var(--bs-primary);
+//   }
 
-  .tooltip-inner {
-    white-space: pre-line;
+//   .tooltip-inner {
+//     white-space: pre-line;
 
-    text-align: left;
-}
+//     text-align: left;
+// }
 
 .margin-global {
     margin-top: 20px;
