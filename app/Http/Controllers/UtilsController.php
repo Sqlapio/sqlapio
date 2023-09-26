@@ -275,6 +275,7 @@ class UtilsController extends Controller
 						'age' =>  $val->get_patients->age,
 						'patient_id' =>  $val->get_patients->id,
 						'center_id' =>  $val->center_id,
+						'center' =>  $val->get_center->description,
 						'data' => substr($val->hour_start, 0, -3),
 						'img' => $val->get_patients->patient_img,
 						'data_app' => $val->date_start,
