@@ -34,11 +34,12 @@
     }
 
     #img-pat {
-        border-radius: 43px;
+        border-radius: 27px;
         /* padding: 10px 0px 0px 6px;
         width: 100%; */
+        border: 2px solid #44525F;
         height: auto;
-        margin: 23px;
+        margin: 7px 23px;
     }
 </style>
 @push('scripts')
@@ -89,7 +90,7 @@
                                     style="font-size: 12px;"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="d-flex">
+                                {{-- <div class="d-flex"> --}}
                                     <x-select-dos :data="$patient" />
                                     {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                         id="search-patients-show">
@@ -105,10 +106,10 @@
                                             </div>
                                         </div>
                                     </div> --}}
-                                </div>
+                                {{-- </div> --}}
                                 <div id="div-pat" style="display: none">
-                                    <div class="d-flex mt-3">
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                    <div class="d-flex mt-2">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="max-width: 200px;">
                                             <div class="img">
                                                 <img id="img-pat" src="" width="150" height="150"
                                                     alt="Imagen del paciente">
@@ -138,7 +139,7 @@
                                     {{ csrf_field() }}
 
 
-                                    <div class="row mt-3">
+                                    <div class="row">
                                         <input type="hidden" id="patient_id" name="patient_id" value="">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="floating-label-group">
