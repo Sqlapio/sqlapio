@@ -544,8 +544,9 @@
                                                     <tr>
                                                         <th class="text-center" scope="col">Fecha de la consulta</th>
                                                         <th class="text-center" scope="col">Nombre del paciente</th>
-                                                        <th class="text-center" scope="col">Codigo del paciente</th>
+                                                        <th class="text-center" scope="col">Género</th>
                                                         <th class="text-center" scope="col">Centro</th>
+                                                        <th class="text-center" scope="col">Médico</th>
                                                         <th class="text-center" scope="col">Ver</th>
                                                     </tr>
                                                 </thead>
@@ -555,9 +556,10 @@
                                                             <td class="text-center td-pad">{{ $item['date'] }}</td>
                                                             <td class="text-center td-pad text-capitalize">{{ $item['name_patient'] }}
                                                             </td>
-                                                            <td class="text-center td-pad">{{ $item['code_patient'] }}
+                                                            <td class="text-center td-pad">{{ $item['genere'] }}
                                                             </td>
                                                             <td class="text-center td-pad">{{ $item['center'] }}</td>
+                                                            <td class="text-center td-pad">{{ $item['full_name_doc'] }}</td>
                                                             <td class="text-center td-pad"><a target="_blank"
                                                                     href="{{ route('PDF_medical_record', $item['id']) }}">
                                                                     <button type="button"
