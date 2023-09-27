@@ -199,14 +199,14 @@
                                                     class="bi bi-file-earmark-pdf"></i></button>
                                                     </a>                               `;
                                                 data.push(elem);
-                                            });
+                                            });                                                    
 
                                             new DataTable(
-                                                '.table', {
+                                                '#table-medical-record', {
                                                     language: {
                                                         url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
                                                     },
-                                                    reponsive: true,
+                                                    // reponsive: true,
                                                     bDestroy: true,
                                                     data: data,
                                                     columns: [{
@@ -220,13 +220,18 @@
                                                             className: "text-center td-pad",
                                                         },
                                                         {
-                                                            data: 'code_patient',
-                                                            title: 'Codigo del paciente',
+                                                            data: 'genere',
+                                                            title: 'Género',
                                                             className: "text-center td-pad",
                                                         },
                                                         {
                                                             data: 'center',
                                                             title: 'Centro',
+                                                            className: "text-center td-pad",
+                                                        },
+                                                        {
+                                                            data: 'full_name_doc',
+                                                            title: 'Médico',
                                                             className: "text-center td-pad",
                                                         },
                                                         {
@@ -236,7 +241,7 @@
                                                         }
                                                     ],
                                                 });
-                                            $('.table').on(
+                                            $('#table-medical-record').on(
                                                 'click', 'td',
                                                 function() {
                                                     let table =
@@ -510,7 +515,7 @@
                                                 id="send" style="display: flex; justify-content: flex-end;">
                                                 <input class="btn btnPrimary send" value="Guardar Consulta" type="submit"/>
                                                 <button style="margin-left: 20px; padding: 8px;" type="button"
-                                                    onclick="refreshForm();" class="btn btnSecond" data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
+                                                    onclick="resetForm();" class="btn btnSecond" data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
                                                     title="Limpiar Formulario">
                                                     <i class="bi bi-eraser"></i>
                                                 </button>
@@ -539,7 +544,7 @@
                                     <div class="row" id="table-one">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-resposive"
                                             style="margin-top: 20px; width: 100%;">
-                                            <table class="table table-striped table-bordered">
+                                            <table class="table table-striped table-bordered" id="table-medical-record" style="width: 100%;">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">Fecha de la consulta</th>
