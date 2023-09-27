@@ -51,6 +51,7 @@ return new class extends Migration
             $table->string('token')->nullable();
             $table->integer('patient_counter')->default(0);
             $table->integer('medical_record_counter')->default(0);
+            $table->integer('ref_counter')->default(0);
 
             $table->rememberToken();
             $table->timestamps();
