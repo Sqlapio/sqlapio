@@ -53,6 +53,10 @@ class MedicalRecord extends Model
     {
         return $this->hasOne(DoctorCenter::class, 'id', 'center_id');
     }
-    
+
+    public function  get_doctor(): HasOne
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }    
 
 }

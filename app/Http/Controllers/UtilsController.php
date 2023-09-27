@@ -375,8 +375,9 @@ class UtilsController extends Controller
 					'id' 			=>  $val->id,
 					'date' 			=> $val->record_date,
 					'name_patient' 	=>  $val->get_paciente->name . " " . $val->get_paciente->last_name,
-					'code_patient' 	=>  $val->get_paciente->ci,
+					'full_name_doc' 	=>  $val->get_doctor->name. " " . $val->get_doctor->last_name,
 					'center' 		=>  $val->get_center->description,
+					'genere' 		=>  $val->get_paciente->genere,
 					'data' => [
 						'center_id' =>  $val->get_center->id,
 						'record_code' 	=>  $val->record_code,
@@ -390,6 +391,7 @@ class UtilsController extends Controller
 					],
 				];
 			}
+
 			return $medical_record_user;
 			//code...
 		} catch (\Throwable $th) {
