@@ -10,6 +10,13 @@
         top: 92% !important;
     }
 
+    #img-pat {
+        border-radius: 27px;
+        border: 2px solid #44525F;
+        height: auto;
+        margin: 7px 23px;
+    }
+
     body {
         /* font-family: 'Roboto', 'Inter', "Helvetica Neue", Helvetica, 'Source Sans Pro' !important; */
         letter-spacing: -.022em;
@@ -1067,7 +1074,7 @@
                         <div class="modal-body">
                             <div id="div-pat" style="display: none">
                                 <div class="d-flex mt-3">
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="max-width: 200px;">
                                         <div class="img">
                                             <img id="img-pat" src="" width="150" height="150"
                                                 alt="Imagen del paciente">
