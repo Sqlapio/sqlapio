@@ -380,55 +380,75 @@ function setValue(data, info) {
   ////
 }
 
-function searchPatients(url) {
-  if ($('#searchPatients').val() != '') {
-    url = url.replace(':value', $('#searchPatients').val());
-    $.ajax({
-      url: url,
-      type: 'GET',
-      headers: {
-        'X-CSRF-TOKEN': $(
-          'meta[name="csrf-token"]').attr(
-            'content')
-      },
-      success: function (res) {
-        if (res != "") {
-          if (res.is_minor) {
-            $("#name").text(res.name + ' ' + res.last_name);
-            $("#email").text(res.email);
-            $("#phone").text(res.phone);
-            $("#ci").text(res.ci);
-            $("#genere").text(res.genere);
-            $("#age").text(res.age);
-            $("#patient_id").val(res.id);
-          } else {
-            $("#name").text(res.re_name + ' ' + res.re_last_name);
-            $("#email").text(res.re_email);
-            $("#phone").text(res.re_phone);
-            $("#ci").text(res.re_ci);
-            $("#genere").text(res.genere);
-            $("#age").text(res.age);
-            $("#patient_id").val(res.id);
-          }
-          $('#div-pat').show();
-          $("#img-pat").attr("src", `${ulrimge}/${res.patient_img}`);
-          $('#registrer-pac').attr("disabled", false);
-          $('#timeIni').focus()
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Paciente no encontrado!',
-            allowOutsideClick: false,
-            confirmButtonColor: '#42ABE2',
-            confirmButtonText: 'Aceptar'
-          }).then((result) => {
-          });
-        }
+function searchPatients(res) {
+  // if ($('#searchPatients').val() != '') {
+  //   url = url.replace(':value', $('#searchPatients').val());
+  //   $.ajax({
+  //     url: url,
+  //     type: 'GET',
+  //     headers: {
+  //       'X-CSRF-TOKEN': $(
+  //         'meta[name="csrf-token"]').attr(
+  //           'content')
+  //     },
+  //     success: function (res) {
+  //       if (res != "") {
+  //         if (res.is_minor) {
+  //           $("#name").text(res.name + ' ' + res.last_name);
+  //           $("#email").text(res.email);
+  //           $("#phone").text(res.phone);
+  //           $("#ci").text(res.ci);
+  //           $("#genere").text(res.genere);
+  //           $("#age").text(res.age);
+  //           $("#patient_id").val(res.id);
+  //         } else {
+  //           $("#name").text(res.re_name + ' ' + res.re_last_name);
+  //           $("#email").text(res.re_email);
+  //           $("#phone").text(res.re_phone);
+  //           $("#ci").text(res.re_ci);
+  //           $("#genere").text(res.genere);
+  //           $("#age").text(res.age);
+  //           $("#patient_id").val(res.id);
+  //         }
+  //         $('#div-pat').show();
+  //         $("#img-pat").attr("src", `${ulrimge}/${res.patient_img}`);
+  //         $('#registrer-pac').attr("disabled", false);
+  //         $('#timeIni').focus()
+  //       } else {
+  //         Swal.fire({
+  //           icon: 'error',
+  //           title: 'Paciente no encontrado!',
+  //           allowOutsideClick: false,
+  //           confirmButtonColor: '#42ABE2',
+  //           confirmButtonText: 'Aceptar'
+  //         }).then((result) => {
+  //         });
+  //       }
 
-      }
-    });
+  //     }
+  //   });
+  // }
+  if (res.is_minor) {
+    $("#name").text(res.name + ' ' + res.last_name);
+    $("#email").text(res.email);
+    $("#phone").text(res.phone);
+    $("#ci").text(res.ci);
+    $("#genere").text(res.genere);
+    $("#age").text(res.age);
+    $("#patient_id").val(res.id);
+  } else {
+    $("#name").text(res.re_name + ' ' + res.re_last_name);
+    $("#email").text(res.re_email);
+    $("#phone").text(res.re_phone);
+    $("#ci").text(res.re_ci);
+    $("#genere").text(res.genere);
+    $("#age").text(res.age);
+    $("#patient_id").val(res.id);
   }
-
+  $('#div-pat').show();
+  $("#img-pat").attr("src", `${ulrimge}/${res.patient_img}`);
+  $('#registrer-pac').attr("disabled", false);
+  $('#timeIni').focus();
 }
 
 function update_appointments(url, data) {
