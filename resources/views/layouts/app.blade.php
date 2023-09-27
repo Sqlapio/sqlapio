@@ -24,9 +24,11 @@
 
     body {
         font-family: 'Roboto-Regular',  !important;
-        background-repeat: no-repeat;
-        background-position: top;
-        background-image: url({{ asset('img/fondo.jpg') }});
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover !important;
+        background: url({{ asset('img/fondo.jpg') }}) no-repeat center center fixed;
     }
 </style>
 
