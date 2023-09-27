@@ -201,6 +201,7 @@ class Diary extends Component
     public function render()
     {
         $appointments = UtilsController::get_appointments(Auth::user()->id);
-        return view('livewire.components.diary', compact('appointments'));
+        $patient = UtilsController::get_patients();
+        return view('livewire.components.diary', compact('appointments','patient'));
     }
 }

@@ -118,8 +118,8 @@
                             }).then((result) => {
                                 $('#ModalLoadResult').modal('toggle');
                                 $("#content-table-ref").hide();
-                                $('#search_person').val('')
-                                
+                                $('#search_person').val('');
+                                get_data_table()
                             });
                         },
                         error: function(error) {
@@ -330,7 +330,7 @@
         function searchPerson() {
             if ($('#search_person').val() != '') {
                 // let route = '{{ route('search_person', [':row', ':value']) }}';
-                let route = '{{ route("search_person", ":value") }}';
+                let route = '{{ route('search_person', ':value') }}';
                 // route = route.replace(':row', row);
                 route = route.replace(':value', $('#search_person').val());
 
@@ -368,6 +368,123 @@
                 });
             }
         }
+
+        function get_data_table(data) {
+            $.ajax({
+                url: '{{ route('references_res') }}',
+                type: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    ///refrezcar table examenes
+                    new DataTable('#table-ref-examenes', {
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                        },
+                        reponsive: true,
+                        bDestroy: true,
+                        data: response.data_exam_res,
+                        columns: [{
+                                data: 'date_ref',
+                                title: 'Fecha referencia',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'cod_ref',
+                                title: 'Referencia',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'cod_exam',
+                                title: 'código Examen',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'description',
+                                title: 'Descripción',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'date_upload_res',
+                                title: 'Fecha resultado',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'patient_info.full_name',
+                                title: 'Nombres',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'patient_info.ci',
+                                title: 'Cédula',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'patient_info.genere',
+                                title: 'Género',
+                                className: "text-center",
+                            }
+                        ],
+                    });
+                    ///refrezcar table estudios
+                    new DataTable('#table-ref-estudios', {
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                        },
+                        reponsive: true,
+                        bDestroy: true,
+                        data: response.data_study_res,
+                        columns: [{
+                                data: 'date_ref',
+                                title: 'Fecha referencia',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'cod_ref',
+                                title: 'Referencia',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'cod_study',
+                                title: 'código Examen',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'description',
+                                title: 'Descripción',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'date_upload_res',
+                                title: 'Fecha resultado',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'patient_info.full_name',
+                                title: 'Nombres',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'patient_info.ci',
+                                title: 'Cédula',
+                                className: "text-center",
+                            },
+                            {
+                                data: 'patient_info.genere',
+                                title: 'Género',
+                                className: "text-center",
+                            }
+                        ],
+                    });
+
+                },
+                error: function(error) {
+
+                }
+            });
+
+        }
     </script>
 @endpush
 @section('content')
@@ -377,15 +494,120 @@
             <div class="accordion" id="accordion">
                 <div class="container-fluid" style="padding: 3%">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                        <div class="accordion-item">
+                        <div class="accordion-item accordion-dashboard">
                             <span class="accordion-header title" id="headingOne">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-plus-lg"></i> Estadísticas
+                                    <i class="bi bi-calendar2-check"></i> Citas del día
                                 </button>
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    <div class="row"id="table-patients">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                            style="margin-top: 20px:">
+                                            <div id="spinner" style="display: none" class="spinner-md">
+                                                <x-load-spinner show="true" />
+                                            </div>
+                                            <table id="table-patient" class="table table-striped table-bordered"
+                                                style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center" scope="col">Fecha</th>
+                                                        <th class="text-center" scope="col">Hora</th>
+                                                        <th class="text-center" scope="col">Nombre</th>
+                                                        <th class="text-center" scope="col">Cédula</th>
+                                                        <th class="text-center" scope="col">Género</th>
+                                                        <th class="text-center" scope="col">Teléfono</th>
+                                                        <th class="text-center" scope="col">Email</th>
+                                                        <th class="text-center" scope="col">Centro de salud</th>
+                                                        <th class="text-center" scope="col">Confirmación</th>
+                                                        <th class="text-center" scope="col">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($appointments as $item)
+                                                        <tr>
+                                                            <td class="text-center td-pad">
+                                                                {{ date('d-m-Y', strtotime($item['extendedProps']['data_app'])) }}
+                                                            </td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }}
+                                                            </td>
+                                                            <td class="text-center td-pad text-capitalize">
+                                                                {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }}
+                                                            </td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item['extendedProps']['ci'] }}</td>
+                                                            <td class="text-center td-pad text-capitalize">
+                                                                {{ $item['extendedProps']['genere'] }}</td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item['extendedProps']['phone'] }}</td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item['extendedProps']['email'] }}</td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item['extendedProps']['center'] }}</td>
+                                                            <td class="text-center td-pad">
+                                                                @if ($item['extendedProps']['confirmation'] != 0)
+                                                                    <span
+                                                                        class="badge rounded-pill bg-success">Confimada</span>
+                                                                @else
+                                                                    <span class="badge rounded-pill bg-secondary">Sin
+                                                                        confirmar</span>
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex" style="justify-content: center;">
+                                                                    <div
+                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <a
+                                                                            href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
+                                                                            <button type="button"
+                                                                                class="btn btn-iPrimary rounded-circle"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="Consulta médica">
+                                                                                <i class="bi bi-file-earmark-text"></i>
+                                                                            </button>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
+                                                                        style="margin-left: 10px">
+                                                                        <button type="button"
+                                                                            class="btn btn-iSecond rounded-circle"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom" title="Cancelar Cita"
+                                                                            onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
+                                                                            <i class="bi bi-calendar-x"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                        <div class="accordion-item accordion-dashboard">
+                            <span class="accordion-header title" id="headingTwo">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-graph-up"></i> Estadísticas
+                                </button>
+                            </span>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
@@ -428,99 +650,6 @@
                                                     <canvas id="countGereral"></canvas>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                        <div class="accordion-item">
-                            <span class="accordion-header title" id="headingTwo">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-plus-lg"></i> Citas del dia
-                                </button>
-                            </span>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                                data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <div class="row"id="table-patients">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                            style="margin-top: 20px:">
-                                            <div id="spinner" style="display: none" class="spinner-md">
-                                                <x-load-spinner show="true" />
-                                            </div>
-                                            <table id="table-patient" class="table table-striped table-bordered"
-                                                style="width:100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-center" scope="col">Fecha</th>
-                                                        <th class="text-center" scope="col">Hora</th>
-                                                        <th class="text-center" scope="col">Nombres</th>
-                                                        <th class="text-center" scope="col">Cédula</th>
-                                                        <th class="text-center" scope="col">Género</th>
-                                                        <th class="text-center" scope="col">Teléfono</th>
-                                                        <th class="text-center" scope="col">Email</th>
-                                                        <th class="text-center" scope="col">Confirmacion</th>
-                                                        <th class="text-center" scope="col">Acciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($appointments as $item)
-                                                        <tr>
-                                                            <td class="text-center td-pad">
-                                                                {{ date('d-m-Y', strtotime($item['extendedProps']['data_app'])) }}
-                                                            </td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }}
-                                                            </td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }}
-                                                            </td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item['extendedProps']['ci'] }}</td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item['extendedProps']['genere'] }}</td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item['extendedProps']['phone'] }}</td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item['extendedProps']['email'] }}</td>
-                                                            <td class="text-center td-pad">
-                                                                @if ($item['extendedProps']['confirmation'] != 0)
-                                                                    <span
-                                                                        class="badge rounded-pill bg-success">Confimada</span>
-                                                                @else
-                                                                    <span class="badge rounded-pill bg-secondary">Sin
-                                                                        confirmar</span>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex" id="btns-div">
-                                                                    <div
-                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a
-                                                                            href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
-                                                                            <button type="button"
-                                                                                class="btn-2 btnPrimary">Consulta
-                                                                                medica</button>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
-                                                                        id="btn-margin">
-                                                                        <button type="button"
-                                                                            onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')"
-                                                                            class="btn-2 btnSecond">Cancelar Cita
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -582,7 +711,7 @@
                                         <tr>
                                             <th class="text-center" scope="col">Fecha</th>
                                             <th class="text-center" scope="col">Referencia</th>
-                                            <th class="text-center" scope="col">Referencia consulta medica</th>
+                                            <th class="text-center" scope="col">Referencia consulta médica</th>
                                             <th class="text-center" scope="col">Nombres</th>
                                             <th class="text-center" scope="col">Cédula</th>
                                             <th class="text-center" scope="col">Género</th>
@@ -599,6 +728,169 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                        <div class="card mt-3">
+                            <div class="card-header collapseBtn">
+                                <i class="bi bi-card-list"></i>
+                                <span>Examenes atendidos</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mt-3">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive mt-3"
+                                        style="margin-top: 20px:">
+                                        <table id="table-ref-examenes" class="table table-striped table-bordered"
+                                            style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" scope="col">Fecha</th>
+                                                    <th class="text-center" scope="col">Referencia</th>
+                                                    <th class="text-center" scope="col">código Examen</th>
+                                                    <th class="text-center" scope="col">Descripción</th>
+                                                    <th class="text-center" scope="col">Nombres</th>
+                                                    <th class="text-center" scope="col">Cédula</th>
+                                                    <th class="text-center" scope="col">Género</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                        <div class="card mt-3">
+                            <div class="card-header collapseBtn">
+                                <i class="bi bi-card-list"></i>
+                                <span>Estudios atendidos</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mt-3">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive mt-3"
+                                        style="margin-top: 20px:">
+                                        <table id="table-ref-estudios" class="table table-striped table-bordered"
+                                            style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" scope="col">Fecha</th>
+                                                    <th class="text-center" scope="col">Referencia</th>
+                                                    <th class="text-center" scope="col">código Estudios</th>
+                                                    <th class="text-center" scope="col">Descripción</th>
+                                                    <th class="text-center" scope="col">Nombres</th>
+                                                    <th class="text-center" scope="col">Cédula</th>
+                                                    <th class="text-center" scope="col">Género</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                        <div class="card mt-3">
+                            <div class="card-header collapseBtn">
+                                <i class="bi bi-card-list"></i>
+                                <span>Examenes atendidos</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mt-3">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive mt-3"
+                                        style="margin-top: 20px:">
+                                        <table id="table-ref-examenes" class="table table-striped table-bordered"
+                                            style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" scope="col">Fecha referencia</th>
+                                                    <th class="text-center" scope="col">Referencia</th>
+                                                    <th class="text-center" scope="col">código Examen</th>
+                                                    <th class="text-center" scope="col">Descripción</th>
+                                                    <th class="text-center" scope="col">Fecha resultado</th>
+                                                    <th class="text-center" scope="col">Nombres</th>
+                                                    <th class="text-center" scope="col">Cédula</th>
+                                                    <th class="text-center" scope="col">Género</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($res_exams as $key => $item)
+                                                    <tr>
+                                                        <td class="text-center"> {{ $item['date_ref'] }}</td>
+                                                        <td class="text-center"> {{ $item['cod_ref'] }}</td>
+                                                        <td class="text-center"> {{ $item['cod_exam'] }}</td>
+                                                        <td class="text-center"> {{ $item['description'] }}</td>
+                                                        <td class="text-center"> {{ $item['date_upload_res'] }}</td>
+                                                        <td class="text-center"> {{ $item['patient_info']['full_name'] }}
+                                                        </td>
+                                                        <td class="text-center"> {{ $item['patient_info']['ci'] }}</td>
+                                                        <td class="text-center"> {{ $item['patient_info']['genere'] }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                        <div class="card mt-3">
+                            <div class="card-header collapseBtn">
+                                <i class="bi bi-card-list"></i>
+                                <span>Estudios atendidos</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mt-3">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive mt-3"
+                                        style="margin-top: 20px:">
+                                        <table id="table-ref-estudios" class="table table-striped table-bordered"
+                                            style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" scope="col">Fecha referencia</th>
+                                                    <th class="text-center" scope="col">Referencia</th>
+                                                    <th class="text-center" scope="col">código Estudios</th>
+                                                    <th class="text-center" scope="col">Descripción</th>
+                                                    <th class="text-center" scope="col">Fecha resultado</th>
+                                                    <th class="text-center" scope="col">Nombres</th>
+                                                    <th class="text-center" scope="col">Cédula</th>
+                                                    <th class="text-center" scope="col">Género</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($res_studies as $key => $item)
+                                                    <tr>
+                                                        <td class="text-center"> {{ $item['date_ref'] }}</td>
+                                                        <td class="text-center"> {{ $item['cod_ref'] }}</td>
+                                                        <td class="text-center"> {{ $item['cod_study'] }}</td>
+                                                        <td class="text-center"> {{ $item['description'] }}</td>
+                                                        <td class="text-center"> {{ $item['date_upload_res'] }}</td>
+                                                        <td class="text-center"> {{ $item['patient_info']['full_name'] }}
+                                                        </td>
+                                                        <td class="text-center"> {{ $item['patient_info']['ci'] }}</td>
+                                                        <td class="text-center"> {{ $item['patient_info']['genere'] }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         @endif
     </div>
@@ -610,7 +902,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title"></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            style="font-size: 12px;"></button>
                     </div>
                     <div class="modal-body">
                         <form id="form-load-img" method="post" action="/">

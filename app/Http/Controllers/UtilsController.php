@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Livewire\Components\Laboratory as ComponentsLaboratory;
 use App\Mail\NotificationDairy;
 use App\Mail\NotificationEmail;
 use App\Mail\NotificationPatient;
@@ -91,6 +92,9 @@ class UtilsController extends Controller
 		}
 		if ($value == '17') {
 			return 'update data of laboratory';
+		}
+		if ($value == '18') {
+			return 'update email';
 		}
 	}
 
@@ -271,6 +275,7 @@ class UtilsController extends Controller
 						'age' =>  $val->get_patients->age,
 						'patient_id' =>  $val->get_patients->id,
 						'center_id' =>  $val->center_id,
+						'center' =>  $val->get_center->description,
 						'data' => substr($val->hour_start, 0, -3),
 						'img' => $val->get_patients->patient_img,
 						'data_app' => $val->date_start,
@@ -842,22 +847,17 @@ class UtilsController extends Controller
 			dd('Error UtilsController.get_image_lab()', $message);
 		}
 	}
-	static function upload_result_exam(Request $request)
+		static function upload_result_exam(Request $request)
 	{
 		try {
 
-			/**
-			 * Funcion para cargar la imagen del medico
-			 * cuando actualiza sus datos
-			 */
-
+			$data = json_decode($request->data);
 			$user_id = Auth::user();
 			$laboratory = $user_id->get_laboratorio;
-			// dd($laboratory->code_lab, $request->code_ref, $request->cod_exam);
 
 			$nameFile = null;
 
-			$file =  $request->img;
+			$file =  $data->img;
 			if ($file != null) {
 				$png 	= strstr($file, 'data:image/png;base64');
 				$jpg 	= strstr($file, 'data:image/jpg;base64');
@@ -885,20 +885,23 @@ class UtilsController extends Controller
 				file_put_contents(public_path('imgs/') . $nameFile, $file);
 			}
 
-			for ($i = 0; $i < count($request->cod_exam); $i++) {
+			$data_exams = json_decode($data->exams_array);
+
+			for ($i = 0; $i < count($data_exams); $i++) {
 				$update = DB::table('exam_patients')
-					->where('cod_ref', $request->code_ref)
-					->where('cod_exam', $request->cod_exam[$i])
-					->update([
-						'laboratory_id' => $laboratory->id,
-						'cod_lab' => $laboratory->code_lab,
-						'file' => $nameFile,
-						'status' => 2,
-					]);
+				->where('cod_ref', $data->code_ref)
+				->where('cod_exam', $data_exams[$i]->cod_exam)
+				->update([
+					'laboratory_id' => $laboratory->id,
+					'cod_lab' => $laboratory->code_lab,
+					'file' => $nameFile,
+					'status' => 2,
+					'date_result' => date('d-m-Y'),
+				]);
 			}
 
 			return true;
-			//code...
+
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.upload_result_exam()', $message);
@@ -909,17 +912,14 @@ class UtilsController extends Controller
 	{
 		try {
 
-			/**
-			 * Funcion para cargar la imagen del medico
-			 * cuando actualiza sus datos
-			 */
+			$data = json_decode($request->data);
 
 			$user_id = Auth::user();
 			$laboratory = $user_id->get_laboratorio;
 
 			$nameFile = null;
 
-			$file =  $request->img;
+			$file =  $data->img;
 			if ($file != null) {
 				$png 	= strstr($file, 'data:image/png;base64');
 				$jpg 	= strstr($file, 'data:image/jpg;base64');
@@ -947,16 +947,19 @@ class UtilsController extends Controller
 				file_put_contents(public_path('imgs/') . $nameFile, $file);
 			}
 
-			for ($i = 0; $i < count($request->cod_exam); $i++) {
+			$data_studies = json_decode($data->studies_array);
+
+			for ($i = 0; $i < count($data_studies); $i++) {
 				$update = DB::table('study_patients')
-					->where('cod_ref', $request->code_ref)
-					->where('cod_study', $request->cod_exam[$i])
-					->update([
-						'laboratory_id' => $laboratory->id,
-						'cod_lab' => $laboratory->code_lab,
-						'file' => $nameFile,
-						'status' => 2,
-					]);
+				->where('cod_ref', $data->code_ref)
+				->where('cod_study', $data_studies[$i]->cod_study)
+				->update([
+					'laboratory_id' => $laboratory->id,
+					'cod_lab' => $laboratory->code_lab,
+					'file' => $nameFile,
+					'status' => 2,
+					'date_result' => date('d-m-Y'),
+				]);
 			}
 
 			return true;
@@ -966,6 +969,7 @@ class UtilsController extends Controller
 			dd('Error UtilsController.upload_result_study()', $message);
 		}
 	}
+
 
 	static function get_description_exam($code)
 	{
@@ -1049,4 +1053,14 @@ class UtilsController extends Controller
 
 		return $data;
 	}
+
+
+	static function responce_references() {
+
+        $data_exam_res = ComponentsLaboratory::res_exams();
+        
+        $data_study_res= ComponentsLaboratory::res_studies();      
+        
+        return ["data_exam_res"=>$data_exam_res,"data_study_res"=>$data_study_res];
+    }
 }
