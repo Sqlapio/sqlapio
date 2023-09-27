@@ -1025,6 +1025,21 @@ class UtilsController extends Controller
 		}
 	}
 
+	static function update_ref_counter($user_id)
+	{
+		try {
+			$value = User::where('id', $user_id)->first()->ref_counter;
+			$counter = DB::table('users')
+				->where('id', $user_id)
+				->update([
+					'ref_counter' => $value + 1,
+				]);
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.update_ref_exam_counter()', $message);
+		}
+	}
+
 	static function get_table_medical_record()
 	{
 		try {
