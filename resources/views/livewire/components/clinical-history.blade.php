@@ -40,6 +40,7 @@
                 language: 'es'
             });
             $('#form-mecal-histroy').validate({
+                ignore: [],
                 rules: {
                     weight: {
                         required: true,

@@ -275,6 +275,7 @@ class UtilsController extends Controller
 						'age' =>  $val->get_patients->age,
 						'patient_id' =>  $val->get_patients->id,
 						'center_id' =>  $val->center_id,
+						'center' =>  $val->get_center->description,
 						'data' => substr($val->hour_start, 0, -3),
 						'img' => $val->get_patients->patient_img,
 						'data_app' => $val->date_start,
@@ -846,7 +847,7 @@ class UtilsController extends Controller
 			dd('Error UtilsController.get_image_lab()', $message);
 		}
 	}
-	static function upload_result_exam(Request $request)
+		static function upload_result_exam(Request $request)
 	{
 		try {
 
@@ -968,6 +969,7 @@ class UtilsController extends Controller
 			dd('Error UtilsController.upload_result_study()', $message);
 		}
 	}
+
 
 	static function get_description_exam($code)
 	{
