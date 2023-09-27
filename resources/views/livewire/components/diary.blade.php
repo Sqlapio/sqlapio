@@ -55,6 +55,10 @@
             getUrl(urlPostCreateAppointment, url2);
             getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments);
         });
+
+        function handlerRadio(item) {
+            searchPatients(item);
+        }
     </script>
 @endpush
 @section('content')
@@ -81,10 +85,27 @@
                             <div class="modal-header title">
                                 <i class="bi bi-calendar-week"></i>
                                 <span style="padding-left: 5px">Agendar Cita</span>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close" style="font-size: 12px;"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                    style="font-size: 12px;"></button>
                             </div>
                             <div class="modal-body">
+                                <div class="d-flex">
+                                    <x-select-dos :data="$patient" />
+                                    {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                        id="search-patients-show">
+                                        <div class="floating-label-group">
+                                            <div class="Icon-inside">
+                                                <label for="name" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Buscar
+                                                    paciente</label>
+                                                <input autocomplete="off" placeholder="" class="form-control"
+                                                    id="searchPatients" name="email" type="email" value="">
+                                                <i onclick="searchPatients('{{ route('search_patients', ':value') }}')"
+                                                    class="bi bi-search st-icon"></i>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                </div>
                                 <div id="div-pat" style="display: none">
                                     <div class="d-flex mt-3">
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
@@ -111,26 +132,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-
-
-                                <div class="d-flex">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                        id="search-patients-show">
-                                        <div class="floating-label-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Buscar
-                                                    paciente</label>
-                                                <input autocomplete="off" placeholder="" class="form-control"
-                                                    id="searchPatients" name="email" type="email" value="">
-                                                <i onclick="searchPatients('{{ route('search_patients', ':value') }}')"
-                                                    class="bi bi-search st-icon"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div>                                
                                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                                 <form action="" id="form-appointment">
                                     {{ csrf_field() }}
@@ -144,7 +146,8 @@
                                                     <label for="date" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha</label>
                                                     <input autocomplete="off" placeholder="" class="form-control"
-                                                        id="date_start" readonly name="date_start" type="text" value="">
+                                                        id="date_start" readonly name="date_start" type="text"
+                                                        value="">
                                                     <i class="bi bi-calendar-check st-icon"></i>
                                                 </div>
                                             </div>
@@ -245,9 +248,10 @@
                                         <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center">
                                             <div class="form-check form-switch">
                                                 <input onchange="handlerPrice(event);" style="width: 5em"
-                                                    class="form-check-input" type="checkbox" role="switch" id="showPrice"
-                                                    value="">
-                                                <label style="margin-left: -146px;margin-top: 8px; font-size: 15px" for="showPrice">Precio
+                                                    class="form-check-input" type="checkbox" role="switch"
+                                                    id="showPrice" value="">
+                                                <label style="margin-left: -146px;margin-top: 8px; font-size: 15px"
+                                                    for="showPrice">Precio
                                                     de
                                                     la cita</label>
                                             </div>
@@ -274,7 +278,7 @@
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-con"></div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell"></div>
-                                    </div>                                   
+                                    </div>
                                 </form>
                             </div>
                         </div>
