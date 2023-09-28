@@ -6,10 +6,6 @@
         margin-top: 10rem !important;
     }
 
-    .spinner-md img{
-        top: 92%;
-    }
-
     .logoSq {
         width: 50% !important;
         height: auto;
@@ -41,18 +37,6 @@
         opacity: 1;
         /* position: relative; */
     }
-
-    .hover12 {
-	background: #1abc9c;
-}
-.hover12 img {
-	opacity: 1;
-	-webkit-transition: .3s ease-in-out;
-	transition: .3s ease-in-out;
-}
-.hover12:hover img {
-	opacity: .5;
-}
     
 
     @media only screen and (max-width: 768px) {
@@ -85,9 +69,6 @@
             justify-content: center;
         }
 
-        .spinner-md img{
-        top: 92%;
-    }
     }
 
 </style>
