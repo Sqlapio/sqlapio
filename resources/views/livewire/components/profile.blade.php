@@ -2,9 +2,7 @@
 @section('title', 'Perfil')
 <style>
     .sel {
-        margin-top: -6px !important;
-        padding-left: 18px !important;
-        padding-right: 7px !important;
+        margin-top: -10px !important;
     }
 
     .collapseBtn {
@@ -396,21 +394,23 @@
                                                 <div class="row">
                                                     <input type="hidden" id="id" name="id"
                                                         value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->id : '' !!}">
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                            <input autocomplete="off" placeholder="Nombre del laboratorio"
-                                                                    class="form-control mask-text  @error('business_name') is-invalid @enderror"
-                                                                    id="business_name" name="business_name" type="text"
-                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->business_name : '' !!}">
-                                                                <i class="bi bi-person-vcard"></i>
+                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombre del laboratorio</label>
+                                                                <input autocomplete="off" placeholder=""
+                                                                        class="form-control mask-text  @error('business_name') is-invalid @enderror"
+                                                                        id="business_name" name="business_name" type="text"
+                                                                        value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->business_name : '' !!}">
+                                                                <i class="bi bi-person-vcard" style="top: 30px"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 sel">
+                                                    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2">
                                                         <div class="floating-label-group">
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Tipo de documento</label>
                                                             <select onchange="handlerTypeDoc(event)" name="type_rif" id="type_rif" class="form-control">
-                                                                <option value="">Tipo de documento</option>
+                                                                <option value="">Seleccione</option>
                                                                 <option value="F-">Firma personal</option>
                                                                 <option value="J-">Jurídico</option>
                                                                 <option value="C-">Comuna</option>
@@ -418,72 +418,79 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                            <input autocomplete="off"
-                                                                    placeholder="Número de Identificación o RIF"
+                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número de Identificación o RIF</label>
+                                                                <input autocomplete="off"
+                                                                    placeholder=""
                                                                     class="form-control mask-rif @error('rif') is-invalid @enderror"
                                                                     id="rif" name="rif" type="text"
                                                                     maxlength="17"
                                                                     value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->rif : '' !!}">
-                                                                <i class="bi bi-person-vcard"></i>
+                                                                <i class="bi bi-person-vcard" style="top: 30px"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                            <input autocomplete="off" placeholder="Correo electrónico"
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo electrónico</label>
+                                                            <input autocomplete="off" placeholder=""
                                                                     class="form-control @error('email') is-invalid @enderror"
                                                                     id="email" name="email" type="text" readonly
                                                                     value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->email : '' !!}">
-                                                                <i class="bi bi-envelope-at"></i>
+                                                                <i class="bi bi-envelope-at" style="top: 30px"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                            <input autocomplete="off" placeholder="Número de Licencia salud"
+                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número de Licencia salud</label>
+                                                                <input autocomplete="off" placeholder=""
                                                                     class="form-control mask-only-text @error('license') is-invalid @enderror"
                                                                     id="license" name="license" type="text"
                                                                     value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->license : '' !!}">
-                                                                <i class="bi bi-geo"></i>
+                                                                <i class="bi bi-hash" style="top: 30px"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                            <input autocomplete="off" placeholder="Teléfono"
+                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono</label>
+                                                                <input autocomplete="off" placeholder=""
                                                                     class="form-control phone @error('phone') is-invalid @enderror"
                                                                     id="phone" name="phone" type="text"
                                                                     value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->phone_1 : '' !!}">
-                                                                <i class="bi bi-telephone-forward"></i>
+                                                                <i class="bi bi-telephone-forward" style="top: 30px"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+
+                                                    <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" />
+
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <input autocomplete="off" placeholder="Dirección"
-                                                                    class="form-control mask-only-text @error('address') is-invalid @enderror"
-                                                                    id="address" name="address" type="text"
-                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->address : '' !!}">
-                                                                <i class="bi bi-geo"></i>
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
+                                                            <textarea 
+                                                                    id="address" rows="2" id="address" name="address"
+                                                                    class="form-control @error('address') is-invalid @enderror" 
+                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->address : '' !!}"></textarea>
+                                                                <i class="bi bi-geo" style="top: 30px"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
         
-                                                    <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 sel" />
-        
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 sel">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                         <div class="floating-label-group">
                                                             <div class="Icon-inside">
-                                                                <select name="type_laboratory" id="type_laboratory"
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tipo de laboratorio</label>
+                                                            <select name="type_laboratory" id="type_laboratory"
                                                                     class="form-control">
-                                                                    <option value="">Seleccione tipo de laboratorio</option>
+                                                                    <option value="">Seleccione</option>
                                                                     <option value="clinico">Laboratorio clínico</option>
                                                                     <option value="investigacion">Laboratorio investigación
                                                                     </option>
@@ -491,42 +498,46 @@
                                                                     </option>
                                                                     <option value="etc">etc</option>
                                                                 </select>
-                                                                <i class="bi bi-flag"></i>
+                                                                <i class="bi bi-flag" style="top: 30px"></i>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <input autocomplete="off" placeholder="Responsable o Director"
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Responsable o Director</label>
+                                                            <input autocomplete="off" placeholder=""
                                                                     class="form-control mask-only-text @error('responsible') is-invalid @enderror"
                                                                     id="responsible" name="responsible" type="text"
                                                                     value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->responsible : '' !!}">
-                                                                <i class="bi bi-geo"></i>
+                                                                <i class="bi bi-geo" style="top: 30px"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
         
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <input autocomplete="off" placeholder="Sitio web"
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Sitio web</label>
+                                                            <input autocomplete="off" placeholder=""
                                                                     class="form-control @error('website') is-invalid @enderror"
                                                                     id="website" name="website" type="text"
                                                                     value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->website : '' !!}">
-                                                                <i class="bi bi-geo"></i>
+                                                                <i class="bi bi-globe2" style="top: 30px"></i>
                                                             </div>
                                                             <small style="font-size: 12px" class="collapseBtn">https://www.sitioweb.com</small>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <input autocomplete="off" placeholder="Descripción"
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Descripción</label>
+                                                            <input autocomplete="off" placeholder="Descripción"
                                                                     class="form-control mask-only-text @error('description') is-invalid @enderror"
                                                                     id="description" name="description" type="text"
                                                                     value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->description : '' !!}">
-                                                                <i class="bi bi-geo"></i>
+                                                                <i class="bi bi-geo" style="top: 30px"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
