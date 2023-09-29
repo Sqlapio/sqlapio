@@ -12,7 +12,7 @@ body {
     width: 100%;
     color: #1d1d1f;
     margin: 0;
-    margin-bottom: 40px;
+    // margin-bottom: 40px;
 }
 
 .inputChange {
@@ -1528,20 +1528,20 @@ div.ui-jqgrid {
     border: 1px solid rgb(50 115 36 / 53%);
 }
 
-#table-patients table, #table-alergias_wrapper table, #table-medical-record-one table, 
+#table-patients table, #table-alergias_wrapper table, #table-medical-record-one table, #table-show-info-pat_wrapper table, #table-medical-record_wrapper table,
 #table-cirugia_wrapper table, #table-medicamento_wrapper table, #DataTables_Table_0_wrapper table {
     font-size: 12px;
     border-top: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-#table-centers_length, #table-patient_length, #DataTables_Table_0_length, #table-alergias_length, #table-cirugia_length, #table-medicamento_length,
-#table-centers_filter, #table-patient_filter, #DataTables_Table_0_filter, #table-alergias_filter, #table-cirugia_filter, #table-medicamento_filter  {
+#table-centers_length, #table-patient_length, #DataTables_Table_0_length, #table-alergias_length, #table-cirugia_length, #table-medicamento_length, #table-show-info-pat_length, #table-medical-record_length,
+#table-centers_filter, #table-patient_filter, #DataTables_Table_0_filter, #table-alergias_filter, #table-cirugia_filter, #table-medicamento_filter, #table-show-info-pat_filter, #table-medical-record_filter  {
     font-size: 12px;
     padding-bottom: 25px;
 }
 
-#table-centers_info, #table-patient_info, #DataTables_Table_0_info, #table-alergias_info, #table-cirugia_info, #table-medicamento_info,
-#table-centers_paginate, #table-patient_paginate, #DataTables_Table_0_paginate, #table-alergias_paginate, #table-cirugia_paginate, #table-medicamento_paginate {
+#table-centers_info, #table-patient_info, #DataTables_Table_0_info, #table-alergias_info, #table-cirugia_info, #table-medicamento_info, #table-show-info-pat_info, #table-medical-record_info,
+#table-centers_paginate, #table-patient_paginate, #DataTables_Table_0_paginate, #table-alergias_paginate, #table-cirugia_paginate, #table-medicamento_paginate, #table-show-info-pat_paginate, #table-medical-record_paginate {
     font-size: 12px;
     padding-top: 25px;
 }

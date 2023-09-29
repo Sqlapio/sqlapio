@@ -5,29 +5,11 @@
         list-style-type: none;
     }
 
-    .spinnner {
-        top: 104rem !important;
-        left: 77%;
-    }
-
     .img-medical {
         border-radius: 20px; 
         border: 3px solid #47525e;
     }
 
-    @media only screen and (max-width: 390px) {
-        .spinnner {
-            top: 164rem !important;
-            left: 102px;
-        }
-    }
-
-    @media only screen and (max-width: 768px) {
-        .spinnner {
-            top: 100rem !important;
-            left: 60%;
-        }
-    }
 </style>
 @push('scripts')
     <script>
@@ -505,7 +487,7 @@
 
                                         <div class="row mt-3">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <div id="spinner" style="display: none" class="spinner-md">
+                                                <div id="spinner" style="display: none">
                                                     <x-load-spinner show="true" />
                                                 </div>
                                             </div>

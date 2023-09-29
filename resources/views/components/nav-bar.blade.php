@@ -11,7 +11,7 @@
         padding-left: 35px;
     }
 
-    .logo-nav {
+    .isotipo-nav {
         width: 140px;
         height: auto;
         position: absolute;
@@ -20,9 +20,8 @@
     }
 
     .logo-navbar {
-        width: 15%;
+        width: 70%;
         height: auto;
-        border-radius: 15px;
     }
 
     .img-nav {
@@ -100,10 +99,6 @@
 
     }
 
-    /* .margin-div {
-         margin-right: -2% !important;
-     } */
-
     .m-t-2 {
         margin-top: 2px;
     }
@@ -115,14 +110,8 @@
     }
 
     .strong {
-        /* margin: 30px; */
         color: white;
         font-size: 15px;
-        /* margin-left: 80px; */
-        /* margin-top: 13px; */
-        /* display: inline-block;
-        text-align: center;
-        white-space: nowrap; */
     }
 
     .banner {
@@ -145,14 +134,12 @@
             display: none !important;
         }
 
-
+        .logo-navbar {
+            width: 10%;
+        }
 
         .div-left {
             display: none !important;
-
-            /* padding: 0px 0px;
-            margin-left: 0%;
-            margin-top: 0px; */
         }
 
         .strong {
@@ -170,8 +157,12 @@
             margin-bottom: auto !important;
             margin-left: 0px;
         }
-    }
 
+        .logo-navbar {
+            width: 13%;
+            margin-top: 15px;
+        }
+    }
 
     @media only screen and (max-width: 390px) {
 
@@ -185,14 +176,14 @@
             padding-left: 0px;
         }
 
-        .logo-nav {
+        .isotipo-nav {
             width: 30%;
             height: auto;
             margin-top: -15px;
         }
 
         .img-nav {
-            width: 21px;
+            width: 31px;
             height: auto;
         }
 
@@ -200,14 +191,15 @@
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
+            margin-bottom: 15px;
         }
 
         .nav-item span {
-            padding-left: 20px
+            padding-left: 20px;
+            font-size: 14px
         }
 
         .nav-mb {
-            justify-content: flex-start !important;
             align-items: flex-start !important;
         }
 
@@ -228,9 +220,6 @@
 
         .div-left {
             display: none !important;
-            /* padding: 0px 0px;
-        margin-left: 0%;
-        margin-top: 0px; */
         }
 
         .icon-logout {
@@ -243,7 +232,7 @@
         .strong {
             /* margin: 30px; */
             color: white;
-            font-size: 10px;
+            font-size: 14px;
         }
 
         .banner {
@@ -264,17 +253,22 @@
         .div-dos {
             display: none !important;
         }
+
+        .logo-navbar {
+            width: 13%;
+            margin-top: 15px;
+        }
     }
 
     @media (min-width: 391px) and (max-width: 400px) {
 
-        .logo-nav {
+        .isotipo-nav {
             width: 30%;
             margin-top: -9px;
         }
 
         .img-nav {
-            width: 21px;
+            width: 31px;
             height: auto;
         }
 
@@ -282,14 +276,15 @@
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
+            margin-bottom: 15px
         }
 
         .nav-item span {
-            padding-left: 20px
+            padding-left: 20px;
+            font-size: 14px;
         }
 
         .nav-mb {
-            justify-content: flex-start !important;
             align-items: flex-start !important;
         }
 
@@ -313,8 +308,12 @@
             color: white;
         }
 
-    }
+        .logo-navbar {
+            width: 13%;
+            margin-top: 15px;
+        }
 
+    }
 
     @media (min-width: 401px) and (max-width: 600px) {
 
@@ -322,7 +321,7 @@
             justify-content: flex-start;
         }
 
-        .logo-nav {
+        .isotipo-nav {
             width: 30%;
             height: auto;
             border-radius: 15px;
@@ -335,7 +334,7 @@
         }
 
         .img-nav {
-            width: 21px;
+            width: 31px;
             height: auto;
         }
 
@@ -343,19 +342,24 @@
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
+            margin-bottom: 15px;
         }
 
         .nav-item span {
-            padding-left: 20px
+            padding-left: 20px;
+            font-size: 14px;
         }
 
         .nav-mb {
-            justify-content: flex-start !important;
             align-items: flex-start !important;
         }
 
         .logo-mb {
             width: 80%;
+        }
+
+        .logo-navbar {
+            width: 20%
         }
 
         .div-left {
@@ -366,10 +370,11 @@
 
         .strong {
             color: white;
-            /* margin-top: 20px;
-        display: inline-block;
-        text-align: center;
-        white-space: nowrap; */
+        }
+
+        .logo-navbar {
+            width: 13%;
+            margin-top: 15px;
         }
     }
 
@@ -380,7 +385,7 @@
         }
 
         .img-nav {
-            width: 26px;
+            width: 31px;
             height: auto;
         }
 
@@ -404,6 +409,7 @@
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
+            margin-bottom: 15px
         }
 
         .nav-item span {
@@ -418,6 +424,11 @@
 
         .strong {
             color: white;
+        }
+
+        .logo-navbar {
+            width: 13%;
+            margin-top: 15px;
         }
     }
 
@@ -428,7 +439,7 @@
         }
 
         .img-nav {
-            width: 26px;
+            width: 31px;
             height: auto;
         }
 
@@ -466,6 +477,11 @@
 
         .strong {
             color: white;
+        }
+
+        .logo-navbar {
+            width: 13%;
+            margin-top: 15px;
         }
     }
 
@@ -477,7 +493,7 @@
             <nav class="navbar navbar-expand-lg div-bar">
                 <div class="container-fluid nav-mb">
                     <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 logo-mb">
-                        <img class="logo-nav" src="{{ asset('img/Isotipo.png') }}" alt="Logo">
+                        <img class="isotipo-nav" src="{{ asset('img/Isotipo.png') }}" alt="Logo">
                         {{-- <a class="navbar-brand" href="#">Navbar w/ text</a> --}}
                         {{-- Imagen del medico --}}
 
@@ -513,12 +529,9 @@
                                             class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
                                     @endif
                                 </a>
-                                <button onclick="logout()"><i class="bi bi-power"
-                                        style="color: white; font-size: 30px;"></i></button>
-
-                                {{-- <span class="navbar-text">
-                                            Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}
-                                        </span> --}}
+                                <button onclick="logout()">
+                                    <i class="bi bi-power" style="color: white; font-size: 30px;"></i>
+                                </button>
                             </div>
                         </div>
                         <div class="collapse navbar-collapse" id="navbarText">
@@ -565,8 +578,9 @@
                                         href="#">Configuración</span>
                                 </li>
                             </ul>
-                            <img class="logo-navbar" src="{{ asset('img/logo sqlapio-02.png') }}" alt="Logo">
-
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2 nav-text">
+                                <img class="logo-navbar" src="{{ asset('img/logo sqlapio-02.png') }}" alt="Logo">
+                            </div>
                         </div>
                     </div>
                 </div>
