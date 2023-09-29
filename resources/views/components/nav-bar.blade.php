@@ -529,6 +529,7 @@
                                             class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
                                     @endif
                                 </a>
+
                                 <button onclick="logout()" data-bs-toggle="tooltip"
                                 data-bs-placement="left"
                                 title="Cerrar sesión">
@@ -571,6 +572,22 @@
                                         <span class="nav-link active" aria-current="page" href="#">Centro</span>
                                     </li>
                                 @endif
+                                <li class="nav-item">
+                                    <a href="{{ route('Examen') }}" title="Configuración">
+                                        <img class="img-nav" src="{{ asset('img/V2/Settings.png') }}"
+                                            alt="Configuración">
+                                    </a>
+                                    <span class="nav-link active" aria-current="page"
+                                        href="#">view examen</span>
+                                </li>
+                                  <li class="nav-item">
+                                    <a href="{{ route('Study') }}" title="Configuración">
+                                        <img class="img-nav" src="{{ asset('img/V2/Settings.png') }}"
+                                            alt="Configuración">
+                                    </a>
+                                    <span class="nav-link active" aria-current="page"
+                                        href="#">view study</span>
+                                </li>
                                 <li class="nav-item">
                                     <a href="{{ route('Profile') }}" title="Configuración">
                                         <img class="img-nav" src="{{ asset('img/V2/Settings.png') }}"
