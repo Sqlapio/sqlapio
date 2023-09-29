@@ -5,24 +5,11 @@
         list-style-type: none;
     }
 
-    .spinnner {
-        top: 104rem !important;
-        left: 77%;
+    .img-medical {
+        border-radius: 20px; 
+        border: 3px solid #47525e;
     }
 
-    @media only screen and (max-width: 390px) {
-        .spinnner {
-            top: 164rem !important;
-            left: 102px;
-        }
-    }
-
-    @media only screen and (max-width: 768px) {
-        .spinnner {
-            top: 100rem !important;
-            left: 60%;
-        }
-    }
 </style>
 @push('scripts')
     <script>
@@ -32,6 +19,12 @@
         let exams_array =  [];
         let studies_array =  [];
         $(document).ready(() => {
+
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            tooltipTriggerList.forEach(element => {
+                new bootstrap.Tooltip(element)
+            });
+            
             let doctor_centers = @json($doctor_centers);
             let validate_histroy = @json($validate_histroy);
 
@@ -188,14 +181,14 @@
                                                     class="bi bi-file-earmark-pdf"></i></button>
                                                     </a>                               `;
                                                 data.push(elem);
-                                            });
+                                            });                                                    
 
                                             new DataTable(
-                                                '.table', {
+                                                '#table-medical-record', {
                                                     language: {
                                                         url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
                                                     },
-                                                    reponsive: true,
+                                                    // reponsive: true,
                                                     bDestroy: true,
                                                     data: data,
                                                     columns: [{
@@ -209,13 +202,18 @@
                                                             className: "text-center td-pad",
                                                         },
                                                         {
-                                                            data: 'code_patient',
-                                                            title: 'Codigo del paciente',
+                                                            data: 'genere',
+                                                            title: 'Género',
                                                             className: "text-center td-pad",
                                                         },
                                                         {
                                                             data: 'center',
                                                             title: 'Centro',
+                                                            className: "text-center td-pad",
+                                                        },
+                                                        {
+                                                            data: 'full_name_doc',
+                                                            title: 'Médico',
                                                             className: "text-center td-pad",
                                                         },
                                                         {
@@ -225,7 +223,7 @@
                                                         }
                                                     ],
                                                 });
-                                            $('.table').on(
+                                            $('#table-medical-record').on(
                                                 'click', 'td',
                                                 function() {
                                                     let table =
@@ -332,9 +330,9 @@
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row">
-                                        <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2">
+                                        <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 180px;">
                                             <img src="{{ asset('/imgs/' . $Patient->patient_img) }}" width="150"
-                                                height="150" alt="Imagen del paciente">
+                                                height="150" alt="Imagen del paciente" class="img-medical">
                                         </div>
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                                             <strong>Nombre:</strong><span class="text-capitalize">
@@ -489,7 +487,7 @@
 
                                         <div class="row mt-3">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <div id="spinner" style="display: none" class="spinner-md">
+                                                <div id="spinner" style="display: none">
                                                     <x-load-spinner show="true" />
                                                 </div>
                                             </div>
@@ -497,9 +495,9 @@
                                         <div class="row mt-3 justify-content-md-end">
                                             <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                 id="send" style="display: flex; justify-content: flex-end;">
-                                                <input class="btn btnPrimary send" value="Guardar Consulta" type="submit" />
+                                                <input class="btn btnPrimary send" value="Guardar Consulta" type="submit"/>
                                                 <button style="margin-left: 20px; padding: 8px;" type="button"
-                                                    onclick="refreshForm();" class="btn btnSecond" data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
+                                                    onclick="resetForm();" class="btn btnSecond" data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
                                                     title="Limpiar Formulario">
                                                     <i class="bi bi-eraser"></i>
                                                 </button>
@@ -528,13 +526,14 @@
                                     <div class="row" id="table-one">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-resposive"
                                             style="margin-top: 20px; width: 100%;">
-                                            <table class="table table-striped table-bordered">
+                                            <table class="table table-striped table-bordered" id="table-medical-record" style="width: 100%;">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">Fecha de la consulta</th>
                                                         <th class="text-center" scope="col">Nombre del paciente</th>
-                                                        <th class="text-center" scope="col">Codigo del paciente</th>
+                                                        <th class="text-center" scope="col">Género</th>
                                                         <th class="text-center" scope="col">Centro</th>
+                                                        <th class="text-center" scope="col">Médico</th>
                                                         <th class="text-center" scope="col">Ver</th>
                                                     </tr>
                                                 </thead>
@@ -544,9 +543,10 @@
                                                             <td class="text-center td-pad">{{ $item['date'] }}</td>
                                                             <td class="text-center td-pad text-capitalize">{{ $item['name_patient'] }}
                                                             </td>
-                                                            <td class="text-center td-pad">{{ $item['code_patient'] }}
+                                                            <td class="text-center td-pad">{{ $item['genere'] }}
                                                             </td>
                                                             <td class="text-center td-pad">{{ $item['center'] }}</td>
+                                                            <td class="text-center td-pad">{{ $item['full_name_doc'] }}</td>
                                                             <td class="text-center td-pad"><a target="_blank"
                                                                     href="{{ route('PDF_medical_record', $item['id']) }}">
                                                                     <button type="button"

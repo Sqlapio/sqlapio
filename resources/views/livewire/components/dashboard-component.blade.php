@@ -2,39 +2,12 @@
 @section('title', 'Tablero')
 @vite(['resources/js/graphicCountAll.js', 'resources/js/dairy.js'])
 <style>
-    #btns-div {
-        margin-left: 160px !important;
-    }
 
     body {
         font-size: 15px !important;
 
     }
 
-    .overflow {
-        width: auto;
-        height: 200px;
-        margin-bottom: 12px;
-        overflow-y: scroll;
-    }
-
-    .pad {
-        padding-top: 10px !important;
-    }
-
-    .spinner-md img {
-        top: 90%;
-    }
-
-    @media only screen and (max-width: 660px) {
-        /* .title {
-            font-size: 14px;
-            margin: 20px 20px 20px 20px;
-            align-content: center;
-            margin-left: 40px;
-        } */
-
-    }
 </style>
 @push('scripts')
     <script>
@@ -488,9 +461,12 @@
     </script>
 @endpush
 @section('content')
-    <div>
+    <div class="container-fluid">
         {{-- rol medico --}}
         @if (Auth::user()->role == 'medico')
+            <div id="spinner" style="display: none" class="spinner-md">
+                <x-load-spinner show="true" />
+            </div>
             <div class="accordion" id="accordion">
                 <div class="container-fluid" style="padding: 3%">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
@@ -508,9 +484,7 @@
                                     <div class="row"id="table-patients">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
                                             style="margin-top: 20px:">
-                                            <div id="spinner" style="display: none" class="spinner-md">
-                                                <x-load-spinner show="true" />
-                                            </div>
+                                            
                                             <table id="table-patient" class="table table-striped table-bordered"
                                                 style="width:100%">
                                                 <thead>
@@ -554,16 +528,14 @@
                                                                     <span
                                                                         class="badge rounded-pill bg-success">Confimada</span>
                                                                 @else
-                                                                    <span class="badge rounded-pill bg-secondary">Sin
-                                                                        confirmar</span>
+                                                                    <span class="badge rounded-pill bg-secondary">Sin confirmar</span>
                                                                 @endif
                                                             </td>
                                                             <td>
                                                                 <div class="d-flex" style="justify-content: center;">
                                                                     <div
-                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                        <a
-                                                                            href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
+                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="width: 32px;">
+                                                                        <a href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
                                                                             <button type="button"
                                                                                 class="btn btn-iPrimary rounded-circle"
                                                                                 data-bs-toggle="tooltip"
@@ -574,7 +546,7 @@
                                                                         </a>
                                                                     </div>
                                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
-                                                                        style="margin-left: 10px">
+                                                                        style="margin-left: 10px; width: 32px;">
                                                                         <button type="button"
                                                                             class="btn btn-iSecond rounded-circle"
                                                                             data-bs-toggle="tooltip"
@@ -592,8 +564,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -897,6 +867,9 @@
     <!-- Modal -->
     <div class="modal fade" id="ModalLoadResult" tabindex="-1" aria-labelledby="ModalLoadResultLabel"
         aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div id="spinner" style="display: none">
+            <x-load-spinner show="true" />
+        </div>
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -945,16 +918,11 @@
                                     <x-upload-image title="Cargar Resultados" />
                                 </div>
                             </div>
-
                             <div class="row text-center">
-                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                    <div id="spinner" style="display: none">
-                                        <x-load-spinner show="true" />
-                                    </div>
+                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">   
                                     <input class="btn btnPrimary send " value="Guardar" type="submit" />
                                 </div>
                             </div>
-
                         </form>
                     </div>
                 </div>

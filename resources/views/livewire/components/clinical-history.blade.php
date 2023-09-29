@@ -12,6 +12,11 @@
     .input-one {
         margin-right: 0px
     }
+
+    .img-medical {
+        border-radius: 20px; 
+        border: 3px solid #47525e;
+    }
 </style>
 @push('scripts')
     <script>
@@ -422,8 +427,9 @@
     </script>
 @endpush
 @section('content')
-    <div>
+    {{-- <div> --}}
         <div class="container-fluid" style="padding: 3%">
+            
             <form id="form-mecal-histroy" method="post" action="/">
                 {{ csrf_field() }}
                 <div class="accordion" id="accordion">
@@ -442,13 +448,13 @@
                                 <div id="collapseD" class="accordion-collapse collapse show" aria-labelledby="headingD"
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
-                                        <div class="row mt-3">
+                                        <div class="row">
+                                            <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 180px;">
+                                                <img src="{{ asset('/imgs/' . $Patient->patient_img) }}" width="150"
+                                                height="150" alt="Imagen del paciente" class="img-medical">
+                                            </div>
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 offset-3">
-                                                    <img src="{{ asset('/imgs/' . $Patient->patient_img) }}" width="150"
-                                                        height="150" alt="Imagen del paciente">
-                                                </div>
-                                                <strong>Nombre:</strong><span>
+                                                <strong>Nombre:</strong><span class="text-capitalize">
                                                     {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                                 <br>
                                                 <strong>Fecha de Nacimiento:</strong><span>
@@ -460,7 +466,7 @@
                                                 <span>
                                                     {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                                 <br>
-                                                <strong>Genero:</strong> <span> {{ $Patient->genere }}</span>
+                                                <strong>Genero:</strong> <span class="text-capitalize"> {{ $Patient->genere }}</span>
                                                 <br>
                                                 <strong>Nº Historial:</strong><span>
                                                     {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
@@ -1451,5 +1457,5 @@
                 </div>
             </form>
         </div>
-    </div>
+    {{-- </div> --}}
 @endsection

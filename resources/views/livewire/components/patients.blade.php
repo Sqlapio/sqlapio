@@ -6,8 +6,11 @@
         padding-right: 7px !important;
     }
 
-    .spinnner {
-        top: 92% !important;
+    #img-pat {
+        border-radius: 27px;
+        border: 2px solid #44525F;
+        height: auto;
+        margin: 7px 23px;
     }
 
     body {
@@ -52,13 +55,8 @@
 
 
     @media screen and (max-width: 390px) {
-
         #btn-margin {
             margin-left: -14px !important;
-        }
-
-        .spinnner {
-            top: 94% !important;
         }
 
     }
@@ -590,6 +588,9 @@
 @section('content')
     <div>
         <div class="container-fluid body" style="padding: 3%">
+            <div id="spinner" style="display: none">
+                <x-load-spinner show="true" />
+            </div>
             <div class="accordion" id="accordion">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
@@ -654,7 +655,7 @@
 
                                     <div class="row" id="show-info-pat" style="display: none">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <h5>Lista de paciente registrado bajo este documento de identidad</h5>
+                                            <h5 class="mb-4">Lista de paciente registrado bajo este documento de identidad</h5>
                                             <table id="table-show-info-pat" class="table table-striped table-bordered"
                                                 style="width:100%; ">
                                                 <thead>
@@ -669,7 +670,6 @@
                                                 <tbody>
                                                 </tbody>
                                             </table>
-
                                         </div>
                                     </div>
 
@@ -916,9 +916,6 @@
                                                 </div>
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                     style="display: flex; justify-content: center;">
-                                                    <div id="spinner" style="display: none">
-                                                        <x-load-spinner show="true" />
-                                                    </div>
                                                 </div>
                                             </div>
                                         </form>
@@ -928,6 +925,7 @@
                         </div>
                     </div>
                 </div>
+                {{-- Lista de pacientes con consultas  --}}
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
                         <div class="accordion-item accordion-patients">
@@ -1054,8 +1052,10 @@
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
             id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div id="spinner" style="display: none">
+                <x-load-spinner show="true" />
+            </div>
             <div class="modal-dialog modal-dialog-centered">
-
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header title">
@@ -1067,7 +1067,7 @@
                         <div class="modal-body">
                             <div id="div-pat" style="display: none">
                                 <div class="d-flex mt-3">
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="max-width: 200px;">
                                         <div class="img">
                                             <img id="img-pat" src="" width="150" height="150"
                                                 alt="Imagen del paciente">
@@ -1100,7 +1100,7 @@
                                                 <label for="date" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha</label>
                                                 <input class="form-control" id="date_start" name="date_start"
-                                                    type="date" value="">
+                                                    type="date" value="" >
                                             </div>
                                         </div>
                                     </div>
@@ -1173,11 +1173,6 @@
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-con"></div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell"></div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <div id="spinner" style="display: none">
-                                                <x-load-spinner show="true" />
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </form>

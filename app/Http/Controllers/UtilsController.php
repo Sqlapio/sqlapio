@@ -375,8 +375,9 @@ class UtilsController extends Controller
 					'id' 			=>  $val->id,
 					'date' 			=> $val->record_date,
 					'name_patient' 	=>  $val->get_paciente->name . " " . $val->get_paciente->last_name,
-					'code_patient' 	=>  $val->get_paciente->ci,
+					'full_name_doc' 	=>  $val->get_doctor->name. " " . $val->get_doctor->last_name,
 					'center' 		=>  $val->get_center->description,
+					'genere' 		=>  $val->get_paciente->genere,
 					'data' => [
 						'center_id' =>  $val->get_center->id,
 						'record_code' 	=>  $val->record_code,
@@ -390,6 +391,7 @@ class UtilsController extends Controller
 					],
 				];
 			}
+
 			return $medical_record_user;
 			//code...
 		} catch (\Throwable $th) {
@@ -1020,6 +1022,21 @@ class UtilsController extends Controller
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_mr_counter()', $message);
+		}
+	}
+
+	static function update_ref_counter($user_id)
+	{
+		try {
+			$value = User::where('id', $user_id)->first()->ref_counter;
+			$counter = DB::table('users')
+				->where('id', $user_id)
+				->update([
+					'ref_counter' => $value + 1,
+				]);
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.update_ref_exam_counter()', $message);
 		}
 	}
 
