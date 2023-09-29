@@ -692,6 +692,7 @@
                                             style="margin-top: 20px:">
                                             <table id="table-ref" class="table table-striped table-bordered" style="width:100%">
                                                 <thead>
+
                                                     <tr>
                                                         <th class="text-center" scope="col">Fecha</th>
                                                         <th class="text-center" scope="col">Referencia</th>
