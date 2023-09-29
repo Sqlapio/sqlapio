@@ -207,14 +207,14 @@
                 `<button  onclick='showModal(${ elemetData },0,${ get_exam })'                         
                                 data-bs-toggle='tooltip' data-bs-placement='right'
                                 data-bs-custom-class='custom-tooltip' data-html='true'
-                                title='Ver examenes' type='button' class='btn-2 btnPrimary'>
+                                title='Ver examenes' type='button' class='btn btn-iPrimary rounded-circle'>
                                 <i class='bi bi-info-circle-fill'></i>
                                 </button>`;
             datatable.btn1 =
                 `<button onclick='showModal(${ elemetData },1,${ get_studie } )' 
                             data-bs-toggle='tooltip' data-bs-placement='right'
                             data-bs-custom-class='custom-tooltip' data-html='true'
-                            title='Ver estudios' type='button' class='btn-2 btnPrimary'>
+                            title='Ver estudios' type='button' class='btn btn-iPrimary rounded-circle'>
                             <i class='bi bi-info-circle-fill'></i>
                     </button>`;
 
@@ -223,7 +223,7 @@
                         <button type='button' data-bs-toggle='tooltip'
                         data-bs-placement='right'
                         data-bs-custom-class='custom-tooltip' data-html='true'
-                        title='Ver pdf' class='btn-2 btnSecond'><i
+                        title='Ver pdf' class='btn refresf btn-iSecond rounded-circle'><i
                         class='bi bi-file-earmark-pdf'></i></button>
                         </a>`;
 
@@ -253,8 +253,8 @@
                     },
                     {
                         data: 'get_patient.name',
-                        title: 'Nombres',
-                        className: "text-center",
+                        title: 'Nombre',
+                        className: "text-center text-capitalize",
                     },
                     {
                         data: 'get_patient.ci',
@@ -264,7 +264,7 @@
                     {
                         data: 'get_patient.genere',
                         title: 'Género',
-                        className: "text-center",
+                        className: "text-center text-capitalize",
                     },
                     {
                         data: 'get_patient.phone',
@@ -692,8 +692,6 @@
                                             style="margin-top: 20px:">
                                             <table id="table-ref" class="table table-striped table-bordered" style="width:100%">
                                                 <thead>
-
-
                                                     <tr>
                                                         <th class="text-center" scope="col">Fecha</th>
                                                         <th class="text-center" scope="col">Referencia</th>
@@ -729,22 +727,39 @@
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <table id="table-ref-examenes" class="table table-striped table-bordered"
-                                    style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center" scope="col">Fecha</th>
-                                                <th class="text-center" scope="col">Referencia</th>
-                                                <th class="text-center" scope="col">código Examen</th>
-                                                <th class="text-center" scope="col">Descripción</th>
-                                                <th class="text-center" scope="col">Nombres</th>
-                                                <th class="text-center" scope="col">Cédula</th>
-                                                <th class="text-center" scope="col">Género</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px:">
+                                        <table id="table-ref-examenes" class="table table-striped table-bordered"
+                                            style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" scope="col">Fecha referencia</th>
+                                                    <th class="text-center" scope="col">Referencia</th>
+                                                    <th class="text-center" scope="col">Código Examen</th>
+                                                    <th class="text-center" scope="col">Descripción</th>
+                                                    <th class="text-center" scope="col">Fecha resultado</th>
+                                                    <th class="text-center" scope="col">Nombre</th>
+                                                    <th class="text-center" scope="col">Cédula</th>
+                                                    <th class="text-center" scope="col">Género</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($res_exams as $key => $item)
+                                                    <tr>
+                                                        <td class="text-center"> {{ $item['date_ref'] }}</td>
+                                                        <td class="text-center"> {{ $item['cod_ref'] }}</td>
+                                                        <td class="text-center"> {{ $item['cod_exam'] }}</td>
+                                                        <td class="text-center text-capitalize"> {{ $item['description'] }}</td>
+                                                        <td class="text-center"> {{ $item['date_upload_res'] }}</td>
+                                                        <td class="text-center text-capitalize"> {{ $item['patient_info']['full_name'] }}
+                                                        </td>
+                                                        <td class="text-center"> {{ $item['patient_info']['ci'] }}</td>
+                                                        <td class="text-center text-capitalize"> {{ $item['patient_info']['genere'] }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -763,21 +778,36 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <table id="table-ref-estudios" class="table table-striped table-bordered"
-                                        style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center" scope="col">Fecha</th>
-                                                <th class="text-center" scope="col">Referencia</th>
-                                                <th class="text-center" scope="col">código Estudios</th>
-                                                <th class="text-center" scope="col">Descripción</th>
-                                                <th class="text-center" scope="col">Nombres</th>
-                                                <th class="text-center" scope="col">Cédula</th>
-                                                <th class="text-center" scope="col">Género</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
+                                            style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" scope="col">Fecha referencia</th>
+                                                    <th class="text-center" scope="col">Referencia</th>
+                                                    <th class="text-center" scope="col">Código Estudios</th>
+                                                    <th class="text-center" scope="col">Descripción</th>
+                                                    <th class="text-center" scope="col">Fecha resultado</th>
+                                                    <th class="text-center" scope="col">Nombre</th>
+                                                    <th class="text-center" scope="col">Cédula</th>
+                                                    <th class="text-center" scope="col">Género</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($res_studies as $key => $item)
+                                                    <tr>
+                                                        <td class="text-center"> {{ $item['date_ref'] }}</td>
+                                                        <td class="text-center"> {{ $item['cod_ref'] }}</td>
+                                                        <td class="text-center"> {{ $item['cod_study'] }}</td>
+                                                        <td class="text-center text-capitalize"> {{ $item['description'] }}</td>
+                                                        <td class="text-center"> {{ $item['date_upload_res'] }}</td>
+                                                        <td class="text-center text-capitalize"> {{ $item['patient_info']['full_name'] }}
+                                                        </td>
+                                                        <td class="text-center"> {{ $item['patient_info']['ci'] }}</td>
+                                                        <td class="text-center text-capitalize"> {{ $item['patient_info']['genere'] }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                 </div>
                             </div>
                         </div>
@@ -795,11 +825,11 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"></h5>
+                    <div class="modal-header title">
+                        <span style="padding-left: 5px">Carga de resultados</span>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                             style="font-size: 12px;"></button>
-                    </div>
+                    </div>  
                     <div class="modal-body">
                         <form id="form-load-img" method="post" action="/">
                             {{ csrf_field() }}
