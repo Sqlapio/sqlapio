@@ -514,22 +514,25 @@
                                         <img class="logo-use" src="{{ asset('/imgs/' . Auth::user()->user_img) }}"
                                             class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
                                     @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) == null)
-                                        <span class="strong"> {{ Auth::user()->business_name }} </span>
+                                        <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> {{ Auth::user()->business_name }} </span>
                                         <img class="logo-use" src="{{ asset('/img/avatar/avatar.png') }}"
                                             class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
                                     @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) != null)
-                                        <span class="strong"> {{ Auth::user()->business_name }} </span>
+                                        <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> {{ Auth::user()->business_name }} </span>
                                         <img class="logo-use"
                                             src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}"
                                             class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
                                     @else
-                                        <span class="strong"> {{ Auth::user()->last_name }},
+                                        <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> {{ Auth::user()->last_name }},
                                             {{ Auth::user()->name }}</span>
                                         <img class="logo-use" src="{{ asset('/img/avatar/avatar.png') }}"
                                             class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
                                     @endif
                                 </a>
-                                <button onclick="logout()">
+
+                                <button onclick="logout()" data-bs-toggle="tooltip"
+                                data-bs-placement="left"
+                                title="Cerrar sesión">
                                     <i class="bi bi-power" style="color: white; font-size: 30px;"></i>
                                 </button>
                             </div>
@@ -601,4 +604,11 @@
         var url = "{{ route('logout') }}";
         location.href = url;
     }
+
+    $(document).ready(() => {
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        tooltipTriggerList.forEach(element => {
+            new bootstrap.Tooltip(element)
+        });
+    });
 </script>
