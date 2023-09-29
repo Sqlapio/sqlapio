@@ -2,12 +2,10 @@
 @section('title', 'Tablero')
 @vite(['resources/js/graphicCountAll.js', 'resources/js/dairy.js'])
 <style>
-
     body {
         font-size: 15px !important;
 
     }
-
 </style>
 @push('scripts')
     <script>
@@ -484,7 +482,7 @@
                                     <div class="row"id="table-patients">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
                                             style="margin-top: 20px:">
-                                            
+
                                             <table id="table-patient" class="table table-striped table-bordered"
                                                 style="width:100%">
                                                 <thead>
@@ -528,14 +526,16 @@
                                                                     <span
                                                                         class="badge rounded-pill bg-success">Confimada</span>
                                                                 @else
-                                                                    <span class="badge rounded-pill bg-secondary">Sin confirmar</span>
+                                                                    <span class="badge rounded-pill bg-secondary">Sin
+                                                                        confirmar</span>
                                                                 @endif
                                                             </td>
                                                             <td>
                                                                 <div class="d-flex" style="justify-content: center;">
-                                                                    <div
-                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="width: 32px;">
-                                                                        <a href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
+                                                                        style="width: 32px;">
+                                                                        <a
+                                                                            href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
                                                                             <button type="button"
                                                                                 class="btn btn-iPrimary rounded-circle"
                                                                                 data-bs-toggle="tooltip"
@@ -652,7 +652,7 @@
                                                 </div>
                                             </div>
                                         </div>
-        
+
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-1">
                                             <div class="card text-white" style="background-color: rgb(219,242,242)">
                                                 <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
@@ -660,7 +660,7 @@
                                                 </div>
                                             </div>
                                         </div>
-        
+
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-1">
                                             <div class="card text-white" style="background-color: rgb(235,224,255)">
                                                 <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
@@ -690,14 +690,16 @@
                                     <div class="row mt-3" id="content-table-ref" style="display: none">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
                                             style="margin-top: 20px:">
-                                            <table id="table-ref" class="table table-striped table-bordered" style="width:100%">
+                                            <table id="table-ref" class="table table-striped table-bordered"
+                                                style="width:100%">
                                                 <thead>
 
 
                                                     <tr>
                                                         <th class="text-center" scope="col">Fecha</th>
                                                         <th class="text-center" scope="col">Referencia</th>
-                                                        <th class="text-center" scope="col">Referencia consulta médica</th>
+                                                        <th class="text-center" scope="col">Referencia consulta médica
+                                                        </th>
                                                         <th class="text-center" scope="col">Nombres</th>
                                                         <th class="text-center" scope="col">Cédula</th>
                                                         <th class="text-center" scope="col">Género</th>
@@ -730,19 +732,34 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <table id="table-ref-examenes" class="table table-striped table-bordered"
-                                    style="width:100%">
+                                        style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th class="text-center" scope="col">Fecha</th>
+                                                <th class="text-center" scope="col">Fecha referencia</th>
                                                 <th class="text-center" scope="col">Referencia</th>
                                                 <th class="text-center" scope="col">código Examen</th>
                                                 <th class="text-center" scope="col">Descripción</th>
+                                                <th class="text-center" scope="col">Fecha resultado</th>
                                                 <th class="text-center" scope="col">Nombres</th>
                                                 <th class="text-center" scope="col">Cédula</th>
                                                 <th class="text-center" scope="col">Género</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($res_exams as $key => $item)
+                                                <tr>
+                                                    <td class="text-center"> {{ $item['date_ref'] }}</td>
+                                                    <td class="text-center"> {{ $item['cod_ref'] }}</td>
+                                                    <td class="text-center"> {{ $item['cod_exam'] }}</td>
+                                                    <td class="text-center"> {{ $item['description'] }}</td>
+                                                    <td class="text-center"> {{ $item['date_upload_res'] }}</td>
+                                                    <td class="text-center"> {{ $item['patient_info']['full_name'] }}
+                                                    </td>
+                                                    <td class="text-center"> {{ $item['patient_info']['ci'] }}</td>
+                                                    <td class="text-center"> {{ $item['patient_info']['genere'] }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -766,16 +783,31 @@
                                         style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th class="text-center" scope="col">Fecha</th>
+                                                <th class="text-center" scope="col">Fecha referencia</th>
                                                 <th class="text-center" scope="col">Referencia</th>
                                                 <th class="text-center" scope="col">código Estudios</th>
                                                 <th class="text-center" scope="col">Descripción</th>
+                                                <th class="text-center" scope="col">Fecha resultado</th>
                                                 <th class="text-center" scope="col">Nombres</th>
                                                 <th class="text-center" scope="col">Cédula</th>
                                                 <th class="text-center" scope="col">Género</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($res_studies as $key => $item)
+                                                <tr>
+                                                    <td class="text-center"> {{ $item['date_ref'] }}</td>
+                                                    <td class="text-center"> {{ $item['cod_ref'] }}</td>
+                                                    <td class="text-center"> {{ $item['cod_study'] }}</td>
+                                                    <td class="text-center"> {{ $item['description'] }}</td>
+                                                    <td class="text-center"> {{ $item['date_upload_res'] }}</td>
+                                                    <td class="text-center"> {{ $item['patient_info']['full_name'] }}
+                                                    </td>
+                                                    <td class="text-center"> {{ $item['patient_info']['ci'] }}</td>
+                                                    <td class="text-center"> {{ $item['patient_info']['genere'] }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -841,7 +873,7 @@
                                 </div>
                             </div>
                             <div class="row text-center">
-                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">   
+                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
                                     <input class="btn btnPrimary send " value="Guardar" type="submit" />
                                 </div>
                             </div>
