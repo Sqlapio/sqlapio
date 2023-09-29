@@ -529,6 +529,7 @@
                                             class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
                                     @endif
                                 </a>
+
                                 <button onclick="logout()" data-bs-toggle="tooltip"
                                 data-bs-placement="left"
                                 title="Cerrar sesión">
