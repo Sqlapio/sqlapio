@@ -10,10 +10,6 @@
         justify-content: center;
     }
 
-    .spinner-md img{
-        top: 90%;
-    }
-
     .table-check {
         text-align: center; 
         vertical-align: middle;
@@ -21,13 +17,6 @@
         width: 50px;
     }
 
-    @media only screen and (max-width: 576px) {
-
-        .spinner-md img{
-            top: 93%;
-        }
-
-    }
 </style>
 @push('scripts')
     @vite(['resources/js/centers.js'])
@@ -328,6 +317,9 @@
 
         <!-- Modal -->
         <div class="modal fade" id="modalCenter" tabindex="-1" aria-labelledby="modalCenterLabel" aria-hidden="true">
+            <div id="spinner" style="display: none">
+                <x-load-spinner show="true"/>
+            </div>
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -386,14 +378,10 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="row text-center">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
                                         <input class="btn btnPrimary send mt-3" value="Registrar" type="submit" />
-                                        <div id="spinner" style="display: none" class="spinner-md">
-                                            <x-load-spinner show="true"/>
-                                        </div>
                                     </div>
                                 </div>
                             </form>

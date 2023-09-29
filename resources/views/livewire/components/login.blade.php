@@ -86,7 +86,10 @@
 @section('content')
     <div>
         <div class="container-fluid text-center">
-            <div class="row form-sq">
+            <div id="spinner" style="display: none">
+                <x-load-spinner />
+            </div>
+            <div class="row form-sq" style="position: relative">
                 <div class="col-xs-12 col-sm-10 col-md-4 col-lg-3 col-xl-3 col-xxl-3 loginDric">
                     <div class="">
                         <img class="img" src="{{ asset('img/iniciar-sesion.png') }}" class="">
@@ -118,6 +121,7 @@
                     </div>
                     
                     <button type="" class="btn btnPrimary"><span class="">Entrar</span></button>
+                    
                 </div>
                 {{ Form::close() }}
                 <div class="row justify-content-center">
@@ -127,10 +131,8 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <a class="links" href="">Recuperar Contraseña</a>
                     </div>
-                    <div id="spinner" style="display: none">
-                        <x-load-spinner />
-                    </div>
                 </div>
+                
             </div>
         </div>
     </div>

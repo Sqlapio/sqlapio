@@ -1,13 +1,6 @@
 @extends('layouts.app-auth')
 @section('title', 'Agenda')
 <style>
-    .spinnner {
-        top: 94% !important;
-    }
-
-    /* .Icon-inside i {
-        top: 30% !important
-    } */
 
     .datepicker-switch {
         background-color: #44525F !important;
@@ -79,8 +72,10 @@
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
                 id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+                <div id="spinner" style="display: none">
+                    <x-load-spinner show="true" />
+                </div>
                 <div class="modal-dialog modal-dialog-centered">
-
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header title">
@@ -269,9 +264,6 @@
                                     </div>
 
                                     <div class="row text-center mt-3">
-                                        <div id="spinner" style="display: none">
-                                            <x-load-spinner show="true" />
-                                        </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
                                             style="margin-top: -4px" id="send">
                                             <input class="btn btnPrimary" id="registrer-pac" value="Registrar" disabled
