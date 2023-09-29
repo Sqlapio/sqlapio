@@ -427,8 +427,9 @@
     </script>
 @endpush
 @section('content')
-    <div>
+    {{-- <div> --}}
         <div class="container-fluid" style="padding: 3%">
+            
             <form id="form-mecal-histroy" method="post" action="/">
                 {{ csrf_field() }}
                 <div class="accordion" id="accordion">
@@ -1456,5 +1457,5 @@
                 </div>
             </form>
         </div>
-    </div>
+    {{-- </div> --}}
 @endsection
