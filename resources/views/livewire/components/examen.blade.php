@@ -11,10 +11,10 @@
 
         function searchPerson() {
             if ($('#search_person').val() != '') {
-                // let route = '{{ route('search_person', [':row', ':value']) }}';
-                let route = '{{ route('search_person', ':value') }}';
-                // route = route.replace(':row', row);
+                let route = '{{ route('search_person', [':value', ':row']) }}';
                 route = route.replace(':value', $('#search_person').val());
+                route = route.replace(':row', 'ci');
+                console.log(route);
                 $.ajax({
                     url: route,
                     type: 'GET',
@@ -71,7 +71,7 @@
                                 <x-search-person/>
 
 
-                                <div class="row" id="content-result" style="display: none">
+                                <div class="row mt-3" id="content-result" style="display: none">
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                                         <div class="card">
                                             <div class="row">
