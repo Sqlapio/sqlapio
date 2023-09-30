@@ -7,6 +7,47 @@
         $(document).ready(() => {
 
         });
+
+
+        function searchPerson() {
+            if ($('#search_person').val() != '') {
+                // let route = '{{ route('search_person', [':row', ':value']) }}';
+                let route = '{{ route('search_person', ':value') }}';
+                // route = route.replace(':row', row);
+                route = route.replace(':value', $('#search_person').val());
+                $.ajax({
+                    url: route,
+                    type: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Operacion exitosamente!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            $("#content-result").show();
+                        });
+                    },
+                    error: function(error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: error.responseJSON.errors,
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            $('#send').show();
+                            $('#spinner').hide();
+                            $(".holder").hide();
+                        });
+                    }
+                });
+            }
+        }
     </script>
 @endpush
 @section('content')
@@ -26,7 +67,11 @@
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <div class="row">
+
+                                <x-search-person/>
+
+
+                                <div class="row" id="content-result" style="display: none">
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                                         <div class="card">
                                             <div class="row">
