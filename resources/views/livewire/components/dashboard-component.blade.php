@@ -299,12 +299,11 @@
         }
 
         function searchPerson() {
-            if ($('#search_person').val() != '') {
-                // let route = '{{ route('search_person', [':row', ':value']) }}';
-                let route = '{{ route('search_person', ':value') }}';
-                // route = route.replace(':row', row);
-                route = route.replace(':value', $('#search_person').val());
+            if ($('#search_person').val() != '') {         
 
+                let route = '{{ route('search_person', [':value', ':row']) }}';
+                route = route.replace(':value', $('#search_person').val());
+                route = route.replace(':row', 'cod_ref');
                 $.ajax({
                     url: route,
                     type: 'GET',
