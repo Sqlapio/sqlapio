@@ -573,6 +573,22 @@
                                     </li>
                                 @endif
                                 <li class="nav-item">
+                                    <a href="{{ route('Examen') }}" title="Configuración">
+                                        <img class="img-nav" src="{{ asset('img/V2/Settings.png') }}"
+                                            alt="Configuración">
+                                    </a>
+                                    <span class="nav-link active" aria-current="page"
+                                        href="#">view examen</span>
+                                </li>
+                                  <li class="nav-item">
+                                    <a href="{{ route('Study') }}" title="Configuración">
+                                        <img class="img-nav" src="{{ asset('img/V2/Settings.png') }}"
+                                            alt="Configuración">
+                                    </a>
+                                    <span class="nav-link active" aria-current="page"
+                                        href="#">view study</span>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{ route('Profile') }}" title="Configuración">
                                         <img class="img-nav" src="{{ asset('img/V2/Settings.png') }}"
                                             alt="Configuración">
