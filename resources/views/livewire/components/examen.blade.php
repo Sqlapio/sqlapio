@@ -4,17 +4,11 @@
 </style>
 @push('scripts')
     <script>
-        $(document).ready(() => {
-
-        });
-
-
         function searchPerson() {
             if ($('#search_person').val() != '') {
                 let route = '{{ route('search_person', [':value', ':row']) }}';
                 route = route.replace(':value', $('#search_person').val());
                 route = route.replace(':row', 'ci');
-                console.log(route);
                 $.ajax({
                     url: route,
                     type: 'GET',
@@ -30,7 +24,53 @@
                             confirmButtonText: 'Aceptar'
                         }).then((result) => {
                             $("#content-result").show();
+                            $('#content-data').empty();
+                            response.map((elem) => {
+                                let img = '{{ URL::asset('/img/V2/descarga.png') }}';
+                                let target = `{{ URL::asset('/imgs/${elem.file}') }}`;
+
+                                let url = "{{ route('MedicalRecord', ':id') }}";
+                                url = url.replace(':id', elem.patient_id);
+
+                                let div = `
+                                <div class="card  mt-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                <a target="_blank" href="${target}">
+                                                    <img  data-bs-toggle="tooltip"  data-bs-placement="bottom" title="Ver documento" style="padding: 10px 10px 10px 10px;" src="${img}" width="100" height="100"
+                                                    alt="Imagen del paciente" class="img-medical">
+                                                </a> 
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                <strong>Nombre del paciente:</strong><span class="text-capitalize">
+                                                ${elem.patient.full_name}</span>
+                                                <br>                               
+                                                <strong>Código del examen:</strong><span> ${elem.cod_exam}</span>
+                                                <br>
+                                                <strong>Descripción:</strong><span class="text-capitalize"> ${elem.description}</span>
+                                                <br>
+                                                <strong>Laboratorio:</strong><span class="text-capitalize"> ${elem.laboratory_id}</span>
+                                                <br>
+                                                <strong>Código de la consulta:</strong><a href="${url}"><span class="text-capitalize"> ${elem.patient.cod_medical_record}</span></a> 
+                                                </span>
+                                            </div>                             
+                                        </div>
+                                    </div>
+                                </div>`;
+
+                                $('#content-data').append(div);
+
+                                const tooltipTriggerList = document.querySelectorAll(
+                                    '[data-bs-toggle="tooltip"]')
+                                tooltipTriggerList.forEach(element => {
+                                    new bootstrap.Tooltip(element)
+                                });
+
+                            });
+
                         });
+
                     },
                     error: function(error) {
                         Swal.fire({
@@ -67,23 +107,10 @@
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-
-                                <x-search-person/>
-
-
+                                <x-search-person />
                                 <div class="row mt-3" id="content-result" style="display: none">
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                        <div class="card">
-                                            <div class="row">
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                                    <img src="{{ asset('img/V2/Settings.png') }}" width="100" height="100"
-                                                    alt="Imagen del paciente" class="img-medical">
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                                    <h5 class="text-capitalize">descripcion de examens</h5>
-                                                </div>
-                                            </div>                                            
-                                        </div>
+                                        <div id="content-data"></div>
                                     </div>
                                 </div>
                             </div>
