@@ -191,7 +191,13 @@
                                                     // reponsive: true,
                                                     bDestroy: true,
                                                     data: data,
-                                                    columns: [{
+                                                    columns: [
+                                                        {
+                                                            data: 'data.record_code',
+                                                            title: 'Código de la consulta',
+                                                            className: "text-center td-pad",
+                                                        },                                                        
+                                                        {
                                                             data: 'date',
                                                             title: 'Fecha de la consulta',
                                                             className: "text-center td-pad",
@@ -529,6 +535,7 @@
                                             <table class="table table-striped table-bordered" id="table-medical-record" style="width: 100%;">
                                                 <thead>
                                                     <tr>
+                                                        <th class="text-center" scope="col">Código de la consulta</th>
                                                         <th class="text-center" scope="col">Fecha de la consulta</th>
                                                         <th class="text-center" scope="col">Nombre del paciente</th>
                                                         <th class="text-center" scope="col">Género</th>
@@ -540,6 +547,7 @@
                                                 <tbody>
                                                     @foreach ($medical_record_user as $item)
                                                         <tr onclick="showDataEdit({{ json_encode($item) }});">
+                                                            <td class="text-center td-pad">{{ $item['data']['record_code'] }}</td>
                                                             <td class="text-center td-pad">{{ $item['date'] }}</td>
                                                             <td class="text-center td-pad text-capitalize">{{ $item['name_patient'] }}
                                                             </td>
