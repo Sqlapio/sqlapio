@@ -49,9 +49,9 @@ return new class extends Migration
             */
             $table->string('type_plane')->nullable();
             $table->string('token')->nullable();
-            $table->integer('patient_counter')->default(0);
-            $table->integer('medical_record_counter')->default(0);
-            $table->integer('ref_counter')->default(0);
+            $table->integer('patient_counter')->default(0)->nullable();
+            $table->integer('medical_record_counter')->default(0)->nullable();
+            $table->integer('ref_counter')->default(0)->nullable();
 
             $table->rememberToken();
             $table->timestamps();
