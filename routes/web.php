@@ -16,9 +16,11 @@ use App\Http\Livewire\Components\Suscription;
 use App\Http\Livewire\Components\Diary;
 use App\Http\Livewire\Components\ClinicalHistory;
 use App\Http\Livewire\Components\Centers;
+use App\Http\Livewire\Components\Examen;
 use App\Http\Livewire\Components\Laboratory;
 use App\Http\Livewire\Components\Statistics;
 use App\Http\Livewire\Components\Register;
+use App\Http\Livewire\Components\Study;
 use App\Models\Patient;
 use App\Models\Reference;
 use App\Models\User as ModelsUser;
@@ -76,6 +78,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/centers', [Centers::class, 'render'])->name('Centers');
         Route::post('/register-centers', [Centers::class, 'store'])->name('register-centers');
         Route::get('/statistics', [Statistics::class, 'render'])->name('Statistics');
+        Route::get('/study', [Study::class, 'render'])->name('Study');
+        Route::get('/examen', [Examen::class, 'render'])->name('Examen');
 
         Route::group(array('prefix' => 'patients'), function () {
             Route::get('/medical-record/{id}', [MedicalRecord::class, 'render'])->name('MedicalRecord');
@@ -188,7 +192,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get/reference', [UtilsController::class, 'get_all_ref'])->name("get_ref");
 
         // pdf referencia
-        Route::get('/search_person/{value}', [UtilsController::class, 'search_person'])->name("search_person");
+        Route::get('/search_person/{value}/{row}', [UtilsController::class, 'search_person'])->name("search_person");
 
         // pdf referencia
         Route::get('/pdf/reference/{id}', [PDFController::class, 'PDF_ref'])->name("PDF_ref");
