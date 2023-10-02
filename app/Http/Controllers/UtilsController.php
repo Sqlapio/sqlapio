@@ -26,6 +26,7 @@ use App\Models\PathologicalBackground;
 use App\Models\Reference;
 use App\Models\Representative;
 use App\Models\Study;
+use App\Models\StudyPatient;
 use App\Models\User;
 use App\Models\VitalSign;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -1079,6 +1080,7 @@ class UtilsController extends Controller
 					'laboratory_id' => $val->get_laboratory->business_name,
 					'file' => $val->file,
 					'patient' => [
+						'patient_id' =>  $data_patient->id,
 						'full_name' => $data_patient->name . ' ' . $data_patient->last_name,
 						'cod_medical_record' => $val->record_code
 					]
@@ -1101,6 +1103,42 @@ class UtilsController extends Controller
 
 			return $data;
 		}
+	}
+
+	static function search_studio($value, $row)
+	{
+
+		$data = [];
+		if ($row != 'cod_ref') {
+			$data_patient = Patient::where('ci', $value)->first();
+			if ($data_patient->is_minor == 'true') {
+				$id = Representative::where('re_ci', $value)->first()->patiente_id;
+			} else {
+				$id = $data_patient->id;
+			}
+
+			/**
+			 * Realizamos la busqueda en la tabla
+			 * de examenes del paciente
+			 */
+
+			$data_exam = StudyPatient::where('patient_id', $id)->where('status', 2)->get();
+			foreach ($data_exam as $key => $val) {
+				$data[$key] = [
+					'cod_exam' => $val->cod_exam,
+					'description' => $val->description,
+					'laboratory_id' => $val->get_laboratory->business_name,
+					'file' => $val->file,
+					'patient' => [
+						'patient_id' =>  $data_patient->id,
+						'full_name' => $data_patient->name . ' ' . $data_patient->last_name,
+						'cod_medical_record' => $val->record_code
+					]
+				];
+			}
+
+			return $data;
+		} 
 	}
 
 

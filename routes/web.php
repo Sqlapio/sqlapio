@@ -193,7 +193,8 @@ Route::middleware(['auth'])->group(function () {
 
         // pdf referencia
         Route::get('/search_person/{value}/{row}', [UtilsController::class, 'search_person'])->name("search_person");
-
+        Route::get('/search_studio/{value}/{row}', [UtilsController::class, 'search_studio'])->name("search_studio");
+        
         // pdf referencia
         Route::get('/pdf/reference/{id}', [PDFController::class, 'PDF_ref'])->name("PDF_ref");
 
