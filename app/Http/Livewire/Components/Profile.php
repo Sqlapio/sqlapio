@@ -53,6 +53,12 @@ class Profile extends Component
 					'email' => $request->email,
 				]);
     }
+
+    
+    public function send_otp(Request $request)
+    {
+       dd(Request()->all());
+    }
    
     public function render()
     {
