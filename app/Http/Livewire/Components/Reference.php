@@ -2,9 +2,13 @@
 
 namespace App\Http\Livewire\Components;
 
+use App\Http\Controllers\ApiServicesController;
 use App\Http\Controllers\UtilsController;
+use App\Models\Center;
 use App\Models\ExamPatient;
+use App\Models\Patient;
 use App\Models\Reference as ModelsReference;
+use App\Models\Representative;
 use App\Models\StudyPatient;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -19,12 +23,12 @@ class Reference extends Component
          * solicitados por el medico y generar la 
          * referencia
          */
-
-        $user = Auth::user()->id;
+        
+        $user = Auth::user();
 
         $reference = new ModelsReference();
         $reference->cod_ref = 'SQ-REF-' . random_int(11111111, 99999999);
-        $reference->user_id = $user;
+        $reference->user_id = $user->id;
         $reference->patient_id = $data->id;
         $reference->center_id = $data->center_id;
         $reference->cod_medical_record = $medical_record_code;
@@ -40,7 +44,37 @@ class Reference extends Component
          * 
          * Esta logica se aplica al tema de los planes
          */
-        UtilsController::update_ref_counter($user);
+        UtilsController::update_ref_counter($user->id);
+
+        /**
+         * Envio de notificacion al whatsaap del paciente
+         * indicando en codigo de referencia de los examenes
+         * y/o estudio solicitados por el medico
+         */
+
+        $center = Center::where('id', $data->center_id)->first()->description;
+        $patient = Patient::where('id', $data->id)->first();
+        $body = 'Sr(a). '
+                .$patient->name.' '.$patient->last_name.
+                ' acaba de recibir un consulta medica con el Dr(a). '
+                .$user->name.' '.$user->last_name.' en el centro de salud: '
+                .$center. '. El medico indico realizar ciertos Examenes y/o Estudios, el numero de Referencia es: '
+                .$reference->cod_ref;
+
+        if($patient->is_minor == 'true'){
+            $patient_phone = preg_replace('/[\(\)\-\" "]+/', '', $patient->get_reprensetative->re_phone);
+        }else{
+            $patient_phone = preg_replace('/[\(\)\-\" "]+/', '', $patient->phone);
+        }
+
+        ApiServicesController::sms_reference_info($patient_phone, $body);
+
+        /**
+         * Funcion para recomendar el laboratorio
+         * mas sercano
+         */
+        ApiServicesController::sms_location_lab();
+
 
         /**
          * Logica para cargar los examenes
@@ -58,7 +92,7 @@ class Reference extends Component
                 $exams_patient->cod_exam = $data_exams[$i]->code_exams;
                 $exams_patient->description = UtilsController::get_description_exam($data_exams[$i]->code_exams);
                 $exams_patient->ref_id = $reference->id;
-                $exams_patient->user_id = $user;
+                $exams_patient->user_id = $user->id;
                 $exams_patient->center_id = $data->center_id;
                 $exams_patient->patient_id = $data->id;
                 $exams_patient->date = date('d-m-Y');
@@ -82,7 +116,7 @@ class Reference extends Component
                 $studies_patient->cod_study = $data_studies[$i]->code_studies;
                 $studies_patient->description = UtilsController::get_description_study($data_studies[$i]->code_studies);
                 $studies_patient->ref_id = $reference->id;
-                $studies_patient->user_id = $user;
+                $studies_patient->user_id = $user->id;
                 $studies_patient->center_id = $data->center_id;
                 $studies_patient->patient_id = $data->id;
                 $studies_patient->date = date('d-m-Y');
@@ -90,6 +124,7 @@ class Reference extends Component
             }
         }
     }
+
     public function render()
     {
         return view('livewire.components.reference');
