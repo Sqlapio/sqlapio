@@ -30,7 +30,7 @@
                                 let target = `{{ URL::asset('/imgs/${elem.file}') }}`;
 
                                 let url = "{{ route('MedicalRecord', ':id') }}";
-                                url = url.replace(':id', elem.patient_id);
+                                url = url.replace(':id', elem.patient.patient_id);
 
                                 let div = `
                                 <div class="card  mt-3">
