@@ -12,6 +12,11 @@ $('.mask-only-text').mask('Z',{translation:  {'Z': {pattern: /[a-zA-Z0-9 ]/, rec
 $('.mask-text').mask('Z',{translation:  {'Z': {pattern: /[áéíóúñüàèa-ñzA-Z\s]/, recursive: true}}}); 
 $('.mask-rif').mask('Z-0000000000000000',{translation:  {'Z': {pattern: /[G-J-C-F]/, recursive: true}}}); 
 $('.mask-alfa-numeric').mask('Z',{translation:{'Z': {pattern: /[a-zA-Z0-9-]/, recursive: true}}});
+$('.alpha-no-spaces').mask("A", {
+  translation: {
+      "A": { pattern: /[a-z0-9@\-_.+]/, recursive: true }
+  }
+});
 $("#datepicker").datepicker({
   language: 'es',
 });   

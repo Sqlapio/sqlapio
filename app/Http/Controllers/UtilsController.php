@@ -475,11 +475,25 @@ class UtilsController extends Controller
 			];
 			if ($type == 'p') {
 				$view = 'emails.register_patient';
-				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view));
+				$cuerpo1 = 'prueba1';
+				$cuerpo2 = 'prueba2';
+				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view, $cuerpo1, $cuerpo2));
 			}
 			if ($type == 'm') {
 				$view = 'emails.demoMail';
-				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view));
+				$cuerpo1 = 'prueba1';
+				$cuerpo2 = 'prueba2';
+				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view, $cuerpo1, $cuerpo2));
+			}
+			if ($type == 'up') {
+				$mailData = [
+					'title' => 'Actualizacion de Correo Electronico',
+					'name' => $name,
+				];
+				$view = 'emails.demoMail';
+				$cuerpo1 = 'Usted a solicitado el cambio de su direccion de correo electronico.';
+				$cuerpo2 = 'Por favor introdusca el siguiente codigo de validacion:';
+				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view, $cuerpo1, $cuerpo2));
 			}
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
