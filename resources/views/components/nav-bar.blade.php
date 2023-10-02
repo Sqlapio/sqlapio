@@ -573,19 +573,19 @@
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ route('Examen') }}" title="Configuración">
-                                            <img class="img-nav" src="{{ asset('img/V2/Settings.png') }}"
-                                                alt="Configuración">
+                                            <img class="img-nav" src="{{ asset('img/V2/Reminders.png') }}"
+                                                alt="Exámenes">
                                         </a>
                                         <span class="nav-link active" aria-current="page"
-                                            href="#">view examen</span>
+                                            href="#">Exámenes</span>
                                     </li>
                                       <li class="nav-item">
                                         <a href="{{ route('Study') }}" title="Configuración">
-                                            <img class="img-nav" src="{{ asset('img/V2/Settings.png') }}"
-                                                alt="Configuración">
+                                            <img class="img-nav" src="{{ asset('img/V2/Books.png') }}"
+                                                alt="Estudios">
                                         </a>
                                         <span class="nav-link active" aria-current="page"
-                                            href="#">view study</span>
+                                            href="#">Estudios</span>
                                     </li>
                                 @endif
                                 <li class="nav-item">
