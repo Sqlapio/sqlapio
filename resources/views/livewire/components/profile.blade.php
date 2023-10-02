@@ -251,82 +251,121 @@
         }
 
         function handlerEmial() {
-            Swal.fire({
-                title: 'Esta seguro de realizar esta acción?',
-                text: "Se enviara un código de verifcación al correo ingresado!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#42ABE2',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Aceptar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    ///solicitar otp
-                    $.ajax({
-                        url: '{{ route('send_otp') }}',
-                        type: 'POST',
-                        dataType: "json",
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            email: $('#act-email').val()
-                        },
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(response) {
+            if ($('#act-email').val() != "" && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($('#act-email').val())) {
+                Swal.fire({
+                    title: 'Esta seguro de realizar esta acción?',
+                    text: "Se enviara un código de verifcación al correo ingresado!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#42ABE2',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
 
-                            console.log(response);
+                    $('#spinner').show();
 
-                            Swal.fire({
-                                title: 'Ingrese el codigo',
-                                input: 'text',
-                                inputAttributes: {
-                                    autocapitalize: 'off'
-                                },
-                                showCancelButton: true,
-                                confirmButtonText: 'Enviar',
-                                showLoaderOnConfirm: true,
-                                preConfirm: (login) => {
-                                    return fetch(`//api.github.com/users/${login}`)
-                                        .then(response => {
-                                            if (!response.ok) {
-                                                throw new Error(response.statusText)
+                    if (result.isConfirmed) {
+                        ///solicitar otp
+                        $.ajax({
+                            url: '{{ route('send_otp') }}',
+                            type: 'POST',
+                            dataType: "json",
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                email: $('#act-email').val()
+                            },
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(response) {
+
+                                $('#spinner').hide();
+
+                                Swal.fire({
+                                    title: 'Ingrese el código',
+                                    input: 'number',
+                                    inputAttributes: {
+                                        autocorrect: 'on',
+                                        max: 6,
+                                        maxlength: 6
+                                    },
+                                    showCancelButton: true,
+                                    confirmButtonText: 'Enviar',
+                                    showLoaderOnConfirm: true,
+                                    inputValidator: (value) => {
+                                        console.log(value.length);
+                                        if (value === '') {
+                                            return "Campo obligatorio"
+                                        } else if (value.length > 6) {
+                                            return "Campo debe ser de 6 caracteres"
+
+                                        }
+                                    },
+                                    preConfirm: (login) => {
+                                        console.log(login);
+                                        $.ajax({
+                                            url: '{{ route('verify_otp') }}',
+                                            type: 'POST',
+                                            dataType: "json",
+                                            data: {
+                                                "_token": "{{ csrf_token() }}",
+                                                cod_update_email: login,
+                                                email: $('#act-email').val(),
+                                            },
+                                            headers: {
+                                                'X-CSRF-TOKEN': $(
+                                                        'meta[name="csrf-token"]')
+                                                    .attr(
+                                                        'content')
+                                            },
+                                            success: function(response) {
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: response.msj,
+                                                    allowOutsideClick: false,
+                                                    confirmButtonColor: '#42ABE2',
+                                                    confirmButtonText: 'Aceptar'
+                                                }).then((result) => {
+                                                    window.location
+                                                        .href =
+                                                        "{{ route('Profile') }}";
+                                                });
+                                            },
+                                            error: function(error) {
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: error
+                                                        .responseJSON
+                                                        .msj,
+                                                    allowOutsideClick: false,
+                                                    confirmButtonColor: '#42ABE2',
+                                                    confirmButtonText: 'Aceptar'
+                                                })
                                             }
-                                            return response.json()
-                                        })
-                                        .catch(error => {
-                                            Swal.showValidationMessage(
-                                                `Request failed: ${error}`
-                                            )
-                                        })
-                                },
-                                allowOutsideClick: () => !Swal.isLoading()
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    Swal.fire({
-                                        title: `${result.value.login}'s avatar`,
-                                        imageUrl: result.value.avatar_url
-                                    })
-                                }
-                            })
+                                        });
 
+                                    },
+                                    allowOutsideClick: () => !Swal.isLoading()
+                                });
+                            },
+                            error: function(error) {
+                                $('#spinner').hide();
+                                console.log(error.responseJSON.errors);
 
-                        },
-                        error: function(error) {
-                            $('#send').show();
-                            $('#spinner').hide();
-                            console.log(error.responseJSON.errors);
-
-                        }
-                    });
-                    //end                    
-                }
-            })
+                            }
+                        });
+                        //end               
+                    }
+                })
+            }
         }
     </script>
 @endpush
 @section('content')
     <div class="container-fluid" style="padding: 3%">
+        <div id="spinner" style="display: none">
+            <x-load-spinner />
+        </div>
         <div class="accordion" id="accordion">
             {{-- datos del paciente --}}
             <div class="row">
@@ -682,7 +721,7 @@
                                             <label for="phone" class="form-label"
                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nuevo Correo
                                                 Electrónico</label>
-                                            <input autocomplete="off" class="form-control" id="act-email"
+                                            <input autocomplete="off" class="form-control alpha-no-spaces" id="act-email"
                                                 name="act-email" type="text" value="">
                                             <i class="bi bi-envelope-at st-icon"></i>
                                         </div>

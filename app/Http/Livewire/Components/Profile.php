@@ -68,6 +68,7 @@ class Profile extends Component
 				->update(['cod_update_email' => $code]);
 
        UtilsController::notification_register_mail($code, $request->email, $name, $type);
+       return true;
     }
 
     public function verify_otp(Request $request)
@@ -78,7 +79,7 @@ class Profile extends Component
        if($user->cod_update_email != $request->cod_update_email){
         return response()->json([
             'success' => 'false',
-            'errors'  => 'El codigo de autorizacion es incorrecto.'
+            'msj'  => 'El codigo de autorizacion es incorrecto.'
         ], 400);
 
        }else{
@@ -89,7 +90,7 @@ class Profile extends Component
 
             return response()->json([
                 'success' => 'true',
-                'errors'  => 'Su direccion de correo fue actualizada de forma exitosa.'
+                'msj'  => 'Su direccion de correo fue actualizada de forma exitosa.'
             ], 200);
        }
        

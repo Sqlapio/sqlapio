@@ -97,7 +97,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/update-profile', [Register::class, 'update'])->name('update-profile');
             Route::get('/suscription', [Suscription::class, 'render'])->name('Suscription');
             Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp');
-            Route::post('/verify-otp', [Profile::class, 'verify-otp'])->name('verify-otp');
+            Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp');
         });
 
         // ruoter para ver examenes y estudios
