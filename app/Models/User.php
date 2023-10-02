@@ -64,12 +64,13 @@ class User extends Authenticatable {
 		/**
 		 * Campos para conteo de acciones
 		 * relacionadas a los planes
-		 * token
-		 * 
-		 * type_token
-		 * patient_counter
-		 * medical_record_counter
 		 */
+		'type_plane',
+		'token',
+		'patient_counter',
+		'medical_record_counter',
+		'ref_counter',
+		'cod_update_email',
 	];
 
 	/**

@@ -19,12 +19,14 @@
                 <h2 style="text-align: justify; margin-left: 20px;">Dr(a). {{ $mailData['name'] }}</h2>
             </p>
             <p style="text-align: justify; margin-left: 20px;">
-                Su registro a Sqlapio fue exitoso. Gracias por ser parte de nuestro portafolio médico,<br>ahora tiene acceso completo a la plataforma.
+                {{ $cuerpo1 }}
             </p>
             <p style="text-align: justify; margin-left: 20px;">
-                Lo invitamos primero a realizar la validacion de tu correo electronico, accediento al siguiente link:
-                <br>
-                https://sqlapiodev.starkmedios.com/verify/{{ $verification_code }}
+                {{ $cuerpo2 }}
+            </p>
+            <p style="text-align: justify; margin-left: 20px;">
+                {{-- https://sqlapiodev.starkmedios.com/verify/{{ $verification_code }} --}}
+                <h1>{{ $verification_code }}</h1>
             </p>
             <p style="text-align: justify; margin-left: 20px;">
                 Si tienes alguna duda te podemos ayudar en:
