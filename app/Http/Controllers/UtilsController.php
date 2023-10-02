@@ -1128,7 +1128,7 @@ class UtilsController extends Controller
 			$data_exam = StudyPatient::where('patient_id', $id)->where('status', 2)->get();
 			foreach ($data_exam as $key => $val) {
 				$data[$key] = [
-					'cod_exam' => $val->cod_exam,
+					'cod_study' => $val->cod_study,
 					'description' => $val->description,
 					'laboratory_id' => $val->get_laboratory->business_name,
 					'file' => $val->file,

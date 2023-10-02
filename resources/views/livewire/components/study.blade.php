@@ -73,7 +73,7 @@
                                                         </span>
                                                     <br>
                                                     <br>
-                                                        <span style="float:right; font-size: 12px;">${elem.cod_exam}</span>
+                                                        <span style="float:right; font-size: 12px;">${elem.cod_study}</span>
                                                     <br>
                                                         <span class="text-capitalize" style="float:right;"> ${elem.description}</span>
                                                 </div>                             
