@@ -1059,18 +1059,20 @@ class UtilsController extends Controller
 
 		$data = [];
 		if ($row != 'cod_ref') {
+
 			$data_patient = Patient::where('ci', $value)->first();
-			if ($data_patient->is_minor == 'true') {
+
+			if($data_patient == null){
 				$id = Representative::where('re_ci', $value)->first()->patiente_id;
-			} else {
+			}else {
 				$id = $data_patient->id;
 			}
 
 			/**
 			 * Realizamos la busqueda en la tabla
-			 * de examenes del paciente
+			 * de examenes del paciente para traernos
+			 * los resultados
 			 */
-
 			$data_exam = ExamPatient::where('patient_id', $id)->where('status', 2)->get();
 			foreach ($data_exam as $key => $val) {
 				$data[$key] = [
@@ -1078,13 +1080,14 @@ class UtilsController extends Controller
 					'description' => $val->description,
 					'laboratory_id' => $val->get_laboratory->business_name,
 					'file' => $val->file,
+					'date_result' => $val->date_result,
 					'patient' => [
 						'full_name' => $data_patient->name . ' ' . $data_patient->last_name,
-						'cod_medical_record' => $val->record_code
+						'cod_medical_record' => $val->record_code,
+						'record_date' => MedicalRecord::where('record_code', $val->record_code)->first()->record_date
 					]
 				];
 			}
-
 			return $data;
 		} else {
 

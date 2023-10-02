@@ -206,6 +206,6 @@ Route::middleware(['auth'])->group(function () {
 
 //route
 Route::get('/pp', function () {
-    $res = ModelsUser::where('id', 2)->first();
-    dd($res->get_laboratorio);
-})->where('any', '.*');
+    $res = 'http://sqlapio.test/public/img/notification_email/cita_header.jpg';
+    dd($res);
+});

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Components;
 
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\ApiServicesController;
 use App\Http\Controllers\EstadisticaController;
 use App\Http\Controllers\UtilsController;
 use App\Models\Laboratory;
@@ -217,6 +218,12 @@ class Register extends Component {
 				 * @param 1 -> menor de edad
 				 */
 				EstadisticaController::accumulated_doctor($request->state);
+
+
+				$caption = 'Bienvenido a sqlapio.com Dr(a). '.$request->name.' '.$request->last_name;
+				$image = 'http://sqldevelop.sqlapio.net/img/notification_email/newsletter-header.png';
+				$phone = preg_replace('/[\(\)\-\" "]+/', '', $request->phone);
+				ApiServicesController::sms_welcome($phone, $caption, $image);
 	
 				return true;
 			}
