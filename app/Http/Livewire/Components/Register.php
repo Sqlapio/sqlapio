@@ -223,6 +223,7 @@ class Register extends Component {
 				$caption = 'Bienvenido a sqlapio.com Dr(a). '.$request->name.' '.$request->last_name;
 				$image = 'http://sqldevelop.sqlapio.net/img/notification_email/newsletter-header.png';
 				$phone = preg_replace('/[\(\)\-\" "]+/', '', $request->phone);
+				
 				ApiServicesController::sms_welcome($phone, $caption, $image);
 	
 				return true;

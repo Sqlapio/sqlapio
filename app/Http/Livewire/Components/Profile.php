@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Components;
 
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\UtilsController;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Laboratory;
@@ -57,7 +58,41 @@ class Profile extends Component
     
     public function send_otp(Request $request)
     {
-       dd(Request()->all());
+
+       $user = Auth::user();
+       $name = $user->name.' '.$user->last_name;
+       $type = 'up';
+       $code = random_int(111111, 999999);
+       DB::table('users')
+				->where('email', $user->email)
+				->update(['cod_update_email' => $code]);
+
+       UtilsController::notification_register_mail($code, $request->email, $name, $type);
+    }
+
+    public function verify_otp(Request $request)
+    {
+
+       $user = Auth::user();
+       
+       if($user->cod_update_email != $request->cod_update_email){
+        return response()->json([
+            'success' => 'false',
+            'errors'  => 'El codigo de autorizacion es incorrecto.'
+        ], 400);
+
+       }else{
+
+            DB::table('users')
+                ->where('email', $user->email)
+                ->update(['email' => $request->email]);
+
+            return response()->json([
+                'success' => 'true',
+                'errors'  => 'Su direccion de correo fue actualizada de forma exitosa.'
+            ], 200);
+       }
+       
     }
    
     public function render()
