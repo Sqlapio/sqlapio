@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Components;
 
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\ApiServicesController;
 use App\Http\Controllers\EstadisticaController;
 use App\Http\Controllers\UtilsController;
 use App\Models\DoctorCenter;
@@ -173,39 +174,47 @@ class Patients extends Component
                 UtilsController::update_patient_counter($user_id);
 
                 /**
-                 * Logica para el envio de la notificacion 
-                 * via correo electronico
-                 * 
-                 * @uses
-                 * Esta logica solo sera aplicada si el usuario
-                 * realizo la confirmacion del correo electronico
+                 * Funcion para enviar el mensaje por whatsaap
+                 * de bienvenida
                  */
+                $caption = 'Bienvenido a sqlapio.com Sr(a). '.$request->name.' '.$request->last_name;
+                $body = 'Paciente: '.$request->name.' '.$request->last_name.' Codigo:'.$patient['patient_code'];
 
-                $doctor_email = Auth::user()->email;
+                $image = 'http://sqldevelop.sqlapio.net/img/notification_email/cita_header.jpg';
 
-                if ($doctor_email != null) {
-                    $patient = Patient::where('id', $patient_id)->first();
-                    $name = $patient->name;
-                    $last_name = $patient->last_name;
+                $phone = preg_replace('/[\(\)\-\" "]+/', '', $request->re_phone);
+                
+                ApiServicesController::sms_welcome($phone, $caption, $image);
 
-                    $title = 'Mail de SqlapioTechnology';
-                    $body = [
-                        'cuerpo' => 'Usted acaba de registrar al paciente: ' . $patient->name . ' ' . $patient->last_name,
-                        'name'  => $re_patient->re_name . ' ' . $re_patient->re_last_name,
-                        'ci'    => $re_patient->re_ci,
-                        'email' => $re_patient->re_email,
-                        'phone' => $re_patient->re_phone
-                    ];
+                ApiServicesController::sms_info($phone, $body);
 
-                    /**
-                     * Notificacion al paciente
-                     */
-                    $patient_name = $patient['name'].' '.$patient['last_name'];
-                    $patient_email = $request->re_email;
 
-                    UtilsController::notification_register_mail($patient['verification_code'], $patient_email, $patient_name, $type = 'p');
+                // $doctor_email = Auth::user()->email;
 
-                }
+                // if ($doctor_email != null) {
+                //     $patient = Patient::where('id', $patient_id)->first();
+                //     $name = $patient->name;
+                //     $last_name = $patient->last_name;
+
+                //     $title = 'Mail de SqlapioTechnology';
+                //     $body = [
+                //         'cuerpo' => 'Usted acaba de registrar al paciente: ' . $patient->name . ' ' . $patient->last_name,
+                //         'name'  => $re_patient->re_name . ' ' . $re_patient->re_last_name,
+                //         'ci'    => $re_patient->re_ci,
+                //         'email' => $re_patient->re_email,
+                //         'phone' => $re_patient->re_phone
+                //     ];
+
+                //     /**
+                //      * Notificacion al paciente
+                //      */
+                //     $patient_name = $patient['name'].' '.$patient['last_name'];
+                //     $patient_email = $request->re_email;
+
+                //     UtilsController::notification_register_mail($patient['verification_code'], $patient_email, $patient_name, $type = 'p');
+
+                // }
+
 
             } else {
                 $rules =[
@@ -303,9 +312,23 @@ class Patients extends Component
                 /**
                  * Notificacion al paciente
                  */
-                $patient_name = $patient['name'] . ' ' . $patient['last_name'];
+                // $patient_name = $patient['name'] . ' ' . $patient['last_name'];
 
-                UtilsController::notification_register_mail($patient['verification_code'], $patient['email'], $patient_name, $type = 'p');
+                // UtilsController::notification_register_mail($patient['verification_code'], $patient['email'], $patient_name, $type = 'p');
+
+                // $image = public_path('/img/cita_header.jpg');
+
+                $caption = 'Bienvenido a sqlapio.com Sr(a). '.$request->name.' '.$request->last_name;
+                $body = 'Paciente: '.$request->name.' '.$request->last_name.' Codigo:'.$patient['patient_code'];
+
+                $image = 'http://sqldevelop.sqlapio.net/img/notification_email/cita_header.jpg';
+
+                $phone = preg_replace('/[\(\)\-\" "]+/', '', $request->phone);
+
+                ApiServicesController::sms_welcome($phone, $caption, $image);
+
+                ApiServicesController::sms_info($phone, $body);
+
             }
 
             $action = '5';
