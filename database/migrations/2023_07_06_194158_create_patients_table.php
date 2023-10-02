@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('patient_code')->unique();
             $table->string('name');
             $table->string('last_name');
-            $table->string('ci')->nullable();
+            $table->string('ci')->nullable()->unique();
             $table->string('email')->nullable();
             $table->string('email_verified_at')->nullable();
             $table->string('profession')->nullable();
