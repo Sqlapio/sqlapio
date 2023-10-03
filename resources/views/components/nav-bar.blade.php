@@ -509,7 +509,7 @@
                                 {{-- Imagen del medico --}}
                                 <a class="nav-link icon-p" href="#">
                                     @if (Auth::user()->user_img != null && Auth::user()->role == 'medico')
-                                        <span class="strong" style="text-transform: capitalize; padding-right: 15px;">
+                                        <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> Dr.
                                             {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
                                         <img class="logo-use" src="{{ asset('/imgs/' . Auth::user()->user_img) }}"
                                             class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
@@ -523,7 +523,7 @@
                                             src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}"
                                             class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
                                     @else
-                                        <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> {{ Auth::user()->last_name }},
+                                        <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> Dr. {{ Auth::user()->last_name }},
                                             {{ Auth::user()->name }}</span>
                                         <img class="logo-use" src="{{ asset('/img/avatar/avatar.png') }}"
                                             class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
@@ -572,7 +572,7 @@
                                         <span class="nav-link active" aria-current="page" href="#">Centro</span>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('Examen') }}" title="Configuración">
+                                        <a href="{{ route('Examen') }}" title="Exámenes">
                                             <img class="img-nav" src="{{ asset('img/V2/Reminders.png') }}"
                                                 alt="Exámenes">
                                         </a>
@@ -580,7 +580,7 @@
                                             href="#">Exámenes</span>
                                     </li>
                                       <li class="nav-item">
-                                        <a href="{{ route('Study') }}" title="Configuración">
+                                        <a href="{{ route('Study') }}" title="Estudios">
                                             <img class="img-nav" src="{{ asset('img/V2/Books.png') }}"
                                                 alt="Estudios">
                                         </a>

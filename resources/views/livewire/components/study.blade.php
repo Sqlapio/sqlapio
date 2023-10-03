@@ -36,7 +36,7 @@
                     success: function(response) {
                         Swal.fire({
                             icon: 'success',
-                            title: 'Operacion exitosamente!',
+                            title: 'Operación exitosa!',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'

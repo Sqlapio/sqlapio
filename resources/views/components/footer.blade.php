@@ -4,6 +4,8 @@
         color: black;
         width: 100%;
         margin-top: 20%;
+        position: fixed;
+        bottom: 0
     }
 
     .footer-margin {
@@ -13,7 +15,7 @@
 
 <div>
     <footer class="">
-        <section class="copyright border mt-3">
+        <section class="copyright border">
             <div class="container-fluid">
                 <div class="row text-center">
                     <div class="col-md-12 footer-margin">
