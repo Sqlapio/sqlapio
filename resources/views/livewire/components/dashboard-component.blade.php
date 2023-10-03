@@ -313,7 +313,7 @@
                     success: function(response) {
                         Swal.fire({
                             icon: 'success',
-                            title: 'Operacion exitosamente!',
+                            title: 'Operación exitosa!',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
@@ -567,7 +567,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px; margin-bottom: 20px">
                         <div class="accordion-item accordion-dashboard">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -766,7 +766,7 @@
                         </div>
                     </div>
                     {{-- Estudios atendidos --}}
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px; margin-bottom: 20px">
                         <div class="accordion-item accordion-dashboard">
                             <span class="accordion-header title" id="headingFour">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
