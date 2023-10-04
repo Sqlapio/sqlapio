@@ -53,6 +53,7 @@ return new class extends Migration
             $table->integer('medical_record_counter')->default(0)->nullable();
             $table->integer('ref_counter')->default(0)->nullable();
             $table->string('cod_update_email')->nullable();
+            $table->string('cod_update_pass')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

@@ -272,7 +272,8 @@
                             dataType: "json",
                             data: {
                                 "_token": "{{ csrf_token() }}",
-                                email: $('#act-email').val()
+                                email: $('#act-email').val(),
+                                action: "up"
                             },
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -302,7 +303,6 @@
                                         }
                                     },
                                     preConfirm: (login) => {
-                                        console.log(login);
                                         $.ajax({
                                             url: '{{ route('verify_otp') }}',
                                             type: 'POST',
@@ -311,6 +311,7 @@
                                                 "_token": "{{ csrf_token() }}",
                                                 cod_update_email: login,
                                                 email: $('#act-email').val(),
+                                                action: "up",
                                             },
                                             headers: {
                                                 'X-CSRF-TOKEN': $(
