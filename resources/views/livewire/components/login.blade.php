@@ -90,7 +90,7 @@
                 <x-load-spinner />
             </div>
             <div class="row form-sq" style="position: relative">
-                <div class="col-xs-12 col-sm-10 col-md-4 col-lg-3 col-xl-3 col-xxl-3 loginDric">
+                <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 loginDric">
                     <div class="">
                         <img class="img" src="{{ asset('img/iniciar-sesion.png') }}" class="">
                     </div>
