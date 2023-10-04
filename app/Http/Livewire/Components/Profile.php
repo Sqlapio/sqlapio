@@ -60,21 +60,37 @@ class Profile extends Component
     
     public function send_otp(Request $request)
     {
-        if($request->action == 'rp'){
-            $name = $request->email;
-            $email = $request->email;
-            $type = 'rp';
-            $code = random_int(111111, 999999);
-            DB::table('users')
-                        ->where('email', $request->email)
-                        ->update(['cod_update_pass' => $code]);
-
-            UtilsController::notification_register_mail($code, $email, $name, $type);
+        if($request->action == 'rp')
+        {
+            $user = User::where('email', $request->email)->first();
             
-            return true;
+            if($user == null){
+                return response()->json([
+                    'error' => 'true',
+                    'msj'  => 'El correo introducido no exite en el sistema.'
+                ], 400);
+
+            }else{
+
+                $name = $request->email;
+                $email = $request->email;
+                $type = 'rp';
+                $code = random_int(111111, 999999);
+                DB::table('users')
+                            ->where('email', $request->email)
+                            ->update(['cod_update_pass' => $code]);
+
+                UtilsController::notification_register_mail($code, $email, $name, $type);
+                
+                return true;
+
+            }
+            
         }
-        if($request->action == 'up'){
+        if($request->action == 'up')
+        {
             $user = Auth::user();
+
             $name = $user->name.' '.$user->last_name;
             $type = 'up';
             $code = random_int(111111, 999999);
@@ -91,7 +107,6 @@ class Profile extends Component
 
     public function verify_otp(Request $request)
     {
-
         if($request->action == 'up')
         {
 
@@ -138,10 +153,7 @@ class Profile extends Component
                 ], 400);
             }
 
-        }
-
-       
-        
+        }   
        
     }
    
