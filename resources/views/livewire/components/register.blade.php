@@ -28,7 +28,7 @@
     }
     .btn-bg img:last-of-type {
         position: absolute;
-        top: 240px;
+        top: 224px;
         bottom: 0;
         opacity: 0;
     }
@@ -206,7 +206,7 @@
             <div class="row justify-content-center mt">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                     <div class="text-center">
-                        <img class="img" src="{{ asset('img/registro.png') }}" class="">
+                        <img class="img" src="{{ asset('img/registro.png') }}" style="width: 200px;">
                     </div>
                 </div>
             </div>
@@ -216,10 +216,11 @@
                         <div id="btn-rol" class="row justify-content-center">
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 btn-bg">
                                 <img 
-                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                {{-- data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 data-bs-custom-class="custom-tooltip" data-html="true"
                                 title="Registrar como médico"                          
-                                onclick="handlerRol('medico')" src="{{ asset('/img/V2/Boton_medico.png') }}"
+                                onclick="handlerRol('medico')"  --}}
+                                src="{{ asset('/img/V2/Boton_medico.png') }}"
                                 height="auto" alt="avatar">
                                 <img 
                                 data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -230,10 +231,11 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 btn-bg">
                                 <img
-                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                {{-- data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 data-bs-custom-class="custom-tooltip" data-html="true"
                                 title="Registrar como laboratorio"                                                       
-                                onclick="handlerRol('laboratorio')" src="{{ asset('/img/V2/Boton_laboratorio.png') }}"
+                                onclick="handlerRol('laboratorio')"  --}}
+                                src="{{ asset('/img/V2/Boton_laboratorio.png') }}"
                                     width="350" height="auto" alt="avatar">
                                 <img
                                 data-bs-toggle="tooltip" data-bs-placement="bottom"
