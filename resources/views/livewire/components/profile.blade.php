@@ -272,7 +272,8 @@
                             dataType: "json",
                             data: {
                                 "_token": "{{ csrf_token() }}",
-                                email: $('#act-email').val()
+                                email: $('#act-email').val(),
+                                action: "up"
                             },
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

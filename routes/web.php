@@ -43,8 +43,8 @@ Route::get('/register-user', [Register::class, 'render'])->name('Register');
 Route::post('/register', [Register::class, 'store'])->name('Register-create');
 Route::get('/recovery-password', [RecoveryPassword::class, 'render'])->name('recovery_password');
 Route::post('/create-password-temporary', [RecoveryPassword::class, 'create_password_temporary'])->name('create_password_temporary');
-
-
+Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp_rp');
+Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp_rp');
 
 //prueba
 Route::get('generate-pdf', [PDFController::class, 'generatePDF']);

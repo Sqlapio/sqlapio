@@ -7,6 +7,7 @@ use App\Http\Controllers\UtilsController;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Laboratory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -117,6 +118,7 @@ class Profile extends Component
 
         if($request->action == 'rp')
         {
+
             $user = User::where('email', $request->email)->first();
 
             if($request->cod_update_pass == $user->cod_update_pass)
@@ -127,7 +129,7 @@ class Profile extends Component
 
                     return response()->json([
                         'success' => 'true',
-                        'msj'  => 'Su direccion de correo fue actualizada de forma exitosa.'
+                        'msj'  => 'Su contraseña fue actualizada de forma exitosa.'
                     ], 200);
             }else{
                 return response()->json([

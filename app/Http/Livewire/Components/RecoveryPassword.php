@@ -10,7 +10,8 @@ class RecoveryPassword extends Component
 
     public function create_password_temporary(Request $request)
     {
-       dd($request);
+    //    dd($request);
+       return true;
     }
 
 
