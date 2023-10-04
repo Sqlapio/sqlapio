@@ -1603,6 +1603,25 @@ div.ui-jqgrid {
     border-top-color: #42abe2 !important;
 }
 
+@media only screen and (max-width: 768px) {
+
+    .tooltip-inner {
+        opacity: 0 !important;
+    }
+    .tooltip.bs-tooltip-right .tooltip-arrow::before {
+        opacity: 0 !important;
+    }
+    .tooltip.bs-tooltip-left .tooltip-arrow::before {
+        opacity: 0 !important;
+    }
+    .tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+        opacity: 0 !important;
+    }
+    .tooltip.bs-tooltip-top .tooltip-arrow::before {
+        opacity: 0 !important;
+    }
+}
+
 input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(80%) sepia(28%) saturate(7125%) hue-rotate(171deg) brightness(92%) contrast(92%);
 }
