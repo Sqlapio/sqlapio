@@ -96,7 +96,13 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/profile', [Profile::class, 'render'])->name('Profile');
             Route::post('/update-profile', [Register::class, 'update'])->name('update-profile');
             Route::get('/suscription', [Suscription::class, 'render'])->name('Suscription');
+            Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp');
+            Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp');
         });
+
+        // ruoter para ver examenes y estudios
+        Route::get('/search_person/{value}/{row}', [UtilsController::class, 'search_person'])->name("search_person");
+        Route::get('/search_studio/{value}/{row}', [UtilsController::class, 'search_studio'])->name("search_studio");
 
         /**
          * @method EndPoint
@@ -191,9 +197,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/upload_result_study', [UtilsController::class, 'upload_result_study'])->name("upload_result_study");
         Route::get('/get/reference', [UtilsController::class, 'get_all_ref'])->name("get_ref");
 
-        // pdf referencia
-        Route::get('/search_person/{value}/{row}', [UtilsController::class, 'search_person'])->name("search_person");
-        Route::get('/search_studio/{value}/{row}', [UtilsController::class, 'search_studio'])->name("search_studio");
+
         
         // pdf referencia
         Route::get('/pdf/reference/{id}', [PDFController::class, 'PDF_ref'])->name("PDF_ref");
