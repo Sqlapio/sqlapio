@@ -28,7 +28,12 @@
     <script>
         let opt = '';
         $(document).ready(function() {
-            console.log(opt);
+
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            tooltipTriggerList.forEach(element => {
+                new bootstrap.Tooltip(element)
+            });
+
             $('#form-recovery').validate({
                 rules: {
                     email: {
