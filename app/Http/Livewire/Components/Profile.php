@@ -58,17 +58,33 @@ class Profile extends Component
     
     public function send_otp(Request $request)
     {
+        if($request->action == 'rp'){
+            $name = $request->email;
+            $email = $request->email;
+            $type = 'rp';
+            $code = random_int(111111, 999999);
+            DB::table('users')
+                        ->where('email', $request->email)
+                        ->update(['cod_update_pass' => $code]);
 
-       $user = Auth::user();
-       $name = $user->name.' '.$user->last_name;
-       $type = 'up';
-       $code = random_int(111111, 999999);
-       DB::table('users')
-				->where('email', $user->email)
-				->update(['cod_update_email' => $code]);
+            UtilsController::notification_register_mail($code, $email, $name, $type);
+            
+            return true;
+        }
+        if($request->action == 'up'){
+            $user = Auth::user();
+            $name = $user->name.' '.$user->last_name;
+            $type = 'up';
+            $code = random_int(111111, 999999);
+            DB::table('users')
+                        ->where('email', $user->email)
+                        ->update(['cod_update_email' => $code]);
 
-       UtilsController::notification_register_mail($code, $request->email, $name, $type);
-       return true;
+            UtilsController::notification_register_mail($code, $request->email, $name, $type);
+            
+            return true;
+        }
+       
     }
 
     public function verify_otp(Request $request)

@@ -71,6 +71,8 @@ class User extends Authenticatable {
 		'medical_record_counter',
 		'ref_counter',
 		'cod_update_email',
+		'cod_update_pass',
+
 	];
 
 	/**
