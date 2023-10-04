@@ -46,6 +46,14 @@ class Centers extends Component
                 ], 400);
             }
 
+            $center = Center::where('id', $request->center_id)->first();
+            if($center != null){
+                return response()->json([
+                    'error' => 'true',
+                    'mjs'  => 'El centro ya se encuentra asociado a su usuario. Favor intente con uno diferente'
+                ], 400);
+            }
+
             $doctor_centers = new DoctorCenter();
             $doctor_centers->address = $request->address;
             $doctor_centers->number_floor = $request->number_floor;
@@ -62,10 +70,6 @@ class Centers extends Component
             /**
              * Logica para el envio de la notificacion 
              * via correo electronico
-             * 
-             * @uses
-             * Esta logica solo sera aplicada si el usuario
-             * realizo la confirmacion del correo electronico
              */
 
              $email_verified_at = Auth::user()->email_verified_at;
@@ -73,24 +77,20 @@ class Centers extends Component
             
             if($email_verified_at != null)
             {
-                $centers = Center::where('id', $request->center_id)->get();
+                /**
+                 * Notificacion al paciente
+                 */
+                $type = 'c';
+                $user = Auth::user();
+                $mailData = [
+                    'dr_name' => $user->name . ' ' . $user->last_name,
+                    'dr_email' => $user->email,
+					'center_name' => $center->description,
+                    'center_address' => $doctor_centers->address,
+                    'center_phone' => $doctor_centers->phone_consulting_room,
+				];
                 
-                foreach ($centers as $item) 
-                {
-                    $name_center = $item-> description;
-                }
-
-                $doctor_email = Auth::user()->email;
-                
-                $title = 'Mail de SqlapioTechnology';
-                $body = [
-                    'cuerpo' => 'Usted acaba de asociar el centro: ',
-                    'name' => $name_center,
-                ];
-
-
-                // UtilsController::notification_email($doctor_email, $title, $body);
-
+                UtilsController::notification_mail($mailData, $type);
             }
             
             return true;

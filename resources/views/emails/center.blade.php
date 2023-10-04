@@ -22,25 +22,21 @@
             <p style="text-align: justify; margin-left: 20px;">
                 Espero se encuentre muy bien.
                 <br>
-                Gracias por ser parte de nuestra familia Sqlapio.com, usted acaba de registrar al paciente:
+                Gracias por ser parte de nuestra familia Sqlapio.com, usted acaba de asociar el siguiente centro:
             </p>
 
             <table style="width: 600px; margin-left: 20px;">
                 <tr>
-                    <td style='text-align: right; font-weight: bold'>Codigo del paciente:</td>
-                    <td>{{ $mailData['patient_code'] }}</td>
+                    <td style='text-align: left; font-weight: bold'>Centro:</td>
+                    <td style='text-align: left;'>{{ $mailData['center_name'] }}</td>
                   </tr>
                   <tr>
-                    <td style='text-align: right; font-weight: bold'>Sr.(a):</td>
-                    <td>{{ $mailData['patient_name'] }}</td>
+                    <td style='text-align: left; font-weight: bold'>Direccion:</td>
+                    <td style='text-align: left;'>{{ $mailData['center_address'] }}</td>
                   </tr>
                   <tr>
-                    <td style='text-align: right; font-weight: bold'>Correo Electronico:</td>
-                    <td>{{ $mailData['patient_email'] }}</td>
-                  </tr>
-                  <tr>
-                    <td style='text-align: right; font-weight: bold'>Telefono:</td>
-                    <td>{{ $mailData['patient_phone'] }}</td>
+                    <td style='text-align: left; font-weight: bold'>Telefono:</td>
+                    <td style='text-align: left;'>{{ $mailData['center_phone'] }}</td>
                   </tr>
               </table>
 
@@ -52,6 +48,13 @@
                 Atentamente,
                 <br>
                 <br>
+                <img style="
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 300px;
+                    height: auto;"
+                src="{{ asset('img/notification_email/firma_ceo.png') }}">
                 Ing. Jhonny Martinez<br>CEO
             </p>
             <p style="text-align: justify; font-style: italic; margin-left: 20px;">
