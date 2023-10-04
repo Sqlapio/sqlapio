@@ -124,7 +124,15 @@
                                 },
                                 error: function(error) {
                                     $('#spinner').hide();
-                                    console.log(error.responseJSON.errors);
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: error
+                                            .responseJSON
+                                            .msj,
+                                        allowOutsideClick: false,
+                                        confirmButtonColor: '#42ABE2',
+                                        confirmButtonText: 'Aceptar'
+                                    })
 
                                 }
                             });

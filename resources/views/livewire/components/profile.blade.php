@@ -303,7 +303,6 @@
                                         }
                                     },
                                     preConfirm: (login) => {
-                                        console.log(login);
                                         $.ajax({
                                             url: '{{ route('verify_otp') }}',
                                             type: 'POST',
@@ -312,6 +311,7 @@
                                                 "_token": "{{ csrf_token() }}",
                                                 cod_update_email: login,
                                                 email: $('#act-email').val(),
+                                                action: "up",
                                             },
                                             headers: {
                                                 'X-CSRF-TOKEN': $(
