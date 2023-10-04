@@ -53,52 +53,55 @@
                 event.preventDefault();
                 $("#form-recovery").validate();
                 if ($("#form-recovery").valid()) {
-                    $('#send').hide();
-                    $('#spinner').show();
-                    var data = $('#form-recovery').serialize();
-                    $.ajax({
-                        url: '{{ route('create_password_temporary') }}',
-                        type: 'POST',
-                        data: data,
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(response) {
-                            // let route = "{{ route('ClinicalHistoryDetail', ':id') }}";
-                            // route = route.replace(':id', response.id);
-                            $('#send').show();
-                            $('#spinner').hide();
-                            $("#form-recovery").trigger("reset");
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Centro registrado exitosamente!',
-                                allowOutsideClick: false,
-                                confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
-                            }).then((result) => {
-                                $('#modalCenter').modal('toggle');
-                                refreshTable();
-                            });
-                        },
-                        error: function(error) {
-                            error.responseJSON.errors.map((elm) => {
+                    Swal.fire({
+                        title: 'Esta seguro de realizar esta acción?',
+                        text: "Se enviara una contraseña temporal al correo ingresado!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#42ABE2',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Aceptar'
+
+                    }).then((result) => {
+
+                        var data = $('#form-recovery').serialize();
+
+                        $.ajax({
+                            url: '{{ route('create_password_temporary') }}',
+                            type: 'POST',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(response) {
                                 Swal.fire({
-                                    icon: 'error',
-                                    title: elm,
+                                    icon: 'success',
+                                    title: 'Contraseña enviada exitosamente!',
                                     allowOutsideClick: false,
                                     confirmButtonColor: '#42ABE2',
-                                    confirmButtonText: 'Click para salir'
+                                    confirmButtonText: 'Aceptar'
                                 }).then((result) => {
-                                    $('#send').show();
-                                    $('#spinner').hide();
+                                    let url = "/";
+                                    window.location.href = url;
                                 });
-                            });
-                        }
+                            },
+                            error: function(error) {
+                                error.responseJSON.errors.map((elm) => {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: elm,
+                                        allowOutsideClick: false,
+                                        confirmButtonColor: '#42ABE2',
+                                        confirmButtonText: 'Click para salir'
+                                    }).then((result) => {
+
+                                    });
+                                });
+                            }
+                        });
                     });
                 }
-            })
-
-
+            });
         });
     </script>
 @endpush
@@ -141,8 +144,7 @@
                                 <div class="d-flex justify-content-center">
                                     <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-3 mb-3"
                                         style="display: flex; justify-content: space-around;">
-                                        <input class="btn btnPrimary" value="Registrar" type="submit" />
-
+                                        <input class="btn btnPrimary" value="Recuperar" type="submit" />
                                         <a href="/"><button type="button"
                                                 class="btn btnSecond btn2">Cancelar</button></a>
                                     </div>
