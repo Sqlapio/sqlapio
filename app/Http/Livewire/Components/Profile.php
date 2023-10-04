@@ -9,6 +9,7 @@ use Livewire\Component;
 use App\Models\Laboratory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class Profile extends Component
 {
@@ -90,25 +91,55 @@ class Profile extends Component
     public function verify_otp(Request $request)
     {
 
-       $user = Auth::user();
+        if($request->action == 'up')
+        {
+
+            $user = Auth::user();
        
-       if($user->cod_update_email != $request->cod_update_email){
-        return response()->json([
-            'success' => 'false',
-            'msj'  => 'El codigo de autorizacion es incorrecto.'
-        ], 400);
+            if($user->cod_update_email != $request->cod_update_email){
+                return response()->json([
+                    'success' => 'false',
+                    'msj'  => 'El codigo de autorizacion es incorrecto.'
+                ], 400);
 
-       }else{
+            }else{
 
-            DB::table('users')
-                ->where('email', $user->email)
-                ->update(['email' => $request->email]);
+                    DB::table('users')
+                        ->where('email', $user->email)
+                        ->update(['email' => $request->email]);
 
-            return response()->json([
-                'success' => 'true',
-                'msj'  => 'Su direccion de correo fue actualizada de forma exitosa.'
-            ], 200);
-       }
+                    return response()->json([
+                        'success' => 'true',
+                        'msj'  => 'Su direccion de correo fue actualizada de forma exitosa.'
+                    ], 200);
+            }
+        }
+
+        if($request->action == 'rp')
+        {
+            $user = User::where('email', $request->email)->first();
+
+            if($request->cod_update_pass == $user->cod_update_pass)
+            {
+                DB::table('users')
+                        ->where('email', $request->email)
+                        ->update(['password' => Hash::make($request->password)]);
+
+                    return response()->json([
+                        'success' => 'true',
+                        'msj'  => 'Su direccion de correo fue actualizada de forma exitosa.'
+                    ], 200);
+            }else{
+                return response()->json([
+                    'error' => 'true',
+                    'msj'  => 'Su codigo de verificacion es incorrecto.'
+                ], 400);
+            }
+
+        }
+
+       
+        
        
     }
    
