@@ -495,6 +495,16 @@ class UtilsController extends Controller
 				$cuerpo2 = 'Por favor introdusca el siguiente codigo de validacion:';
 				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view, $cuerpo1, $cuerpo2));
 			}
+			if ($type == 'rp') {
+				$mailData = [
+					'title' => 'Recuperacion de contraseña',
+					'name' => 'Correo electronico introducido: '.$name,
+				];
+				$view = 'emails.demoMail';
+				$cuerpo1 = 'Usted a solicitado el cambio de su contraseña por motivos de olvido o actualizacion de datos.';
+				$cuerpo2 = 'Por favor introduzca el siguiente codigo de validacion:';
+				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view, $cuerpo1, $cuerpo2));
+			}
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.send_mail()', $message);
