@@ -37,6 +37,12 @@
         opacity: 1;
         /* position: relative; */
     }
+
+    .tooltip-inner {
+        white-space: pre-line;
+    }
+
+
     
 
     @media only screen and (max-width: 768px) {
@@ -321,7 +327,7 @@
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Contraseña</label>
                                                 <input placeholder="Contraseña" autocomplete="off" data-bs-toggle="tooltip"
-                                                        data-bs-placement="right" data-bs-custom-class="custom-tooltip" data-html="true"
+                                                        data-bs-placement="right" data-bs-custom-class="custom-tooltip tooltip-ps" data-html="true"
                                                         title="La contraseña debe contener:
                                                             Al menos una letra mayúscula.
                                                             Al menos una letra minúscula. 

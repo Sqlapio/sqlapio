@@ -522,9 +522,7 @@
                                     @endif
                                 </a>
 
-                                <button onclick="logout()" data-bs-toggle="tooltip"
-                                data-bs-placement="left"
-                                title="Cerrar sesión">
+                                <button onclick="logout()" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cerrar sesión" data-bs-custom-class="custom-tooltip">
                                     <i class="bi bi-power" style="color: white; font-size: 30px;"></i>
                                 </button>
                             </div>
@@ -561,7 +559,7 @@
                                     <li >
                                         <a class="nav-item" href="{{ route('Centers') }}" title="Clínica">
                                             <img class="img-nav" src="{{ asset('img/V2/Maps.png') }}" alt="Clínica">
-                                            <span class="nav-link active" aria-current="page" href="#">Centro</span>
+                                            <span class="nav-link active" aria-current="page" href="#">Centros</span>
                                         </a>
                                     </li>
                                     <li >
