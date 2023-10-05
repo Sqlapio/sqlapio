@@ -59,9 +59,8 @@
         </div>
     <img style="
             display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 600px;
+            margin-left: 0px;
+            width: 100px;
             height: auto;"
         src="{{ asset('img/notification_email/footer.png') }}">
     
