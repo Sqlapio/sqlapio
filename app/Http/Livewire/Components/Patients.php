@@ -6,6 +6,7 @@ use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\ApiServicesController;
 use App\Http\Controllers\EstadisticaController;
 use App\Http\Controllers\UtilsController;
+use App\Models\Center;
 use App\Models\DoctorCenter;
 use App\Models\Patient;
 use App\Models\Representative;
@@ -174,13 +175,35 @@ class Patients extends Component
                 UtilsController::update_patient_counter($user_id);
 
                 /**
-                 * Notificacion al paciente
+                 * Notificacion al Medico
+                 * por haber registrado un paciente nuevo
                  */
-                $type = 'patient';
                 $user = Auth::user();
+                if ($user->email_verified_at != null) {
+                    $type = 'register_patient';
+                    $mailData = [
+                        'dr_name' => $user->name . ' ' . $user->last_name,
+                        'dr_email' => $user->email,
+                        'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
+                        'patient_code' => $patient['patient_code'],
+                        'patient_email' => $re_patient->re_email,
+                        'patient_phone' => $re_patient->re_phone,
+                    ];
+
+                    UtilsController::notification_mail($mailData, $type);
+                }
+                
+
+                /**
+                 * Notificacion al paciente
+                 * por haber sido registrado
+                 * en nuestro sistema
+                 */
+                $type = 'patient_minor';
                 $mailData = [
                     'dr_name' => $user->name . ' ' . $user->last_name,
-                    'dr_email' => $user->email,
+                    'center' => Center::where('id', $request->center_id)->first()->description,
+                    'patient_email' => $user->email,
 					'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
                     'patient_code' => $patient['patient_code'],
                     'patient_email' => $re_patient->re_email,
@@ -298,13 +321,33 @@ class Patients extends Component
                 UtilsController::update_patient_counter($user_id);
 
                 /**
+                 * Notificacion al medico
+                 */
+                $user = Auth::user();
+                if ($user->email_verified_at != null) {
+                    $type = 'register_patient';
+                    $mailData = [
+                        'dr_name' => $user->name . ' ' . $user->last_name,
+                        'dr_email' => $user->email,
+                        'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
+                        'patient_code' => $patient['patient_code'],
+                        'patient_email' => $patient['email'],
+                        'patient_phone' => $patient['phone'],
+                    ];
+
+                    UtilsController::notification_mail($mailData, $type);
+                }
+                
+                /**
                  * Notificacion al paciente
+                 * por haber sido registrado
+                 * en nuestro sistema
                  */
                 $type = 'patient';
                 $user = Auth::user();
                 $mailData = [
                     'dr_name' => $user->name . ' ' . $user->last_name,
-                    'dr_email' => $user->email,
+                    'center' => Center::where('id', $request->center_id)->first()->description,
 					'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
                     'patient_code' => $patient['patient_code'],
                     'patient_email' => $patient['email'],
@@ -312,6 +355,7 @@ class Patients extends Component
 				];
                 
                 UtilsController::notification_mail($mailData, $type);
+
 
                 $caption = 'Bienvenido a sqlapio.com Sr(a). '.$request->name.' '.$request->last_name;
                 $body = 'Paciente: '.$request->name.' '.$request->last_name.' Codigo:'.$patient['patient_code'];

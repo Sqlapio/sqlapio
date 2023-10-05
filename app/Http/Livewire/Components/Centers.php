@@ -75,7 +75,6 @@ class Centers extends Component
 
                 $email_verified_at = Auth::user()->email_verified_at;
 
-
                 if ($email_verified_at != null) 
                 {
                     /**
@@ -95,9 +94,7 @@ class Centers extends Component
                 }
 
                 return true;
-            }
-
-            
+            }   
 
         } catch (\Throwable $th) {
             $message = $th->getMessage();
