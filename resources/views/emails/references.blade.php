@@ -9,7 +9,7 @@
     </style>
 </head>
 <body>
-    <h2 style="text-align: justify; margin-left: 20px;">Cita Medica agendada</h2>
+    <h2 style="text-align: justify; margin-left: 20px;">Referencia Medica</h2>
     <img style="
             display: block;
             margin-left: auto;
@@ -21,48 +21,65 @@
                     width: 600px;
                     padding: 10px;">
             <p style="text-align: justify; margin-left: 20px;">
-                <h2 style="text-align: justify; margin-left: 20px;">Sr(a). {{ $mailData['name'] }}</h2>
+                <h2 style="text-align: justify; margin-left: 20px;">Sr(a). {{ $mailData['patient_name'] }}</h2>
             </p>
             <p style="text-align: justify; margin-left: 20px;">
-                Nos complace informarle que usted acaba de agendar una cita exitosamente,bajo su supervision.
+                Nos complace informarle que usted acaba de realizarce una consulta medica con el <strong>Dr(a): {{ $mailData['dr_name'] }}</strong>, en el centro medico: <strong>{{ $mailData['center'] }}</strong>.
+            </p>
+            <p style="text-align: justify; margin-left: 20px;">
+                <strong>El Dr(a): {{ $mailData['dr_name'] }}</strong> <br> genero una referencia medica con las siguientes especificaciones:
             </p>
             <table style="width: 600px; margin-left: 20px;">
                 <tr>
                   <th style="text-align: center; padding: 10px">
-                    Dr.(a): {{ $mailData['dr_name'] }}
+                    Código de referencia: {{ $mailData['reference_code'] }}
                     <br>
-                    Fecha: {{ $mailData['fecha'] }}
+                    Fecha: {{ $mailData['reference_date'] }}
                     <br>
-                    Hora: {{ $mailData['horario'] }}
+                    Examenes solicitados:
                     <br>
-                    Lugar: {{ $mailData['centro'] }}
+                    
+                        @for($i=0; $i < count($mailData['patient_exam']); $i++)
+                            {{ str_replace('|',': ',$mailData['patient_exam'][$i]) }}<br>
+                        @endfor
+
+                    <br>
+                    Estudios o imagenes medicas solicitadas:
+                    <br>
+                    
+                        @for($i=0; $i < count($mailData['patient_study']); $i++)
+                            {{ str_replace('|',': ',$mailData['patient_study'][$i]) }}<br>
+                        @endfor
+                    
                   </th>
                 </tr>
               </table>
-            <p style="text-align: justify; margin-left: 20px;">
-                Le agradecemos de antemano su colaboracion en ser puntual y confirmar su cita medica. <br>
-                Para confirmar la cita, le invitamos a hacer click en el siguiente enlace: <br>
-                {{ $mailData['link'] }}
-            </p>
             <p style="text-align: justify; margin-left: 20px;">
                 Agradecemos enormemente su confianza en nuestros servicios. No dude en ponerse en contacto con nosotros si tiene alguna
                 pregunta o necesita asistencia adicional
             </p>
             <p style="text-align: justify; margin-left: 20px;">
-                <strong style="color: red";>Importante:</strong>
-                <br>
-                <strong>Al recibir este correo, dispone de 24 horas para confirmar tu cita. En caso de no realizar la confirmación, será necesario que solicite reagendara</strong>
-            </p>
-            <p style="text-align: justify; margin-left: 20px;">
                 ¡Gracias por su confianza!
             </p>
+            <p style="text-align: justify; margin-left: 20px;">
+                Para cualquier consulta o asistencia adicional que necesite, puede comunicarse las 24
+                horas del dia con nuestro equipo a traves de sqlapiotechnology@gmail.com
+            </p>
+            <p style="text-align: justify; margin-left: 20px;">
+                Atentamente,
+                <br>
+                <br>
+                <img style="
+                    display: block;
+                    margin-left: 0px;
+                    width: 100px;
+                    height: auto;"
+                src="{{ asset('img/notification_email/firma_ceo.png') }}">
+                Ing. Jhonny Martinez<br>CEO
+            </p>
             <p style="text-align: justify; font-style: italic; margin-left: 20px;">
-                La información contenida en este mensaje y sus anexos tiene carácter confidencial, 
-                y está dirigida únicamente al destinatario de la misma.
-                Si usted ha recibido este mensaje por error, 
-                por favor notifique inmediatamente al remitente por este mismo medio y borre el mensaje de su sistema. 
-                La información por correo electrónico, no garantiza que la misma sea segura o esté libre de error, 
-                por consiguiente, se recomienda
+                La información contenida en este mensaje y sus anexos tiene carácter confidencial, y está dirigida únicamente al destinatario de la misma.
+                Si usted ha recibido este mensaje por error, por favor notifique inmediatamente al remitente por este mismo medio y borre el mensaje de su sistema. La información por correo electrónico, no garantiza que la misma sea segura o esté libre de error, por consiguiente, se recomienda
                 su verificación.
             </p>
         </div>
@@ -72,7 +89,7 @@
             margin-right: auto;
             width: 600px;
             height: auto;"
-        src="{{ asset('img/notification_email/footer.jpg') }}">
+        src="{{ asset('img/notification_email/footer.png') }}">
     
 </body>
 </html>

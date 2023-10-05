@@ -98,6 +98,9 @@ class UtilsController extends Controller
 		if ($value == '18') {
 			return 'update email';
 		}
+		if ($value == '19') {
+			return 'confirmation email';
+		}
 	}
 
 	/**
@@ -518,9 +521,19 @@ class UtilsController extends Controller
 
 		try {
 
-			if ($type == 'patient') {
+			if ($type == 'register_patient') {
 				$view = 'emails.register_patient';
 				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'patient_minor') {
+				$view = 'emails.patient_minor';
+				Mail::to($mailData['patient_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'patient') {
+				$view = 'emails.patient';
+				Mail::to($mailData['patient_email'])->send(new NotificationEmail($mailData, $view));
 			}
 
 			if ($type == 'center') {
@@ -536,6 +549,16 @@ class UtilsController extends Controller
 			if ($type == 'verify_email') {
 				$view = 'emails.verify_email';
 				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'verify_email_laboratory') {
+				$view = 'emails.verify_email_laboratory';
+				Mail::to($mailData['laboratory_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'reference') {
+				$view = 'emails.references';
+				Mail::to($mailData['patient_email'])->send(new NotificationEmail($mailData, $view));
 			}
 
 			if ($type == 'mr') {
@@ -564,6 +587,10 @@ class UtilsController extends Controller
 			$verify = DB::table('users')
 				->where('verification_code', $verification_code)
 				->update(['email_verified_at' => $date]);
+
+			$action = '19';
+
+			ActivityLogController::store_log($action);
 
 			return redirect('/')->with('success', 'Has confirmado correctamente tu correo!');
 			//code...
