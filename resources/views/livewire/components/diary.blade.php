@@ -32,7 +32,34 @@
         width: 100%; */
         border: 2px solid #44525F;
         height: auto;
-        margin: 7px 23px;
+        margin: 7px 23px;  
+    }
+
+    .fc .fc-daygrid-day-number {
+        text-decoration: none !important;
+        color: #44525F !important;
+    }
+    
+    .fc .fc-col-header-cell-cushion {
+        color: #42abe2 ;
+        text-transform: capitalize;
+        text-decoration: none !important;
+    }
+
+    .fc-direction-ltr .fc-list-day-text, .fc-direction-rtl .fc-list-day-side-text {
+        text-decoration: none;
+        text-transform: capitalize;
+        color: #42abe2;
+    }
+
+    .fc-direction-ltr .fc-list-day-side-text, .fc-direction-rtl .fc-list-day-text {
+        text-decoration: none;
+        text-transform: capitalize;
+        color: #42abe2;
+    }
+
+    .fc .fc-toolbar-title {
+        text-transform: capitalize;
     }
 </style>
 @push('scripts')
@@ -59,9 +86,9 @@
     <div>
         <div class="container-fluid" style="padding: 3%">
             <div class="row mt-2">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
                     <div class="card accordion-diary">
-                        <div class="card-body">
+                        <div class="card-body" style="position: sticky">
                             <div class="d-flex">
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id='calendar'></div>
                             </div>
@@ -255,10 +282,14 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
                                             style="display: none" id="div-price">
                                             <div class="form-floating mb-3">
-                                                <input maxlength="8" type="text"
-                                                    class="form-control mask-input-price" id="price" name="price"
-                                                    placeholder="Precio">
-                                                <label for="searchPatients">Precio</label>
+                                                <div class="Icon-inside">
+                                                    <label for="searchPatients" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Precio</label>
+                                                    <input maxlength="8" type="text"
+                                                        class="form-control mask-input-price" id="price" name="price"
+                                                        id="searchPatients" value="">
+                                                    <i class="bi bi-cash st-icon"></i>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
