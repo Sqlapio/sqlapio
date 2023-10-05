@@ -34,8 +34,6 @@
                     Telefono: {{ $mailData['patient_phone'] }}
                     <br>
                     Medico Responsable Dr(a): {{ $mailData['dr_name'] }}
-                    <br>
-                    Centro de salud: {{ $mailData['center'] }}
                 </h3>
             </p>
 
