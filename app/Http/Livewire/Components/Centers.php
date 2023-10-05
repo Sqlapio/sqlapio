@@ -82,7 +82,7 @@ class Centers extends Component
                      * Notificacion al Doctor
                      */
                     $centers = Center::where('id', $request->center_id)->first();
-                    $type = 'c';
+                    $type = 'center';
                     $user = Auth::user();
                     $mailData = [
                         'dr_name' => $user->name . ' ' . $user->last_name,
