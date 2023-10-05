@@ -26,7 +26,7 @@
                 <br>
                 Es importate para nosotro que realize la confirmacion de su correo electronico a travez del siguiente link:
                 <br>
-                https://sqldevelop.sqlapio.net/verify/{{ $mailData['verify_code'] }}
+                http://sqldevelop.sqlapio.net/verify/{{ $mailData['verify_code'] }}
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
