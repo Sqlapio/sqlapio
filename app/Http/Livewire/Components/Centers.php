@@ -19,7 +19,7 @@ class Centers extends Component
     {
         try {
 
-            $user = Auth::user()->id;
+            $user = Auth::user();
 
             $rules = [
                 'center_id' => 'required',
@@ -46,7 +46,7 @@ class Centers extends Component
                 ], 400);
             }
 
-            $center = DoctorCenter::where('center_id', $request->center_id)->first();
+            $center = DoctorCenter::where('user_id', $user->id)->where('center_id', $request->center_id)->first();
 
             if ($center != null) 
             {
@@ -60,7 +60,7 @@ class Centers extends Component
                 $doctor_centers->number_floor = $request->number_floor;
                 $doctor_centers->number_consulting_room = $request->number_consulting_room;
                 $doctor_centers->phone_consulting_room = $request->phone_consulting_room;
-                $doctor_centers->user_id = $user;
+                $doctor_centers->user_id = $user->id;
                 $doctor_centers->center_id = $request->center_id;
                 $doctor_centers->save();
 
@@ -83,7 +83,6 @@ class Centers extends Component
                      */
                     $centers = Center::where('id', $request->center_id)->first();
                     $type = 'center';
-                    $user = Auth::user();
                     $mailData = [
                         'dr_name' => $user->name . ' ' . $user->last_name,
                         'dr_email' => $user->email,
