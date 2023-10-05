@@ -105,34 +105,32 @@ class Diary extends Component
              /**
              * Logica para el envio de la notificacion 
              * via correo electronico
-             * 
-             * @uses
-             * Esta logica solo sera aplicada si el usuario
-             * realizo la confirmacion del correo electronico
              */
-
-             $email_verified_at = Auth::user()->email_verified_at;
-            
-            if($email_verified_at != null)
-            {
-                $doctor_email = Auth::user()->email;
-                $patient = Patient::where('id', $request->patient_id)->first();
-                $patient_email = $patient->email;             
-
-                $maildata = [
-                    'dr_name'    => Auth::user()->name.' '.Auth::user()->last_name,
-                    'name'      => $patient->name.' '.$patient->last_name,
-                    'cod_patient' => $patient->patient_code,
-                    'fecha'     => $request->date_start,
-                    'horario'   => $date[0],
-                    'centro'    => $appointment->get_center->description,
-                    'link'    => 'https://sqlapiodev.starkmedios.com/confirmation/dairy/'.$appointment->code,
-                ];
-
-
-                UtilsController::notification_dairy_email($doctor_email, $patient_email, $maildata);
-
+            $user = Auth::user();
+            $patient = Patient::where('id', $request->patient_id)->first();
+            /**
+             * Paciente menor de edad
+             */
+            if($patient->is_minor == 'true'){
+                $patient_email = $patient->get_reprensetative->re_email;
+            }else{
+                $patient_email = $patient->email;
             }
+
+            $type = 'appointment';
+            $mailData = [
+                'dr_name'       => $user->name. ' ' .$user->last_name,
+                'dr_email'      => $user->email,
+                'patient_name'  => $patient->name. ' ' .$patient->last_name,
+                'cod_patient'   => $patient->patient_code,
+                'patient_email' => $patient_email,
+                'fecha'         => $request->date_start,
+                'horario'       => $date[0],
+                'centro'        => $appointment->get_center->description,
+                'link'          => 'https://sqlapiodev.starkmedios.com/confirmation/dairy/' . $appointment->code,
+            ];
+
+            UtilsController::notification_mail($mailData, $type);
 
             return true;
             
