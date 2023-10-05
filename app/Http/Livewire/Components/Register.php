@@ -77,9 +77,14 @@ class Register extends Component {
 			
 			$action = '3';
 			ActivityLogController::store_log($action);
-
-			$dr_name = $user['name'].' '.$user['last_name'];
-			UtilsController::notification_register_mail($user['verification_code'], $user['email'], $dr_name, $type = 'm');
+			
+			$type = 'verify_email';
+			$mailData = [
+				'dr_name' => $user['name'].' '.$user['last_name'],
+				'dr_email' => $user['email'],
+				'verify_code' => $user['verification_code'],
+			];
+			UtilsController::notification_mail($mailData, $type);
 
 			return redirect('/')->with('success', 'El registro inicial satisfactorio');
 
