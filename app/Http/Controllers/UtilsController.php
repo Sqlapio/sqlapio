@@ -469,11 +469,11 @@ class UtilsController extends Controller
 
 		try {
 
-			$mailData = [
-				'title' => 'Bienvenidos a SQLAPIO.COM',
-				'name' => $name,
-			];
+
 			if ($type == 'p') {
+				$mailData = [
+					'name' => $name,
+				];
 				$view = 'emails.register_patient';
 				$cuerpo1 = 'prueba1';
 				$cuerpo2 = 'prueba2';
@@ -505,6 +505,43 @@ class UtilsController extends Controller
 				$cuerpo2 = 'Por favor introduzca el siguiente codigo de validacion:';
 				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view, $cuerpo1, $cuerpo2));
 			}
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.send_mail()', $message);
+		}
+	}
+
+	static function notification_mail($mailData, $type)
+	{
+
+		try {
+
+			if ($type == 'patient') {
+				$view = 'emails.register_patient';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'center') {
+				$view = 'emails.center';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'appointment') {
+				$view = 'emails.cita';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'mr') {
+				$view = 'emails.center';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'h') {
+				$view = 'emails.center';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.send_mail()', $message);
