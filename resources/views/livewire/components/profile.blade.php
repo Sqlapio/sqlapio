@@ -153,6 +153,7 @@
                 $('#birthdate').val(user.birthdate).change();
                 $('#state').val(user.state).change();
                 $('#city').val(user.city).change();
+                $('#address').val(user.address).change();
 
             } else {
 
@@ -379,7 +380,7 @@
                                 <i class="bi bi-person"></i> Datos personales
                             </button>
                         </span>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                             data-bs-parent="#accordion">
                             <div class="accordion-body">
                                 <form id="form-profile" method="post" action="/">

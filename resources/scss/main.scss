@@ -178,6 +178,28 @@ button {
     border: 1px solid #42abe2 !important;
 }
 
+.btnSave {
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    background: #ED8060;
+    color: #fff;
+    /*font-size: 12px;*/
+    font-weight: 400;
+    letter-spacing: -.01em;
+    min-width: 23px;
+    padding-left: 11px;
+    padding-right: 11px;
+    border-radius: 12px;
+}
+
+.btnSave:hover, .btnSave:active {
+    color: #ED8060 !important;
+    background-color: var(--bs-btn-hover-bg);
+    border: 1px solid #ED8060 !important;
+}
+
 .btn-iPrimary {
     cursor: pointer;
     display: inline-block;
@@ -1490,9 +1512,7 @@ div.ui-jqgrid {
     color:#42abe2;
    }
    
-//    .custom-tooltip {
-//     --bs-tooltip-bg: var(--bs-primary);
-//   }
+   
 
 //   .tooltip-inner {
 //     white-space: pre-line;
@@ -1590,18 +1610,16 @@ div.ui-jqgrid {
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.589);
     opacity: 1 !important;
 }
-.tooltip.bs-tooltip-right .tooltip-arrow::before {
-    border-right-color: #42abe2 !important;
-}
-.tooltip.bs-tooltip-left .tooltip-arrow::before {
-    border-left-color: #42abe2 !important;
-}
 .tooltip.bs-tooltip-bottom .tooltip-arrow::before {
     border-bottom-color: #42abe2 !important;
 }
 .tooltip.bs-tooltip-top .tooltip-arrow::before {
     border-top-color: #42abe2 !important;
 }
+
+.custom-tooltip {
+    --bs-tooltip-bg: #42abe2;
+  }
 
 @media only screen and (max-width: 768px) {
 

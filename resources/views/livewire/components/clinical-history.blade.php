@@ -445,7 +445,7 @@
                                         <i class="bi bi-person"></i></i> Datos personales
                                     </button>
                                 </span>
-                                <div id="collapseD" class="accordion-collapse collapse show" aria-labelledby="headingD"
+                                <div id="collapseD" class="accordion-collapse collapse" aria-labelledby="headingD"
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <div class="row">
@@ -499,7 +499,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Peso</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Peso (Kg)</label>
                                                         <input autocomplete="off"
                                                             class="mask-input form-control @error('weight') is-invalid @enderror"
                                                             id="weight" name="weight" type="text"
@@ -512,7 +512,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Altura</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Altura (Cm)</label>
                                                         <input autocomplete="off"
                                                             class="mask-input-height form-control @error('height') is-invalid @enderror"
                                                             id="height" name="height" type="text"
@@ -550,7 +550,7 @@
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                 <label for="phone" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Presión
-                                                    arterial</label>
+                                                    arterial (mmHg)</label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" name="strain" id="strain"
                                                         class="form-control  mask-input-two input-one" placeholder="Alta"
@@ -565,7 +565,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tempetura</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tempetura (°C)</label>
                                                         <input autocomplete="off"
                                                             class="mask-only-temperature form-control @error('temperature') is-invalid @enderror"
                                                             id="temperature" name="temperature" type="text"
@@ -578,7 +578,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Respiraciones</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Respiraciones (por minuto)</label>
                                                         <input autocomplete="off"
                                                             class="mask-only-breaths form-control @error('breaths') is-invalid @enderror"
                                                             id="breaths" name="breaths" type="text" maxlength="3"
@@ -592,7 +592,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Pulso</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Pulso (Latidos por minuto)</label>
                                                         <input autocomplete="off"
                                                             class="mask-only-number form-control @error('pulse') is-invalid @enderror"
                                                             id="pulse" name="pulse" type="text" maxlength="3"
@@ -605,7 +605,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Saturación</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Saturación (Nivel de saturación de oxígeno)</label>
                                                         <input autocomplete="off"
                                                             class="mask-input-por form-control @error('saturation') is-invalid @enderror"
                                                             id="saturation" name="saturation" type="text"
