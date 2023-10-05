@@ -46,54 +46,59 @@ class Centers extends Component
                 ], 400);
             }
 
-            $center = Center::where('id', $request->center_id)->first();
-            if($center != null){
+            $center = DoctorCenter::where('center_id', $request->center_id)->first();
+
+            if ($center != null) 
+            {
                 return response()->json([
                     'error' => 'true',
                     'mjs'  => 'El centro ya se encuentra asociado a su usuario. Favor intente con uno diferente'
                 ], 400);
-            }
+            } else {
+                $doctor_centers = new DoctorCenter();
+                $doctor_centers->address = $request->address;
+                $doctor_centers->number_floor = $request->number_floor;
+                $doctor_centers->number_consulting_room = $request->number_consulting_room;
+                $doctor_centers->phone_consulting_room = $request->phone_consulting_room;
+                $doctor_centers->user_id = $user;
+                $doctor_centers->center_id = $request->center_id;
+                $doctor_centers->save();
 
-            $doctor_centers = new DoctorCenter();
-            $doctor_centers->address = $request->address;
-            $doctor_centers->number_floor = $request->number_floor;
-            $doctor_centers->number_consulting_room = $request->number_consulting_room;
-            $doctor_centers->phone_consulting_room = $request->phone_consulting_room;
-            $doctor_centers->user_id = $user;
-            $doctor_centers->center_id = $request->center_id;
-            $doctor_centers->save();
+                $action = '10';
 
-            $action = '10';
+                ActivityLogController::store_log($action);
 
-            ActivityLogController::store_log($action);
-
-            /**
-             * Logica para el envio de la notificacion 
-             * via correo electronico
-             */
-
-             $email_verified_at = Auth::user()->email_verified_at;
-
-            
-            if($email_verified_at != null)
-            {
                 /**
-                 * Notificacion al paciente
+                 * Logica para el envio de la notificacion 
+                 * via correo electronico
                  */
-                $type = 'c';
-                $user = Auth::user();
-                $mailData = [
-                    'dr_name' => $user->name . ' ' . $user->last_name,
-                    'dr_email' => $user->email,
-					'center_name' => $center->description,
-                    'center_address' => $doctor_centers->address,
-                    'center_phone' => $doctor_centers->phone_consulting_room,
-				];
-                
-                UtilsController::notification_mail($mailData, $type);
+
+                $email_verified_at = Auth::user()->email_verified_at;
+
+
+                if ($email_verified_at != null) 
+                {
+                    /**
+                     * Notificacion al Doctor
+                     */
+                    $centers = Center::where('id', $request->center_id)->first();
+                    $type = 'c';
+                    $user = Auth::user();
+                    $mailData = [
+                        'dr_name' => $user->name . ' ' . $user->last_name,
+                        'dr_email' => $user->email,
+                        'center_name' => $centers->description,
+                        'center_address' => $doctor_centers->address,
+                        'center_phone' => $doctor_centers->phone_consulting_room,
+                    ];
+
+                    UtilsController::notification_mail($mailData, $type);
+                }
+
+                return true;
             }
+
             
-            return true;
 
         } catch (\Throwable $th) {
             $message = $th->getMessage();

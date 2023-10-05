@@ -516,18 +516,18 @@ class UtilsController extends Controller
 
 		try {
 
-			if ($type == 'p') {
+			if ($type == 'patient') {
 				$view = 'emails.register_patient';
 				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
 			}
 
-			if ($type == 'c') {
+			if ($type == 'center') {
 				$view = 'emails.center';
 				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
 			}
 
-			if ($type == 'd') {
-				$view = 'emails.center';
+			if ($type == 'appointment') {
+				$view = 'emails.cita';
 				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
 			}
 

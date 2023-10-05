@@ -25,20 +25,15 @@
                 Gracias por ser parte de nuestra familia Sqlapio.com, usted acaba de asociar el siguiente centro:
             </p>
 
-            <table style="width: 600px; margin-left: 20px;">
-                <tr>
-                    <td style='text-align: left; font-weight: bold'>Centro:</td>
-                    <td style='text-align: left;'>{{ $mailData['center_name'] }}</td>
-                  </tr>
-                  <tr>
-                    <td style='text-align: left; font-weight: bold'>Direccion:</td>
-                    <td style='text-align: left;'>{{ $mailData['center_address'] }}</td>
-                  </tr>
-                  <tr>
-                    <td style='text-align: left; font-weight: bold'>Telefono:</td>
-                    <td style='text-align: left;'>{{ $mailData['center_phone'] }}</td>
-                  </tr>
-              </table>
+            <p style="text-align: justify; margin-left: 20px;">
+                <h3 style="text-align: justify; margin-left: 20px;">
+                    Centro: {{ $mailData['center_name'] }}
+                    <br>
+                    Direccion: {{ $mailData['center_address'] }}
+                    <br>
+                    Telefono: {{ $mailData['center_phone'] }}
+                </h3>
+            </p>
 
             <p style="text-align: justify; margin-left: 20px;">
                 Para cualquier consulta o asistencia adicional que necesite, puede comunicarse las 24
@@ -50,8 +45,7 @@
                 <br>
                 <img style="
                     display: block;
-                    margin-left: auto;
-                    margin-right: auto;
+                    margin-left: 20px;
                     width: 300px;
                     height: auto;"
                 src="{{ asset('img/notification_email/firma_ceo.png') }}">

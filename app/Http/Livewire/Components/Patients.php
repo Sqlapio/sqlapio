@@ -176,7 +176,7 @@ class Patients extends Component
                 /**
                  * Notificacion al paciente
                  */
-                $type = 'p';
+                $type = 'patient';
                 $user = Auth::user();
                 $mailData = [
                     'dr_name' => $user->name . ' ' . $user->last_name,
@@ -203,34 +203,6 @@ class Patients extends Component
                 ApiServicesController::sms_welcome($phone, $caption, $image);
 
                 ApiServicesController::sms_info($phone, $body);
-
-
-                // $doctor_email = Auth::user()->email;
-
-                // if ($doctor_email != null) {
-                //     $patient = Patient::where('id', $patient_id)->first();
-                //     $name = $patient->name;
-                //     $last_name = $patient->last_name;
-
-                //     $title = 'Mail de SqlapioTechnology';
-                //     $body = [
-                //         'cuerpo' => 'Usted acaba de registrar al paciente: ' . $patient->name . ' ' . $patient->last_name,
-                //         'name'  => $re_patient->re_name . ' ' . $re_patient->re_last_name,
-                //         'ci'    => $re_patient->re_ci,
-                //         'email' => $re_patient->re_email,
-                //         'phone' => $re_patient->re_phone
-                //     ];
-
-                //     /**
-                //      * Notificacion al paciente
-                //      */
-                //     $patient_name = $patient['name'].' '.$patient['last_name'];
-                //     $patient_email = $request->re_email;
-
-                //     UtilsController::notification_register_mail($patient['verification_code'], $patient_email, $patient_name, $type = 'p');
-
-                // }
-
 
             } else {
                 $rules =[
@@ -328,7 +300,7 @@ class Patients extends Component
                 /**
                  * Notificacion al paciente
                  */
-                $type = 'p';
+                $type = 'patient';
                 $user = Auth::user();
                 $mailData = [
                     'dr_name' => $user->name . ' ' . $user->last_name,
