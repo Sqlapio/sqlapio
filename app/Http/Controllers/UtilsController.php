@@ -469,7 +469,9 @@ class UtilsController extends Controller
 
 		try {
 
-
+			$mailData = [
+				'name' => $name,
+			];
 			if ($type == 'p') {
 				$mailData = [
 					'name' => $name,
