@@ -533,6 +533,11 @@ class UtilsController extends Controller
 				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
 			}
 
+			if ($type == 'verify_email') {
+				$view = 'emails.verify_email';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
 			if ($type == 'mr') {
 				$view = 'emails.center';
 				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
