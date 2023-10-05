@@ -602,7 +602,7 @@
                                     <i class="bi bi-person-add"></i> Nuevo paciente
                                 </button>
                             </span>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
 
@@ -639,11 +639,10 @@
                                         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <label for="search_patient"
-                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Buscar
-                                                    paciente</label>
+                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Ingrese número de indentificación</label>
                                                 <input disabled maxlength="10" type="text"
                                                     class="form-control mask-only-number" id="search_patient"
-                                                    name="search_patient" placeholder="Buscar paciente" value="">
+                                                    name="search_patient" placeholder="" value="">
                                             </div>
                                         </div>
 
@@ -906,7 +905,7 @@
                                                     style="display: flex; justify-content: flex-end; align-items: flex-end;">
                                                     <div id="bnt-dairy" style="display: none;margin-right: 10px"></div>
                                                     <div id="bnt-cons" style="display: none;margin-right: 10px"></div>
-                                                    <input class="btn btnPrimary send " value="Guardar" type="submit" />
+                                                    <input class="btn btnSave send " value="Guardar" type="submit" />
                                                     <button style="margin-left: 20px; padding: 8px;" type="button"
                                                         onclick="refreshForm();" class="btn btnSecond"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -927,7 +926,7 @@
                 </div>
                 {{-- Lista de pacientes con consultas  --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px; margin-bottom: 20px;">
                         <div class="accordion-item accordion-patients">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"

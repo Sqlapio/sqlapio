@@ -332,7 +332,7 @@
                                     <i class="bi bi-person"></i></i> Datos del paciente
                                 </button>
                             </span>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row">

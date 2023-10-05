@@ -267,7 +267,7 @@
                                     <i class="bi bi-building"></i> Centros
                                 </button>
                             </span>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
                                         <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8" style="font-size:10px;">

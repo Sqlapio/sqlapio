@@ -44,7 +44,7 @@
                             $("#content-result").show();
                             $('#content-data').empty();
                             response.map((elem) => {
-                                let img = '{{ URL::asset('/img/V2/icon_pdf_v1.png') }}';
+                                let img = '{{ URL::asset('/img/V2/icon_img.png') }}';
                                 let target = `{{ URL::asset('/imgs/${elem.file}') }}`;
 
                                 let url = "{{ route('MedicalRecord', ':id') }}";
@@ -128,7 +128,7 @@
                                 <i class="bi bi-person"></i></i> Estudios cargados
                             </button>
                         </span>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <x-search-person />

@@ -475,7 +475,7 @@
                                     <i class="bi bi-calendar2-check"></i> Citas del día
                                 </button>
                             </span>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row"id="table-patients">
@@ -640,7 +640,7 @@
                                     <i class="bi bi-graph-up"></i> Estadisticas
                                 </button>
                             </span>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
