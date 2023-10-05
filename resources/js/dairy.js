@@ -312,6 +312,10 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
       center: 'title',
       right: 'dayGridMonth,timeGridDay,listWeek'
     },
+    titleFormat: {
+      month: 'long',
+      year: 'numeric',
+    },
     events: data,
     eventClick: function (info) {
       setValue(info.event._def.title, info);
