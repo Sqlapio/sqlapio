@@ -75,15 +75,23 @@ class Register extends Component {
 	
 				]);
 			
+			/**
+			 * Registro de accion en el log
+			 * del sistema
+			 */
 			$action = '3';
 			ActivityLogController::store_log($action);
 			
+			/**
+			 * Envio de notificacion por correo
+			 */
 			$type = 'verify_email';
 			$mailData = [
 				'dr_name' => $user['name'].' '.$user['last_name'],
 				'dr_email' => $user['email'],
 				'verify_code' => $user['verification_code'],
 			];
+
 			UtilsController::notification_mail($mailData, $type);
 
 			return redirect('/')->with('success', 'El registro inicial satisfactorio');
@@ -139,8 +147,7 @@ class Register extends Component {
 				 * para almacenar en la tabla laboratorios
 				 */
 				$laboratory = User::where('email', $request->email)->first();
-
-				$user = Laboratory::create([
+				Laboratory::create([
 
 					'user_id'			=> $laboratory->id,
 					'business_name' 	=> $request->business_name,
@@ -148,11 +155,23 @@ class Register extends Component {
 	
 				]);
 			
+			/**
+			 * Registro de accion en el log
+			 * del sistema
+			 */
 			$action = '16';
-
 			ActivityLogController::store_log($action);
 
-			// UtilsController::send_mail($user['verification_code'], $user['email']);
+			/**
+			 * Envio de notificacion por correo
+			 */
+			$type = 'verify_email_laboratory';
+			$mailData = [
+				'laboratory_name' => $user['business_name'],
+				'laboratory_email' => $user['email'],
+				'verify_code' => $user['verification_code'],
+			];
+			UtilsController::notification_mail($mailData, $type);
 
 			return redirect('/')->with('success', 'El registro inicial fue satisfactorio');
 
