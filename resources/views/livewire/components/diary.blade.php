@@ -297,7 +297,7 @@
                                     <div class="row text-center mt-3">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
                                             style="margin-top: -4px" id="send">
-                                            <input class="btn btnPrimary" id="registrer-pac" value="Registrar" disabled
+                                            <input class="btn btnSave" id="registrer-pac" value="Registrar" disabled
                                                 type="submit" />
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-con"></div>

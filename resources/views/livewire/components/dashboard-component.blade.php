@@ -467,9 +467,9 @@
             <div class="accordion" id="accordion">
                 <div class="container-fluid" style="padding: 3%">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                        <div class="accordion-item accordion-dashboard">
+                        <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-calendar2-check"></i> Citas del día
@@ -568,9 +568,9 @@
                     </div>
 
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px; margin-bottom: 20px">
-                        <div class="accordion-item accordion-dashboard">
+                        <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-graph-up"></i> Estadísticas
@@ -632,9 +632,9 @@
             <div class="accordion" id="accordion">
                 <div class="container-fluid" style="padding: 3%">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                        <div class="accordion-item accordion-dashboard">
+                        <div class="accordion-item ">
                             <span class="accordion-header title" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-graph-up"></i> Estadisticas
@@ -674,9 +674,9 @@
                     </div>
                     {{-- Pacientes con referencias --}}
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                        <div class="accordion-item accordion-dashboard">
+                        <div class="accordion-item ">
                             <span class="accordion-header title" id="headingTwo">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-file-text"></i> Pacientes con referencias

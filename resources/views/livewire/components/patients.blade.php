@@ -588,15 +588,12 @@
 @section('content')
     <div>
         <div class="container-fluid body" style="padding: 3%">
-            <div id="spinner" style="display: none">
-                <x-load-spinner show="true" />
-            </div>
             <div class="accordion" id="accordion">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                        <div class="accordion-item accordion-patients">
+                        <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-person-add"></i> Nuevo paciente
@@ -927,9 +924,9 @@
                 {{-- Lista de pacientes con consultas  --}}
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px; margin-bottom: 20px;">
-                        <div class="accordion-item accordion-patients">
+                        <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-card-list"></i> Lista de pacientes con consultas
@@ -1051,9 +1048,9 @@
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
             id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
-            <div id="spinner" style="display: none">
-                <x-load-spinner show="true" />
-            </div>
+                <div id="spinner" style="display: none">
+                    <x-load-spinner show="true" />
+                </div>
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -1166,7 +1163,7 @@
                                     <div class="row text-center mt-3 mb-4">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
                                             style="margin-top: -4px" id="send">
-                                            <input class="btn btnPrimary" id="registrer-pac" value="Registrar"
+                                            <input class="btn btnSave" id="registrer-pac" value="Registrar"
                                                 type="submit" />
 
                                         </div>
