@@ -101,6 +101,12 @@ class UtilsController extends Controller
 		if ($value == '19') {
 			return 'confirmation email';
 		}
+		if ($value == '20') {
+			return 'update email address';
+		}
+		if ($value == '21') {
+			return 'password reset';
+		}
 	}
 
 	/**
@@ -561,13 +567,13 @@ class UtilsController extends Controller
 				Mail::to($mailData['patient_email'])->send(new NotificationEmail($mailData, $view));
 			}
 
-			if ($type == 'mr') {
-				$view = 'emails.center';
+			if ($type == 'reset_pass') {
+				$view = 'emails.reset_pass';
 				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
 			}
 
-			if ($type == 'h') {
-				$view = 'emails.center';
+			if ($type == 'update_email') {
+				$view = 'emails.update_email';
 				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
 			}
 
