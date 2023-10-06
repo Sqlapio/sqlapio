@@ -11,7 +11,7 @@
     }    */
 
     .spinnner {
-        width: 60px;
+        width: 10%;
         height: auto;
         position: fixed;
         text-align: center;
@@ -32,6 +32,6 @@
 </style>
 <div class="container shadow-div">
     <div class="row justify-content-center form-sq">
-        <img class="spinnner" src="{{ asset('img/carga sqlapio.gif') }}" alt="">
+        <img class="spinnner" src="{{ asset('img/SQ.gif') }}" alt="">
     </div>
 </div>

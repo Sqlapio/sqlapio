@@ -439,7 +439,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingD">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseD" aria-expanded="true" aria-controls="collapseD"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-person"></i></i> Datos personales
@@ -483,7 +483,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-person"></i></i> Datos principales de la historia
@@ -700,7 +700,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Antecedentes Personales y Familiares
@@ -764,7 +764,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseThree" aria-expanded="true"
                                         aria-controls="collapseThree" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Antecedentes personales patológicos
@@ -828,7 +828,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingFour">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Historia no patológica
@@ -893,7 +893,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingFive">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Historial ginecologicos si aplica
@@ -1013,7 +1013,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingSix">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Alergias Conocidas
@@ -1122,7 +1122,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingSeven">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseSeven" aria-expanded="true"
                                         aria-controls="collapseSeven" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Historia quirúrgica
@@ -1229,7 +1229,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingEight">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseEight" aria-expanded="true"
                                         aria-controls="collapseEight" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Medicación
@@ -1450,7 +1450,7 @@
                         <div class="row mt-3 justify-content-md-end">
                             <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="send"
                                 style="display: flex; justify-content: flex-end;">
-                                <input class="btn btnPrimary" value="Guardar" type="submit" />
+                                <input class="btn btnSave" value="Guardar" type="submit" />
                             </div>
                         </div>
                     </div>
