@@ -313,7 +313,7 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
       right: 'dayGridMonth,timeGridDay,listWeek'
     },
     titleFormat: {
-      month: 'long',
+      month: 'short',
       year: 'numeric',
     },
     events: data,
