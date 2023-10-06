@@ -125,9 +125,9 @@ class Diary extends Component
                 'cod_patient'   => $patient->patient_code,
                 'patient_email' => $patient_email,
                 'fecha'         => $request->date_start,
-                'horario'       => $date[0],
+                'horario'       => $date[0].' '.$request->timeIni,
                 'centro'        => $appointment->get_center->description,
-                'link'          => 'https://sqlapiodev.starkmedios.com/confirmation/dairy/' . $appointment->code,
+                'link'          => 'http://sqldevelop.sqlapio.net/confirmation/dairy/' . $appointment->code,
             ];
 
             UtilsController::notification_mail($mailData, $type);
