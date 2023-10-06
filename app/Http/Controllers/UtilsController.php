@@ -543,7 +543,7 @@ class UtilsController extends Controller
 
 			if ($type == 'appointment') {
 				$view = 'emails.cita';
-				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+				Mail::to($mailData['patient_email'])->send(new NotificationEmail($mailData, $view));
 			}
 
 			if ($type == 'verify_email') {
