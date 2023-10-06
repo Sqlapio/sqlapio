@@ -326,7 +326,7 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-person"></i></i> Datos del paciente
@@ -369,7 +369,7 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-file-earmark-text"></i> Consulta médica
@@ -439,12 +439,13 @@
                                             </div>
 
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
-                                                <div class="form-floating mb-3">
+                                                <div class="form-group">
+                                                    <label for="search_patient"
+                                                        class="form-label"style="font-size: 13px; margin-bottom: 5px;">Buscar Examen</label>
                                                     <input onkeyup="search(event,'exam')" type="text"
                                                         class="form-control" id="floatingInput" placeholder="">
-                                                    <label for="floatingInput">Buscar Examen</label>
                                                 </div>
-                                                <div class="overflow-auto p-3 bg-light"
+                                                <div class="overflow-auto p-3 bg-light mt-3"
                                                     style="max-width: 100%; max-height: 200px;">
                                                     @foreach ($exam as $key => $item)
                                                         <ul id="exam">
@@ -465,12 +466,18 @@
                                             </div>
 
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
-                                                <div class="form-floating mb-3">
+                                                {{-- <div class="form-floating mb-3">
                                                     <input onkeyup="search(event,'studie')" type="text"
                                                         class="form-control" placeholder="" id="floatingInputt">
                                                     <label for="floatingInputt">Buscar Estudio</label>
+                                                </div> --}}
+                                                <div class="form-group">
+                                                    <label for="search_patient"
+                                                        class="form-label"style="font-size: 13px; margin-bottom: 5px;">Buscar Estudio</label>
+                                                        <input onkeyup="search(event,'studie')" type="text"
+                                                        class="form-control" placeholder="" id="floatingInputt">
                                                 </div>
-                                                <div class="overflow-auto p-3 bg-light"
+                                                <div class="overflow-auto p-3 bg-light mt-3"
                                                     style="max-width: 100%; max-height: 200px;">
                                                     @foreach ($study as $key => $item)
                                                         <ul id="studie">
@@ -501,7 +508,7 @@
                                         <div class="row mt-3 justify-content-md-end">
                                             <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                 id="send" style="display: flex; justify-content: flex-end;">
-                                                <input class="btn btnPrimary send" value="Guardar Consulta" type="submit"/>
+                                                <input class="btn btnSave send" value="Guardar Consulta" type="submit"/>
                                                 <button style="margin-left: 20px; padding: 8px;" type="button"
                                                     onclick="resetForm();" class="btn btnSecond" data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
                                                     title="Limpiar Formulario">
@@ -517,10 +524,10 @@
                 </div>
                 {{-- tabla --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3" style="margin-top: 20px;">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-file-earmark-text"></i> Ultimas Consultas
