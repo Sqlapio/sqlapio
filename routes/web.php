@@ -22,6 +22,7 @@ use App\Http\Livewire\Components\Laboratory;
 use App\Http\Livewire\Components\Statistics;
 use App\Http\Livewire\Components\Register;
 use App\Http\Livewire\Components\Study;
+use App\Models\Exam;
 use App\Models\Patient;
 use App\Models\Reference;
 use App\Models\User as ModelsUser;
@@ -94,6 +95,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail');
             Route::post('/clinical-history-create', [MedicalHistory::class, 'store'])->name('ClinicalHistoryCreate');
             Route::get('/search-patient/{value}', [Patients::class, 'search'])->name('search-patient');
+            Route::get('/medicard_record_study/{id}', [Study::class, 'render'])->name("mr_study");
+            Route::get('/medicard_record_exam/{id}', [Examen::class, 'render'])->name("mr_exam");
         });
 
         Route::group(array('prefix' => 'setting'), function () {
