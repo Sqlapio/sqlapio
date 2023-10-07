@@ -6,25 +6,24 @@
     }
 
     .img-medical {
-        border-radius: 20px; 
+        border-radius: 20px;
         border: 3px solid #47525e;
     }
-
 </style>
 @push('scripts')
     <script>
         let valExams = '';
         let valStudy = '';
         let id = @json($id);
-        let exams_array =  [];
-        let studies_array =  [];
+        let exams_array = [];
+        let studies_array = [];
         $(document).ready(() => {
 
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             tooltipTriggerList.forEach(element => {
                 new bootstrap.Tooltip(element)
             });
-            
+
             let doctor_centers = @json($doctor_centers);
             let validate_histroy = @json($validate_histroy);
 
@@ -117,11 +116,15 @@
 
                         let exams = $('#exams').val().split(',');
 
-                        exams.map((element) => exams_array.push({code_exams: element.slice(0, 14)}));
+                        exams.map((element) => exams_array.push({
+                            code_exams: element.slice(0, 14)
+                        }));
 
                         let studies = $('#studies').val().split(',');
 
-                        studies.map((element) => studies_array.push({code_studies: element.slice(0, 14)}));
+                        studies.map((element) => studies_array.push({
+                            code_studies: element.slice(0, 14)
+                        }));
 
                         //preparar la data para el envio
                         let formData = $('#form-consulta').serializeArray();
@@ -173,7 +176,7 @@
                                                     .replace(
                                                         ':id', elem
                                                         .id);
-                                                elem.btn =`
+                                                elem.btn = `
                                                     <a target="_blank"
                                                     href=${route}>
                                                     <button type="button"
@@ -181,7 +184,7 @@
                                                     class="bi bi-file-earmark-pdf"></i></button>
                                                     </a>                               `;
                                                 data.push(elem);
-                                            });                                                    
+                                            });
 
                                             new DataTable(
                                                 '#table-medical-record', {
@@ -191,12 +194,11 @@
                                                     // reponsive: true,
                                                     bDestroy: true,
                                                     data: data,
-                                                    columns: [
-                                                        {
+                                                    columns: [{
                                                             data: 'data.record_code',
                                                             title: 'Código de la consulta',
                                                             className: "text-center td-pad",
-                                                        },                                                        
+                                                        },
                                                         {
                                                             data: 'date',
                                                             title: 'Fecha de la consulta',
@@ -350,10 +352,11 @@
                                             <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
                                             <br>
                                             <strong>{{ $Patient->is_minor === 'true' ? 'Cédula de identidad del representante:' : 'Cédula de identidad:' }}</strong>
-                                            <span >
+                                            <span>
                                                 {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                             <br>
-                                            <strong>Genero:</strong> <span class="text-capitalize"> {{ $Patient->genere }}</span>
+                                            <strong>Genero:</strong> <span class="text-capitalize">
+                                                {{ $Patient->genere }}</span>
                                             <br>
                                             <strong>Nº Historial:</strong><span> {{ $Patient->get_history->cod_history }}
                                             </span>
@@ -441,7 +444,8 @@
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                 <div class="form-group">
                                                     <label for="search_patient"
-                                                        class="form-label"style="font-size: 13px; margin-bottom: 5px;">Buscar Examen</label>
+                                                        class="form-label"style="font-size: 13px; margin-bottom: 5px;">Buscar
+                                                        Examen</label>
                                                     <input onkeyup="search(event,'exam')" type="text"
                                                         class="form-control" id="floatingInput" placeholder="">
                                                 </div>
@@ -452,7 +456,8 @@
                                                             <li> <label><input type="checkbox" onclick="setExams(event)"
                                                                         name="chk{{ $key }}"
                                                                         id="{{ $key }}"
-                                                                        value="{{ $item->cod_exam . '|' . $item->description }}"> {{ $item->description }}</label><br>
+                                                                        value="{{ $item->cod_exam . '|' . $item->description }}">
+                                                                    {{ $item->description }}</label><br>
                                                             </li>
                                                         </ul>
                                                     @endforeach
@@ -473,8 +478,9 @@
                                                 </div> --}}
                                                 <div class="form-group">
                                                     <label for="search_patient"
-                                                        class="form-label"style="font-size: 13px; margin-bottom: 5px;">Buscar Estudio</label>
-                                                        <input onkeyup="search(event,'studie')" type="text"
+                                                        class="form-label"style="font-size: 13px; margin-bottom: 5px;">Buscar
+                                                        Estudio</label>
+                                                    <input onkeyup="search(event,'studie')" type="text"
                                                         class="form-control" placeholder="" id="floatingInputt">
                                                 </div>
                                                 <div class="overflow-auto p-3 bg-light mt-3"
@@ -485,7 +491,8 @@
                                                                         name="chk{{ $key }}"
                                                                         id="chectt{{ $key }}"
                                                                         onclick="setStudy(event)"
-                                                                        value="{{ $item->cod_study . '|' . $item->description }}"> {{ $item->description }}</label><br>
+                                                                        value="{{ $item->cod_study . '|' . $item->description }}">
+                                                                    {{ $item->description }}</label><br>
                                                             </li>
                                                         </ul>
                                                     @endforeach
@@ -508,9 +515,11 @@
                                         <div class="row mt-3 justify-content-md-end">
                                             <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                 id="send" style="display: flex; justify-content: flex-end;">
-                                                <input class="btn btnSave send" value="Guardar Consulta" type="submit"/>
+                                                <input class="btn btnSave send" value="Guardar Consulta"
+                                                    type="submit" />
                                                 <button style="margin-left: 20px; padding: 8px;" type="button"
-                                                    onclick="resetForm();" class="btn btnSecond" data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
+                                                    onclick="resetForm();" class="btn btnSecond" data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom" data-html="true"
                                                     title="Limpiar Formulario">
                                                     <i class="bi bi-eraser"></i>
                                                 </button>
@@ -539,7 +548,8 @@
                                     <div class="row" id="table-one">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-resposive"
                                             style="margin-top: 20px; width: 100%;">
-                                            <table class="table table-striped table-bordered" id="table-medical-record" style="width: 100%;">
+                                            <table class="table table-striped table-bordered" id="table-medical-record"
+                                                style="width: 100%;">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">Código de la consulta</th>
@@ -554,23 +564,63 @@
                                                 <tbody>
                                                     @foreach ($medical_record_user as $item)
                                                         <tr onclick="showDataEdit({{ json_encode($item) }});">
-                                                            <td class="text-center td-pad">{{ $item['data']['record_code'] }}</td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item['data']['record_code'] }}</td>
                                                             <td class="text-center td-pad">{{ $item['date'] }}</td>
-                                                            <td class="text-center td-pad text-capitalize">{{ $item['name_patient'] }}
+                                                            <td class="text-center td-pad text-capitalize">
+                                                                {{ $item['name_patient'] }}
                                                             </td>
                                                             <td class="text-center td-pad">{{ $item['genere'] }}
                                                             </td>
                                                             <td class="text-center td-pad">{{ $item['center'] }}</td>
-                                                            <td class="text-center td-pad">{{ $item['full_name_doc'] }}</td>
-                                                            <td class="text-center td-pad"><a target="_blank"
-                                                                    href="{{ route('PDF_medical_record', $item['id']) }}">
-                                                                    <button type="button"
-                                                                        class="btn refresf btn-iSecond rounded-circle"><i
-                                                                            class="bi bi-file-earmark-pdf" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                                            data-bs-custom-class="custom-tooltip" data-html="true"
-                                                                            title="ver PDF"></i>
-                                                                    </button>
-                                                                </a></td>
+                                                            <td class="text-center td-pad">{{ $item['full_name_doc'] }}
+                                                            </td>
+                                                            <td class="text-center td-pad">
+                                                                <div class="d-flex">
+                                                                    <div
+                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <a href="{{ route('mr_exam', $item['id']) }}">
+                                                                            <button type="button"
+                                                                                class="btn refresf btn-iSecond rounded-circle"><i
+                                                                                    class="bi bi-file-earmark-pdf"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="bottom"
+                                                                                    data-bs-custom-class="custom-tooltip"
+                                                                                    data-html="true" title="ver PDF"></i>
+                                                                            </button>
+                                                                        </a>
+                                                                    </div>
+
+                                                                    <div
+                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <a href="{{ route('mr_study', $item['id']) }}">
+                                                                            <button type="button"
+                                                                                class="btn refresf btn-iSecond rounded-circle"><i
+                                                                                    class="bi bi-file-earmark-pdf"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="bottom"
+                                                                                    data-bs-custom-class="custom-tooltip"
+                                                                                    data-html="true" title="ver PDF"></i>
+                                                                            </button>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div
+                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+
+                                                                        <a target="_blank"
+                                                                            href="{{ route('PDF_medical_record', $item['id']) }}">
+                                                                            <button type="button"
+                                                                                class="btn refresf btn-iSecond rounded-circle"><i
+                                                                                    class="bi bi-file-earmark-pdf"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="bottom"
+                                                                                    data-bs-custom-class="custom-tooltip"
+                                                                                    data-html="true" title="ver PDF"></i>
+                                                                            </button>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

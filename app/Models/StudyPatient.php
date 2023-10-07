@@ -47,13 +47,17 @@ class StudyPatient extends Model
         return $this->belongsTo(Patient::class, 'id', 'center_id');
     }
 
-    public function get_patients(): BelongsTo
+    public function  get_patient(): BelongsTo
     {
-        return $this->belongsTo(Patient::class, 'id', 'patient_id');
+        return $this->belongsTo(Patient::class, 'patient_id', 'id');
     }
-
     public function  get_laboratory(): HasOne
     {
         return $this->hasOne(Laboratory::class, 'id', 'laboratory_id');
+    }
+
+    public function  get_reference(): HasOne
+    {
+        return $this->hasOne(Reference::class, 'id', 'ref_id');
     }
 }
