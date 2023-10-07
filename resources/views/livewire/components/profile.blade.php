@@ -153,6 +153,7 @@
                 $('#birthdate').val(user.birthdate).change();
                 $('#state').val(user.state).change();
                 $('#city').val(user.city).change();
+                $('#address').val(user.address).change();
 
             } else {
 
@@ -272,7 +273,8 @@
                             dataType: "json",
                             data: {
                                 "_token": "{{ csrf_token() }}",
-                                email: $('#act-email').val()
+                                email: $('#act-email').val(),
+                                action: "up"
                             },
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -302,7 +304,6 @@
                                         }
                                     },
                                     preConfirm: (login) => {
-                                        console.log(login);
                                         $.ajax({
                                             url: '{{ route('verify_otp') }}',
                                             type: 'POST',
@@ -311,6 +312,7 @@
                                                 "_token": "{{ csrf_token() }}",
                                                 cod_update_email: login,
                                                 email: $('#act-email').val(),
+                                                action: "up",
                                             },
                                             headers: {
                                                 'X-CSRF-TOKEN': $(
@@ -370,9 +372,9 @@
             {{-- datos del paciente --}}
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                    <div class="accordion-item accordion-profile">
+                    <div class="accordion-item">
                         <span class="accordion-header title" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                 style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                 <i class="bi bi-person"></i> Datos personales
@@ -688,7 +690,7 @@
                                         <div class="row mt-3 justify-content-md-end">
                                             <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                 style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                                <input class="btn btnPrimary send " value="Guardar" type="submit"
+                                                <input class="btn btnSave send " value="Guardar" type="submit"
                                                     style="margin-left: 20px" />
                                                 <button type="button" class="btn btnSecond btn6"
                                                     style="margin-left: 20px">Cancelar</button>
@@ -704,9 +706,9 @@
             {{-- actualizacion de correo Electronico --}}
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                    <div class="accordion-item accordion-profile">
+                    <div class="accordion-item ">
                         <span class="accordion-header title" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
                                 style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                 <i class="bi bi-envelope-at st-icon"></i> Actualización de Correo Electrónico
@@ -730,7 +732,7 @@
                                 <div class="row mt-3 justify-content-md-end">
                                     <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                         style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                        <input class="btn btnPrimary send " onclick="handlerEmial()" value="Guardar"
+                                        <input class="btn btnSave send " onclick="handlerEmial()" value="Guardar"
                                             type="submit" style="margin-left: 20px" />
                                     </div>
                                 </div>
@@ -742,10 +744,10 @@
             </div>
             {{-- firma Digital --}}
             <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                    <div class="accordion-item accordion-profile">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3" style="margin-top: 20px; ">
+                    <div class="accordion-item">
                         <span class="accordion-header title" id="headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
                                 style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                 <i class="bi bi-file-earmark-text"></i> Firma Digital
@@ -758,7 +760,7 @@
                                 <div class="row mt-3 justify-content-md-end">
                                     <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                         style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                        <input class="btn btnPrimary send" value="Guardar" type="submit"
+                                        <input class="btn btnSave send" value="Guardar" type="submit"
                                             style="margin-left: 20px" />
                                     </div>
                                 </div>

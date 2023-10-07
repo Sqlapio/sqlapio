@@ -138,7 +138,7 @@
             if ($(`#${e.target.id}`).is(':checked')) {
                 Swal.fire({
                     icon: 'warning',
-                    title: '¿Esta seguro que desea habilitar este centro?',
+                    title: '¿Está seguro que desea habilitar este centro?',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
                     confirmButtonText: 'Aceptar'
@@ -148,7 +148,7 @@
             } else {
                 Swal.fire({
                     icon: 'warning',
-                    title: '¿Esta seguro que desea desahabilitar este centro?',
+                    title: '¿Está seguro que desea deshabilitar este centro?',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
                     confirmButtonText: 'Aceptar'
@@ -225,7 +225,7 @@
                             {
                                 data: 'btn',
                                 title: 'Estatus',
-                                className: "text-center",
+                                className: "text-center table-check",
                             }
                         ],
                     });
@@ -261,13 +261,13 @@
                 </div> --}}
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                     <div class="accordion" id="accordion">
-                        <div class="accordion-item accordion-centers">
+                        <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                <button class="accordion-button bg-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-building"></i> Centros
                                 </button>
                             </span>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
                                         <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8" style="font-size:10px;">
@@ -296,7 +296,7 @@
                                                         <td class="text-center">{{ $item['number_consulting_room'] }}</td>
                                                         <td class="text-center">{{ $item['phone_consulting_room'] }}</td>
                                                         <td class="text-center table-check">
-                                                            <div class="form-check form-switch">
+                                                            <div class="form-check form-switch ">
                                                                 <input onchange="handlerCenter(event);" style="width: 5em"
                                                                     class="form-check-input" type="checkbox" role="switch"
                                                                     id="flexSwitchCheckChecked" value="{{ $item['id'] }}"
@@ -381,7 +381,7 @@
                                 </div>
                                 <div class="row text-center">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
-                                        <input class="btn btnPrimary send mt-3" value="Registrar" type="submit" />
+                                        <input class="btn btnSave send mt-3" value="Registrar" type="submit" />
                                     </div>
                                 </div>
                             </form>

@@ -19,29 +19,13 @@
             height: auto;" src="{{ asset('img/notification_email/cita_header.jpg') }}">
     <div style="margin: auto; width: 600px; padding: 10px;">
         <p style="text-align: justify; margin-left: 20px;">
-            <h2 style="text-align: justify; margin-left: 20px;">Cita Medica agendada</h2>
-            <h2 style="text-align: justify; margin-left: 20px;">Sr(a). {{ $mailData['patient_name'] }}</h2>
+            <h2 style="text-align: justify; margin-left: 20px;">Actualizacion de correo electrónico</h2>
+            <h2 style="text-align: justify; margin-left: 20px;">Sr(a). {{ $mailData['dr_name'] }}</h2>
         </p>
         <p style="text-align: justify; margin-left: 20px;">
-            Le informamos que tiene una cita médica agendada en Sqlapio.com
-            <br>
-            <strong>Detalles de la cita:</strong>
-        </p>
-        <p style="text-align: justify; margin-left: 20px;">
-            <h3 style="text-align: justify; margin-left: 20px;">
-                Dr(a): {{ $mailData['dr_name'] }}
-                <br>
-                Fecha: {{ $mailData['fecha'] }}
-                <br>
-                Hora: {{ $mailData['horario'] }}
-                <br>
-                Centro: {{ $mailData['centro'] }}
-            </h3>
-        </p>
-        <p style="text-align: justify; margin-left: 20px;">
-            Para confirmar su cita puede hacerlo a traves del siguiente link:
-            <br>
-            {{ $mailData['link'] }}
+            Usted a solicitado la actualizacion de si derección de correo electrónico<br>
+            Por favor introdusca el siguiente codigo de validacion:<br>
+            <strong><h1 style="text-align: justify; margin-left: 20px;">{{ $mailData['code'] }}</h1></strong> 
         </p>
         <p style="text-align: justify; margin-left: 20px;">
             Para cualquier consulta o asistencia adicional que necesite, puede comunicarse las 24

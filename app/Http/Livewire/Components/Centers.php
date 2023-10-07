@@ -19,7 +19,7 @@ class Centers extends Component
     {
         try {
 
-            $user = Auth::user()->id;
+            $user = Auth::user();
 
             $rules = [
                 'center_id' => 'required',
@@ -46,54 +46,55 @@ class Centers extends Component
                 ], 400);
             }
 
-            $doctor_centers = new DoctorCenter();
-            $doctor_centers->address = $request->address;
-            $doctor_centers->number_floor = $request->number_floor;
-            $doctor_centers->number_consulting_room = $request->number_consulting_room;
-            $doctor_centers->phone_consulting_room = $request->phone_consulting_room;
-            $doctor_centers->user_id = $user;
-            $doctor_centers->center_id = $request->center_id;
-            $doctor_centers->save();
+            $center = DoctorCenter::where('user_id', $user->id)->where('center_id', $request->center_id)->first();
 
-            $action = '10';
-
-            ActivityLogController::store_log($action);
-
-            /**
-             * Logica para el envio de la notificacion 
-             * via correo electronico
-             * 
-             * @uses
-             * Esta logica solo sera aplicada si el usuario
-             * realizo la confirmacion del correo electronico
-             */
-
-             $email_verified_at = Auth::user()->email_verified_at;
-
-            
-            if($email_verified_at != null)
+            if ($center != null) 
             {
-                $centers = Center::where('id', $request->center_id)->get();
-                
-                foreach ($centers as $item) 
+                return response()->json([
+                    'error' => 'true',
+                    'mjs'  => 'El centro ya se encuentra asociado a su usuario. Favor intente con uno diferente'
+                ], 400);
+            } else {
+                $doctor_centers = new DoctorCenter();
+                $doctor_centers->address = $request->address;
+                $doctor_centers->number_floor = $request->number_floor;
+                $doctor_centers->number_consulting_room = $request->number_consulting_room;
+                $doctor_centers->phone_consulting_room = $request->phone_consulting_room;
+                $doctor_centers->user_id = $user->id;
+                $doctor_centers->center_id = $request->center_id;
+                $doctor_centers->save();
+
+                $action = '10';
+
+                ActivityLogController::store_log($action);
+
+                /**
+                 * Logica para el envio de la notificacion 
+                 * via correo electronico
+                 */
+
+                $email_verified_at = Auth::user()->email_verified_at;
+
+                if ($email_verified_at != null) 
                 {
-                    $name_center = $item-> description;
+                    /**
+                     * Notificacion al Doctor
+                     */
+                    $centers = Center::where('id', $request->center_id)->first();
+                    $type = 'center';
+                    $mailData = [
+                        'dr_name' => $user->name . ' ' . $user->last_name,
+                        'dr_email' => $user->email,
+                        'center_name' => $centers->description,
+                        'center_address' => $doctor_centers->address,
+                        'center_phone' => $doctor_centers->phone_consulting_room,
+                    ];
+
+                    UtilsController::notification_mail($mailData, $type);
                 }
 
-                $doctor_email = Auth::user()->email;
-                
-                $title = 'Mail de SqlapioTechnology';
-                $body = [
-                    'cuerpo' => 'Usted acaba de asociar el centro: ',
-                    'name' => $name_center,
-                ];
-
-
-                // UtilsController::notification_email($doctor_email, $title, $body);
-
-            }
-            
-            return true;
+                return true;
+            }   
 
         } catch (\Throwable $th) {
             $message = $th->getMessage();

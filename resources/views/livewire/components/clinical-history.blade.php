@@ -439,13 +439,13 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingD">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseD" aria-expanded="true" aria-controls="collapseD"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-person"></i></i> Datos personales
                                     </button>
                                 </span>
-                                <div id="collapseD" class="accordion-collapse collapse show" aria-labelledby="headingD"
+                                <div id="collapseD" class="accordion-collapse collapse" aria-labelledby="headingD"
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <div class="row">
@@ -483,7 +483,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-person"></i></i> Datos principales de la historia
@@ -499,7 +499,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Peso</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Peso (Kg)</label>
                                                         <input autocomplete="off"
                                                             class="mask-input form-control @error('weight') is-invalid @enderror"
                                                             id="weight" name="weight" type="text"
@@ -512,7 +512,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Altura</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Altura (Cm)</label>
                                                         <input autocomplete="off"
                                                             class="mask-input-height form-control @error('height') is-invalid @enderror"
                                                             id="height" name="height" type="text"
@@ -550,7 +550,7 @@
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                 <label for="phone" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Presión
-                                                    arterial</label>
+                                                    arterial (mmHg)</label>
                                                 <div class="input-group mb-3">
                                                     <input type="text" name="strain" id="strain"
                                                         class="form-control  mask-input-two input-one" placeholder="Alta"
@@ -565,7 +565,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tempetura</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tempetura (°C)</label>
                                                         <input autocomplete="off"
                                                             class="mask-only-temperature form-control @error('temperature') is-invalid @enderror"
                                                             id="temperature" name="temperature" type="text"
@@ -578,7 +578,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Respiraciones</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Respiraciones (por minuto)</label>
                                                         <input autocomplete="off"
                                                             class="mask-only-breaths form-control @error('breaths') is-invalid @enderror"
                                                             id="breaths" name="breaths" type="text" maxlength="3"
@@ -592,7 +592,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Pulso</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Pulso (Latidos por minuto)</label>
                                                         <input autocomplete="off"
                                                             class="mask-only-number form-control @error('pulse') is-invalid @enderror"
                                                             id="pulse" name="pulse" type="text" maxlength="3"
@@ -605,7 +605,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Saturación</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Saturación (Nivel de saturación de oxígeno)</label>
                                                         <input autocomplete="off"
                                                             class="mask-input-por form-control @error('saturation') is-invalid @enderror"
                                                             id="saturation" name="saturation" type="text"
@@ -700,7 +700,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Antecedentes Personales y Familiares
@@ -764,7 +764,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseThree" aria-expanded="true"
                                         aria-controls="collapseThree" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Antecedentes personales patológicos
@@ -828,7 +828,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingFour">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Historia no patológica
@@ -893,7 +893,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingFive">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Historial ginecologicos si aplica
@@ -1013,7 +1013,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingSix">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Alergias Conocidas
@@ -1122,7 +1122,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingSeven">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseSeven" aria-expanded="true"
                                         aria-controls="collapseSeven" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Historia quirúrgica
@@ -1229,7 +1229,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingEight">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseEight" aria-expanded="true"
                                         aria-controls="collapseEight" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Medicación
@@ -1450,7 +1450,7 @@
                         <div class="row mt-3 justify-content-md-end">
                             <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="send"
                                 style="display: flex; justify-content: flex-end;">
-                                <input class="btn btnPrimary" value="Guardar" type="submit" />
+                                <input class="btn btnSave" value="Guardar" type="submit" />
                             </div>
                         </div>
                     </div>

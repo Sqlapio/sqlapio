@@ -16,28 +16,29 @@
                     width: 600px;
                     padding: 10px;">
             <p style="text-align: justify; margin-left: 20px;">
-                <h2 style="text-align: justify; margin-left: 20px;">Paciente: {{ $mailData['patient_name'] }}</h2>
+                <h2 style="text-align: justify; margin-left: 20px;">Dr(a). {{ $mailData['dr_name'] }}</h2>
             </p>
     
             <p style="text-align: justify; margin-left: 20px;">
                 Espero se encuentre muy bien.
                 <br>
-                Gracias por ser parte de nuestra familia Sqlapio.com, usted acaba de ser registrado en nuestro sistema, con la siguiente información:
+                Gracias por ser parte de nuestra familia Sqlapio.com, usted acaba de asociar el siguiente centro:
             </p>
 
-            <p style="text-align: justify; margin-left: 20px;">
-                <h3 style="text-align: justify; margin-left: 20px;">
-                    Codigo del paciente: {{ $mailData['patient_code'] }}
-                    <br>
-                    Correo Electronico: {{ $mailData['patient_email'] }}
-                    <br>
-                    Telefono: {{ $mailData['patient_phone'] }}
-                    <br>
-                    Medico Responsable Dr(a): {{ $mailData['dr_name'] }}
-                    <br>
-                    Centro de salud: {{ $mailData['center'] }}
-                </h3>
-            </p>
+            <table style="width: 600px;">
+                <tr>
+                    <td style='text-align: right; font-weight: bold'>Centro:</td>
+                    <td>{{ $mailData['center_name'] }}</td>
+                  </tr>
+                  <tr>
+                    <td style='text-align: right; font-weight: bold'>Direccion:</td>
+                    <td>{{ $mailData['center_address'] }}</td>
+                  </tr>
+                  <tr>
+                    <td style='text-align: right; font-weight: bold'>Telefono:</td>
+                    <td>{{ $mailData['center_phone'] }}</td>
+                  </tr>
+              </table>
 
             <p style="text-align: justify; margin-left: 20px;">
                 Para cualquier consulta o asistencia adicional que necesite, puede comunicarse las 24
@@ -47,12 +48,6 @@
                 Atentamente,
                 <br>
                 <br>
-                <img style="
-                    display: block;
-                    margin-left: 0px;
-                    width: 100px;
-                    height: auto;"
-                src="{{ asset('img/notification_email/firma_ceo.png') }}">
                 Ing. Jhonny Martinez<br>CEO
             </p>
             <p style="text-align: justify; font-style: italic; margin-left: 20px;">

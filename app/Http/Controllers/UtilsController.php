@@ -98,6 +98,15 @@ class UtilsController extends Controller
 		if ($value == '18') {
 			return 'update email';
 		}
+		if ($value == '19') {
+			return 'confirmation email';
+		}
+		if ($value == '20') {
+			return 'update email address';
+		}
+		if ($value == '21') {
+			return 'password reset';
+		}
 	}
 
 	/**
@@ -470,10 +479,12 @@ class UtilsController extends Controller
 		try {
 
 			$mailData = [
-				'title' => 'Bienvenidos a SQLAPIO.COM',
 				'name' => $name,
 			];
 			if ($type == 'p') {
+				$mailData = [
+					'name' => $name,
+				];
 				$view = 'emails.register_patient';
 				$cuerpo1 = 'prueba1';
 				$cuerpo2 = 'prueba2';
@@ -495,6 +506,78 @@ class UtilsController extends Controller
 				$cuerpo2 = 'Por favor introdusca el siguiente codigo de validacion:';
 				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view, $cuerpo1, $cuerpo2));
 			}
+			if ($type == 'rp') {
+				$mailData = [
+					'title' => 'Recuperacion de contraseña',
+					'name' => 'Correo electronico introducido: '.$name,
+				];
+				$view = 'emails.demoMail';
+				$cuerpo1 = 'Usted a solicitado el cambio de su contraseña por motivos de olvido o actualizacion de datos.';
+				$cuerpo2 = 'Por favor introduzca el siguiente codigo de validacion:';
+				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view, $cuerpo1, $cuerpo2));
+			}
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.send_mail()', $message);
+		}
+	}
+
+	static function notification_mail($mailData, $type)
+	{
+
+		try {
+
+			if ($type == 'register_patient') {
+				$view = 'emails.register_patient';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'patient_minor') {
+				$view = 'emails.patient_minor';
+				Mail::to($mailData['patient_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'patient') {
+				$view = 'emails.patient';
+				Mail::to($mailData['patient_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'center') {
+				$view = 'emails.center';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'appointment') {
+				$view = 'emails.cita';
+				Mail::to($mailData['patient_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'verify_email') {
+				$view = 'emails.verify_email';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'verify_email_laboratory') {
+				$view = 'emails.verify_email_laboratory';
+				Mail::to($mailData['laboratory_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'reference') {
+				$view = 'emails.references';
+				Mail::to($mailData['patient_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'reset_pass') {
+				$view = 'emails.reset_pass';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'update_email') {
+				$view = 'emails.update_email';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.send_mail()', $message);
@@ -510,6 +593,10 @@ class UtilsController extends Controller
 			$verify = DB::table('users')
 				->where('verification_code', $verification_code)
 				->update(['email_verified_at' => $date]);
+
+			$action = '19';
+
+			ActivityLogController::store_log($action);
 
 			return redirect('/')->with('success', 'Has confirmado correctamente tu correo!');
 			//code...

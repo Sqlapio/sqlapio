@@ -54,6 +54,7 @@
         align-items: center;
         justify-content: center;
         width: 85px;
+        text-decoration: none;
     }
 
     .nav-item a {
@@ -120,13 +121,12 @@
     }
 
     .div-bar {
-        background-color: #47525E;
+        background-color: #47525E !important;
     }
 
     .navbar-text {
         color: #fff;
     }
-
 
     @media only screen and (max-width: 300px) {
 
@@ -171,15 +171,14 @@
         }
 
         .nav-column {
-            padding-top: 60px;
+            padding-top: 5px;
             width: 100%;
             padding-left: 0px;
         }
 
         .isotipo-nav {
-            width: 30%;
+            width: 63px;
             height: auto;
-            margin-top: -15px;
         }
 
         .img-nav {
@@ -212,11 +211,6 @@
             left: 0;
             margin-top: var(--bs-dropdown-spacer);
         }
-
-        .nav-text {
-            justify-content: initial;
-        }
-
 
         .div-left {
             display: none !important;
@@ -263,7 +257,7 @@
     @media (min-width: 391px) and (max-width: 400px) {
 
         .isotipo-nav {
-            width: 30%;
+            width: 63px;
             margin-top: -9px;
         }
 
@@ -289,7 +283,7 @@
         }
 
         .nav-column {
-            padding-top: 60px;
+            padding-top: 5px;
             width: 100%;
             padding-left: 0px;
         }
@@ -322,13 +316,12 @@
         }
 
         .isotipo-nav {
-            width: 30%;
+            width: 63px;
             height: auto;
-            border-radius: 15px;
         }
 
         .nav-column {
-            padding-top: 60px;
+            padding-top: 5px;
             width: 100%;
             padding-left: 0px;
         }
@@ -373,8 +366,8 @@
         }
 
         .logo-navbar {
-            width: 13%;
-            margin-top: 15px;
+            width: 22%;
+            /* margin-top: 15px; */
         }
     }
 
@@ -389,9 +382,6 @@
             height: auto;
         }
 
-        .nav-text {
-            justify-content: flex-end;
-        }
 
         .dropdown-menu[data-bs-popper] {
             top: 82%;
@@ -400,7 +390,7 @@
         }
 
         .nav-column {
-            padding-top: 40px;
+            padding-top: 5px;
             width: 100%;
             padding-left: 0px;
         }
@@ -430,6 +420,11 @@
             width: 13%;
             margin-top: 15px;
         }
+
+        .isotipo-nav {
+            width: 63px;
+            height: auto;
+        }
     }
 
     @media (min-width: 768px) and (max-width: 992px) {
@@ -443,10 +438,6 @@
             height: auto;
         }
 
-        .nav-text {
-            justify-content: flex-end;
-        }
-
         .dropdown-menu[data-bs-popper] {
             top: 82%;
             left: 64%;
@@ -454,7 +445,7 @@
         }
 
         .nav-column {
-            padding-top: 40px;
+            padding-top: 5px;
             width: 100%;
             padding-left: 0px;
         }
@@ -483,6 +474,11 @@
             width: 13%;
             margin-top: 15px;
         }
+
+        .isotipo-nav {
+            width: 63px;
+            height: auto;
+        }
     }
 
 
@@ -490,7 +486,7 @@
 <div>
     <div class="container-fluid">
         <div class="row">
-            <nav class="navbar navbar-expand-lg div-bar">
+            <nav class="navbar navbar-expand-lg div-bar navbar-dark bg-dark">
                 <div class="container-fluid nav-mb">
                     <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 logo-mb">
                         <img class="isotipo-nav" src="{{ asset('img/Isotipo.png') }}" alt="Logo">
@@ -498,11 +494,7 @@
                         {{-- Imagen del medico --}}
 
                     </div>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-                        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation"
-                        style="margin-top: 12px;">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                    
                     <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 col-xl-11 col-xxl-11 flex-column nav-column">
                         <div class="row mb-3 header-nav">
                             <div class="col-xs-12 col-sm-12 col-md-12 nav-text">
@@ -530,71 +522,64 @@
                                     @endif
                                 </a>
 
-                                <button onclick="logout()" data-bs-toggle="tooltip"
-                                data-bs-placement="left"
-                                title="Cerrar sesión">
+                                <button onclick="logout()" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cerrar sesión" data-bs-custom-class="custom-tooltip">
                                     <i class="bi bi-power" style="color: white; font-size: 30px;"></i>
                                 </button>
                             </div>
                         </div>
-                        <div class="collapse navbar-collapse" id="navbarText">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="icon-bar navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse mt-3" id="navbarText">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a href="{{ route('DashboardComponent') }}" title="Dashboard">
+                                <li>
+                                    <a class="nav-item" href="{{ route('DashboardComponent') }}" title="Dashboard">
                                         <img class="img-nav" src="{{ asset('img/V2/Stocks.png') }}" alt="Dashboard">
+                                        <span class="nav-link active" aria-current="page">Dashboard</span>
                                     </a>
-                                    <span class="nav-link active" aria-current="page" href="#">Dashboard</span>
                                 </li>
                                 @if (Auth::user()->role == 'medico')
-                                    <li class="nav-item">
-                                        <a href="{{ route('Patients') }}" title="Pacientes">
-                                            <img class="img-nav" src="{{ asset('img/V2/Contacts.png') }}"
-                                                alt="Pacientes">
+                                    <li >
+                                        <a class="nav-item" href="{{ route('Patients') }}" title="Pacientes">
+                                            <img class="img-nav" src="{{ asset('img/V2/Contacts.png') }}" alt="Pacientes">
+                                            <span class="nav-link active" aria-current="page" href="#">Pacientes</span>
                                         </a>
-                                        <span class="nav-link active" aria-current="page"
-                                            href="#">Pacientes</span>
                                     </li>
                                 @endif
                                 @if (Auth::user()->role == 'medico')
-                                    <li class="nav-item">
-                                        <a href="{{ route('Diary') }}" title="Agenda">
-                                            <img class="img-nav" src="{{ asset('img/V2/Calendar.png') }}"
-                                                alt="Agenda">
+                                    <li >
+                                        <a class="nav-item" href="{{ route('Diary') }}" title="Agenda">
+                                            <img class="img-nav" src="{{ asset('img/V2/Calendar.png') }}" alt="Agenda">
+                                            <span class="nav-link active" aria-current="page" href="#">Agenda</span>
                                         </a>
-                                        <span class="nav-link active" aria-current="page" href="#">Agenda</span>
                                     </li>
                                 @endif
                                 @if (Auth::user()->role == 'medico')
-                                    <li class="nav-item">
-                                        <a href="{{ route('Centers') }}" title="Clínica">
+                                    <li >
+                                        <a class="nav-item" href="{{ route('Centers') }}" title="Clínica">
                                             <img class="img-nav" src="{{ asset('img/V2/Maps.png') }}" alt="Clínica">
+                                            <span class="nav-link active" aria-current="page" href="#">Centros</span>
                                         </a>
-                                        <span class="nav-link active" aria-current="page" href="#">Centro</span>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('Examen') }}" title="Exámenes">
-                                            <img class="img-nav" src="{{ asset('img/V2/Reminders.png') }}"
-                                                alt="Exámenes">
+                                    <li >
+                                        <a class="nav-item" href="{{ route('Examen') }}" title="Exámenes">
+                                            <img class="img-nav" src="{{ asset('img/V2/Reminders.png') }}" alt="Exámenes">
+                                            <span class="nav-link active" aria-current="page" href="#">Exámenes</span>
                                         </a>
-                                        <span class="nav-link active" aria-current="page"
-                                            href="#">Exámenes</span>
                                     </li>
-                                      <li class="nav-item">
-                                        <a href="{{ route('Study') }}" title="Estudios">
-                                            <img class="img-nav" src="{{ asset('img/V2/Books.png') }}"
-                                                alt="Estudios">
+                                      <li >
+                                        <a class="nav-item" href="{{ route('Study') }}" title="Estudios">
+                                            <img class="img-nav" src="{{ asset('img/V2/Books.png') }}" alt="Estudios">
+                                            <span class="nav-link active" aria-current="page" href="#">Estudios</span>
                                         </a>
-                                        <span class="nav-link active" aria-current="page"
-                                            href="#">Estudios</span>
                                     </li>
                                 @endif
-                                <li class="nav-item">
-                                    <a href="{{ route('Profile') }}" title="Configuración">
-                                        <img class="img-nav" src="{{ asset('img/V2/Settings.png') }}"
-                                            alt="Configuración">
+                                <li >
+                                    <a class="nav-item" href="{{ route('Profile') }}" title="Configuración">
+                                        <img class="img-nav" src="{{ asset('img/V2/Settings.png') }}" alt="Configuración">
+                                        <span class="nav-link active" aria-current="page" href="#">Configuración</span>
                                     </a>
-                                    <span class="nav-link active" aria-current="page"
-                                        href="#">Configuración</span>
                                 </li>
                             </ul>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2 nav-text">
@@ -602,6 +587,7 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
 
             </nav>

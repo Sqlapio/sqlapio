@@ -90,7 +90,7 @@
                 <x-load-spinner />
             </div>
             <div class="row form-sq" style="position: relative">
-                <div class="col-xs-12 col-sm-10 col-md-4 col-lg-3 col-xl-3 col-xxl-3 loginDric">
+                <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 loginDric">
                     <div class="">
                         <img class="img" src="{{ asset('img/iniciar-sesion.png') }}" class="">
                     </div>
@@ -129,7 +129,7 @@
                         <a class="links" href="{{ route('Register') }}">Registrar Usuario</a>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                        <a class="links" href="">Recuperar Contraseña</a>
+                        <a class="links" href="{{route('recovery_password')}}">Recuperar Contraseña</a>
                     </div>
                 </div>
                 

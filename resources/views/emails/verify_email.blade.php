@@ -16,27 +16,17 @@
                     width: 600px;
                     padding: 10px;">
             <p style="text-align: justify; margin-left: 20px;">
-                <h2 style="text-align: justify; margin-left: 20px;">Paciente: {{ $mailData['patient_name'] }}</h2>
+                <h2 style="text-align: justify; margin-left: 20px;">Dr(a). {{ $mailData['dr_name'] }}</h2>
             </p>
     
             <p style="text-align: justify; margin-left: 20px;">
                 Espero se encuentre muy bien.
                 <br>
-                Gracias por ser parte de nuestra familia Sqlapio.com, usted acaba de ser registrado en nuestro sistema, con la siguiente información:
-            </p>
-
-            <p style="text-align: justify; margin-left: 20px;">
-                <h3 style="text-align: justify; margin-left: 20px;">
-                    Codigo del paciente: {{ $mailData['patient_code'] }}
-                    <br>
-                    Correo Electronico: {{ $mailData['patient_email'] }}
-                    <br>
-                    Telefono: {{ $mailData['patient_phone'] }}
-                    <br>
-                    Medico Responsable Dr(a): {{ $mailData['dr_name'] }}
-                    <br>
-                    Centro de salud: {{ $mailData['center'] }}
-                </h3>
+                Gracias por ser parte de nuestra familia Sqlapio.com, usted acaba de registrarse en nuestro sistema.
+                <br>
+                Es importate para nosotro que realize la confirmacion de su correo electronico a travez del siguiente link:
+                <br>
+                http://sqldevelop.sqlapio.net/verify/{{ $mailData['verify_code'] }}
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
