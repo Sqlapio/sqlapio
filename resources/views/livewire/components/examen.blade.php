@@ -29,6 +29,9 @@
             let id = @json($id);
             if (id != null) {
                 showExam(data);
+                const bsCollapse = new bootstrap.Collapse('.collapsee', {
+                    toggle: true
+                })
             }
         });
 
@@ -188,7 +191,7 @@
                                 <i class="bi bi-person"></i></i> Examenes cargados
                             </button>
                         </span>
-                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                        <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <x-search-person />

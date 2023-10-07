@@ -582,11 +582,11 @@
                                                                         <a href="{{ route('mr_exam', $item['id']) }}">
                                                                             <button type="button"
                                                                                 class="btn refresf btn-iSecond rounded-circle"><i
-                                                                                    class="bi bi-file-earmark-pdf"
+                                                                                    class="i bi-card-heading"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
-                                                                                    data-html="true" title="ver PDF"></i>
+                                                                                    data-html="true" title="ver examenes"></i>
                                                                             </button>
                                                                         </a>
                                                                     </div>
@@ -596,11 +596,11 @@
                                                                         <a href="{{ route('mr_study', $item['id']) }}">
                                                                             <button type="button"
                                                                                 class="btn refresf btn-iSecond rounded-circle"><i
-                                                                                    class="bi bi-file-earmark-pdf"
+                                                                                    class="i bi-card-heading"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
-                                                                                    data-html="true" title="ver PDF"></i>
+                                                                                    data-html="true" title="ver estudios"></i>
                                                                             </button>
                                                                         </a>
                                                                     </div>
