@@ -29,7 +29,11 @@
             let id = @json($id);
             if (id != null) {
                 showStudy(data);
+                const bsCollapse = new bootstrap.Collapse('.collapsee', {
+                        toggle: true
+                    })
             }
+            
         });
 
         function searchPerson() {
@@ -188,7 +192,7 @@
                                 <i class="bi bi-person"></i></i> Estudios cargados
                             </button>
                         </span>
-                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                        <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <x-search-person />
