@@ -35,10 +35,6 @@
         vertical-align: middle;
     }
 
-    /* .td-pad {
-        padding-top: 20px !important;
-    } */
-
     .borde {
         border-radius: 0 !important;
     }
@@ -199,16 +195,16 @@
                         required: "Fecha de nacimiento es obligatorio",
                     },
                     state: {
-                        required: "Esatdo es obligatoria",
+                        required: "Estado es obligatoria",
                     },
                     city: {
                         required: "Ciudad es obligatoria",
                     },
                     address: {
-                        required: "Direccion es obligatoria",
+                        required: "Dirección es obligatoria",
                     },
                     zip_code: {
-                        required: "Codigo de area es obligatorio",
+                        required: "Código postal es obligatorio",
                     },
                     re_name: {
                         required: "Nombre del representante es obligatorio",
@@ -232,13 +228,13 @@
                         maxlength: "Cédula del representante  debe ser menor a 8 caracteres",
                     },
                     re_phone: {
-                        required: "Telefono del representante es obligatorio",
+                        required: "Teléfono del representante es obligatorio",
                     },
                     profession: {
-                        required: "Profesion es obligatoria",
+                        required: "Profesión es obligatoria",
                     },
                     phone: {
-                        required: "Telfono es obligatorio",
+                        required: "Teléfono es obligatorio",
                     },
                     center_id: {
                         required: "Centro es obligatorio",
@@ -636,7 +632,7 @@
                                         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <label for="search_patient"
-                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Ingrese número de indentificación</label>
+                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Ingrese número de identificación</label>
                                                 <input disabled maxlength="10" type="text"
                                                     class="form-control mask-only-number" id="search_patient"
                                                     name="search_patient" placeholder="" value="">
@@ -923,7 +919,7 @@
                 </div>
                 {{-- Lista de pacientes con consultas  --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px; margin-bottom: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" style="margin-top: 20px; margin-bottom: 20px;">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"

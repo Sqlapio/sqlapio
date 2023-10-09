@@ -471,11 +471,6 @@
                                             </div>
 
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
-                                                {{-- <div class="form-floating mb-3">
-                                                    <input onkeyup="search(event,'studie')" type="text"
-                                                        class="form-control" placeholder="" id="floatingInputt">
-                                                    <label for="floatingInputt">Buscar Estudio</label>
-                                                </div> --}}
                                                 <div class="form-group">
                                                     <label for="search_patient"
                                                         class="form-label"style="font-size: 13px; margin-bottom: 5px;">Buscar
@@ -533,7 +528,7 @@
                 </div>
                 {{-- tabla --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd" style="margin-top: 20px;">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingThree">
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
