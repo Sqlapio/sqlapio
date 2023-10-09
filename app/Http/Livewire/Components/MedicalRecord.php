@@ -54,6 +54,7 @@ class MedicalRecord extends Component
                 'treatment'   => 'required',
                 'exams'       => 'required',
                 'studies'     => 'required',
+                'medications_supplements' => 'required',
             ];
 
             $msj = [
@@ -63,6 +64,7 @@ class MedicalRecord extends Component
                 'treatment'   => 'Campo requerido',
                 'exams'       => 'Campo requerido',
                 'studies'     => 'Campo requerido',
+                'medications_supplements' => 'Campo requerido',
             ];
 
             // $validator = Validator::make($request->data, $rules, $msj);
@@ -93,6 +95,7 @@ class MedicalRecord extends Component
                 'treatment'     => $data->treatment,
                 'exams'         => $data->exams,
                 'studies'       => $data->studies,
+                'medications_supplements'       => $data->medications_supplements,
             ]);
 
             $action = '11';
