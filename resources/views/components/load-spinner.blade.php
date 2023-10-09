@@ -11,7 +11,7 @@
     }    */
 
     .spinnner {
-        width: 10%;
+        width: 9%;
         height: auto;
         position: fixed;
         text-align: center;
@@ -24,9 +24,9 @@
     }
 
     @media only screen and (max-width: 768px) {
-        /* .spinnner {
-            top: 70%;
-        } */
+        .spinnner {
+            width: 40%;
+        }
     } 
     
 </style>

@@ -35,10 +35,6 @@
         vertical-align: middle;
     }
 
-    /* .td-pad {
-        padding-top: 20px !important;
-    } */
-
     .borde {
         border-radius: 0 !important;
     }
@@ -71,6 +67,7 @@
         let urlDiary = "{{ route('Diary') }}";
         let status = "";
         let url = "{{ route('MedicalRecord', ':id') }}";
+        let urlhist = "{{ route('ClinicalHistoryDetail', ':id') }}";
 
         $(document).ready(() => {
 
@@ -199,16 +196,16 @@
                         required: "Fecha de nacimiento es obligatorio",
                     },
                     state: {
-                        required: "Esatdo es obligatoria",
+                        required: "Estado es obligatoria",
                     },
                     city: {
                         required: "Ciudad es obligatoria",
                     },
                     address: {
-                        required: "Direccion es obligatoria",
+                        required: "Dirección es obligatoria",
                     },
                     zip_code: {
-                        required: "Codigo de area es obligatorio",
+                        required: "Código postal es obligatorio",
                     },
                     re_name: {
                         required: "Nombre del representante es obligatorio",
@@ -232,13 +229,13 @@
                         maxlength: "Cédula del representante  debe ser menor a 8 caracteres",
                     },
                     re_phone: {
-                        required: "Telefono del representante es obligatorio",
+                        required: "Teléfono del representante es obligatorio",
                     },
                     profession: {
-                        required: "Profesion es obligatoria",
+                        required: "Profesión es obligatoria",
                     },
                     phone: {
-                        required: "Telfono es obligatorio",
+                        required: "Teléfono es obligatorio",
                     },
                     center_id: {
                         required: "Centro es obligatorio",
@@ -283,7 +280,7 @@
                                 $("#bnt-cons").show();
                                 $("#bnt-cons").find('a').remove();
                                 $("#bnt-cons").append(
-                                `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`);                              
+                                `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`);                           
                             });
                         },
                         error: function(error) {
@@ -361,7 +358,7 @@
         //seteiar data en el formalario para su edicion
         function editPatien(item, active = true) {
             if (active) {
-                $(".collapse").collapse({
+                $(".accordion-collapse").collapse({
                     toggle: false
                 });
             }
@@ -399,6 +396,7 @@
             $("#show-info-pat").hide();
             $("#bnt-save").show();
             $("#bnt-cons").hide();
+            $("#bnt-hist").hide();
             $("#form-patients").trigger("reset");
             $('#is_minor').val(false);
             $('#id').val('');
@@ -413,6 +411,7 @@
             } else {
                 refreshForm();
                 $('#bnt-cons').hide();
+                $('#bnt-hist').hide();
                 $('#bnt-dairy').hide();
                 $('#content-search-pat').hide();
                 $('#content-patient').show();
@@ -521,6 +520,7 @@
             $('#content-patient').show();
             $('#bnt-save').hide();
             $('#bnt-cons').show();
+            $('#bnt-hist').show();
             $('#bnt-dairy').show();
             $('#flexSwitchCheckChecked').prop('checked', false);
             url = url.replace(':id', data.id);
@@ -532,6 +532,9 @@
             let elemRep = JSON.stringify(data.get_reprensetative);
             $("#bnt-dairy").append(
                 `<button onclick='agendarCita(${elemData},${elemRep});' type="button" class="btn btnPrimary">Agendar cita</button>`
+            );
+            $("#bnt-hist").append(
+                `<a href="${urlhist}"><button type="button" class="btn btnSecond">Historia clinica</button></a>`
             );
             editPatien(data, false);
         }
@@ -636,7 +639,7 @@
                                         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <label for="search_patient"
-                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Ingrese número de indentificación</label>
+                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Ingrese número de identificación</label>
                                                 <input disabled maxlength="10" type="text"
                                                     class="form-control mask-only-number" id="search_patient"
                                                     name="search_patient" placeholder="" value="">
@@ -902,7 +905,8 @@
                                                     style="display: flex; justify-content: flex-end; align-items: flex-end;">
                                                     <div id="bnt-dairy" style="display: none;margin-right: 10px"></div>
                                                     <div id="bnt-cons" style="display: none;margin-right: 10px"></div>
-                                                    <input class="btn btnSave send " value="Guardar" type="submit" />
+                                                    <div id="bnt-hist" style="display: none;margin-right: 10px"></div>
+                                                    <input class="btn btnSave send" value="Guardar" type="submit" />
                                                     <button style="margin-left: 20px; padding: 8px;" type="button"
                                                         onclick="refreshForm();" class="btn btnSecond"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -923,7 +927,7 @@
                 </div>
                 {{-- Lista de pacientes con consultas  --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px; margin-bottom: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" style="margin-top: 20px; margin-bottom: 20px;">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
