@@ -67,6 +67,7 @@
         let urlDiary = "{{ route('Diary') }}";
         let status = "";
         let url = "{{ route('MedicalRecord', ':id') }}";
+        let urlhist = "{{ route('ClinicalHistoryDetail', ':id') }}";
 
         $(document).ready(() => {
 
@@ -279,7 +280,7 @@
                                 $("#bnt-cons").show();
                                 $("#bnt-cons").find('a').remove();
                                 $("#bnt-cons").append(
-                                `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`);                              
+                                `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`);                           
                             });
                         },
                         error: function(error) {
@@ -357,7 +358,7 @@
         //seteiar data en el formalario para su edicion
         function editPatien(item, active = true) {
             if (active) {
-                $(".collapse").collapse({
+                $(".accordion-collapse").collapse({
                     toggle: false
                 });
             }
@@ -395,6 +396,7 @@
             $("#show-info-pat").hide();
             $("#bnt-save").show();
             $("#bnt-cons").hide();
+            $("#bnt-hist").hide();
             $("#form-patients").trigger("reset");
             $('#is_minor').val(false);
             $('#id').val('');
@@ -409,6 +411,7 @@
             } else {
                 refreshForm();
                 $('#bnt-cons').hide();
+                $('#bnt-hist').hide();
                 $('#bnt-dairy').hide();
                 $('#content-search-pat').hide();
                 $('#content-patient').show();
@@ -517,6 +520,7 @@
             $('#content-patient').show();
             $('#bnt-save').hide();
             $('#bnt-cons').show();
+            $('#bnt-hist').show();
             $('#bnt-dairy').show();
             $('#flexSwitchCheckChecked').prop('checked', false);
             url = url.replace(':id', data.id);
@@ -528,6 +532,9 @@
             let elemRep = JSON.stringify(data.get_reprensetative);
             $("#bnt-dairy").append(
                 `<button onclick='agendarCita(${elemData},${elemRep});' type="button" class="btn btnPrimary">Agendar cita</button>`
+            );
+            $("#bnt-hist").append(
+                `<a href="${urlhist}"><button type="button" class="btn btnSecond">Historia clinica</button></a>`
             );
             editPatien(data, false);
         }
@@ -898,7 +905,8 @@
                                                     style="display: flex; justify-content: flex-end; align-items: flex-end;">
                                                     <div id="bnt-dairy" style="display: none;margin-right: 10px"></div>
                                                     <div id="bnt-cons" style="display: none;margin-right: 10px"></div>
-                                                    <input class="btn btnSave send " value="Guardar" type="submit" />
+                                                    <div id="bnt-hist" style="display: none;margin-right: 10px"></div>
+                                                    <input class="btn btnSave send" value="Guardar" type="submit" />
                                                     <button style="margin-left: 20px; padding: 8px;" type="button"
                                                         onclick="refreshForm();" class="btn btnSecond"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
