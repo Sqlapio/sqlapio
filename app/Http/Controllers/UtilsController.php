@@ -398,9 +398,12 @@ class UtilsController extends Controller
 						'background' 	=>  $val->background,
 						'razon' 		=>  $val->razon,
 						'diagnosis' 	=>  $val->diagnosis,
-						'treatment' 	=>  $val->treatment,
 						'exams' 		=>  $val->exams,
 						'studies' 		=>  $val->studies,
+						'medications_supplements' 		=>  json_decode($val->medications_supplements) ,
+						'status_exam' 		=>  $val->status_exam,
+						'status_study' 		=> $val->status_study,
+
 					],
 				];
 			}

@@ -17,6 +17,9 @@
         let id = @json($id);
         let exams_array = [];
         let studies_array = [];
+        let medications_supplements = [];
+        let countMedicationAdd = 0;
+
         $(document).ready(() => {
 
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -73,6 +76,9 @@
                     },
                     center_id: {
                         required: true,
+                    },
+                    countMedicationAdd: {
+                        required: true,
                     }
                 },
                 messages: {
@@ -97,6 +103,9 @@
                     },
                     center_id: {
                         required: "Centro es obligatorio",
+                    },
+                    countMedicationAdd: {
+                        required: "debe agregar un tratamiento",
                     }
                 }
             });
@@ -105,171 +114,166 @@
                 return pattern.test(value);
             }, "No se permiten caracteres especiales");
 
-            try {
-                //envio del formulario
-                $("#form-consulta").submit(function(event) {
-                    event.preventDefault();
-                    $("#form-consulta").validate();
-                    if ($("#form-consulta").valid()) {
-                        $('#send').hide();
-                        $('#spinner').show();
+            //envio del formulario
+            $("#form-consulta").submit(function(event) {
+                event.preventDefault();
+                $("#form-consulta").validate();
+                if ($("#form-consulta").valid()) {
+                    $('#send').hide();
+                    $('#spinner').show();
 
-                        let exams = $('#exams').val().split(',');
+                    let exams = $('#exams').val().split(',');
 
-                        exams.map((element) => exams_array.push({
-                            code_exams: element.slice(0, 14)
-                        }));
+                    exams.map((element) => exams_array.push({
+                        code_exams: element.slice(0, 14)
+                    }));
 
-                        let studies = $('#studies').val().split(',');
+                    let studies = $('#studies').val().split(',');
 
-                        studies.map((element) => studies_array.push({
-                            code_studies: element.slice(0, 14)
-                        }));
+                    studies.map((element) => studies_array.push({
+                        code_studies: element.slice(0, 14)
+                    }));
 
-                        //preparar la data para el envio
-                        let formData = $('#form-consulta').serializeArray();
-                        let data = {};
-                        formData.map((item) => data[item.name] = item.value);
-                        data["exams_array"] = JSON.stringify(exams_array);
-                        data["studies_array"] = JSON.stringify(studies_array);
-                        ////end
-                        $.ajax({
-                            url: '{{ route('MedicalRecordCreate') }}',
-                            type: 'POST',
-                            dataType: "json",
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                "data": JSON.stringify(data),
-                            },
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            success: function(response) {
-                                $('#send').show();
-                                $('#spinner').hide();
-                                $("#form-consulta").trigger("reset");
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Consulta registrada exitosamente!',
-                                    allowOutsideClick: false,
-                                    confirmButtonColor: '#42ABE2',
-                                    confirmButtonText: 'Aceptar'
-                                }).then((result) => {
-                                    let url =
-                                        "{{ route('get_medical_record_user', ':id') }}";
-                                    url = url.replace(':id', id);
-                                    $.ajax({
-                                        url: url,
-                                        type: 'GET',
-                                        headers: {
-                                            'X-CSRF-TOKEN': $(
-                                                    'meta[name="csrf-token"]')
-                                                .attr(
-                                                    'content')
-                                        },
-                                        success: function(res) {
-                                            let data = [];
-                                            res.map((elem) => {
-                                                let route =
-                                                    "{{ route('PDF_medical_record', ':id') }}";
-                                                route = route
-                                                    .replace(
-                                                        ':id', elem
-                                                        .id);
-                                                elem.btn = `
+                    //preparar la data para el envio
+                    let formData = $('#form-consulta').serializeArray();
+                    let data = {};
+                    formData.map((item) => data[item.name] = item.value);
+                    data["exams_array"] = JSON.stringify(exams_array);
+                    data["studies_array"] = JSON.stringify(studies_array);
+                    data["medications_supplements"] = JSON.stringify(medications_supplements);
+
+                    ////end
+                    $.ajax({
+                        url: '{{ route('MedicalRecordCreate') }}',
+                        type: 'POST',
+                        dataType: "json",
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "data": JSON.stringify(data),
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            $('#send').show();
+                            $('#spinner').hide();
+                            $("#form-consulta").trigger("reset");
+                            $('#table-medicamento > tbody').empty();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Consulta registrada exitosamente!',
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                let url =
+                                    "{{ route('get_medical_record_user', ':id') }}";
+                                url = url.replace(':id', id);
+                                $.ajax({
+                                    url: url,
+                                    type: 'GET',
+                                    headers: {
+                                        'X-CSRF-TOKEN': $(
+                                                'meta[name="csrf-token"]')
+                                            .attr(
+                                                'content')
+                                    },
+                                    success: function(res) {
+                                        let data = [];
+                                        res.map((elem) => {
+                                            let route =
+                                                "{{ route('PDF_medical_record', ':id') }}";
+                                            route = route
+                                                .replace(
+                                                    ':id', elem
+                                                    .id);
+                                            elem.btn = `
                                                     <a target="_blank"
                                                     href=${route}>
                                                     <button type="button"
                                                     class="btn-2 refresf btnSecond"><i
                                                     class="bi bi-file-earmark-pdf"></i></button>
                                                     </a>                               `;
-                                                data.push(elem);
-                                            });
+                                            data.push(elem);
+                                        });
 
-                                            new DataTable(
-                                                '#table-medical-record', {
-                                                    language: {
-                                                        url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                                        new DataTable(
+                                            '#table-medical-record', {
+                                                language: {
+                                                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                                                },
+                                                // reponsive: true,
+                                                bDestroy: true,
+                                                data: data,
+                                                columns: [{
+                                                        data: 'data.record_code',
+                                                        title: 'Código de la consulta',
+                                                        className: "text-center td-pad",
                                                     },
-                                                    // reponsive: true,
-                                                    bDestroy: true,
-                                                    data: data,
-                                                    columns: [{
-                                                            data: 'data.record_code',
-                                                            title: 'Código de la consulta',
-                                                            className: "text-center td-pad",
-                                                        },
-                                                        {
-                                                            data: 'date',
-                                                            title: 'Fecha de la consulta',
-                                                            className: "text-center td-pad",
-                                                        },
-                                                        {
-                                                            data: 'name_patient',
-                                                            title: 'Nombre del paciente',
-                                                            className: "text-center td-pad",
-                                                        },
-                                                        {
-                                                            data: 'genere',
-                                                            title: 'Género',
-                                                            className: "text-center td-pad",
-                                                        },
-                                                        {
-                                                            data: 'center',
-                                                            title: 'Centro',
-                                                            className: "text-center td-pad",
-                                                        },
-                                                        {
-                                                            data: 'full_name_doc',
-                                                            title: 'Médico',
-                                                            className: "text-center td-pad",
-                                                        },
-                                                        {
-                                                            data: 'btn',
-                                                            title: 'Ver',
-                                                            className: "text-center td-pad",
-                                                        }
-                                                    ],
-                                                });
-                                            $('#table-medical-record').on(
-                                                'click', 'td',
-                                                function() {
-                                                    let table =
-                                                        new DataTable(
-                                                            '.table'
-                                                        );
-                                                    let row = table.row(
-                                                        this).data();
-                                                    showDataEdit(row);
-                                                })
+                                                    {
+                                                        data: 'date',
+                                                        title: 'Fecha de la consulta',
+                                                        className: "text-center td-pad",
+                                                    },
+                                                    {
+                                                        data: 'name_patient',
+                                                        title: 'Nombre del paciente',
+                                                        className: "text-center td-pad",
+                                                    },
+                                                    {
+                                                        data: 'genere',
+                                                        title: 'Género',
+                                                        className: "text-center td-pad",
+                                                    },
+                                                    {
+                                                        data: 'center',
+                                                        title: 'Centro',
+                                                        className: "text-center td-pad",
+                                                    },
+                                                    {
+                                                        data: 'full_name_doc',
+                                                        title: 'Médico',
+                                                        className: "text-center td-pad",
+                                                    },
+                                                    {
+                                                        data: 'btn',
+                                                        title: 'Ver',
+                                                        className: "text-center td-pad",
+                                                    }
+                                                ],
+                                            });
+                                        $('#table-medical-record').on(
+                                            'click', 'td',
+                                            function() {
+                                                let table =
+                                                    new DataTable(
+                                                        '.table'
+                                                    );
+                                                let row = table.row(
+                                                    this).data();
+                                                showDataEdit(row);
+                                            })
 
-                                        }
-                                    });
+                                    }
                                 });
-                            },
-                            error: function(error) {
-                                $('#send').show();
-                                $('#spinner').hide();
-                                console.log(error);
+                            });
+                        },
+                        error: function(error) {
+                            $('#send').show();
+                            $('#spinner').hide();
+                            console.log(error);
 
-                            }
-                        });
-                    }
-                });
-
-            } catch (error) {
-                console.log(error);
-
-            }
-
-
+                        }
+                    });
+                }
+            });
         });
 
         function resetForm() {
             $("#medical_record_id").val('');
             $("#form-consulta").trigger("reset");
+            $('#table-medicamento > tbody').empty();
             $('.send').attr('disabled', false);
-
         }
 
         function showDataEdit(item) {
@@ -282,6 +286,19 @@
             $("#exams").val(item.data.exams);
             $("#studies").val(item.data.studies);
             $('.send').attr('disabled', true);
+            $('#table-medicamento > tbody').empty();
+            item.data.medications_supplements.map((element, key) => {
+                countMedicationAdd = countMedicationAdd + 1;
+                var row = `
+                        <tr id="${countMedicationAdd}">
+                        <td class="text-center">${element.medicine}</td>
+                        <td class="text-center">${element.indication}</td>
+                        <td class="text-center">${element.treatmentDuration}</td>                  
+                        <td class="text-center"><span onclick="deleteMedication(${countMedicationAdd})" ><i class="bi bi-archive"></i></span></td>                    
+                        </tr>`;
+                $('#table-medicamento').find('tbody').append(row);
+
+            });
         }
 
         function search(e, id) {
@@ -316,6 +333,52 @@
                 if (valStudy == ",") valStudy = valStudy.replace(',', '');
                 $("#studies").val(valStudy);
             }
+        }
+
+        //agregar medicamento
+        function addMedacition(e) {
+            // validaciones para agragar medicacion
+            if ($('#medicine').val() === "") {
+                $("#medicine_span").text('Campo obligatorio');
+            } else if ($('#indication').val() === "") {
+                $("#indication_span").text('Campo obligatorio');
+            } else if ($('#treatmentDuration').val() === "") {
+                $("#treatmentDuration_span").text('Campo obligatorio');
+            } else {
+                $("#medicine_span").text('');
+                $("#indication_span").text('');
+                $("#treatmentDuration_span").text('');
+                var row = `
+                    <tr id="${countMedicationAdd}">
+                    <td class="text-center">${$('#medicine').val()}</td>
+                    <td class="text-center">${$('#indication').val()}</td>
+                    <td class="text-center">${$('#treatmentDuration').val()}</td>                  
+                    <td class="text-center"><span onclick="deleteMedication(${countMedicationAdd})" ><i class="bi bi-archive"></i></span></td>                    
+                    </tr>`;
+                $('#table-medicamento').find('tbody').append(row);
+
+                medications_supplements.push({
+                    medicine: $('#medicine').val(),
+                    indication: $('#indication').val(),
+                    treatmentDuration: $('#treatmentDuration').val()
+                });
+
+                countMedicationAdd = countMedicationAdd + 1;
+                $('#countMedicationAdd').val(countMedicationAdd);
+                // limpiar campos
+                $('#medicine').val("");
+                $('#indication').val("");
+                $('#treatmentDuration').val("");
+            }
+        }
+
+        //borrar medicamento
+        function deleteMedication(count) {
+            $('#table-medicamento tr#' + count).remove();
+            medications_supplements.splice(count, 1);
+            countMedicationAdd = countMedicationAdd - 1;
+            $('#countMedicationAdd').val(countMedicationAdd);
+            if (countMedicationAdd === 0) $('#countMedicationAdd').val('');
         }
     </script>
 @endpush
@@ -425,7 +488,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                                 <div class="form-group">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Diagnóstico</label>
@@ -433,13 +496,13 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                            {{-- <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                 <div class="form-group">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tratamiento</label>
                                                     <textarea id="treatment" rows="8" name="treatment" class="form-control"></textarea>
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                 <div class="form-group">
@@ -496,6 +559,149 @@
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Estudios</label>
                                                     <textarea readonly id="studies" rows="8" name="studies" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {{-- Medicacion --}}
+                                        <div class="row mt-3">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                <div class="row mt-3">
+                                                    <hr>
+                                                    <h5 class="text-center collapseBtn">Tratamiento</h5>
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 ">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="phone" class="form-label"
+                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">Medicamento</label>
+                                                                <input autocomplete="off"
+                                                                    class="form-control mask-only-text" id="medicine"
+                                                                    name="medicine" type="text" value="">
+                                                                <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                            </div>
+                                                            <span id="medicine_span" class="text-danger"></span>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="phone" class="form-label"
+                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">Indicaciones</label>
+                                                                <input autocomplete="off"
+                                                                    class="form-control mask-only-text" id="indication"
+                                                                    name="indication" type="text" value="">
+                                                                <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                            </div>
+                                                            <span id="indication_span" class="text-danger"></span>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="phone" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Duración
+                                                                    de tratamiento
+                                                                </label>
+                                                                <input autocomplete="off"
+                                                                    class="form-control mask-only-text"
+                                                                    id="treatmentDuration" name="treatmentDuration"
+                                                                    type="text" value="">
+                                                                <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                            </div>
+                                                            <span id="treatmentDuration_span" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div
+                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3 offset-md-5">
+                                                        <span type="" onclick="addMedacition(event)"
+                                                            class="btn btn-outline-secondary" id="btn"><i
+                                                                class="bi bi-plus-lg"></i>Añadir
+                                                            Tratamiento</span>
+                                                    </div>
+                                                </div>
+                                                {{-- tabla --}}
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                                        style="margin-top: 20px; width: 100%;">
+                                                        <hr>
+                                                        <h5>Lista de Tratamiento</h5>
+                                                        <hr>
+                                                        <table class="table table-striped table-bordered"
+                                                            id="table-medicamento">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center" scope="col">
+                                                                        Medicamento</th>
+                                                                    <th class="text-center" scope="col">
+                                                                        Indicaciones</th>
+                                                                    <th class="text-center" scope="col">
+                                                                        Duración de tratamiento
+                                                                    </th>
+                                                                    <th class="text-center" scope="col">
+                                                                        Eliminar</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {{-- @if ($validateHistory)
+                                                                                @if ($validateHistory->medications_supplements != 'null')
+                                                                                    @php
+                                                                                        $medications_supplements = json_decode($validateHistory->medications_supplements, true);
+                                                                                    @endphp
+                                                                                    @foreach ($medications_supplements as $key => $item)
+                                                                                        <tr id="{{ $key }}">
+                                                                                            <td class="text-center">
+                                                                                                {{ $item['indication'] }}</td>
+                                                                                            <td class="text-center">
+                                                                                                {{ $item['medicine'] }}
+                                                                                            </td>
+                                                                                            <td class="text-center">
+                                                                                                {{ $item['treatmentDuration'] }}
+                                                                                            </td>
+                                                                                            <td class="text-center">
+                                                                                                {{ $item['viaAdmin'] }}
+                                                                                            </td>
+                                                                                            <td class="text-center">
+                                                                                                {{ $item['NUmberOrder'] }}
+                                                                                            </td>
+                                                                                            <td class="text-center">
+                                                                                                {{ $item['dateEndTreatment'] }}
+                                                                                            </td>
+                                                                                            <td class="text-center">
+                                                                                                {{ $item['dateIniTreatment'] }}
+                                                                                            </td>
+                                                                                            <td class="text-center">
+                                                                                                {{ $item['treatmentDuration'] }}
+                                                                                            </td>
+                                                                                            <td class="text-center"><span
+                                                                                                    onclick="deleteMedication({{ $key }})"><i
+                                                                                                        class="bi bi-archive"></i></span>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    @endforeach
+                                                                                @endif
+                                                                            @endif --}}
+                                                            </tbody>
+                                                        </table>
+                                                        <tfoot>
+                                                            <div class="row mt-3">
+                                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                    <div class="input-group flex-nowrap">
+                                                                        <span class="input-group-text">Total de
+                                                                            medicamentos
+                                                                        </span>
+                                                                        <input type="text" id="countMedicationAdd"
+                                                                            name="countMedicationAdd" class="form-control"
+                                                                            readonly value="{!! !empty($validateHistory)
+                                                                                ? ($validateHistory->medications_supplements != 'null'
+                                                                                    ? count($medications_supplements)
+                                                                                    : 0)
+                                                                                : '' !!}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </tfoot>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -572,33 +778,39 @@
                                                             </td>
                                                             <td class="text-center td-pad">
                                                                 <div class="d-flex">
-                                                                    <div
-                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a href="{{ route('mr_exam', $item['id']) }}">
-                                                                            <button type="button"
-                                                                                class="btn refresf btn-iSecond rounded-circle"><i
-                                                                                    class="i bi-card-heading"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="bottom"
-                                                                                    data-bs-custom-class="custom-tooltip"
-                                                                                    data-html="true" title="ver examenes"></i>
-                                                                            </button>
-                                                                        </a>
-                                                                    </div>
-
-                                                                    <div
-                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a href="{{ route('mr_study', $item['id']) }}">
-                                                                            <button type="button"
-                                                                                class="btn refresf btn-iSecond rounded-circle"><i
-                                                                                    class="i bi-card-heading"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="bottom"
-                                                                                    data-bs-custom-class="custom-tooltip"
-                                                                                    data-html="true" title="ver estudios"></i>
-                                                                            </button>
-                                                                        </a>
-                                                                    </div>
+                                                                    @if ($item['data']['status_exam'])
+                                                                        <div
+                                                                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                            <a href="{{ route('mr_exam', $item['id']) }}">
+                                                                                <button type="button"
+                                                                                    class="btn refresf btn-iSecond rounded-circle"><i
+                                                                                        class="i bi-card-heading"
+                                                                                        data-bs-toggle="tooltip"
+                                                                                        data-bs-placement="bottom"
+                                                                                        data-bs-custom-class="custom-tooltip"
+                                                                                        data-html="true"
+                                                                                        title="ver examenes"></i>
+                                                                                </button>
+                                                                            </a>
+                                                                        </div>
+                                                                    @endif
+                                                                    @if ($item['data']['status_study'])
+                                                                        <div
+                                                                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                            <a
+                                                                                href="{{ route('mr_study', $item['id']) }}">
+                                                                                <button type="button"
+                                                                                    class="btn refresf btn-iSecond rounded-circle"><i
+                                                                                        class="i bi-card-heading"
+                                                                                        data-bs-toggle="tooltip"
+                                                                                        data-bs-placement="bottom"
+                                                                                        data-bs-custom-class="custom-tooltip"
+                                                                                        data-html="true"
+                                                                                        title="ver estudios"></i>
+                                                                                </button>
+                                                                            </a>
+                                                                        </div>
+                                                                    @endif
                                                                     <div
                                                                         class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
 

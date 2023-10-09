@@ -32,7 +32,7 @@ class Examen extends Component
                 'exam' => $data_exam,
             ];
         }
-
+        dd( $data );
         return view('livewire.components.examen', compact('data', 'id'));
     }
 }
