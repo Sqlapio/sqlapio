@@ -197,7 +197,7 @@
                                 <x-search-person />
 
                                 <div class="row" id="show-info-pat" style="display: none">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <h5 class="mb-4">Resultados</h5>
                                         <table id="table-info-pat" class="table table-striped table-bordered"
                                             style="width:100%; ">

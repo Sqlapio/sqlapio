@@ -17,6 +17,10 @@
         width: 50px;
     }
 
+    .w-7 {
+        width: 7%
+    }
+
 </style>
 @push('scripts')
     @vite(['resources/js/centers.js'])
@@ -56,7 +60,7 @@
                 },
                 messages: {
                     center_id: {
-                        required: 'Centro en obligatorio',
+                        required: 'Centro es obligatorio',
                     },
                     address: {
                         required: "Dirección es obligatorio",
@@ -225,7 +229,7 @@
                             {
                                 data: 'btn',
                                 title: 'Estatus',
-                                className: "text-center table-check",
+                                className: "text-center table-check w-7",
                             }
                         ],
                     });
@@ -295,7 +299,7 @@
                                                         <td class="text-center">{{ $item['number_floor'] }}</td>
                                                         <td class="text-center">{{ $item['number_consulting_room'] }}</td>
                                                         <td class="text-center">{{ $item['phone_consulting_room'] }}</td>
-                                                        <td class="text-center table-check">
+                                                        <td class="text-center table-check w-7">
                                                             <div class="form-check form-switch ">
                                                                 <input onchange="handlerCenter(event);" style="width: 5em"
                                                                     class="form-check-input" type="checkbox" role="switch"

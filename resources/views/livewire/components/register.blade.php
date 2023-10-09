@@ -55,6 +55,14 @@
             width: 255px;
         }
 
+        .btn-bg img:last-of-type {
+        opacity: 0;
+        }
+
+        .btn2 {
+            margin-left: 20px;
+        }
+
     }
 
     @media only screen and (max-width: 390px) {
@@ -222,10 +230,10 @@
                         <div id="btn-rol" class="row justify-content-center">
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 btn-bg">
                                 <img 
-                                {{-- data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 data-bs-custom-class="custom-tooltip" data-html="true"
                                 title="Registrar como médico"                          
-                                onclick="handlerRol('medico')"  --}}
+                                onclick="handlerRol('medico')" 
                                 src="{{ asset('/img/V2/Boton_medico.png') }}"
                                 height="auto" alt="avatar">
                                 <img 
@@ -237,18 +245,18 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 btn-bg">
                                 <img
-                                {{-- data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 data-bs-custom-class="custom-tooltip" data-html="true"
                                 title="Registrar como laboratorio"                                                       
-                                onclick="handlerRol('laboratorio')"  --}}
+                                onclick="handlerRol('laboratorio')" 
                                 src="{{ asset('/img/V2/Boton_laboratorio.png') }}"
-                                    width="350" height="auto" alt="avatar">
+                                     height="auto" alt="avatar">
                                 <img
                                 data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 data-bs-custom-class="custom-tooltip" data-html="true"
                                 title="Registrar como laboratorio"                                                       
                                 onclick="handlerRol('laboratorio')" src="{{ asset('/img/V2/Boton_laboratorio_bg.png') }}"
-                                    width="350" height="auto" alt="avatar">
+                                     height="auto" alt="avatar">
                             </div>
                         </div>
                     </div>
