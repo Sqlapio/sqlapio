@@ -52,7 +52,7 @@
                     margin-left: 0px;
                     width: 100px;
                     height: auto;"
-                src="{{ asset('img/notification_email/firma_ceo.png') }}">
+                src="{{ asset('img/notification_email/fir_jm.png') }}">
                 Ing. Jhonny Martinez<br>CEO
             </p>
             <p style="text-align: justify; font-style: italic; margin-left: 20px;">
