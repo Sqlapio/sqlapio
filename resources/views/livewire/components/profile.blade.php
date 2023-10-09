@@ -365,9 +365,9 @@
 @endpush
 @section('content')
     <div class="container-fluid" style="padding: 3%">
-        <div id="spinner" style="display: none">
+        {{-- <div id="spinner" style="display: none">
             <x-load-spinner />
-        </div>
+        </div> --}}
         <div class="accordion" id="accordion">
             {{-- datos del paciente --}}
             <div class="row">
@@ -694,6 +694,11 @@
                                                     style="margin-left: 20px" />
                                                 <button type="button" class="btn btnSecond btn6"
                                                     style="margin-left: 20px">Cancelar</button>
+                                            </div>
+                                            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                <div id="spinner" style="display: none">
+                                                    <x-load-spinner />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
