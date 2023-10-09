@@ -22,9 +22,11 @@ return new class extends Migration
             $table->longText('background');
             $table->longText('razon');
             $table->longText('diagnosis');
-            $table->longText('treatment');
+            // $table->longText('treatment');
             $table->longText('exams');
             $table->longText('studies');
+            // medicamentos y suplementos
+            $table->json('medications_supplements')->nullable();
 
             $table->timestamps();
             
