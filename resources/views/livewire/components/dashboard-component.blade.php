@@ -2,10 +2,9 @@
 @section('title', 'Tablero')
 @vite(['resources/js/graphicCountAll.js', 'resources/js/dairy.js'])
 <style>
-    body {
-        font-size: 15px !important;
 
-    }
+
+
 </style>
 @push('scripts')
     <script>
@@ -567,7 +566,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px; margin-bottom: 20px">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" style="margin-top: 20px; margin-bottom: 20px">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
@@ -673,7 +672,7 @@
                         </div>
                     </div>
                     {{-- Pacientes con referencias --}}
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 " style="margin-top: 20px;">
                         <div class="accordion-item ">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
@@ -766,7 +765,7 @@
                         </div>
                     </div>
                     {{-- Estudios atendidos --}}
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px; margin-bottom: 20px">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" style="margin-top: 20px; margin-bottom: 20px">
                         <div class="accordion-item accordion-dashboard">
                             <span class="accordion-header title" id="headingFour">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"

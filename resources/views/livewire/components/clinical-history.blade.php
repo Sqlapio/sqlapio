@@ -113,13 +113,13 @@
                         required: "Debe seleccionar una opción"
                     },
                     current_illness: {
-                        required: "Altura es obligatoria",
+                        required: "Enfermedad Actual es obligatoria",
                     },
                     reason: {
-                        required: "Motivo es obligatoria"
+                        required: "Motivo de  la consulta es obligatoria"
                     },
                     strain: {
-                        required: "Tesion es obligatoria"
+                        required: "Tesión es obligatoria"
                     },
                     temperature: {
                         required: "Temperatura es obligatoria"
@@ -131,13 +131,13 @@
                         required: "Pulso es obligatoria"
                     },
                     saturation: {
-                        required: "Saturacion es obligatoria"
+                        required: "Saturación es obligatoria"
                     },
                     condition: {
-                        required: "Condicion es obligatoria"
+                        required: "Condición es obligatoria"
                     },
                     countVitalSigns: {
-                        required: "Debe seleccionar uan opción"
+                        required: "Debe seleccionar una opción"
                     }
                 }
             });
@@ -1448,7 +1448,7 @@
                             </div>
                         </div>
                         <div class="row mt-3 justify-content-md-end">
-                            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="send"
+                            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" id="send"
                                 style="display: flex; justify-content: flex-end;">
                                 <input class="btn btnSave" value="Guardar" type="submit" />
                             </div>
