@@ -1008,6 +1008,14 @@ class UtilsController extends Controller
 					]);
 			}
 
+			$medical_record_code = Reference::where('cod_ref', $data->code_ref)->first()->cod_medical_record;
+			$update = DB::table('medical_records')
+					->where('record_code', $medical_record_code)
+					->update([
+						'status_exam' => true,
+					]);
+
+
 			return true;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
@@ -1068,6 +1076,13 @@ class UtilsController extends Controller
 						'date_result' => date('d-m-Y'),
 					]);
 			}
+
+			$medical_record_code = Reference::where('cod_ref', $data->code_ref)->first()->cod_medical_record;
+			$update = DB::table('medical_records')
+					->where('record_code', $medical_record_code)
+					->update([
+						'status_study' => true,
+					]);
 
 			return true;
 			//code...

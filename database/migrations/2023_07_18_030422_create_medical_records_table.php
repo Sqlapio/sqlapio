@@ -27,6 +27,8 @@ return new class extends Migration
             $table->longText('studies');
             // medicamentos y suplementos
             $table->json('medications_supplements')->nullable();
+            $table->boolean('status_study')->defult(false);
+            $table->boolean('status_exam')->defult(false);
 
             $table->timestamps();
             

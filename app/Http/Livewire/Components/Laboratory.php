@@ -69,14 +69,7 @@ class Laboratory extends Component
                         ];
                     }
                 }
-            //     if(isset($data_exam_res)){
-            //         return $data_exam_res;
-            //     }else{
-            //         return false;
-            //     }
-            // }else{
 
-            //     return false;
             }
             return $data_exam_res;
         } catch (\Throwable $th) {
@@ -142,13 +135,7 @@ class Laboratory extends Component
                             ];
                         }
                     }
-                    // if(isset($data_study_res)){
-                    //     return $data_study_res;
-                    // }else{
-                    //     return false;
-                    // }
-            // }else{
-            //     return $data_study_res;
+
             }
             return $data_study_res;
 
