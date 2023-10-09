@@ -33,10 +33,11 @@ class MedicalRecord extends Model
         'background',
         'razon',
         'diagnosis',
-        'treatment',
         'exams',
         'studies',
-
+        'medications_supplements',
+        'status_exam',
+        'status_study',
     ];
 
     public function  get_paciente(): HasOne
