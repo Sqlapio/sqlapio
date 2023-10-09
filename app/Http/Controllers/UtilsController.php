@@ -38,6 +38,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Log;
+use Svg\CssLength;
 
 class UtilsController extends Controller
 {
@@ -386,7 +388,7 @@ class UtilsController extends Controller
 					'id' 			=>  $val->id,
 					'date' 			=> $val->record_date,
 					'name_patient' 	=>  $val->get_paciente->name . " " . $val->get_paciente->last_name,
-					'full_name_doc' 	=>  $val->get_doctor->name. " " . $val->get_doctor->last_name,
+					'full_name_doc' 	=>  $val->get_doctor->name . " " . $val->get_doctor->last_name,
 					'center' 		=>  $val->get_center->description,
 					'genere' 		=>  $val->get_paciente->genere,
 					'data' => [
@@ -509,7 +511,7 @@ class UtilsController extends Controller
 			if ($type == 'rp') {
 				$mailData = [
 					'title' => 'Recuperacion de contraseña',
-					'name' => 'Correo electronico introducido: '.$name,
+					'name' => 'Correo electronico introducido: ' . $name,
 				];
 				$view = 'emails.demoMail';
 				$cuerpo1 = 'Usted a solicitado el cambio de su contraseña por motivos de olvido o actualizacion de datos.';
@@ -576,8 +578,6 @@ class UtilsController extends Controller
 				$view = 'emails.update_email';
 				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
 			}
-
-			
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.send_mail()', $message);
@@ -952,7 +952,7 @@ class UtilsController extends Controller
 			dd('Error UtilsController.get_image_lab()', $message);
 		}
 	}
-		static function upload_result_exam(Request $request)
+	static function upload_result_exam(Request $request)
 	{
 		try {
 
@@ -994,19 +994,18 @@ class UtilsController extends Controller
 
 			for ($i = 0; $i < count($data_exams); $i++) {
 				$update = DB::table('exam_patients')
-				->where('cod_ref', $data->code_ref)
-				->where('cod_exam', $data_exams[$i]->cod_exam)
-				->update([
-					'laboratory_id' => $laboratory->id,
-					'cod_lab' => $laboratory->code_lab,
-					'file' => $nameFile,
-					'status' => 2,
-					'date_result' => date('d-m-Y'),
-				]);
+					->where('cod_ref', $data->code_ref)
+					->where('cod_exam', $data_exams[$i]->cod_exam)
+					->update([
+						'laboratory_id' => $laboratory->id,
+						'cod_lab' => $laboratory->code_lab,
+						'file' => $nameFile,
+						'status' => 2,
+						'date_result' => date('d-m-Y'),
+					]);
 			}
 
 			return true;
-
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.upload_result_exam()', $message);
@@ -1056,15 +1055,15 @@ class UtilsController extends Controller
 
 			for ($i = 0; $i < count($data_studies); $i++) {
 				$update = DB::table('study_patients')
-				->where('cod_ref', $data->code_ref)
-				->where('cod_study', $data_studies[$i]->cod_study)
-				->update([
-					'laboratory_id' => $laboratory->id,
-					'cod_lab' => $laboratory->code_lab,
-					'file' => $nameFile,
-					'status' => 2,
-					'date_result' => date('d-m-Y'),
-				]);
+					->where('cod_ref', $data->code_ref)
+					->where('cod_study', $data_studies[$i]->cod_study)
+					->update([
+						'laboratory_id' => $laboratory->id,
+						'cod_lab' => $laboratory->code_lab,
+						'file' => $nameFile,
+						'status' => 2,
+						'date_result' => date('d-m-Y'),
+					]);
 			}
 
 			return true;
@@ -1161,37 +1160,37 @@ class UtilsController extends Controller
 
 		$data = [];
 		if ($row != 'cod_ref') {
+			
+			$tablePat =  Patient::where($row, $value);
 
-			$data_patient = Patient::where('ci', $value)->first();
+			$tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($value) {
+				$q->where('re_ci', $value);
+			});
 
-			if($data_patient == null){
-				$id = Representative::where('re_ci', $value)->first()->patiente_id;
-			}else {
-				$id = $data_patient->id;
-			}
+			$patients = $tablePat->union($tableRep)->get();
 
 			/**
 			 * Realizamos la busqueda en la tabla
-			 * de examenes del paciente para traernos
-			 * los resultados
+			 * de examenes del paciente
 			 */
-			$data_exam = ExamPatient::where('patient_id', $id)->where('status', 2)->get();
-			foreach ($data_exam as $key => $val) {
+			foreach ($patients as $key => $val) {
+
+				$data_exam = ExamPatient::where('patient_id', $val->id)
+				->where('status', 2)				
+				->with('get_laboratory')
+				->get();
+
 				$data[$key] = [
-					'cod_exam' => $val->cod_exam,
-					'description' => $val->description,
-					'laboratory_id' => $val->get_laboratory->business_name,
-					'file' => $val->file,
-					'date_result' => $val->date_result,
-					'patient' => [
-						'patient_id' =>  $data_patient->id,
-						'full_name' => $data_patient->name . ' ' . $data_patient->last_name,
-						'cod_medical_record' => $val->record_code,
-						'record_date' => MedicalRecord::where('record_code', $val->record_code)->first()->record_date
-					]
+					'patient_id' =>  $val->id,
+					'full_name' => $val->name . ' ' . $val->last_name,
+					'ci' => ($val->is_minor == "false") ? $val->ci : $val->get_reprensetative->re_ci,
+					'genero' => $val->genere,
+					'exam' => $data_exam,
 				];
 			}
-			return $data;
+
+			return $data;	
+			
 		} else {
 
 			$resp = Reference::where('cod_ref', $value)->first();
@@ -1214,44 +1213,47 @@ class UtilsController extends Controller
 
 		$data = [];
 		if ($row != 'cod_ref') {
-			$data_patient = Patient::where('ci', $value)->first();
-			if ($data_patient->is_minor == 'true') {
-				$id = Representative::where('re_ci', $value)->first()->patiente_id;
-			} else {
-				$id = $data_patient->id;
-			}
+
+			$tablePat =  Patient::where($row, $value);
+
+			$tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($value) {
+				$q->where('re_ci', $value);
+			});
+
+			$patients = $tablePat->union($tableRep)->get();
 
 			/**
 			 * Realizamos la busqueda en la tabla
 			 * de examenes del paciente
 			 */
+			foreach ($patients as $key => $val) {
 
-			$data_exam = StudyPatient::where('patient_id', $id)->where('status', 2)->get();
-			foreach ($data_exam as $key => $val) {
+				$data_study = StudyPatient::where('patient_id', $val->id)
+				->where('status', 2)				
+				->with('get_laboratory')
+				->get();
+
 				$data[$key] = [
-					'cod_study' => $val->cod_study,
-					'description' => $val->description,
-					'laboratory_id' => $val->get_laboratory->business_name,
-					'file' => $val->file,
-					'patient' => [
-						'patient_id' =>  $data_patient->id,
-						'full_name' => $data_patient->name . ' ' . $data_patient->last_name,
-						'cod_medical_record' => $val->record_code
-					]
+					'patient_id' =>  $val->id,
+					'full_name' => $val->name . ' ' . $val->last_name,
+					'ci' => ($val->is_minor == "false") ? $val->ci : $val->get_reprensetative->re_ci,
+					'genero' => $val->genere,
+					'study' => $data_study,
 				];
 			}
 
 			return $data;
-		} 
+		}
 	}
 
 
-	static function responce_references() {
+	static function responce_references()
+	{
 
-        $data_exam_res = ComponentsLaboratory::res_exams();
-        
-        $data_study_res= ComponentsLaboratory::res_studies();      
-        
-        return ["data_exam_res"=>$data_exam_res,"data_study_res"=>$data_study_res];
-    }
+		$data_exam_res = ComponentsLaboratory::res_exams();
+
+		$data_study_res = ComponentsLaboratory::res_studies();
+
+		return ["data_exam_res" => $data_exam_res, "data_study_res" => $data_study_res];
+	}
 }
