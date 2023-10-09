@@ -744,7 +744,7 @@
             </div>
             {{-- firma Digital --}}
             <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3" style="margin-top: 20px; ">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd" style="margin-top: 20px; ">
                     <div class="accordion-item">
                         <span class="accordion-header title" id="headingThree">
                             <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"
