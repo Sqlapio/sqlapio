@@ -798,7 +798,7 @@
                                                                             data-bs-placement="bottom"
                                                                             data-bs-custom-class="custom-tooltip"
                                                                             data-html="true"
-                                                                            title="No hay examenes cargados" style="font-size: 23px; color: red"></i>
+                                                                            title="No hay examenes cargados" style="font-size: 23px; color: #ff7b0d"></i>
                                                                         </div>
                                                                     @endif
                                                                     @if ($item['data']['status_study'])
@@ -821,7 +821,7 @@
                                                                             data-bs-placement="bottom"
                                                                             data-bs-custom-class="custom-tooltip"
                                                                             data-html="true"
-                                                                            title="No hay estudios cargados" style="font-size: 23px; color: red"></i>
+                                                                            title="No hay estudios cargados" style="font-size: 23px; color: #ff7b0d"></i>
                                                                         </div>
                                                                     @endif
                                                                     <div
