@@ -779,36 +779,49 @@
                                                             <td class="text-center td-pad">
                                                                 <div class="d-flex">
                                                                     @if ($item['data']['status_exam'])
-                                                                        <div
-                                                                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <a href="{{ route('mr_exam', $item['id']) }}">
-                                                                                <button type="button"
-                                                                                    class="btn refresf btn-iSecond rounded-circle"><i
-                                                                                        class="i bi-card-heading"
+                                                                                <button type="button" class="btn refresf btn-iSecond rounded-circle"
                                                                                         data-bs-toggle="tooltip"
                                                                                         data-bs-placement="bottom"
                                                                                         data-bs-custom-class="custom-tooltip"
                                                                                         data-html="true"
-                                                                                        title="ver examenes"></i>
+                                                                                        title="ver examenes">
+                                                                                    <i class="i bi-card-heading" ></i>
                                                                                 </button>
                                                                             </a>
                                                                         </div>
+                                                                    @else
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" style="display: flex; align-items: center;
+                                                                        justify-content: center;">
+                                                                            <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom"
+                                                                            data-bs-custom-class="custom-tooltip"
+                                                                            data-html="true"
+                                                                            title="No hay examenes cargados" style="font-size: 23px; color: #ff7b0d"></i>
+                                                                        </div>
                                                                     @endif
                                                                     @if ($item['data']['status_study'])
-                                                                        <div
-                                                                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                            <a
-                                                                                href="{{ route('mr_study', $item['id']) }}">
-                                                                                <button type="button"
-                                                                                    class="btn refresf btn-iSecond rounded-circle"><i
-                                                                                        class="i bi-card-heading"
-                                                                                        data-bs-toggle="tooltip"
-                                                                                        data-bs-placement="bottom"
-                                                                                        data-bs-custom-class="custom-tooltip"
-                                                                                        data-html="true"
-                                                                                        title="ver estudios"></i>
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                            <a href="{{ route('mr_study', $item['id']) }}">
+                                                                                <button type="button" class="btn refresf btn-iSecond rounded-circle" 
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="bottom"
+                                                                                    data-bs-custom-class="custom-tooltip"
+                                                                                    data-html="true"
+                                                                                    title="ver estudios">
+                                                                                    <i class="i bi-card-heading"></i>
                                                                                 </button>
                                                                             </a>
+                                                                        </div>
+                                                                    @else
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" style="display: flex; align-items: center;
+                                                                        justify-content: center;">
+                                                                            <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom"
+                                                                            data-bs-custom-class="custom-tooltip"
+                                                                            data-html="true"
+                                                                            title="No hay estudios cargados" style="font-size: 23px; color: #ff7b0d"></i>
                                                                         </div>
                                                                     @endif
                                                                     <div
