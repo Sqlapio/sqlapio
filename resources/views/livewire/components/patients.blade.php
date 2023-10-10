@@ -524,8 +524,10 @@
             $('#bnt-dairy').show();
             $('#flexSwitchCheckChecked').prop('checked', false);
             url = url.replace(':id', data.id);
+            urlhist = urlhist.replace(':id', data.id);
             $("#bnt-cons").find('a').remove();
             $("#bnt-dairy").find('button').remove();
+            $("#bnt-hist").find('button').remove();
             $("#bnt-cons").append(
                 `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`);
             let elemData = JSON.stringify(data);
