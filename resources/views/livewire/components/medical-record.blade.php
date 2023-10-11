@@ -187,13 +187,130 @@
                                                 .replace(
                                                     ':id', elem
                                                     .id);
-                                            elem.btn = `
-                                                    <a target="_blank"
-                                                    href=${route}>
+
+                                            let route_mr_exam =
+                                                "{{ route('mr_exam', ':id') }}";
+                                            route_mr_exam =
+                                                route_mr_exam
+                                                .replace(
+                                                    ':id', elem
+                                                    .id);
+
+                                            let route_mr_study =
+                                                "{{ route('mr_study', ':id') }}";
+                                            route_mr_study =
+                                                route_mr_study
+                                                .replace(
+                                                    ':id', elem
+                                                    .id);
+
+                                                    let route_pdf_medical_prescription =
+                                                "{{ route('pdf_medical_prescription', ':id') }}";
+                                            route_pdf_medical_prescription =
+                                                route_pdf_medical_prescription
+                                                .replace(
+                                                    ':id', elem
+                                                    .id);
+
+                                            let btnExam = `
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
+                                                    style="display: flex; align-items: center;
+                                                    justify-content: center;">
+                                                    <i class="bi bi-exclamation-circle"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom"
+                                                    data-bs-custom-class="custom-tooltip"
+                                                    data-html="true"
+                                                    title="No hay examenes cargados"
+                                                    style="font-size: 23px; color: #ff7b0d"></i>
+                                                    </div>`;
+
+                                            if (elem.data
+                                                .status_exam != null
+                                                ) {
+                                                btnExam = `  
+                                                        <div
+                                                    class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <a href="${route_mr_exam}">
                                                     <button type="button"
-                                                    class="btn-2 refresf btnSecond"><i
-                                                    class="bi bi-file-earmark-pdf"></i></button>
-                                                    </a>                               `;
+                                                    class="btn refresf btn-iSecond rounded-circle"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom"
+                                                    data-bs-custom-class="custom-tooltip"
+                                                    data-html="true" title="ver examenes">
+                                                    <i class="i bi-card-heading"></i>
+                                                    </button>
+                                                    </a>
+                                                    </div>`
+
+                                            }
+                                            let btnStudy  = `<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
+                                                    style="display: flex; align-items: center;
+                                                    justify-content: center;">
+                                                    <i class="bi bi-exclamation-circle"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom"
+                                                    data-bs-custom-class="custom-tooltip"
+                                                    data-html="true"
+                                                    title="No hay estudios cargados"
+                                                    style="font-size: 23px; color: #ff7b0d"></i>
+                                                    </div>`
+
+                                            if (elem.data
+                                                .status_study != null
+                                                ) {
+                                                    btnStudy = `  
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <a
+                                                    href="${route_mr_study}">
+                                                    <button type="button"
+                                                    class="btn refresf btn-iSecond rounded-circle"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom"
+                                                    data-bs-custom-class="custom-tooltip"
+                                                    data-html="true" title="ver estudios">
+                                                    <i class="i bi-card-heading"></i>
+                                                    </button>
+                                                    </a>
+                                                    </div>`
+
+                                            }
+
+
+                                            elem.btn = `                                                                    
+                                                    <div class="d-flex">
+                                                    ${btnExam}
+                                                    ${btnStudy}
+                                                    <div
+                                                    class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <a target="_blank"
+                                                    href="${route_pdf_medical_prescription}">
+                                                    <button type="button"
+                                                    class="btn refresf btn-iSecond rounded-circle"><i
+                                                    class="bi bi-file-earmark-pdf"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom"
+                                                    data-bs-custom-class="custom-tooltip"
+                                                    data-html="true"
+                                                    title="Ver recipe"></i>
+                                                    </button>
+                                                    </a>
+                                                    </div>                                               
+                                                    <div
+                                                    class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <a target="_blank"
+                                                    href="${route}">
+                                                    <button type="button"
+                                                    class="btn refresf btn-iSecond rounded-circle"><i
+                                                    class="bi bi-file-earmark-pdf"
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom"
+                                                    data-bs-custom-class="custom-tooltip"
+                                                    data-html="true" title="ver PDF"></i>
+                                                    </button>
+                                                    </a>
+                                                    </div>
+                                                    </div>`;
                                             data.push(elem);
                                         });
 
@@ -779,53 +896,77 @@
                                                             <td class="text-center td-pad">
                                                                 <div class="d-flex">
                                                                     @if ($item['data']['status_exam'])
-                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <div
+                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <a href="{{ route('mr_exam', $item['id']) }}">
-                                                                                <button type="button" class="btn refresf btn-iSecond rounded-circle"
-                                                                                        data-bs-toggle="tooltip"
-                                                                                        data-bs-placement="bottom"
-                                                                                        data-bs-custom-class="custom-tooltip"
-                                                                                        data-html="true"
-                                                                                        title="ver examenes">
-                                                                                    <i class="i bi-card-heading" ></i>
-                                                                                </button>
-                                                                            </a>
-                                                                        </div>
-                                                                    @else
-                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" style="display: flex; align-items: center;
-                                                                        justify-content: center;">
-                                                                            <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom"
-                                                                            data-bs-custom-class="custom-tooltip"
-                                                                            data-html="true"
-                                                                            title="No hay examenes cargados" style="font-size: 23px; color: #ff7b0d"></i>
-                                                                        </div>
-                                                                    @endif
-                                                                    @if ($item['data']['status_study'])
-                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                            <a href="{{ route('mr_study', $item['id']) }}">
-                                                                                <button type="button" class="btn refresf btn-iSecond rounded-circle" 
+                                                                                <button type="button"
+                                                                                    class="btn refresf btn-iSecond rounded-circle"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
-                                                                                    data-html="true"
-                                                                                    title="ver estudios">
+                                                                                    data-html="true" title="ver examenes">
                                                                                     <i class="i bi-card-heading"></i>
                                                                                 </button>
                                                                             </a>
                                                                         </div>
                                                                     @else
-                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" style="display: flex; align-items: center;
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
+                                                                            style="display: flex; align-items: center;
                                                                         justify-content: center;">
-                                                                            <i class="bi bi-exclamation-circle" data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom"
-                                                                            data-bs-custom-class="custom-tooltip"
-                                                                            data-html="true"
-                                                                            title="No hay estudios cargados" style="font-size: 23px; color: #ff7b0d"></i>
+                                                                            <i class="bi bi-exclamation-circle"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                data-bs-custom-class="custom-tooltip"
+                                                                                data-html="true"
+                                                                                title="No hay examenes cargados"
+                                                                                style="font-size: 23px; color: #ff7b0d"></i>
+                                                                        </div>
+                                                                    @endif
+                                                                    @if ($item['data']['status_study'])
+                                                                        <div
+                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <a
+                                                                                href="{{ route('mr_study', $item['id']) }}">
+                                                                                <button type="button"
+                                                                                    class="btn refresf btn-iSecond rounded-circle"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="bottom"
+                                                                                    data-bs-custom-class="custom-tooltip"
+                                                                                    data-html="true" title="ver estudios">
+                                                                                    <i class="i bi-card-heading"></i>
+                                                                                </button>
+                                                                            </a>
+                                                                        </div>
+                                                                    @else
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
+                                                                            style="display: flex; align-items: center;
+                                                                        justify-content: center;">
+                                                                            <i class="bi bi-exclamation-circle"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                data-bs-custom-class="custom-tooltip"
+                                                                                data-html="true"
+                                                                                title="No hay estudios cargados"
+                                                                                style="font-size: 23px; color: #ff7b0d"></i>
                                                                         </div>
                                                                     @endif
                                                                     <div
-                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <a target="_blank"
+                                                                            href="{{ route('pdf_medical_prescription', $item['id']) }}">
+                                                                            <button type="button"
+                                                                                class="btn refresf btn-iSecond rounded-circle"><i
+                                                                                    class="bi bi-file-earmark-pdf"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="bottom"
+                                                                                    data-bs-custom-class="custom-tooltip"
+                                                                                    data-html="true"
+                                                                                    title="Ver recipe"></i>
+                                                                            </button>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div
+                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
 
                                                                         <a target="_blank"
                                                                             href="{{ route('PDF_medical_record', $item['id']) }}">

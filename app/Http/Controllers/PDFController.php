@@ -55,6 +55,18 @@ class PDFController extends Controller
         return $pdf->stream('historia-clinica.pdf');
     }
 
+    public function PDF_medical_prescription($id){
+
+        $medical_prescription = MedicalRecord::where('id', $id)->first();
+        $data = [
+            'date' => date('m/d/Y'),
+            'medical_prescription' => $medical_prescription,
+        ];    
+        $pdf = PDF::loadView('pdf.PDF_medical_prescription', $data);
+        return $pdf->stream('medical-prescription.pdf');
+        
+    }
+
     public function PDF_ref($id)
     {
         $reference = Reference::where('id', $id)->first();

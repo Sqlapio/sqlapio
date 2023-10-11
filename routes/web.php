@@ -168,6 +168,8 @@ Route::middleware(['auth'])->group(function () {
      * Genera el pdf para las historias
      */
     Route::get('/pdf/history/{id}', [PDFController::class, 'PDF_history'])->name('PDF_history');
+    Route::get('/pdf/medical_prescription/{id}', [PDFController::class, 'PDF_medical_prescription'])->name('pdf_medical_prescription');
+
 
      /**
      * @method search
