@@ -21,6 +21,13 @@
         text-align: justify;
     }
 
+   
+      .table-striped>tbody>tr:nth-child(even)>td, 
+      .table-striped>tbody>tr:nth-child(even)>th {
+        background-color: #ccc; */
+       /* background-color: #eee; */
+      }
+
     .page-break {
         /* page-break-after: always;
         text-align: right !important; */
@@ -47,6 +54,7 @@
         font-size: 0.8rem;
         width: 100%;
     }
+
     .border-table {
         border: 1px solid black;
         font-size: 10px;
@@ -125,8 +133,7 @@
             </thead>
             <tbody>
                 <tr class="text-header">
-                    <td colspan="2" style="text-align: center;padding-top: 10px;font-size: 25px;"> <strong>Recipe
-                            medico</strong></td>
+                    <td colspan="2" style="text-align: center;padding-top: 10px;font-size: 25px;"> <strong>orden medica</strong></td>
                 </tr>
                 <tr class="text-header" style="border-radius: 50px!important;">
                     <td style="padding: 10px;">
@@ -228,34 +235,36 @@
     <br>
     <div>
         <div>
-            <table class="table-info-pat">
+            <table class="table-info-pat table-striped">
                 <thead>
                     <tr>
-                        <th style="text-align: left;  padding: 10px;" scope="col">
-                            Rep:
+                        <th class="border-table" style="text-align: center;  padding: 10px;">
+                            Recipe:
                         </th>
-                        <th style="text-align: left; padding: 10px;" scope="col">
+                        <th class="border-table" style="text-align: center; padding: 10px;">
                             Indicaciones:
+                        </th>
+                        <th class="border-table" style="text-align: center; padding: 10px;">
+                            Duración del tratamiento:
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     @php
-                    $data = json_decode($medical_prescription->medications_supplements);
+                        $data = json_decode($medical_prescription->medications_supplements);
                     @endphp
                     @foreach ($data as $item)
-                    <tr>
-                        <td style="text-align: center;">
-                            <div class="text  info-pat">
-                                <span>{{ $item->medicine }}</span>                             
-                            </div>
-                        </td>
-                        <td style="text-align: center;">
-                            <div class="text  info-pat">
-                                <<span>{{ $item->indication . ' ' . $item->treatmentDuration }}</span>                             
-                            </div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="border-table" style="text-align: center; padding: 10px;">
+                                {{ $item->medicine }}
+                            </td>
+                            <td class="border-table" style="text-align: center; padding: 10px;">
+                                {{ $item->indication }}
+                            </td>
+                            <td class="border-table" style="text-align: center; padding: 10px;">
+                                {{ $item->treatmentDuration }}
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
