@@ -15,8 +15,8 @@
 
     }
 
-    .table-border{
-        text-align: left;  
+    .table-border {
+        text-align: left;
         padding: 10px;
         text-align: justify;
     }
@@ -30,14 +30,14 @@
     .footer {
         position: fixed;
         bottom: 0cm;
-        left: 0cm;    
+        left: 0cm;
         right: 0px;
         height: 50px;
         text-align: center;
         line-height: 35px;
         padding: 10px;
-        font-size: 12px;    
-        margin-top: 3cm  
+        font-size: 12px;
+        margin-top: 3cm
     }
 
     table {
@@ -47,6 +47,11 @@
         font-size: 0.8rem;
         width: 100%;
     }
+    .border-table {
+        border: 1px solid black;
+        font-size: 10px;
+    }
+
 
     th {
         border: 0px;
@@ -74,6 +79,7 @@
     span {
         text-transform: capitalize;
     }
+
     /* ////////////// */
     .text-header {
         background-color: #2A8ED7;
@@ -106,10 +112,9 @@
         float: left;
         margin-left: 1cm;
     }
-   
 </style>
 
-<body>    
+<body>
     <div class="header">
         <table class="inf-prueba">
             <thead>
@@ -120,16 +125,18 @@
             </thead>
             <tbody>
                 <tr class="text-header">
-                    <td colspan="2" style="text-align: center;padding-top: 10px;font-size: 25px;" > <strong> Consulta Médica</strong></td>
+                    <td colspan="2" style="text-align: center;padding-top: 10px;font-size: 25px;"> <strong>Recipe
+                            medico</strong></td>
                 </tr>
                 <tr class="text-header" style="border-radius: 50px!important;">
                     <td style="padding: 10px;">
                         <div>
-                            <strong style="font-size: 15px;">{{ $MedicalRecord->get_center->description }}</strong>
-                            <p  style="margin-top: 0px">
-                                Dirección: {{ $MedicalRecord->get_center_data->address }},
+                            <strong
+                                style="font-size: 15px;">{{ $medical_prescription->get_center->description }}</strong>
+                            <p style="margin-top: 0px">
+                                Dirección: {{ $medical_prescription->get_center_data->address }},
                                 Local,
-                                {{ $MedicalRecord->get_center_data->number_floor }}<br>{{ $MedicalRecord->get_center_data->phone_consulting_room }}
+                                {{ $medical_prescription->get_center_data->number_floor }}<br>{{ $medical_prescription->get_center_data->phone_consulting_room }}
                             </p>
                         </div>
                     </td>
@@ -139,10 +146,10 @@
                             <span>{{ Auth::user()->name . ' ' . Auth::user()->last_name }}</span>
                             <br>
                             <strong>Fecha de la Consulta:</strong>
-                            <span>{{  $MedicalRecord->record_date }}</span>
+                            <span>{{ $medical_prescription->record_date }}</span>
                             <br>
                             <strong> Código del paciente:</strong>
-                            <span>{{ $MedicalRecord->get_paciente->patient_code }}</span>
+                            <span>{{ $medical_prescription->get_paciente->patient_code }}</span>
                         </div>
                     </td>
                 </tr>
@@ -173,7 +180,7 @@
             </tbody>
         </table>
     </footer>
- 
+
     <div>
         <table class="table-info-pat">
             <thead>
@@ -190,27 +197,27 @@
                     <td style="text-align: center;">
                         <div class="text  info-pat">
                             <strong>Nombre y
-                                Apellido:</strong><span>{{ $MedicalRecord->get_paciente->name . ' ' . $MedicalRecord->get_paciente->last_name }}</span>
+                                Apellido:</strong><span>{{ $medical_prescription->get_paciente->name . ' ' . $medical_prescription->get_paciente->last_name }}</span>
                             {{-- <br> --}}
-                            <strong>Cédula:</strong> <span>{{ $MedicalRecord->get_paciente->ci }}</span>
+                            <strong>Cédula:</strong> <span>{{ $medical_prescription->get_paciente->ci }}</span>
                             <br>
-                            <strong>Género:</strong> <span>{{ $MedicalRecord->get_paciente->genere }}</span>
-                            <strong>Edad:</strong> <span>{{ $MedicalRecord->get_paciente->age }}</span>
+                            <strong>Género:</strong> <span>{{ $medical_prescription->get_paciente->genere }}</span>
+                            <strong>Edad:</strong> <span>{{ $medical_prescription->get_paciente->age }}</span>
                             <br>
                             <strong>Correo electrónico:</strong>
-                            <span>{{ $MedicalRecord->get_paciente->email }}</span>
+                            <span>{{ $medical_prescription->get_paciente->email }}</span>
                             <br>
-                            <strong>Teléfono:</strong> <span>{{ $MedicalRecord->get_paciente->phone }}</span>
+                            <strong>Teléfono:</strong> <span>{{ $medical_prescription->get_paciente->phone }}</span>
                             <br>
                             <strong>Dirección:</strong>
-                            <span>{{ $MedicalRecord->get_paciente->address }}</span>
+                            <span>{{ $medical_prescription->get_paciente->address }}</span>
                         </div>
                     </td>
                     <td style="text-align: center;">
                         <div class="text" style="margin-right: -20px">
-                            <img  class="img-pat" style="border-radius: 20%"
-                                src="../public/imgs/{{ $MedicalRecord->get_paciente->patient_img }}" alt="Avatar"
-                                width="100" height="auto">
+                            <img class="img-pat" style="border-radius: 20%"
+                                src="../public/imgs/{{ $medical_prescription->get_paciente->patient_img }}"
+                                alt="Avatar" width="100" height="auto">
                         </div>
                     </td>
                 </tr>
@@ -220,134 +227,39 @@
     <br>
     <br>
     <div>
-        <table class="table-info-pat">
-            <thead >
-                <tr>
-                    <th class="table-border">
-                        Antecendente:
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="table-border">
-                        {{ $MedicalRecord->background }}
-                    </td>
-                </tr>
-
-            </tbody>
-
-
-        </table>
-    </div>
-    <br>
-    <br>
-    <div>
-        <table class="table-info-pat">
-            <thead>
-                <tr>
-                    <th class="table-border">
-                        Razon de la visita:
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="table-border">
-                        {{ $MedicalRecord->razon }}
-                    </td>
-                </tr>
-
-            </tbody>
-
-
-        </table>
-    </div>
-    <br>
-    <br>
-    <div>
-        <table class="table-info-pat">
-            <thead>
-                <tr>
-                    <th class="table-border">
-                        Diagnóstico:
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="table-border">
-                        {{ $MedicalRecord->diagnosis }}
-                    </td>
-                </tr>
-
-            </tbody>
-
-
-        </table>
-    </div>
-    <br>
-    <br>
-    {{-- <div>
-        <table class="table-info-pat">
-            <thead>
-                <tr>
-                    <th class="table-border">
-                        Tratamiento:
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="table-border">
-                        {{ $MedicalRecord->treatment }}
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div> --}}
-    <br>
-    <br>
-    <div>
-        <table class="table-info-pat">
-            <thead>
-                <tr>
-                    <th class="table-border">
-                        Exámenes:
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="table-border">
-                        {{ $MedicalRecord->exams }}
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div>
-    <br>
-    <br>
-    <div>
-        <table class="table-info-pat">
-            <thead>
-                <tr>
-                    <th class="table-border">
-                        Estudios:
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="table-border">
-                        {{ $MedicalRecord->studies }}
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
+        <div>
+            <table class="table-info-pat">
+                <thead>
+                    <tr>
+                        <th style="text-align: left;  padding: 10px;" scope="col">
+                            Rep:
+                        </th>
+                        <th style="text-align: left; padding: 10px;" scope="col">
+                            Indicaciones:
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                    $data = json_decode($medical_prescription->medications_supplements);
+                    @endphp
+                    @foreach ($data as $item)
+                    <tr>
+                        <td style="text-align: center;">
+                            <div class="text  info-pat">
+                                <span>{{ $item->medicine }}</span>                             
+                            </div>
+                        </td>
+                        <td style="text-align: center;">
+                            <div class="text  info-pat">
+                                <<span>{{ $item->indication . ' ' . $item->treatmentDuration }}</span>                             
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
     <script type="text/php">
         if ( isset($pdf) ) {
@@ -356,8 +268,7 @@
                 $pdf->text(500, 790, "Pag $PAGE_NUM/$PAGE_COUNT", $font, 10);
             ');
         }
-    </script>   
+    </script>
 </body>
+
 </html>
-
-
