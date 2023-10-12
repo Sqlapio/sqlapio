@@ -24,8 +24,8 @@
    
       .table-striped>tbody>tr:nth-child(even)>td, 
       .table-striped>tbody>tr:nth-child(even)>th {
-        background-color: #ccc; */
-       /* background-color: #eee; */
+        /* background-color: #ccc; */ 
+       background-color: #eee;
       }
 
     .page-break {

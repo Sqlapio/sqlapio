@@ -753,6 +753,14 @@
                                                         class="form-control" readonly value="{!! !empty($validateHistory) ? $count_back_bamiliy : '' !!}">
                                                 </div>
                                             </div>
+
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">observaciones</label>
+                                                    <textarea id="observations_back_family" name="observations_back_family" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_back_family : '' !!}</textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -815,6 +823,13 @@
                                                     </span>
                                                     <input type="text" id="countDiagnosis" name="countDiagnosis"
                                                         class="form-control" readonly value="{!! !empty($validateHistory) ? $count_dagnosis : '' !!}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">observaciones</label>
+                                                    <textarea id="observations_diagnosis" name="observations_diagnosis" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_diagnosis : '' !!}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -880,6 +895,13 @@
                                                     <input type="text" id="countNotPathological"
                                                         name="countNotPathological" class="form-control" readonly
                                                         value="{!! !empty($validateHistory) ? $count_notpathologica : '' !!}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">observaciones</label>
+                                                    <textarea id="observations_not_pathological" name="observations_not_pathological" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_not_pathological : '' !!}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -1002,6 +1024,13 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">observaciones</label>
+                                                    <textarea id="observations_ginecologica" name="observations_ginecologica" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_ginecologica : '' !!}</textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1111,6 +1140,14 @@
                                                     </div>
                                                 </tfoot>
                                             </div>
+
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">observaciones</label>
+                                                    <textarea id="observations_allergies" name="observations_allergies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_allergies : '' !!}</textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1217,6 +1254,13 @@
                                                         </div>
                                                     </div>
                                                 </tfoot>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">observaciones</label>
+                                                    <textarea id="observations_ginecologica" name="observations_ginecologica" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_ginecologica : '' !!}</textarea>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1431,6 +1475,14 @@
                                                         </div>
                                                     </div>
                                                 </tfoot>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                            <div class="form-group">
+                                                <label for="phone" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">observaciones</label>
+                                                <textarea id="observations_medication" name="observations_medication" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_medication : '' !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
