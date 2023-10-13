@@ -728,11 +728,9 @@
                                                             <span id="treatmentDuration_span" class="text-danger"></span>
                                                         </div>
                                                     </div>
-
-                                                    <div
-                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3 offset-md-5">
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3 offset-md-5">
                                                         <span type="" onclick="addMedacition(event)"
-                                                            class="btn btn-outline-secondary" id="btn"><i
+                                                            class="btn btn-outline-secondary" id="btn" style="padding: 7px"><i
                                                                 class="bi bi-plus-lg"></i>Añadir
                                                             Tratamiento</span>
                                                     </div>
@@ -744,8 +742,7 @@
                                                         <hr>
                                                         <h5>Lista de Tratamiento</h5>
                                                         <hr>
-                                                        <table class="table table-striped table-bordered"
-                                                            id="table-medicamento">
+                                                        <table class="table table-striped table-bordered" id="table-medicamento">
                                                             <thead>
                                                                 <tr>
                                                                     <th class="text-center" scope="col">
@@ -822,7 +819,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="row mt-3">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                 <div id="spinner" style="display: none">
@@ -864,10 +860,10 @@
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row" id="table-one">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-resposive"
-                                            style="margin-top: 20px; width: 100%;">
-                                            <table class="table table-striped table-bordered" id="table-medical-record"
-                                                style="width: 100%;">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                            style="margin-top: 20px;">
+                                            <table id="table-medical-record" class="table table-striped table-bordered"
+                                                style="width:100%; ">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">Código de la consulta</th>
@@ -912,7 +908,7 @@
                                                                     @else
                                                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
                                                                             style="display: flex; align-items: center;
-                                                                        justify-content: center;">
+                                                                        justify-content: center; margin-right: 9px">
                                                                             <i class="bi bi-exclamation-circle"
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
@@ -923,10 +919,8 @@
                                                                         </div>
                                                                     @endif
                                                                     @if ($item['data']['status_study'])
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <a
-                                                                                href="{{ route('mr_study', $item['id']) }}">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <a href="{{ route('mr_study', $item['id']) }}">
                                                                                 <button type="button"
                                                                                     class="btn refresf btn-iSecond rounded-circle"
                                                                                     data-bs-toggle="tooltip"
@@ -940,7 +934,7 @@
                                                                     @else
                                                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
                                                                             style="display: flex; align-items: center;
-                                                                        justify-content: center;">
+                                                                        justify-content: center; margin-right: 9px">
                                                                             <i class="bi bi-exclamation-circle"
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
@@ -950,8 +944,7 @@
                                                                                 style="font-size: 23px; color: #ff7b0d"></i>
                                                                         </div>
                                                                     @endif
-                                                                    <div
-                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                         <a target="_blank"
                                                                             href="{{ route('pdf_medical_prescription', $item['id']) }}">
                                                                             <button type="button"
@@ -965,8 +958,7 @@
                                                                             </button>
                                                                         </a>
                                                                     </div>
-                                                                    <div
-                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
 
                                                                         <a target="_blank"
                                                                             href="{{ route('PDF_medical_record', $item['id']) }}">

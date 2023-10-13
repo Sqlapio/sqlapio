@@ -77,6 +77,10 @@
 
     @media only screen and (max-width: 768px) {
 
+        body {  
+            background: url({{ asset('img/fondo-mobile-rg.jpg') }}) no-repeat center center fixed !important;
+        }
+
         .btn-bg {
             display: flex;
             justify-content: center;
@@ -375,7 +379,7 @@
                                             </div>
                                         </diV>
                                     </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
@@ -386,7 +390,7 @@
                                                 <i class="bi bi-caret-down st-icon"></i>
                                             </div>
                                         </diV>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                         <div class="form-group">

@@ -620,7 +620,6 @@
                                     </div>
 
                                     <div class="row mt-3" id="content-search-pat" style="display: none">
-
                                         <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mb-3 mt-3"
                                             style="width: 318px;">
                                             <div class="form-check form-check-inline">
@@ -647,13 +646,12 @@
                                                     name="search_patient" placeholder="" value="">
                                             </div>
                                         </div>
-
                                         <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-3">
                                             <button style="margin-top: 2px;" onclick="searchPat()"
                                                 class="btn btnSecond">Buscar</button>
                                         </div>
                                     </div>
-
+                                    
                                     <div class="row" id="show-info-pat" style="display: none">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <h5 class="mb-4">Lista de paciente registrado bajo este documento de identidad</h5>
