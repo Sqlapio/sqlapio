@@ -22,6 +22,7 @@ class MedicalHistory extends Component
         try { 
             $data = json_decode($request->data);
             $patient = Patient::where('id',$data->id)->first();
+            
             $patient_ci = $patient->ci;
 
                 if($patient_ci == null){
@@ -72,6 +73,7 @@ class MedicalHistory extends Component
                 'COVID19'                   => (isset($data->COVID19) ? $data->COVID19 : null),
                 'no_aplica'                 => (isset($data->no_aplica) ? $data->no_aplica : null),
 
+
                 //Antecedentes patologicos
                 'hepatitis'                 => (isset($data->hepatitis) ? $data->hepatitis : null),
                 'VIH_SIDA'                  => (isset($data->VIH_SIDA) ? $data->VIH_SIDA : null),
@@ -113,6 +115,13 @@ class MedicalHistory extends Component
                 'allergies'                 => $data->arrayAllergies,
                 'history_surgical'          => $data->arrayhistory_surgical,
                 'medications_supplements'   => $data->arraymedications_supplements,
+                //observaciones
+                'observations_ginecologica'   => $data->observations_ginecologica,
+                'observations_medication'   => $data->observations_medication,   
+                'observations_not_pathological'=>  $data->observations_not_pathological,
+                'observations_diagnosis'    => $data->observations_diagnosis,
+                'observations_back_family'  => $data->observations_back_family,
+                'observations_allergies'=> $data->observations_allergies,
             ]);
 
             $action = '6';

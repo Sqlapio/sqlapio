@@ -103,8 +103,14 @@ class History extends Model
         'cesareas',
         'allergies',
         'history_surgical',
-        'medications_supplements'
-
+        'medications_supplements',
+        //observaciones
+        'observations_ginecologica',
+        'observations_allergies',
+        'observations_medication',
+        'observations_back_family',
+        'observations_diagnosis',
+        'observations_not_pathological',
     ];
 
     public function  get_paciente(): HasOne
