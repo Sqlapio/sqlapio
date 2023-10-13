@@ -68,6 +68,10 @@
         white-space: pre-line;
     }
 
+    .container-icon {
+        width: 715px !important;
+    }
+
 
 
 
@@ -101,6 +105,10 @@
 
         .btn2 {
             margin-left: 20px;
+        }
+
+        .container-icon {
+            width: 0
         }
 
 
@@ -279,7 +287,7 @@
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                    <div class="container" style="display: flex; justify-content: center; width: 715px;">
+                    <div class="container container-icon" style="display: flex; justify-content: center;">
                         <div id="btn-rol" class="row justify-content-center">
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 btn-bg">
                                 <img data-bs-toggle="tooltip" data-bs-placement="bottom"
