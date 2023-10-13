@@ -108,7 +108,7 @@
         }
 
         .container-icon {
-            width: 0
+            width: 0 !important;
         }
 
 
