@@ -27,14 +27,39 @@
         width: 350px;
     }
 
+    .btn-bg-lb img {
+        display: block;
+        width: 350px;
+    }
+
     .btn-bg img:last-of-type {
-        position: absolute;
-        top: 224px;
-        bottom: 0;
+
         opacity: 0;
+        position: absolute;
+        left: 0px;
+        left: -342px;
+        right: 0;
+        top: 64px;
+        bottom: 0;
+        margin: auto
+    }
+    .btn-bg-lb img:last-of-type {
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        left: 374px;
+        right: 0;
+        top: 57px;
+        bottom: 0;
+        margin: auto
     }
 
     .btn-bg:hover img {
+        opacity: 1;
+        /* position: relative; */
+    }
+
+    .btn-bg-lb:hover img {
         opacity: 1;
         /* position: relative; */
     }
@@ -58,12 +83,26 @@
         }
 
         .btn-bg img:last-of-type {
-            opacity: 0;
+            display: none
+        }
+
+        .btn-bg-lb {
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-bg-lb img {
+            width: 255px;
+        }
+
+        .btn-bg-lb img:last-of-type {
+            display: none
         }
 
         .btn2 {
             margin-left: 20px;
         }
+
 
     }
 
@@ -88,11 +127,19 @@
         }
 
         .btn-bg img:last-of-type {
-            top: 325px;
-
+            display: none;
         }
 
+        .btn-bg-lb {
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-bg-lb img:last-of-type {
+            display: none;
+        }
     }
+
 </style>
 @push('scripts')
     <script>
@@ -225,16 +272,14 @@
 @section('content')
     <div>
         <div class="container-fluid">
-            <div class="row justify-content-center mt">
+            <div class="row form-sq">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                     <div class="text-center">
                         <img class="img" src="{{ asset('img/registro.png') }}" style="width: 200px;">
                     </div>
                 </div>
-            </div>
-            <div class="row justify-content-center">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                    <div class="container" style="display: flex; justify-content: center;">
+                    <div class="container" style="display: flex; justify-content: center; width: 715px;">
                         <div id="btn-rol" class="row justify-content-center">
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 btn-bg">
                                 <img data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -246,7 +291,7 @@
                                     onclick="handlerRol('medico')" src="{{ asset('/img/V2/Boton_medico_bg.png') }}"
                                     height="auto" alt="avatar">
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 btn-bg">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 btn-bg-lb">
                                 <img data-bs-toggle="tooltip" data-bs-placement="bottom"
                                     data-bs-custom-class="custom-tooltip" data-html="true"
                                     title="Registrar como laboratorio" onclick="handlerRol('laboratorio')"
