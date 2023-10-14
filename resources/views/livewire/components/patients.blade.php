@@ -651,7 +651,7 @@
                                                 class="btn btnSecond">Buscar</button>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="row" id="show-info-pat" style="display: none">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <h5 class="mb-4">Lista de paciente registrado bajo este documento de identidad</h5>
@@ -745,7 +745,7 @@
                                                 <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" id="ci-div">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="phone" class="form-label"
+                                                            <label for="phone" class="form-label" type="number"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Cédula
                                                                 de indentidad</label>
                                                             <input autocomplete="off"
@@ -761,7 +761,7 @@
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono</label>
-                                                            <input autocomplete="off" placeholder="Teléfono"
+                                                            <input autocomplete="off" placeholder=""
                                                                 class="form-control phone @error('phone') is-invalid @enderror"
                                                                 id="phone" name="phone" type="text"
                                                                 value="">
@@ -902,12 +902,12 @@
                                             </div>
                                             <div class="row mt-3 justify-content-md-end">
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                                    <div id="bnt-dairy" style="display: none;margin-right: 10px"></div>
-                                                    <div id="bnt-cons" style="display: none;margin-right: 10px"></div>
-                                                    <div id="bnt-hist" style="display: none;margin-right: 10px"></div>
-                                                    <input class="btn btnSave send" value="Guardar" type="submit" />
-                                                    <button style="margin-left: 20px; padding: 8px;" type="button"
+                                                    style="display: flex; justify-content: flex-end; align-items: flex-end; flex-wrap: wrap;">
+                                                    <div id="bnt-dairy" style="display: none;margin-left: 10px; ; margin-bottom: 10px"></div>
+                                                    <div id="bnt-cons" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
+                                                    <div id="bnt-hist" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
+                                                    <input class="btn btnSave send" value="Guardar" type="submit" style="margin-left: 10px; margin-bottom: 10px"/>
+                                                    <button style="margin-left: 10px; padding: 8px; margin-bottom: 10px" type="button"
                                                         onclick="refreshForm();" class="btn btnSecond"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         data-html="true" title="Limpiar Formulario">

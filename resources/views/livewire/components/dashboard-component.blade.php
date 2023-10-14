@@ -785,7 +785,8 @@
                             <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <table id="table-ref-estudios" class="table table-striped table-bordered"
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px:">
+                                        <table id="table-ref-estudios" class="table table-striped table-bordered"
                                             style="width:100%">
                                             <thead>
                                                 <tr>
@@ -816,6 +817,9 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                
+                                
+                                    </div>
                                 </div>
                             </div>
                         </div>

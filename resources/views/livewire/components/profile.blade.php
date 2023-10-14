@@ -408,7 +408,7 @@
                                                             <label for="ci" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Cédula
                                                                 de identidad</label>
-                                                            <input autocomplete="off" placeholder=""
+                                                            <input autocomplete="off" placeholder="" type="number"
                                                                 class="form-control @error('ci') is-invalid @enderror"
                                                                 id="ci" name="ci" type="text"
                                                                 value="{!! !empty($user) ? $user->ci : '' !!}">
