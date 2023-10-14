@@ -16,7 +16,7 @@ class CenterList extends Seeder
     {
         
         $data = [
-            [https://www.msn.com/es-ve/noticias/other/tras-la-noticia-juan-guaid%C3%B3-traici%C3%B3n-corrupci%C3%B3n-y-robos/vi-AA1hLAax?cvid=d2a9a88ea7314bcdb5ba1fe2a5187e79
+            [
                 'description' => 'Centro Medico Amazonas, C.A',
                 'state' => 'Amazonas',
             ],
