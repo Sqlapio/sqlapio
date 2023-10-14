@@ -9,16 +9,6 @@
         color: #428bca;
     }
 
-    /* img {
-        margin-left: 10px;
-        margin-bottom: 15px;
-    } */
-
-        {
-        margin-top: -6px;
-        padding-left: 16px;
-        padding-right: 7px;
-    }
 </style>
 @push('scripts')
     <script>
@@ -365,9 +355,6 @@
 @endpush
 @section('content')
     <div class="container-fluid" style="padding: 3%">
-        {{-- <div id="spinner" style="display: none">
-            <x-load-spinner />
-        </div> --}}
         <div class="accordion" id="accordion">
             {{-- datos del paciente --}}
             <div class="row">
@@ -389,7 +376,6 @@
                                     <div class="row mt-3 Form-edit-user">
                                         @if (Auth::user()->role == 'medico')
                                             {{-- rol medico --}}
-                                            <div class="row">
                                                 <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
@@ -422,7 +408,7 @@
                                                             <label for="ci" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Cédula
                                                                 de identidad</label>
-                                                            <input autocomplete="off" placeholder=""
+                                                            <input autocomplete="off" placeholder="" type="number"
                                                                 class="form-control @error('ci') is-invalid @enderror"
                                                                 id="ci" name="ci" type="text"
                                                                 value="{!! !empty($user) ? $user->ci : '' !!}">
@@ -514,10 +500,8 @@
                                                     </div>
                                                 </div>
                                                 <x-upload-image />
-                                            </div>
                                         @else
                                             {{-- rol laboratorio --}}
-                                            <div class="row">
                                                 <input type="hidden" id="id" name="id"
                                                     value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->id : '' !!}">
                                                 <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
@@ -685,7 +669,6 @@
                                                     </diV>
                                                 </div>
                                                 <x-upload-image />
-                                            </div>
                                         @endif
                                         <div class="row mt-3 justify-content-md-end">
                                             <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"

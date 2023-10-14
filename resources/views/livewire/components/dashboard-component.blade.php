@@ -3,7 +3,15 @@
 @vite(['resources/js/graphicCountAll.js', 'resources/js/dairy.js'])
 <style>
 
+.mt-gf {
+        margin-top: 3rem !important;
+    } 
 
+@media screen and (max-width: 390px) {
+    .mt-gf {
+        margin-top: 0 !important;
+    } 
+}
 
 </style>
 @push('scripts')
@@ -603,7 +611,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mt-5">
+                                    <div class="row mt-gf">
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-1">
                                             <div class="card text-white" style="background-color: rgb(255,255,255)">
                                                 <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
@@ -718,7 +726,7 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
                         <div class="accordion-item accordion-dashboard">
                             <span class="accordion-header title" id="headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                <button class="accordion-button collapsed bg-1" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-card-list"></i> Examenes atendidos
@@ -768,7 +776,7 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" style="margin-top: 20px; margin-bottom: 20px">
                         <div class="accordion-item accordion-dashboard">
                             <span class="accordion-header title" id="headingFour">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                <button class="accordion-button collapsed bg-1" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-card-list"></i> Estudios atendidos
@@ -777,7 +785,8 @@
                             <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <table id="table-ref-estudios" class="table table-striped table-bordered"
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px:">
+                                        <table id="table-ref-estudios" class="table table-striped table-bordered"
                                             style="width:100%">
                                             <thead>
                                                 <tr>
@@ -808,6 +817,9 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                
+                                
+                                    </div>
                                 </div>
                             </div>
                         </div>
