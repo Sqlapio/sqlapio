@@ -125,34 +125,7 @@ class MedicalHistory extends Component
             ]);
 
             $action = '6';
-            ActivityLogController::store_log($action);
-
-            /**
-             * Logica para el envio de la notificacion 
-             * via correo electronico
-             * 
-             * @uses
-             * Esta logica solo sera aplicada si el usuario
-             * realizo la confirmacion del correo electronico
-             */
-
-             $email_verified_at = Auth::user()->email_verified_at;
-
-             if ($email_verified_at != null) {
-                $doctor_email = Auth::user()->email;
-
-                $patient = Patient::where('id', $request->id)->first();
-                $name = $patient->name . ' ' . $patient->last_name;
-
-                $title = 'Mail de SqlapioTechnology';
-                $body = [
-                    'cuerpo' => 'Usted acaba de registrar la hisrotia clinica de: ',
-                    'name'  => $name,
-                    'cod_history' => 'Numero de Historia '.date('dmY').'-'.$cod_patient,
-                ];
-
-                // UtilsController::notification_email($doctor_email, $title, $body);
-            }
+            ActivityLogController::store_log($action);          
     
             return true;
 

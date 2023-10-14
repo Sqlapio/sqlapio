@@ -15,7 +15,7 @@ use Livewire\Component;
 
 class Reference extends Component
 {
-    static function store($data, $medical_record_code)
+    static function store($data, $medical_record_code,$medical_record)
     {
 
         /**
@@ -35,6 +35,7 @@ class Reference extends Component
         $reference->date = date('d-m-Y');
         $reference->exams = $data->exams;
         $reference->studies = $data->studies;
+        $reference->medical_record_id = $medical_record->id;
         $reference->save();
 
         /**

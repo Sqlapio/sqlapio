@@ -21,12 +21,12 @@
         text-align: justify;
     }
 
-   
-      .table-striped>tbody>tr:nth-child(even)>td, 
-      .table-striped>tbody>tr:nth-child(even)>th {
-        /* background-color: #ccc; */ 
-       background-color: #eee;
-      }
+
+    .table-striped>tbody>tr:nth-child(even)>td,
+    .table-striped>tbody>tr:nth-child(even)>th {
+        /* background-color: #ccc; */
+        background-color: #eee;
+    }
 
     .page-break {
         /* page-break-after: always;
@@ -133,7 +133,8 @@
             </thead>
             <tbody>
                 <tr class="text-header">
-                    <td colspan="2" style="text-align: center;padding-top: 10px;font-size: 25px;"> <strong>orden medica</strong></td>
+                    <td colspan="2" style="text-align: center;padding-top: 10px;font-size: 25px;"> <strong>orden
+                            medica</strong></td>
                 </tr>
                 <tr class="text-header" style="border-radius: 50px!important;">
                     <td style="padding: 10px;">
@@ -222,9 +223,14 @@
                     </td>
                     <td style="text-align: center;">
                         <div class="text" style="margin-right: -20px">
-                            <img class="img-pat" style="border-radius: 20%"
-                                src="../public/imgs/{{ $medical_prescription->get_paciente->patient_img }}"
-                                alt="Avatar" width="100" height="auto">
+                            @if ($medical_prescription->get_paciente->patient_img)
+                                <img class="img-pat" style="border-radius: 20%"
+                                    src="../public/imgs/{{ $medical_prescription->get_paciente->patient_img }}"
+                                    alt="Avatar" width="100" height="auto">
+                            @else
+                                <img class="img-pat" src="../public/img/avatar/avatar.png" width="100" height="auto"
+                                    style="border-radius: 20%" alt="Avatar">
+                            @endif
                         </div>
                     </td>
                 </tr>
