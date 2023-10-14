@@ -183,12 +183,12 @@
                     password: {
                         required: true,
                         minlength: 6,
-                        maxlength: 8,
+                        //maxlength: 8,
                     },
                     password_confrimation: {
                         required: true,
                         minlength: 6,
-                        maxlength: 8,
+                        //maxlength: 8,
                         handlerPass: true
                     },
                     rol: {
@@ -217,12 +217,12 @@
                     password: {
                         required: "Contraseña es obligatoria",
                         minlength: "Contraseña debe ser mayor a 6 caracteres",
-                        maxlength: "Contraseña debe ser menor a 8 caracteres",
+                       // maxlength: "Contraseña debe ser menor a 8 caracteres",
                     },
                     password_confrimation: {
                         required: "Confirmar Contraseña es obligatoria",
                         minlength: "Confirmar Contraseña debe ser mayor a 6 caracteres",
-                        maxlength: "Confirmar Contraseña debe ser menor a 8 caracteres",
+                        //maxlength: "Confirmar Contraseña debe ser menor a 8 caracteres",
                     },
                     rol: {
                         required: "Rol es obligatorio",
