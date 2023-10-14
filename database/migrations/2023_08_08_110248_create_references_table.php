@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('cod_ref')->unique(); // => SQ-REF-12345678
             $table->string('user_id');
             $table->string('patient_id');
+            $table->string('medical_record_id')->nullable();            
             $table->string('center_id');
             $table->string('cod_medical_record'); //codigo de la consulta
             $table->string('date');

@@ -15,8 +15,8 @@
 
     }
 
-    .table-border{
-        text-align: left;  
+    .table-border {
+        text-align: left;
         padding: 10px;
         text-align: justify;
     }
@@ -30,14 +30,14 @@
     .footer {
         position: fixed;
         bottom: 0cm;
-        left: 0cm;    
+        left: 0cm;
         right: 0px;
         height: 50px;
         text-align: center;
         line-height: 35px;
         padding: 10px;
-        font-size: 12px;    
-        margin-top: 3cm  
+        font-size: 12px;
+        margin-top: 3cm
     }
 
     table {
@@ -74,6 +74,7 @@
     span {
         text-transform: capitalize;
     }
+
     /* ////////////// */
     .text-header {
         background-color: #2A8ED7;
@@ -106,10 +107,9 @@
         float: left;
         margin-left: 1cm;
     }
-   
 </style>
 
-<body>    
+<body>
     <div class="header">
         <table class="inf-prueba">
             <thead>
@@ -120,13 +120,14 @@
             </thead>
             <tbody>
                 <tr class="text-header">
-                    <td colspan="2" style="text-align: center;padding-top: 10px;font-size: 25px;" > <strong> Consulta Médica</strong></td>
+                    <td colspan="2" style="text-align: center;padding-top: 10px;font-size: 25px;"> <strong> Consulta
+                            Médica</strong></td>
                 </tr>
                 <tr class="text-header" style="border-radius: 50px!important;">
                     <td style="padding: 10px;">
                         <div>
                             <strong style="font-size: 15px;">{{ $MedicalRecord->get_center->description }}</strong>
-                            <p  style="margin-top: 0px">
+                            <p style="margin-top: 0px">
                                 Dirección: {{ $MedicalRecord->get_center_data->address }},
                                 Local,
                                 {{ $MedicalRecord->get_center_data->number_floor }}<br>{{ $MedicalRecord->get_center_data->phone_consulting_room }}
@@ -139,7 +140,7 @@
                             <span>{{ Auth::user()->name . ' ' . Auth::user()->last_name }}</span>
                             <br>
                             <strong>Fecha de la Consulta:</strong>
-                            <span>{{  $MedicalRecord->record_date }}</span>
+                            <span>{{ $MedicalRecord->record_date }}</span>
                             <br>
                             <strong> Código del paciente:</strong>
                             <span>{{ $MedicalRecord->get_paciente->patient_code }}</span>
@@ -173,7 +174,7 @@
             </tbody>
         </table>
     </footer>
- 
+
     <div>
         <table class="table-info-pat">
             <thead>
@@ -208,9 +209,15 @@
                     </td>
                     <td style="text-align: center;">
                         <div class="text" style="margin-right: -20px">
-                            <img  class="img-pat" style="border-radius: 20%"
-                                src="../public/imgs/{{ $MedicalRecord->get_paciente->patient_img }}" alt="Avatar"
-                                width="100" height="auto">
+                            @if ($MedicalRecord->get_paciente->patient_img)
+                                <img class="img-pat" style="border-radius: 20%"
+                                    src="../public/imgs/{{ $MedicalRecord->get_paciente->patient_img }}" alt="Avatar"
+                                    width="100" height="auto">
+                            @else
+                                <img class="img-pat" src="../public/img/avatar/avatar.png"
+                                    width="100" height="auto" style="border-radius: 20%"
+                                    alt="Avatar">
+                            @endif
                         </div>
                     </td>
                 </tr>
@@ -221,7 +228,7 @@
     <br>
     <div>
         <table class="table-info-pat">
-            <thead >
+            <thead>
                 <tr>
                     <th class="table-border">
                         Antecendente:
@@ -288,25 +295,6 @@
     </div>
     <br>
     <br>
-    {{-- <div>
-        <table class="table-info-pat">
-            <thead>
-                <tr>
-                    <th class="table-border">
-                        Tratamiento:
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="table-border">
-                        {{ $MedicalRecord->treatment }}
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div> --}}
     <br>
     <br>
     <div>
@@ -356,8 +344,7 @@
                 $pdf->text(500, 790, "Pag $PAGE_NUM/$PAGE_COUNT", $font, 10);
             ');
         }
-    </script>   
+    </script>
 </body>
+
 </html>
-
-

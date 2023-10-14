@@ -394,6 +394,7 @@ class UtilsController extends Controller
 					'data' => [
 						'center_id' =>  $val->get_center->id,
 						'record_code' 	=>  $val->record_code,
+						'cod_ref' 	=>  $val->get_reference->cod_ref,
 						'record_type' 	=>  $val->record_type,
 						'background' 	=>  $val->background,
 						'razon' 		=>  $val->razon,
