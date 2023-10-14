@@ -45,7 +45,7 @@
                     password: {
                         required: true,
                         minlength: 6,
-                        maxlength: 8,
+                       // maxlength: 8,
                     },
                 },
                 messages: {
@@ -59,7 +59,7 @@
                     password: {
                         required: "Contraseña es obligatoria",
                         minlength: "Contraseña debe ser mayor a 6 caracteres",
-                        maxlength: "Contraseña debe ser menor a 8 caracteres",
+                        //maxlength: "Contraseña debe ser menor a 8 caracteres",
                     },
                 },
                 invalidHandler: function(event, validator) {
