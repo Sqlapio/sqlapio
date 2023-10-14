@@ -7,7 +7,7 @@
         margin-top: 3rem !important;
     } 
 
-@media screen and (max-width: 390px) {
+@media screen and (max-width: 576px) {
     .mt-gf {
         margin-top: 0 !important;
     } 
