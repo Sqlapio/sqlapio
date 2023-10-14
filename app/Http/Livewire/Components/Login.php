@@ -19,7 +19,7 @@ class Login extends Component {
 	public function rules() {
 		$rules = [
 			'username' => 'required|min:3|max:50',
-			'password' => 'required|min:6|max:8|regex:"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$"',
+			'password' => 'required|min:6|max:8',
 		];
 
 		return $rules;
@@ -90,9 +90,9 @@ class Login extends Component {
 
 			} catch (\Throwable $th) {
 				$message = $th->getMessage();
-				dd('Error Livewire.Components.Login.login()', $message);
+				return Redirect::to('/')->withErrors('Autenticación incorrecta');
 			}
-
+			return Redirect::to('/')->withErrors('Autenticación incorrecta');
 		}
 	}
 

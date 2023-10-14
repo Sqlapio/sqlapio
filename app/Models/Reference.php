@@ -35,7 +35,8 @@ class Reference extends Model
         'laboratory_id',
         'cod_lab',
         'res_study',
-        'res_exam'
+        'res_exam',
+        'medical_record_id'
     ];
 
     public function  get_patient(): BelongsTo
