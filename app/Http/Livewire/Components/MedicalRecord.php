@@ -113,7 +113,7 @@ class MedicalRecord extends Component
              * referencia
              */
             $medical_record_code = $medical_record['record_code'];
-            ComponentsReference::store($data, $medical_record_code);
+            ComponentsReference::store($data, $medical_record_code,$medical_record);
              
             $action = '15';
             ActivityLogController::store_log($action);
