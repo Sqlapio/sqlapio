@@ -77,7 +77,7 @@
     @media only screen and (max-width: 768px) {
 
         body {  
-            background: url({{ asset('img/fondo-mobile-rg.jpg') }}) no-repeat top center fixed !important;
+            background: url({{ asset('img/fondo-mobile-rg-v2.jpg') }}) no-repeat top center fixed !important;
         }
 
         .btn-bg {
