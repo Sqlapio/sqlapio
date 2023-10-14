@@ -204,9 +204,10 @@
                                                     ':id', elem
                                                     .id);
 
-                                                    let route_pdf_medical_prescription =
+                                            let route_pdf_medical_prescription =
                                                 "{{ route('pdf_medical_prescription', ':id') }}";
-                                            route_pdf_medical_prescription =
+                                            route_pdf_medical_prescription
+                                                =
                                                 route_pdf_medical_prescription
                                                 .replace(
                                                     ':id', elem
@@ -227,7 +228,7 @@
 
                                             if (elem.data
                                                 .status_exam != null
-                                                ) {
+                                            ) {
                                                 btnExam = `  
                                                         <div
                                                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
@@ -244,7 +245,7 @@
                                                     </div>`
 
                                             }
-                                            let btnStudy  = `<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
+                                            let btnStudy = `<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
                                                     style="display: flex; align-items: center;
                                                     justify-content: center;">
                                                     <i class="bi bi-exclamation-circle"
@@ -257,9 +258,10 @@
                                                     </div>`
 
                                             if (elem.data
-                                                .status_study != null
-                                                ) {
-                                                    btnStudy = `  
+                                                .status_study !=
+                                                null
+                                            ) {
+                                                btnStudy = `  
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                     <a
                                                     href="${route_mr_study}">
@@ -760,44 +762,6 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {{-- @if ($validateHistory)
-                                                                                @if ($validateHistory->medications_supplements != 'null')
-                                                                                    @php
-                                                                                        $medications_supplements = json_decode($validateHistory->medications_supplements, true);
-                                                                                    @endphp
-                                                                                    @foreach ($medications_supplements as $key => $item)
-                                                                                        <tr id="{{ $key }}">
-                                                                                            <td class="text-center">
-                                                                                                {{ $item['indication'] }}</td>
-                                                                                            <td class="text-center">
-                                                                                                {{ $item['medicine'] }}
-                                                                                            </td>
-                                                                                            <td class="text-center">
-                                                                                                {{ $item['treatmentDuration'] }}
-                                                                                            </td>
-                                                                                            <td class="text-center">
-                                                                                                {{ $item['viaAdmin'] }}
-                                                                                            </td>
-                                                                                            <td class="text-center">
-                                                                                                {{ $item['NUmberOrder'] }}
-                                                                                            </td>
-                                                                                            <td class="text-center">
-                                                                                                {{ $item['dateEndTreatment'] }}
-                                                                                            </td>
-                                                                                            <td class="text-center">
-                                                                                                {{ $item['dateIniTreatment'] }}
-                                                                                            </td>
-                                                                                            <td class="text-center">
-                                                                                                {{ $item['treatmentDuration'] }}
-                                                                                            </td>
-                                                                                            <td class="text-center"><span
-                                                                                                    onclick="deleteMedication({{ $key }})"><i
-                                                                                                        class="bi bi-archive"></i></span>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    @endforeach
-                                                                                @endif
-                                                                            @endif --}}
                                                             </tbody>
                                                         </table>
                                                         <tfoot>
@@ -871,6 +835,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">Código de la consulta</th>
+                                                        <th class="text-center" scope="col">Código de la referencia
+                                                        </th>
                                                         <th class="text-center" scope="col">Fecha de la consulta</th>
                                                         <th class="text-center" scope="col">Nombre del paciente</th>
                                                         <th class="text-center" scope="col">Género</th>
@@ -884,6 +850,8 @@
                                                         <tr onclick="showDataEdit({{ json_encode($item) }});">
                                                             <td class="text-center td-pad">
                                                                 {{ $item['data']['record_code'] }}</td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item['data']['cod_ref'] }}</td>
                                                             <td class="text-center td-pad">{{ $item['date'] }}</td>
                                                             <td class="text-center td-pad text-capitalize">
                                                                 {{ $item['name_patient'] }}
