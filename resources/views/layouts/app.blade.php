@@ -28,12 +28,12 @@
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover !important;
-        background: url({{ asset('img/fondo.jpg') }}) no-repeat center center fixed;
+        background: url({{ asset('img/fondo.jpg') }}) no-repeat top center fixed;
     }
 
     @media only screen and (max-width: 768px) {
         body {  
-            background: url({{ asset('img/fondo-mobile.jpg') }}) no-repeat center center fixed;
+            background: url({{ asset('img/fondo-mobile.jpg') }}) no-repeat top center fixed;
         }
     }
 </style>
