@@ -16,7 +16,7 @@ class CenterList extends Seeder
     {
         
         $data = [
-            [
+            [https://www.msn.com/es-ve/noticias/other/tras-la-noticia-juan-guaid%C3%B3-traici%C3%B3n-corrupci%C3%B3n-y-robos/vi-AA1hLAax?cvid=d2a9a88ea7314bcdb5ba1fe2a5187e79
                 'description' => 'Centro Medico Amazonas, C.A',
                 'state' => 'Amazonas',
             ],
@@ -29,11 +29,11 @@ class CenterList extends Seeder
                 'state' => 'Anzoategui',
             ],
             [
-                'description' => 'Unidad Pediatrica De Oriente, C.A.',
+                'description' => 'Unidad Pediatrica de Oriente, C.A.',
                 'state' => 'Anzoategui',
             ],
             [
-                'description' => 'Centro Medico Odontologico Gs Oriente, C.A.',
+                'description' => 'Centro Medico Odontologico GS Oriente, C.A.',
                 'state' => 'Anzoategui',
             ],
             [
@@ -41,7 +41,7 @@ class CenterList extends Seeder
                 'state' => 'Anzoategui',
             ],
             [
-                'description' => 'Oriental De Salud Integral C.A (Lecheria)',
+                'description' => 'Oriental de Salud Integral C.A (Lecheria)',
                 'state' => 'Anzoategui',
             ],
             [
@@ -49,7 +49,7 @@ class CenterList extends Seeder
                 'state' => 'Anzoategui',
             ],
             [
-                'description' => 'Centro De Especialidades Medicas Virgen Del Valle, C.A.',
+                'description' => 'Centro de Especialidades Medicas Virgen Del Valle, C.A.',
                 'state' => 'Anzoategui',
             ],
             [
@@ -57,7 +57,7 @@ class CenterList extends Seeder
                 'state' => 'Anzoategui',
             ],
             [
-                'description' => 'Proteccion Integral A Su Salud S.A.',
+                'description' => 'Proteccion Integral a su Salud S.A.',
                 'state' => 'Anzoategui',
             ],
             [
@@ -77,7 +77,7 @@ class CenterList extends Seeder
                 'state' => 'Anzoategui',
             ],
             [
-                'description' => 'Grupo De Especialidades Endovascular, C.A. (Policlinica Del Sur)',
+                'description' => 'Grupo de Especialidades Endovascular, C.A. (Policlinica Del Sur)',
                 'state' => 'Anzoategui',
             ],
             [
@@ -85,7 +85,7 @@ class CenterList extends Seeder
                 'state' => 'Anzoategui',
             ],
             [
-                'description' => 'Venezolana De Salud Integral (Apure)',
+                'description' => 'Venezolana de Salud Integral (Apure)',
                 'state' => 'Anzoategui',
             ],
             [
@@ -109,7 +109,7 @@ class CenterList extends Seeder
                 'state' => 'Aragua',
             ],
             [
-                'description' => 'Hospital De Clinicas Las Delicias',
+                'description' => 'Hospital de Clinicas Las Delicias',
                 'state' => 'Aragua',
             ],
             [
@@ -117,7 +117,7 @@ class CenterList extends Seeder
                 'state' => 'Aragua',
             ],
             [
-                'description' => 'Hospital De Clinicas Aragua, C.A',
+                'description' => 'Hospital de Clinicas Aragua, C.A',
                 'state' => 'Aragua',
             ],
             [
@@ -137,7 +137,7 @@ class CenterList extends Seeder
                 'state' => 'Aragua',
             ],
             [
-                'description' => 'Inversiones Virgen De Guadalupe, C.A.(Clinica Guadalupe)',
+                'description' => 'Inversiones Virgen de Guadalupe, C.A.(Clinica Guadalupe)',
                 'state' => 'Aragua',
             ],
             [
@@ -173,7 +173,7 @@ class CenterList extends Seeder
                 'state' => 'Aragua',
             ],
             [
-                'description' => 'Instituto Policlinico De Turmero, C.A',
+                'description' => 'Instituto Policlinico de Turmero, C.A',
                 'state' => 'Aragua',
             ],
             [
@@ -205,7 +205,7 @@ class CenterList extends Seeder
                 'state' => 'Bolivar',
             ],
             [
-                'description' => 'Corporacion Clinica Universitaria De Oriente, A.C.(Ccudo) Bolivar',
+                'description' => 'Corporacion Clinica Universitaria de Oriente, A.C.(Ccudo) Bolivar',
                 'state' => 'Bolivar',
             ],
             [
@@ -213,7 +213,7 @@ class CenterList extends Seeder
                 'state' => 'Bolivar',
             ],
             [
-                'description' => 'Instituto Cardiovascular De Guayana, C.A.',
+                'description' => 'Instituto Cardiovascular de Guayana, C.A.',
                 'state' => 'Bolivar',
             ],
             [
@@ -221,11 +221,11 @@ class CenterList extends Seeder
                 'state' => 'Bolivar',
             ],
             [
-                'description' => 'Centro Avanzado De Cirugia Avanza',
+                'description' => 'Centro Avanzado de Cirugia Avanza',
                 'state' => 'Bolivar',
             ],
             [
-                'description' => 'Unidad Cardiovascular No Invasiva Cardiosalud, C.A.',
+                'description' => 'Unidad Cardiovascular no Invasiva Cardiosalud, C.A.',
                 'state' => 'Bolivar',
             ],
             [
@@ -261,7 +261,7 @@ class CenterList extends Seeder
                 'state' => 'Bolivar',
             ],
             [
-                'description' => 'Instituto Clinico Primero De Mayo, C.A. ',
+                'description' => 'Instituto Clinico Primero de Mayo, C.A. ',
                 'state' => 'Bolivar',
             ],
             [
@@ -293,7 +293,7 @@ class CenterList extends Seeder
                 'state' => 'Carabobo',
             ],
             [
-                'description' => 'Centro De Especialidades Quirurgicas Guacara, C.A.',
+                'description' => 'Centro de Especialidades Quirurgicas Guacara, C.A.',
                 'state' => 'Carabobo',
             ],
             [
@@ -309,7 +309,7 @@ class CenterList extends Seeder
                 'state' => 'Carabobo',
             ],
             [
-                'description' => 'Centro De Estudios Clinicos Movilab, C.A.',
+                'description' => 'Centro de Estudios Clinicos Movilab, C.A.',
                 'state' => 'Carabobo',
             ],
             [
@@ -325,7 +325,7 @@ class CenterList extends Seeder
                 'state' => 'Carabobo',
             ],
             [
-                'description' => 'Centro De Especialidades Quirurgicas San Antonio De Padua',
+                'description' => 'Centro de Especialidades Quirurgicas San Antonio De Padua',
                 'state' => 'Carabobo',
             ],
             [
@@ -333,11 +333,11 @@ class CenterList extends Seeder
                 'state' => 'Carabobo',
             ],
             [
-                'description' => 'Instituto De Especialidades Quirurgicas Los Mangos, C.A.',
+                'description' => 'Instituto de Especialidades Quirurgicas Los Mangos, C.A.',
                 'state' => 'Carabobo',
             ],
             [
-                'description' => 'Centro De Especialidades Panamericano',
+                'description' => 'Centro de Especialidades Panamericano',
                 'state' => 'Carabobo',
             ],
             [
@@ -345,7 +345,7 @@ class CenterList extends Seeder
                 'state' => 'Carabobo',
             ],
             [
-                'description' => 'Servicios Medicos Asistenciales, C.A. (Sermeca-Hosp. Metrop Del Norte)',
+                'description' => 'Servicios Medicos Asistenciales, C.A. (Sermeca-Hosp. Metrop del Norte)',
                 'state' => 'Carabobo',
             ],
             [
@@ -357,7 +357,7 @@ class CenterList extends Seeder
                 'state' => 'Carabobo',
             ],
             [
-                'description' => 'Hospital De Clinicas San Agustin De Puerto Cabello, C.A.',
+                'description' => 'Hospital De Clinicas San Agustin de Puerto Cabello, C.A.',
                 'state' => 'Carabobo',
             ],
             [
@@ -369,7 +369,7 @@ class CenterList extends Seeder
                 'state' => 'Carabobo',
             ],
             [
-                'description' => 'Hospital De Clinicas San Agustin De Puerto Cabello, C.A.',
+                'description' => 'Hospital de Clinicas San Agustin de Puerto Cabello, C.A.',
                 'state' => 'Carabobo',
             ],
             [
@@ -385,7 +385,7 @@ class CenterList extends Seeder
                 'state' => 'Carabobo',
             ],
             [
-                'description' => 'Policlinica El Morro, Ca',
+                'description' => 'Policlinica El Morro, C.A',
                 'state' => 'Carabobo',
             ],
             [
@@ -409,7 +409,7 @@ class CenterList extends Seeder
                 'state' => 'Carabobo',
             ],
             [
-                'description' => 'Instituto Docente De Urologia, C.A',
+                'description' => 'Instituto Docente de Urologia, C.A',
                 'state' => 'Carabobo',
             ],
             [
@@ -441,7 +441,7 @@ class CenterList extends Seeder
                 'state' => 'Carabobo',
             ],
             [
-                'description' => 'Hospital De Clínica “San Agustín”',
+                'description' => 'Hospital de Clínica “San Agustín”',
                 'state' => 'Carabobo',
             ],
             [
@@ -485,7 +485,7 @@ class CenterList extends Seeder
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Instituto De Retina Y Vitreo, C.A',
+                'description' => 'Instituto de Retina Y Vitreo, C.A',
                 'state' => 'Distrito Capital',
             ],
             [
@@ -513,11 +513,11 @@ class CenterList extends Seeder
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Servicios Medicos Integra Sxxi, C.A',
+                'description' => 'Servicios Médicos Integra Sxxi, C.A',
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Centro Medico Integra',
+                'description' => 'Centro Médico Integra',
                 'state' => 'Distrito Capital',
             ],
             [
@@ -537,7 +537,7 @@ class CenterList extends Seeder
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Centro Medico Beta',
+                'description' => 'Centro Médico Beta',
                 'state' => 'Distrito Capital',
             ],
             [
@@ -549,7 +549,7 @@ class CenterList extends Seeder
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Cemedifa Centro Medico, C.A.',
+                'description' => 'Cemedifa Centro Médico, C.A.',
                 'state' => 'Distrito Capital',
             ],
             [
@@ -557,7 +557,7 @@ class CenterList extends Seeder
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Centro De Rehabilitacion Hernandez Almeida, C.A.',
+                'description' => 'Centro de Rehabilitacion Hernandez Almeida, C.A.',
                 'state' => 'Distrito Capital',
             ],
             [
@@ -565,7 +565,7 @@ class CenterList extends Seeder
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Clinica Ccct',
+                'description' => 'Clinica CCCT',
                 'state' => 'Distrito Capital',
             ],
             [
@@ -573,7 +573,7 @@ class CenterList extends Seeder
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Policlinica De Coche, S.A',
+                'description' => 'Policlinica de Coche, S.A',
                 'state' => 'Distrito Capital',
             ],
             [
@@ -581,7 +581,7 @@ class CenterList extends Seeder
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Grupo Medico Santa Paula, S.A.',
+                'description' => 'Grupo Médico Santa Paula, S.A.',
                 'state' => 'Distrito Capital',
             ],
             [
@@ -609,7 +609,7 @@ class CenterList extends Seeder
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Medicos Unidos Los Jabillos, C.A. (Policlinica Mendez Gimon) ',
+                'description' => 'Médicos Unidos Los Jabillos, C.A. (Policlinica Mendez Gimon) ',
                 'state' => 'Distrito Capital',
             ],
             [
@@ -633,11 +633,11 @@ class CenterList extends Seeder
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Grupo Medico Perfilab, C.A.',
+                'description' => 'Grupo Médico Perfilab, C.A.',
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Centro Medico Integral Careli, C.A.',
+                'description' => 'Centro Médico Integral Careli, C.A.',
                 'state' => 'Distrito Capital',
             ],
             [
@@ -681,7 +681,7 @@ class CenterList extends Seeder
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Centro Medico Odontologico Gs Oriente, C.A.',
+                'description' => 'Centro Médico Odontologico GS Oriente, C.A.',
                 'state' => 'Distrito Capital',
             ],
             [
@@ -689,7 +689,7 @@ class CenterList extends Seeder
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Mederi Equipos Y Servicios Medicos, C.A',
+                'description' => 'Mederi Equipos y Servicios Medicos, C.A',
                 'state' => 'Distrito Capital',
             ],
             [
@@ -709,7 +709,7 @@ class CenterList extends Seeder
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'General De Salud Integral,Ca (Gsi)',
+                'description' => 'General de Salud Integral,Ca (GSI)',
                 'state' => 'Distrito Capital',
             ],
             [
@@ -717,7 +717,7 @@ class CenterList extends Seeder
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Laboratorio Clinico Bioelectronico Hct, C.A',
+                'description' => 'Laboratorio Clinico Bioelectronico HCT, C.A',
                 'state' => 'Distrito Capital',
             ],
             [
@@ -737,7 +737,7 @@ class CenterList extends Seeder
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Laboratorio Clinico Layre Ii, C.A.',
+                'description' => 'Laboratorio Clinico Layre II, C.A.',
                 'state' => 'Distrito Capital',
             ],
             [
@@ -785,7 +785,7 @@ class CenterList extends Seeder
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Hospital De Niños Jm De Los Ríos',
+                'description' => 'Hospital De Niños JM de Los Ríos',
                 'state' => 'Distrito Capital',
             ],
             [
@@ -805,7 +805,7 @@ class CenterList extends Seeder
                 'state' => 'Distrito Capital',
             ],
             [
-                'description' => 'Centro Medico De Caracas',
+                'description' => 'Centro Medico de Caracas',
                 'state' => 'Distrito Capital',
             ],
             [
@@ -817,11 +817,11 @@ class CenterList extends Seeder
                 'state' => 'Portuguesa',
             ],
             [
-                'description' => 'Clinica De Especialidades Medicas Los Llanos (Cemel) ',
+                'description' => 'Clinica de Especialidades Medicas Los Llanos (CEMEL) ',
                 'state' => 'Portuguesa',
             ],
             [
-                'description' => 'Previmedica Idb',
+                'description' => 'Previmedica IDB',
                 'state' => 'Portuguesa',
             ],
             [
@@ -881,11 +881,11 @@ class CenterList extends Seeder
                 'state' => 'Lara',
             ],
             [
-                'description' => 'Clinica Idet Barquisimeto C.A. ',
+                'description' => 'Clinica IDET Barquisimeto C.A. ',
                 'state' => 'Lara',
             ],
             [
-                'description' => 'Clinica Razetti De Barquisimeto',
+                'description' => 'Clinica Razetti de Barquisimeto',
                 'state' => 'Lara',
             ],
             [
@@ -945,11 +945,11 @@ class CenterList extends Seeder
                 'state' => 'Miranda',
             ],
             [
-                'description' => 'Unidad De Diagnostico Avanzado Su Salud, C.A.',
+                'description' => 'Unidad De Diagnostico Avanzado su Salud, C.A.',
                 'state' => 'Miranda',
             ],
             [
-                'description' => 'Cenimat Centro Integral De Imagenes Del Tuy, C.A.',
+                'description' => 'Cenimat Centro Integral De Imagenes del Tuy, C.A.',
                 'state' => 'Miranda',
             ],
             [
@@ -957,19 +957,19 @@ class CenterList extends Seeder
                 'state' => 'Miranda',
             ],
             [
-                'description' => 'Centro De Rehab. Fisiosalud Marlene Bolivar, C.A.',
+                'description' => 'Centro de Rehab. Fisiosalud Marlene Bolivar, C.A.',
                 'state' => 'Miranda',
             ],
             [
-                'description' => 'Rehamedic Add Unidad De Rehabilitacion C.A.',
+                'description' => 'Rehamedic Add Unidad de Rehabilitacion C.A.',
                 'state' => 'Miranda',
             ],
             [
-                'description' => 'Centro Medico La Candelaria De Cua, C.A',
+                'description' => 'Centro Medico La Candelaria de Cua, C.A',
                 'state' => 'Miranda',
             ],
             [
-                'description' => 'Centro De Especialidades Medico Quirugicas Guatire C.A',
+                'description' => 'Centro de Especialidades Medico Quirugicas Guatire C.A',
                 'state' => 'Miranda',
             ],
             [
@@ -977,11 +977,11 @@ class CenterList extends Seeder
                 'state' => 'Miranda',
             ],
             [
-                'description' => 'Centro Medico Hospital Privado San Martin De Porres C.A ',
+                'description' => 'Centro Medico Hospital Privado San Martin de Porres C.A ',
                 'state' => 'Miranda',
             ],
             [
-                'description' => 'Servicio De Atencion Medica Totalsalud 3000 C.A.',
+                'description' => 'Servicio de Atencion Medica Totalsalud 3000 C.A.',
                 'state' => 'Miranda',
             ],
             [
@@ -1005,11 +1005,11 @@ class CenterList extends Seeder
                 'state' => 'Miranda',
             ],
             [
-                'description' => 'Ips Carrizal',
+                'description' => 'IPS Carrizal',
                 'state' => 'Miranda',
             ],
             [
-                'description' => 'Centro Clinico De Especialidades Bethania C.A',
+                'description' => 'Centro Clinico de Especialidades Bethania C.A',
                 'state' => 'Miranda',
             ],
             [
@@ -1021,7 +1021,7 @@ class CenterList extends Seeder
                 'state' => 'Miranda',
             ],
             [
-                'description' => 'Cenimat Centro Integral De Imagenes Del Tuy, C.A.',
+                'description' => 'Cenimat Centro Integral de Imagenes del Tuy, C.A.',
                 'state' => 'Miranda',
             ],
             [
@@ -1029,7 +1029,7 @@ class CenterList extends Seeder
                 'state' => 'Monagas',
             ],
             [
-                'description' => 'Centro Medico Oriental De Salud Cemos C.A.',
+                'description' => 'Centro Medico Oriental de Salud Cemos C.A.',
                 'state' => 'Monagas',
             ],
             [
@@ -1045,11 +1045,11 @@ class CenterList extends Seeder
                 'state' => 'Monagas',
             ],
             [
-                'description' => 'Instituto De Salud Y Atencion Medica Integral, C.A (Isamica)',
+                'description' => 'Instituto de Salud Y Atencion Medica Integral, C.A (Isamica)',
                 'state' => 'Monagas',
             ],
             [
-                'description' => 'Oriental De Salud Integral Del Estado Monagas ',
+                'description' => 'Oriental de Salud Integral Del Estado Monagas ',
                 'state' => 'Monagas',
             ],
             [
@@ -1073,7 +1073,7 @@ class CenterList extends Seeder
                 'state' => 'Nueva Esparta',
             ],
             [
-                'description' => 'Centro Clinico Del Caribe, C. A. (Porlamar) ',
+                'description' => 'Centro Clinico del Caribe, C. A. (Porlamar) ',
                 'state' => 'Nueva Esparta',
             ],
             [
@@ -1081,7 +1081,7 @@ class CenterList extends Seeder
                 'state' => 'Nueva Esparta',
             ],
             [
-                'description' => 'Inversiones Medicas De Venezuela Mrk 2011, C.A. (Prevaler)',
+                'description' => 'Inversiones Medicas de Venezuela Mrk 2011, C.A. (Prevaler)',
                 'state' => 'Nueva Esparta',
             ],
             [
@@ -1105,7 +1105,7 @@ class CenterList extends Seeder
                 'state' => 'Sucre',
             ],
             [
-                'description' => 'Mv Medical, C.A. ',
+                'description' => 'MV Medical, C.A. ',
                 'state' => 'Sucre',
             ],
             [
@@ -1133,7 +1133,7 @@ class CenterList extends Seeder
                 'state' => 'Tachira',
             ],
             [
-                'description' => 'Centro De Cirugia San Sebastian, C.A',
+                'description' => 'Centro de Cirugia San Sebastian, C.A',
                 'state' => 'Tachira',
             ],
             [
@@ -1145,11 +1145,11 @@ class CenterList extends Seeder
                 'state' => 'Tachira',
             ],
             [
-                'description' => 'Especialidades Medicas De Occidente (Esmedoca)',
+                'description' => 'Especialidades Medicas de Occidente (Esmedoca)',
                 'state' => 'Tachira',
             ],
             [
-                'description' => 'Venezolana De Salud Integral, C.A',
+                'description' => 'Venezolana de Salud Integral, C.A',
                 'state' => 'Tachira',
             ],
             [
@@ -1161,7 +1161,7 @@ class CenterList extends Seeder
                 'state' => 'Trujillo',
             ],
             [
-                'description' => 'Previmedica Idb',
+                'description' => 'Previmedica IBD',
                 'state' => 'Trujillo',
             ],
             [
@@ -1197,7 +1197,7 @@ class CenterList extends Seeder
                 'state' => 'Vargas',
             ],
             [
-                'description' => 'Ctro. Obstetrico Ginecologico Dr. Luis F. Marcano, S.R.L.',
+                'description' => 'CTRO. Obstetrico Ginecologico Dr. Luis F. Marcano, S.R.L.',
                 'state' => 'Vargas',
             ],
             [
@@ -1205,7 +1205,7 @@ class CenterList extends Seeder
                 'state' => 'Vargas',
             ],
             [
-                'description' => 'Unidad De Atencion Respiratoria Sjm, C.A',
+                'description' => 'Unidad De Atencion Respiratoria SJM, C.A',
                 'state' => 'Vargas',
             ],
             [
@@ -1213,15 +1213,15 @@ class CenterList extends Seeder
                 'state' => 'Vargas',
             ],
             [
-                'description' => 'A.C.Hospital San Jose De Las Hermanitas De Los Pobres',
+                'description' => 'A.C.Hospital San Jose de Las Hermanitas De Los Pobres',
                 'state' => 'Vargas',
             ],
             [
-                'description' => 'Centro Medico De Atencion Integral Diagnostico C.A.',
+                'description' => 'Centro Medico de Atencion Integral Diagnostico C.A.',
                 'state' => 'Yaracuy',
             ],
             [
-                'description' => 'Unidad Clinica Sagrado Corazón De Jesus, C.A. ',
+                'description' => 'Unidad Clinica Sagrado Corazón de Jesus, C.A. ',
                 'state' => 'Yaracuy',
             ],
             [
@@ -1237,15 +1237,15 @@ class CenterList extends Seeder
                 'state' => 'Yaracuy',
             ],
             [
-                'description' => 'Unidad Medica Quirurgica Yurubi, C.A ( Previmedica Idb )',
+                'description' => 'Unidad Medica Quirurgica Yurubi, C.A ( Previmedica IDB )',
                 'state' => 'Yaracuy',
             ],
             [
-                'description' => 'Clinica Imd San Felipe',
+                'description' => 'Clinica IMD San Felipe',
                 'state' => 'Yaracuy',
             ],
             [
-                'description' => 'Instituto De Especialidades Quirurgicas San Ignacio',
+                'description' => 'Instituto de Especialidades Quirurgicas San Ignacio',
                 'state' => 'Yaracuy',
             ],
             [
@@ -1257,11 +1257,11 @@ class CenterList extends Seeder
                 'state' => 'Zulia',
             ],
             [
-                'description' => 'Centro Clinico De Cabimas C.A.',
+                'description' => 'Centro Clinico de Cabimas C.A.',
                 'state' => 'Zulia',
             ],
             [
-                'description' => 'Centro Medico De Cabimas, S.A',
+                'description' => 'Centro Medico de Cabimas, S.A',
                 'state' => 'Zulia',
             ],
             [
@@ -1273,7 +1273,7 @@ class CenterList extends Seeder
                 'state' => 'Zulia',
             ],
             [
-                'description' => 'Venezolana De Salud Integral, C.A',
+                'description' => 'Venezolana de Salud Integral, C.A',
                 'state' => 'Zulia',
             ],
             [
@@ -1293,7 +1293,7 @@ class CenterList extends Seeder
                 'state' => 'Zulia',
             ],
             [
-                'description' => 'Centro De Cirugia San Jose, C.A. ',
+                'description' => 'Centro de Cirugia San Jose, C.A. ',
                 'state' => 'Zulia',
             ],
             [
@@ -1301,7 +1301,7 @@ class CenterList extends Seeder
                 'state' => 'Zulia',
             ],
             [
-                'description' => 'Venezolana De Salud Integral, C.A A',
+                'description' => 'Venezolana de Salud Integral, C.A A',
                 'state' => 'Zulia',
             ],
             [
@@ -1313,7 +1313,7 @@ class CenterList extends Seeder
                 'state' => 'Zulia',
             ],
             [
-                'description' => 'Venezolana De Salud Integral, C.A',
+                'description' => 'Venezolana de Salud Integral, C.A',
                 'state' => 'Zulia',
             ],
             [
@@ -1325,7 +1325,7 @@ class CenterList extends Seeder
                 'state' => 'Zulia',
             ],
             [
-                'description' => 'Policlínica Dr. Adolfo D Empaire',
+                'description' => 'Policlínica Dr. Adolfo Dempaire',
                 'state' => 'Zulia',
             ],
             [
@@ -1333,7 +1333,7 @@ class CenterList extends Seeder
                 'state' => 'Zulia',
             ],
             [
-                'description' => 'Centro De Diagnostico Los Olivos, C.A.',
+                'description' => 'Centro de Diagnostico Los Olivos, C.A.',
                 'state' => 'Zulia',
             ],
             [
@@ -1357,7 +1357,7 @@ class CenterList extends Seeder
                 'state' => 'Zulia',
             ],
             [
-                'description' => 'Sermeca Servicios Medicos De Emergencia, C.A.',
+                'description' => 'Sermeca Servicios Medicos de Emergencia, C.A.',
                 'state' => 'Zulia',
             ],
             [
@@ -1365,7 +1365,7 @@ class CenterList extends Seeder
                 'state' => 'Zulia',
             ],
             [
-                'description' => 'Centro Medico De Occidente',
+                'description' => 'Centro Medico de Occidente',
                 'state' => 'Zulia',
             ],
             [
@@ -1377,11 +1377,11 @@ class CenterList extends Seeder
                 'state' => 'Zulia',
             ],
             [
-                'description' => 'General De Salud Integral,Ca (Gsi)',
+                'description' => 'General de Salud Integral,Ca (Gsi)',
                 'state' => 'Zulia',
             ],
             [
-                'description' => 'Clinica Metropolitana De Maracaibo, S.A.',
+                'description' => 'Clinica Metropolitana de Maracaibo, S.A.',
                 'state' => 'Zulia',
             ],
             [
@@ -1405,7 +1405,7 @@ class CenterList extends Seeder
                 'state' => 'Zulia',
             ],
             [
-                'description' => 'Hospital Universitario De Maracibo',
+                'description' => 'Hospital Universitario de Maracibo',
                 'state' => 'Zulia',
             ]
 ];
