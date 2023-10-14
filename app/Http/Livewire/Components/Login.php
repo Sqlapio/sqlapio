@@ -19,7 +19,7 @@ class Login extends Component {
 	public function rules() {
 		$rules = [
 			'username' => 'required|min:3|max:50',
-			'password' => 'required|min:6|max:8',
+			'password' => 'required|min:6',
 		];
 
 		return $rules;
@@ -32,7 +32,6 @@ class Login extends Component {
 			'username.min' => 'Usuario debe ser mayor a 3 caracteres',
 			'username.max' => 'Usuario debe ser menor a 50 caracteres',
 			'password.min' => 'Contraseña debe ser mayor a 6 caracteres',
-			'password.max' => 'Contraseña debe ser menor a 8 caracteres',
 			'password.regex' => 'Formato de contraseña  incorrecto',
 
 		];

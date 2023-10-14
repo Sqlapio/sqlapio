@@ -15,9 +15,9 @@ class UserAdmin extends Seeder
     public function run(): void
     {
         ModelsUser::create([
-            'name' => 'Admin',
-            'last_name' => 'Sqlapio',
-            'email' => 'admin@gmail.com',
+            'name' => 'Wilfredo',
+            'last_name' => 'Palencia',
+            'email' => 'wilfredopalenciabb@gmail.com',
             'password' => Hash::make('As123456'),
             'role' => 'medico'
         ]);
