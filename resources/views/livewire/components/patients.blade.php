@@ -607,7 +607,6 @@
                             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-
                                     <div class="row mt-3">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <div class="form-check form-switch">
@@ -618,7 +617,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="row mt-3" id="content-search-pat" style="display: none">
                                         <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mb-3 mt-3"
                                             style="width: 318px;">
@@ -651,7 +649,6 @@
                                                 class="btn btnSecond">Buscar</button>
                                         </div>
                                     </div>
-
                                     <div class="row" id="show-info-pat" style="display: none">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <h5 class="mb-4">Lista de paciente registrado bajo este documento de identidad</h5>
@@ -671,7 +668,6 @@
                                             </table>
                                         </div>
                                     </div>
-
                                     <div id="content-patient">
                                         <form id="form-patients" method="post" action="/">
                                             {{ csrf_field() }}
@@ -686,7 +682,7 @@
                                                         @endforeach
                                                     </div>
                                                 @endif
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -699,7 +695,7 @@
                                                         </div>
                                                     </diV>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -712,8 +708,8 @@
                                                         </div>
                                                     </diV>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                    <div class="floating-label-group">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                                    <div class="form-group">
                                                         <label for="phone" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha
                                                             de
@@ -723,8 +719,7 @@
                                                             onchange="calculateAge(event,'age'), handlerAge(event)">
                                                     </div>
                                                 </diV>
-
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" id="email-div">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" id="email-div">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -742,7 +737,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" id="ci-div">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" id="ci-div">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label" type="number"
@@ -756,7 +751,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -770,8 +765,8 @@
                                                     </div>
                                                 </div>
                                                 <input id="age" name="age" type="hidden" value="">
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                    <div class="floating-label-group">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                                    <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Género</label>
@@ -786,23 +781,19 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <x-professions />
-                                                <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" />
-
-
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                                <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
+                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
-                                                            <textarea id="address" name="address" class="form-control"></textarea>
+                                                            <textarea id="address" name="address" class="form-control" rows="1"></textarea>
                                                             <i class="bi bi-geo st-icon"></i>
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -816,15 +807,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <x-centers_user class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" />
+                                                <x-centers_user class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
                                                 <x-upload-image />
                                                 {{-- data del representante --}}
                                                 <div class="row mt-3" id="data-rep" style="display: none">
                                                     <hr>
                                                     <h5>Datos del representante</h5>
                                                     <hr>
-
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -838,8 +828,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -853,8 +842,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -868,7 +856,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -882,7 +870,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -1094,8 +1082,8 @@
                                 {{ csrf_field() }}
                                 <div class="row mt-3">
                                     <input type="hidden" id="patient_id" name="patient_id" value="">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="date" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha</label>
@@ -1105,8 +1093,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="phone" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tiempo
@@ -1122,8 +1110,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="phone" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Horarios
@@ -1135,9 +1123,9 @@
                                         </div>
                                     </div>
 
-                                    <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" />
+                                    <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" />
 
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center">
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3 text-center">
                                         <div class="form-check form-switch">
                                             <input onchange="handlerPrice(event);" style="width: 5em"
                                                 class="form-check-input" type="checkbox" role="switch" id="showPrice"
@@ -1150,9 +1138,9 @@
                                     </div>
 
 
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
                                         style="display: none" id="div-price">
-                                        <div class="form-floating mb-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="searchPatients" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Precio</label>

@@ -26,6 +26,8 @@ $(document).ready(() => {
         url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
     },
     reponsive: true,
+    "searching": false,
+    "bLengthChange": false,
   });
 });
 

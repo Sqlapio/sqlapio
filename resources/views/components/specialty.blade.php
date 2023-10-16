@@ -8,8 +8,8 @@
     
 @endphp
 
-<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-    <div class="floating-label-group">
+<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+    <div class="form-group">
         <div class="Icon-inside">
             <select name="specialty" id="specialty" placeholder="Seleccione"
                 class="form-control @error('specialty') is-invalid @enderror" class="form-control combo-textbox-input">
