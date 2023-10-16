@@ -31,8 +31,9 @@
         /* padding: 10px 0px 0px 6px;
         width: 100%; */
         border: 2px solid #44525F;
-        height: auto;
-        margin: 7px 23px;  
+        height: 150px;
+        margin: 7px 23px;
+        object-fit: cover;
     }
 
     .fc .fc-daygrid-day-number {

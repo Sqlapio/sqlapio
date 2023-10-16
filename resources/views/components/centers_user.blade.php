@@ -17,7 +17,7 @@
                     </option>
                 @endforeach
             </select>
-            <i class="bi bi-house st-icon"></i>
+            <i class="bi bi-hospital st-icon"></i>
         </div>
     </div>
 </div>
