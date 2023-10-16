@@ -120,19 +120,7 @@
                 $("#form-consulta").validate();
                 if ($("#form-consulta").valid()) {
                     $('#send').hide();
-                    $('#spinner').show();
-
-                    let exams = $('#exams').val().split(',');
-
-                    exams.map((element) => exams_array.push({
-                        code_exams: element.slice(0, 14)
-                    }));
-
-                    let studies = $('#studies').val().split(',');
-
-                    studies.map((element) => studies_array.push({
-                        code_studies: element.slice(0, 14)
-                    }));
+                    $('#spinner').show();                   
 
                     //preparar la data para el envio
                     let formData = $('#form-consulta').serializeArray();
@@ -427,29 +415,32 @@
             });
         }
 
-        function setExams(e) {
-
+        function setExams(e,key) {
             if ($(`#${e.target.id}`).is(':checked')) {
                 valExams = (valExams == "") ? e.target.value : valExams + "," + e.target.value;
+                exams_array.push({code_exams: $(`#${e.target.id}`).data('code')}); 
                 valExams = valExams.replace(',,', ',');
                 $("#exams").val(valExams);
             } else {
                 valExams = valExams.replace(e.target.value, '');
                 valExams = valExams.replace(',,', ',');
                 if (valExams == ",") valExams = valExams.replace(',', '');
+                 exams_array.splice(key, 1);
                 $("#exams").val(valExams);
             }
         }
 
-        function setStudy(e) {
+        function setStudy(e,key) {
             if ($(`#${e.target.id}`).is(':checked')) {
                 valStudy = (valStudy == "") ? e.target.value : valStudy + "," + e.target.value;
+                studies_array.push({code_studies: $(`#${e.target.id}`).data('code')});            
                 valStudy = valStudy.replace(',,', ',');
                 $("#studies").val(valStudy);
             } else {
                 valStudy = valStudy.replace(e.target.value, '');
                 valStudy = valStudy.replace(',,', ',');
                 if (valStudy == ",") valStudy = valStudy.replace(',', '');
+                studies_array.splice(key, 1);
                 $("#studies").val(valStudy);
             }
         }
@@ -493,11 +484,23 @@
 
         //borrar medicamento
         function deleteMedication(count) {
-            $('#table-medicamento tr#' + count).remove();
-            medications_supplements.splice(count, 1);
-            countMedicationAdd = countMedicationAdd - 1;
-            $('#countMedicationAdd').val(countMedicationAdd);
-            if (countMedicationAdd === 0) $('#countMedicationAdd').val('');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Desea realizar esta acción?',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar',
+                showCancelButton: true,
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+                    $('#table-medicamento tr#' + count).remove();
+                    medications_supplements.splice(count, 1);
+                    countMedicationAdd = countMedicationAdd - 1;
+                    $('#countMedicationAdd').val(countMedicationAdd);
+                    if (countMedicationAdd === 0) $('#countMedicationAdd').val('');
+                }
+            });
         }
     </script>
 @endpush
@@ -615,14 +618,6 @@
                                                 </div>
                                             </div>
 
-                                            {{-- <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
-                                                <div class="form-group">
-                                                    <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tratamiento</label>
-                                                    <textarea id="treatment" rows="8" name="treatment" class="form-control"></textarea>
-                                                </div>
-                                            </div> --}}
-
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                 <div class="form-group">
                                                     <label for="search_patient"
@@ -635,10 +630,11 @@
                                                     style="max-width: 100%; max-height: 200px;">
                                                     @foreach ($exam as $key => $item)
                                                         <ul id="exam">
-                                                            <li> <label><input type="checkbox" onclick="setExams(event)"
+                                                            <li> <label><input type="checkbox" onclick="setExams(event,{{$key}})"
                                                                         name="chk{{ $key }}"
                                                                         id="{{ $key }}"
-                                                                        value="{{ $item->cod_exam . '|' . $item->description }}">
+                                                                        data-code="{{$item->cod_exam}}"
+                                                                        value="{{$item->description }}">
                                                                     {{ $item->description }}</label><br>
                                                             </li>
                                                         </ul>
@@ -667,8 +663,9 @@
                                                             <li> <label><input type="checkbox"
                                                                         name="chk{{ $key }}"
                                                                         id="chectt{{ $key }}"
-                                                                        onclick="setStudy(event)"
-                                                                        value="{{ $item->cod_study . '|' . $item->description }}">
+                                                                        onclick="setStudy(event,{{$key}})"
+                                                                        data-code="{{$item->cod_exam}}"
+                                                                        value="{{ $item->description }}">
                                                                     {{ $item->description }}</label><br>
                                                             </li>
                                                         </ul>
@@ -730,10 +727,11 @@
                                                             <span id="treatmentDuration_span" class="text-danger"></span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3 offset-md-5">
+                                                    <div
+                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3 offset-md-5">
                                                         <span type="" onclick="addMedacition(event)"
-                                                            class="btn btn-outline-secondary" id="btn" style="padding: 7px"><i
-                                                                class="bi bi-plus-lg"></i>Añadir
+                                                            class="btn btn-outline-secondary" id="btn"
+                                                            style="padding: 7px"><i class="bi bi-plus-lg"></i>Añadir
                                                             Tratamiento</span>
                                                     </div>
                                                 </div>
@@ -744,7 +742,8 @@
                                                         <hr>
                                                         <h5>Lista de Tratamiento</h5>
                                                         <hr>
-                                                        <table class="table table-striped table-bordered" id="table-medicamento">
+                                                        <table class="table table-striped table-bordered"
+                                                            id="table-medicamento">
                                                             <thead>
                                                                 <tr>
                                                                     <th class="text-center" scope="col">
@@ -887,8 +886,10 @@
                                                                         </div>
                                                                     @endif
                                                                     @if ($item['data']['status_study'])
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <a href="{{ route('mr_study', $item['id']) }}">
+                                                                        <div
+                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <a
+                                                                                href="{{ route('mr_study', $item['id']) }}">
                                                                                 <button type="button"
                                                                                     class="btn refresf btn-iSecond rounded-circle"
                                                                                     data-bs-toggle="tooltip"
@@ -912,7 +913,8 @@
                                                                                 style="font-size: 23px; color: #ff7b0d"></i>
                                                                         </div>
                                                                     @endif
-                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                    <div
+                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                         <a target="_blank"
                                                                             href="{{ route('pdf_medical_prescription', $item['id']) }}">
                                                                             <button type="button"
@@ -926,7 +928,8 @@
                                                                             </button>
                                                                         </a>
                                                                     </div>
-                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                    <div
+                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
 
                                                                         <a target="_blank"
                                                                             href="{{ route('PDF_medical_record', $item['id']) }}">
