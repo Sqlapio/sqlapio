@@ -485,34 +485,47 @@ function update_appointments(url, data) {
 }
 
 function cancelled_appointments(id, url, active = null) {
-  $('#send').hide();
-  $('#spinner').show();
-  url = url.replace(':id', id);
-  $.ajax({
-    url: url,
-    type: 'GET',
-    headers: {
-      'X-CSRF-TOKEN': $(
-        'meta[name="csrf-token"]').attr(
-          'content')
-    },
-    success: function (res) {
-      console.log(res);
-      Swal.fire({
-        icon: 'error',
-        title: 'Cita cancelada exitosamente!',
-        allowOutsideClick: false,
-        confirmButtonColor: '#42ABE2',
-        confirmButtonText: 'Aceptar'
-      }).then((result) => {
-        if (active) {
-          window.location.href = active;
-        } else {
-          window.location.href = urlDairy;
+
+  Swal.fire({
+    icon: 'warning',
+    title: 'Desea realizar esta acción?',
+    allowOutsideClick: false,
+    confirmButtonColor: '#42ABE2',
+    confirmButtonText: 'Aceptar',
+    showCancelButton: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $('#send').hide();
+      $('#spinner').show();
+      url = url.replace(':id', id);
+      $.ajax({
+        url: url,
+        type: 'GET',
+        headers: {
+          'X-CSRF-TOKEN': $(
+            'meta[name="csrf-token"]').attr(
+              'content')
+        },
+        success: function (res) {
+          console.log(res);
+          Swal.fire({
+            icon: 'error',
+            title: 'Cita cancelada exitosamente!',
+            allowOutsideClick: false,
+            confirmButtonColor: '#42ABE2',
+            confirmButtonText: 'Aceptar'
+          }).then((result) => {
+            if (active) {
+              window.location.href = active;
+            } else {
+              window.location.href = urlDairy;
+            }
+          });
         }
       });
     }
   });
+
 }
 
 function handlerTime(e) {
