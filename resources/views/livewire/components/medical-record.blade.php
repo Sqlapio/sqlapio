@@ -588,7 +588,7 @@
                                                                     {{ $item->get_center->description }}</option>
                                                             @endforeach
                                                         </select>
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-hospital st-icon"></i>
                                                         <span id="type_alergia_span" class="text-danger"></span>
                                                     </div>
                                                 </div>
@@ -693,7 +693,7 @@
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-only-text" id="medicine"
                                                                     name="medicine" type="text" value="">
-                                                                <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                                <i class="bi bi-capsule st-icon"></i>
                                                             </div>
                                                             <span id="medicine_span" class="text-danger"></span>
                                                         </diV>
@@ -706,7 +706,7 @@
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-only-text" id="indication"
                                                                     name="indication" type="text" value="">
-                                                                <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                                <i class="bi bi-file-medical st-icon"></i>
                                                             </div>
                                                             <span id="indication_span" class="text-danger"></span>
                                                         </diV>
@@ -722,7 +722,7 @@
                                                                     class="form-control mask-only-text"
                                                                     id="treatmentDuration" name="treatmentDuration"
                                                                     type="text" value="">
-                                                                <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                                <i class="bi bi-calendar-range st-icon"></i>
                                                             </div>
                                                             <span id="treatmentDuration_span" class="text-danger"></span>
                                                         </div>
