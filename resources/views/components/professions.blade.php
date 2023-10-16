@@ -5,8 +5,8 @@ $professions = Profession::all();
 @endphp
 
 
-<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-    <div class="floating-label-group">
+<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+    <div class="form-group">
         <div class="Icon-inside">
             <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Profesión</label>
             <select name="profession" id="profession"

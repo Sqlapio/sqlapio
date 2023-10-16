@@ -99,9 +99,7 @@
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
                 id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
-                <div id="spinner" style="display: none">
-                    <x-load-spinner show="true" />
-                </div>
+                
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -163,8 +161,8 @@
 
                                     <div class="row">
                                         <input type="hidden" id="patient_id" name="patient_id" value="">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                            <div class="floating-label-group">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="date" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha</label>
@@ -176,8 +174,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                            <div class="floating-label-group">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                            <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tiempo
@@ -193,8 +191,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                            <div class="floating-label-group">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                            <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Horarios
@@ -266,9 +264,9 @@
                                         </div>
                                     </div> --}}
 
-                                        <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" />
+                                        <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" />
 
-                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center">
+                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3 text-center">
                                             <div class="form-check form-switch">
                                                 <input onchange="handlerPrice(event);" style="width: 5em"
                                                     class="form-check-input" type="checkbox" role="switch"
@@ -279,9 +277,9 @@
                                                     la cita</label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
                                             style="display: none" id="div-price">
-                                            <div class="form-floating mb-3">
+                                            <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="searchPatients" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Precio</label>
@@ -293,7 +291,9 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    <div id="spinner" style="display: none">
+                                        <x-load-spinner show="true" />
+                                    </div>
                                     <div class="row text-center mt-3">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
                                             style="margin-top: -4px" id="send">
