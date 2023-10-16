@@ -6,6 +6,7 @@ namespace App\Http\Livewire\Components;
 use Livewire\Component;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\UtilsController;
+use App\Http\Livewire\Components\Reference as ComponentsReference;
 use App\Models\DoctorCenter;
 use App\Models\Exam;
 use App\Models\ExamPatient;
@@ -50,18 +51,18 @@ class MedicalRecord extends Component
                 'background'  => 'required',
                 'razon'       => 'required',
                 'diagnosis'   => 'required',
-                'treatment'   => 'required',
                 'exams'       => 'required',
                 'studies'     => 'required',
+                'medications_supplements' => 'required',
             ];
 
             $msj = [
                 'background'  => 'Campo requerido',
                 'razon'       => 'Campo requerido',
                 'diagnosis'   => 'Campo requerido',
-                'treatment'   => 'Campo requerido',
                 'exams'       => 'Campo requerido',
                 'studies'     => 'Campo requerido',
+                'medications_supplements' => 'Campo requerido',
             ];
 
             // $validator = Validator::make($request->data, $rules, $msj);
@@ -89,9 +90,9 @@ class MedicalRecord extends Component
                 'background'    => $data->background,
                 'razon'         => $data->razon,
                 'diagnosis'     => $data->diagnosis,
-                'treatment'     => $data->treatment,
                 'exams'         => $data->exams,
                 'studies'       => $data->studies,
+                'medications_supplements'       => $data->medications_supplements,
             ]);
 
             $action = '11';
@@ -111,65 +112,8 @@ class MedicalRecord extends Component
              * solicitados por el medico y generar la 
              * referencia
              */
-
-            $reference = new Reference();
-            $reference->cod_ref = 'SQ-REF-'.random_int(11111111, 99999999);
-            $reference->user_id = $user;
-            $reference->patient_id = $data->id;
-            $reference->center_id = $data->center_id;
-            $reference->cod_medical_record = $medical_record['record_code'];
-            $reference->date = date('d-m-Y');
-            $reference->exams = $data->exams;
-            $reference->studies = $data->studies;
-            $reference->save();
-
-            /**
-             * Logica para cargar los examenes
-             * cargados en la referencia.
-             */
-            
-            if(isset($data->exams_array)){
-
-                $data_exams = json_decode($data->exams_array);
-    
-                for ($i = 0; $i < count($data_exams); $i++){
-                    $exams_patient = new ExamPatient();
-                    $exams_patient->record_code = $reference->cod_medical_record;
-                    $exams_patient->cod_ref = $reference->cod_ref;
-                    $exams_patient->cod_exam = $data_exams[$i]->code_exams;
-                    $exams_patient->description = UtilsController::get_description_exam($data_exams[$i]->code_exams);
-                    $exams_patient->ref_id = $reference->id;
-                    $exams_patient->user_id = $user;
-                    $exams_patient->center_id = $data->center_id;
-                    $exams_patient->patient_id = $data->id;
-                    $exams_patient->date = date('d-m-Y');
-                    $exams_patient->save();
-                }
-            }
-
-            /**
-             * Logica para cargar los examenes
-             * cargados en la referencia.
-             */
-
-            if(isset($data->studies_array)){
-
-                $data_studies = json_decode($data->studies_array);
-
-                for ($i = 0; $i < count($data_studies); $i++){
-                    $studies_patient = new StudyPatient();
-                    $studies_patient->record_code = $reference->cod_medical_record;
-                    $studies_patient->cod_ref = $reference->cod_ref;
-                    $studies_patient->cod_study = $data_studies[$i]->code_studies;
-                    $studies_patient->description = UtilsController::get_description_study($data_studies[$i]->code_studies);
-                    $studies_patient->ref_id = $reference->id;
-                    $studies_patient->user_id = $user;
-                    $studies_patient->center_id = $data->center_id;
-                    $studies_patient->patient_id = $data->id;
-                    $studies_patient->date = date('d-m-Y');
-                    $studies_patient->save();
-                }
-            }
+            $medical_record_code = $medical_record['record_code'];
+            ComponentsReference::store($data, $medical_record_code,$medical_record);
              
             $action = '15';
             ActivityLogController::store_log($action);

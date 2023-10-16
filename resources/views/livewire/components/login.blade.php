@@ -45,7 +45,7 @@
                     password: {
                         required: true,
                         minlength: 6,
-                        maxlength: 8,
+                       // maxlength: 8,
                     },
                 },
                 messages: {
@@ -59,7 +59,7 @@
                     password: {
                         required: "Contraseña es obligatoria",
                         minlength: "Contraseña debe ser mayor a 6 caracteres",
-                        maxlength: "Contraseña debe ser menor a 8 caracteres",
+                        //maxlength: "Contraseña debe ser menor a 8 caracteres",
                     },
                 },
                 invalidHandler: function(event, validator) {
@@ -86,8 +86,11 @@
 @section('content')
     <div>
         <div class="container-fluid text-center">
-            <div class="row form-sq">
-                <div class="col-xs-12 col-sm-10 col-md-4 col-lg-3 col-xl-3 col-xxl-3 loginDric">
+            <div id="spinner" style="display: none">
+                <x-load-spinner />
+            </div>
+            <div class="row form-sq" style="position: relative">
+                <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 loginDric">
                     <div class="">
                         <img class="img" src="{{ asset('img/iniciar-sesion.png') }}" class="">
                     </div>
@@ -118,6 +121,7 @@
                     </div>
                     
                     <button type="" class="btn btnPrimary"><span class="">Entrar</span></button>
+                    
                 </div>
                 {{ Form::close() }}
                 <div class="row justify-content-center">
@@ -125,12 +129,10 @@
                         <a class="links" href="{{ route('Register') }}">Registrar Usuario</a>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                        <a class="links" href="">Recuperar Contraseña</a>
-                    </div>
-                    <div id="spinner" style="display: none">
-                        <x-load-spinner />
+                        <a class="links" href="{{route('recovery_password')}}">Recuperar Contraseña</a>
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>

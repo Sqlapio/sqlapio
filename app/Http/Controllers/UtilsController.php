@@ -24,7 +24,9 @@ use App\Models\MedicalRecord;
 use App\Models\NonPathologicalBackground;
 use App\Models\PathologicalBackground;
 use App\Models\Reference;
+use App\Models\Representative;
 use App\Models\Study;
+use App\Models\StudyPatient;
 use App\Models\User;
 use App\Models\VitalSign;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -36,6 +38,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Log;
+use Svg\CssLength;
 
 class UtilsController extends Controller
 {
@@ -95,6 +99,15 @@ class UtilsController extends Controller
 		}
 		if ($value == '18') {
 			return 'update email';
+		}
+		if ($value == '19') {
+			return 'confirmation email';
+		}
+		if ($value == '20') {
+			return 'update email address';
+		}
+		if ($value == '21') {
+			return 'password reset';
 		}
 	}
 
@@ -375,21 +388,27 @@ class UtilsController extends Controller
 					'id' 			=>  $val->id,
 					'date' 			=> $val->record_date,
 					'name_patient' 	=>  $val->get_paciente->name . " " . $val->get_paciente->last_name,
-					'code_patient' 	=>  $val->get_paciente->ci,
+					'full_name_doc' 	=>  $val->get_doctor->name . " " . $val->get_doctor->last_name,
 					'center' 		=>  $val->get_center->description,
+					'genere' 		=>  $val->get_paciente->genere,
 					'data' => [
 						'center_id' =>  $val->get_center->id,
 						'record_code' 	=>  $val->record_code,
+						'cod_ref' 	=>  $val->get_reference->cod_ref,
 						'record_type' 	=>  $val->record_type,
 						'background' 	=>  $val->background,
 						'razon' 		=>  $val->razon,
 						'diagnosis' 	=>  $val->diagnosis,
-						'treatment' 	=>  $val->treatment,
 						'exams' 		=>  $val->exams,
 						'studies' 		=>  $val->studies,
+						'medications_supplements' 		=>  json_decode($val->medications_supplements) ,
+						'status_exam' 		=>  $val->status_exam,
+						'status_study' 		=> $val->status_study,
+
 					],
 				];
 			}
+
 			return $medical_record_user;
 			//code...
 		} catch (\Throwable $th) {
@@ -466,16 +485,102 @@ class UtilsController extends Controller
 		try {
 
 			$mailData = [
-				'title' => 'Bienvenidos a SQLAPIO.COM',
 				'name' => $name,
 			];
 			if ($type == 'p') {
+				$mailData = [
+					'name' => $name,
+				];
 				$view = 'emails.register_patient';
-				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view));
+				$cuerpo1 = 'prueba1';
+				$cuerpo2 = 'prueba2';
+				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view, $cuerpo1, $cuerpo2));
 			}
 			if ($type == 'm') {
 				$view = 'emails.demoMail';
-				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view));
+				$cuerpo1 = 'prueba1';
+				$cuerpo2 = 'prueba2';
+				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view, $cuerpo1, $cuerpo2));
+			}
+			if ($type == 'up') {
+				$mailData = [
+					'title' => 'Actualizacion de Correo Electronico',
+					'name' => $name,
+				];
+				$view = 'emails.demoMail';
+				$cuerpo1 = 'Usted a solicitado el cambio de su direccion de correo electronico.';
+				$cuerpo2 = 'Por favor introdusca el siguiente codigo de validacion:';
+				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view, $cuerpo1, $cuerpo2));
+			}
+			if ($type == 'rp') {
+				$mailData = [
+					'title' => 'Recuperacion de contraseña',
+					'name' => 'Correo electronico introducido: ' . $name,
+				];
+				$view = 'emails.demoMail';
+				$cuerpo1 = 'Usted a solicitado el cambio de su contraseña por motivos de olvido o actualizacion de datos.';
+				$cuerpo2 = 'Por favor introduzca el siguiente codigo de validacion:';
+				Mail::to($email)->send(new SendMail($mailData, $verification_code, $view, $cuerpo1, $cuerpo2));
+			}
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.send_mail()', $message);
+		}
+	}
+
+	static function notification_mail($mailData, $type)
+	{
+
+		try {
+
+			if ($type == 'register_patient') {
+				$view = 'emails.register_patient';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'patient_minor') {
+				$view = 'emails.patient_minor';
+				Mail::to($mailData['patient_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'patient') {
+				$view = 'emails.patient';
+				Mail::to($mailData['patient_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'center') {
+				$view = 'emails.center';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'appointment') {
+				$view = 'emails.cita';
+				Mail::to($mailData['patient_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'verify_email') {
+				$view = 'emails.verify_email';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'verify_email_laboratory') {
+				$view = 'emails.verify_email_laboratory';
+				Mail::to($mailData['laboratory_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'reference') {
+				$view = 'emails.references';
+				Mail::to($mailData['patient_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'reset_pass') {
+				$view = 'emails.reset_pass';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+			if ($type == 'update_email') {
+				$view = 'emails.update_email';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
 			}
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
@@ -492,6 +597,10 @@ class UtilsController extends Controller
 			$verify = DB::table('users')
 				->where('verification_code', $verification_code)
 				->update(['email_verified_at' => $date]);
+
+			$action = '19';
+
+			ActivityLogController::store_log($action);
 
 			return redirect('/')->with('success', 'Has confirmado correctamente tu correo!');
 			//code...
@@ -847,7 +956,7 @@ class UtilsController extends Controller
 			dd('Error UtilsController.get_image_lab()', $message);
 		}
 	}
-		static function upload_result_exam(Request $request)
+	static function upload_result_exam(Request $request)
 	{
 		try {
 
@@ -889,19 +998,26 @@ class UtilsController extends Controller
 
 			for ($i = 0; $i < count($data_exams); $i++) {
 				$update = DB::table('exam_patients')
-				->where('cod_ref', $data->code_ref)
-				->where('cod_exam', $data_exams[$i]->cod_exam)
-				->update([
-					'laboratory_id' => $laboratory->id,
-					'cod_lab' => $laboratory->code_lab,
-					'file' => $nameFile,
-					'status' => 2,
-					'date_result' => date('d-m-Y'),
-				]);
+					->where('cod_ref', $data->code_ref)
+					->where('cod_exam', $data_exams[$i]->cod_exam)
+					->update([
+						'laboratory_id' => $laboratory->id,
+						'cod_lab' => $laboratory->code_lab,
+						'file' => $nameFile,
+						'status' => 2,
+						'date_result' => date('d-m-Y'),
+					]);
 			}
 
-			return true;
+			$medical_record_code = Reference::where('cod_ref', $data->code_ref)->first()->cod_medical_record;
+			$update = DB::table('medical_records')
+					->where('record_code', $medical_record_code)
+					->update([
+						'status_exam' => true,
+					]);
 
+
+			return true;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.upload_result_exam()', $message);
@@ -951,16 +1067,23 @@ class UtilsController extends Controller
 
 			for ($i = 0; $i < count($data_studies); $i++) {
 				$update = DB::table('study_patients')
-				->where('cod_ref', $data->code_ref)
-				->where('cod_study', $data_studies[$i]->cod_study)
-				->update([
-					'laboratory_id' => $laboratory->id,
-					'cod_lab' => $laboratory->code_lab,
-					'file' => $nameFile,
-					'status' => 2,
-					'date_result' => date('d-m-Y'),
-				]);
+					->where('cod_ref', $data->code_ref)
+					->where('cod_study', $data_studies[$i]->cod_study)
+					->update([
+						'laboratory_id' => $laboratory->id,
+						'cod_lab' => $laboratory->code_lab,
+						'file' => $nameFile,
+						'status' => 2,
+						'date_result' => date('d-m-Y'),
+					]);
 			}
+
+			$medical_record_code = Reference::where('cod_ref', $data->code_ref)->first()->cod_medical_record;
+			$update = DB::table('medical_records')
+					->where('record_code', $medical_record_code)
+					->update([
+						'status_study' => true,
+					]);
 
 			return true;
 			//code...
@@ -1023,6 +1146,21 @@ class UtilsController extends Controller
 		}
 	}
 
+	static function update_ref_counter($user_id)
+	{
+		try {
+			$value = User::where('id', $user_id)->first()->ref_counter;
+			$counter = DB::table('users')
+				->where('id', $user_id)
+				->update([
+					'ref_counter' => $value + 1,
+				]);
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.update_ref_exam_counter()', $message);
+		}
+	}
+
 	static function get_table_medical_record()
 	{
 		try {
@@ -1036,31 +1174,105 @@ class UtilsController extends Controller
 		}
 	}
 
-	static function search_person($value)
+	static function search_person($value, $row)
 	{
+
 		$data = [];
+		if ($row != 'cod_ref') {
+			
+			$tablePat =  Patient::where($row, $value);
 
-		$resp = Reference::where('cod_ref', $value)->first();
-		$data = [
-			'cod_ref' => $resp->cod_ref,
-			'date' => $resp->date,
-			'cod_medical_record' => $resp->cod_medical_record,
-			'get_exam' => $resp->get_exam,
-			'get_studie' => $resp->get_studie,
-			'get_patient' => $resp->get_patient,
+			$tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($value) {
+				$q->where('re_ci', $value);
+			});
 
-		];
+			$patients = $tablePat->union($tableRep)->get();
 
-		return $data;
+			/**
+			 * Realizamos la busqueda en la tabla
+			 * de examenes del paciente
+			 */
+			foreach ($patients as $key => $val) {
+
+				$data_exam = ExamPatient::where('patient_id', $val->id)
+				->where('status', 2)				
+				->with('get_laboratory')
+				->get();
+
+				$data[$key] = [
+					'patient_id' =>  $val->id,
+					'full_name' => $val->name . ' ' . $val->last_name,
+					'ci' => ($val->is_minor == "false") ? $val->ci : $val->get_reprensetative->re_ci,
+					'genero' => $val->genere,
+					'exam' => $data_exam,
+				];
+			}
+
+			return $data;	
+			
+		} else {
+
+			$resp = Reference::where('cod_ref', $value)->first();
+			$data = [
+				'cod_ref' => $resp->cod_ref,
+				'date' => $resp->date,
+				'cod_medical_record' => $resp->cod_medical_record,
+				'get_exam' => $resp->get_exam,
+				'get_studie' => $resp->get_studie,
+				'get_patient' => $resp->get_patient,
+
+			];
+
+			return $data;
+		}
+	}
+
+	static function search_studio($value, $row)
+	{
+
+		$data = [];
+		if ($row != 'cod_ref') {
+
+			$tablePat =  Patient::where($row, $value);
+
+			$tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($value) {
+				$q->where('re_ci', $value);
+			});
+
+			$patients = $tablePat->union($tableRep)->get();
+
+			/**
+			 * Realizamos la busqueda en la tabla
+			 * de examenes del paciente
+			 */
+			foreach ($patients as $key => $val) {
+
+				$data_study = StudyPatient::where('patient_id', $val->id)
+				->where('status', 2)				
+				->with('get_laboratory')
+				->get();
+
+				$data[$key] = [
+					'patient_id' =>  $val->id,
+					'full_name' => $val->name . ' ' . $val->last_name,
+					'ci' => ($val->is_minor == "false") ? $val->ci : $val->get_reprensetative->re_ci,
+					'genero' => $val->genere,
+					'study' => $data_study,
+				];
+			}
+
+			return $data;
+		}
 	}
 
 
-	static function responce_references() {
+	static function responce_references()
+	{
 
-        $data_exam_res = ComponentsLaboratory::res_exams();
-        
-        $data_study_res= ComponentsLaboratory::res_studies();      
-        
-        return ["data_exam_res"=>$data_exam_res,"data_study_res"=>$data_study_res];
-    }
+		$data_exam_res = ComponentsLaboratory::res_exams();
+
+		$data_study_res = ComponentsLaboratory::res_studies();
+
+		return ["data_exam_res" => $data_exam_res, "data_study_res" => $data_study_res];
+	}
 }

@@ -33,10 +33,11 @@ class MedicalRecord extends Model
         'background',
         'razon',
         'diagnosis',
-        'treatment',
         'exams',
         'studies',
-
+        'medications_supplements',
+        'status_exam',
+        'status_study',
     ];
 
     public function  get_paciente(): HasOne
@@ -51,8 +52,16 @@ class MedicalRecord extends Model
 
     public function  get_center_data(): HasOne
     {
-        return $this->hasOne(DoctorCenter::class, 'id', 'center_id');
+        return $this->hasOne(DoctorCenter::class, 'center_id', 'center_id');
     }
-    
+
+    public function  get_doctor(): HasOne
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }    
+    public function  get_reference(): HasOne
+    {
+        return $this->hasOne(Reference::class, 'medical_record_id', 'id');
+    }    
 
 }

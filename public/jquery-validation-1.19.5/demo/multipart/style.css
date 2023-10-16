@@ -422,6 +422,7 @@ input.submitbutton {
 	background: #000;
 	margin: 0;
 	font-size: 92%;
+	bottom: 0;
 }
 
 #footer a {

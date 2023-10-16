@@ -16,23 +16,42 @@
                     width: 600px;
                     padding: 10px;">
             <p style="text-align: justify; margin-left: 20px;">
-                <h2 style="text-align: justify; margin-left: 20px;">Sr(a). {{ $mailData['name'] }}</h2>
+                <h2 style="text-align: justify; margin-left: 20px;">Dr(a). {{ $mailData['dr_name'] }}</h2>
             </p>
+    
             <p style="text-align: justify; margin-left: 20px;">
-                Su registro a Sqlapio fue exitoso. Gracias por ser parte de nuestro portafolio médico,<br>ahora tiene acceso completo a la plataforma.
-            </p>
-            <p style="text-align: justify; margin-left: 20px;">
-                Lo invitamos primero a realizar la validacion de tu correo electronico, accediento al siguiente link:
+                Espero se encuentre muy bien.
                 <br>
-                https://sqlapiodev.starkmedios.com/paciente/verify/{{ $verification_code }}
+                Gracias por ser parte de nuestra familia Sqlapio.com, usted acaba de registrar al paciente:
+            </p>
+
+            <p style="text-align: justify; margin-left: 20px;">
+                <h3 style="text-align: justify; margin-left: 20px;">
+                    Codigo del paciente: {{ $mailData['patient_code'] }}
+                    <br>
+                    Sr.(a): {{ $mailData['patient_name'] }}
+                    <br>
+                    Correo Electronico: {{ $mailData['patient_email'] }}
+                    <br>
+                    Telefono: {{ $mailData['patient_phone'] }}
+                </h3>
+            </p>
+
+            <p style="text-align: justify; margin-left: 20px;">
+                Para cualquier consulta o asistencia adicional que necesite, puede comunicarse las 24
+                horas del dia con nuestro equipo a traves de sqlapiotechnology@gmail.com
             </p>
             <p style="text-align: justify; margin-left: 20px;">
-                Si tienes alguna duda te podemos ayudar en:
+                Atentamente,
                 <br>
-                sqlapiotechnology@gmail.com
-            </p>
-            <p style="text-align: justify; margin-left: 20px;">
-                ¡Gracias por su confianza!
+                <br>
+                <img style="
+                    display: block;
+                    margin-left: 0px;
+                    width: 100px;
+                    height: auto;"
+                src="{{ asset('img/notification_email/fir_jm.png') }}">
+                Ing. Jhonny Martinez<br>CEO
             </p>
             <p style="text-align: justify; font-style: italic; margin-left: 20px;">
                 La información contenida en este mensaje y sus anexos tiene carácter confidencial, y está dirigida únicamente al destinatario de la misma.
@@ -46,7 +65,7 @@
             margin-right: auto;
             width: 600px;
             height: auto;"
-        src="{{ asset('img/notification_email/footer.jpg') }}">
+        src="{{ asset('img/notification_email/footer.png') }}">
     
 </body>
 </html>

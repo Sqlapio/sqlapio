@@ -312,6 +312,10 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
       center: 'title',
       right: 'dayGridMonth,timeGridDay,listWeek'
     },
+    titleFormat: {
+      month: 'short',
+      year: 'numeric',
+    },
     events: data,
     eventClick: function (info) {
       setValue(info.event._def.title, info);
@@ -380,55 +384,75 @@ function setValue(data, info) {
   ////
 }
 
-function searchPatients(url) {
-  if ($('#searchPatients').val() != '') {
-    url = url.replace(':value', $('#searchPatients').val());
-    $.ajax({
-      url: url,
-      type: 'GET',
-      headers: {
-        'X-CSRF-TOKEN': $(
-          'meta[name="csrf-token"]').attr(
-            'content')
-      },
-      success: function (res) {
-        if (res != "") {
-          if (res.is_minor) {
-            $("#name").text(res.name + ' ' + res.last_name);
-            $("#email").text(res.email);
-            $("#phone").text(res.phone);
-            $("#ci").text(res.ci);
-            $("#genere").text(res.genere);
-            $("#age").text(res.age);
-            $("#patient_id").val(res.id);
-          } else {
-            $("#name").text(res.re_name + ' ' + res.re_last_name);
-            $("#email").text(res.re_email);
-            $("#phone").text(res.re_phone);
-            $("#ci").text(res.re_ci);
-            $("#genere").text(res.genere);
-            $("#age").text(res.age);
-            $("#patient_id").val(res.id);
-          }
-          $('#div-pat').show();
-          $("#img-pat").attr("src", `${ulrimge}/${res.patient_img}`);
-          $('#registrer-pac').attr("disabled", false);
-          $('#timeIni').focus()
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Paciente no encontrado!',
-            allowOutsideClick: false,
-            confirmButtonColor: '#42ABE2',
-            confirmButtonText: 'Aceptar'
-          }).then((result) => {
-          });
-        }
+function searchPatients(res) {
+  // if ($('#searchPatients').val() != '') {
+  //   url = url.replace(':value', $('#searchPatients').val());
+  //   $.ajax({
+  //     url: url,
+  //     type: 'GET',
+  //     headers: {
+  //       'X-CSRF-TOKEN': $(
+  //         'meta[name="csrf-token"]').attr(
+  //           'content')
+  //     },
+  //     success: function (res) {
+  //       if (res != "") {
+  //         if (res.is_minor) {
+  //           $("#name").text(res.name + ' ' + res.last_name);
+  //           $("#email").text(res.email);
+  //           $("#phone").text(res.phone);
+  //           $("#ci").text(res.ci);
+  //           $("#genere").text(res.genere);
+  //           $("#age").text(res.age);
+  //           $("#patient_id").val(res.id);
+  //         } else {
+  //           $("#name").text(res.re_name + ' ' + res.re_last_name);
+  //           $("#email").text(res.re_email);
+  //           $("#phone").text(res.re_phone);
+  //           $("#ci").text(res.re_ci);
+  //           $("#genere").text(res.genere);
+  //           $("#age").text(res.age);
+  //           $("#patient_id").val(res.id);
+  //         }
+  //         $('#div-pat').show();
+  //         $("#img-pat").attr("src", `${ulrimge}/${res.patient_img}`);
+  //         $('#registrer-pac').attr("disabled", false);
+  //         $('#timeIni').focus()
+  //       } else {
+  //         Swal.fire({
+  //           icon: 'error',
+  //           title: 'Paciente no encontrado!',
+  //           allowOutsideClick: false,
+  //           confirmButtonColor: '#42ABE2',
+  //           confirmButtonText: 'Aceptar'
+  //         }).then((result) => {
+  //         });
+  //       }
 
-      }
-    });
+  //     }
+  //   });
+  // }
+  if (res.is_minor) {
+    $("#name").text(res.name + ' ' + res.last_name);
+    $("#email").text(res.email);
+    $("#phone").text(res.phone);
+    $("#ci").text(res.ci);
+    $("#genere").text(res.genere);
+    $("#age").text(res.age);
+    $("#patient_id").val(res.id);
+  } else {
+    $("#name").text(res.re_name + ' ' + res.re_last_name);
+    $("#email").text(res.re_email);
+    $("#phone").text(res.re_phone);
+    $("#ci").text(res.re_ci);
+    $("#genere").text(res.genere);
+    $("#age").text(res.age);
+    $("#patient_id").val(res.id);
   }
-
+  $('#div-pat').show();
+  $("#img-pat").attr("src", `${ulrimge}/${res.patient_img}`);
+  $('#registrer-pac').attr("disabled", false);
+  $('#timeIni').focus();
 }
 
 function update_appointments(url, data) {
@@ -461,34 +485,47 @@ function update_appointments(url, data) {
 }
 
 function cancelled_appointments(id, url, active = null) {
-  $('#send').hide();
-  $('#spinner').show();
-  url = url.replace(':id', id);
-  $.ajax({
-    url: url,
-    type: 'GET',
-    headers: {
-      'X-CSRF-TOKEN': $(
-        'meta[name="csrf-token"]').attr(
-          'content')
-    },
-    success: function (res) {
-      console.log(res);
-      Swal.fire({
-        icon: 'error',
-        title: 'Cita cancelada exitosamente!',
-        allowOutsideClick: false,
-        confirmButtonColor: '#42ABE2',
-        confirmButtonText: 'Aceptar'
-      }).then((result) => {
-        if (active) {
-          window.location.href = active;
-        } else {
-          window.location.href = urlDairy;
+
+  Swal.fire({
+    icon: 'warning',
+    title: 'Desea realizar esta acción?',
+    allowOutsideClick: false,
+    confirmButtonColor: '#42ABE2',
+    confirmButtonText: 'Aceptar',
+    showCancelButton: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $('#send').hide();
+      $('#spinner').show();
+      url = url.replace(':id', id);
+      $.ajax({
+        url: url,
+        type: 'GET',
+        headers: {
+          'X-CSRF-TOKEN': $(
+            'meta[name="csrf-token"]').attr(
+              'content')
+        },
+        success: function (res) {
+          console.log(res);
+          Swal.fire({
+            icon: 'error',
+            title: 'Cita cancelada exitosamente!',
+            allowOutsideClick: false,
+            confirmButtonColor: '#42ABE2',
+            confirmButtonText: 'Aceptar'
+          }).then((result) => {
+            if (active) {
+              window.location.href = active;
+            } else {
+              window.location.href = urlDairy;
+            }
+          });
         }
       });
     }
   });
+
 }
 
 function handlerTime(e) {

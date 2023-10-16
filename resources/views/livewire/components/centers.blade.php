@@ -10,10 +10,6 @@
         justify-content: center;
     }
 
-    .spinner-md img{
-        top: 90%;
-    }
-
     .table-check {
         text-align: center; 
         vertical-align: middle;
@@ -21,13 +17,10 @@
         width: 50px;
     }
 
-    @media only screen and (max-width: 576px) {
-
-        .spinner-md img{
-            top: 93%;
-        }
-
+    .w-5 {
+        width: 5%
     }
+
 </style>
 @push('scripts')
     @vite(['resources/js/centers.js'])
@@ -67,7 +60,7 @@
                 },
                 messages: {
                     center_id: {
-                        required: 'Centro en obligatorio',
+                        required: 'Centro es obligatorio',
                     },
                     address: {
                         required: "Dirección es obligatorio",
@@ -149,7 +142,7 @@
             if ($(`#${e.target.id}`).is(':checked')) {
                 Swal.fire({
                     icon: 'warning',
-                    title: '¿Esta seguro que desea habilitar este centro?',
+                    title: '¿Está seguro que desea habilitar este centro?',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
                     confirmButtonText: 'Aceptar'
@@ -159,7 +152,7 @@
             } else {
                 Swal.fire({
                     icon: 'warning',
-                    title: '¿Esta seguro que desea desahabilitar este centro?',
+                    title: '¿Está seguro que desea deshabilitar este centro?',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
                     confirmButtonText: 'Aceptar'
@@ -236,7 +229,7 @@
                             {
                                 data: 'btn',
                                 title: 'Estatus',
-                                className: "text-center",
+                                className: "text-center table-check w-5",
                             }
                         ],
                     });
@@ -270,11 +263,11 @@
                 {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
                     <h5 class="text-capitalize">Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}</h5>
                 </div> --}}
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd">
                     <div class="accordion" id="accordion">
-                        <div class="accordion-item accordion-centers">
+                        <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                <button class="accordion-button bg-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-building"></i> Centros
                                 </button>
                             </span>
@@ -306,8 +299,8 @@
                                                         <td class="text-center">{{ $item['number_floor'] }}</td>
                                                         <td class="text-center">{{ $item['number_consulting_room'] }}</td>
                                                         <td class="text-center">{{ $item['phone_consulting_room'] }}</td>
-                                                        <td class="text-center table-check">
-                                                            <div class="form-check form-switch">
+                                                        <td class="text-center table-check w-5">
+                                                            <div class="form-check form-switch ">
                                                                 <input onchange="handlerCenter(event);" style="width: 5em"
                                                                     class="form-check-input" type="checkbox" role="switch"
                                                                     id="flexSwitchCheckChecked" value="{{ $item['id'] }}"
@@ -328,6 +321,9 @@
 
         <!-- Modal -->
         <div class="modal fade" id="modalCenter" tabindex="-1" aria-labelledby="modalCenterLabel" aria-hidden="true">
+            <div id="spinner" style="display: none">
+                <x-load-spinner show="true"/>
+            </div>
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -341,10 +337,10 @@
                                 {{ csrf_field() }}
                                 <div class="row">
                                     @if (Auth::user()->status_register != 1)
-                                        <x-centers_doctors class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"/>
+                                        <x-centers_doctors class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"/>
                                     @endif
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
                                                 <textarea id="address" rows="2" name="address" class="form-control"></textarea>
@@ -352,8 +348,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Piso</label>
                                                 <input autocomplete="off"
@@ -363,8 +359,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Consultorio</label>
                                                 <input autocomplete="off"
@@ -375,8 +371,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono del consultorio</label>
                                                 <input autocomplete="off"
@@ -386,14 +382,10 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="row text-center">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
-                                        <input class="btn btnPrimary send mt-3" value="Registrar" type="submit" />
-                                        <div id="spinner" style="display: none" class="spinner-md">
-                                            <x-load-spinner show="true"/>
-                                        </div>
+                                        <input class="btn btnSave send mt-3" value="Registrar" type="submit" />
                                     </div>
                                 </div>
                             </form>

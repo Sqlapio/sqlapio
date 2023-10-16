@@ -12,6 +12,18 @@
     .input-one {
         margin-right: 0px
     }
+
+    .img-medical {
+        border-radius: 20px;
+        border: 3px solid #47525e;
+    }
+    @media only screen and (max-width: 576px) { 
+
+        .mt-cr{ 
+            padding-top: 20px;
+        }
+    }
+
 </style>
 @push('scripts')
     <script>
@@ -108,13 +120,13 @@
                         required: "Debe seleccionar una opción"
                     },
                     current_illness: {
-                        required: "Altura es obligatoria",
+                        required: "Enfermedad Actual es obligatoria",
                     },
                     reason: {
-                        required: "Motivo es obligatoria"
+                        required: "Motivo de  la consulta es obligatoria"
                     },
                     strain: {
-                        required: "Tesion es obligatoria"
+                        required: "Tesión es obligatoria"
                     },
                     temperature: {
                         required: "Temperatura es obligatoria"
@@ -126,13 +138,13 @@
                         required: "Pulso es obligatoria"
                     },
                     saturation: {
-                        required: "Saturacion es obligatoria"
+                        required: "Saturación es obligatoria"
                     },
                     condition: {
-                        required: "Condicion es obligatoria"
+                        required: "Condición es obligatoria"
                     },
                     countVitalSigns: {
-                        required: "Debe seleccionar uan opción"
+                        required: "Debe seleccionar una opción"
                     }
                 }
             });
@@ -186,7 +198,7 @@
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
                                 let url = "{{ route('MedicalRecord', ':id') }}";
-                                url = url.replace(':id',$('#id_patient').val());
+                                url = url.replace(':id', $('#id_patient').val());
                                 window.location.href = url;
                             });
                         },
@@ -400,30 +412,71 @@
 
         //borrar medicamento
         function deleteMedication(count) {
-            $('#table-medicamento tr#' + count).remove();
-            arraymedications_supplements.splice(count, 1);
-            countMedicationAdd = countMedicationAdd - 1;
-            $('#countMedicationAdd').val(countMedicationAdd);
+            Swal.fire({
+                icon: 'warning',
+                title: 'Desea realizar esta acción?',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar',
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                $('#table-medicamento tr#' + count).remove();
+                arraymedications_supplements.splice(count, 1);
+                countMedicationAdd = countMedicationAdd - 1;
+                $('#countMedicationAdd').val(countMedicationAdd);
+                }
+            });
+
         }
         //borrar cirugia
         function deleteSurgical(count) {
-            $('#table-cirugia tr#' + count).remove();
-            arrayhistory_surgical.splice(count, 1);
-            countSurgical = countSurgical - 1;
-            $('#countSurgical').val(countSurgical);
+            Swal.fire({
+                icon: 'warning',
+                title: 'Desea realizar esta acción?',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar',
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                $('#table-cirugia tr#' + count).remove();
+                arrayhistory_surgical.splice(count, 1);
+                countSurgical = countSurgical - 1;
+                $('#countSurgical').val(countSurgical);
+                }
+            });
+
         }
         //borrar alergias
         function deleteAllergie(count) {
-            $('#table-alergias tr#' + count).remove();
-            arrayAllergies.splice(count, 1);
-            countAllergies = countAllergies - 1;
-            $('#countAllergies').val(countAllergies);
+
+            Swal.fire({
+                icon: 'warning',
+                title: 'Desea realizar esta acción?',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar',
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $('#table-alergias tr#' + count).remove();
+                    arrayAllergies.splice(count, 1);
+                    countAllergies = countAllergies - 1;
+                    $('#countAllergies').val(countAllergies);
+                }
+
+            });
         }
     </script>
 @endpush
 @section('content')
-    <div>
+    {{-- <div> --}}
         <div class="container-fluid" style="padding: 3%">
+            
             <form id="form-mecal-histroy" method="post" action="/">
                 {{ csrf_field() }}
                 <div class="accordion" id="accordion">
@@ -433,22 +486,22 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingD">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseD" aria-expanded="true" aria-controls="collapseD"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-person"></i></i> Datos personales
                                     </button>
                                 </span>
-                                <div id="collapseD" class="accordion-collapse collapse show" aria-labelledby="headingD"
+                                <div id="collapseD" class="accordion-collapse collapse" aria-labelledby="headingD"
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
-                                        <div class="row mt-3">
+                                        <div class="row">
+                                            <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 180px;">
+                                                <img src="{{ asset('/imgs/' . $Patient->patient_img) }}" width="150"
+                                                height="150" alt="Imagen del paciente" class="img-medical">
+                                            </div>
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 offset-3">
-                                                    <img src="{{ asset('/imgs/' . $Patient->patient_img) }}" width="150"
-                                                        height="150" alt="Imagen del paciente">
-                                                </div>
-                                                <strong>Nombre:</strong><span>
+                                                <strong>Nombre:</strong><span class="text-capitalize">
                                                     {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                                 <br>
                                                 <strong>Fecha de Nacimiento:</strong><span>
@@ -460,7 +513,7 @@
                                                 <span>
                                                     {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                                 <br>
-                                                <strong>Genero:</strong> <span> {{ $Patient->genere }}</span>
+                                                <strong>Genero:</strong> <span class="text-capitalize"> {{ $Patient->genere }}</span>
                                                 <br>
                                                 <strong>Nº Historial:</strong><span>
                                                     {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
@@ -477,7 +530,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-person"></i></i> Datos principales de la historia
@@ -486,36 +539,35 @@
                                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
-                                        <div class="row mt-3">
+                                        <div class="row">
                                             <input type="hidden" name="history_vital_signs[]" id="history_vital_signs"
                                                 value="">
-                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Peso</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Peso (Kg)</label>
                                                         <input autocomplete="off"
                                                             class="mask-input form-control @error('weight') is-invalid @enderror"
                                                             id="weight" name="weight" type="text"
                                                             value="{!! !empty($validateHistory) ? $Patient->get_history->weight : '' !!}">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-file-earmark-medical st-icon"></i>
                                                     </div>
                                                 </diV>
                                             </div>
-                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Altura</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Altura (Cm)</label>
                                                         <input autocomplete="off"
                                                             class="mask-input-height form-control @error('height') is-invalid @enderror"
                                                             id="height" name="height" type="text"
                                                             value="{!! !empty($validateHistory) ? $Patient->get_history->height : '' !!}">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-rulers st-icon"></i>
                                                     </div>
                                                 </diV>
                                             </div>
-
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                 <div class="form-group">
                                                     <label for="phone" class="form-label"
@@ -541,11 +593,11 @@
                                                     $data = explode('/', $Patient->get_history->strain);
                                                 }
                                             @endphp
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <label for="phone" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Presión
-                                                    arterial</label>
-                                                <div class="input-group mb-3">
+                                                    arterial (mmHg)</label>
+                                                <div class="input-group">
                                                     <input type="text" name="strain" id="strain"
                                                         class="form-control  mask-input-two input-one" placeholder="Alta"
                                                         aria-label="strain" value="{!! !empty($validateHistory) ? $data[0] : '' !!}">
@@ -555,61 +607,59 @@
                                                         aria-label="strain" value="{!! !empty($validateHistory) ? $data[1] : '' !!}">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tempetura</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tempetura (°C)</label>
                                                         <input autocomplete="off"
                                                             class="mask-only-temperature form-control @error('temperature') is-invalid @enderror"
                                                             id="temperature" name="temperature" type="text"
                                                             value="{!! !empty($validateHistory) ? $Patient->get_history->temperature : '' !!}">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-thermometer st-icon"></i>
                                                     </div>
                                                 </diV>
                                             </div>
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Respiraciones</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Respiraciones (por minuto)</label>
                                                         <input autocomplete="off"
                                                             class="mask-only-breaths form-control @error('breaths') is-invalid @enderror"
                                                             id="breaths" name="breaths" type="text" maxlength="3"
                                                             value="{!! !empty($validateHistory) ? $Patient->get_history->breaths : '' !!}">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-lungs st-icon"></i>
                                                     </div>
                                                 </diV>
                                             </div>
-
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Pulso</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Pulso (Latidos por minuto)</label>
                                                         <input autocomplete="off"
                                                             class="mask-only-number form-control @error('pulse') is-invalid @enderror"
                                                             id="pulse" name="pulse" type="text" maxlength="3"
                                                             value="{!! !empty($validateHistory) ? $Patient->get_history->pulse : '' !!}">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-heart-pulse st-icon"></i>
                                                     </div>
                                                 </diV>
                                             </div>
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Saturación</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Saturación (Nivel de saturación de oxígeno)</label>
                                                         <input autocomplete="off"
                                                             class="mask-input-por form-control @error('saturation') is-invalid @enderror"
                                                             id="saturation" name="saturation" type="text"
                                                             value="{!! !empty($validateHistory) ? $Patient->get_history->saturation : '' !!}">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-lungs st-icon"></i>
                                                     </div>
                                                 </diV>
                                             </div>
-
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -625,14 +675,14 @@
                                                                     {{ $item->description }}</option>
                                                             @endforeach
                                                         </select>
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-activity st-icon"></i>
                                                         <span id="condition_span" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row mt-3">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                 <div class="form-group">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Estudios
@@ -674,7 +724,7 @@
                                                 </div>
                                             @endforeach
                                         </div>
-                                        <div class="row mt-3">
+                                        <div class="row mt-3" style="display: none">
                                             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                 <div class="input-group flex-nowrap">
                                                     <span class="input-group-text">Total Signos vitales
@@ -694,7 +744,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Antecedentes Personales y Familiares
@@ -738,13 +788,21 @@
                                                 </div>
                                             @endforeach
                                         </div>
-                                        <div class="row mt-3">
+                                        <div class="row mt-3" style="display: none">
                                             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                 <div class="input-group flex-nowrap">
                                                     <span class="input-group-text" id="">Total
                                                         Antecedentes</span>
                                                     <input type="text" id="countBackFamily" name="countBackFamily"
                                                         class="form-control" readonly value="{!! !empty($validateHistory) ? $count_back_bamiliy : '' !!}">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
+                                                    <textarea id="observations_back_family" name="observations_back_family" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_back_family : '' !!}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -758,7 +816,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseThree" aria-expanded="true"
                                         aria-controls="collapseThree" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Antecedentes personales patológicos
@@ -802,13 +860,20 @@
                                                 </div>
                                             @endforeach
                                         </div>
-                                        <div class="row mt-3">
+                                        <div class="row mt-3" style="display: none">
                                             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                 <div class="input-group flex-nowrap">
                                                     <span class="input-group-text">Total patológicos
                                                     </span>
                                                     <input type="text" id="countDiagnosis" name="countDiagnosis"
                                                         class="form-control" readonly value="{!! !empty($validateHistory) ? $count_dagnosis : '' !!}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
+                                                    <textarea id="observations_diagnosis" name="observations_diagnosis" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_diagnosis : '' !!}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -822,7 +887,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingFour">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Historia no patológica
@@ -866,7 +931,7 @@
                                                 </div>
                                             @endforeach
                                         </div>
-                                        <div class="row mt-3">
+                                        <div class="row mt-3" style="display: none">
                                             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                 <div class="input-group flex-nowrap">
                                                     <span class="input-group-text">Total historia no patológica
@@ -874,6 +939,13 @@
                                                     <input type="text" id="countNotPathological"
                                                         name="countNotPathological" class="form-control" readonly
                                                         value="{!! !empty($validateHistory) ? $count_notpathologica : '' !!}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
+                                                    <textarea id="observations_not_pathological" name="observations_not_pathological" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_not_pathological : '' !!}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -887,7 +959,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingFive">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Historial ginecologicos si aplica
@@ -897,7 +969,7 @@
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <div class="row">
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -908,11 +980,11 @@
                                                             id="edad_primera_menstruation"
                                                             name="edad_primera_menstruation" type="text"
                                                             value="{!! !empty($validateHistory) ? $Patient->get_history->edad_primera_menstruation : '' !!}">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-calendar-event st-icon"></i>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -922,11 +994,11 @@
                                                             class="form-control datePickert @error('fecha_ultima_regla') is-invalid @enderror"
                                                             id="fecha_ultima_regla" name="fecha_ultima_regla"
                                                             type="text" readonly value="{!! !empty($validateHistory) ? $Patient->get_history->fecha_ultima_regla : '' !!}">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-calendar2-week st-icon"></i>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -936,11 +1008,11 @@
                                                             class="form-control mask-only-number @error('numero_embarazos') is-invalid @enderror"
                                                             id="numero_embarazos" name="numero_embarazos" type="text"
                                                             value="{!! !empty($validateHistory) ? $Patient->get_history->numero_embarazos : '' !!}">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-hash st-icon"></i>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -950,11 +1022,11 @@
                                                             class="form-control mask-only-number @error('numero_partos') is-invalid @enderror"
                                                             id="numero_partos" name="numero_partos" type="text"
                                                             value="{!! !empty($validateHistory) ? $Patient->get_history->numero_partos : '' !!}">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-hash st-icon"></i>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -964,11 +1036,11 @@
                                                             class="form-control mask-only-number @error('cesareas') is-invalid @enderror"
                                                             id="cesareas" name="cesareas" type="text"
                                                             value="{!! !empty($validateHistory) ? $Patient->get_history->cesareas : '' !!}">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-hash st-icon"></i>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -978,11 +1050,11 @@
                                                             class="form-control mask-only-number @error('numero_abortos') is-invalid @enderror"
                                                             id="numero_abortos" name="numero_abortos" type="text"
                                                             value="{!! !empty($validateHistory) ? $Patient->get_history->numero_abortos : '' !!}">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-hash st-icon"></i>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -992,8 +1064,15 @@
                                                             class="form-control mask-only-text @error('pregunta') is-invalid @enderror"
                                                             id="pregunta" name="pregunta" type="text"
                                                             value="{!! !empty($validateHistory) ? $Patient->get_history->pregunta : '' !!}">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-capsule st-icon"></i>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
+                                                    <textarea id="observations_ginecologica" name="observations_ginecologica" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_ginecologica : '' !!}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -1004,10 +1083,10 @@
                     </div>
                     {{-- alergias --}}
                     <div class="row mt-3">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 ">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingSix">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Alergias Conocidas
@@ -1018,7 +1097,7 @@
                                     <div class="accordion-body">
                                         <div class="row mt-3" style="align-items: flex-end;">
                                             <h5 class="text-center collapseBtn">Añadir Alergias</h5>
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -1033,12 +1112,12 @@
                                                             <option value="Latex">Latex</option>
                                                             <option value="Otros">Otros</option>
                                                         </select>
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-file-medical st-icon"></i>
                                                         <span id="type_alergia_span " class="text-danger"></span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -1046,12 +1125,12 @@
                                                         <input autocomplete="off" class="form-control mask-only-text"
                                                             id="detalle_alergia" name="detalle_alergia" type="text"
                                                             value="">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-file-medical st-icon"></i>
                                                     </div>
                                                     <span id="detalle_alergia_span" class="text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-cr">
                                                 <span type="" onclick="handlerAllergies(event)"
                                                     class="btn btn-outline-secondary" id="btn"><i
                                                         class="bi bi-plus-lg"></i>Añadir Alergias</span>
@@ -1092,7 +1171,7 @@
                                                     </tbody>
                                                 </table>
                                                 <tfoot>
-                                                    <div class="row mt-3">
+                                                    <div class="row mt-3" style="display: none">
                                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                             <div class="input-group flex-nowrap">
                                                                 <span class="input-group-text" id="">Total
@@ -1105,6 +1184,14 @@
                                                     </div>
                                                 </tfoot>
                                             </div>
+
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
+                                                    <textarea id="observations_allergies" name="observations_allergies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_allergies : '' !!}</textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1116,7 +1203,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingSeven">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseSeven" aria-expanded="true"
                                         aria-controls="collapseSeven" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Historia quirúrgica
@@ -1127,7 +1214,7 @@
                                     <div class="accordion-body">
                                         <div class="row mt-3" style="align-items: flex-end;">
                                             <h5 class="text-center collapseBtn">Añadir cirugía</h5>
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 ">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -1135,12 +1222,12 @@
                                                             de cirugía</label>
                                                         <input autocomplete="off" class="form-control mask-only-text"
                                                             id="cirugia" name="cirugia" type="text" value="">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-file-earmark-medical st-icon"></i>
                                                     </div>
                                                     <span id="cirugia_span" class="text-danger"></span>
                                                 </diV>
                                             </div>
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -1148,12 +1235,12 @@
                                                         <input autocomplete="off" class="form-control datePickert"
                                                             id="datecirugia" readonly name="datecirugia" type="text"
                                                             value="">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-calendar2-week st-icon"></i>
                                                     </div>
                                                     <span id="datecirugia_span" class="text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-cr">
                                                 <span type="" onclick="handlerSurgical(event)"
                                                     class="btn btn-outline-secondary" id="btn"><i
                                                         class="bi bi-plus-lg"></i>Añadir cirugía</span>
@@ -1195,7 +1282,7 @@
                                                     </tbody>
                                                 </table>
                                                 <tfoot>
-                                                    <div class="row mt-3">
+                                                    <div class="row mt-3" style="display: none">
                                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                             <div class="input-group flex-nowrap">
                                                                 <span class="input-group-text">Total cirugía
@@ -1212,6 +1299,13 @@
                                                     </div>
                                                 </tfoot>
                                             </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
+                                                    <textarea id="observations_ginecologica" name="observations_ginecologica" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_ginecologica : '' !!}</textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1223,7 +1317,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingEight">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseEight" aria-expanded="true"
                                         aria-controls="collapseEight" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Medicación
@@ -1234,7 +1328,7 @@
                                     <div class="accordion-body">
                                         <div class="row mt-3">
                                             <h5 class="text-center collapseBtn">Añadir Medicamento</h5>
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 ">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -1242,24 +1336,24 @@
                                                         <input autocomplete="off" class="form-control mask-only-text"
                                                             id="medicine" name="medicine" type="text"
                                                             value="">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-capsule st-icon"></i>
                                                     </div>
                                                     <span id="medicine_span" class="text-danger"></span>
                                                 </diV>
                                             </div>
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dosis</label>
                                                         <input autocomplete="off" class="form-control mask-only-text"
                                                             id="dose" name="dose" type="text" value="">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-file-medical st-icon"></i>
                                                     </div>
                                                     <span id="dose_span" class="text-danger"></span>
                                                 </diV>
                                             </div>
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -1267,13 +1361,12 @@
                                                         <input autocomplete="off" class="form-control mask-only-text"
                                                             id="patologi" name="patologi" type="text"
                                                             value="">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-file-medical st-icon"></i>
                                                     </div>
                                                     <span id="patologi_span" class="text-danger"></span>
                                                 </div>
                                             </div>
-
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -1282,12 +1375,12 @@
                                                         <input autocomplete="off" class="form-control mask-only-text"
                                                             id="viaAdmin" name="viaAdmin" type="text"
                                                             value="">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-file-medical st-icon"></i>
                                                     </div>
                                                     <span id="viaAdmin_span" class="text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -1296,13 +1389,12 @@
                                                         <input autocomplete="off" class="form-control mask-only-number"
                                                             id="treatmentDuration" name="treatmentDuration"
                                                             type="text" value="">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-calendar-range st-icon"></i>
                                                     </div>
                                                     <span id="treatmentDuration_span" class="text-danger"></span>
                                                 </div>
                                             </div>
-
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -1311,13 +1403,12 @@
                                                         <input autocomplete="off" class="form-control datePickert"
                                                             id="dateIniTreatment" readonly name="dateIniTreatment"
                                                             type="text" value="">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-calendar2-week st-icon"></i>
                                                     </div>
                                                     <span id="dateIniTreatment_span" class="text-danger"></span>
                                                 </div>
                                             </div>
-
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -1326,13 +1417,12 @@
                                                         <input autocomplete="off" class="form-control datePickert"
                                                             id="dateEndTreatment" readonly name="dateEndTreatment"
                                                             type="text" value="">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-calendar2-week st-icon"></i>
                                                     </div>
                                                     <span id="dateEndTreatment_span" class="text-danger"></span>
                                                 </div>
                                             </div>
-
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -1341,7 +1431,7 @@
                                                         <input autocomplete="off" class="form-control mask-only-number"
                                                             id="NUmberOrder" name="NUmberOrder" type="text"
                                                             value="">
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-hash st-icon"></i>
                                                     </div>
                                                     <span id="NUmberOrder_span" class="text-danger"></span>
                                                 </div>
@@ -1409,7 +1499,7 @@
                                                     </tbody>
                                                 </table>
                                                 <tfoot>
-                                                    <div class="row mt-3">
+                                                    <div class="row mt-3" style="display: none">
                                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                             <div class="input-group flex-nowrap">
                                                                 <span class="input-group-text">Total de medicamentos
@@ -1427,6 +1517,14 @@
                                                 </tfoot>
                                             </div>
                                         </div>
+
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            <div class="form-group">
+                                                <label for="phone" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
+                                                <textarea id="observations_medication" name="observations_medication" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_medication : '' !!}</textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1442,14 +1540,14 @@
                             </div>
                         </div>
                         <div class="row mt-3 justify-content-md-end">
-                            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="send"
+                            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" id="send"
                                 style="display: flex; justify-content: flex-end;">
-                                <input class="btn btnPrimary" value="Guardar" type="submit" />
+                                <input class="btn btnSave" value="Guardar" type="submit" />
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
-    </div>
+    {{-- </div> --}}
 @endsection
