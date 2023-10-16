@@ -14,7 +14,7 @@
     }
 
     .img-medical {
-        border-radius: 20px; 
+        border-radius: 20px;
         border: 3px solid #47525e;
     }
     @media only screen and (max-width: 576px) { 
@@ -198,7 +198,7 @@
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
                                 let url = "{{ route('MedicalRecord', ':id') }}";
-                                url = url.replace(':id',$('#id_patient').val());
+                                url = url.replace(':id', $('#id_patient').val());
                                 window.location.href = url;
                             });
                         },
@@ -412,24 +412,64 @@
 
         //borrar medicamento
         function deleteMedication(count) {
-            $('#table-medicamento tr#' + count).remove();
-            arraymedications_supplements.splice(count, 1);
-            countMedicationAdd = countMedicationAdd - 1;
-            $('#countMedicationAdd').val(countMedicationAdd);
+            Swal.fire({
+                icon: 'warning',
+                title: 'Desea realizar esta acción?',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar',
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                $('#table-medicamento tr#' + count).remove();
+                arraymedications_supplements.splice(count, 1);
+                countMedicationAdd = countMedicationAdd - 1;
+                $('#countMedicationAdd').val(countMedicationAdd);
+                }
+            });
+
         }
         //borrar cirugia
         function deleteSurgical(count) {
-            $('#table-cirugia tr#' + count).remove();
-            arrayhistory_surgical.splice(count, 1);
-            countSurgical = countSurgical - 1;
-            $('#countSurgical').val(countSurgical);
+            Swal.fire({
+                icon: 'warning',
+                title: 'Desea realizar esta acción?',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar',
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                $('#table-cirugia tr#' + count).remove();
+                arrayhistory_surgical.splice(count, 1);
+                countSurgical = countSurgical - 1;
+                $('#countSurgical').val(countSurgical);
+                }
+            });
+
         }
         //borrar alergias
         function deleteAllergie(count) {
-            $('#table-alergias tr#' + count).remove();
-            arrayAllergies.splice(count, 1);
-            countAllergies = countAllergies - 1;
-            $('#countAllergies').val(countAllergies);
+
+            Swal.fire({
+                icon: 'warning',
+                title: 'Desea realizar esta acción?',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar',
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $('#table-alergias tr#' + count).remove();
+                    arrayAllergies.splice(count, 1);
+                    countAllergies = countAllergies - 1;
+                    $('#countAllergies').val(countAllergies);
+                }
+
+            });
         }
     </script>
 @endpush
