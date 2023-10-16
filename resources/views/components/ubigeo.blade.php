@@ -6,7 +6,7 @@
 @endphp
 
 <div class="{{ $class }}">
-    <div class="floating-label-group">
+    <div class="form-group">
         <div class="Icon-inside">
             <label for="state" class="form-label" style="font-size: 13px; margin-bottom: 7px">Seleccione el estado</label>
             <select name="state" id="state" class="form-control"
@@ -22,7 +22,7 @@
 </div>
 
 <div class="{{ $class }}">
-    <div class="floating-label-group">
+    <div class="form-group">
         <div class="Icon-inside">
             <label for="city" class="form-label" style="font-size: 13px; margin-bottom: 7px">Seleccione la ciudad</label>
             <select name="city" id="city" class="form-control">
