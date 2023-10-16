@@ -3,11 +3,14 @@
 namespace App\Http\Livewire\Components;
 
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\UtilsController;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Laboratory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class Profile extends Component
 {
@@ -52,6 +55,122 @@ class Profile extends Component
 				->update([
 					'email' => $request->email,
 				]);
+    }
+
+    
+    public function send_otp(Request $request)
+    {
+        if($request->action == 'rp')
+        {
+            $user = User::where('email', $request->email)->first();
+            
+            if($user == null){
+                return response()->json([
+                    'error' => 'true',
+                    'msj'  => 'El correo introducido no exite en el sistema.'
+                ], 400);
+
+            }else{
+                $code = random_int(111111, 999999);
+                DB::table('users')
+                    ->where('email', $request->email)
+                    ->update(['cod_update_pass' => $code]);
+
+                $type = 'reset_pass';
+                $mailData = [
+                    'dr_email'      => $request->email,
+                    'dr_name'       => $user->name . ' ' . $user->last_name,
+                    'code'          => $code
+                ];
+                UtilsController::notification_mail($mailData, $type);
+                
+                return true;
+
+            }
+            
+        }
+        if($request->action == 'up')
+        {
+            $user = Auth::user();
+
+            $name = $user->name . ' ' . $user->last_name;
+            $code = random_int(111111, 999999);
+            DB::table('users')
+                ->where('email', $user->email)
+                ->update(['cod_update_email' => $code]);
+
+            $type = 'update_email';
+            $mailData = [
+                'dr_email'      => $request->email,
+                'dr_name'       => $user->name . ' ' . $user->last_name,
+                'code'          => $code
+            ];
+            UtilsController::notification_mail($mailData, $type);
+
+            UtilsController::notification_register_mail($code, $request->email, $name, $type);
+            
+            return true;
+        }
+       
+    }
+
+    public function verify_otp(Request $request)
+    {
+        if($request->action == 'up')
+        {
+
+            $user = Auth::user();
+       
+            if($user->cod_update_email != $request->cod_update_email){
+                return response()->json([
+                    'success' => 'false',
+                    'msj'  => 'El codigo de autorizacion es incorrecto.'
+                ], 400);
+
+            }else{
+
+                DB::table('users')
+                    ->where('email', $user->email)
+                    ->update(['email' => $request->email]);
+
+                return response()->json([
+                    'success' => 'true',
+                    'msj'  => 'Su direccion de correo fue actualizada de forma exitosa.'
+                ], 200);
+
+                /**
+                 * Registro de accion en el log
+                 * del sistema
+                 */
+                $action = '20';
+                ActivityLogController::store_log($action);
+            }
+        }
+
+        if($request->action == 'rp')
+        {
+
+            $user = User::where('email', $request->email)->first();
+
+            if($request->cod_update_pass == $user->cod_update_pass)
+            {
+                DB::table('users')
+                        ->where('email', $request->email)
+                        ->update(['password' => Hash::make($request->password)]);
+
+                    return response()->json([
+                        'success' => 'true',
+                        'msj'  => 'Su contraseña fue actualizada de forma exitosa.'
+                    ], 200);
+            }else{
+                return response()->json([
+                    'error' => 'true',
+                    'msj'  => 'Su codigo de verificacion es incorrecto.'
+                ], 400);
+            }
+
+        }   
+       
     }
    
     public function render()

@@ -3,6 +3,7 @@
 html{
     height: 100%;
     position: relative;
+    overflow-x: hidden;
 }
 
 body {
@@ -11,7 +12,7 @@ body {
     width: 100%;
     color: #1d1d1f;
     margin: 0;
-    margin-bottom: 40px;
+    // margin-bottom: 40px;
 }
 
 .inputChange {
@@ -49,10 +50,11 @@ body {
 }
 
 .accordion-button {
-    background-color: #42abe2 !important;
+    // background-color: #42abe2 !important;
     color: white !important;
     text-shadow: 1px 2px 6px rgba(0,0,0,0.6);
     font-size: 20px;
+    position: static;
 }
 
 .accordion-button > i {
@@ -174,6 +176,28 @@ button {
     color: #42abe2 !important;
     background-color: var(--bs-btn-hover-bg);
     border: 1px solid #42abe2 !important;
+}
+
+.btnSave {
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    background: #ED8060;
+    color: #fff;
+    /*font-size: 12px;*/
+    font-weight: 400;
+    letter-spacing: -.01em;
+    min-width: 23px;
+    padding-left: 11px;
+    padding-right: 11px;
+    border-radius: 12px;
+}
+
+.btnSave:hover, .btnSave:active {
+    color: #ED8060 !important;
+    background-color: var(--bs-btn-hover-bg);
+    border: 1px solid #ED8060 !important;
 }
 
 .btn-iPrimary {
@@ -1075,31 +1099,6 @@ div.ui-jqgrid {
     background-color: #ffcf98; 
 }
 
-
-// th[role="columnheader"] {
-//     background: #f2f2f2 !important;
-//     color: #333 !important;
-//     font-size: 13px;
-// }
-
-//     th[role="columnheader"]:hover {
-//         background: #e8e6e6 !important;
-//     }
-
-// table.ui-jqgrid-btable tbody tr:nth-child(odd) {
-//     background: #fff;
-// }
-
-// table.ui-jqgrid-btable tbody tr.ui-state-highlight {
-//     background: #6fb3ed !important;
-// }
-
-// table.ui-jqgrid-btable tbody tr.ui-state-highlight:nth-child(odd):hover {
-//     background: #6fb3ed !important;
-// }
-
-
-
 .fc-time-grid .ui-widget-content {
     color: #666;
 }
@@ -1488,28 +1487,16 @@ div.ui-jqgrid {
     color:#42abe2;
    }
    
-   .custom-tooltip {
-    --bs-tooltip-bg: var(--bs-primary);
-  }
+   
 
-  .tooltip-inner {
-    white-space: pre-line;
+//   .tooltip-inner {
+//     white-space: pre-line;
 
-    text-align: left;
-}
+//     text-align: left;
+// }
 
 .margin-global {
     margin-top: 20px;
-}
-
-.accordion-patients {
-    box-shadow: 0px 0px 10px 0px rgba(107,96,13,0.7); 
-    border: 1px solid rgb(107 96 13 / 53%);
-}
-
-.accordion-dashboard {
-    box-shadow: 0px 0px 10px 0px rgb(49 165 225 / 77%); 
-    border: 1px solid rgb(49 165 225 / 53%);
 }
 
 .accordion-diary {
@@ -1517,30 +1504,30 @@ div.ui-jqgrid {
     border: 1px solid rgb(49 165 225 / 53%);
 }
 
-.accordion-profile {
-    box-shadow: 0px 0px 10px 0px rgb(98 98 98);
-    border: 1px solid rgb(98 98 98 / 53%);
-}
-
-.accordion-centers {
-    box-shadow: 0px 0px 10px 0px rgb(50 115 36);
-    border: 1px solid rgb(50 115 36 / 53%);
-}
-
-#table-patients table, #table-alergias_wrapper table, #table-medical-record-one table, 
-#table-cirugia_wrapper table, #table-medicamento_wrapper table, #DataTables_Table_0_wrapper table {
+#table-patients table, #table-alergias_wrapper table, #table-medical-record-one table, #table-show-info-pat_wrapper table, #table-medical-record_wrapper table,
+#table-cirugia_wrapper table, #table-medicamento_wrapper table, #DataTables_Table_0_wrapper table, #table-ref-examenes_wrapper table, #table-info_wrapper table
+#table-ref-estudios_wrapper table, #table-ref_wrapper table, #table-ref-estudios_wrapper table, #info-show table, #table-info-pat_wrapper table {
     font-size: 12px;
     border-top: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-#table-centers_length, #table-patient_length, #DataTables_Table_0_length, #table-alergias_length, #table-cirugia_length, #table-medicamento_length,
-#table-centers_filter, #table-patient_filter, #DataTables_Table_0_filter, #table-alergias_filter, #table-cirugia_filter, #table-medicamento_filter  {
+
+#table-centers_length, #table-patient_length, #DataTables_Table_0_length, #table-alergias_length, #table-cirugia_length, #table-medicamento_length, 
+#table-show-info-pat_length, #table-medical-record_length, #table-ref-examenes_length, #table-ref-estudios_length, #table-ref_length , 
+#table-info_length, #table-info-pat_length,
+#table-centers_filter, #table-patient_filter, #DataTables_Table_0_filter, #table-alergias_filter, #table-cirugia_filter, #table-medicamento_filter, 
+#table-show-info-pat_filter, #table-medical-record_filter, #table-ref-examenes_filter, #table-ref-estudios_filter, #table-ref_filter,
+#table-info_filter, #table-info-pat_filter {
     font-size: 12px;
     padding-bottom: 25px;
 }
 
-#table-centers_info, #table-patient_info, #DataTables_Table_0_info, #table-alergias_info, #table-cirugia_info, #table-medicamento_info,
-#table-centers_paginate, #table-patient_paginate, #DataTables_Table_0_paginate, #table-alergias_paginate, #table-cirugia_paginate, #table-medicamento_paginate {
+
+#table-centers_info, #table-patient_info, #DataTables_Table_0_info, #table-alergias_info, #table-cirugia_info, #table-medicamento_info, 
+#table-show-info-pat_info, #table-medical-record_info, #table-ref-examenes_info, #table-ref-estudios_info, #table-ref_info, #table-info_info , #table-info-pat_info,
+#table-centers_paginate, #table-patient_paginate, #DataTables_Table_0_paginate, #table-alergias_paginate, #table-cirugia_paginate, #table-ref_paginate,
+#table-medicamento_paginate, #table-show-info-pat_paginate, #table-medical-record_paginate, #table-ref-examenes_paginate, #table-ref-estudios_paginate,
+#table-info_paginate, #table-info-pat_paginate {
     font-size: 12px;
     padding-top: 25px;
 }
@@ -1575,14 +1562,8 @@ div.ui-jqgrid {
 
 .tooltip-inner {
     background-color: #42abe2;
-    box-shadow: 0px 0px 4px black;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.589);
     opacity: 1 !important;
-}
-.tooltip.bs-tooltip-right .tooltip-arrow::before {
-    border-right-color: #42abe2 !important;
-}
-.tooltip.bs-tooltip-left .tooltip-arrow::before {
-    border-left-color: #42abe2 !important;
 }
 .tooltip.bs-tooltip-bottom .tooltip-arrow::before {
     border-bottom-color: #42abe2 !important;
@@ -1590,7 +1571,82 @@ div.ui-jqgrid {
 .tooltip.bs-tooltip-top .tooltip-arrow::before {
     border-top-color: #42abe2 !important;
 }
+.tooltip.bs-tooltip-left .tooltip-arrow::before {
+    border-top-color: #42abe2 !important;
+}
+.tooltip.bs-tooltip-right .tooltip-arrow::before {
+    border-top-color: #42abe2 !important;
+}
+
+.custom-tooltip {
+    --bs-tooltip-bg: #42abe2;
+  }
+
+@media only screen and (max-width: 768px) {
+
+    .tooltip-inner {
+        opacity: 0 !important;
+    }
+    .tooltip.bs-tooltip-right .tooltip-arrow::before {
+        opacity: 0 !important;
+    }
+    .tooltip.bs-tooltip-left .tooltip-arrow::before {
+        opacity: 0 !important;
+    }
+    .tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+        opacity: 0 !important;
+    }
+    .tooltip.bs-tooltip-top .tooltip-arrow::before {
+        opacity: 0 !important;
+    }
+    .custom-tooltip {
+        opacity: 0 !important;
+    }
+
+    .mb-cd {
+        margin-bottom: 20% !important;
+    }
+}
+
+@media only screen and (max-width: 390px) {
+    .mb-cd {
+        margin-bottom: 20% !important;
+    }
+}
 
 input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(80%) sepia(28%) saturate(7125%) hue-rotate(171deg) brightness(92%) contrast(92%);
 }
+
+.bg-1 {
+    background-color: #42ABE1 !important;
+}
+
+.bg-2 {
+    background-color: #B3DBE7 !important;
+}
+
+.bg-3 {
+    background-color: #0b649f !important;
+}
+
+.bg-4 {
+    background-color: #415467 !important;
+}
+
+.bg-5 {
+    background-color: #459594 !important;
+}
+
+.bg-6 {
+    background-color: #ED8060 !important;
+}
+
+.bg-7 {
+    background-color: #dbbb53 !important;
+}
+
+.bg-8 {
+    background-color: #748b4e !important;
+}
+

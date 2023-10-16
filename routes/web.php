@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UtilsController;
+use App\Http\Livewire\Components\RecoveryPassword;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Components\Login;
 use App\Http\Livewire\Components\Home;
@@ -16,9 +17,12 @@ use App\Http\Livewire\Components\Suscription;
 use App\Http\Livewire\Components\Diary;
 use App\Http\Livewire\Components\ClinicalHistory;
 use App\Http\Livewire\Components\Centers;
+use App\Http\Livewire\Components\Examen;
 use App\Http\Livewire\Components\Laboratory;
 use App\Http\Livewire\Components\Statistics;
 use App\Http\Livewire\Components\Register;
+use App\Http\Livewire\Components\Study;
+use App\Models\Exam;
 use App\Models\Patient;
 use App\Models\Reference;
 use App\Models\User as ModelsUser;
@@ -38,6 +42,10 @@ Route::get('/', [Login::class, 'render']);
 Route::post('/login', [Login::class, 'login'])->name('login');
 Route::get('/register-user', [Register::class, 'render'])->name('Register');
 Route::post('/register', [Register::class, 'store'])->name('Register-create');
+Route::get('/recovery-password', [RecoveryPassword::class, 'render'])->name('recovery_password');
+Route::post('/create-password-temporary', [RecoveryPassword::class, 'create_password_temporary'])->name('create_password_temporary');
+Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp_rp');
+Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp_rp');
 
 //prueba
 Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
@@ -76,6 +84,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/centers', [Centers::class, 'render'])->name('Centers');
         Route::post('/register-centers', [Centers::class, 'store'])->name('register-centers');
         Route::get('/statistics', [Statistics::class, 'render'])->name('Statistics');
+        Route::get('/study', [Study::class, 'render'])->name('Study');
+        Route::get('/examen', [Examen::class, 'render'])->name('Examen');
 
         Route::group(array('prefix' => 'patients'), function () {
             Route::get('/medical-record/{id}', [MedicalRecord::class, 'render'])->name('MedicalRecord');
@@ -85,6 +95,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail');
             Route::post('/clinical-history-create', [MedicalHistory::class, 'store'])->name('ClinicalHistoryCreate');
             Route::get('/search-patient/{value}', [Patients::class, 'search'])->name('search-patient');
+            Route::get('/medicard_record_study/{id}', [Study::class, 'render'])->name("mr_study");
+            Route::get('/medicard_record_exam/{id}', [Examen::class, 'render'])->name("mr_exam");
         });
 
         Route::group(array('prefix' => 'setting'), function () {
@@ -92,7 +104,13 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/profile', [Profile::class, 'render'])->name('Profile');
             Route::post('/update-profile', [Register::class, 'update'])->name('update-profile');
             Route::get('/suscription', [Suscription::class, 'render'])->name('Suscription');
+            Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp');
+            Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp');
         });
+
+        // ruoter para ver examenes y estudios
+        Route::get('/search_person/{value}/{row}', [UtilsController::class, 'search_person'])->name("search_person");
+        Route::get('/search_studio/{value}/{row}', [UtilsController::class, 'search_studio'])->name("search_studio");
 
         /**
          * @method EndPoint
@@ -150,6 +168,8 @@ Route::middleware(['auth'])->group(function () {
      * Genera el pdf para las historias
      */
     Route::get('/pdf/history/{id}', [PDFController::class, 'PDF_history'])->name('PDF_history');
+    Route::get('/pdf/medical_prescription/{id}', [PDFController::class, 'PDF_medical_prescription'])->name('pdf_medical_prescription');
+
 
      /**
      * @method search
@@ -187,9 +207,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/upload_result_study', [UtilsController::class, 'upload_result_study'])->name("upload_result_study");
         Route::get('/get/reference', [UtilsController::class, 'get_all_ref'])->name("get_ref");
 
-        // pdf referencia
-        Route::get('/search_person/{value}', [UtilsController::class, 'search_person'])->name("search_person");
 
+        
         // pdf referencia
         Route::get('/pdf/reference/{id}', [PDFController::class, 'PDF_ref'])->name("PDF_ref");
 
@@ -202,6 +221,6 @@ Route::middleware(['auth'])->group(function () {
 
 //route
 Route::get('/pp', function () {
-    $res = ModelsUser::where('id', 2)->first();
-    dd($res->get_laboratorio);
-})->where('any', '.*');
+    $res = 'http://sqlapio.test/public/img/notification_email/cita_header.jpg';
+    dd($res);
+});

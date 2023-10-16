@@ -6,8 +6,11 @@
         padding-right: 7px !important;
     }
 
-    .spinnner {
-        top: 92% !important;
+    #img-pat {
+        border-radius: 27px;
+        border: 2px solid #44525F;
+        height: auto;
+        margin: 7px 23px;
     }
 
     body {
@@ -32,10 +35,6 @@
         vertical-align: middle;
     }
 
-    /* .td-pad {
-        padding-top: 20px !important;
-    } */
-
     .borde {
         border-radius: 0 !important;
     }
@@ -52,13 +51,8 @@
 
 
     @media screen and (max-width: 390px) {
-
         #btn-margin {
             margin-left: -14px !important;
-        }
-
-        .spinnner {
-            top: 94% !important;
         }
 
     }
@@ -73,6 +67,7 @@
         let urlDiary = "{{ route('Diary') }}";
         let status = "";
         let url = "{{ route('MedicalRecord', ':id') }}";
+        let urlhist = "{{ route('ClinicalHistoryDetail', ':id') }}";
 
         $(document).ready(() => {
 
@@ -201,16 +196,16 @@
                         required: "Fecha de nacimiento es obligatorio",
                     },
                     state: {
-                        required: "Esatdo es obligatoria",
+                        required: "Estado es obligatoria",
                     },
                     city: {
                         required: "Ciudad es obligatoria",
                     },
                     address: {
-                        required: "Direccion es obligatoria",
+                        required: "Dirección es obligatoria",
                     },
                     zip_code: {
-                        required: "Codigo de area es obligatorio",
+                        required: "Código postal es obligatorio",
                     },
                     re_name: {
                         required: "Nombre del representante es obligatorio",
@@ -234,13 +229,13 @@
                         maxlength: "Cédula del representante  debe ser menor a 8 caracteres",
                     },
                     re_phone: {
-                        required: "Telefono del representante es obligatorio",
+                        required: "Teléfono del representante es obligatorio",
                     },
                     profession: {
-                        required: "Profesion es obligatoria",
+                        required: "Profesión es obligatoria",
                     },
                     phone: {
-                        required: "Telfono es obligatorio",
+                        required: "Teléfono es obligatorio",
                     },
                     center_id: {
                         required: "Centro es obligatorio",
@@ -285,7 +280,7 @@
                                 $("#bnt-cons").show();
                                 $("#bnt-cons").find('a').remove();
                                 $("#bnt-cons").append(
-                                `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`);                              
+                                `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`);                           
                             });
                         },
                         error: function(error) {
@@ -363,7 +358,7 @@
         //seteiar data en el formalario para su edicion
         function editPatien(item, active = true) {
             if (active) {
-                $(".collapse").collapse({
+                $(".accordion-collapse").collapse({
                     toggle: false
                 });
             }
@@ -401,6 +396,7 @@
             $("#show-info-pat").hide();
             $("#bnt-save").show();
             $("#bnt-cons").hide();
+            $("#bnt-hist").hide();
             $("#form-patients").trigger("reset");
             $('#is_minor').val(false);
             $('#id').val('');
@@ -415,6 +411,7 @@
             } else {
                 refreshForm();
                 $('#bnt-cons').hide();
+                $('#bnt-hist').hide();
                 $('#bnt-dairy').hide();
                 $('#content-search-pat').hide();
                 $('#content-patient').show();
@@ -435,7 +432,7 @@
                     success: function(response) {
                         Swal.fire({
                             icon: 'success',
-                            title: 'Operacion exitosamente!',
+                            title: 'Operación exitosa!',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
@@ -523,17 +520,23 @@
             $('#content-patient').show();
             $('#bnt-save').hide();
             $('#bnt-cons').show();
+            $('#bnt-hist').show();
             $('#bnt-dairy').show();
             $('#flexSwitchCheckChecked').prop('checked', false);
             url = url.replace(':id', data.id);
+            urlhist = urlhist.replace(':id', data.id);
             $("#bnt-cons").find('a').remove();
             $("#bnt-dairy").find('button').remove();
+            $("#bnt-hist").find('button').remove();
             $("#bnt-cons").append(
                 `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`);
             let elemData = JSON.stringify(data);
             let elemRep = JSON.stringify(data.get_reprensetative);
             $("#bnt-dairy").append(
                 `<button onclick='agendarCita(${elemData},${elemRep});' type="button" class="btn btnPrimary">Agendar cita</button>`
+            );
+            $("#bnt-hist").append(
+                `<a href="${urlhist}"><button type="button" class="btn btnSecond">Historia clinica</button></a>`
             );
             editPatien(data, false);
         }
@@ -593,18 +596,17 @@
             <div class="accordion" id="accordion">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                        <div class="accordion-item accordion-patients">
+                        <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-person-add"></i> Nuevo paciente
                                 </button>
                             </span>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-
                                     <div class="row mt-3">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <div class="form-check form-switch">
@@ -615,9 +617,7 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="row mt-3" id="content-search-pat" style="display: none">
-
                                         <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mb-3 mt-3"
                                             style="width: 318px;">
                                             <div class="form-check form-check-inline">
@@ -638,23 +638,20 @@
                                         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <label for="search_patient"
-                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Buscar
-                                                    paciente</label>
+                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Ingrese número de identificación</label>
                                                 <input disabled maxlength="10" type="text"
                                                     class="form-control mask-only-number" id="search_patient"
-                                                    name="search_patient" placeholder="Buscar paciente" value="">
+                                                    name="search_patient" placeholder="" value="">
                                             </div>
                                         </div>
-
                                         <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-3">
                                             <button style="margin-top: 2px;" onclick="searchPat()"
                                                 class="btn btnSecond">Buscar</button>
                                         </div>
                                     </div>
-
                                     <div class="row" id="show-info-pat" style="display: none">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <h5>Lista de paciente registrado bajo este documento de identidad</h5>
+                                            <h5 class="mb-4">Lista de paciente registrado bajo este documento de identidad</h5>
                                             <table id="table-show-info-pat" class="table table-striped table-bordered"
                                                 style="width:100%; ">
                                                 <thead>
@@ -669,10 +666,8 @@
                                                 <tbody>
                                                 </tbody>
                                             </table>
-
                                         </div>
                                     </div>
-
                                     <div id="content-patient">
                                         <form id="form-patients" method="post" action="/">
                                             {{ csrf_field() }}
@@ -687,7 +682,7 @@
                                                         @endforeach
                                                     </div>
                                                 @endif
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -700,7 +695,7 @@
                                                         </div>
                                                     </diV>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -713,8 +708,8 @@
                                                         </div>
                                                     </diV>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                    <div class="floating-label-group">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                                    <div class="form-group">
                                                         <label for="phone" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha
                                                             de
@@ -724,8 +719,7 @@
                                                             onchange="calculateAge(event,'age'), handlerAge(event)">
                                                     </div>
                                                 </diV>
-
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" id="email-div">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" id="email-div">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -743,10 +737,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" id="ci-div">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" id="ci-div">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="phone" class="form-label"
+                                                            <label for="phone" class="form-label" type="number"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Cédula
                                                                 de indentidad</label>
                                                             <input autocomplete="off"
@@ -757,12 +751,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono</label>
-                                                            <input autocomplete="off" placeholder="Teléfono"
+                                                            <input autocomplete="off" placeholder=""
                                                                 class="form-control phone @error('phone') is-invalid @enderror"
                                                                 id="phone" name="phone" type="text"
                                                                 value="">
@@ -771,8 +765,8 @@
                                                     </div>
                                                 </div>
                                                 <input id="age" name="age" type="hidden" value="">
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                    <div class="floating-label-group">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                                    <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Género</label>
@@ -787,23 +781,19 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <x-professions />
-                                                <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" />
-
-
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                                <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
+                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
-                                                            <textarea id="address" name="address" class="form-control"></textarea>
+                                                            <textarea id="address" name="address" class="form-control" rows="1"></textarea>
                                                             <i class="bi bi-geo st-icon"></i>
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -817,15 +807,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <x-centers_user class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" />
+                                                <x-centers_user class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
                                                 <x-upload-image />
                                                 {{-- data del representante --}}
                                                 <div class="row mt-3" id="data-rep" style="display: none">
                                                     <hr>
                                                     <h5>Datos del representante</h5>
                                                     <hr>
-
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -839,8 +828,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -854,8 +842,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -869,7 +856,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -883,7 +870,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -903,11 +890,12 @@
                                             </div>
                                             <div class="row mt-3 justify-content-md-end">
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                                    <div id="bnt-dairy" style="display: none;margin-right: 10px"></div>
-                                                    <div id="bnt-cons" style="display: none;margin-right: 10px"></div>
-                                                    <input class="btn btnPrimary send " value="Guardar" type="submit" />
-                                                    <button style="margin-left: 20px; padding: 8px;" type="button"
+                                                    style="display: flex; justify-content: flex-end; align-items: flex-end; flex-wrap: wrap;">
+                                                    <div id="bnt-dairy" style="display: none;margin-left: 10px; ; margin-bottom: 10px"></div>
+                                                    <div id="bnt-cons" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
+                                                    <div id="bnt-hist" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
+                                                    <input class="btn btnSave send" value="Guardar" type="submit" style="margin-left: 10px; margin-bottom: 10px"/>
+                                                    <button style="margin-left: 10px; padding: 8px; margin-bottom: 10px" type="button"
                                                         onclick="refreshForm();" class="btn btnSecond"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         data-html="true" title="Limpiar Formulario">
@@ -916,9 +904,6 @@
                                                 </div>
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                     style="display: flex; justify-content: center;">
-                                                    <div id="spinner" style="display: none">
-                                                        <x-load-spinner show="true" />
-                                                    </div>
                                                 </div>
                                             </div>
                                         </form>
@@ -928,11 +913,12 @@
                         </div>
                     </div>
                 </div>
+                {{-- Lista de pacientes con consultas  --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                        <div class="accordion-item accordion-patients">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" style="margin-top: 20px; margin-bottom: 20px;">
+                        <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-card-list"></i> Lista de pacientes con consultas
@@ -1054,8 +1040,10 @@
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
             id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+                <div id="spinner" style="display: none">
+                    <x-load-spinner show="true" />
+                </div>
             <div class="modal-dialog modal-dialog-centered">
-
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header title">
@@ -1067,7 +1055,7 @@
                         <div class="modal-body">
                             <div id="div-pat" style="display: none">
                                 <div class="d-flex mt-3">
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="max-width: 200px;">
                                         <div class="img">
                                             <img id="img-pat" src="" width="150" height="150"
                                                 alt="Imagen del paciente">
@@ -1094,19 +1082,19 @@
                                 {{ csrf_field() }}
                                 <div class="row mt-3">
                                     <input type="hidden" id="patient_id" name="patient_id" value="">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="date" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha</label>
                                                 <input class="form-control" id="date_start" name="date_start"
-                                                    type="date" value="">
+                                                    type="date" value="" >
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="phone" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tiempo
@@ -1122,8 +1110,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="phone" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Horarios
@@ -1135,9 +1123,9 @@
                                         </div>
                                     </div>
 
-                                    <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" />
+                                    <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" />
 
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center">
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3 text-center">
                                         <div class="form-check form-switch">
                                             <input onchange="handlerPrice(event);" style="width: 5em"
                                                 class="form-check-input" type="checkbox" role="switch" id="showPrice"
@@ -1150,9 +1138,9 @@
                                     </div>
 
 
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
                                         style="display: none" id="div-price">
-                                        <div class="form-floating mb-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="searchPatients" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Precio</label>
@@ -1167,17 +1155,12 @@
                                     <div class="row text-center mt-3 mb-4">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
                                             style="margin-top: -4px" id="send">
-                                            <input class="btn btnPrimary" id="registrer-pac" value="Registrar"
+                                            <input class="btn btnSave" id="registrer-pac" value="Registrar"
                                                 type="submit" />
 
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-con"></div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell"></div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <div id="spinner" style="display: none">
-                                                <x-load-spinner show="true" />
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </form>

@@ -6,7 +6,7 @@
         ->get();
 @endphp
 <div class="{{ $class }}">
-    <div class="floating-label-group">
+    <div class="form-group">
         <div class="Icon-inside">
             <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Seleccione el Centro</label>
             <select  name="center_id" id="center_id" placeholder="Seleccione"

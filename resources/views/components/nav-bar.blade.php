@@ -11,7 +11,7 @@
         padding-left: 35px;
     }
 
-    .logo-nav {
+    .isotipo-nav {
         width: 140px;
         height: auto;
         position: absolute;
@@ -20,9 +20,8 @@
     }
 
     .logo-navbar {
-        width: 15%;
+        width: 70%;
         height: auto;
-        border-radius: 15px;
     }
 
     .img-nav {
@@ -55,6 +54,7 @@
         align-items: center;
         justify-content: center;
         width: 85px;
+        text-decoration: none;
     }
 
     .nav-item a {
@@ -100,10 +100,6 @@
 
     }
 
-    /* .margin-div {
-         margin-right: -2% !important;
-     } */
-
     .m-t-2 {
         margin-top: 2px;
     }
@@ -115,14 +111,8 @@
     }
 
     .strong {
-        /* margin: 30px; */
         color: white;
         font-size: 15px;
-        /* margin-left: 80px; */
-        /* margin-top: 13px; */
-        /* display: inline-block;
-        text-align: center;
-        white-space: nowrap; */
     }
 
     .banner {
@@ -131,13 +121,12 @@
     }
 
     .div-bar {
-        background-color: #47525E;
+        background-color: #47525E !important;
     }
 
     .navbar-text {
         color: #fff;
     }
-
 
     @media only screen and (max-width: 300px) {
 
@@ -145,14 +134,12 @@
             display: none !important;
         }
 
-
+        .logo-navbar {
+            width: 10%;
+        }
 
         .div-left {
             display: none !important;
-
-            /* padding: 0px 0px;
-            margin-left: 0%;
-            margin-top: 0px; */
         }
 
         .strong {
@@ -170,8 +157,12 @@
             margin-bottom: auto !important;
             margin-left: 0px;
         }
-    }
 
+        .logo-navbar {
+            width: 13%;
+            margin-top: 15px;
+        }
+    }
 
     @media only screen and (max-width: 390px) {
 
@@ -180,19 +171,18 @@
         }
 
         .nav-column {
-            padding-top: 60px;
+            padding-top: 5px;
             width: 100%;
             padding-left: 0px;
         }
 
-        .logo-nav {
-            width: 30%;
+        .isotipo-nav {
+            width: 63px;
             height: auto;
-            margin-top: -15px;
         }
 
         .img-nav {
-            width: 21px;
+            width: 31px;
             height: auto;
         }
 
@@ -200,14 +190,15 @@
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
+            margin-bottom: 15px;
         }
 
         .nav-item span {
-            padding-left: 20px
+            padding-left: 20px;
+            font-size: 14px
         }
 
         .nav-mb {
-            justify-content: flex-start !important;
             align-items: flex-start !important;
         }
 
@@ -221,16 +212,8 @@
             margin-top: var(--bs-dropdown-spacer);
         }
 
-        .nav-text {
-            justify-content: initial;
-        }
-
-
         .div-left {
             display: none !important;
-            /* padding: 0px 0px;
-        margin-left: 0%;
-        margin-top: 0px; */
         }
 
         .icon-logout {
@@ -243,7 +226,7 @@
         .strong {
             /* margin: 30px; */
             color: white;
-            font-size: 10px;
+            font-size: 14px;
         }
 
         .banner {
@@ -264,17 +247,22 @@
         .div-dos {
             display: none !important;
         }
+
+        .logo-navbar {
+            width: 13%;
+            margin-top: 15px;
+        }
     }
 
     @media (min-width: 391px) and (max-width: 400px) {
 
-        .logo-nav {
-            width: 30%;
+        .isotipo-nav {
+            width: 63px;
             margin-top: -9px;
         }
 
         .img-nav {
-            width: 21px;
+            width: 31px;
             height: auto;
         }
 
@@ -282,19 +270,20 @@
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
+            margin-bottom: 15px
         }
 
         .nav-item span {
-            padding-left: 20px
+            padding-left: 20px;
+            font-size: 14px;
         }
 
         .nav-mb {
-            justify-content: flex-start !important;
             align-items: flex-start !important;
         }
 
         .nav-column {
-            padding-top: 60px;
+            padding-top: 5px;
             width: 100%;
             padding-left: 0px;
         }
@@ -313,8 +302,12 @@
             color: white;
         }
 
-    }
+        .logo-navbar {
+            width: 13%;
+            margin-top: 15px;
+        }
 
+    }
 
     @media (min-width: 401px) and (max-width: 600px) {
 
@@ -322,20 +315,19 @@
             justify-content: flex-start;
         }
 
-        .logo-nav {
-            width: 30%;
+        .isotipo-nav {
+            width: 63px;
             height: auto;
-            border-radius: 15px;
         }
 
         .nav-column {
-            padding-top: 60px;
+            padding-top: 5px;
             width: 100%;
             padding-left: 0px;
         }
 
         .img-nav {
-            width: 21px;
+            width: 31px;
             height: auto;
         }
 
@@ -343,19 +335,24 @@
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
+            margin-bottom: 15px;
         }
 
         .nav-item span {
-            padding-left: 20px
+            padding-left: 20px;
+            font-size: 14px;
         }
 
         .nav-mb {
-            justify-content: flex-start !important;
             align-items: flex-start !important;
         }
 
         .logo-mb {
             width: 80%;
+        }
+
+        .logo-navbar {
+            width: 20%
         }
 
         .div-left {
@@ -366,10 +363,11 @@
 
         .strong {
             color: white;
-            /* margin-top: 20px;
-        display: inline-block;
-        text-align: center;
-        white-space: nowrap; */
+        }
+
+        .logo-navbar {
+            width: 22%;
+            /* margin-top: 15px; */
         }
     }
 
@@ -380,13 +378,10 @@
         }
 
         .img-nav {
-            width: 26px;
+            width: 31px;
             height: auto;
         }
 
-        .nav-text {
-            justify-content: flex-end;
-        }
 
         .dropdown-menu[data-bs-popper] {
             top: 82%;
@@ -395,7 +390,7 @@
         }
 
         .nav-column {
-            padding-top: 40px;
+            padding-top: 5px;
             width: 100%;
             padding-left: 0px;
         }
@@ -404,6 +399,7 @@
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
+            margin-bottom: 15px
         }
 
         .nav-item span {
@@ -418,6 +414,16 @@
 
         .strong {
             color: white;
+        }
+
+        .logo-navbar {
+            width: 13%;
+            margin-top: 15px;
+        }
+
+        .isotipo-nav {
+            width: 63px;
+            height: auto;
         }
     }
 
@@ -428,12 +434,8 @@
         }
 
         .img-nav {
-            width: 26px;
+            width: 31px;
             height: auto;
-        }
-
-        .nav-text {
-            justify-content: flex-end;
         }
 
         .dropdown-menu[data-bs-popper] {
@@ -443,7 +445,7 @@
         }
 
         .nav-column {
-            padding-top: 40px;
+            padding-top: 5px;
             width: 100%;
             padding-left: 0px;
         }
@@ -467,6 +469,16 @@
         .strong {
             color: white;
         }
+
+        .logo-navbar {
+            width: 13%;
+            margin-top: 15px;
+        }
+
+        .isotipo-nav {
+            width: 63px;
+            height: auto;
+        }
     }
 
 
@@ -474,101 +486,108 @@
 <div>
     <div class="container-fluid">
         <div class="row">
-            <nav class="navbar navbar-expand-lg div-bar">
+            <nav class="navbar navbar-expand-lg div-bar navbar-dark bg-dark">
                 <div class="container-fluid nav-mb">
                     <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 logo-mb">
-                        <img class="logo-nav" src="{{ asset('img/Isotipo.png') }}" alt="Logo">
+                        <img class="isotipo-nav" src="{{ asset('img/Isotipo.png') }}" alt="Logo">
                         {{-- <a class="navbar-brand" href="#">Navbar w/ text</a> --}}
                         {{-- Imagen del medico --}}
 
                     </div>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-                        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation"
-                        style="margin-top: 12px;">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                    
                     <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 col-xl-11 col-xxl-11 flex-column nav-column">
                         <div class="row mb-3 header-nav">
                             <div class="col-xs-12 col-sm-12 col-md-12 nav-text">
                                 {{-- Imagen del medico --}}
                                 <a class="nav-link icon-p" href="#">
                                     @if (Auth::user()->user_img != null && Auth::user()->role == 'medico')
-                                        <span class="strong" style="text-transform: capitalize; padding-right: 15px;">
+                                        <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> Dr.
                                             {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
                                         <img class="logo-use" src="{{ asset('/imgs/' . Auth::user()->user_img) }}"
                                             class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
                                     @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) == null)
-                                        <span class="strong"> {{ Auth::user()->business_name }} </span>
+                                        <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> {{ Auth::user()->business_name }} </span>
                                         <img class="logo-use" src="{{ asset('/img/avatar/avatar.png') }}"
                                             class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
                                     @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) != null)
-                                        <span class="strong"> {{ Auth::user()->business_name }} </span>
+                                        <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> {{ Auth::user()->business_name }} </span>
                                         <img class="logo-use"
                                             src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}"
                                             class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
                                     @else
-                                        <span class="strong"> {{ Auth::user()->last_name }},
+                                        <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> Dr. {{ Auth::user()->last_name }},
                                             {{ Auth::user()->name }}</span>
                                         <img class="logo-use" src="{{ asset('/img/avatar/avatar.png') }}"
                                             class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
                                     @endif
                                 </a>
-                                <button onclick="logout()"><i class="bi bi-power"
-                                        style="color: white; font-size: 30px;"></i></button>
 
-                                {{-- <span class="navbar-text">
-                                            Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}
-                                        </span> --}}
+                                <button onclick="logout()" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cerrar sesión" data-bs-custom-class="custom-tooltip">
+                                    <i class="bi bi-power" style="color: white; font-size: 30px;"></i>
+                                </button>
                             </div>
                         </div>
-                        <div class="collapse navbar-collapse" id="navbarText">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="icon-bar navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse mt-3" id="navbarText">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a href="{{ route('DashboardComponent') }}" title="Dashboard">
+                                <li>
+                                    <a class="nav-item" href="{{ route('DashboardComponent') }}" title="Dashboard">
                                         <img class="img-nav" src="{{ asset('img/V2/Stocks.png') }}" alt="Dashboard">
+                                        <span class="nav-link active" aria-current="page">Dashboard</span>
                                     </a>
-                                    <span class="nav-link active" aria-current="page" href="#">Dashboard</span>
                                 </li>
                                 @if (Auth::user()->role == 'medico')
-                                    <li class="nav-item">
-                                        <a href="{{ route('Patients') }}" title="Pacientes">
-                                            <img class="img-nav" src="{{ asset('img/V2/Contacts.png') }}"
-                                                alt="Pacientes">
+                                    <li >
+                                        <a class="nav-item" href="{{ route('Patients') }}" title="Pacientes">
+                                            <img class="img-nav" src="{{ asset('img/V2/Contacts.png') }}" alt="Pacientes">
+                                            <span class="nav-link active" aria-current="page" href="#">Pacientes</span>
                                         </a>
-                                        <span class="nav-link active" aria-current="page"
-                                            href="#">Pacientes</span>
                                     </li>
                                 @endif
                                 @if (Auth::user()->role == 'medico')
-                                    <li class="nav-item">
-                                        <a href="{{ route('Diary') }}" title="Agenda">
-                                            <img class="img-nav" src="{{ asset('img/V2/Calendar.png') }}"
-                                                alt="Agenda">
+                                    <li >
+                                        <a class="nav-item" href="{{ route('Diary') }}" title="Agenda">
+                                            <img class="img-nav" src="{{ asset('img/V2/Calendar.png') }}" alt="Agenda">
+                                            <span class="nav-link active" aria-current="page" href="#">Agenda</span>
                                         </a>
-                                        <span class="nav-link active" aria-current="page" href="#">Agenda</span>
                                     </li>
                                 @endif
                                 @if (Auth::user()->role == 'medico')
-                                    <li class="nav-item">
-                                        <a href="{{ route('Centers') }}" title="Clínica">
+                                    <li >
+                                        <a class="nav-item" href="{{ route('Centers') }}" title="Clínica">
                                             <img class="img-nav" src="{{ asset('img/V2/Maps.png') }}" alt="Clínica">
+                                            <span class="nav-link active" aria-current="page" href="#">Centros</span>
                                         </a>
-                                        <span class="nav-link active" aria-current="page" href="#">Centro</span>
+                                    </li>
+                                    <li >
+                                        <a class="nav-item" href="{{ route('Examen') }}" title="Exámenes">
+                                            <img class="img-nav" src="{{ asset('img/V2/Reminders.png') }}" alt="Exámenes">
+                                            <span class="nav-link active" aria-current="page" href="#">Exámenes</span>
+                                        </a>
+                                    </li>
+                                      <li >
+                                        <a class="nav-item" href="{{ route('Study') }}" title="Estudios">
+                                            <img class="img-nav" src="{{ asset('img/V2/Books.png') }}" alt="Estudios">
+                                            <span class="nav-link active" aria-current="page" href="#">Estudios</span>
+                                        </a>
                                     </li>
                                 @endif
-                                <li class="nav-item">
-                                    <a href="{{ route('Profile') }}" title="Configuración">
-                                        <img class="img-nav" src="{{ asset('img/V2/Settings.png') }}"
-                                            alt="Configuración">
+                                <li >
+                                    <a class="nav-item" href="{{ route('Profile') }}" title="Configuración">
+                                        <img class="img-nav" src="{{ asset('img/V2/Settings.png') }}" alt="Configuración">
+                                        <span class="nav-link active" aria-current="page" href="#">Configuración</span>
                                     </a>
-                                    <span class="nav-link active" aria-current="page"
-                                        href="#">Configuración</span>
                                 </li>
                             </ul>
-                            <img class="logo-navbar" src="{{ asset('img/logo sqlapio-02.png') }}" alt="Logo">
-
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2 nav-text">
+                                <img class="logo-navbar" src="{{ asset('img/logo sqlapio-02.png') }}" alt="Logo">
+                            </div>
                         </div>
                     </div>
+                    
                 </div>
 
             </nav>
@@ -587,4 +606,11 @@
         var url = "{{ route('logout') }}";
         location.href = url;
     }
+
+    $(document).ready(() => {
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        tooltipTriggerList.forEach(element => {
+            new bootstrap.Tooltip(element)
+        });
+    });
 </script>

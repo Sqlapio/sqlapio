@@ -14,17 +14,21 @@ class SendMail extends Mailable
     use Queueable, SerializesModels;
 
     public $mailData;
+    public $cuerpo1;
+    public $cuerpo2;
     public $verification_code;
     public $view;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($mailData, $verification_code, $view)
+    public function __construct($mailData, $verification_code, $view, $cuerpo1, $cuerpo2)
     {
         $this->mailData = $mailData;
         $this->verification_code = $verification_code;
         $this->view = $view;
+        $this->cuerpo1 = $cuerpo1;
+        $this->cuerpo2 = $cuerpo2;
         //
     }
 

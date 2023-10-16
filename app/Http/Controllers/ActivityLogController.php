@@ -24,7 +24,7 @@ class ActivityLogController extends Controller {
 
 			$activity_log = new ActivityLog();
 
-			if ($action == '3') {
+			if ($action == '3' || $action == '19' || $action == '21') {
 
 				$user = User::all()->last();
 				$activity_log->user = $user->name . '' . $user->last_name;

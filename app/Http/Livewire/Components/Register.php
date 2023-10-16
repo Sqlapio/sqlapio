@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Components;
 
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\ApiServicesController;
 use App\Http\Controllers\EstadisticaController;
 use App\Http\Controllers\UtilsController;
 use App\Models\Laboratory;
@@ -74,11 +75,24 @@ class Register extends Component {
 	
 				]);
 			
+			/**
+			 * Registro de accion en el log
+			 * del sistema
+			 */
 			$action = '3';
 			ActivityLogController::store_log($action);
+			
+			/**
+			 * Envio de notificacion por correo
+			 */
+			$type = 'verify_email';
+			$mailData = [
+				'dr_name' => $user['name'].' '.$user['last_name'],
+				'dr_email' => $user['email'],
+				'verify_code' => $user['verification_code'],
+			];
 
-			$dr_name = $user['name'].' '.$user['last_name'];
-			UtilsController::notification_register_mail($user['verification_code'], $user['email'], $dr_name, $type = 'm');
+			UtilsController::notification_mail($mailData, $type);
 
 			return redirect('/')->with('success', 'El registro inicial satisfactorio');
 
@@ -133,8 +147,7 @@ class Register extends Component {
 				 * para almacenar en la tabla laboratorios
 				 */
 				$laboratory = User::where('email', $request->email)->first();
-
-				$user = Laboratory::create([
+				Laboratory::create([
 
 					'user_id'			=> $laboratory->id,
 					'business_name' 	=> $request->business_name,
@@ -142,11 +155,23 @@ class Register extends Component {
 	
 				]);
 			
+			/**
+			 * Registro de accion en el log
+			 * del sistema
+			 */
 			$action = '16';
-
 			ActivityLogController::store_log($action);
 
-			// UtilsController::send_mail($user['verification_code'], $user['email']);
+			/**
+			 * Envio de notificacion por correo
+			 */
+			$type = 'verify_email_laboratory';
+			$mailData = [
+				'laboratory_name' => $user['business_name'],
+				'laboratory_email' => $user['email'],
+				'verify_code' => $user['verification_code'],
+			];
+			UtilsController::notification_mail($mailData, $type);
 
 			return redirect('/')->with('success', 'El registro inicial fue satisfactorio');
 
@@ -217,6 +242,13 @@ class Register extends Component {
 				 * @param 1 -> menor de edad
 				 */
 				EstadisticaController::accumulated_doctor($request->state);
+
+
+				$caption = 'Bienvenido a sqlapio.com Dr(a). '.$request->name.' '.$request->last_name;
+				$image = 'http://sqldevelop.sqlapio.net/img/notification_email/newsletter-header.png';
+				$phone = preg_replace('/[\(\)\-\" "]+/', '', $request->phone);
+				
+				ApiServicesController::sms_welcome($phone, $caption, $image);
 	
 				return true;
 			}

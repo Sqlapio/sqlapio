@@ -49,6 +49,7 @@
             <div class="mb-3">
                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 8px; margin-top: 4px">Cargar imagen</label>
                 <input type="file" class="form-control" id="file" name="file"  accept=".jpg, .jpeg, .png">
+                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 8px; margin-top: 4px">Ingrese una imagen de max 256kb</label>
                 <input type="hidden" name="img" id="img">
             </div>
         </div>
