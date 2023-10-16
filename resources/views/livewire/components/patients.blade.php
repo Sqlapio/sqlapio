@@ -9,8 +9,9 @@
     #img-pat {
         border-radius: 27px;
         border: 2px solid #44525F;
-        height: auto;
+        height: 150px;
         margin: 7px 23px;
+        object-fit: cover;
     }
 
     body {

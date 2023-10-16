@@ -268,7 +268,7 @@
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
                                 <button class="accordion-button bg-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-building"></i> Centros
+                                    <i class="bi bi-hospital"></i> Centros
                                 </button>
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
@@ -328,7 +328,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header title">
-                            <i class="bi bi-building"></i>
+                            <i class="bi bi-hospital"></i>
                             <span style="padding-left: 5px">Asociar centro</span>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                         </div>
