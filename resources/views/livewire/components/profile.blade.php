@@ -373,10 +373,10 @@
                                 <form id="form-profile" method="post" action="/">
                                     {{ csrf_field() }}
                                     <input type="hidden" id="rol" name="rol" value="{{ Auth::user()->role }}">
-                                    <div class="row mt-3 Form-edit-user">
+                                    <div class="row Form-edit-user">
                                         @if (Auth::user()->role == 'medico')
                                             {{-- rol medico --}}
-                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="name" class="form-label"
@@ -389,7 +389,8 @@
                                                         </div>
                                                     </diV>
                                                 </div>
-                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+
+                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="last_name" class="form-label"
@@ -402,7 +403,8 @@
                                                         </div>
                                                     </diV>
                                                 </div>
-                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+
+                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="ci" class="form-label"
@@ -417,7 +419,7 @@
                                                     </diV>
                                                 </div>
 
-                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                     <div class="form-group">
                                                         <label for="birthdate" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha
@@ -429,7 +431,8 @@
                                                     </div>
                                                 </div>
                                                 <input id="age" name="age" type="hidden" value="">
-                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+
+                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="username" class="form-label"
@@ -443,7 +446,8 @@
                                                         </div>
                                                     </diV>
                                                 </div>
-                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+
+                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -456,7 +460,8 @@
                                                         </div>
                                                     </diV>
                                                 </div>
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -469,13 +474,13 @@
                                                     </diV>
                                                 </div>
 
-                                                <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" />
+                                                <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
 
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="zip_code" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Código
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Código
                                                                 Postal</label>
                                                             <input autocomplete="off" placeholder=""
                                                                 class="form-control mask-only-text @error('zip_code') is-invalid @enderror"
@@ -486,11 +491,11 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="cod_mpps" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">MPPS</label>
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">MPPS</label>
                                                             <input autocomplete="off" placeholder="MPPS"
                                                                 class="form-control mask-only-number @error('cod_mpps') is-invalid @enderror"
                                                                 id="cod_mpps" name="cod_mpps" type="text"
@@ -504,7 +509,7 @@
                                             {{-- rol laboratorio --}}
                                                 <input type="hidden" id="id" name="id"
                                                     value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->id : '' !!}">
-                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="name" class="form-label"
@@ -518,8 +523,9 @@
                                                         </div>
                                                     </diV>
                                                 </div>
-                                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2">
-                                                    <div class="floating-label-group">
+
+                                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-3">
+                                                    <div class="form-group">
                                                         <label for="name" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Tipo
                                                             de documento</label>
@@ -533,7 +539,8 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="name" class="form-label"
@@ -547,7 +554,8 @@
                                                         </div>
                                                     </diV>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="name" class="form-label"
@@ -561,7 +569,8 @@
                                                         </div>
                                                     </diV>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="name" class="form-label"
@@ -575,7 +584,8 @@
                                                         </div>
                                                     </diV>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="name" class="form-label"
@@ -589,9 +599,9 @@
                                                     </diV>
                                                 </div>
 
-                                                <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" />
+                                                <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
 
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="name" class="form-label"
@@ -603,8 +613,8 @@
                                                     </diV>
                                                 </div>
 
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                    <div class="floating-label-group">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                                    <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="name" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tipo
@@ -624,7 +634,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="name" class="form-label"
@@ -639,7 +649,7 @@
                                                     </diV>
                                                 </div>
 
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="name" class="form-label"
@@ -655,7 +665,8 @@
                                                             class="collapseBtn">https://www.sitioweb.com</small>
                                                     </diV>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="name" class="form-label"
@@ -668,6 +679,7 @@
                                                         </div>
                                                     </diV>
                                                 </div>
+
                                                 <x-upload-image />
                                         @endif
                                         <div class="row mt-3 justify-content-md-end">

@@ -263,7 +263,7 @@
                 {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
                     <h5 class="text-capitalize">Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}</h5>
                 </div> --}}
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd">
                     <div class="accordion" id="accordion">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
@@ -337,10 +337,10 @@
                                 {{ csrf_field() }}
                                 <div class="row">
                                     @if (Auth::user()->status_register != 1)
-                                        <x-centers_doctors class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"/>
+                                        <x-centers_doctors class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"/>
                                     @endif
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
                                                 <textarea id="address" rows="2" name="address" class="form-control"></textarea>
@@ -348,8 +348,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Piso</label>
                                                 <input autocomplete="off"
@@ -359,8 +359,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Consultorio</label>
                                                 <input autocomplete="off"
@@ -371,8 +371,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono del consultorio</label>
                                                 <input autocomplete="off"
