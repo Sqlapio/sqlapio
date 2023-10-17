@@ -422,7 +422,7 @@
 
         function setExams(e,key) {
             if ($(`#${e.target.id}`).is(':checked')) {
-                valExams = (valExams == "") ? e.target.value : valExams + '\n' + e.target.value;
+                valExams = (valExams == "") ? e.target.value : valExams + ',\n' + e.target.value;
                 exams_array.push({code_exams: $(`#${e.target.id}`).data('code')}); 
                 valExams = valExams.replace(',,', ',');
                 $("#exams").val(valExams);
@@ -431,13 +431,15 @@
                 valExams = valExams.replace(',,', ',');
                 if (valExams == ",") valExams = valExams.replace(',', '');
                  exams_array.splice(key, 1);
+                 valExams = valExams.replace(/\n+/g, '');
+                 valExams = valExams.replace(',', '\n');
                 $("#exams").val(valExams);
             }
         }
 
         function setStudy(e,key) {
             if ($(`#${e.target.id}`).is(':checked')) {
-                valStudy = (valStudy == "") ? e.target.value : valStudy + '\n'  + e.target.value;
+                valStudy = (valStudy == "") ? e.target.value : valStudy + ',\n'  + e.target.value;
                 studies_array.push({code_studies: $(`#${e.target.id}`).data('code')});            
                 valStudy = valStudy.replace(',,', ',');
                 $("#studies").val(valStudy);
@@ -445,6 +447,8 @@
                 valStudy = valStudy.replace(e.target.value, '');
                 valStudy = valStudy.replace(',,', ',');
                 if (valStudy == ",") valStudy = valStudy.replace(',', '');
+                valStudy = valStudy.replace(/\n+/g, '');
+                 valStudy = valStudy.replace(',', '\n');
                 studies_array.splice(key, 1);
                 $("#studies").val(valStudy);
             }
