@@ -456,6 +456,8 @@
                                     },
                                     bDestroy: true,
                                     data: data,
+                                    "searching": false,
+                                    "bLengthChange": false,
                                     columns: [{
 
                                             data: 'name_full',
