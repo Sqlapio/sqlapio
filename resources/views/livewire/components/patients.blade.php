@@ -359,9 +359,7 @@
         //seteiar data en el formalario para su edicion
         function editPatien(item, active = true) {
             if (active) {
-                $(".accordion-collapse").collapse({
-                    toggle: false
-                });
+                $(".accordion-collapse").collapse('show')
             }
             $("#id").val(item.id);
             $("#name").val(item.name);
