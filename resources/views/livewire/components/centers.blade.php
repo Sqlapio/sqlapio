@@ -353,7 +353,7 @@
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Piso</label>
                                                 <input autocomplete="off"
-                                                    class="mask-only-number form-control" id="number_floor"
+                                                    class="mask-alfa-numeric form-control" id="number_floor"
                                                     name="number_floor" type="text" value="" maxlength="2">
                                                 <i class="bi bi-hash" style="top: 30px"></i>
                                             </div>
@@ -364,7 +364,7 @@
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Consultorio</label>
                                                 <input autocomplete="off"
-                                                    class="form-control mask-only-number" id="number_consulting_room"
+                                                    class="form-control mask-alfa-numeric" id="number_consulting_room"
                                                     name="number_consulting_room" type="text" value=""
                                                     maxlength="5">
                                                 <i class="bi bi-hash" style="top: 30px"></i>

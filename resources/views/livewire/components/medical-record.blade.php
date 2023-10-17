@@ -417,7 +417,7 @@
 
         function setExams(e,key) {
             if ($(`#${e.target.id}`).is(':checked')) {
-                valExams = (valExams == "") ? e.target.value : valExams + "," + e.target.value;
+                valExams = (valExams == "") ? e.target.value : valExams + '\n' + e.target.value;
                 exams_array.push({code_exams: $(`#${e.target.id}`).data('code')}); 
                 valExams = valExams.replace(',,', ',');
                 $("#exams").val(valExams);
@@ -432,7 +432,7 @@
 
         function setStudy(e,key) {
             if ($(`#${e.target.id}`).is(':checked')) {
-                valStudy = (valStudy == "") ? e.target.value : valStudy + "," + e.target.value;
+                valStudy = (valStudy == "") ? e.target.value : valStudy + '\n'  + e.target.value;
                 studies_array.push({code_studies: $(`#${e.target.id}`).data('code')});            
                 valStudy = valStudy.replace(',,', ',');
                 $("#studies").val(valStudy);
@@ -710,21 +710,38 @@
                                                             </div>
                                                             <span id="indication_span" class="text-danger"></span>
                                                         </diV>
-                                                    </div>
+                                                    </div>                                                                      
+                                                         
+
                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label"
+                                                                <label for="treatmentDuration" class="form-label"
                                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Duración
-                                                                    de tratamiento
-                                                                </label>
-                                                                <input autocomplete="off"
-                                                                    class="form-control mask-only-text"
-                                                                    id="treatmentDuration" name="treatmentDuration"
-                                                                    type="text" value="">
+                                                                    de tratamiento</label>
+                                                                <select name="treatmentDuration" id="treatmentDuration"
+                                                                    placeholder="Seleccione"class="form-control"
+                                                                    class="form-control combo-textbox-input">
+                                                                    <option value="">Seleccione</option>
+                                                                    <option value="1 Día">1 Día</option>
+                                                                    <option value="2 Día">2 Día</option>
+                                                                    <option value="3 Día">3 Día</option>
+                                                                    <option value="4 Día">4 Día</option>
+                                                                    <option value="5 Día">5 Día</option>
+                                                                    <option value="6 Día">6 Día</option>
+                                                                    <option value="7 Día">7 Día</option>
+                                                                    <option value="1 Semana">1 Semana</option>
+                                                                    <option value="2 Semana">2 Semana</option>
+                                                                    <option value="3 Semana">3 Semana</option>
+                                                                    <option value="4 Semana">4 Semana</option>
+                                                                    <option value="1 Mes">1 Mes</option>
+                                                                    <option value="2 Mes">2 Mes</option>
+                                                                    <option value="3 Mes">3 Mes</option>
+                                                                    <option value="1 Año">1 Año</option>
+                                                                </select>
                                                                 <i class="bi bi-calendar-range st-icon"></i>
+                                                                <span id="treatmentDuration_span" class="text-danger"></span>
                                                             </div>
-                                                            <span id="treatmentDuration_span" class="text-danger"></span>
                                                         </div>
                                                     </div>
                                                     <div
