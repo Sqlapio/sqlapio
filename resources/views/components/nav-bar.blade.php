@@ -142,10 +142,6 @@
 
     @media only screen and (max-width: 390px) {
 
-        /* .icon-p {
-            justify-content: flex-start;
-        } */
-
         .nav-column {
             padding-top: 5px;
             width: 100%;
@@ -278,10 +274,6 @@
 
     @media (min-width: 401px) and (max-width: 576px) {
 
-        /* .icon-p {
-            justify-content: flex-start;
-        } */
-
         .isotipo-nav {
             width: 63px;
             height: auto;
@@ -334,10 +326,6 @@
 
     @media (min-width: 576px) and (max-width: 768px) {
 
-        /* .icon-p {
-            justify-content: flex-start;
-        } */
-
         .icon-menu {
             width: 31px;
             height: auto;
@@ -387,10 +375,6 @@
     }
 
     @media (min-width: 768px) and (max-width: 992px) {
-
-        /* .icon-p {
-            justify-content: flex-start;
-        } */
 
         .icon-menu {
             width: 31px;
