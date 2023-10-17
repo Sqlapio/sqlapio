@@ -324,11 +324,7 @@
             } else if ($('#dateEndTreatment').val() === "") {
                 $("#dateIniTreatment_span").text('');
                 $("#dateEndTreatment_span").text('Campo obligatorio');
-            } else if ($('#NUmberOrder').val() === "") {
-                $("#dateEndTreatment_span").text('');
-                $("#NUmberOrder_span").text('Campo obligatorio');
-            } else {
-                $("#NUmberOrder_span").text('');
+            }  else {
                 var row = `
                     <tr id="${countMedicationAdd}">
                     <td class="text-center">${$('#medicine').val()}</td>
@@ -338,7 +334,6 @@
                     <td class="text-center">${$('#treatmentDuration').val()}</td>
                     <td class="text-center">${$('#dateIniTreatment').val()}</td>
                     <td class="text-center">${$('#dateEndTreatment').val()}</td>
-                    <td class="text-center">${$('#NUmberOrder').val()}</td>
                     <td class="text-center"><span onclick="deleteMedication(${countMedicationAdd})" ><i class="bi bi-archive"></i></span></td>                    
                     </tr>`;
                 $('#table-medicamento').find('tbody').append(row);
@@ -351,7 +346,6 @@
                     treatmentDuration: $('#treatmentDuration').val(),
                     dateIniTreatment: $('#dateIniTreatment').val(),
                     dateEndTreatment: $('#dateEndTreatment').val(),
-                    NUmberOrder: $('#NUmberOrder').val(),
                 });
 
                 countMedicationAdd = countMedicationAdd + 1;
@@ -364,7 +358,6 @@
                 $('#treatmentDuration').val("")
                 $('#dateIniTreatment').val("")
                 $('#dateEndTreatment').val("")
-                $('#NUmberOrder').val("")
             }
         }
 
@@ -1422,20 +1415,7 @@
                                                     <span id="dateEndTreatment_span" class="text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nro.
-                                                            Orden</label>
-                                                        <input autocomplete="off" class="form-control mask-only-number"
-                                                            id="NUmberOrder" name="NUmberOrder" type="text"
-                                                            value="">
-                                                        <i class="bi bi-hash st-icon"></i>
-                                                    </div>
-                                                    <span id="NUmberOrder_span" class="text-danger"></span>
-                                                </div>
-                                            </div>
+
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3 offset-md-5">
                                                 <span type="" onclick="addMedacition(event)"
                                                     class="btn btn-outline-secondary" id="btn"><i
@@ -1462,7 +1442,6 @@
                                                             </th>
                                                             <th class="text-center" scope="col">Fecha inicio</th>
                                                             <th class="text-center" scope="col">Fecha fin</th>
-                                                            <th class="text-center" scope="col">Nro. Orden</th>
                                                             <th class="text-center" scope="col">Eliminar</th>
                                                         </tr>
                                                     </thead>
@@ -1480,9 +1459,7 @@
                                                                         <td class="text-center"> {{ $item['patologi'] }}
                                                                         </td>
                                                                         <td class="text-center"> {{ $item['viaAdmin'] }}
-                                                                        </td>
-                                                                        <td class="text-center">
-                                                                            {{ $item['NUmberOrder'] }}</td>
+                                                                        </td>                                                                      
                                                                         <td class="text-center">
                                                                             {{ $item['dateEndTreatment'] }}</td>
                                                                         <td class="text-center">
