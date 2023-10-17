@@ -488,7 +488,7 @@ function cancelled_appointments(id, url, active = null) {
 
   Swal.fire({
     icon: 'warning',
-    title: 'Desea realizar esta acción?',
+    title: '¿Confirma que    desea ELIMINAR la cita?',
     allowOutsideClick: false,
     confirmButtonColor: '#42ABE2',
     confirmButtonText: 'Aceptar',
