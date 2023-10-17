@@ -200,6 +200,8 @@
                         reponsive: true,
                         bDestroy: true,
                         data: data,
+                        "searching": false,
+                        "bLengthChange": false,
                         columns: [{
                                 data: 'center',
                                 title: 'Nombre de centro',

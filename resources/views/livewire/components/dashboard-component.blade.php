@@ -241,6 +241,8 @@
                 reponsive: true,
                 bDestroy: true,
                 data: data,
+                "searching": false,
+                "bLengthChange": false,
                 columns: [{
                         data: 'date',
                         title: 'Fecha',
@@ -362,6 +364,8 @@
                         reponsive: true,
                         bDestroy: true,
                         data: response.data_exam_res,
+                        "searching": false,
+                        "bLengthChange": false,
                         columns: [{
                                 data: 'date_ref',
                                 title: 'Fecha referencia',
@@ -412,6 +416,8 @@
                         reponsive: true,
                         bDestroy: true,
                         data: response.data_study_res,
+                        "searching": false,
+                        "bLengthChange": false,
                         columns: [{
                                 data: 'date_ref',
                                 title: 'Fecha referencia',

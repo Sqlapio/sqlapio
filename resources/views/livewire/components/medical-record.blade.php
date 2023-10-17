@@ -312,6 +312,8 @@
                                                 // reponsive: true,
                                                 bDestroy: true,
                                                 data: data,
+                                                "searching": false,
+                                                "bLengthChange": false,
                                                 columns: [{
                                                         data: 'data.record_code',
                                                         title: 'Código de la consulta',
