@@ -117,11 +117,6 @@
             display: none !important;
         }
 
-        .logo-sql {
-            width: 10%;
-        }
-
-
         .strong {
             color: white;
             font-size: 10px;
@@ -146,10 +141,6 @@
     }
 
     @media only screen and (max-width: 390px) {
-
-        .icon-p {
-            justify-content: flex-start;
-        }
 
         .nav-column {
             padding-top: 5px;
@@ -219,7 +210,7 @@
         }
 
         .logo-sql {
-            width: 13%;
+            width: 22%;
             margin-top: 15px;
         }
 
@@ -271,7 +262,7 @@
         }
 
         .logo-sql {
-            width: 13%;
+            width: 22%;
             margin-top: 15px;
         }
 
@@ -282,10 +273,6 @@
     }
 
     @media (min-width: 401px) and (max-width: 576px) {
-
-        .icon-p {
-            justify-content: flex-start;
-        }
 
         .isotipo-nav {
             width: 63px;
@@ -339,10 +326,6 @@
 
     @media (min-width: 576px) and (max-width: 768px) {
 
-        .icon-p {
-            justify-content: flex-start;
-        }
-
         .icon-menu {
             width: 31px;
             height: auto;
@@ -377,7 +360,7 @@
         }
 
         .logo-sql {
-            width: 13%;
+            width: 22%;
             margin-top: 15px;
         }
 
@@ -392,10 +375,6 @@
     }
 
     @media (min-width: 768px) and (max-width: 992px) {
-
-        .icon-p {
-            justify-content: flex-start;
-        }
 
         .icon-menu {
             width: 31px;
@@ -429,7 +408,7 @@
         }
 
         .logo-sql {
-            width: 13%;
+            width: 22%;
             margin-top: 15px;
         }
 
