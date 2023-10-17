@@ -1,5 +1,5 @@
 <style>
-    .logo-use {
+    .avatar-user {
         width: 45px;
         height: 45px;
         object-fit: cover;
@@ -19,12 +19,12 @@
         left: 0;
     }
 
-    .logo-navbar {
+    .logo-sql {
         width: 70%;
         height: auto;
     }
 
-    .img-nav {
+    .icon-menu {
         width: 45px;
         height: auto;
         box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.71);
@@ -61,7 +61,6 @@
         text-align: center
     }
 
-    /* .nav-item a:hover {s */
     .nav-item span {
         font-size: 12px;
         color: #fff !important;
@@ -70,7 +69,7 @@
     .nav-text {
         display: flex;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: space-between;
     }
 
     .dropdown-menu[data-bs-popper] {
@@ -93,22 +92,6 @@
         justify-content: flex-end;
     }
 
-    .icon-logout {
-        width: 20%;
-        height: 20%;
-        margin: 15% 0% 0% 10%;
-
-    }
-
-    .m-t-2 {
-        margin-top: 2px;
-    }
-
-    .div-left {
-        padding: 0px 0px;
-        margin-left: 45%;
-        margin-top: 15px;
-    }
 
     .strong {
         color: white;
@@ -134,13 +117,10 @@
             display: none !important;
         }
 
-        .logo-navbar {
+        .logo-sql {
             width: 10%;
         }
 
-        .div-left {
-            display: none !important;
-        }
 
         .strong {
             color: white;
@@ -158,10 +138,11 @@
             margin-left: 0px;
         }
 
-        .logo-navbar {
+        .logo-sql {
             width: 13%;
             margin-top: 15px;
         }
+
     }
 
     @media only screen and (max-width: 390px) {
@@ -181,7 +162,7 @@
             height: auto;
         }
 
-        .img-nav {
+        .icon-menu {
             width: 31px;
             height: auto;
         }
@@ -212,17 +193,6 @@
             margin-top: var(--bs-dropdown-spacer);
         }
 
-        .div-left {
-            display: none !important;
-        }
-
-        .icon-logout {
-            width: 10%;
-            height: 20%;
-            margin: 15% 0% 0% 10%;
-
-        }
-
         .strong {
             /* margin: 30px; */
             color: white;
@@ -248,9 +218,13 @@
             display: none !important;
         }
 
-        .logo-navbar {
+        .logo-sql {
             width: 13%;
             margin-top: 15px;
+        }
+
+        .nav-menu {
+            margin-left: 63px;
         }
     }
 
@@ -261,7 +235,7 @@
             margin-top: -9px;
         }
 
-        .img-nav {
+        .icon-menu {
             width: 31px;
             height: auto;
         }
@@ -292,24 +266,22 @@
             width: 80%;
         }
 
-        .div-left {
-            padding: 0px 0px;
-            margin-left: 0%;
-            margin-top: 0px;
-        }
-
         .strong {
             color: white;
         }
 
-        .logo-navbar {
+        .logo-sql {
             width: 13%;
             margin-top: 15px;
         }
 
+        .nav-menu {
+            margin-left: 63px;
+        }
+
     }
 
-    @media (min-width: 401px) and (max-width: 600px) {
+    @media (min-width: 401px) and (max-width: 576px) {
 
         .icon-p {
             justify-content: flex-start;
@@ -326,7 +298,7 @@
             padding-left: 0px;
         }
 
-        .img-nav {
+        .icon-menu {
             width: 31px;
             height: auto;
         }
@@ -351,33 +323,27 @@
             width: 80%;
         }
 
-        .logo-navbar {
-            width: 20%
-        }
-
-        .div-left {
-            padding: 0px 0px;
-            margin-left: 0%;
-            margin-top: 0px;
-        }
-
         .strong {
             color: white;
         }
 
-        .logo-navbar {
+        .logo-sql {
             width: 22%;
             /* margin-top: 15px; */
         }
+
+        .nav-menu {
+            margin-left: 63px;
+        }
     }
 
-    @media (min-width: 600px) and (max-width: 768px) {
+    @media (min-width: 576px) and (max-width: 768px) {
 
         .icon-p {
             justify-content: flex-start;
         }
 
-        .img-nav {
+        .icon-menu {
             width: 31px;
             height: auto;
         }
@@ -406,19 +372,17 @@
             padding-left: 20px
         }
 
-        .div-left {
-            padding: 0px 0px;
-            margin-left: 0%;
-            margin-top: 0px;
-        }
-
         .strong {
             color: white;
         }
 
-        .logo-navbar {
+        .logo-sql {
             width: 13%;
             margin-top: 15px;
+        }
+
+        .nav-menu {
+            margin-left: 63px;
         }
 
         .isotipo-nav {
@@ -433,7 +397,7 @@
             justify-content: flex-start;
         }
 
-        .img-nav {
+        .icon-menu {
             width: 31px;
             height: auto;
         }
@@ -460,19 +424,17 @@
             padding-left: 20px
         }
 
-        .div-left {
-            padding: 0px 0px;
-            margin-left: 0%;
-            margin-top: 0px;
-        }
-
         .strong {
             color: white;
         }
 
-        .logo-navbar {
+        .logo-sql {
             width: 13%;
             margin-top: 15px;
+        }
+
+        .nav-menu {
+            margin-left: 63px;
         }
 
         .isotipo-nav {
@@ -494,55 +456,57 @@
                         {{-- Imagen del medico --}}
 
                     </div>
-                    
                     <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 col-xl-11 col-xxl-11 flex-column nav-column">
-                        <div class="row mb-3 header-nav">
+                        <div class="row header-nav">
                             <div class="col-xs-12 col-sm-12 col-md-12 nav-text">
-                                {{-- Imagen del medico --}}
-                                <a class="nav-link icon-p" href="#">
-                                    @if (Auth::user()->user_img != null && Auth::user()->role == 'medico')
-                                        <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> Dr.
-                                            {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
-                                        <img class="logo-use" src="{{ asset('/imgs/' . Auth::user()->user_img) }}"
-                                            class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
-                                    @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) == null)
-                                        <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> {{ Auth::user()->business_name }} </span>
-                                        <img class="logo-use" src="{{ asset('/img/avatar/avatar.png') }}"
-                                            class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
-                                    @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) != null)
-                                        <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> {{ Auth::user()->business_name }} </span>
-                                        <img class="logo-use"
-                                            src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}"
-                                            class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
-                                    @else
-                                        <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> Dr. {{ Auth::user()->last_name }},
-                                            {{ Auth::user()->name }}</span>
-                                        <img class="logo-use" src="{{ asset('/img/avatar/avatar.png') }}"
-                                            class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
-                                    @endif
-                                </a>
-
-                                <button onclick="logout()" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cerrar sesión" data-bs-custom-class="custom-tooltip">
-                                    <i class="bi bi-power" style="color: white; font-size: 30px;"></i>
-                                </button>
+                                <div class="col-xs-1 col-sm-1 col-md-1 nav-menu">
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                                        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                                        <span class="icon-bar navbar-toggler-icon"></span>
+                                    </button>
+                                </div>
+                                <div class="col-xs-10 col-sm-10 col-md-10" style="display: flex; justify-content: flex-end;">
+                                    <a class="nav-link icon-p" href="#">
+                                        @if (Auth::user()->user_img != null && Auth::user()->role == 'medico')
+                                            <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> Dr.
+                                                {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
+                                            <img class="avatar-user" src="{{ asset('/imgs/' . Auth::user()->user_img) }}"
+                                                class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
+                                        @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) == null)
+                                            <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> {{ Auth::user()->business_name }} </span>
+                                            <img class="avatar-user" src="{{ asset('/img/avatar/avatar.png') }}"
+                                                class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
+                                        @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) != null)
+                                            <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> {{ Auth::user()->business_name }} </span>
+                                            <img class="avatar-user"
+                                                src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}"
+                                                class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
+                                        @else
+                                            <span class="strong" style="text-transform: capitalize; padding-right: 15px;"> Dr. {{ Auth::user()->last_name }},
+                                                {{ Auth::user()->name }}</span>
+                                            <img class="avatar-user" src="{{ asset('/img/avatar/avatar.png') }}"
+                                                class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
+                                        @endif
+                                    </a>
+                                    <button onclick="logout()" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cerrar sesión" data-bs-custom-class="custom-tooltip">
+                                        <i class="bi bi-power" style="color: white; font-size: 30px;"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-                                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="icon-bar navbar-toggler-icon"></span>
-                        </button>
+                        
                         <div class="collapse navbar-collapse mt-3" id="navbarText">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li>
                                     <a class="nav-item" href="{{ route('DashboardComponent') }}" title="Dashboard">
-                                        <img class="img-nav" src="{{ asset('img/V2/Stocks.png') }}" alt="Dashboard">
+                                        <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}" alt="Dashboard">
                                         <span class="nav-link active" aria-current="page">Dashboard</span>
                                     </a>
                                 </li>
                                 @if (Auth::user()->role == 'medico')
                                     <li >
                                         <a class="nav-item" href="{{ route('Patients') }}" title="Pacientes">
-                                            <img class="img-nav" src="{{ asset('img/V2/Contacts.png') }}" alt="Pacientes">
+                                            <img class="icon-menu" src="{{ asset('img/V2/Contacts.png') }}" alt="Pacientes">
                                             <span class="nav-link active" aria-current="page" href="#">Pacientes</span>
                                         </a>
                                     </li>
@@ -550,7 +514,7 @@
                                 @if (Auth::user()->role == 'medico')
                                     <li >
                                         <a class="nav-item" href="{{ route('Diary') }}" title="Agenda">
-                                            <img class="img-nav" src="{{ asset('img/V2/Calendar.png') }}" alt="Agenda">
+                                            <img class="icon-menu" src="{{ asset('img/V2/Calendar.png') }}" alt="Agenda">
                                             <span class="nav-link active" aria-current="page" href="#">Agenda</span>
                                         </a>
                                     </li>
@@ -558,32 +522,32 @@
                                 @if (Auth::user()->role == 'medico')
                                     <li >
                                         <a class="nav-item" href="{{ route('Centers') }}" title="Clínica">
-                                            <img class="img-nav" src="{{ asset('img/V2/Maps.png') }}" alt="Clínica">
+                                            <img class="icon-menu" src="{{ asset('img/V2/Maps.png') }}" alt="Clínica">
                                             <span class="nav-link active" aria-current="page" href="#">Centros</span>
                                         </a>
                                     </li>
                                     <li >
                                         <a class="nav-item" href="{{ route('Examen') }}" title="Exámenes">
-                                            <img class="img-nav" src="{{ asset('img/V2/Reminders.png') }}" alt="Exámenes">
+                                            <img class="icon-menu" src="{{ asset('img/V2/Reminders.png') }}" alt="Exámenes">
                                             <span class="nav-link active" aria-current="page" href="#">Exámenes</span>
                                         </a>
                                     </li>
                                       <li >
                                         <a class="nav-item" href="{{ route('Study') }}" title="Estudios">
-                                            <img class="img-nav" src="{{ asset('img/V2/Books.png') }}" alt="Estudios">
+                                            <img class="icon-menu" src="{{ asset('img/V2/Books.png') }}" alt="Estudios">
                                             <span class="nav-link active" aria-current="page" href="#">Estudios</span>
                                         </a>
                                     </li>
                                 @endif
                                 <li >
                                     <a class="nav-item" href="{{ route('Profile') }}" title="Configuración">
-                                        <img class="img-nav" src="{{ asset('img/V2/Settings.png') }}" alt="Configuración">
+                                        <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}" alt="Configuración">
                                         <span class="nav-link active" aria-current="page" href="#">Configuración</span>
                                     </a>
                                 </li>
                             </ul>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2 nav-text">
-                                <img class="logo-navbar" src="{{ asset('img/logo sqlapio-02.png') }}" alt="Logo">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2 icon-p">
+                                <img class="logo-sql" src="{{ asset('img/logo sqlapio-02.png') }}" alt="Logo">
                             </div>
                         </div>
                     </div>
