@@ -69,9 +69,10 @@ Route::get('/paciente/verify/{verification_code}', [UtilsController::class, 'pat
  * para la cita del PACIENTE
  */
 Route::get('/confirmation/dairy/{code}', [UtilsController::class, 'confirmation_dairy']);
+Route::get('/auth/setting/profile', [Profile::class, 'render'])->name('Profile');
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','verify_email'])->group(function () {
     
     Route::group(array('prefix' => 'auth'), function () {
         Route::get('/home', [Home::class, 'render'])->name('home');
@@ -101,7 +102,6 @@ Route::middleware(['auth'])->group(function () {
 
         Route::group(array('prefix' => 'setting'), function () {
             Route::get('/user', [User::class, 'render'])->name('User');
-            Route::get('/profile', [Profile::class, 'render'])->name('Profile');
             Route::post('/update-profile', [Register::class, 'update'])->name('update-profile');
             Route::get('/suscription', [Suscription::class, 'render'])->name('Suscription');
             Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp');
