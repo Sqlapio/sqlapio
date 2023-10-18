@@ -385,7 +385,10 @@
             $('.send').attr('disabled', false);
         }
 
-        function showDataEdit(item) {
+        function showDataEdit(item, active = true) {
+            if (active) {
+                $(".accordion-collapse2").collapse('show')
+            }
             $("#medical_record_id").val(item.id);
             $("#center_id").val(item.data.center_id).change();
             $("#background").val(item.data.background);
@@ -569,7 +572,7 @@
                                     <i class="bi bi-file-earmark-text"></i> Consulta médica
                                 </button>
                             </span>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                            <div id="collapseTwo" class="accordion-collapse2 collapse" aria-labelledby="headingTwo"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <form id="form-consulta" method="post" action="/">
