@@ -191,7 +191,7 @@
             /* margin: 30px; */
             color: white;
             font-size: 14px;
-            width: 160px;
+            width: 175px;
         }
 
         .banner {
@@ -263,7 +263,7 @@
 
         .strong {
             color: white;
-            width: 160px;
+            width: 175px;
         }
 
         .logo-sql {
@@ -317,7 +317,7 @@
 
         .strong {
             color: white;
-            width: 160px;
+            width: 175px;
         }
 
         .logo-sql {

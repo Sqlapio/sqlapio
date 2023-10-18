@@ -62,6 +62,25 @@
     .fc .fc-toolbar-title {
         text-transform: capitalize;
     }
+
+    @media screen and (max-width: 576px) {
+        .m-xs {
+            margin: 0 10px;
+        }
+
+        .fc .fc-daygrid-day-top {
+            height: 20px;
+        }
+
+        .fc .fc-toolbar {
+            flex-direction: column;
+        }
+
+        .fc .fc-toolbar-title {
+            margin: 10px 0;
+        }
+    }
+
 </style>
 @push('scripts')
     @vite(['resources/js/dairy.js'])
@@ -90,9 +109,9 @@
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
                     <div class="card accordion-diary">
                         <div class="card-body" style="position: sticky">
-                            <div class="d-flex">
+                            {{-- <div class="d-flex"> --}}
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id='calendar'></div>
-                            </div>
+                            {{-- </div> --}}
                         </div>
                     </div>
                 </div>
@@ -296,13 +315,13 @@
                                         <x-load-spinner show="true" />
                                     </div>
                                     <div class="row text-center mt-3">
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
-                                            style="margin-top: -4px" id="send">
-                                            <input class="btn btnSave" id="registrer-pac" value="Registrar" disabled
-                                                type="submit" />
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" style="display: flex; justify-content: center; align-items: center;">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 " id="send">
+                                                <input class="btn btnSave" id="registrer-pac" value="Registrar" disabled type="submit" />
+                                            </div>
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 m-xs" id="btn-con"></div>
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell"></div>
                                         </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-con"></div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell"></div>
                                     </div>
                                 </form>
                             </div>
