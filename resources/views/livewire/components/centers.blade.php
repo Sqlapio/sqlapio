@@ -47,12 +47,9 @@
                     },
                     number_floor: {
                         required: true,
-                        onlyNumber: true
                     },
                     number_consulting_room: {
                         required: true,
-                        onlyNumber: true
-
                     },
                     center_id: {
                         required: true,

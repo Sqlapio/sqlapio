@@ -673,7 +673,7 @@
                                                                         name="chk{{ $key }}"
                                                                         id="chectt{{ $key }}"
                                                                         onclick="setStudy(event,{{$key}})"
-                                                                        data-code="{{$item->cod_exam}}"
+                                                                        data-code="{{$item->cod_study}}"
                                                                         value="{{ $item->description }}">
                                                                     {{ $item->description }}</label><br>
                                                             </li>
