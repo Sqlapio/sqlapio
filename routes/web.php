@@ -69,7 +69,7 @@ Route::get('/paciente/verify/{verification_code}', [UtilsController::class, 'pat
  * para la cita del PACIENTE
  */
 Route::get('/confirmation/dairy/{code}', [UtilsController::class, 'confirmation_dairy']);
-Route::get('/auth/setting/profile', [Profile::class, 'render'])->name('Profile');
+Route::get('/auth/setting/profile', [Profile::class, 'render'])->name('Profile')->middleware('auth');
 
 
 Route::middleware(['auth','verify_email'])->group(function () {
