@@ -244,18 +244,51 @@
                 $("#detalle_alergia_span").text('Campo obligatorio');
             } else {
                 $("#detalle_alergia_span").text('');
-                var row = `
-                    <tr id="${countAllergies}">
-                    <td class="text-center">${$('#type_alergia').val()}</td>
-                    <td class="text-center">${$('#detalle_alergia').val()}</td>                 
-                    <td class="text-center"><span onclick="deleteAllergie(${countAllergies})"><i class="bi bi-archive"></i></span></td>
-                    </tr>`;
-                $('#table-alergias').find('tbody').append(row);
-                console.log(arrayAllergies);
+             
+                let btn = `<span onclick="deleteAllergie(${countAllergies})" ><i class="bi bi-archive"></i></span>`;
+
                 arrayAllergies.push({
                     type_alergia: $('#type_alergia').val(),
-                    detalle_alergia: $('#detalle_alergia').val()
+                    detalle_alergia: $('#detalle_alergia').val(),
+                    btn:btn,
+                    id:countAllergies
                 });
+
+
+                new DataTable(
+                    '#table-alergias', {
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                        },
+                        bDestroy: true,
+                        data: arrayAllergies,
+                        "searching": false,
+                        "bLengthChange": false,
+                        columns: [{
+                                data: 'type_alergia',
+                                title: 'Tipo de alergias',
+                                className: "text-center td-pad",
+                            },
+                            {
+                                data: 'detalle_alergia',
+                                title: 'Detalle',
+                                className: "text-center td-pad",
+                            },                                                     
+                            {
+                                data: 'btn',
+                                title: 'Eliminar',
+                                className: "text-center td-pad",
+                            }
+                        ],
+                        fnCreatedRow: function(rowEl, data) {
+                            $(rowEl).attr('id', data.id);
+                        }
+                    });
+
+
+
+
+              
                 countAllergies = countAllergies + 1;
                 $('#countAllergies').val(countAllergies);
                 // limpiar campos
@@ -325,18 +358,8 @@
                 $("#dateIniTreatment_span").text('');
                 $("#dateEndTreatment_span").text('Campo obligatorio');
             }  else {
-                var row = `
-                    <tr id="${countMedicationAdd}">
-                    <td class="text-center">${$('#medicine').val()}</td>
-                    <td class="text-center">${$('#dose').val()}</td>
-                    <td class="text-center">${$('#patologi').val()}</td>
-                    <td class="text-center">${$('#viaAdmin').val()}</td>
-                    <td class="text-center">${$('#treatmentDuration').val()}</td>
-                    <td class="text-center">${$('#dateIniTreatment').val()}</td>
-                    <td class="text-center">${$('#dateEndTreatment').val()}</td>
-                    <td class="text-center"><span onclick="deleteMedication(${countMedicationAdd})" ><i class="bi bi-archive"></i></span></td>                    
-                    </tr>`;
-                $('#table-medicamento').find('tbody').append(row);
+              
+                let btn = `<span onclick="deleteMedication(${countMedicationAdd})" ><i class="bi bi-archive"></i></span>`;
 
                 arraymedications_supplements.push({
                     medicine: $('#medicine').val(),
@@ -346,7 +369,64 @@
                     treatmentDuration: $('#treatmentDuration').val(),
                     dateIniTreatment: $('#dateIniTreatment').val(),
                     dateEndTreatment: $('#dateEndTreatment').val(),
-                });
+                    btn: btn,
+                    id: countMedicationAdd
+                });                                
+
+                new DataTable(
+                    '#table-medicamento', {
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                        },
+                        bDestroy: true,
+                        data: arraymedications_supplements,
+                        "searching": false,
+                        "bLengthChange": false,
+                        columns: [{
+                                data: 'medicine',
+                                title: 'Medicamento',
+                                className: "text-center td-pad",
+                            },
+                            {
+                                data: 'dose',
+                                title: 'Dosis',
+                                className: "text-center td-pad",
+                            },
+                            {
+                                data: 'patologi',
+                                title: 'Patología',
+                                className: "text-center td-pad",
+                            },
+                            {
+                                data: 'viaAdmin',
+                                title: 'Via de administración',
+                                className: "text-center td-pad",
+                            },
+                            {
+                                data: 'treatmentDuration',
+                                title: 'Duración de tratamiento',
+                                className: "text-center td-pad",
+                            },
+                            {
+                                data: 'dateIniTreatment',
+                                title: 'Fecha inicio',
+                                className: "text-center td-pad",
+                            },
+                            {
+                                data: 'dateEndTreatment',
+                                title: 'Fecha fin',
+                                className: "text-center td-pad",
+                            },
+                            {
+                                data: 'btn',
+                                title: 'Eliminar',
+                                className: "text-center td-pad",
+                            }
+                        ],
+                        fnCreatedRow: function(rowEl, data) {
+                            $(rowEl).attr('id', data.id);
+                        }
+                    });
 
                 countMedicationAdd = countMedicationAdd + 1;
                 $('#countMedicationAdd').val(countMedicationAdd);
@@ -371,17 +451,48 @@
                 $("#datecirugia_span").text('Campo obligatorio');
             } else {
                 $("#datecirugia_span").text('');
-                var row = `
-                    <tr id="${countSurgical}">
-                    <td class="text-center">${$('#cirugia').val()}</td>
-                    <td class="text-center">${$('#datecirugia').val()}</td>                 
-                    <td class="text-center"><span onclick="deleteSurgical(${countSurgical})" ><i class="bi bi-archive"></i></span></td>
-                    </tr>`;
-                $('#table-cirugia').find('tbody').append(row);
+               
+                let btn = `<span onclick="deleteSurgical(${countSurgical})" ><i class="bi bi-archive"></i></span>`;
+
                 arrayhistory_surgical.push({
                     cirugia: $('#cirugia').val(),
-                    datecirugia: $('#datecirugia').val()
+                    datecirugia: $('#datecirugia').val(),
+                    btn:btn,
+                    id:countSurgical
                 });
+
+                new DataTable(
+                    '#table-cirugia', {
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                        },
+                        bDestroy: true,
+                        data: arrayhistory_surgical,
+                        "searching": false,
+                        "bLengthChange": false,
+                        columns: [{
+                                data: 'cirugia',
+                                title: 'Cirugía',
+                                className: "text-center td-pad",
+                            },
+                            {
+                                data: 'datecirugia',
+                                title: 'Fecha',
+                                className: "text-center td-pad",
+                            },                                                     
+                            {
+                                data: 'btn',
+                                title: 'Eliminar',
+                                className: "text-center td-pad",
+                            }
+                        ],
+                        fnCreatedRow: function(rowEl, data) {
+                            $(rowEl).attr('id', data.id);
+                        }
+                    });
+
+
+
                 countSurgical = countSurgical + 1;
                 $('#countSurgical').val(countSurgical);
                 // limpiar campos
