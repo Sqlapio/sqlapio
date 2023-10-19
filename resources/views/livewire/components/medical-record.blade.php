@@ -8,6 +8,21 @@
     .img-medical {
         border-radius: 20px;
         border: 3px solid #47525e;
+        object-fit: cover;
+    }
+
+    @media only screen and (max-width: 390px) { 
+        .data-medical {
+            width: 185px !important;
+            font-size: 14px;
+        }
+    }
+
+    @media (min-width: 391px) and (max-width: 576px) { 
+        .data-medical {
+            width: 222px !important;
+            font-size: 14px;
+        }
     }
 </style>
 @push('scripts')
@@ -574,11 +589,11 @@
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row">
-                                        <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 180px;">
-                                            <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : (($Patient->genere=="femenino")? asset('/img/avatar/avatar mujer.png'):asset('/img/avatar/avatar hombre.png')) }}" width="150"
-                                                height="150" alt="Imagen del paciente" class="img-medical">
+                                        <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 162px;">
+                                            <img src="{{ asset('/imgs/' . $Patient->patient_img) }}" width="150"
+                                            height="150" alt="Imagen del paciente" class="img-medical">
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
                                             <strong>Nombre:</strong><span class="text-capitalize">
                                                 {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                             <br>
@@ -587,14 +602,14 @@
                                             <br>
                                             <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
                                             <br>
-                                            <strong>{{ $Patient->is_minor === 'true' ? 'Cédula de identidad del representante:' : 'Cédula de identidad:' }}</strong>
+                                            <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
                                             <span>
                                                 {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                             <br>
-                                            <strong>Genero:</strong> <span class="text-capitalize">
-                                                {{ $Patient->genere }}</span>
+                                            <strong>Genero:</strong> <span class="text-capitalize"> {{ $Patient->genere }}</span>
                                             <br>
-                                            <strong>Nº Historial:</strong><span> {{ $Patient->get_history->cod_history }}
+                                            <strong>Nº Historial:</strong><span>
+                                                {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
                                             </span>
                                         </div>
                                     </div>
