@@ -320,6 +320,11 @@
                                                         className: "text-center td-pad",
                                                     },
                                                     {
+                                                        data: 'data.cod_ref',
+                                                        title: 'Código de la referencia',
+                                                        className: "text-center td-pad",
+                                                    },
+                                                    {
                                                         data: 'date',
                                                         title: 'Fecha de la consulta',
                                                         className: "text-center td-pad",
