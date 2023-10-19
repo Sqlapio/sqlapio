@@ -66,10 +66,11 @@
 
     }
 
-    @media (min-width: 391px)  and (max-width: 576px) {
+    @media (min-width: 391px) and (max-width: 576px) {
         .modal-d {
             max-width: 165px;
         }
+
         #img-pat {
             margin: 7px 20px 0 0;
         }
@@ -298,7 +299,8 @@
                                 $("#bnt-cons").show();
                                 $("#bnt-cons").find('a').remove();
                                 $("#bnt-cons").append(
-                                `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`);                           
+                                    `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`
+                                    );
                             });
                         },
                         error: function(error) {
@@ -560,6 +562,7 @@
         }
 
         function agendarCita(item, info) {
+
             $('#exampleModal').modal('show');
             if (item.is_minor == 'true') {
                 $("#name-pat").text(item.name + ' ' + item.last_name);
@@ -579,7 +582,15 @@
                 $("#patient_id").val(item.id);
             }
             $('#div-pat').show();
-            $("#img-pat").attr("src", `{{ URL::asset('/imgs/') }}/${item.patient_img}`);
+            let img_url = `{{ URL::asset('/img/avatar/avatar mujer.png') }}`;
+            if (item.patient_img === null) {
+                if (item.genere == "masculino") {
+                    img_url = `{{ URL::asset('/img/avatar/avatar hombre.png') }}`;
+                }
+            } else {
+                img_url = `{{ URL::asset('/imgs/') }}/${item.patient_img}`;
+            }
+            $("#img-pat").attr("src", `${img_url}`);
             $('#registrer-pac').attr("disabled", false);
             $('#timeIni').focus()
         }
@@ -593,7 +604,7 @@
             $('#search_patient').attr('disabled', false)
         }
 
-        function handlerEmail(e,email) {
+        function handlerEmail(e, email) {
             if (e.target.value === email) {
                 Swal.fire({
                     icon: 'error',
@@ -656,7 +667,8 @@
                                         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <label for="search_patient"
-                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Ingrese número de identificación</label>
+                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Ingrese
+                                                    número de identificación</label>
                                                 <input disabled maxlength="10" type="text"
                                                     class="form-control mask-only-number" id="search_patient"
                                                     name="search_patient" placeholder="" value="">
@@ -669,7 +681,8 @@
                                     </div>
                                     <div class="row" id="show-info-pat" style="display: none">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <h5 class="mb-4">Lista de paciente registrado bajo este documento de identidad</h5>
+                                            <h5 class="mb-4">Lista de paciente registrado bajo este documento de identidad
+                                            </h5>
                                             <table id="table-show-info-pat" class="table table-striped table-bordered"
                                                 style="width:100%; ">
                                                 <thead>
@@ -737,15 +750,16 @@
                                                             onchange="calculateAge(event,'age'), handlerAge(event)">
                                                     </div>
                                                 </diV>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" id="email-div">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3"
+                                                    id="email-div">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
                                                                 Electrónico</label>
-                                                                @php
-                                                                 $email  = Auth::user()->email;
-                                                                @endphp
+                                                            @php
+                                                                $email = Auth::user()->email;
+                                                            @endphp
                                                             <input autocomplete="off"
                                                                 onchange='handlerEmail(event,@json($email))'
                                                                 class="form-control @error('email') is-invalid @enderror"
@@ -755,7 +769,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" id="ci-div">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3"
+                                                    id="ci-div">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label" type="number"
@@ -825,7 +840,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <x-centers_user class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
+                                                <x-centers_user
+                                                    class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
                                                 <x-upload-image />
                                                 {{-- data del representante --}}
                                                 <div class="row mt-3" id="data-rep" style="display: none">
@@ -909,12 +925,17 @@
                                             <div class="row mt-3 justify-content-md-end">
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                     style="display: flex; justify-content: flex-end; align-items: flex-end; flex-wrap: wrap;">
-                                                    <div id="bnt-dairy" style="display: none;margin-left: 10px; ; margin-bottom: 10px"></div>
-                                                    <div id="bnt-cons" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
-                                                    <div id="bnt-hist" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
-                                                    <input class="btn btnSave send" value="Guardar" type="submit" style="margin-left: 10px; margin-bottom: 10px"/>
-                                                    <button style="margin-left: 10px; padding: 8px; margin-bottom: 10px" type="button"
-                                                        onclick="refreshForm();" class="btn btnSecond"
+                                                    <div id="bnt-dairy"
+                                                        style="display: none;margin-left: 10px; ; margin-bottom: 10px">
+                                                    </div>
+                                                    <div id="bnt-cons"
+                                                        style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
+                                                    <div id="bnt-hist"
+                                                        style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
+                                                    <input class="btn btnSave send" value="Guardar" type="submit"
+                                                        style="margin-left: 10px; margin-bottom: 10px" />
+                                                    <button style="margin-left: 10px; padding: 8px; margin-bottom: 10px"
+                                                        type="button" onclick="refreshForm();" class="btn btnSecond"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         data-html="true" title="Limpiar Formulario">
                                                         <i class="bi bi-eraser"></i>
@@ -933,7 +954,8 @@
                 </div>
                 {{-- Lista de pacientes con consultas  --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" style="margin-top: 20px; margin-bottom: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd"
+                        style="margin-top: 20px; margin-bottom: 20px;">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
@@ -970,7 +992,7 @@
                                                         <tr>
                                                             <td class="table-avatar">
                                                                 <img class="avatar"
-                                                                    src="{{ asset('/imgs/' . $item->get_paciente->patient_img) }}"
+                                                                    src=" {{ $item->get_paciente->patient_img ? asset('/imgs/' . $item->get_paciente->patient_img) : ($item->get_paciente->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
                                                                     alt="Imagen del paciente">
                                                             </td>
                                                             <td class="text-center">
@@ -1058,9 +1080,9 @@
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
             id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
-                <div id="spinner" style="display: none">
-                    <x-load-spinner show="true" />
-                </div>
+            <div id="spinner" style="display: none">
+                <x-load-spinner show="true" />
+            </div>
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -1079,7 +1101,8 @@
                                                 alt="Imagen del paciente">
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" style="font-size: 14px;">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3"
+                                        style="font-size: 14px;">
                                         <div>
                                             <strong>Nombre: </strong><span class="text-capitalize" id="name-pat"></span>
                                             <br>
@@ -1106,7 +1129,7 @@
                                                 <label for="date" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha</label>
                                                 <input class="form-control" id="date_start" name="date_start"
-                                                    type="date" value="" >
+                                                    type="date" value="">
                                             </div>
                                         </div>
                                     </div>
