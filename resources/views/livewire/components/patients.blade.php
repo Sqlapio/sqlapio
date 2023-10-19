@@ -10,7 +10,7 @@
         border-radius: 27px;
         border: 2px solid #44525F;
         height: 150px;
-        margin: 7px 23px;
+        margin: 5px 23px;
         object-fit: cover;
     }
 
@@ -50,12 +50,29 @@
         margin-left: -14px !important;
     }
 
+    .modal-d {
+        max-width: 200px;
+    }
+
 
     @media screen and (max-width: 390px) {
         #btn-margin {
             margin-left: -14px !important;
         }
 
+        #img-pat {
+            margin: 23px 20px 0 0;
+        }
+
+    }
+
+    @media (min-width: 391px)  and (max-width: 576px) {
+        .modal-d {
+            max-width: 165px;
+        }
+        #img-pat {
+            margin: 7px 20px 0 0;
+        }
     }
 </style>
 @push('scripts')
@@ -1056,13 +1073,13 @@
                         <div class="modal-body">
                             <div id="div-pat" style="display: none">
                                 <div class="d-flex mt-3">
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="max-width: 200px;">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 modal-d">
                                         <div class="img">
                                             <img id="img-pat" src="" width="150" height="150"
                                                 alt="Imagen del paciente">
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" style="font-size: 14px;">
                                         <div>
                                             <strong>Nombre: </strong><span class="text-capitalize" id="name-pat"></span>
                                             <br>
