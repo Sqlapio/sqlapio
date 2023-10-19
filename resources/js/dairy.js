@@ -11,6 +11,7 @@ let url;
 let urlCancelled;
 let urlDairy;
 let ulrimge;
+let avatar_imge;
 let ulrUpdate;
 let urlPost;
 let dataDos;
@@ -276,13 +277,14 @@ $(document).ready(() => {
   })
 });
 
-function getAppointments(appointments, route, routeCancelled, url2, ulrImge, updateAppointments) {
+function getAppointments(appointments, route, routeCancelled, url2, ulrImge, updateAppointments, ulr_imge_avatar) {
   data = appointments;
   url = route;
   urlDairy = url2;
   urlCancelled = routeCancelled;
   ulrimge = ulrImge;
   ulrUpdate = updateAppointments;
+  avatar_imge = ulr_imge_avatar;
   //
   const calendarEl = document.getElementById('calendar')
   calendar = new Calendar(calendarEl, {
@@ -449,8 +451,19 @@ function searchPatients(res) {
     $("#age").text(res.age);
     $("#patient_id").val(res.id);
   }
+
+  let img_url = `${ulrimge}/${res.patient_img}`;
+  if (res.patient_img === null) {
+    if (res.genere == "femenino") {
+      img_url = `${avatar_imge}/avatar mujer.png`;
+    } else {
+      img_url = `${avatar_imge}/avatar hombre.png`;
+    }
+  }
+  $("#img-pat").attr("src", `${img_url}`);
   $('#div-pat').show();
-  $("#img-pat").attr("src", `${ulrimge}/${res.patient_img}`);
+  $("#img-pat").attr("src",);
+
   $('#registrer-pac').attr("disabled", false);
   $('#timeIni').focus();
 }

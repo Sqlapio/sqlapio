@@ -30,10 +30,10 @@
             if (id != null) {
                 showStudy(data);
                 const bsCollapse = new bootstrap.Collapse('.collapsee', {
-                        toggle: true
-                    })
+                    toggle: true
+                })
             }
-            
+
         });
 
         function searchPerson() {
@@ -48,6 +48,17 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
+                        if (response.length === 0) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'El paciente no tiene información cargada en el sistema!',
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: 'Aceptar'
+                            });
+                            return false;
+
+                        }
                         Swal.fire({
                             icon: 'success',
                             title: 'Operación exitosa!',

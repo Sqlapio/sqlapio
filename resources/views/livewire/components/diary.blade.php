@@ -128,9 +128,10 @@
             let update_appointments = "{{ route('update_appointments') }}";
             let appointments = @json($appointments);
             let ulrImge = "{{ URL::asset('/imgs/') }}";
+            let imge_avatar = "{{ URL::asset('/img/avatar/') }}";
             let urlPostCreateAppointment = '{{ route('CreateAppointment') }}';
             getUrl(urlPostCreateAppointment, url2);
-            getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments);
+            getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments,imge_avatar);
         });
 
         function handlerRadio(item) {
