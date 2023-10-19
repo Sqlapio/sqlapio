@@ -12,16 +12,27 @@
     .input-one {
         margin-right: 0px
     }
-
     .img-medical {
         border-radius: 20px;
         border: 3px solid #47525e;
+        object-fit: cover;
     }
 
-    @media only screen and (max-width: 576px) {
+    @media only screen and (max-width: 390px) { 
+        .data-medical {
+            width: 185px !important;
+            font-size: 14px;
+        }
+    }
+
+    @media (min-width: 391px) and (max-width: 576px) { 
 
         .mt-cr {
             padding-top: 20px;
+        }
+        .data-medical {
+            width: 222px !important;
+            font-size: 14px;
         }
     }
 </style>
@@ -600,11 +611,11 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
-                                        <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 180px;">
-                                            <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : (($Patient->genere=="femenino")? asset('/img/avatar/avatar mujer.png'):asset('/img/avatar/avatar hombre.png')) }}" width="150"
-                                            height="150" alt="Imagen del paciente" class="img-medical">                                           
+                                        <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 162px;">
+                                            <img src="{{ asset('/imgs/' . $Patient->patient_img) }}" width="150"
+                                            height="150" alt="Imagen del paciente" class="img-medical">
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
                                             <strong>Nombre:</strong><span class="text-capitalize">
                                                 {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                             <br>
@@ -613,12 +624,11 @@
                                             <br>
                                             <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
                                             <br>
-                                            <strong>{{ $Patient->is_minor === 'true' ? 'Cédula de identidad del representante:' : 'Cédula de identidad:' }}</strong>
+                                            <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
                                             <span>
                                                 {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                             <br>
-                                            <strong>Genero:</strong> <span class="text-capitalize">
-                                                {{ $Patient->genere }}</span>
+                                            <strong>Genero:</strong> <span class="text-capitalize"> {{ $Patient->genere }}</span>
                                             <br>
                                             <strong>Nº Historial:</strong><span>
                                                 {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
@@ -638,7 +648,7 @@
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-person"></i></i> Datos principales de la historia
+                                    <i class="bi bi-activity"></i> Examen Físico
                                 </button>
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
@@ -675,32 +685,14 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Motivo
-                                                    de la consulta</label>
-                                                <textarea id="reason" name="reason" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->reason : '' !!}</textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Enfermedad
-                                                    Actual</label>
-                                                <textarea id="current_illness" name="current_illness" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->current_illness : '' !!}</textarea>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="row mt-3">
-                                        <h5> <strong>Examen Físico:</strong><small> (Signos vitales)</small></h5>
-
                                         @php
                                             if ($validateHistory) {
                                                 $data = explode('/', $Patient->get_history->strain);
                                             }
                                         @endphp
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                             <label for="phone" class="form-label"
                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Presión
                                                 arterial (mmHg)</label>
@@ -792,8 +784,24 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mt-3">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                            <div class="form-group">
+                                                <label for="phone" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Motivo
+                                                    de la consulta</label>
+                                                <textarea id="reason" name="reason" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->reason : '' !!}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                            <div class="form-group">
+                                                <label for="phone" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Enfermedad
+                                                    Actual</label>
+                                                <textarea id="current_illness" name="current_illness" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->current_illness : '' !!}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Estudios
@@ -857,7 +865,7 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> Antecedentes Personales y Familiares
+                                    <i class="bi bi-clipboard2-pulse"></i> Antecedentes Personales y Familiares
                                 </button>
                             </span>
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
@@ -928,7 +936,7 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> Antecedentes personales patológicos
+                                    <i class="bi bi-clipboard2-pulse"></i> Antecedentes personales patológicos
                                 </button>
                             </span>
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
@@ -998,7 +1006,7 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> Historia no patológica
+                                    <i class="bi bi-clipboard2-pulse"></i> Antecedentes no patológicos
                                 </button>
                             </span>
                             <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
@@ -1070,7 +1078,7 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> Historial ginecologicos si aplica
+                                    <i class="bi bi-clipboard2-pulse"></i> Antecedentes ginecologicos (si aplica)
                                 </button>
                             </span>
                             <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
@@ -1196,14 +1204,16 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> Alergias Conocidas
+                                    <i class="bi bi-clipboard2-pulse"></i> Antecedentes alérgicos
                                 </button>
                             </span>
                             <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row mt-3" style="align-items: flex-end;">
-                                        <h5 class="text-center collapseBtn">Añadir Alergias</h5>
+                                        <hr>
+                                        <h5 class="collapseBtn" style="margin-bottom: 17px;">Añadir Alergias</h5>
+                                        <hr style="margin-bottom: 0">
                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
@@ -1313,14 +1323,16 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseSeven" aria-expanded="true" aria-controls="collapseSeven"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> Historia quirúrgica
+                                    <i class="bi bi-clipboard2-pulse"></i> Antecedentes quirúrgicos
                                 </button>
                             </span>
                             <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row mt-3" style="align-items: flex-end;">
-                                        <h5 class="text-center collapseBtn">Añadir cirugía</h5>
+                                        <hr>
+                                        <h5 class="collapseBtn" style="margin-bottom: 17px;">Añadir cirugía</h5>
+                                        <hr style="margin-bottom: 0;">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
@@ -1427,15 +1439,17 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseEight" aria-expanded="true" aria-controls="collapseEight"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> Medicación
+                                    <i class="bi bi-capsule"></i> Medicamentos
                                 </button>
                             </span>
                             <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row mt-3">
-                                        <h5 class="text-center collapseBtn">Añadir Medicamento</h5>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <hr>
+                                        <h5 class="collapseBtn" style="margin-bottom: 17px">Añadir Medicamento</h5>
+                                        <hr>
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
