@@ -120,7 +120,7 @@
                 $("#form-consulta").validate();
                 if ($("#form-consulta").valid()) {
                     $('#send').hide();
-                    $('#spinner').show();                   
+                    $('#spinner').show();
 
                     //preparar la data para el envio
                     let formData = $('#form-consulta').serializeArray();
@@ -425,27 +425,31 @@
             });
         }
 
-        function setExams(e,key) {
+        function setExams(e, key) {
             if ($(`#${e.target.id}`).is(':checked')) {
                 valExams = (valExams == "") ? e.target.value : valExams + ',\n' + e.target.value;
-                exams_array.push({code_exams: $(`#${e.target.id}`).data('code')}); 
+                exams_array.push({
+                    code_exams: $(`#${e.target.id}`).data('code')
+                });
                 valExams = valExams.replace(',,', ',');
                 $("#exams").val(valExams);
             } else {
                 valExams = valExams.replace(e.target.value, '');
                 valExams = valExams.replace(',,', ',');
                 if (valExams == ",") valExams = valExams.replace(',', '');
-                 exams_array.splice(key, 1);
-                 valExams = valExams.replace(/\n+/g, '');
-                 valExams = valExams.replace(',', '\n');
+                exams_array.splice(key, 1);
+                valExams = valExams.replace(/\n+/g, '');
+                valExams = valExams.replace(',', '\n');
                 $("#exams").val(valExams);
             }
         }
 
-        function setStudy(e,key) {
+        function setStudy(e, key) {
             if ($(`#${e.target.id}`).is(':checked')) {
-                valStudy = (valStudy == "") ? e.target.value : valStudy + ',\n'  + e.target.value;
-                studies_array.push({code_studies: $(`#${e.target.id}`).data('code')});            
+                valStudy = (valStudy == "") ? e.target.value : valStudy + ',\n' + e.target.value;
+                studies_array.push({
+                    code_studies: $(`#${e.target.id}`).data('code')
+                });
                 valStudy = valStudy.replace(',,', ',');
                 $("#studies").val(valStudy);
             } else {
@@ -453,7 +457,7 @@
                 valStudy = valStudy.replace(',,', ',');
                 if (valStudy == ",") valStudy = valStudy.replace(',', '');
                 valStudy = valStudy.replace(/\n+/g, '');
-                 valStudy = valStudy.replace(',', '\n');
+                valStudy = valStudy.replace(',', '\n');
                 studies_array.splice(key, 1);
                 $("#studies").val(valStudy);
             }
@@ -472,20 +476,53 @@
                 $("#medicine_span").text('');
                 $("#indication_span").text('');
                 $("#treatmentDuration_span").text('');
-                var row = `
-                    <tr id="${countMedicationAdd}">
-                    <td class="text-center">${$('#medicine').val()}</td>
-                    <td class="text-center">${$('#indication').val()}</td>
-                    <td class="text-center">${$('#treatmentDuration').val()}</td>                  
-                    <td class="text-center"><span onclick="deleteMedication(${countMedicationAdd})" ><i class="bi bi-archive"></i></span></td>                    
-                    </tr>`;
-                $('#table-medicamento').find('tbody').append(row);
+
+                let btn = `<span onclick="deleteMedication(${countMedicationAdd})" ><i class="bi bi-archive"></i></span>`;
 
                 medications_supplements.push({
                     medicine: $('#medicine').val(),
                     indication: $('#indication').val(),
-                    treatmentDuration: $('#treatmentDuration').val()
+                    treatmentDuration: $('#treatmentDuration').val(),
+                    btn: btn,
+                    id: countMedicationAdd
                 });
+
+
+                new DataTable(
+                    '#table-medicamento', {
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                        },
+                        // reponsive: true,
+                        bDestroy: true,
+                        data: medications_supplements,
+                        "searching": false,
+                        "bLengthChange": false,
+                        columns: [{
+                                data: 'medicine',
+                                title: 'Medicamento',
+                                className: "text-center td-pad",
+                            },
+                            {
+                                data: 'indication',
+                                title: 'Indicaciones',
+                                className: "text-center td-pad",
+                            },
+                            {
+                                data: 'treatmentDuration',
+                                title: 'Duración de tratamiento',
+                                className: "text-center td-pad",
+                            },
+                            {
+                                data: 'btn',
+                                title: 'Eliminar',
+                                className: "text-center td-pad",
+                            }
+                        ],
+                        fnCreatedRow: function(rowEl, data) {
+                            $(rowEl).attr('id', data.id);
+                        }
+                    });
 
                 countMedicationAdd = countMedicationAdd + 1;
                 $('#countMedicationAdd').val(countMedicationAdd);
@@ -644,11 +681,12 @@
                                                     style="max-width: 100%; max-height: 200px;">
                                                     @foreach ($exam as $key => $item)
                                                         <ul id="exam">
-                                                            <li> <label><input type="checkbox" onclick="setExams(event,{{$key}})"
+                                                            <li> <label><input type="checkbox"
+                                                                        onclick="setExams(event,{{ $key }})"
                                                                         name="chk{{ $key }}"
                                                                         id="{{ $key }}"
-                                                                        data-code="{{$item->cod_exam}}"
-                                                                        value="{{$item->description }}">
+                                                                        data-code="{{ $item->cod_exam }}"
+                                                                        value="{{ $item->description }}">
                                                                     {{ $item->description }}</label><br>
                                                             </li>
                                                         </ul>
@@ -677,8 +715,8 @@
                                                             <li> <label><input type="checkbox"
                                                                         name="chk{{ $key }}"
                                                                         id="chectt{{ $key }}"
-                                                                        onclick="setStudy(event,{{$key}})"
-                                                                        data-code="{{$item->cod_study}}"
+                                                                        onclick="setStudy(event,{{ $key }})"
+                                                                        data-code="{{ $item->cod_study }}"
                                                                         value="{{ $item->description }}">
                                                                     {{ $item->description }}</label><br>
                                                             </li>
@@ -724,8 +762,8 @@
                                                             </div>
                                                             <span id="indication_span" class="text-danger"></span>
                                                         </diV>
-                                                    </div>                                                                      
-                                                         
+                                                    </div>
+
 
                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                         <div class="form-group">
@@ -754,7 +792,8 @@
                                                                     <option value="1 Año">1 Año</option>
                                                                 </select>
                                                                 <i class="bi bi-calendar-range st-icon"></i>
-                                                                <span id="treatmentDuration_span" class="text-danger"></span>
+                                                                <span id="treatmentDuration_span"
+                                                                    class="text-danger"></span>
                                                             </div>
                                                         </div>
                                                     </div>
