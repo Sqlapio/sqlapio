@@ -391,6 +391,7 @@ class UtilsController extends Controller
 					'full_name_doc' 	=>  $val->get_doctor->name . " " . $val->get_doctor->last_name,
 					'center' 		=>  $val->get_center->description,
 					'genere' 		=>  $val->get_paciente->genere,
+					'patient_id' 		=>  $val->get_paciente->id,
 					'data' => [
 						'center_id' =>  $val->get_center->id,
 						'record_code' 	=>  $val->record_code,
