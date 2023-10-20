@@ -209,12 +209,12 @@
                     <td style="text-align: center;">
                         <div class="text" style="margin-right: -20px">
                             @if ($MedicalRecord->get_paciente->patient_img)
-                                <img class="img-pat" style="border-radius: 20%"
+                                <img class="img-pat" style="border-radius: 20%; object-fit: cover"
                                     src="../public/imgs/{{ $MedicalRecord->get_paciente->patient_img }}" alt="Avatar"
                                     width="100" height="100">
                             @else
                                 <img class="img-pat" src="../public/img/avatar/avatar.png"
-                                    width="100" height="100" style="border-radius: 20%"
+                                    width="100" height="100" style="border-radius: 20%; object-fit: cover"
                                     alt="Avatar">
                             @endif
                         </div>
