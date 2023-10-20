@@ -190,10 +190,9 @@
                 <tr>
                     <td style="text-align: center;">
                         <div class="text  info-pat">
-                            <strong>Nombre y
-                                Apellido:</strong><span>{{ $MedicalRecord->get_paciente->name . ' ' . $MedicalRecord->get_paciente->last_name }}</span>
-                            {{-- <br> --}}
-                            <strong>Cédula:</strong> <span>{{ $MedicalRecord->get_paciente->ci }}</span>
+                            <strong>Nombre Completo: </strong><span>{{ $MedicalRecord->get_paciente->name . ' ' . $MedicalRecord->get_paciente->last_name }}</span>
+                            <br>
+                            <strong>C.I:</strong> <span>{{ $MedicalRecord->get_paciente->ci }}</span>
                             <br>
                             <strong>Género:</strong> <span>{{ $MedicalRecord->get_paciente->genere }}</span>
                             <strong>Edad:</strong> <span>{{ $MedicalRecord->get_paciente->age }}</span>
@@ -210,12 +209,12 @@
                     <td style="text-align: center;">
                         <div class="text" style="margin-right: -20px">
                             @if ($MedicalRecord->get_paciente->patient_img)
-                                <img class="img-pat" style="border-radius: 20%"
+                                <img class="img-pat" style="border-radius: 20%; object-fit: cover"
                                     src="../public/imgs/{{ $MedicalRecord->get_paciente->patient_img }}" alt="Avatar"
-                                    width="100" height="auto">
+                                    width="100" height="100">
                             @else
                                 <img class="img-pat" src="../public/img/avatar/avatar.png"
-                                    width="100" height="auto" style="border-radius: 20%"
+                                    width="100" height="100" style="border-radius: 20%; object-fit: cover"
                                     alt="Avatar">
                             @endif
                         </div>
@@ -254,7 +253,7 @@
             <thead>
                 <tr>
                     <th class="table-border">
-                        Razon de la visita:
+                        Razón de la visita:
                     </th>
                 </tr>
             </thead>
@@ -293,8 +292,6 @@
 
         </table>
     </div>
-    <br>
-    <br>
     <br>
     <br>
     <div>
