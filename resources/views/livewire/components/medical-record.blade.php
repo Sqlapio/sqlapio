@@ -197,7 +197,7 @@
                                                 route_mr_exam
                                                 .replace(
                                                     ':id', elem
-                                                    .id);
+                                                    .patient_id);
 
                                             let route_mr_study =
                                                 "{{ route('mr_study', ':id') }}";
@@ -205,7 +205,7 @@
                                                 route_mr_study
                                                 .replace(
                                                     ':id', elem
-                                                    .id);
+                                                    .patient_id);
 
                                             let route_pdf_medical_prescription =
                                                 "{{ route('pdf_medical_prescription', ':id') }}";
@@ -946,7 +946,7 @@
                                                                     @if ($item['data']['status_exam'])
                                                                         <div
                                                                             class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <a href="{{ route('mr_exam', $item['id']) }}">
+                                                                            <a href="{{ route('mr_exam', $item['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     class="btn refresf btn-iSecond rounded-circle"
                                                                                     data-bs-toggle="tooltip"
@@ -974,7 +974,7 @@
                                                                         <div
                                                                             class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <a
-                                                                                href="{{ route('mr_study', $item['id']) }}">
+                                                                                href="{{ route('mr_study', $item['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     class="btn refresf btn-iSecond rounded-circle"
                                                                                     data-bs-toggle="tooltip"
