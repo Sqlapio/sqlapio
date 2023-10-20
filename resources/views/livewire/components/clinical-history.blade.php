@@ -600,6 +600,7 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
+                                        
                                         <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 180px;">
                                             <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : (($Patient->genere=="femenino")? asset('/img/avatar/avatar mujer.png'):asset('/img/avatar/avatar hombre.png')) }}" width="150"
                                             height="150" alt="Imagen del paciente" class="img-medical">                                           
