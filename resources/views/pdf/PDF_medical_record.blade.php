@@ -190,10 +190,9 @@
                 <tr>
                     <td style="text-align: center;">
                         <div class="text  info-pat">
-                            <strong>Nombre y
-                                Apellido:</strong><span>{{ $MedicalRecord->get_paciente->name . ' ' . $MedicalRecord->get_paciente->last_name }}</span>
-                            {{-- <br> --}}
-                            <strong>Cédula:</strong> <span>{{ $MedicalRecord->get_paciente->ci }}</span>
+                            <strong>Nombre Completo: </strong><span>{{ $MedicalRecord->get_paciente->name . ' ' . $MedicalRecord->get_paciente->last_name }}</span>
+                            <br>
+                            <strong>C.I:</strong> <span>{{ $MedicalRecord->get_paciente->ci }}</span>
                             <br>
                             <strong>Género:</strong> <span>{{ $MedicalRecord->get_paciente->genere }}</span>
                             <strong>Edad:</strong> <span>{{ $MedicalRecord->get_paciente->age }}</span>
@@ -254,7 +253,7 @@
             <thead>
                 <tr>
                     <th class="table-border">
-                        Razon de la visita:
+                        Razón de la visita:
                     </th>
                 </tr>
             </thead>
@@ -293,8 +292,6 @@
 
         </table>
     </div>
-    <br>
-    <br>
     <br>
     <br>
     <div>
