@@ -211,10 +211,10 @@
                             @if ($MedicalRecord->get_paciente->patient_img)
                                 <img class="img-pat" style="border-radius: 20%"
                                     src="../public/imgs/{{ $MedicalRecord->get_paciente->patient_img }}" alt="Avatar"
-                                    width="100" height="auto">
+                                    width="100" height="100">
                             @else
                                 <img class="img-pat" src="../public/img/avatar/avatar.png"
-                                    width="100" height="auto" style="border-radius: 20%"
+                                    width="100" height="100" style="border-radius: 20%"
                                     alt="Avatar">
                             @endif
                         </div>
