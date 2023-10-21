@@ -236,17 +236,16 @@
                                                     .id);
 
                                             let btnExam = `
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
-                                                    style="display: flex; align-items: center;
-                                                    justify-content: center;">
-                                                    <i class="bi bi-exclamation-circle"
-                                                    data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom"
-                                                    data-bs-custom-class="custom-tooltip"
-                                                    data-html="true"
-                                                    title="No hay examenes cargados"
-                                                    style="font-size: 23px; color: #ff7b0d"></i>
-                                                    </div>`;
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <button type="button"
+                                                        class="refresf btn-idanger rounded-circle"
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom"
+                                                        data-bs-custom-class="custom-tooltip"
+                                                        data-html="true" title="No hay examenes cargados">
+                                                        <i class="bi bi-exclamation-lg"></i>
+                                                    </button>
+                                            </div>`;
 
                                             if (elem.data
                                                 .status_exam != null
@@ -267,17 +266,16 @@
                                                     </div>`
 
                                             }
-                                            let btnStudy = `<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
-                                                    style="display: flex; align-items: center;
-                                                    justify-content: center;">
-                                                    <i class="bi bi-exclamation-circle"
-                                                    data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom"
-                                                    data-bs-custom-class="custom-tooltip"
-                                                    data-html="true"
-                                                    title="No hay estudios cargados"
-                                                    style="font-size: 23px; color: #ff7b0d"></i>
-                                                    </div>`
+                                            let btnStudy = `<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                <button type="button"
+                                                                    class="refresf btn-idanger rounded-circle"
+                                                                    data-bs-toggle="tooltip"
+                                                                    data-bs-placement="bottom"
+                                                                    data-bs-custom-class="custom-tooltip"
+                                                                    data-html="true" title="No hay estudios cargados">
+                                                                    <i class="bi bi-exclamation-lg"></i>
+                                                                </button>
+                                                            </div>`
 
                                             if (elem.data
                                                 .status_study !=
@@ -1007,7 +1005,7 @@
                                                                             data-html="true" title="No hay estudios cargados">
                                                                             <i class="bi bi-exclamation-lg"></i>
                                                                         </button>
-                                                                </div>
+                                                                    </div>
                                                                     @endif
                                                                     <div
                                                                         class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
