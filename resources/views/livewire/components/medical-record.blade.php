@@ -11,6 +11,25 @@
         object-fit: cover;
     }
 
+    .btn-idanger {
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+        white-space: nowrap;
+        background: #ff7b0d;
+        color: #fff;
+        font-size: 22px;
+        font-weight: 400;
+        letter-spacing: -.01em;
+        padding: 5px;
+        margin-right: 9px;
+    }
+
+    .btn-idanger:hover, .btnSecond:active {
+        background: #ff7b0d;
+        color: #fff;
+    }
+
     @media only screen and (max-width: 390px) { 
         .data-medical {
             width: 185px !important;
@@ -594,7 +613,7 @@
                                             height="150" alt="Imagen del paciente" class="img-medical">
                                         </div>
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                            <strong>Nombre:</strong><span class="text-capitalize">
+                                            <strong>Nombre Completo:</strong><span class="text-capitalize">
                                                 {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                             <br>
                                             <strong>Fecha de Nacimiento:</strong><span>
@@ -751,8 +770,9 @@
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                 <div class="row mt-3">
                                                     <hr>
-                                                    <h5 class="text-center collapseBtn">Tratamiento</h5>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 ">
+                                                    <h5 style="margin-bottom: 17px;">Tratamiento</h5>
+                                                    <hr style="margin-bottom: 0;">
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -765,7 +785,7 @@
                                                             <span id="medicine_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -778,9 +798,7 @@
                                                             <span id="indication_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-
-
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="treatmentDuration" class="form-label"
@@ -812,8 +830,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div
-                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3 offset-md-5">
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3 offset-md-5">
                                                         <span type="" onclick="addMedacition(event)"
                                                             class="btn btn-outline-secondary" id="btn"
                                                             style="padding: 7px"><i class="bi bi-plus-lg"></i>Añadir
@@ -824,9 +841,6 @@
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
                                                         style="margin-top: 20px; width: 100%;">
-                                                        <hr>
-                                                        <h5>Lista de Tratamiento</h5>
-                                                        <hr>
                                                         <table class="table table-striped table-bordered"
                                                             id="table-medicamento">
                                                             <thead>
@@ -958,21 +972,19 @@
                                                                             </a>
                                                                         </div>
                                                                     @else
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
-                                                                            style="display: flex; align-items: center;
-                                                                        justify-content: center; margin-right: 9px">
-                                                                            <i class="bi bi-exclamation-circle"
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                data-bs-custom-class="custom-tooltip"
-                                                                                data-html="true"
-                                                                                title="No hay examenes cargados"
-                                                                                style="font-size: 23px; color: #ff7b0d"></i>
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                                <button type="button"
+                                                                                    class="refresf btn-idanger rounded-circle"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="bottom"
+                                                                                    data-bs-custom-class="custom-tooltip"
+                                                                                    data-html="true" title="No hay examenes cargados">
+                                                                                    <i class="bi bi-exclamation-lg"></i>
+                                                                                </button>
                                                                         </div>
                                                                     @endif
                                                                     @if ($item['data']['status_study'])
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <a
                                                                                 href="{{ route('mr_study', $item['patient_id']) }}">
                                                                                 <button type="button"
@@ -986,17 +998,16 @@
                                                                             </a>
                                                                         </div>
                                                                     @else
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
-                                                                            style="display: flex; align-items: center;
-                                                                        justify-content: center; margin-right: 9px">
-                                                                            <i class="bi bi-exclamation-circle"
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                data-bs-custom-class="custom-tooltip"
-                                                                                data-html="true"
-                                                                                title="No hay estudios cargados"
-                                                                                style="font-size: 23px; color: #ff7b0d"></i>
-                                                                        </div>
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <button type="button"
+                                                                            class="refresf btn-idanger rounded-circle"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom"
+                                                                            data-bs-custom-class="custom-tooltip"
+                                                                            data-html="true" title="No hay estudios cargados">
+                                                                            <i class="bi bi-exclamation-lg"></i>
+                                                                        </button>
+                                                                </div>
                                                                     @endif
                                                                     <div
                                                                         class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
