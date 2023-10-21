@@ -203,98 +203,104 @@
         }
 
         function refreshTable(datatable) {
-            let route = "{{ route('PDF_ref', ':id') }}";
-            route = route.replace(':id', datatable.id);
-            let get_exam = JSON.stringify(datatable.get_exam);
-            let get_studie = JSON.stringify(datatable.get_studie);
-            let elemetData = JSON.stringify(datatable);
-            datatable.btn =
-                `<button  onclick='showModal(${ elemetData },0,${ get_exam })'                         
+
+            let data = [];
+            
+            datatable.map((elem) => {
+                let route = "{{ route('PDF_ref', ':id') }}";
+                route = route.replace(':id', elem.id);
+                let get_exam = JSON.stringify(elem.get_exam);
+                let get_studie = JSON.stringify(elem.get_studie);
+                let elemetData = JSON.stringify(elem);
+                elem.btn =
+                    `<button  onclick='showModal(${ elemetData },0,${ get_exam })'                         
+                                    data-bs-toggle='tooltip' data-bs-placement='right'
+                                    data-bs-custom-class='custom-tooltip' data-html='true'
+                                    title='Ver examenes' type='button' class='btn btn-iPrimary rounded-circle'>
+                                    <i class='bi bi-info-circle-fill'></i>
+                                    </button>`;
+                elem.btn1 =
+                    `<button onclick='showModal(${ elemetData },1,${ get_studie } )' 
                                 data-bs-toggle='tooltip' data-bs-placement='right'
                                 data-bs-custom-class='custom-tooltip' data-html='true'
-                                title='Ver examenes' type='button' class='btn btn-iPrimary rounded-circle'>
+                                title='Ver estudios' type='button' class='btn btn-iPrimary rounded-circle'>
                                 <i class='bi bi-info-circle-fill'></i>
-                                </button>`;
-            datatable.btn1 =
-                `<button onclick='showModal(${ elemetData },1,${ get_studie } )' 
-                            data-bs-toggle='tooltip' data-bs-placement='right'
+                        </button>`;
+    
+                elem.btn2 =
+                    ` <a target='_blank' href='${route}'>
+                            <button type='button' data-bs-toggle='tooltip'
+                            data-bs-placement='right'
                             data-bs-custom-class='custom-tooltip' data-html='true'
-                            title='Ver estudios' type='button' class='btn btn-iPrimary rounded-circle'>
-                            <i class='bi bi-info-circle-fill'></i>
-                    </button>`;
-
-            datatable.btn2 =
-                ` <a target='_blank' href='${route}'>
-                        <button type='button' data-bs-toggle='tooltip'
-                        data-bs-placement='right'
-                        data-bs-custom-class='custom-tooltip' data-html='true'
-                        title='Ver pdf' class='btn refresf btn-iSecond rounded-circle'><i
-                        class='bi bi-file-earmark-pdf'></i></button>
-                        </a>`;
-
-            let data = [datatable];
+                            title='Ver pdf' class='btn refresf btn-iSecond rounded-circle'><i
+                            class='bi bi-file-earmark-pdf'></i></button>
+                            </a>`;
+    
+                data.push(elem);  
+               
+            });
 
             new DataTable('#table-ref', {
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
-                },
-                reponsive: true,
-                bDestroy: true,
-                data: data,
-                "searching": false,
-                "bLengthChange": false,
-                columns: [{
-                        data: 'date',
-                        title: 'Fecha',
-                        className: "text-center",
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
                     },
-                    {
-                        data: 'cod_ref',
-                        title: 'Referencia',
-                        className: "text-center",
-                    },
-                    {
-                        data: 'cod_medical_record',
-                        title: 'Referencia consulta medica',
-                        className: "text-center",
-                    },
-                    {
-                        data: 'get_patient.name',
-                        title: 'Nombre',
-                        className: "text-center text-capitalize",
-                    },
-                    {
-                        data: 'get_patient.ci',
-                        title: 'Cédula',
-                        className: "text-center",
-                    },
-                    {
-                        data: 'get_patient.genere',
-                        title: 'Género',
-                        className: "text-center text-capitalize",
-                    },
-                    {
-                        data: 'get_patient.phone',
-                        title: 'Teléfono',
-                        className: "text-center",
-                    },
-                    {
-                        data: 'btn',
-                        title: 'Examenes',
-                        className: "text-center",
-                    },
-                    {
-                        data: 'btn1',
-                        title: 'Estudios',
-                        className: "text-center",
-                    },
-                    {
-                        data: 'btn2',
-                        title: 'Acciones',
-                        className: "text-center",
-                    },
-                ],
-            });
+                    reponsive: true,
+                    bDestroy: true,
+                    data: data,
+                    "searching": false,
+                    "bLengthChange": false,
+                    columns: [{
+                            data: 'date',
+                            title: 'Fecha',
+                            className: "text-center",
+                        },
+                        {
+                            data: 'cod_ref',
+                            title: 'Referencia',
+                            className: "text-center",
+                        },
+                        {
+                            data: 'cod_medical_record',
+                            title: 'Referencia consulta medica',
+                            className: "text-center",
+                        },
+                        {
+                            data: 'get_patient.name',
+                            title: 'Nombre',
+                            className: "text-center text-capitalize",
+                        },
+                        {
+                            data: 'get_patient.ci',
+                            title: 'Cédula',
+                            className: "text-center",
+                        },
+                        {
+                            data: 'get_patient.genere',
+                            title: 'Género',
+                            className: "text-center text-capitalize",
+                        },
+                        {
+                            data: 'get_patient.phone',
+                            title: 'Teléfono',
+                            className: "text-center",
+                        },
+                        {
+                            data: 'btn',
+                            title: 'Examenes',
+                            className: "text-center",
+                        },
+                        {
+                            data: 'btn1',
+                            title: 'Estudios',
+                            className: "text-center",
+                        },
+                        {
+                            data: 'btn2',
+                            title: 'Acciones',
+                            className: "text-center",
+                        },
+                    ],
+                });
 
         }
 
