@@ -751,7 +751,7 @@
                                 <button class="accordion-button collapsed bg-1" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-card-list"></i> Examenes atendidos
+                                    <i class="bi bi-card-list"></i> Examenes cargados
                                 </button>
                             </span>
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
@@ -806,7 +806,7 @@
                                 <button class="accordion-button collapsed bg-1" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-card-list"></i> Estudios atendidos
+                                    <i class="bi bi-card-list"></i> Estudios cargados
                                 </button>
                             </span>
                             <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
@@ -897,7 +897,7 @@
                                     </table>
                                 </div>
 
-                                <div class="col-sm-7 md-7 lg-7 xl-7 xxl-7">
+                                <div class="col-sm-7 md-7 lg-7 xl-7 xxl-7" style="display: none">
                                     <div class="input-group flex-nowrap">
                                         <span class="input-group-text">Total resultados
                                         </span>
