@@ -19,8 +19,8 @@
                         <li>
                             <input onclick="handlerRadio({{$item}})" value="{{ $item->patient_code }}" class="form-check-input"
                                 type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label text-capitalize" for="flexRadioDefault2" style="font-size: 14px; margin-top: 9px;">
-                                {{ $item->patient_code . '- ' . $item->name . ' ' . $item->last_name }}
+                            <label class="form-check-label text-capitalize" for="flexRadioDefault2" style="font-size: 14px; margin-top: 9px; width: 87%;">
+                                {{ $item->patient_code . ' - ' . $item->name . ' ' . $item->last_name }}
                             </label>
                             <br>
                         </li>
