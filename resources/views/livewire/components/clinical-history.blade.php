@@ -618,7 +618,7 @@
                                          </div>
                                       
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                            <strong>Nombre:</strong><span class="text-capitalize">
+                                            <strong>Nombre Completo:</strong><span class="text-capitalize">
                                                 {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                             <br>
                                             <strong>Fecha de Nacimiento:</strong><span>
@@ -635,223 +635,6 @@
                                             <strong>Nº Historial:</strong><span>
                                                 {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
                                             </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{-- datos pricipales --}}
-                <div class="row mt-3">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                        <div class="accordion-item">
-                            <span class="accordion-header title" id="headingOne">
-                                <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-activity"></i> Examen Físico
-                                </button>
-                            </span>
-                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                                data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <div class="row">
-                                        <input type="hidden" name="history_vital_signs[]" id="history_vital_signs"
-                                            value="">
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Peso
-                                                        (Kg)</label>
-                                                    <input autocomplete="off"
-                                                        class="mask-input form-control @error('weight') is-invalid @enderror"
-                                                        id="weight" name="weight" type="text"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->weight : '' !!}">
-                                                    <i class="bi bi-file-earmark-medical st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Altura
-                                                        (Cm)</label>
-                                                    <input autocomplete="off"
-                                                        class="mask-input-height form-control @error('height') is-invalid @enderror"
-                                                        id="height" name="height" type="text"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->height : '' !!}">
-                                                    <i class="bi bi-rulers st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        @php
-                                            if ($validateHistory) {
-                                                $data = explode('/', $Patient->get_history->strain);
-                                            }
-                                        @endphp
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                            <label for="phone" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Presión
-                                                arterial (mmHg)</label>
-                                            <div class="input-group">
-                                                <input type="text" name="strain" id="strain"
-                                                    class="form-control  mask-input-two input-one" placeholder="Alta"
-                                                    aria-label="strain" value="{!! !empty($validateHistory) ? $data[0] : '' !!}">
-                                                <span class="input-group-text span-input">/</span>
-                                                <input type="text" name="strain_two" id="strain_two"
-                                                    class="form-control mask-input-two" placeholder="Baja"
-                                                    aria-label="strain" value="{!! !empty($validateHistory) ? $data[1] : '' !!}">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tempetura
-                                                        (°C)</label>
-                                                    <input autocomplete="off"
-                                                        class="mask-only-temperature form-control @error('temperature') is-invalid @enderror"
-                                                        id="temperature" name="temperature" type="text"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->temperature : '' !!}">
-                                                    <i class="bi bi-thermometer st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Respiraciones
-                                                        (por minuto)</label>
-                                                    <input autocomplete="off"
-                                                        class="mask-only-breaths form-control @error('breaths') is-invalid @enderror"
-                                                        id="breaths" name="breaths" type="text" maxlength="3"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->breaths : '' !!}">
-                                                    <i class="bi bi-lungs st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Pulso
-                                                        (Latidos por minuto)</label>
-                                                    <input autocomplete="off"
-                                                        class="mask-only-number form-control @error('pulse') is-invalid @enderror"
-                                                        id="pulse" name="pulse" type="text" maxlength="3"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->pulse : '' !!}">
-                                                    <i class="bi bi-heart-pulse st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Saturación
-                                                        (Nivel de saturación de oxígeno)</label>
-                                                    <input autocomplete="off"
-                                                        class="mask-input-por form-control @error('saturation') is-invalid @enderror"
-                                                        id="saturation" name="saturation" type="text"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->saturation : '' !!}">
-                                                    <i class="bi bi-lungs st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Condición
-                                                        general</label>
-                                                    <select name="condition" id="condition"
-                                                        placeholder="Seleccione"class="form-control"
-                                                        class="form-control combo-textbox-input">
-                                                        <option value="">Seleccione</option>
-                                                        @foreach ($get_condition as $item)
-                                                            <option value="{{ $item->description }}"
-                                                                {!! !empty($validateHistory) ? ($item->description === $validateHistory->condition ? 'selected' : '') : '' !!}>
-                                                                {{ $item->description }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <i class="bi bi-activity st-icon"></i>
-                                                    <span id="condition_span" class="text-danger"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Motivo
-                                                    de la consulta</label>
-                                                <textarea id="reason" name="reason" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->reason : '' !!}</textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
-                                            <div class="form-group">
-                                                <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Enfermedad
-                                                    Actual</label>
-                                                <textarea id="current_illness" name="current_illness" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->current_illness : '' !!}</textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                            <div class="form-group">
-                                                <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Estudios
-                                                    realizados</label>
-                                                <textarea id="applied_studies" name="applied_studies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->applied_studies : '' !!}</textarea>
-                                            </div>
-                                        </div>
-                                        @php
-                                            $count_vital_signs = 0;
-                                        @endphp
-                                        @foreach ($vital_sing as $item)
-                                            @php
-                                                if ($validateHistory) {
-                                                    $name = $item->name;
-                                                    $value = $Patient->get_history->$name;
-                                                    if ($value === '1') {
-                                                        $count_vital_signs++;
-                                                    }
-                                                }
-                                            @endphp
-                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                                <div class="floating-label-group">
-                                                    <div class="form-check" style="display: flex; ">
-                                                        <div style="margin-right: 30px;">
-                                                            <input onclick="handlerVitalSigns(event);" class="form-check"
-                                                                name="{{ $item->name }}" type="checkbox"
-                                                                id="{{ $item->name }}" value="{!! !empty($validateHistory) ? 1 : null !!}"
-                                                                {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
-                                                        </div>
-                                                        <div>
-                                                            <label style="font-size: 15px;" class="form-check-label"
-                                                                for="flexCheckDefault">
-                                                                {{ $item->text }}
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="row mt-3" style="display: none">
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text">Total Signos vitales
-                                                </span>
-                                                <input type="text" id="countVitalSigns" name="countVitalSigns"
-                                                    class="form-control" readonly value="{!! !empty($validateHistory) ? $count_vital_signs : '' !!}">
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1257,9 +1040,6 @@
                                         {{-- Tabla --}}
                                         <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5 table-responsive"
                                             style="margin-top: 20px; width: 100%;">
-                                            <hr>
-                                            <h5>Lista de alergias</h5>
-                                            <hr>
                                             <table class="table table-striped table-bordered" id="table-alergias">
                                                 <thead>
                                                     <tr>
@@ -1369,9 +1149,6 @@
                                         {{-- tabla --}}
                                         <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5 table-responsive"
                                             style="margin-top: 20px; width: 100%;">
-                                            <hr>
-                                            <h5>Lista de cirugías</h5>
-                                            <hr>
                                             <table class="table table-striped table-bordered" id="table-cirugia">
                                                 <thead>
                                                     <tr>
@@ -1433,6 +1210,223 @@
                         </div>
                     </div>
                 </div>
+                {{-- Examen fisico --}}
+                <div class="row mt-3">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                        <div class="accordion-item">
+                            <span class="accordion-header title" id="headingOne">
+                                <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-activity"></i> Examen Físico
+                                </button>
+                            </span>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                                data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <input type="hidden" name="history_vital_signs[]" id="history_vital_signs"
+                                            value="">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Peso
+                                                        (Kg)</label>
+                                                    <input autocomplete="off"
+                                                        class="mask-input form-control @error('weight') is-invalid @enderror"
+                                                        id="weight" name="weight" type="text"
+                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->weight : '' !!}">
+                                                    <i class="bi bi-file-earmark-medical st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Altura
+                                                        (Cm)</label>
+                                                    <input autocomplete="off"
+                                                        class="mask-input-height form-control @error('height') is-invalid @enderror"
+                                                        id="height" name="height" type="text"
+                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->height : '' !!}">
+                                                    <i class="bi bi-rulers st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        @php
+                                            if ($validateHistory) {
+                                                $data = explode('/', $Patient->get_history->strain);
+                                            }
+                                        @endphp
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <label for="phone" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Presión
+                                                arterial (mmHg)</label>
+                                            <div class="input-group">
+                                                <input type="text" name="strain" id="strain"
+                                                    class="form-control  mask-input-two input-one" placeholder="Alta"
+                                                    aria-label="strain" value="{!! !empty($validateHistory) ? $data[0] : '' !!}">
+                                                <span class="input-group-text span-input">/</span>
+                                                <input type="text" name="strain_two" id="strain_two"
+                                                    class="form-control mask-input-two" placeholder="Baja"
+                                                    aria-label="strain" value="{!! !empty($validateHistory) ? $data[1] : '' !!}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tempetura
+                                                        (°C)</label>
+                                                    <input autocomplete="off"
+                                                        class="mask-only-temperature form-control @error('temperature') is-invalid @enderror"
+                                                        id="temperature" name="temperature" type="text"
+                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->temperature : '' !!}">
+                                                    <i class="bi bi-thermometer st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Respiraciones
+                                                        (por minuto)</label>
+                                                    <input autocomplete="off"
+                                                        class="mask-only-breaths form-control @error('breaths') is-invalid @enderror"
+                                                        id="breaths" name="breaths" type="text" maxlength="3"
+                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->breaths : '' !!}">
+                                                    <i class="bi bi-lungs st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Pulso
+                                                        (Latidos por minuto)</label>
+                                                    <input autocomplete="off"
+                                                        class="mask-only-number form-control @error('pulse') is-invalid @enderror"
+                                                        id="pulse" name="pulse" type="text" maxlength="3"
+                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->pulse : '' !!}">
+                                                    <i class="bi bi-heart-pulse st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Saturación
+                                                        (%)</label>
+                                                    <input autocomplete="off"
+                                                        class="mask-input-por form-control @error('saturation') is-invalid @enderror"
+                                                        id="saturation" name="saturation" type="text"
+                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->saturation : '' !!}">
+                                                    <i class="bi bi-lungs st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Condición
+                                                        general</label>
+                                                    <select name="condition" id="condition"
+                                                        placeholder="Seleccione"class="form-control"
+                                                        class="form-control combo-textbox-input">
+                                                        <option value="">Seleccione</option>
+                                                        @foreach ($get_condition as $item)
+                                                            <option value="{{ $item->description }}"
+                                                                {!! !empty($validateHistory) ? ($item->description === $validateHistory->condition ? 'selected' : '') : '' !!}>
+                                                                {{ $item->description }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <i class="bi bi-activity st-icon"></i>
+                                                    <span id="condition_span" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                            <div class="form-group">
+                                                <label for="phone" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Motivo
+                                                    de la consulta</label>
+                                                <textarea id="reason" name="reason" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->reason : '' !!}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                            <div class="form-group">
+                                                <label for="phone" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Enfermedad
+                                                    Actual</label>
+                                                <textarea id="current_illness" name="current_illness" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->current_illness : '' !!}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            <div class="form-group">
+                                                <label for="phone" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Estudios
+                                                    realizados</label>
+                                                <textarea id="applied_studies" name="applied_studies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->applied_studies : '' !!}</textarea>
+                                            </div>
+                                        </div>
+                                        @php
+                                            $count_vital_signs = 0;
+                                        @endphp
+                                        @foreach ($vital_sing as $item)
+                                            @php
+                                                if ($validateHistory) {
+                                                    $name = $item->name;
+                                                    $value = $Patient->get_history->$name;
+                                                    if ($value === '1') {
+                                                        $count_vital_signs++;
+                                                    }
+                                                }
+                                            @endphp
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                <div class="floating-label-group">
+                                                    <div class="form-check" style="display: flex; ">
+                                                        <div style="margin-right: 30px;">
+                                                            <input onclick="handlerVitalSigns(event);" class="form-check"
+                                                                name="{{ $item->name }}" type="checkbox"
+                                                                id="{{ $item->name }}" value="{!! !empty($validateHistory) ? 1 : null !!}"
+                                                                {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
+                                                        </div>
+                                                        <div>
+                                                            <label style="font-size: 15px;" class="form-check-label"
+                                                                for="flexCheckDefault">
+                                                                {{ $item->text }}
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <div class="row mt-3" style="display: none">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                            <div class="input-group flex-nowrap">
+                                                <span class="input-group-text">Total Signos vitales
+                                                </span>
+                                                <input type="text" id="countVitalSigns" name="countVitalSigns"
+                                                    class="form-control" readonly value="{!! !empty($validateHistory) ? $count_vital_signs : '' !!}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {{-- Medicacion --}}
                 <div class="row mt-3">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
@@ -1447,11 +1441,11 @@
                             <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row mt-3">
+                                    <div class="row">
                                         <hr>
                                         <h5 class="collapseBtn" style="margin-bottom: 17px">Añadir Medicamento</h5>
-                                        <hr>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                        <hr style="margin-bottom: 0;">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1554,9 +1548,6 @@
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
                                             style="margin-top: 20px; width: 100%;">
-                                            <hr>
-                                            <h5>Lista de medicamentos</h5>
-                                            <hr>
                                             <table class="table table-striped table-bordered" id="table-medicamento">
                                                 <thead>
                                                     <tr>
@@ -1581,18 +1572,18 @@
                                                             @foreach ($medications_supplements as $key => $item)
                                                                 <tr id="{{ $key }}">
                                                                     <td class="text-center">{{ $item['dose'] }}</td>
-                                                                    <td class="text-center"> {{ $item['medicine'] }}
+                                                                    <td class="text-center" class="text-capitalize"> {{ $item['medicine'] }}
                                                                     </td>
                                                                     <td class="text-center"> {{ $item['patologi'] }}
                                                                     </td>
                                                                     <td class="text-center"> {{ $item['viaAdmin'] }}
                                                                     </td>
                                                                     <td class="text-center">
-                                                                        {{ $item['dateEndTreatment'] }}</td>
+                                                                        {{ $item['treatmentDuration'] }}</td>
                                                                     <td class="text-center">
                                                                         {{ $item['dateIniTreatment'] }}</td>
                                                                     <td class="text-center">
-                                                                        {{ $item['treatmentDuration'] }}</td>
+                                                                        {{ $item['dateEndTreatment'] }}</td>
                                                                     <td class="text-center"><span
                                                                             onclick="deleteMedication({{ $key }})"><i
                                                                                 class="bi bi-archive"></i></span> </td>
