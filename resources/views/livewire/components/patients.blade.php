@@ -29,6 +29,7 @@
         width: 45px !important;
         height: 45px !important;
         border: 2px solid #44525f;
+        object-fit: cover;
     }
 
     .table-avatar {
@@ -1104,7 +1105,7 @@
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3"
                                         style="font-size: 14px;">
                                         <div>
-                                            <strong>Nombre: </strong><span class="text-capitalize" id="name-pat"></span>
+                                            <strong><span class="text-capitalize" id="name-pat"></span></strong>
                                             <br>
                                             <strong>Cédula: </strong><span id="ci-pat"></span>
                                             <br>
