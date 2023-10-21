@@ -2,17 +2,15 @@
 @section('title', 'Tablero')
 @vite(['resources/js/graphicCountAll.js', 'resources/js/dairy.js'])
 <style>
-
-.mt-gf {
-        margin-top: 3rem !important;
-    } 
-
-@media screen and (max-width: 576px) {
     .mt-gf {
-        margin-top: 0 !important;
-    } 
-}
+        margin-top: 3rem !important;
+    }
 
+    @media screen and (max-width: 576px) {
+        .mt-gf {
+            margin-top: 0 !important;
+        }
+    }
 </style>
 @push('scripts')
     <script>
@@ -203,36 +201,42 @@
         }
 
         function refreshTable(datatable) {
-            let route = "{{ route('PDF_ref', ':id') }}";
-            route = route.replace(':id', datatable.id);
-            let get_exam = JSON.stringify(datatable.get_exam);
-            let get_studie = JSON.stringify(datatable.get_studie);
-            let elemetData = JSON.stringify(datatable);
-            datatable.btn =
-                `<button  onclick='showModal(${ elemetData },0,${ get_exam })'                         
+
+            let data = [];
+
+            datatable.map((elem) => {
+                let route = "{{ route('PDF_ref', ':id') }}";
+                route = route.replace(':id', elem.id);
+                let get_exam = JSON.stringify(elem.get_exam);
+                let get_studie = JSON.stringify(elem.get_studie);
+                let elemetData = JSON.stringify(elem);
+                elem.btn =
+                    `<button  onclick='showModal(${ elemetData },0,${ get_exam })'                         
+                                    data-bs-toggle='tooltip' data-bs-placement='right'
+                                    data-bs-custom-class='custom-tooltip' data-html='true'
+                                    title='Ver examenes' type='button' class='btn btn-iPrimary rounded-circle'>
+                                    <i class='bi bi-info-circle-fill'></i>
+                                    </button>`;
+                elem.btn1 =
+                    `<button onclick='showModal(${ elemetData },1,${ get_studie } )' 
                                 data-bs-toggle='tooltip' data-bs-placement='right'
                                 data-bs-custom-class='custom-tooltip' data-html='true'
-                                title='Ver examenes' type='button' class='btn btn-iPrimary rounded-circle'>
+                                title='Ver estudios' type='button' class='btn btn-iPrimary rounded-circle'>
                                 <i class='bi bi-info-circle-fill'></i>
-                                </button>`;
-            datatable.btn1 =
-                `<button onclick='showModal(${ elemetData },1,${ get_studie } )' 
-                            data-bs-toggle='tooltip' data-bs-placement='right'
+                        </button>`;
+
+                elem.btn2 =
+                    ` <a target='_blank' href='${route}'>
+                            <button type='button' data-bs-toggle='tooltip'
+                            data-bs-placement='right'
                             data-bs-custom-class='custom-tooltip' data-html='true'
-                            title='Ver estudios' type='button' class='btn btn-iPrimary rounded-circle'>
-                            <i class='bi bi-info-circle-fill'></i>
-                    </button>`;
+                            title='Ver pdf' class='btn refresf btn-iSecond rounded-circle'><i
+                            class='bi bi-file-earmark-pdf'></i></button>
+                            </a>`;
 
-            datatable.btn2 =
-                ` <a target='_blank' href='${route}'>
-                        <button type='button' data-bs-toggle='tooltip'
-                        data-bs-placement='right'
-                        data-bs-custom-class='custom-tooltip' data-html='true'
-                        title='Ver pdf' class='btn refresf btn-iSecond rounded-circle'><i
-                        class='bi bi-file-earmark-pdf'></i></button>
-                        </a>`;
+                data.push(elem);
 
-            let data = [datatable];
+            });
 
             new DataTable('#table-ref', {
                 language: {
@@ -308,7 +312,7 @@
         }
 
         function searchPerson() {
-            if ($('#search_person').val() != '') {         
+            if ($('#search_person').val() != '') {
 
                 let route = '{{ route('search_person', [':value', ':row']) }}';
                 route = route.replace(':value', $('#search_person').val());
@@ -320,6 +324,17 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
+                        if (response.length===0) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'No existe referencias para este documento de identidad!',
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: 'Aceptar'
+                            })
+                            $("#content-table-ref").hide();
+                            return false;
+                        }
                         Swal.fire({
                             icon: 'success',
                             title: 'Operación exitosa!',
@@ -580,7 +595,8 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" style="margin-top: 20px; margin-bottom: 20px">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd"
+                        style="margin-top: 20px; margin-bottom: 20px">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
@@ -741,7 +757,8 @@
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px:">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                        style="margin-top: 20px:">
                                         <table id="table-ref-examenes" class="table table-striped table-bordered"
                                             style="width:100%">
                                             <thead>
@@ -762,12 +779,15 @@
                                                         <td class="text-center"> {{ $item['date_ref'] }}</td>
                                                         <td class="text-center"> {{ $item['cod_ref'] }}</td>
                                                         <td class="text-center"> {{ $item['cod_exam'] }}</td>
-                                                        <td class="text-center text-capitalize"> {{ $item['description'] }}</td>
+                                                        <td class="text-center text-capitalize">
+                                                            {{ $item['description'] }}</td>
                                                         <td class="text-center"> {{ $item['date_upload_res'] }}</td>
-                                                        <td class="text-center text-capitalize"> {{ $item['patient_info']['full_name'] }}
+                                                        <td class="text-center text-capitalize">
+                                                            {{ $item['patient_info']['full_name'] }}
                                                         </td>
                                                         <td class="text-center"> {{ $item['patient_info']['ci'] }}</td>
-                                                        <td class="text-center text-capitalize"> {{ $item['patient_info']['genere'] }}
+                                                        <td class="text-center text-capitalize">
+                                                            {{ $item['patient_info']['genere'] }}
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -779,7 +799,8 @@
                         </div>
                     </div>
                     {{-- Estudios atendidos --}}
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" style="margin-top: 20px; margin-bottom: 20px">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd"
+                        style="margin-top: 20px; margin-bottom: 20px">
                         <div class="accordion-item accordion-dashboard">
                             <span class="accordion-header title" id="headingFour">
                                 <button class="accordion-button collapsed bg-1" type="button" data-bs-toggle="collapse"
@@ -791,7 +812,8 @@
                             <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px:">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                        style="margin-top: 20px:">
                                         <table id="table-ref-estudios" class="table table-striped table-bordered"
                                             style="width:100%">
                                             <thead>
@@ -812,19 +834,22 @@
                                                         <td class="text-center"> {{ $item['date_ref'] }}</td>
                                                         <td class="text-center"> {{ $item['cod_ref'] }}</td>
                                                         <td class="text-center"> {{ $item['cod_study'] }}</td>
-                                                        <td class="text-center text-capitalize"> {{ $item['description'] }}</td>
+                                                        <td class="text-center text-capitalize">
+                                                            {{ $item['description'] }}</td>
                                                         <td class="text-center"> {{ $item['date_upload_res'] }}</td>
-                                                        <td class="text-center text-capitalize"> {{ $item['patient_info']['full_name'] }}
+                                                        <td class="text-center text-capitalize">
+                                                            {{ $item['patient_info']['full_name'] }}
                                                         </td>
                                                         <td class="text-center"> {{ $item['patient_info']['ci'] }}</td>
-                                                        <td class="text-center text-capitalize"> {{ $item['patient_info']['genere'] }}
+                                                        <td class="text-center text-capitalize">
+                                                            {{ $item['patient_info']['genere'] }}
                                                         </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
-                                
-                                
+
+
                                     </div>
                                 </div>
                             </div>
@@ -847,7 +872,7 @@
                         <span style="padding-left: 5px">Carga de resultados</span>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                             style="font-size: 12px;"></button>
-                    </div>  
+                    </div>
                     <div class="modal-body">
                         <form id="form-load-img" method="post" action="/">
                             {{ csrf_field() }}

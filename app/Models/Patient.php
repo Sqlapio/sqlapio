@@ -92,4 +92,9 @@ class Patient extends Model
     {
         return $this->hasMany(Study::class, 'patient_id', 'id');
     }
+
+    public function get_referencia(): HasMany
+    {
+        return $this->hasMany(Reference::class, 'patient_id', 'id');
+    }
 }
