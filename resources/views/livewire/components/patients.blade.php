@@ -618,6 +618,29 @@
                 });
             }
         }
+
+        $(function(){
+            var dtToday = new Date();
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+            if(month < 10)
+                month = '0' + month.toString();
+            if(day < 10)
+                day = '0' + day.toString();
+            var minDate= year + '-' + month + '-' + day;
+            $('.date-diary').attr('min', minDate);
+        })
+
+        $(document).ready(function () {
+            var today = new Date();
+            var day=today.getDate()>9?today.getDate():"0"+today.getDate(); // format should be "DD" not "D" e.g 09
+            var month=(today.getMonth()+1)>9?(today.getMonth()+1):"0"+(today.getMonth()+1);
+            var year=today.getFullYear();
+
+            $(".date-bd").attr('max', year + "-" + month + "-" + day);
+        });
+
     </script>
 @endpush
 @section('content')
@@ -746,7 +769,7 @@
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha
                                                             de
                                                             Nacimiento</label>
-                                                        <input class="form-control " id="birthdate" name="birthdate"
+                                                        <input class="form-control date-bd" id="birthdate" name="birthdate"
                                                             type="date" value=""
                                                             onchange="calculateAge(event,'age'), handlerAge(event)">
                                                     </div>
@@ -1129,7 +1152,7 @@
                                             <div class="Icon-inside">
                                                 <label for="date" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha</label>
-                                                <input class="form-control" id="date_start" name="date_start"
+                                                <input class="form-control date-diary" id="date_start" name="date_start"
                                                     type="date" value="">
                                             </div>
                                         </div>

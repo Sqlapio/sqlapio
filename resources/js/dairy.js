@@ -324,8 +324,13 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
       $('#exampleModal').modal('show');
     },
     dateClick: function (info) {
-      clearInput(info.dateStr);
-      $('#exampleModal').modal('show');
+      let dateString = getDateWithoutTime(new Date()).toISOString().substring(0,10);
+      if (info.dateStr >= dateString === false)
+          return (info.start >= getDateWithoutTime(new Date()));
+      else {
+          clearInput(info.dateStr);
+          $('#exampleModal').modal('show');
+      }
     },
     eventChange(info) {
       let data = {
@@ -571,3 +576,9 @@ window.searchPatients = searchPatients;
 window.handlerPrice = handlerPrice;
 window.handlerTime = handlerTime;
 window.getUrl = getUrl;
+
+function getDateWithoutTime(dt)
+{
+  dt.setHours(0,0,0,0);
+  return dt;
+}
