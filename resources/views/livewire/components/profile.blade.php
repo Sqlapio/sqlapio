@@ -351,6 +351,15 @@
                 })
             }
         }
+
+        $(document).ready(function () {
+            var today = new Date();
+            var day=today.getDate()>9?today.getDate():"0"+today.getDate(); // format should be "DD" not "D" e.g 09
+            var month=(today.getMonth()+1)>9?(today.getMonth()+1):"0"+(today.getMonth()+1);
+            var year=today.getFullYear();
+
+            $(".date-bd").attr('max', year + "-" + month + "-" + day);
+        });
     </script>
 @endpush
 @section('content')
@@ -432,7 +441,7 @@
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha
                                                         de Nacimiento</label>
                                                     <input autocomplete="off" placeholder=""
-                                                        class="form-control @error('birthdate') is-invalid @enderror"
+                                                        class="form-control date-bd @error('birthdate') is-invalid @enderror"
                                                         id="birthdate" name="birthdate" type="date" value=""
                                                         onchange="calculateAge(event,'age')">
                                                 </div>
@@ -694,8 +703,8 @@
                                                 style="display: flex; justify-content: flex-end; align-items: flex-end;">
                                                 <input class="btn btnSave send " value="Guardar" type="submit"
                                                     style="margin-left: 20px" />
-                                                <button type="button" class="btn btnSecond btn6"
-                                                    style="margin-left: 20px">Cancelar</button>
+                                                {{-- <button type="button" class="btn btnSecond btn6"
+                                                    style="margin-left: 20px">Cancelar</button> --}}
                                             </div>
                                             <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                 <div id="spinner" style="display: none">
