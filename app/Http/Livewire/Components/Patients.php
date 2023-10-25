@@ -349,11 +349,12 @@ class Patients extends Component
                  * en nuestro sistema
                  */
                 $type = 'patient';
-                $center_info = Center::where('id', $request->center_id)->first();
+                $center_name = Center::where('id', $request->center_id)->first();
+                $center_info = DoctorCenter::where('center_id', $request->center_id)->first();
                 $user = Auth::user();
                 $mailData = [
                     'dr_name' => $user->name . ' ' . $user->last_name,
-                    'center' => $center_info->description,
+                    'center' => $center_name->description,
                     'center_piso' => $center_info->number_floor,
                     'center_consulting_room' => $center_info->number_consulting_room,
                     'center_phone' => $center_info->phone_consulting_room,

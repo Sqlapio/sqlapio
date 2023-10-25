@@ -20,7 +20,7 @@
             </p>
     
             <p style="text-align: justify; margin-left: 20px;">
-                Su registro de realizó de forma exitosa:
+                Su registro se realizó de forma exitosa:
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
