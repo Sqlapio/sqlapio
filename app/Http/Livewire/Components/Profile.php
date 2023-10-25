@@ -7,6 +7,7 @@ use App\Http\Controllers\UtilsController;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Laboratory;
+use App\Models\Specialty;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -177,6 +178,7 @@ class Profile extends Component
     {
         $user = Auth::user();
         $laboratory = $user->get_laboratorio;  
-        return view('livewire.components.profile', compact('user','laboratory'));
+        $speciality = Specialty::all();
+        return view('livewire.components.profile', compact('user','laboratory','speciality'));
     }
 }

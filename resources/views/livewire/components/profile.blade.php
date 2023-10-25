@@ -59,6 +59,9 @@
                     },
                     cod_mpps: {
                         required: true,
+                    },
+                    specialty:{
+                        required: true,
                     }
                 },
                 messages: {
@@ -125,6 +128,9 @@
                     },
                     cod_mpps: {
                         required: "MPPS es obligatorio"
+                    },
+                    specialty:{
+                        required: "Especialidad es obligatoria"
                     }
                 },
 
@@ -143,6 +149,9 @@
                 $('#state').val(user.state).change();
                 $('#city').val(user.city).change();
                 $('#address').val(user.address).change();
+                $('#genere').val(user.genere).change();
+                $('#specialty').val(user.specialty).change();
+
 
             } else {
 
@@ -242,7 +251,7 @@
 
         function handlerEmial() {
             if ($('#act-email').val() != "" && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($('#act-email')
-            .val())) {
+                    .val())) {
                 Swal.fire({
                     title: 'Esta seguro de realizar esta acción?',
                     text: "Se enviara un código de verifcación al correo ingresado!",
@@ -352,11 +361,12 @@
             }
         }
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             var today = new Date();
-            var day=today.getDate()>9?today.getDate():"0"+today.getDate(); // format should be "DD" not "D" e.g 09
-            var month=(today.getMonth()+1)>9?(today.getMonth()+1):"0"+(today.getMonth()+1);
-            var year=today.getFullYear();
+            var day = today.getDate() > 9 ? today.getDate() : "0" + today
+        .getDate(); // format should be "DD" not "D" e.g 09
+            var month = (today.getMonth() + 1) > 9 ? (today.getMonth() + 1) : "0" + (today.getMonth() + 1);
+            var year = today.getFullYear();
 
             $(".date-bd").attr('max', year + "-" + month + "-" + day);
         });
@@ -451,6 +461,23 @@
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
+                                                        <label for="genere" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Género</label>
+                                                        <select name="genere" id="genere"
+                                                            placeholder="Seleccione"class="form-control @error('genere') is-invalid @enderror"
+                                                            class="form-control combo-textbox-input">
+                                                            <option value="">Seleccione</option>
+                                                            <option value="femenino"> Femenino</option>
+                                                            <option value="masculino">Masculino</option>
+                                                        </select>
+                                                        <i class="bi bi-gender-ambiguous st-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
                                                         <label for="username" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
                                                             electrónico</label>
@@ -475,6 +502,25 @@
                                                         <i class="bi bi-telephone-forward" style="top: 30px"></i>
                                                     </div>
                                                 </diV>
+                                            </div>
+
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="specialty" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Especialidad</label>
+                                                        <select name="specialty" id="specialty"
+                                                            placeholder="Seleccione"class="form-control @error('specialty') is-invalid @enderror"
+                                                            class="form-control combo-textbox-input">
+                                                            <option value="">Seleccione</option>
+                                                            @foreach ($speciality as $item)
+                                                                <option value="{{$item->description}}">{{$item->description}}</option>
+                                                            @endforeach
+                                                           
+                                                        </select>
+                                                        <i class="bi bi-layers st-icon"></i>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
