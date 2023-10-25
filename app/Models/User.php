@@ -45,6 +45,7 @@ class User extends Authenticatable {
 		'birthdate',
 		'age',
 		'genere',
+		'specialty',
 		'phone',
 		'state',
 		'city',
