@@ -106,6 +106,8 @@ Route::middleware(['auth','verify_email'])->group(function () {
             Route::get('/suscription', [Suscription::class, 'render'])->name('Suscription');
             Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp');
             Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp');
+            Route::post('/create-seal', [Profile::class, 'create_seal'])->name('create_seal');
+
         });
 
         // ruoter para ver examenes y estudios

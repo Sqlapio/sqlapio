@@ -60,7 +60,7 @@
                     cod_mpps: {
                         required: true,
                     },
-                    specialty:{
+                    specialty: {
                         required: true,
                     }
                 },
@@ -129,7 +129,7 @@
                     cod_mpps: {
                         required: "MPPS es obligatorio"
                     },
-                    specialty:{
+                    specialty: {
                         required: "Especialidad es obligatoria"
                     }
                 },
@@ -140,6 +140,19 @@
                 var pattern = /^\d+\.?\d*$/;
                 return pattern.test(value);
             }, "Campo solo numero");
+
+            $('#form-seal').validate({
+                rules: {
+                    seal: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    seal: {
+                        required: "campo es obligatorio",
+                    }
+                }
+            });
 
             let img;
             let user = @json($user);
@@ -232,6 +245,46 @@
                             }).then((result) => {
                                 window.location.href =
                                     "{{ route('DashboardComponent') }}";
+                            });
+                        },
+                        error: function(error) {
+                            $('#send').show();
+                            $('#spinner').hide();
+                            console.log(error.responseJSON.errors);
+
+                        }
+                    });
+                }
+            });
+
+             //envio del formulario para la firma digital
+             $("#form-seal").submit(function(event) {
+                event.preventDefault();
+                $("#form-seal").validate();
+                if ($("#form-seal").valid()) {
+                    $('#send').hide();
+                    $('#spinner').show();
+                    var data = $('#form-seal').serialize();
+                    $.ajax({
+                        url: '{{ route('create_seal') }}',
+                        type: 'POST',
+                        data: data,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            $('#send').show();
+                            $('#spinner').hide();
+                            $("#form-seal").trigger("reset");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Operacion exitosa!',
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                // window.location.href =
+                                //     "{{ route('DashboardComponent') }}";
                             });
                         },
                         error: function(error) {
@@ -364,7 +417,7 @@
         $(document).ready(function() {
             var today = new Date();
             var day = today.getDate() > 9 ? today.getDate() : "0" + today
-        .getDate(); // format should be "DD" not "D" e.g 09
+                .getDate(); // format should be "DD" not "D" e.g 09
             var month = (today.getMonth() + 1) > 9 ? (today.getMonth() + 1) : "0" + (today.getMonth() + 1);
             var year = today.getFullYear();
 
@@ -514,9 +567,10 @@
                                                             class="form-control combo-textbox-input">
                                                             <option value="">Seleccione</option>
                                                             @foreach ($speciality as $item)
-                                                                <option value="{{$item->description}}">{{$item->description}}</option>
+                                                                <option value="{{ $item->description }}">
+                                                                    {{ $item->description }}</option>
                                                             @endforeach
-                                                           
+
                                                         </select>
                                                         <i class="bi bi-layers st-icon"></i>
                                                     </div>
@@ -767,72 +821,77 @@
             </div>
 
             @if ($user->email_verified_at !== null)
-            {{-- actualizacion de correo Electronico --}}
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                    <div class="accordion-item ">
-                        <span class="accordion-header title" id="headingTwo">
-                            <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
-                                style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                <i class="bi bi-envelope-at st-icon"></i> Actualización de Correo Electrónico
-                            </button>
-                        </span>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                            data-bs-parent="#accordion">
-                            <div class="accordion-body">
-                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" id="email-div">
-                                    <div class="form-group">
-                                        <div class="Icon-inside">
-                                            <label for="phone" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nuevo Correo
-                                                Electrónico</label>
-                                            <input autocomplete="off" class="form-control alpha-no-spaces" id="act-email"
-                                                name="act-email" type="text" value="">
-                                            <i class="bi bi-envelope-at st-icon"></i>
+                {{-- actualizacion de correo Electronico --}}
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                        <div class="accordion-item ">
+                            <span class="accordion-header title" id="headingTwo">
+                                <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-envelope-at st-icon"></i> Actualización de Correo Electrónico
+                                </button>
+                            </span>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" id="email-div">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <label for="phone" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nuevo
+                                                    Correo
+                                                    Electrónico</label>
+                                                <input autocomplete="off" class="form-control alpha-no-spaces"
+                                                    id="act-email" name="act-email" type="text" value="">
+                                                <i class="bi bi-envelope-at st-icon"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3 justify-content-md-end">
+                                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                            style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                            <input class="btn btnSave send " onclick="handlerEmial()" value="Guardar"
+                                                type="submit" style="margin-left: 20px" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mt-3 justify-content-md-end">
-                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                        style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                        <input class="btn btnSave send " onclick="handlerEmial()" value="Guardar"
-                                            type="submit" style="margin-left: 20px" />
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
-            {{-- firma Digital --}}
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd" style="margin-top: 20px; ">
-                    <div class="accordion-item">
-                        <span class="accordion-header title" id="headingThree">
-                            <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
-                                style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                <i class="bi bi-file-earmark-text"></i> Firma Digital
-                            </button>
-                        </span>
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                            data-bs-parent="#accordion">
-                            <div class="accordion-body">
-                                <x-upload-image />
-                                <div class="row mt-3 justify-content-md-end">
-                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                        style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                        <input class="btn btnSave send" value="Guardar" type="submit"
-                                            style="margin-left: 20px" />
-                                    </div>
+                </div>
+                {{-- firma Digital --}}
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd" style="margin-top: 20px; ">
+                        <div class="accordion-item">
+                            <span class="accordion-header title" id="headingThree">
+                                <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-file-earmark-text"></i> Sello Digital
+                                </button>
+                            </span>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    <form id="form-seal" method="post" action="/">
+                                        {{ csrf_field() }}
+                                        <x-seal-component />
+                                        <div class="row mt-3 justify-content-md-end">
+                                            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                                <input class="btn btnSave send" value="Guardar" type="submit"
+                                                    style="margin-left: 20px" />
+                                            </div>
+                                        </div>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             @endif
         </div>
     </div>
