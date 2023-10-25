@@ -327,6 +327,13 @@
                                 </div>
                                 {{ Form::open(['url' => 'register', 'method' => 'post', 'id' => 'form-register']) }}
                                 {{ csrf_field() }}
+                                @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    @foreach ($errors->all() as $message)
+                                        <span class="text-danger error-span"> {{ $message }}</span><br />
+                                    @endforeach
+                                </div>
+                            @endif
                                 <div class="row">
                                     <div id="name-input" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                         <div class="form-group">
