@@ -765,6 +765,8 @@
                     </div>
                 </div>
             </div>
+
+            @if ($user->email_verified_at !== null)
             {{-- actualizacion de correo Electronico --}}
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
@@ -831,6 +833,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 @endsection
