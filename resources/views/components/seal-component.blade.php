@@ -55,7 +55,7 @@
         </div>
         <div class="{{ $class_one }}">
             <div class="holder_seal" style="display: none">
-                <img width="100" height="100" id="seal_img_preview" src="#" alt="pic" style="border-radius: 9%; object-fit: cover;" />
+                <img width="200" height="200" id="seal_img_preview" src="#" alt="pic" style="border-radius: 9%; object-fit: cover;" />
             </div>
         </div>
     </div>
