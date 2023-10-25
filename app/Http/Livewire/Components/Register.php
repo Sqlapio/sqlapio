@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -56,10 +57,11 @@ class Register extends Component {
 			$validator = Validator::make($request->all(), $rules, $msj);
 	
 			if ($validator->fails()) {
-				return response()->json([
-					'success' => 'false',
-					'errors'  => $validator->errors()->all()
-				], 400);
+				// return response()->json([
+				// 	'success' => 'false',
+				// 	'errors'  => $validator->errors()->all()
+				// ], 400);
+				return Redirect::to('/')->withErrors($validator);
 			}
 
 			try {
