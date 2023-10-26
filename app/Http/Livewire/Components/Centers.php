@@ -87,6 +87,8 @@ class Centers extends Component
                         'dr_email' => $user->email,
                         'center_name' => $centers->description,
                         'center_address' => $doctor_centers->address,
+                        'center_floor' => $doctor_centers->number_floor,
+                        'center_consulting_room' => $doctor_centers->number_consulting_room,
                         'center_phone' => $doctor_centers->phone_consulting_room,
                     ];
 
