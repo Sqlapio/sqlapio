@@ -159,6 +159,8 @@ class UtilsController extends Controller
 					'last_name' => $request->last_name,
 					'ci' 		=> $request->ci,
 					'birthdate' => $request->birthdate,
+					'genere' => $request->genere,
+					'specialty' => $request->specialty,
 					'age' 		=> $request->age,
 					'phone' 	=> $request->phone,
 					'state' 	=> $request->state,

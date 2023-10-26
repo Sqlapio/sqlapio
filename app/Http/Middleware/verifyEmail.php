@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Specialty;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,9 @@ class verifyEmail
             if ($request->path() !=='logout'&&$request->path() !=='/' && auth()->user() && auth()->user()->email_verified_at === null) {
                 $user = Auth::user();
                 $laboratory = ($user) ? $user->get_laboratorio : [];
-                return response()->view('livewire.components.profile', compact('user', 'laboratory'));
+                $speciality = Specialty::all();
+
+                return response()->view('livewire.components.profile', compact('user', 'laboratory','speciality'));
             } else {
                 return $next($request);
             }

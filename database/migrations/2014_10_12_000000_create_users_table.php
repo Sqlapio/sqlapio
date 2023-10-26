@@ -39,7 +39,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('zip_code')->nullable();
             $table->string('user_img')->nullable();
-            $table->string('digital_signature')->nullable();
+            $table->string('digital_cello')->nullable();
             $table->string('cod_mpps')->nullable();
             /**
              * Campos para contar
