@@ -155,15 +155,25 @@
             });
 
             let img;
+            let seal_img;
             let user = @json($user);
             if (user.role == 'medico') {
                 img = user.user_img;
+                seal_img = user.digital_signature;
+
                 $('#birthdate').val(user.birthdate).change();
                 $('#state').val(user.state).change();
                 $('#city').val(user.city).change();
                 $('#address').val(user.address).change();
                 $('#genere').val(user.genere).change();
                 $('#specialty').val(user.specialty).change();
+                if (seal_img != null) {
+                    $(".holder_seal").show();
+                    let ulr_seal_img = `{{ URL::asset('/imgs/seal/${seal_img}') }}`;
+                    $(".holder_seal").find('#seal_img_preview').attr('src', ulr_seal_img);
+                    $(".seal_img").val(seal_img);
+                }
+
 
 
             } else {
@@ -257,8 +267,8 @@
                 }
             });
 
-             //envio del formulario para la firma digital
-             $("#form-seal").submit(function(event) {
+            //envio del formulario para la firma digital
+            $("#form-seal").submit(function(event) {
                 event.preventDefault();
                 $("#form-seal").validate();
                 if ($("#form-seal").valid()) {
@@ -861,37 +871,41 @@
                     </div>
 
                 </div>
-                {{-- firma Digital --}}
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd" style="margin-top: 20px; ">
-                        <div class="accordion-item">
-                            <span class="accordion-header title" id="headingThree">
-                                <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> Sello Digital
-                                </button>
-                            </span>
-                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                                data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <form id="form-seal" method="post" action="/">
-                                        {{ csrf_field() }}
-                                        <x-seal-component />
-                                        <div class="row mt-3 justify-content-md-end">
-                                            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                                <input class="btn btnSave send" value="Guardar" type="submit"
-                                                    style="margin-left: 20px" />
+                @if (Auth::user()->role == 'medico')
+                    {{-- firma Digital --}}
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd"
+                            style="margin-top: 20px; ">
+                            <div class="accordion-item">
+                                <span class="accordion-header title" id="headingThree">
+                                    <button class="accordion-button collapsed bg-8" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseThree"
+                                        style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                        <i class="bi bi-file-earmark-text"></i> Sello Digital
+                                    </button>
+                                </span>
+                                <div id="collapseThree" class="accordion-collapse collapse"
+                                    aria-labelledby="headingThree" data-bs-parent="#accordion">
+                                    <div class="accordion-body">
+                                        <form id="form-seal" method="post" action="/">
+                                            {{ csrf_field() }}
+                                            <x-seal-component />
+                                            <div class="row mt-3 justify-content-md-end">
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                    style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                                    <input class="btn btnSave send" value="Guardar" type="submit"
+                                                        style="margin-left: 20px" />
+                                                </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endif
             @endif
         </div>
     </div>

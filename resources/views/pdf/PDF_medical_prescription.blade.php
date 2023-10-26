@@ -34,6 +34,19 @@
         page-break-after: right
     }
 
+    .div-seal{
+        position: fixed;
+        bottom: 2cm;
+        left: 0cm;
+        right: 0px;
+        height: 50px;
+        text-align: center;
+        line-height: 35px;
+        padding: 10px;
+        font-size: 12px;
+        margin-top: 3cm
+    }
+
     .footer {
         position: fixed;
         bottom: 0cm;
@@ -273,6 +286,12 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        
+        <div class="div-seal">
+            <img class="img-pat" style="border-radius: 20%; object-fit: cover"
+            src="../public/imgs/seal/{{ Auth::user()->digital_signature }}"
+            alt="Avatar" width="100" height="100">
         </div>
     </div>
     <script type="text/php">
