@@ -15,6 +15,19 @@
 
     }
 
+    .div-seal{
+        position: fixed;
+        bottom: 1cm;
+        left: 0cm;
+        right: 0px;
+        height: 50px;
+        text-align: center;
+        line-height: 35px;
+        padding: 10px;
+        font-size: 12px;
+        margin-top: 3cm
+    }
+
     .table-border {
         text-align: left;
         padding: 10px;
@@ -209,7 +222,7 @@
                     </td>
                     <td style="text-align: center;">
                         <div class="text" style="margin-right: -20px">
-                            @if ($reference->get_paciente->patient_img)
+                            @if ($reference->get_patient->patient_img)
                                 <img class="img-pat" style="border-radius: 20%"
                                     src="../public/imgs/{{ $reference->get_patient->patient_img }}" alt="Avatar"
                                     width="100" height="auto">
@@ -264,6 +277,11 @@
 
             </tbody>
         </table>
+    </div>
+    <div class="div-seal">
+        <img class="img-pat" style="border-radius: 20%; object-fit: cover"
+        src="../public/imgs/seal/{{ $reference->get_user->digital_signature}}"
+        alt="Avatar" width="100" height="100">
     </div>
     <script type="text/php">
         if ( isset($pdf) ) {
