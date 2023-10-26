@@ -45,7 +45,7 @@ class Reference extends Model
     }
     public function  get_center(): BelongsTo
     {
-        return $this->belongsTo(Patient::class, 'center_id', 'id');
+        return $this->belongsTo(Center::class, 'center_id', 'id');
     }
 
     public function get_laboratories(): HasMany
@@ -63,6 +63,11 @@ class Reference extends Model
 
     public function  get_center_data(): HasOne
     {
-        return $this->hasOne(DoctorCenter::class, 'id', 'center_id');
+        return $this->hasOne(DoctorCenter::class, 'center_id', 'center_id');
+    }
+
+    public function  get_user(): HasOne
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 }

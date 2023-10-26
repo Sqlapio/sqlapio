@@ -1230,6 +1230,7 @@ class UtilsController extends Controller
 
 			foreach($reference as $key => $val){
 					$data[$key] = [
+						'id' => $val->id,
 						'cod_ref' => $val->cod_ref,
 						'date' => $val->date,
 						'cod_medical_record' => $val->cod_medical_record,
