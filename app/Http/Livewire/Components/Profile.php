@@ -7,6 +7,7 @@ use App\Http\Controllers\UtilsController;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Laboratory;
+use App\Models\Specialty;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,38 +40,34 @@ class Profile extends Component
                 ActivityLogController::store_log($action);
                 return true;
             }
-            
         } catch (\Throwable $th) {
             $message = $th->getMessage();
-			dd('Error Livewire.Profile.update_laboratory()', $message);
+            dd('Error Livewire.Profile.update_laboratory()', $message);
         }
-        
     }
 
     public function update_email(Request $request)
     {
         $user = User::where('id', $request->id)->first();
         $update = DB::table('users')
-				->where('id', $user->id)
-				->update([
-					'email' => $request->email,
-				]);
+            ->where('id', $user->id)
+            ->update([
+                'email' => $request->email,
+            ]);
     }
 
-    
+
     public function send_otp(Request $request)
     {
-        if($request->action == 'rp')
-        {
+        if ($request->action == 'rp') {
             $user = User::where('email', $request->email)->first();
-            
-            if($user == null){
+
+            if ($user == null) {
                 return response()->json([
                     'error' => 'true',
                     'msj'  => 'El correo introducido no exite en el sistema.'
                 ], 400);
-
-            }else{
+            } else {
                 $code = random_int(111111, 999999);
                 DB::table('users')
                     ->where('email', $request->email)
@@ -83,14 +80,11 @@ class Profile extends Component
                     'code'          => $code
                 ];
                 UtilsController::notification_mail($mailData, $type);
-                
-                return true;
 
+                return true;
             }
-            
         }
-        if($request->action == 'up')
-        {
+        if ($request->action == 'up') {
             $user = Auth::user();
 
             $name = $user->name . ' ' . $user->last_name;
@@ -108,26 +102,23 @@ class Profile extends Component
             UtilsController::notification_mail($mailData, $type);
 
             UtilsController::notification_register_mail($code, $request->email, $name, $type);
-            
+
             return true;
         }
-       
     }
 
     public function verify_otp(Request $request)
     {
-        if($request->action == 'up')
-        {
+        if ($request->action == 'up') {
 
             $user = Auth::user();
-       
-            if($user->cod_update_email != $request->cod_update_email){
+
+            if ($user->cod_update_email != $request->cod_update_email) {
                 return response()->json([
                     'success' => 'false',
                     'msj'  => 'El codigo de autorizacion es incorrecto.'
                 ], 400);
-
-            }else{
+            } else {
 
                 DB::table('users')
                     ->where('email', $user->email)
@@ -147,36 +138,74 @@ class Profile extends Component
             }
         }
 
-        if($request->action == 'rp')
-        {
+        if ($request->action == 'rp') {
 
             $user = User::where('email', $request->email)->first();
 
-            if($request->cod_update_pass == $user->cod_update_pass)
-            {
+            if ($request->cod_update_pass == $user->cod_update_pass) {
                 DB::table('users')
-                        ->where('email', $request->email)
-                        ->update(['password' => Hash::make($request->password)]);
+                    ->where('email', $request->email)
+                    ->update(['password' => Hash::make($request->password)]);
 
-                    return response()->json([
-                        'success' => 'true',
-                        'msj'  => 'Su contraseña fue actualizada de forma exitosa.'
-                    ], 200);
-            }else{
+                return response()->json([
+                    'success' => 'true',
+                    'msj'  => 'Su contraseña fue actualizada de forma exitosa.'
+                ], 200);
+            } else {
                 return response()->json([
                     'error' => 'true',
                     'msj'  => 'Su codigo de verificacion es incorrecto.'
                 ], 400);
             }
-
-        }   
-       
+        }
     }
-   
+    public function create_seal(Request $request)
+    {
+
+        $nameFile = null;
+
+        $file =  $request->seal_img;
+        if ($file != null) {
+            $png     = strstr($file, 'data:image/png;base64');
+            $jpg     = strstr($file, 'data:image/jpg;base64');
+            $jpeg     = strstr($file, 'data:image/jpeg;base64');
+            $pdf     = strstr($file, 'data:application/pdf;base64');
+            if ($png != null) {
+                $file = str_replace("data:image/png;base64,", "", $file);
+                $file = base64_decode($file);
+                $extension = ".png";
+            } elseif ($jpeg != null) {
+                $file = str_replace("data:image/jpeg;base64,", "", $file);
+                $file = base64_decode($file);
+                $extension = ".jpeg";
+            } elseif ($jpg != null) {
+                $file = str_replace("data:image/jpg;base64,", "", $file);
+                $file = base64_decode($file);
+                $extension = ".jpg";
+            } elseif ($pdf != null) {
+                $file = str_replace("data:application/pdf;base64,", "", $file);
+                $file = base64_decode($file);
+                $extension = ".pdf";
+            }
+            $nameFile = uniqid() . $extension;
+
+            file_put_contents(public_path('imgs/seal/') . $nameFile, $file);
+        }
+
+        DB::table('users')
+        ->where('id', Auth::user()->id)
+        ->update([
+            'digital_signature' => $nameFile,
+        ]);
+
+        return true;
+    }
+
     public function render()
     {
         $user = Auth::user();
-        $laboratory = $user->get_laboratorio;  
-        return view('livewire.components.profile', compact('user','laboratory'));
+        $laboratory = $user->get_laboratorio;
+        $speciality = Specialty::all();
+        return view('livewire.components.profile', compact('user', 'laboratory', 'speciality'));
     }
 }
