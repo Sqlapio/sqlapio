@@ -19,13 +19,16 @@ use App\Http\Livewire\Components\ClinicalHistory;
 use App\Http\Livewire\Components\Centers;
 use App\Http\Livewire\Components\Examen;
 use App\Http\Livewire\Components\Laboratory;
+use App\Http\Livewire\Components\PlansVerify;
 use App\Http\Livewire\Components\Statistics;
 use App\Http\Livewire\Components\Register;
 use App\Http\Livewire\Components\Study;
+use App\Http\Middleware\VerifyPlans;
 use App\Models\Exam;
 use App\Models\Patient;
 use App\Models\Reference;
 use App\Models\User as ModelsUser;
+use App\View\Components\VerifyplansComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,10 +72,14 @@ Route::get('/paciente/verify/{verification_code}', [UtilsController::class, 'pat
  * para la cita del PACIENTE
  */
 Route::get('/confirmation/dairy/{code}', [UtilsController::class, 'confirmation_dairy']);
-Route::get('/auth/setting/profile', [Profile::class, 'render'])->name('Profile')->middleware('auth');
 
+Route::middleware(['auth'])->group(function () {
+Route::get('/auth/setting/profile', [Profile::class, 'render'])->name('Profile');
+Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');
 
-Route::middleware(['auth','verify_email'])->group(function () {
+});
+
+Route::middleware(['auth','verify_email','VerifyPlans'])->group(function () {
     
     Route::group(array('prefix' => 'auth'), function () {
         Route::get('/home', [Home::class, 'render'])->name('home');
