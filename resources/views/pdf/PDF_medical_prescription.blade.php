@@ -290,7 +290,7 @@
         
         <div class="div-seal">
             <img class="img-pat" style="border-radius: 20%; object-fit: cover"
-            src="../public/imgs/seal/{{ Auth::user()->digital_signature }}"
+            src="../public/imgs/seal/{{ Auth::user()->digital_cello }}"
             alt="Avatar" width="100" height="100">
         </div>
     </div>
