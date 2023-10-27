@@ -195,7 +195,7 @@ class Profile extends Component
         DB::table('users')
         ->where('id', Auth::user()->id)
         ->update([
-            'digital_signature' => $nameFile,
+            'digital_cello' => $nameFile,
         ]);
 
         return true;
