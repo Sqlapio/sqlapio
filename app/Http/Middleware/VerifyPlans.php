@@ -19,7 +19,7 @@ class VerifyPlans
 
         // dd(auth()->user()->type_plane);
 
-        if (auth()->user()) {
+        if ($request->path() !=='logout'&&$request->path() !=='/' && auth()->user()) {
 
             switch (auth()->user()->type_plane) {
                 case 1:
@@ -49,5 +49,7 @@ class VerifyPlans
                     break;
             }
         }
+        return $next($request);
+
     }
 }
