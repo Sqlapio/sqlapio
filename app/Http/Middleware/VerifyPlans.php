@@ -17,17 +17,37 @@ class VerifyPlans
     public function handle(Request $request, Closure $next): Response
     {
 
-        if(auth()->user() ){
-            if (auth()->user()->patient_counter >= 20 ||
-                auth()->user()->medical_record_counter >= 20 ||
-                auth()->user()->ref_counter >= 20
-            ) {
-    
-                return response()->view('livewire.components.verifyplans-component');
-            } else {
-                return $next($request);
+        // dd(auth()->user()->type_plane);
+
+        if (auth()->user()) {
+
+            switch (auth()->user()->type_plane) {
+                case 1:
+                    if (
+                        auth()->user()->patient_counter >= 10 ||
+                        auth()->user()->medical_record_counter >= 20 
+                    ) {
+
+                        return response()->view('livewire.components.verifyplans-component');
+                    } else {
+                        return $next($request);
+                    }
+                    break;
+                case 2:
+                    if (
+                        auth()->user()->patient_counter >= 40 ||
+                        auth()->user()->medical_record_counter >= 80
+                    ) {
+
+                        return response()->view('livewire.components.verifyplans-component');
+                    } else {
+                        return $next($request);
+                    }
+                    break;
+                default:
+                    return $next($request);
+                    break;
             }
         }
-        return $next($request);
     }
 }
