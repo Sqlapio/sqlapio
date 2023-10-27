@@ -159,7 +159,7 @@
             let user = @json($user);
             if (user.role == 'medico') {
                 img = user.user_img;
-                seal_img = user.digital_signature;
+                seal_img = user.digital_cello;
 
                 $('#birthdate').val(user.birthdate).change();
                 $('#state').val(user.state).change();
