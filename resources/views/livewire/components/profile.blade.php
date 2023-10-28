@@ -447,6 +447,11 @@
                             Debe verificar su correo!
                         </div>
                     @endif
+                    @if ($user->digital_cello === null)
+                        <div class="alert alert-warning" role="alert">
+                            Debe cargar su sello digital!
+                        </div>
+                    @endif
 
                     <div class="accordion-item">
                         <span class="accordion-header title" id="headingOne">
