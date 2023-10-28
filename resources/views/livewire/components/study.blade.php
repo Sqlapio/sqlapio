@@ -30,10 +30,10 @@
             if (id != null) {
                 showStudy(data);
                 const bsCollapse = new bootstrap.Collapse('.collapsee', {
-                        toggle: true
-                    })
+                    toggle: true
+                })
             }
-            
+
         });
 
         function searchPerson() {
@@ -48,6 +48,17 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
+                        if (response.length === 0) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'El paciente no tiene información cargada en el sistema!',
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: 'Aceptar'
+                            });
+                            return false;
+
+                        }
                         Swal.fire({
                             icon: 'success',
                             title: 'Operación exitosa!',
@@ -76,6 +87,8 @@
                                 },
                                 bDestroy: true,
                                 data: data,
+                                "searching": false,
+                                "bLengthChange": false,
                                 columns: [{
 
                                         data: 'full_name',
@@ -183,7 +196,7 @@
         <div class="accordion" id="accordionExample">
             {{-- datos del paciente --}}
             <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" style="margin-top: 20px;">
                     <div class="accordion-item">
                         <span class="accordion-header title" id="headingOne">
                             <button class="accordion-button bg-7" type="button" data-bs-toggle="collapse"
@@ -198,7 +211,7 @@
                                 <x-search-person />
 
                                 <div class="row" id="show-info-pat" style="display: none">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <h5 class="mb-4">Resultados</h5>
                                         </h5>
                                         <table id="table-info-pat" class="table table-striped table-bordered"

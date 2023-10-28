@@ -109,7 +109,14 @@ return new class extends Migration
 
             // medicamentos y suplementos
             $table->json('medications_supplements')->nullable();
-
+            //observaciones
+            $table->string('observations_ginecologica')->nullable();
+            $table->string('observations_allergies')->nullable();
+            $table->string('observations_medication')->nullable();
+            $table->string('observations_back_family')->nullable();
+            $table->string('observations_diagnosis')->nullable();
+            $table->string('observations_not_pathological')->nullable();
+            
             $table->timestamps();
         });
     }

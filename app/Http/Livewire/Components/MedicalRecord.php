@@ -51,18 +51,18 @@ class MedicalRecord extends Component
                 'background'  => 'required',
                 'razon'       => 'required',
                 'diagnosis'   => 'required',
-                'treatment'   => 'required',
                 'exams'       => 'required',
                 'studies'     => 'required',
+                'medications_supplements' => 'required',
             ];
 
             $msj = [
                 'background'  => 'Campo requerido',
                 'razon'       => 'Campo requerido',
                 'diagnosis'   => 'Campo requerido',
-                'treatment'   => 'Campo requerido',
                 'exams'       => 'Campo requerido',
                 'studies'     => 'Campo requerido',
+                'medications_supplements' => 'Campo requerido',
             ];
 
             // $validator = Validator::make($request->data, $rules, $msj);
@@ -90,9 +90,9 @@ class MedicalRecord extends Component
                 'background'    => $data->background,
                 'razon'         => $data->razon,
                 'diagnosis'     => $data->diagnosis,
-                'treatment'     => $data->treatment,
                 'exams'         => $data->exams,
                 'studies'       => $data->studies,
+                'medications_supplements'       => $data->medications_supplements,
             ]);
 
             $action = '11';
@@ -113,7 +113,7 @@ class MedicalRecord extends Component
              * referencia
              */
             $medical_record_code = $medical_record['record_code'];
-            ComponentsReference::store($data, $medical_record_code);
+            ComponentsReference::store($data, $medical_record_code,$medical_record);
              
             $action = '15';
             ActivityLogController::store_log($action);

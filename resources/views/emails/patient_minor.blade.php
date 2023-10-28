@@ -20,26 +20,23 @@
             </p>
     
             <p style="text-align: justify; margin-left: 20px;">
-                Espero se encuentre muy bien.
-                <br>
-                Gracias por ser parte de nuestra familia Sqlapio.com, usted acaba de ser registrado en nuestro sistema, con la siguiente información:
+                Su registro de realizó de forma exitosa:
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
                 <h3 style="text-align: justify; margin-left: 20px;">
-                    Codigo del paciente: {{ $mailData['patient_code'] }}
+                    Médico tratante Dr(a): {{ $mailData['dr_name'] }}
                     <br>
-                    Correo Electronico: {{ $mailData['patient_email'] }}
+                    Centro médico: {{ $mailData['center'] }}
                     <br>
-                    Telefono: {{ $mailData['patient_phone'] }}
+                    Piso: {{ $mailData['center_piso'] }}
                     <br>
-                    Medico Responsable Dr(a): {{ $mailData['dr_name'] }}
+                    Teléfono: {{ $mailData['center_phone'] }}
                 </h3>
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
-                Para cualquier consulta o asistencia adicional que necesite, puede comunicarse las 24
-                horas del dia con nuestro equipo a traves de sqlapiotechnology@gmail.com
+                Gracias por ser parte de nosotro, Sqlapio.com, innovando para el futuro.
             </p>
             <p style="text-align: justify; margin-left: 20px;">
                 Atentamente,
@@ -50,13 +47,11 @@
                     margin-left: 0px;
                     width: 100px;
                     height: auto;"
-                src="{{ asset('img/notification_email/firma_ceo.png') }}">
+                src="{{ asset('img/notification_email/fir_jm.png') }}">
                 Ing. Jhonny Martinez<br>CEO
             </p>
             <p style="text-align: justify; font-style: italic; margin-left: 20px;">
-                La información contenida en este mensaje y sus anexos tiene carácter confidencial, y está dirigida únicamente al destinatario de la misma.
-                Si usted ha recibido este mensaje por error, por favor notifique inmediatamente al remitente por este mismo medio y borre el mensaje de su sistema. La información por correo electrónico, no garantiza que la misma sea segura o esté libre de error, por consiguiente, se recomienda
-                su verificación.
+                Para mayor información puede comunicarse 24/7 con nuestro equipo a traves de sqlapiotechnology@sqlapio.com
             </p>
         </div>
     <img style="

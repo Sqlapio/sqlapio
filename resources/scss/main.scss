@@ -146,6 +146,13 @@ button {
     padding: 1px 5px;
     font-size: 12px;
 }
+.tile-planes{
+    color: rgb(66,173,230);
+}
+
+.tile-planes-dos{
+    color: #47525E;
+}
 
 .btn-primary.btn-xs {
     padding: 1px 5px;
@@ -1506,7 +1513,7 @@ div.ui-jqgrid {
 
 #table-patients table, #table-alergias_wrapper table, #table-medical-record-one table, #table-show-info-pat_wrapper table, #table-medical-record_wrapper table,
 #table-cirugia_wrapper table, #table-medicamento_wrapper table, #DataTables_Table_0_wrapper table, #table-ref-examenes_wrapper table, #table-info_wrapper table
-#table-ref-estudios_wrapper table, #table-ref_wrapper table, #table-ref-estudios_wrapper table, #info-show table {
+#table-ref-estudios_wrapper table, #table-ref_wrapper table, #table-ref-estudios_wrapper table, #info-show table, #table-info-pat_wrapper table {
     font-size: 12px;
     border-top: 1px solid rgba(0, 0, 0, 0.3);
 }
@@ -1514,20 +1521,20 @@ div.ui-jqgrid {
 
 #table-centers_length, #table-patient_length, #DataTables_Table_0_length, #table-alergias_length, #table-cirugia_length, #table-medicamento_length, 
 #table-show-info-pat_length, #table-medical-record_length, #table-ref-examenes_length, #table-ref-estudios_length, #table-ref_length , 
-#table-info_length,
+#table-info_length, #table-info-pat_length,
 #table-centers_filter, #table-patient_filter, #DataTables_Table_0_filter, #table-alergias_filter, #table-cirugia_filter, #table-medicamento_filter, 
 #table-show-info-pat_filter, #table-medical-record_filter, #table-ref-examenes_filter, #table-ref-estudios_filter, #table-ref_filter,
-#table-info_filter {
+#table-info_filter, #table-info-pat_filter {
     font-size: 12px;
     padding-bottom: 25px;
 }
 
 
 #table-centers_info, #table-patient_info, #DataTables_Table_0_info, #table-alergias_info, #table-cirugia_info, #table-medicamento_info, 
-#table-show-info-pat_info, #table-medical-record_info, #table-ref-examenes_info, #table-ref-estudios_info, #table-ref_info, #table-info_info ,
+#table-show-info-pat_info, #table-medical-record_info, #table-ref-examenes_info, #table-ref-estudios_info, #table-ref_info, #table-info_info , #table-info-pat_info,
 #table-centers_paginate, #table-patient_paginate, #DataTables_Table_0_paginate, #table-alergias_paginate, #table-cirugia_paginate, #table-ref_paginate,
 #table-medicamento_paginate, #table-show-info-pat_paginate, #table-medical-record_paginate, #table-ref-examenes_paginate, #table-ref-estudios_paginate,
-#table-info_paginate {
+#table-info_paginate, #table-info-pat_paginate {
     font-size: 12px;
     padding-top: 25px;
 }
@@ -1571,6 +1578,12 @@ div.ui-jqgrid {
 .tooltip.bs-tooltip-top .tooltip-arrow::before {
     border-top-color: #42abe2 !important;
 }
+.tooltip.bs-tooltip-left .tooltip-arrow::before {
+    border-top-color: #42abe2 !important;
+}
+.tooltip.bs-tooltip-right .tooltip-arrow::before {
+    border-top-color: #42abe2 !important;
+}
 
 .custom-tooltip {
     --bs-tooltip-bg: #42abe2;
@@ -1592,6 +1605,23 @@ div.ui-jqgrid {
     }
     .tooltip.bs-tooltip-top .tooltip-arrow::before {
         opacity: 0 !important;
+    }
+    .custom-tooltip {
+        opacity: 0 !important;
+    }
+
+    .mb-cd {
+        margin-bottom: 20% !important;
+    }
+
+    .accordion-button {
+        font-size: 18px;
+    }
+}
+
+@media only screen and (max-width: 390px) {
+    .mb-cd {
+        margin-bottom: 20% !important;
     }
 }
 
@@ -1630,3 +1660,4 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .bg-8 {
     background-color: #748b4e !important;
 }
+

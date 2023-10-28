@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Components;
 
 use App\Http\Controllers\ActivityLogController;
+use App\Models\Specialty;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ class Login extends Component {
 	public function rules() {
 		$rules = [
 			'username' => 'required|min:3|max:50',
-			'password' => 'required|min:6|max:8|regex:"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$"',
+			'password' => 'required|min:6',
 		];
 
 		return $rules;
@@ -32,7 +33,6 @@ class Login extends Component {
 			'username.min' => 'Usuario debe ser mayor a 3 caracteres',
 			'username.max' => 'Usuario debe ser menor a 50 caracteres',
 			'password.min' => 'Contraseña debe ser mayor a 6 caracteres',
-			'password.max' => 'Contraseña debe ser menor a 8 caracteres',
 			'password.regex' => 'Formato de contraseña  incorrecto',
 
 		];
@@ -72,10 +72,11 @@ class Login extends Component {
 
 						$user = Auth::user();
 						$status_register = $user->status_register;
+						$speciality = Specialty::all();
 
 						// Redireccion segun status de registro
 						if ($status_register == '1') {
-							return view('livewire.components.profile', compact('user'));
+							return view('livewire.components.profile', compact('user','speciality'));
 
 						} else {
 
@@ -90,9 +91,9 @@ class Login extends Component {
 
 			} catch (\Throwable $th) {
 				$message = $th->getMessage();
-				dd('Error Livewire.Components.Login.login()', $message);
+				return Redirect::to('/')->withErrors('Autenticación incorrecta');
 			}
-
+			return Redirect::to('/')->withErrors('Autenticación incorrecta');
 		}
 	}
 

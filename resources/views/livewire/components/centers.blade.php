@@ -17,6 +17,10 @@
         width: 50px;
     }
 
+    .w-5 {
+        width: 5%
+    }
+
 </style>
 @push('scripts')
     @vite(['resources/js/centers.js'])
@@ -43,12 +47,9 @@
                     },
                     number_floor: {
                         required: true,
-                        onlyNumber: true
                     },
                     number_consulting_room: {
                         required: true,
-                        onlyNumber: true
-
                     },
                     center_id: {
                         required: true,
@@ -56,7 +57,7 @@
                 },
                 messages: {
                     center_id: {
-                        required: 'Centro en obligatorio',
+                        required: 'Centro es obligatorio',
                     },
                     address: {
                         required: "Dirección es obligatorio",
@@ -196,6 +197,8 @@
                         reponsive: true,
                         bDestroy: true,
                         data: data,
+                        "searching": false,
+                        "bLengthChange": false,
                         columns: [{
                                 data: 'center',
                                 title: 'Nombre de centro',
@@ -225,7 +228,7 @@
                             {
                                 data: 'btn',
                                 title: 'Estatus',
-                                className: "text-center table-check",
+                                className: "text-center table-check w-5",
                             }
                         ],
                     });
@@ -259,15 +262,15 @@
                 {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
                     <h5 class="text-capitalize">Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}</h5>
                 </div> --}}
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd">
                     <div class="accordion" id="accordion">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
                                 <button class="accordion-button bg-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-building"></i> Centros
+                                    <i class="bi bi-hospital"></i> Centros
                                 </button>
                             </span>
-                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
                                         <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8" style="font-size:10px;">
@@ -295,7 +298,7 @@
                                                         <td class="text-center">{{ $item['number_floor'] }}</td>
                                                         <td class="text-center">{{ $item['number_consulting_room'] }}</td>
                                                         <td class="text-center">{{ $item['phone_consulting_room'] }}</td>
-                                                        <td class="text-center table-check">
+                                                        <td class="text-center table-check w-5">
                                                             <div class="form-check form-switch ">
                                                                 <input onchange="handlerCenter(event);" style="width: 5em"
                                                                     class="form-check-input" type="checkbox" role="switch"
@@ -324,7 +327,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header title">
-                            <i class="bi bi-building"></i>
+                            <i class="bi bi-hospital"></i>
                             <span style="padding-left: 5px">Asociar centro</span>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                         </div>
@@ -333,10 +336,10 @@
                                 {{ csrf_field() }}
                                 <div class="row">
                                     @if (Auth::user()->status_register != 1)
-                                        <x-centers_doctors class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"/>
+                                        <x-centers_doctors class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"/>
                                     @endif
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
                                                 <textarea id="address" rows="2" name="address" class="form-control"></textarea>
@@ -344,31 +347,31 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Piso</label>
                                                 <input autocomplete="off"
-                                                    class="mask-only-number form-control" id="number_floor"
+                                                    class="mask-alfa-numeric form-control" id="number_floor"
                                                     name="number_floor" type="text" value="" maxlength="2">
                                                 <i class="bi bi-hash" style="top: 30px"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Consultorio</label>
                                                 <input autocomplete="off"
-                                                    class="form-control mask-only-number" id="number_consulting_room"
+                                                    class="form-control mask-alfa-numeric" id="number_consulting_room"
                                                     name="number_consulting_room" type="text" value=""
                                                     maxlength="5">
                                                 <i class="bi bi-hash" style="top: 30px"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                        <div class="floating-label-group">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono del consultorio</label>
                                                 <input autocomplete="off"

@@ -19,7 +19,8 @@
             <div class="container-fluid">
                 <div class="row text-center">
                     <div class="col-md-12 footer-margin">
-                        <span>Copyright © 2023 SqLapioTechnology LLC. All rights reserved.</span>
+                        <span style="font-size: 14px">Copyright © 2023 SqLapioTechnology LLC. <i class="bi bi-r-circle"></i>
+                        </span>
                     </div>
                 </div>
             </div>

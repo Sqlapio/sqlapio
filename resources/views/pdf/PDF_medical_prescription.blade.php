@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Referencia Médica</title>
+    <title>Consulta medica</title>
 </head>
 <style>
     body {
@@ -15,9 +15,28 @@
 
     }
 
+    .table-border {
+        text-align: left;
+        padding: 10px;
+        text-align: justify;
+    }
+
+
+    .table-striped>tbody>tr:nth-child(even)>td,
+    .table-striped>tbody>tr:nth-child(even)>th {
+        /* background-color: #ccc; */
+        background-color: #eee;
+    }
+
+    .page-break {
+        /* page-break-after: always;
+        text-align: right !important; */
+        page-break-after: right
+    }
+
     .div-seal{
         position: fixed;
-        bottom: 1cm;
+        bottom: 2cm;
         left: 0cm;
         right: 0px;
         height: 50px;
@@ -26,18 +45,6 @@
         padding: 10px;
         font-size: 12px;
         margin-top: 3cm
-    }
-
-    .table-border {
-        text-align: left;
-        padding: 10px;
-        text-align: justify;
-    }
-
-    .page-break {
-        /* page-break-after: always;
-        text-align: right !important; */
-        page-break-after: right
     }
 
     .footer {
@@ -60,6 +67,12 @@
         font-size: 0.8rem;
         width: 100%;
     }
+
+    .border-table {
+        border: 1px solid black;
+        font-size: 10px;
+    }
+
 
     th {
         border: 0px;
@@ -133,17 +146,18 @@
             </thead>
             <tbody>
                 <tr class="text-header">
-                    <td colspan="2" style="text-align: center;padding-top: 10px;font-size: 25px;"> <strong>Referencia
+                    <td colspan="2" style="text-align: center;padding-top: 10px;font-size: 25px;"> <strong>Orden
                             Médica</strong></td>
                 </tr>
                 <tr class="text-header" style="border-radius: 50px!important;">
                     <td style="padding: 10px;">
                         <div>
-                            <strong style="font-size: 15px;">{{ $reference->get_center->description }}</strong>
+                            <strong
+                                style="font-size: 15px;">{{ $medical_prescription->get_center->description }}</strong>
                             <p style="margin-top: 0px">
-                                Dirección: {{ $reference->get_center->address }},
+                                Dirección: {{ $medical_prescription->get_center_data->address }},
                                 Local,
-                                {{ $reference->get_center_data->number_floor }}<br>{{ $reference->get_center_data->phone_consulting_room }}
+                                {{ $medical_prescription->get_center_data->number_floor }}<br>{{ $medical_prescription->get_center_data->phone_consulting_room }}
                             </p>
                         </div>
                     </td>
@@ -153,10 +167,10 @@
                             <span>{{ Auth::user()->name . ' ' . Auth::user()->last_name }}</span>
                             <br>
                             <strong>Fecha de la Consulta:</strong>
-                            <span>{{ $reference->record_date }}</span>
+                            <span>{{ $medical_prescription->record_date }}</span>
                             <br>
                             <strong> Código del paciente:</strong>
-                            <span>{{ $reference->get_patient->patient_code }}</span>
+                            <span>{{ $medical_prescription->get_paciente->patient_code }}</span>
                         </div>
                     </td>
                 </tr>
@@ -203,32 +217,31 @@
                 <tr>
                     <td style="text-align: center;">
                         <div class="text  info-pat">
-                            <strong>Nombre y
-                                Apellido:</strong><span>{{ $reference->get_patient->name . ' ' . $reference->get_patient->last_name }}</span>
-                            {{-- <br> --}}
-                            <strong>Cédula:</strong> <span>{{ $reference->get_patient->ci }}</span>
+                            <strong>Nombre Completo: </strong><span>{{ $medical_prescription->get_paciente->name . ' ' . $medical_prescription->get_paciente->last_name }}</span>
                             <br>
-                            <strong>Género:</strong> <span>{{ $reference->get_patient->genere }}</span>
-                            <strong>Edad:</strong> <span>{{ $reference->get_patient->age }}</span>
+                            <strong>C.I:</strong> <span>{{ $medical_prescription->get_paciente->ci }}</span>
+                            <br>
+                            <strong>Género:</strong> <span>{{ $medical_prescription->get_paciente->genere }}</span>
+                            <strong>Edad:</strong> <span>{{ $medical_prescription->get_paciente->age }}</span>
                             <br>
                             <strong>Correo electrónico:</strong>
-                            <span>{{ $reference->get_patient->email }}</span>
+                            <span>{{ $medical_prescription->get_paciente->email }}</span>
                             <br>
-                            <strong>Teléfono:</strong> <span>{{ $reference->get_patient->phone }}</span>
+                            <strong>Teléfono:</strong> <span>{{ $medical_prescription->get_paciente->phone }}</span>
                             <br>
                             <strong>Dirección:</strong>
-                            <span>{{ $reference->get_patient->address }}</span>
+                            <span>{{ $medical_prescription->get_paciente->address }}</span>
                         </div>
                     </td>
                     <td style="text-align: center;">
                         <div class="text" style="margin-right: -20px">
-                            @if ($reference->get_patient->patient_img)
-                                <img class="img-pat" style="border-radius: 20%"
-                                    src="../public/imgs/{{ $reference->get_patient->patient_img }}" alt="Avatar"
-                                    width="100" height="auto">
+                            @if ($medical_prescription->get_paciente->patient_img)
+                                <img class="img-pat" style="border-radius: 20%; object-fit: cover"
+                                    src="../public/imgs/{{ $medical_prescription->get_paciente->patient_img }}"
+                                    alt="Avatar" width="100" height="100">
                             @else
-                                <img class="img-pat" src="../public/img/avatar/avatar.png" width="100" height="auto"
-                                    style="border-radius: 20%" alt="Avatar">
+                                <img class="img-pat" src="../public/img/avatar/avatar.png" width="100" height="100"
+                                    style="border-radius: 20%; object-fit: cover" alt="Avatar">
                             @endif
                         </div>
                     </td>
@@ -239,49 +252,47 @@
     <br>
     <br>
     <div>
-        <table class="table-info-pat">
-            <thead>
-                <tr>
-                    <th class="table-border">
-                        Exámenes:
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="table-border">
-                        {{ $reference->exams }}
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div>
-    <br>
-    <br>
-    <div>
-        <table class="table-info-pat">
-            <thead>
-                <tr>
-                    <th class="table-border">
-                        Estudios:
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="table-border">
-                        {{ $reference->studies }}
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div>
-    <div class="div-seal">
-        <img class="img-pat" style="border-radius: 20%; object-fit: cover"
-        src="../public/imgs/seal/{{ $reference->get_user->digital_cello}}"
-        alt="Avatar" width="100" height="100">
+        <div>
+            <table class="table-info-pat table-striped">
+                <thead>
+                    <tr>
+                        <th class="border-table" style="text-align: center;  padding: 10px;">
+                            Recipe:
+                        </th>
+                        <th class="border-table" style="text-align: center; padding: 10px;">
+                            Indicaciones:
+                        </th>
+                        <th class="border-table" style="text-align: center; padding: 10px;">
+                            Duración del tratamiento:
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $data = json_decode($medical_prescription->medications_supplements);
+                    @endphp
+                    @foreach ($data as $item)
+                        <tr>
+                            <td class="border-table" style="text-align: center; padding: 10px;">
+                                {{ $item->medicine }}
+                            </td>
+                            <td class="border-table" style="text-align: center; padding: 10px;">
+                                {{ $item->indication }}
+                            </td>
+                            <td class="border-table" style="text-align: center; padding: 10px;">
+                                {{ $item->treatmentDuration }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="div-seal">
+            <img class="img-pat" style="border-radius: 20%; object-fit: cover"
+            src="../public/imgs/seal/{{ Auth::user()->digital_cello }}"
+            alt="Avatar" width="100" height="100">
+        </div>
     </div>
     <script type="text/php">
         if ( isset($pdf) ) {

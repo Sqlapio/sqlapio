@@ -23,6 +23,14 @@
             margin-top: -14% !important;
         }
     }
+
+    @media only screen and (max-width: 768px) {
+
+        .btn2 {
+            margin-left: 20px;
+        }
+
+    }
 </style>
 @push('scripts')
     <script>
@@ -310,15 +318,15 @@
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Contraseña</label>
-                                                <input placeholder="Contraseña" autocomplete="off" data-bs-toggle="tooltip"
-                                                    data-bs-placement="right" data-bs-custom-class="custom-tooltip"
-                                                    data-html="true"
+                                                <input placeholder="Contraseña" autocomplete="off" 
+                                                    {{-- data-bs-toggle="tooltip" data-bs-placement="right" 
+                                                    data-bs-custom-class="custom-tooltip" data-html="true"
                                                     title="La contraseña debe contener:
                                                             Al menos una letra mayúscula.
                                                             Al menos una letra minúscula. 
                                                             Al menos un número.
                                                             Mínimo 6 carácteres.
-                                                            Máximo 8 carácteres"
+                                                            Máximo 8 carácteres" --}}
                                                     class="form-control @error('password') is-invalid @enderror" id="password"
                                                     name="password" type="password" value="">
                                                 <i onclick="showPass();" class="bi bi-eye-fill st-icon"></i>
