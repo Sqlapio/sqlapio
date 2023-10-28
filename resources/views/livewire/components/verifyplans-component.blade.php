@@ -37,7 +37,7 @@
                                                                     Cupos consumidos:
                                                                 </div>
                                                                 <span
-                                                                    class="badge bg-danger rounded-pill">{{ auth()->user()->patient_counter }}</span>
+                                                                class="{{ auth()->user()->patient_counter >= 10 ? 'badge bg-danger rounded-pill' : 'badge bg-success rounded-pill' }}">{{ auth()->user()->patient_counter }}</span>
                                                             </li>
                                                             <li
                                                                 class="list-group-item d-flex justify-content-between align-items-start">
@@ -46,7 +46,7 @@
                                                                     Cupos consumidos:
                                                                 </div>
                                                                 <span
-                                                                    class="badge bg-danger rounded-pill">{{ auth()->user()->patient_counter }}</span>
+                                                                    class="{{ auth()->user()->medical_record_counter >= 20 ? 'badge bg-danger rounded-pill' : 'badge bg-success rounded-pill' }}">{{ auth()->user()->medical_record_counter }}</span>
                                                             </li>
                                                             <li
                                                                 class="list-group-item d-flex justify-content-between align-items-start">
@@ -55,7 +55,7 @@
                                                                     Cupos consumidos:
                                                                 </div>
                                                                 <span
-                                                                    class="badge bg-danger rounded-pill">{{ auth()->user()->patient_counter }}</span>
+                                                                class="{{ auth()->user()->ref_counter >= 20 ? 'badge bg-danger rounded-pill' : 'badge bg-success rounded-pill' }}">{{ auth()->user()->ref_counter }}</span>
                                                             </li>
                                                             <li
                                                                 class="list-group-item d-flex justify-content-between align-items-start">
@@ -64,7 +64,7 @@
                                                                     Cupos consumidos:
                                                                 </div>
                                                                 <span
-                                                                    class="badge bg-danger rounded-pill">{{ auth()->user()->patient_counter }}</span>
+                                                                class="{{ auth()->user()->ref_counter >= 20 ? 'badge bg-danger rounded-pill' : 'badge bg-success rounded-pill' }}">{{ auth()->user()->ref_counter }}</span>
                                                             </li>
                                                         </ol>
                                                         <div class="row justify-content-center mt-3">
@@ -83,63 +83,63 @@
                                         </div>
                                     @endif
                                     @if (auth()->user()->type_plane == 2)
-                                        <div class="row justify-content-center">
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h1 class="card-title tile-planes-dos">Mi plan Profesional</h1>
-                                                        <ol class="list-group list-group-numbered">
-                                                            <li
-                                                                class="list-group-item d-flex justify-content-between align-items-start">
-                                                                <div class="ms-2 me-auto">
-                                                                    <div class="fw-bold tile-planes">20 Pacientes</div>
-                                                                    Cupos consumidos:
-                                                                </div>
-                                                                <span
-                                                                    class="badge bg-danger rounded-pill">{{ auth()->user()->patient_counter }}</span>
-                                                            </li>
-                                                            <li
-                                                                class="list-group-item d-flex justify-content-between align-items-start">
-                                                                <div class="ms-2 me-auto">
-                                                                    <div class="fw-bold tile-planes">80 Consultas</div>
-                                                                    Cupos consumidos:
-                                                                </div>
-                                                                <span
-                                                                    class="badge bg-danger rounded-pill">{{ auth()->user()->patient_counter }}</span>
-                                                            </li>
-                                                            <li
-                                                                class="list-group-item d-flex justify-content-between align-items-start">
-                                                                <div class="ms-2 me-auto">
-                                                                    <div class="fw-bold tile-planes">80 Examnenes</div>
-                                                                    Cupos consumidos:
-                                                                </div>
-                                                                <span
-                                                                    class="badge bg-danger rounded-pill">{{ auth()->user()->patient_counter }}</span>
-                                                            </li>
-                                                            <li
-                                                                class="list-group-item d-flex justify-content-between align-items-start">
-                                                                <div class="ms-2 me-auto">
-                                                                    <div class="fw-bold tile-planes">80 Estudios</div>
-                                                                    Cupos consumidos:
-                                                                </div>
-                                                                <span
-                                                                    class="badge bg-danger rounded-pill">{{ auth()->user()->patient_counter }}</span>
-                                                            </li>
-                                                        </ol>
-                                                        <div class="row justify-content-center mt-3">
-                                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                <button type="button" class="btn btnPrimary">pagar</button>
+                                    <div class="row justify-content-center">
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h1 class="card-title tile-planes-dos">Mi plan Profesional</h1>
+                                                    <ol class="list-group list-group-numbered">
+                                                        <li
+                                                            class="list-group-item d-flex justify-content-between align-items-start">
+                                                            <div class="ms-2 me-auto">
+                                                                <div class="fw-bold tile-planes">40 Pacientes</div>
+                                                                Cupos consumidos:
+                                                            </div>
+                                                            <span
+                                                            class="{{ auth()->user()->patient_counter >= 40 ? 'badge bg-danger rounded-pill' : 'badge bg-success rounded-pill' }}">{{ auth()->user()->patient_counter }}</span>
+                                                        </li>
+                                                        <li
+                                                            class="list-group-item d-flex justify-content-between align-items-start">
+                                                            <div class="ms-2 me-auto">
+                                                                <div class="fw-bold tile-planes">40 Consultas</div>
+                                                                Cupos consumidos:
+                                                            </div>
+                                                            <span
+                                                                class="{{ auth()->user()->medical_record_counter >= 40 ? 'badge bg-danger rounded-pill' : 'badge bg-success rounded-pill' }}">{{ auth()->user()->medical_record_counter }}</span>
+                                                        </li>
+                                                        <li
+                                                            class="list-group-item d-flex justify-content-between align-items-start">
+                                                            <div class="ms-2 me-auto">
+                                                                <div class="fw-bold tile-planes">80 Examnenes</div>
+                                                                Cupos consumidos:
+                                                            </div>
+                                                            <span
+                                                            class="{{ auth()->user()->ref_counter >= 80 ? 'badge bg-danger rounded-pill' : 'badge bg-success rounded-pill' }}">{{ auth()->user()->ref_counter }}</span>
+                                                        </li>
+                                                        <li
+                                                            class="list-group-item d-flex justify-content-between align-items-start">
+                                                            <div class="ms-2 me-auto">
+                                                                <div class="fw-bold tile-planes">80 Estudios</div>
+                                                                Cupos consumidos:
+                                                            </div>
+                                                            <span
+                                                            class="{{ auth()->user()->ref_counter >= 80 ? 'badge bg-danger rounded-pill' : 'badge bg-success rounded-pill' }}">{{ auth()->user()->ref_counter }}</span>
+                                                        </li>
+                                                    </ol>
+                                                    <div class="row justify-content-center mt-3">
+                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                            <button type="button" class="btn btnPrimary">pagar</button>
 
-                                                            </div>
-                                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                <button type="button"
-                                                                    class="btn btnSecond">Actualizar</button>
-                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                            <button type="button"
+                                                                class="btn btnSecond">Actualizar</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
                                     @endif
                                 </div>
                             </div>

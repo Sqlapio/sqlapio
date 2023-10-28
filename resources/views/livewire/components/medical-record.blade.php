@@ -89,6 +89,7 @@
             }
 
             $('#form-consulta').validate({
+                ignore: [],
                 rules: {
                     background: {
                         required: true,
@@ -770,6 +771,10 @@
                                                     <hr>
                                                     <h5 style="margin-bottom: 17px;">Tratamiento</h5>
                                                     <hr style="margin-bottom: 0;">
+                                                    <div style="display: flex">
+                                                        <span class="text-warning mt-3" style="font-size: 14px;margin-right: 10px;">Debe cargar al menos un tratamiento</span><i style="font-size:18px" class="bi bi-exclamation-triangle st-icon mt-3 text-warning "></i>
+                                                    </div>
+
                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
