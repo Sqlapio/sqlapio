@@ -7,9 +7,8 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Redirect;
 
-class verifyEmail
+class VerifySelloDigital
 {
     /**
      * Handle an incoming request.
@@ -18,12 +17,11 @@ class verifyEmail
      */
     public function handle(Request $request, Closure $next): Response
     {
-
         $user = Auth::user();
         $laboratory = ($user) ? $user->get_laboratorio : [];
         $speciality = Specialty::all();
-        if (auth()->user() && auth()->user()->email_verified_at === null) {
-            return response()->view('livewire.components.profile', compact('user', 'laboratory', 'speciality'));      
+        if (auth()->user() && auth()->user()->role == "medico"  && auth()->user()->digital_cello === null) {
+            return response()->view('livewire.components.profile', compact('user', 'laboratory', 'speciality'));
         } else {
             return $next($request);
         }
