@@ -20,6 +20,26 @@
         border-radius: 30px !important;
         font-size: 13px
     }
+
+    .btn-idanger {
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+        white-space: nowrap;
+        background: #ff7b0d;
+        color: #fff;
+        font-size: 22px;
+        font-weight: 400;
+        letter-spacing: -.01em;
+        padding: 5px;
+        margin-right: 9px;
+    }
+
+    .btn-idanger:hover,
+    .btnSecond:active {
+        background: #ff7b0d;
+        color: #fff;
+    }
 </style>
 @push('scripts')
     <script>
@@ -77,6 +97,17 @@
                                                 <button onclick='showStudy(${elemData})'
                                                 type="button" class="btn-2 btnSecond">Ver estudios</button>
                                                 </div>`;
+
+                                if (elem.study.length === 0) {
+                                    elem.btn = `<button type="button"
+                                                        class="refresf btn-idanger rounded-circle"
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom"
+                                                        data-bs-custom-class="custom-tooltip"
+                                                        data-html="true" title="No hay estudios cargados">
+                                                        <i class="bi bi-exclamation-lg"></i>
+                                                    </button>`;
+                                }
                                 data.push(elem);
                             });
 
