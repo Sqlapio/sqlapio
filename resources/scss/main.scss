@@ -146,6 +146,13 @@ button {
     padding: 1px 5px;
     font-size: 12px;
 }
+.tile-planes{
+    color: rgb(66,173,230);
+}
+
+.tile-planes-dos{
+    color: #47525E;
+}
 
 .btn-primary.btn-xs {
     padding: 1px 5px;
@@ -1605,6 +1612,10 @@ div.ui-jqgrid {
 
     .mb-cd {
         margin-bottom: 20% !important;
+    }
+
+    .accordion-button {
+        font-size: 18px;
     }
 }
 

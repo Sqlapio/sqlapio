@@ -47,12 +47,9 @@
                     },
                     number_floor: {
                         required: true,
-                        onlyNumber: true
                     },
                     number_consulting_room: {
                         required: true,
-                        onlyNumber: true
-
                     },
                     center_id: {
                         required: true,
@@ -200,6 +197,8 @@
                         reponsive: true,
                         bDestroy: true,
                         data: data,
+                        "searching": false,
+                        "bLengthChange": false,
                         columns: [{
                                 data: 'center',
                                 title: 'Nombre de centro',
@@ -268,7 +267,7 @@
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
                                 <button class="accordion-button bg-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-building"></i> Centros
+                                    <i class="bi bi-hospital"></i> Centros
                                 </button>
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
@@ -328,7 +327,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header title">
-                            <i class="bi bi-building"></i>
+                            <i class="bi bi-hospital"></i>
                             <span style="padding-left: 5px">Asociar centro</span>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                         </div>
@@ -353,7 +352,7 @@
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Piso</label>
                                                 <input autocomplete="off"
-                                                    class="mask-only-number form-control" id="number_floor"
+                                                    class="mask-alfa-numeric form-control" id="number_floor"
                                                     name="number_floor" type="text" value="" maxlength="2">
                                                 <i class="bi bi-hash" style="top: 30px"></i>
                                             </div>
@@ -364,7 +363,7 @@
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Consultorio</label>
                                                 <input autocomplete="off"
-                                                    class="form-control mask-only-number" id="number_consulting_room"
+                                                    class="form-control mask-alfa-numeric" id="number_consulting_room"
                                                     name="number_consulting_room" type="text" value=""
                                                     maxlength="5">
                                                 <i class="bi bi-hash" style="top: 30px"></i>

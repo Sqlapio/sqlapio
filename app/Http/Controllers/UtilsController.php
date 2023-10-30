@@ -159,6 +159,8 @@ class UtilsController extends Controller
 					'last_name' => $request->last_name,
 					'ci' 		=> $request->ci,
 					'birthdate' => $request->birthdate,
+					'genere' => $request->genere,
+					'specialty' => $request->specialty,
 					'age' 		=> $request->age,
 					'phone' 	=> $request->phone,
 					'state' 	=> $request->state,
@@ -391,6 +393,7 @@ class UtilsController extends Controller
 					'full_name_doc' 	=>  $val->get_doctor->name . " " . $val->get_doctor->last_name,
 					'center' 		=>  $val->get_center->description,
 					'genere' 		=>  $val->get_paciente->genere,
+					'patient_id' 		=>  $val->get_paciente->id,
 					'data' => [
 						'center_id' =>  $val->get_center->id,
 						'record_code' 	=>  $val->record_code,
@@ -1210,18 +1213,33 @@ class UtilsController extends Controller
 
 			return $data;	
 			
-		} else {
+		} else {		
 
-			$resp = Reference::where('cod_ref', $value)->first();
-			$data = [
-				'cod_ref' => $resp->cod_ref,
-				'date' => $resp->date,
-				'cod_medical_record' => $resp->cod_medical_record,
-				'get_exam' => $resp->get_exam,
-				'get_studie' => $resp->get_studie,
-				'get_patient' => $resp->get_patient,
+			
+			$tablePat =  Reference::whereHas('get_patient', function ($q) use ($value) {
+				$q->where('ci', $value);
+			});
 
-			];
+			$tableRep =  Reference::whereHas('get_patient', function ($q) use ($value) {
+				$q->whereHas('get_reprensetative', function ($q) use ($value) {
+					$q->where('re_ci', $value);
+				});
+			});
+
+			$reference = $tablePat->union($tableRep)->get();			
+
+			foreach($reference as $key => $val){
+					$data[$key] = [
+						'id' => $val->id,
+						'cod_ref' => $val->cod_ref,
+						'date' => $val->date,
+						'cod_medical_record' => $val->cod_medical_record,
+						'get_exam' => $val->get_exam,
+						'get_studie' => $val->get_studie,
+						'get_patient' => $val->get_patient,	
+					];
+				
+			}
 
 			return $data;
 		}

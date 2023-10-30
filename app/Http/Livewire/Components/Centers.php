@@ -24,8 +24,8 @@ class Centers extends Component
             $rules = [
                 'center_id' => 'required',
                 'address' => 'required',
-                'number_floor' => 'required|numeric',
-                'number_consulting_room' => 'required|numeric',
+                'number_floor' => 'required',
+                'number_consulting_room' => 'required',
             ];
 
             $msj = [
@@ -33,8 +33,8 @@ class Centers extends Component
                 'name.required' => 'Campo requerido',
                 'number_floor.required' => 'Campo requerido',
                 'number_consulting_room.required' => 'Campo requerido',
-                'number_floor.numeric' => 'El valor debe ser numerico',
-                'number_consulting_room.numeric' => 'El valor debe ser numerico',
+                // 'number_floor.numeric' => 'El valor debe ser numerico',
+                // 'number_consulting_room.numeric' => 'El valor debe ser numerico',
             ];
 
             $validator = Validator::make($request->all(), $rules, $msj);
@@ -87,6 +87,8 @@ class Centers extends Component
                         'dr_email' => $user->email,
                         'center_name' => $centers->description,
                         'center_address' => $doctor_centers->address,
+                        'center_floor' => $doctor_centers->number_floor,
+                        'center_consulting_room' => $doctor_centers->number_consulting_room,
                         'center_phone' => $doctor_centers->phone_consulting_room,
                     ];
 

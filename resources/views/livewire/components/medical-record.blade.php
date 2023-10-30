@@ -8,6 +8,40 @@
     .img-medical {
         border-radius: 20px;
         border: 3px solid #47525e;
+        object-fit: cover;
+    }
+
+    .btn-idanger {
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+        white-space: nowrap;
+        background: #ff7b0d;
+        color: #fff;
+        font-size: 22px;
+        font-weight: 400;
+        letter-spacing: -.01em;
+        padding: 5px;
+        margin-right: 9px;
+    }
+
+    .btn-idanger:hover, .btnSecond:active {
+        background: #ff7b0d;
+        color: #fff;
+    }
+
+    @media only screen and (max-width: 390px) { 
+        .data-medical {
+            width: 185px !important;
+            font-size: 14px;
+        }
+    }
+
+    @media (min-width: 391px) and (max-width: 576px) { 
+        .data-medical {
+            width: 222px !important;
+            font-size: 14px;
+        }
     }
 </style>
 @push('scripts')
@@ -55,6 +89,7 @@
             }
 
             $('#form-consulta').validate({
+                ignore: [],
                 rules: {
                     background: {
                         required: true,
@@ -120,7 +155,7 @@
                 $("#form-consulta").validate();
                 if ($("#form-consulta").valid()) {
                     $('#send').hide();
-                    $('#spinner').show();                   
+                    $('#spinner').show();
 
                     //preparar la data para el envio
                     let formData = $('#form-consulta').serializeArray();
@@ -182,7 +217,7 @@
                                                 route_mr_exam
                                                 .replace(
                                                     ':id', elem
-                                                    .id);
+                                                    .patient_id);
 
                                             let route_mr_study =
                                                 "{{ route('mr_study', ':id') }}";
@@ -190,7 +225,7 @@
                                                 route_mr_study
                                                 .replace(
                                                     ':id', elem
-                                                    .id);
+                                                    .patient_id);
 
                                             let route_pdf_medical_prescription =
                                                 "{{ route('pdf_medical_prescription', ':id') }}";
@@ -202,17 +237,16 @@
                                                     .id);
 
                                             let btnExam = `
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
-                                                    style="display: flex; align-items: center;
-                                                    justify-content: center;">
-                                                    <i class="bi bi-exclamation-circle"
-                                                    data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom"
-                                                    data-bs-custom-class="custom-tooltip"
-                                                    data-html="true"
-                                                    title="No hay examenes cargados"
-                                                    style="font-size: 23px; color: #ff7b0d"></i>
-                                                    </div>`;
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                    <button type="button"
+                                                        class="refresf btn-idanger rounded-circle"
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom"
+                                                        data-bs-custom-class="custom-tooltip"
+                                                        data-html="true" title="No hay examenes cargados">
+                                                        <i class="bi bi-exclamation-lg"></i>
+                                                    </button>
+                                            </div>`;
 
                                             if (elem.data
                                                 .status_exam != null
@@ -233,17 +267,16 @@
                                                     </div>`
 
                                             }
-                                            let btnStudy = `<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
-                                                    style="display: flex; align-items: center;
-                                                    justify-content: center;">
-                                                    <i class="bi bi-exclamation-circle"
-                                                    data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom"
-                                                    data-bs-custom-class="custom-tooltip"
-                                                    data-html="true"
-                                                    title="No hay estudios cargados"
-                                                    style="font-size: 23px; color: #ff7b0d"></i>
-                                                    </div>`
+                                            let btnStudy = `<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                <button type="button"
+                                                                    class="refresf btn-idanger rounded-circle"
+                                                                    data-bs-toggle="tooltip"
+                                                                    data-bs-placement="bottom"
+                                                                    data-bs-custom-class="custom-tooltip"
+                                                                    data-html="true" title="No hay estudios cargados">
+                                                                    <i class="bi bi-exclamation-lg"></i>
+                                                                </button>
+                                                            </div>`
 
                                             if (elem.data
                                                 .status_study !=
@@ -312,9 +345,16 @@
                                                 // reponsive: true,
                                                 bDestroy: true,
                                                 data: data,
+                                                "searching": false,
+                                                "bLengthChange": false,
                                                 columns: [{
                                                         data: 'data.record_code',
                                                         title: 'Código de la consulta',
+                                                        className: "text-center td-pad",
+                                                    },
+                                                    {
+                                                        data: 'data.cod_ref',
+                                                        title: 'Código de la referencia',
                                                         className: "text-center td-pad",
                                                     },
                                                     {
@@ -383,7 +423,10 @@
             $('.send').attr('disabled', false);
         }
 
-        function showDataEdit(item) {
+        function showDataEdit(item, active = true) {
+            if (active) {
+                $(".accordion-collapse2").collapse('show')
+            }
             $("#medical_record_id").val(item.id);
             $("#center_id").val(item.data.center_id).change();
             $("#background").val(item.data.background);
@@ -415,31 +458,39 @@
             });
         }
 
-        function setExams(e,key) {
+        function setExams(e, key) {
             if ($(`#${e.target.id}`).is(':checked')) {
-                valExams = (valExams == "") ? e.target.value : valExams + "," + e.target.value;
-                exams_array.push({code_exams: $(`#${e.target.id}`).data('code')}); 
+                valExams = (valExams == "") ? e.target.value : valExams + ',\n' + e.target.value;
+                exams_array.push({
+                    code_exams: $(`#${e.target.id}`).data('code')
+                });
                 valExams = valExams.replace(',,', ',');
                 $("#exams").val(valExams);
             } else {
                 valExams = valExams.replace(e.target.value, '');
                 valExams = valExams.replace(',,', ',');
                 if (valExams == ",") valExams = valExams.replace(',', '');
-                 exams_array.splice(key, 1);
+                exams_array.splice(key, 1);
+                valExams = valExams.replace(/\n+/g, '');
+                valExams = valExams.replace(',', '\n');
                 $("#exams").val(valExams);
             }
         }
 
-        function setStudy(e,key) {
+        function setStudy(e, key) {
             if ($(`#${e.target.id}`).is(':checked')) {
-                valStudy = (valStudy == "") ? e.target.value : valStudy + "," + e.target.value;
-                studies_array.push({code_studies: $(`#${e.target.id}`).data('code')});            
+                valStudy = (valStudy == "") ? e.target.value : valStudy + ',\n' + e.target.value;
+                studies_array.push({
+                    code_studies: $(`#${e.target.id}`).data('code')
+                });
                 valStudy = valStudy.replace(',,', ',');
                 $("#studies").val(valStudy);
             } else {
                 valStudy = valStudy.replace(e.target.value, '');
                 valStudy = valStudy.replace(',,', ',');
                 if (valStudy == ",") valStudy = valStudy.replace(',', '');
+                valStudy = valStudy.replace(/\n+/g, '');
+                valStudy = valStudy.replace(',', '\n');
                 studies_array.splice(key, 1);
                 $("#studies").val(valStudy);
             }
@@ -458,20 +509,53 @@
                 $("#medicine_span").text('');
                 $("#indication_span").text('');
                 $("#treatmentDuration_span").text('');
-                var row = `
-                    <tr id="${countMedicationAdd}">
-                    <td class="text-center">${$('#medicine').val()}</td>
-                    <td class="text-center">${$('#indication').val()}</td>
-                    <td class="text-center">${$('#treatmentDuration').val()}</td>                  
-                    <td class="text-center"><span onclick="deleteMedication(${countMedicationAdd})" ><i class="bi bi-archive"></i></span></td>                    
-                    </tr>`;
-                $('#table-medicamento').find('tbody').append(row);
+
+                let btn = `<span onclick="deleteMedication(${countMedicationAdd})" ><i class="bi bi-archive"></i></span>`;
 
                 medications_supplements.push({
                     medicine: $('#medicine').val(),
                     indication: $('#indication').val(),
-                    treatmentDuration: $('#treatmentDuration').val()
+                    treatmentDuration: $('#treatmentDuration').val(),
+                    btn: btn,
+                    id: countMedicationAdd
                 });
+
+
+                new DataTable(
+                    '#table-medicamento', {
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                        },
+                        // reponsive: true,
+                        bDestroy: true,
+                        data: medications_supplements,
+                        "searching": false,
+                        "bLengthChange": false,
+                        columns: [{
+                                data: 'medicine',
+                                title: 'Medicamento',
+                                className: "text-center td-pad",
+                            },
+                            {
+                                data: 'indication',
+                                title: 'Indicaciones',
+                                className: "text-center td-pad",
+                            },
+                            {
+                                data: 'treatmentDuration',
+                                title: 'Duración de tratamiento',
+                                className: "text-center td-pad",
+                            },
+                            {
+                                data: 'btn',
+                                title: 'Eliminar',
+                                className: "text-center td-pad",
+                            }
+                        ],
+                        fnCreatedRow: function(rowEl, data) {
+                            $(rowEl).attr('id', data.id);
+                        }
+                    });
 
                 countMedicationAdd = countMedicationAdd + 1;
                 $('#countMedicationAdd').val(countMedicationAdd);
@@ -523,12 +607,12 @@
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row">
-                                        <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 180px;">
-                                            <img src="{{ asset('/imgs/' . $Patient->patient_img) }}" width="150"
-                                                height="150" alt="Imagen del paciente" class="img-medical">
+                                        <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 162px;">
+                                            <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : (($Patient->genere=="femenino")? asset('/img/avatar/avatar mujer.png'):asset('/img/avatar/avatar hombre.png')) }}" width="150"
+                                            height="150" alt="Imagen del paciente" class="img-medical">
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                            <strong>Nombre:</strong><span class="text-capitalize">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
+                                            <strong>Nombre Completo:</strong><span class="text-capitalize">
                                                 {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                             <br>
                                             <strong>Fecha de Nacimiento:</strong><span>
@@ -536,14 +620,14 @@
                                             <br>
                                             <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
                                             <br>
-                                            <strong>{{ $Patient->is_minor === 'true' ? 'Cédula de identidad del representante:' : 'Cédula de identidad:' }}</strong>
+                                            <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
                                             <span>
                                                 {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                             <br>
-                                            <strong>Genero:</strong> <span class="text-capitalize">
-                                                {{ $Patient->genere }}</span>
+                                            <strong>Genero:</strong> <span class="text-capitalize"> {{ $Patient->genere }}</span>
                                             <br>
-                                            <strong>Nº Historial:</strong><span> {{ $Patient->get_history->cod_history }}
+                                            <strong>Nº Historial:</strong><span>
+                                                {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
                                             </span>
                                         </div>
                                     </div>
@@ -563,7 +647,7 @@
                                     <i class="bi bi-file-earmark-text"></i> Consulta médica
                                 </button>
                             </span>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                            <div id="collapseTwo" class="accordion-collapse2 collapse" aria-labelledby="headingTwo"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <form id="form-consulta" method="post" action="/">
@@ -588,7 +672,7 @@
                                                                     {{ $item->get_center->description }}</option>
                                                             @endforeach
                                                         </select>
-                                                        <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                        <i class="bi bi-hospital st-icon"></i>
                                                         <span id="type_alergia_span" class="text-danger"></span>
                                                     </div>
                                                 </div>
@@ -630,11 +714,12 @@
                                                     style="max-width: 100%; max-height: 200px;">
                                                     @foreach ($exam as $key => $item)
                                                         <ul id="exam">
-                                                            <li> <label><input type="checkbox" onclick="setExams(event,{{$key}})"
+                                                            <li> <label><input type="checkbox"
+                                                                        onclick="setExams(event,{{ $key }})"
                                                                         name="chk{{ $key }}"
                                                                         id="{{ $key }}"
-                                                                        data-code="{{$item->cod_exam}}"
-                                                                        value="{{$item->description }}">
+                                                                        data-code="{{ $item->cod_exam }}"
+                                                                        value="{{ $item->description }}">
                                                                     {{ $item->description }}</label><br>
                                                             </li>
                                                         </ul>
@@ -663,8 +748,8 @@
                                                             <li> <label><input type="checkbox"
                                                                         name="chk{{ $key }}"
                                                                         id="chectt{{ $key }}"
-                                                                        onclick="setStudy(event,{{$key}})"
-                                                                        data-code="{{$item->cod_exam}}"
+                                                                        onclick="setStudy(event,{{ $key }})"
+                                                                        data-code="{{ $item->cod_study }}"
                                                                         value="{{ $item->description }}">
                                                                     {{ $item->description }}</label><br>
                                                             </li>
@@ -684,8 +769,13 @@
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                 <div class="row mt-3">
                                                     <hr>
-                                                    <h5 class="text-center collapseBtn">Tratamiento</h5>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 ">
+                                                    <h5 style="margin-bottom: 17px;">Tratamiento</h5>
+                                                    <hr style="margin-bottom: 0;">
+                                                    <div style="display: flex">
+                                                        <span class="text-warning mt-3" style="font-size: 14px;margin-right: 10px;">Debe cargar al menos un tratamiento</span><i style="font-size:18px" class="bi bi-exclamation-triangle st-icon mt-3 text-warning "></i>
+                                                    </div>
+
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -693,12 +783,12 @@
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-only-text" id="medicine"
                                                                     name="medicine" type="text" value="">
-                                                                <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                                <i class="bi bi-capsule st-icon"></i>
                                                             </div>
                                                             <span id="medicine_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -706,29 +796,44 @@
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-only-text" id="indication"
                                                                     name="indication" type="text" value="">
-                                                                <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                                <i class="bi bi-file-medical st-icon"></i>
                                                             </div>
                                                             <span id="indication_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label"
+                                                                <label for="treatmentDuration" class="form-label"
                                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Duración
-                                                                    de tratamiento
-                                                                </label>
-                                                                <input autocomplete="off"
-                                                                    class="form-control mask-only-text"
-                                                                    id="treatmentDuration" name="treatmentDuration"
-                                                                    type="text" value="">
-                                                                <i class="bi bi-three-dots-vertical st-icon"></i>
+                                                                    de tratamiento</label>
+                                                                <select name="treatmentDuration" id="treatmentDuration"
+                                                                    placeholder="Seleccione"class="form-control"
+                                                                    class="form-control combo-textbox-input">
+                                                                    <option value="">Seleccione</option>
+                                                                    <option value="1 Día">1 Día</option>
+                                                                    <option value="2 Día">2 Día</option>
+                                                                    <option value="3 Día">3 Día</option>
+                                                                    <option value="4 Día">4 Día</option>
+                                                                    <option value="5 Día">5 Día</option>
+                                                                    <option value="6 Día">6 Día</option>
+                                                                    <option value="7 Día">7 Día</option>
+                                                                    <option value="1 Semana">1 Semana</option>
+                                                                    <option value="2 Semana">2 Semana</option>
+                                                                    <option value="3 Semana">3 Semana</option>
+                                                                    <option value="4 Semana">4 Semana</option>
+                                                                    <option value="1 Mes">1 Mes</option>
+                                                                    <option value="2 Mes">2 Mes</option>
+                                                                    <option value="3 Mes">3 Mes</option>
+                                                                    <option value="1 Año">1 Año</option>
+                                                                </select>
+                                                                <i class="bi bi-calendar-range st-icon"></i>
+                                                                <span id="treatmentDuration_span"
+                                                                    class="text-danger"></span>
                                                             </div>
-                                                            <span id="treatmentDuration_span" class="text-danger"></span>
                                                         </div>
                                                     </div>
-                                                    <div
-                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3 offset-md-5">
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3 offset-md-5">
                                                         <span type="" onclick="addMedacition(event)"
                                                             class="btn btn-outline-secondary" id="btn"
                                                             style="padding: 7px"><i class="bi bi-plus-lg"></i>Añadir
@@ -739,9 +844,6 @@
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
                                                         style="margin-top: 20px; width: 100%;">
-                                                        <hr>
-                                                        <h5>Lista de Tratamiento</h5>
-                                                        <hr>
                                                         <table class="table table-striped table-bordered"
                                                             id="table-medicamento">
                                                             <thead>
@@ -761,7 +863,7 @@
                                                             </tbody>
                                                         </table>
                                                         <tfoot>
-                                                            <div class="row mt-3">
+                                                            <div class="row mt-3" style="display: none">
                                                                 <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                     <div class="input-group flex-nowrap">
                                                                         <span class="input-group-text">Total de
@@ -861,7 +963,7 @@
                                                                     @if ($item['data']['status_exam'])
                                                                         <div
                                                                             class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <a href="{{ route('mr_exam', $item['id']) }}">
+                                                                            <a href="{{ route('mr_exam', $item['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     class="btn refresf btn-iSecond rounded-circle"
                                                                                     data-bs-toggle="tooltip"
@@ -873,23 +975,21 @@
                                                                             </a>
                                                                         </div>
                                                                     @else
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
-                                                                            style="display: flex; align-items: center;
-                                                                        justify-content: center; margin-right: 9px">
-                                                                            <i class="bi bi-exclamation-circle"
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                data-bs-custom-class="custom-tooltip"
-                                                                                data-html="true"
-                                                                                title="No hay examenes cargados"
-                                                                                style="font-size: 23px; color: #ff7b0d"></i>
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                                <button type="button"
+                                                                                    class="refresf btn-idanger rounded-circle"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="bottom"
+                                                                                    data-bs-custom-class="custom-tooltip"
+                                                                                    data-html="true" title="No hay examenes cargados">
+                                                                                    <i class="bi bi-exclamation-lg"></i>
+                                                                                </button>
                                                                         </div>
                                                                     @endif
                                                                     @if ($item['data']['status_study'])
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <a
-                                                                                href="{{ route('mr_study', $item['id']) }}">
+                                                                                href="{{ route('mr_study', $item['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     class="btn refresf btn-iSecond rounded-circle"
                                                                                     data-bs-toggle="tooltip"
@@ -901,17 +1001,16 @@
                                                                             </a>
                                                                         </div>
                                                                     @else
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
-                                                                            style="display: flex; align-items: center;
-                                                                        justify-content: center; margin-right: 9px">
-                                                                            <i class="bi bi-exclamation-circle"
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                data-bs-custom-class="custom-tooltip"
-                                                                                data-html="true"
-                                                                                title="No hay estudios cargados"
-                                                                                style="font-size: 23px; color: #ff7b0d"></i>
-                                                                        </div>
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <button type="button"
+                                                                            class="refresf btn-idanger rounded-circle"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom"
+                                                                            data-bs-custom-class="custom-tooltip"
+                                                                            data-html="true" title="No hay estudios cargados">
+                                                                            <i class="bi bi-exclamation-lg"></i>
+                                                                        </button>
+                                                                    </div>
                                                                     @endif
                                                                     <div
                                                                         class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">

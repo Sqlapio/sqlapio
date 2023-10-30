@@ -9,8 +9,9 @@
     #img-pat {
         border-radius: 27px;
         border: 2px solid #44525F;
-        height: auto;
-        margin: 7px 23px;
+        height: 150px;
+        margin: 5px 23px;
+        object-fit: cover;
     }
 
     body {
@@ -28,6 +29,7 @@
         width: 45px !important;
         height: 45px !important;
         border: 2px solid #44525f;
+        object-fit: cover;
     }
 
     .table-avatar {
@@ -49,12 +51,30 @@
         margin-left: -14px !important;
     }
 
+    .modal-d {
+        max-width: 200px;
+    }
+
 
     @media screen and (max-width: 390px) {
         #btn-margin {
             margin-left: -14px !important;
         }
 
+        #img-pat {
+            margin: 23px 20px 0 0;
+        }
+
+    }
+
+    @media (min-width: 391px) and (max-width: 576px) {
+        .modal-d {
+            max-width: 165px;
+        }
+
+        #img-pat {
+            margin: 7px 20px 0 0;
+        }
     }
 </style>
 @push('scripts')
@@ -280,7 +300,8 @@
                                 $("#bnt-cons").show();
                                 $("#bnt-cons").find('a').remove();
                                 $("#bnt-cons").append(
-                                `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`);                           
+                                    `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`
+                                    );
                             });
                         },
                         error: function(error) {
@@ -358,9 +379,7 @@
         //seteiar data en el formalario para su edicion
         function editPatien(item, active = true) {
             if (active) {
-                $(".accordion-collapse").collapse({
-                    toggle: false
-                });
+                $(".accordion-collapse").collapse('show')
             }
             $("#id").val(item.id);
             $("#name").val(item.name);
@@ -455,6 +474,8 @@
                                     },
                                     bDestroy: true,
                                     data: data,
+                                    "searching": false,
+                                    "bLengthChange": false,
                                     columns: [{
 
                                             data: 'name_full',
@@ -542,6 +563,7 @@
         }
 
         function agendarCita(item, info) {
+
             $('#exampleModal').modal('show');
             if (item.is_minor == 'true') {
                 $("#name-pat").text(item.name + ' ' + item.last_name);
@@ -561,7 +583,15 @@
                 $("#patient_id").val(item.id);
             }
             $('#div-pat').show();
-            $("#img-pat").attr("src", `{{ URL::asset('/imgs/') }}/${item.patient_img}`);
+            let img_url = `{{ URL::asset('/img/avatar/avatar mujer.png') }}`;
+            if (item.patient_img === null) {
+                if (item.genere == "masculino") {
+                    img_url = `{{ URL::asset('/img/avatar/avatar hombre.png') }}`;
+                }
+            } else {
+                img_url = `{{ URL::asset('/imgs/') }}/${item.patient_img}`;
+            }
+            $("#img-pat").attr("src", `${img_url}`);
             $('#registrer-pac').attr("disabled", false);
             $('#timeIni').focus()
         }
@@ -575,7 +605,7 @@
             $('#search_patient').attr('disabled', false)
         }
 
-        function handlerEmail(e,email) {
+        function handlerEmail(e, email) {
             if (e.target.value === email) {
                 Swal.fire({
                     icon: 'error',
@@ -588,6 +618,29 @@
                 });
             }
         }
+
+        $(function(){
+            var dtToday = new Date();
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+            if(month < 10)
+                month = '0' + month.toString();
+            if(day < 10)
+                day = '0' + day.toString();
+            var minDate= year + '-' + month + '-' + day;
+            $('.date-diary').attr('min', minDate);
+        })
+
+        $(document).ready(function () {
+            var today = new Date();
+            var day=today.getDate()>9?today.getDate():"0"+today.getDate(); // format should be "DD" not "D" e.g 09
+            var month=(today.getMonth()+1)>9?(today.getMonth()+1):"0"+(today.getMonth()+1);
+            var year=today.getFullYear();
+
+            $(".date-bd").attr('max', year + "-" + month + "-" + day);
+        });
+
     </script>
 @endpush
 @section('content')
@@ -638,7 +691,8 @@
                                         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <label for="search_patient"
-                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Ingrese número de identificación</label>
+                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Ingrese
+                                                    número de identificación</label>
                                                 <input disabled maxlength="10" type="text"
                                                     class="form-control mask-only-number" id="search_patient"
                                                     name="search_patient" placeholder="" value="">
@@ -651,7 +705,8 @@
                                     </div>
                                     <div class="row" id="show-info-pat" style="display: none">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <h5 class="mb-4">Lista de paciente registrado bajo este documento de identidad</h5>
+                                            <h5 class="mb-4">Lista de paciente registrado bajo este documento de identidad
+                                            </h5>
                                             <table id="table-show-info-pat" class="table table-striped table-bordered"
                                                 style="width:100%; ">
                                                 <thead>
@@ -714,20 +769,21 @@
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha
                                                             de
                                                             Nacimiento</label>
-                                                        <input class="form-control " id="birthdate" name="birthdate"
+                                                        <input class="form-control date-bd" id="birthdate" name="birthdate"
                                                             type="date" value=""
                                                             onchange="calculateAge(event,'age'), handlerAge(event)">
                                                     </div>
                                                 </diV>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" id="email-div">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3"
+                                                    id="email-div">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
                                                                 Electrónico</label>
-                                                                @php
-                                                                 $email  = Auth::user()->email;
-                                                                @endphp
+                                                            @php
+                                                                $email = Auth::user()->email;
+                                                            @endphp
                                                             <input autocomplete="off"
                                                                 onchange='handlerEmail(event,@json($email))'
                                                                 class="form-control @error('email') is-invalid @enderror"
@@ -737,7 +793,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" id="ci-div">
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3"
+                                                    id="ci-div">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label" type="number"
@@ -807,7 +864,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <x-centers_user class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
+                                                <x-centers_user
+                                                    class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
                                                 <x-upload-image />
                                                 {{-- data del representante --}}
                                                 <div class="row mt-3" id="data-rep" style="display: none">
@@ -891,12 +949,17 @@
                                             <div class="row mt-3 justify-content-md-end">
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                     style="display: flex; justify-content: flex-end; align-items: flex-end; flex-wrap: wrap;">
-                                                    <div id="bnt-dairy" style="display: none;margin-left: 10px; ; margin-bottom: 10px"></div>
-                                                    <div id="bnt-cons" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
-                                                    <div id="bnt-hist" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
-                                                    <input class="btn btnSave send" value="Guardar" type="submit" style="margin-left: 10px; margin-bottom: 10px"/>
-                                                    <button style="margin-left: 10px; padding: 8px; margin-bottom: 10px" type="button"
-                                                        onclick="refreshForm();" class="btn btnSecond"
+                                                    <div id="bnt-dairy"
+                                                        style="display: none;margin-left: 10px; ; margin-bottom: 10px">
+                                                    </div>
+                                                    <div id="bnt-cons"
+                                                        style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
+                                                    <div id="bnt-hist"
+                                                        style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
+                                                    <input class="btn btnSave send" value="Guardar" type="submit"
+                                                        style="margin-left: 10px; margin-bottom: 10px" />
+                                                    <button style="margin-left: 10px; padding: 8px; margin-bottom: 10px"
+                                                        type="button" onclick="refreshForm();" class="btn btnSecond"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         data-html="true" title="Limpiar Formulario">
                                                         <i class="bi bi-eraser"></i>
@@ -915,7 +978,8 @@
                 </div>
                 {{-- Lista de pacientes con consultas  --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" style="margin-top: 20px; margin-bottom: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd"
+                        style="margin-top: 20px; margin-bottom: 20px;">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
@@ -952,7 +1016,7 @@
                                                         <tr>
                                                             <td class="table-avatar">
                                                                 <img class="avatar"
-                                                                    src="{{ asset('/imgs/' . $item->get_paciente->patient_img) }}"
+                                                                    src=" {{ $item->get_paciente->patient_img ? asset('/imgs/' . $item->get_paciente->patient_img) : ($item->get_paciente->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
                                                                     alt="Imagen del paciente">
                                                             </td>
                                                             <td class="text-center">
@@ -1040,9 +1104,9 @@
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
             id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
-                <div id="spinner" style="display: none">
-                    <x-load-spinner show="true" />
-                </div>
+            <div id="spinner" style="display: none">
+                <x-load-spinner show="true" />
+            </div>
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -1055,15 +1119,16 @@
                         <div class="modal-body">
                             <div id="div-pat" style="display: none">
                                 <div class="d-flex mt-3">
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="max-width: 200px;">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 modal-d">
                                         <div class="img">
                                             <img id="img-pat" src="" width="150" height="150"
                                                 alt="Imagen del paciente">
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3"
+                                        style="font-size: 14px;">
                                         <div>
-                                            <strong>Nombre: </strong><span class="text-capitalize" id="name-pat"></span>
+                                            <strong><span class="text-capitalize" id="name-pat"></span></strong>
                                             <br>
                                             <strong>Cédula: </strong><span id="ci-pat"></span>
                                             <br>
@@ -1087,8 +1152,8 @@
                                             <div class="Icon-inside">
                                                 <label for="date" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha</label>
-                                                <input class="form-control" id="date_start" name="date_start"
-                                                    type="date" value="" >
+                                                <input class="form-control date-diary" id="date_start" name="date_start"
+                                                    type="date" value="">
                                             </div>
                                         </div>
                                     </div>

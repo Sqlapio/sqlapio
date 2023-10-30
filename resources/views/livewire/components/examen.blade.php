@@ -10,6 +10,25 @@
         color: #47525e;
     }
 
+    .btn-idanger {
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+        white-space: nowrap;
+        background: #ff7b0d;
+        color: #fff;
+        font-size: 22px;
+        font-weight: 400;
+        letter-spacing: -.01em;
+        padding: 5px;
+        margin-right: 9px;
+    }
+
+    .btn-idanger:hover, .btnSecond:active {
+        background: #ff7b0d;
+        color: #fff;
+    }
+
     .card-ex {
         -webkit-background-size: cover !important;
         -moz-background-size: cover !important;
@@ -48,6 +67,17 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
+                        if (response.length === 0) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'El paciente no tiene información cargada en el sistema!',
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: 'Aceptar'
+                            });
+                            return false;
+
+                        }
                         Swal.fire({
                             icon: 'success',
                             title: 'Operación exitosa!',
@@ -61,13 +91,22 @@
                             let data = [];
                             response.map((elem) => {
                                 let elemData = JSON.stringify(elem);
-                                elem.btn = ` 
-                                                <button onclick='showExam(${elemData})'
+
+                                elem.btn = `<button onclick='showExam(${elemData})'
                                                 type="button" class="btn-2 btnSecond">Ver estudios</button>
                                                 </div>`;
+                                if(elem.exam.length===0){
+                                    elem.btn  = `<button type="button"
+                                                        class="refresf btn-idanger rounded-circle"
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom"
+                                                        data-bs-custom-class="custom-tooltip"
+                                                        data-html="true" title="No hay examenes cargados">
+                                                        <i class="bi bi-exclamation-lg"></i>
+                                                    </button>`;
+                                }
                                 data.push(elem);
                             });
-
 
                             new DataTable('#table-info-pat', {
                                 language: {
@@ -75,6 +114,8 @@
                                 },
                                 bDestroy: true,
                                 data: data,
+                                "searching": false,
+                                "bLengthChange": false,
                                 columns: [{
 
                                         data: 'full_name',
