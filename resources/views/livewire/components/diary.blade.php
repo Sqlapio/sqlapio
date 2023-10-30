@@ -28,11 +28,10 @@
 
     #img-pat {
         border-radius: 27px;
-        /* padding: 10px 0px 0px 6px;
-        width: 100%; */
         border: 2px solid #44525F;
-        height: auto;
-        margin: 7px 23px;  
+        height: 150px;
+        margin: 5px 23px;
+        object-fit: cover;
     }
 
     .fc .fc-daygrid-day-number {
@@ -61,6 +60,63 @@
     .fc .fc-toolbar-title {
         text-transform: capitalize;
     }
+
+    .modal-d {
+        max-width: 200px;
+    }
+
+    @media screen and (max-width: 390px) {
+        #img-pat {
+            margin: 23px 20px 0 0;
+        }
+
+        .m-xs {
+            margin: 0 10px;
+        }
+
+        .fc .fc-daygrid-day-top {
+            height: 20px;
+        }
+
+        .fc .fc-toolbar {
+            flex-direction: column-reverse;
+        }
+
+        .fc .fc-toolbar-title {
+            margin: 10px 0;
+        }
+
+        .modal-d {
+            max-width: 165px;
+        }
+
+    }
+
+    @media (min-width: 391px)  and (max-width: 576px) {
+        .m-xs {
+            margin: 0 10px;
+        }
+
+        .fc .fc-daygrid-day-top {
+            height: 20px;
+        }
+
+        .fc .fc-toolbar {
+            flex-direction: column-reverse;
+        }
+
+        .fc .fc-toolbar-title {
+            margin: 10px 0;
+        }
+
+        .modal-d {
+            max-width: 165px;
+        }
+        #img-pat {
+            margin: 7px 20px 0 0;
+        }
+    }
+
 </style>
 @push('scripts')
     @vite(['resources/js/dairy.js'])
@@ -72,9 +128,10 @@
             let update_appointments = "{{ route('update_appointments') }}";
             let appointments = @json($appointments);
             let ulrImge = "{{ URL::asset('/imgs/') }}";
+            let imge_avatar = "{{ URL::asset('/img/avatar/') }}";
             let urlPostCreateAppointment = '{{ route('CreateAppointment') }}';
             getUrl(urlPostCreateAppointment, url2);
-            getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments);
+            getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments,imge_avatar);
         });
 
         function handlerRadio(item) {
@@ -89,9 +146,9 @@
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
                     <div class="card accordion-diary">
                         <div class="card-body" style="position: sticky">
-                            <div class="d-flex">
+                            {{-- <div class="d-flex"> --}}
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id='calendar'></div>
-                            </div>
+                            {{-- </div> --}}
                         </div>
                     </div>
                 </div>
@@ -129,13 +186,13 @@
                                 {{-- </div> --}}
                                 <div id="div-pat" style="display: none">
                                     <div class="d-flex mt-2">
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="max-width: 200px;">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 modal-d">
                                             <div class="img">
                                                 <img id="img-pat" src="" width="150" height="150"
                                                     alt="Imagen del paciente">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" style="font-size: 14px;">
                                             <div>
                                                 <strong>Nombre: </strong><span class="text-capitalize"
                                                     id="name"></span>
@@ -295,13 +352,13 @@
                                         <x-load-spinner show="true" />
                                     </div>
                                     <div class="row text-center mt-3">
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
-                                            style="margin-top: -4px" id="send">
-                                            <input class="btn btnSave" id="registrer-pac" value="Registrar" disabled
-                                                type="submit" />
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" style="display: flex; justify-content: center; align-items: center;">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 " id="send">
+                                                <input class="btn btnSave" id="registrer-pac" value="Registrar" disabled type="submit" />
+                                            </div>
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 m-xs" id="btn-con"></div>
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell"></div>
                                         </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-con"></div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell"></div>
                                     </div>
                                 </form>
                             </div>

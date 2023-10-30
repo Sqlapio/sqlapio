@@ -19,13 +19,16 @@ use App\Http\Livewire\Components\ClinicalHistory;
 use App\Http\Livewire\Components\Centers;
 use App\Http\Livewire\Components\Examen;
 use App\Http\Livewire\Components\Laboratory;
+use App\Http\Livewire\Components\PlansVerify;
 use App\Http\Livewire\Components\Statistics;
 use App\Http\Livewire\Components\Register;
 use App\Http\Livewire\Components\Study;
+use App\Http\Middleware\VerifyPlans;
 use App\Models\Exam;
 use App\Models\Patient;
 use App\Models\Reference;
 use App\Models\User as ModelsUser;
+use App\View\Components\VerifyplansComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,41 +75,47 @@ Route::get('/confirmation/dairy/{code}', [UtilsController::class, 'confirmation_
 
 
 Route::middleware(['auth'])->group(function () {
-    
-    Route::group(array('prefix' => 'auth'), function () {
-        Route::get('/home', [Home::class, 'render'])->name('home');
-        Route::get('/dashboard', [DashboardComponent::class, 'render'])->name('DashboardComponent');
-        Route::get('/patients', [Patients::class, 'render'])->name('Patients');
-        Route::get('/setting', [setting::class, 'render'])->name('Setting');
-        Route::get('/diary', [Diary::class, 'render'])->name('Diary');
-        Route::post('/create-appointment', [Diary::class, 'store'])->name('CreateAppointment');
-        Route::get('/clinical-history', [ClinicalHistory::class, 'render'])->name('ClinicalHistory');
-        Route::get('/centers', [Centers::class, 'render'])->name('Centers');
-        Route::post('/register-centers', [Centers::class, 'store'])->name('register-centers');
-        Route::get('/statistics', [Statistics::class, 'render'])->name('Statistics');
-        Route::get('/study', [Study::class, 'render'])->name('Study');
-        Route::get('/examen', [Examen::class, 'render'])->name('Examen');
 
-        Route::group(array('prefix' => 'patients'), function () {
-            Route::get('/medical-record/{id}', [MedicalRecord::class, 'render'])->name('MedicalRecord');
-            Route::post('/medical-consultation-create', [MedicalRecord::class, 'store'])->name('MedicalRecordCreate');
-            Route::get('/medical-history', [MedicalHistory::class, 'render'])->name('MedicalHistory');
-            Route::post('/register-patients', [Patients::class, 'store'])->name('register-patients');
-            Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail');
-            Route::post('/clinical-history-create', [MedicalHistory::class, 'store'])->name('ClinicalHistoryCreate');
-            Route::get('/search-patient/{value}', [Patients::class, 'search'])->name('search-patient');
-            Route::get('/medicard_record_study/{id}', [Study::class, 'render'])->name("mr_study");
-            Route::get('/medicard_record_exam/{id}', [Examen::class, 'render'])->name("mr_exam");
+    Route::group(array('prefix' => 'auth'), function () {
+        Route::middleware(['VerifySelloDigital', 'verify_email'])->group(function () {
+            Route::get('/home', [Home::class, 'render'])->name('home');
+            Route::get('/dashboard', [DashboardComponent::class, 'render'])->name('DashboardComponent');
+            Route::get('/patients', [Patients::class, 'render'])->name('Patients')->middleware(['VerifyPlans']);
+            Route::get('/setting', [setting::class, 'render'])->name('Setting');
+            Route::get('/diary', [Diary::class, 'render'])->name('Diary')->middleware(['VerifyPlans']);
+            Route::post('/create-appointment', [Diary::class, 'store'])->name('CreateAppointment');
+            Route::get('/clinical-history', [ClinicalHistory::class, 'render'])->name('ClinicalHistory');
+            Route::get('/centers', [Centers::class, 'render'])->name('Centers');
+            Route::post('/register-centers', [Centers::class, 'store'])->name('register-centers');
+            Route::get('/statistics', [Statistics::class, 'render'])->name('Statistics');
+            Route::get('/study', [Study::class, 'render'])->name('Study');
+            Route::get('/examen', [Examen::class, 'render'])->name('Examen');
+
+            Route::group(array('prefix' => 'patients'), function () {
+                Route::get('/medical-record/{id}', [MedicalRecord::class, 'render'])->name('MedicalRecord');
+                Route::post('/medical-consultation-create', [MedicalRecord::class, 'store'])->name('MedicalRecordCreate');
+                Route::get('/medical-history', [MedicalHistory::class, 'render'])->name('MedicalHistory');
+                Route::post('/register-patients', [Patients::class, 'store'])->name('register-patients');
+                Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail');
+                Route::post('/clinical-history-create', [MedicalHistory::class, 'store'])->name('ClinicalHistoryCreate');
+                Route::get('/search-patient/{value}', [Patients::class, 'search'])->name('search-patient');
+                Route::get('/medicard_record_study/{id}', [Study::class, 'render'])->name("mr_study");
+                Route::get('/medicard_record_exam/{id}', [Examen::class, 'render'])->name("mr_exam");
+            });
         });
 
+        ///
         Route::group(array('prefix' => 'setting'), function () {
             Route::get('/user', [User::class, 'render'])->name('User');
-            Route::get('/profile', [Profile::class, 'render'])->name('Profile');
             Route::post('/update-profile', [Register::class, 'update'])->name('update-profile');
             Route::get('/suscription', [Suscription::class, 'render'])->name('Suscription');
-            Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp');
-            Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp');
+            Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp')->middleware(['VerifySelloDigital', 'verify_email', 'VerifyPlans']);
+            Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp')->middleware(['VerifySelloDigital', 'verify_email', 'VerifyPlans']);
+            Route::post('/create-seal', [Profile::class, 'create_seal'])->name('create_seal');
+            Route::get('/auth/setting/profile', [Profile::class, 'render'])->name('Profile');
+            Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');
         });
+
 
         // ruoter para ver examenes y estudios
         Route::get('/search_person/{value}/{row}', [UtilsController::class, 'search_person'])->name("search_person");
@@ -129,7 +138,6 @@ Route::middleware(['auth'])->group(function () {
          * deshabilitar centros
          */
         Route::get('/center_disabled/{id}', [Centers::class, 'centers_disabled'])->name('center_disabled');
-
     });
 
     /**
@@ -144,7 +152,7 @@ Route::middleware(['auth'])->group(function () {
      */
     Route::get('/get_patients', [UtilsController::class, 'get_patients_pag'])->name('get_patients_pagination');
 
-     /**
+    /**
      * @method EndPoint
      * lista de consultas
      */
@@ -171,14 +179,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pdf/medical_prescription/{id}', [PDFController::class, 'PDF_medical_prescription'])->name('pdf_medical_prescription');
 
 
-     /**
+    /**
      * @method search
      * @param value
      * Buscar paciente por cedula
      */
     Route::get('/search-patients/{value}', [Diary::class, 'search_patients'])->name("search_patients");
 
-      /**
+    /**
      * @method cancelled 
      * @param value
      * cancelar cita del paciente
@@ -191,7 +199,7 @@ Route::middleware(['auth'])->group(function () {
      * actualizar cita del paciente
      */
     Route::put('/update-appointments', [Diary::class, 'update'])->name("update_appointments");
-     /**
+    /**
      * @method cancelled 
      * @param value
      * cancelar cita del paciente
@@ -208,15 +216,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get/reference', [UtilsController::class, 'get_all_ref'])->name("get_ref");
 
 
-        
+
         // pdf referencia
         Route::get('/pdf/reference/{id}', [PDFController::class, 'PDF_ref'])->name("PDF_ref");
 
         // Referencias atendidas
         Route::get('/references/res', [UtilsController::class, 'responce_references'])->name("references_res");
-
-     });
-
+    });
 });
 
 //route

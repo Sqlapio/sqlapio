@@ -20,6 +20,26 @@
         border-radius: 30px !important;
         font-size: 13px
     }
+
+    .btn-idanger {
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+        white-space: nowrap;
+        background: #ff7b0d;
+        color: #fff;
+        font-size: 22px;
+        font-weight: 400;
+        letter-spacing: -.01em;
+        padding: 5px;
+        margin-right: 9px;
+    }
+
+    .btn-idanger:hover,
+    .btnSecond:active {
+        background: #ff7b0d;
+        color: #fff;
+    }
 </style>
 @push('scripts')
     <script>
@@ -30,10 +50,10 @@
             if (id != null) {
                 showStudy(data);
                 const bsCollapse = new bootstrap.Collapse('.collapsee', {
-                        toggle: true
-                    })
+                    toggle: true
+                })
             }
-            
+
         });
 
         function searchPerson() {
@@ -48,6 +68,17 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
+                        if (response.length === 0) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'El paciente no tiene información cargada en el sistema!',
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: 'Aceptar'
+                            });
+                            return false;
+
+                        }
                         Swal.fire({
                             icon: 'success',
                             title: 'Operación exitosa!',
@@ -66,6 +97,17 @@
                                                 <button onclick='showStudy(${elemData})'
                                                 type="button" class="btn-2 btnSecond">Ver estudios</button>
                                                 </div>`;
+
+                                if (elem.study.length === 0) {
+                                    elem.btn = `<button type="button"
+                                                        class="refresf btn-idanger rounded-circle"
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom"
+                                                        data-bs-custom-class="custom-tooltip"
+                                                        data-html="true" title="No hay estudios cargados">
+                                                        <i class="bi bi-exclamation-lg"></i>
+                                                    </button>`;
+                                }
                                 data.push(elem);
                             });
 
@@ -76,6 +118,8 @@
                                 },
                                 bDestroy: true,
                                 data: data,
+                                "searching": false,
+                                "bLengthChange": false,
                                 columns: [{
 
                                         data: 'full_name',

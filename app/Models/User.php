@@ -45,6 +45,7 @@ class User extends Authenticatable {
 		'birthdate',
 		'age',
 		'genere',
+		'specialty',
 		'phone',
 		'state',
 		'city',
@@ -58,7 +59,8 @@ class User extends Authenticatable {
 		 */
 		'status_register',
 		'user_img',
-		'digital_signature',
+		'digital_cello',
+		'digital_cello',
 		'cod_mpps',
 
 		/**
