@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('user_id');
             $table->string('center_id');
             $table->string('patient_id');
+            $table->string('medical_record_id');
             $table->string('date');
             $table->string('status')->default(1);
             $table->string('laboratory_id')->nullable();

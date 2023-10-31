@@ -690,8 +690,8 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <div class="row mt-3" style="display: none">
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                    <div class="row mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="display: none">
                                             <div class="input-group flex-nowrap">
                                                 <span class="input-group-text" id="">Total
                                                     Antecedentes</span>
@@ -761,8 +761,8 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <div class="row mt-3" style="display: none">
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                    <div class="row mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="display: none">
                                             <div class="input-group flex-nowrap">
                                                 <span class="input-group-text">Total patológicos
                                                 </span>
@@ -832,8 +832,8 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <div class="row mt-3" style="display: none">
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                    <div class="row mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"  style="display: none">
                                             <div class="input-group flex-nowrap">
                                                 <span class="input-group-text">Total historia no patológica
                                                 </span>

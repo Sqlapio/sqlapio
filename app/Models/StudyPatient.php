@@ -30,6 +30,7 @@ class StudyPatient extends Model
         'user_id',
         'center_id',
         'patient_id',
+        'medical_record_id',
         'date',
         'status',
         'cod_lab',
