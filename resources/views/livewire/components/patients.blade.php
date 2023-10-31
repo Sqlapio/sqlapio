@@ -275,7 +275,7 @@
                 $("#form-patients").validate();
                 if ($("#form-patients").valid()) {
                     $('#send').hide();
-                    $('#spinner').show();
+                    $('#spinner2').show();
                     var data = $('#form-patients').serialize();
                     $.ajax({
                         url: "{{ route('register-patients') }}",
@@ -286,7 +286,7 @@
                         },
                         success: function(response) {
                             $('#send').show();
-                            $('#spinner').hide();
+                            $('#spinner2').hide();
                             // $("#form-patients").trigger("reset");
                             $(".holder").hide();
                             Swal.fire({
@@ -302,6 +302,7 @@
                                 $("#bnt-cons").append(
                                     `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`
                                     );
+                                $('#send').show().attr('disabled', true);
                             });
                         },
                         error: function(error) {
@@ -313,8 +314,8 @@
                                     confirmButtonColor: '#42ABE2',
                                     confirmButtonText: 'Aceptar'
                                 }).then((result) => {
-                                    $('#send').show();
-                                    $('#spinner').hide();
+                                    $('#send').show().attr('disabled', true);;
+                                    $('#spinner2').hide();
                                     $(".holder").hide();
                                 });
                             });
@@ -634,7 +635,7 @@
 
         $(document).ready(function () {
             var today = new Date();
-            var day=today.getDate()>9?today.getDate():"0"+today.getDate(); // format should be "DD" not "D" e.g 09
+            var day=today.getDate()>9?today.getDate():"0"+today.getDate();
             var month=(today.getMonth()+1)>9?(today.getMonth()+1):"0"+(today.getMonth()+1);
             var year=today.getFullYear();
 
@@ -645,6 +646,9 @@
 @endpush
 @section('content')
     <div>
+        <div id="spinner2" style="display: none">
+            <x-load-spinner show="true" />
+        </div>
         <div class="container-fluid body" style="padding: 3%">
             <div class="accordion" id="accordion">
                 <div class="row">
@@ -704,8 +708,8 @@
                                         </div>
                                     </div>
                                     <div class="row" id="show-info-pat" style="display: none">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <h5 class="mb-4">Lista de paciente registrado bajo este documento de identidad
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive">
+                                            <h5 class="mb-4 mt-4">Hijos de paciente registrado
                                             </h5>
                                             <table id="table-show-info-pat" class="table table-striped table-bordered"
                                                 style="width:100%; ">
