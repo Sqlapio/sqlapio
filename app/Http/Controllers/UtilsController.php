@@ -281,11 +281,11 @@ class UtilsController extends Controller
 						'id' =>  $val->id,
 						'price' => $val->price,
 						'confirmation' => $val->confirmation,
-						'phone' => $val->get_patients->phone,
+						'phone' => $val->get_patients->is_minor== "true" ? $val->get_patients->get_reprensetative->re_phone. '  (Rep)' : $val->get_patients->phone,
 						'name' => $val->get_patients->name,
 						'last_name' => $val->get_patients->last_name,
-						'ci' => $val->get_patients->ci,
-						'email' => $val->get_patients->email,
+						'ci' => $val->get_patients->is_minor== "true" ? $val->get_patients->get_reprensetative->re_ci. '  (Rep)' :$val->get_patients->ci,
+						'email' => $val->get_patients->is_minor== "true" ? $val->get_patients->get_reprensetative->re_email. '  (Rep)':$val->get_patients->email,
 						'genere' => $val->get_patients->genere,
 						'age' =>  $val->get_patients->age,
 						'patient_id' =>  $val->get_patients->id,
@@ -407,7 +407,8 @@ class UtilsController extends Controller
 						'medications_supplements' 		=>  json_decode($val->medications_supplements) ,
 						'status_exam' 		=>  $val->status_exam,
 						'status_study' 		=> $val->status_study,
-
+						'study' 		=> $val->get_study_medical,
+						'exam' 		=> $val->get_exam_medical,
 					],
 				];
 			}

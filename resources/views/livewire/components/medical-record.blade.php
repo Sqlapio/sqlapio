@@ -11,7 +11,11 @@
         font-size: 13px;
     }
 
-    .btn-outline-primary:checked + .btn, :not(.btn-outline-primary) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
+    .btn-outline-primary:checked+.btn,
+    :not(.btn-outline-primary)+.btn:active,
+    .btn:first-child:active,
+    .btn.active,
+    .btn.show {
         color: var(--bs-btn-active-color);
         background-color: #81d1d0 !important;
         border-color: #81d1d0 !important;
@@ -28,7 +32,11 @@
         --bs-btn-disabled-border-color: #02bdbb !important;
     }
 
-    .btn-outline-success:checked + .btn, :not(.btn-outline-success) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
+    .btn-outline-success:checked+.btn,
+    :not(.btn-outline-success)+.btn:active,
+    .btn:first-child:active,
+    .btn.active,
+    .btn.show {
         color: var(--bs-btn-active-color);
         background-color: #459594 !important;
         border-color: #459594 !important;
@@ -65,7 +73,8 @@
         margin-right: 9px;
     }
 
-    .btn-idanger:hover, .btnSecond:active {
+    .btn-idanger:hover,
+    .btnSecond:active {
         background: #ff7b0d;
         color: #fff;
     }
@@ -84,25 +93,25 @@
         box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
     }
 
-        /* Estilos track de scroll */
+    /* Estilos track de scroll */
     .card-study::-webkit-scrollbar-track {
         background: #e1e1e1;
         border-radius: 4px;
     }
 
-    .card-study::-webkit-scrollbar-track:hover, 
+    .card-study::-webkit-scrollbar-track:hover,
     .card-study::-webkit-scrollbar-track:active {
         background: #d4d4d4;
     }
 
-    @media only screen and (max-width: 390px) { 
+    @media only screen and (max-width: 390px) {
         .data-medical {
             width: 185px !important;
             font-size: 14px;
         }
     }
 
-    @media (min-width: 391px) and (max-width: 576px) { 
+    @media (min-width: 391px) and (max-width: 576px) {
         .data-medical {
             width: 222px !important;
             font-size: 14px;
@@ -128,8 +137,8 @@
 
             document.querySelectorAll('[data-bs-toggle="popover"]')
                 .forEach(popover => {
-                new bootstrap.Popover(popover)
-            })
+                    new bootstrap.Popover(popover)
+                })
 
             let doctor_centers = @json($doctor_centers);
             let validate_histroy = @json($validate_histroy);
@@ -537,6 +546,16 @@
                         </tr>`;
                 $('#table-medicamento').find('tbody').append(row);
 
+                //setiar examenes
+                item.data.exam.map((elem, key) => {
+                    $(`#${elem.cod_exam}`).attr('checked', true);
+                });
+                //setiar estudios   
+                item.data.study.map((elem, key) => {
+                    $(`#${elem.cod_study}`).attr('checked', true);
+                });
+
+
             });
         }
 
@@ -549,39 +568,21 @@
 
         function setExams(e, key) {
             if ($(`#${e.target.id}`).is(':checked')) {
-                valExams = (valExams == "") ? e.target.value : valExams + ',\n' + e.target.value;
                 exams_array.push({
                     code_exams: $(`#${e.target.id}`).data('code')
                 });
-                valExams = valExams.replace(',,', ',');
-                $("#exams").val(valExams);
             } else {
-                valExams = valExams.replace(e.target.value, '');
-                valExams = valExams.replace(',,', ',');
-                if (valExams == ",") valExams = valExams.replace(',', '');
                 exams_array.splice(key, 1);
-                valExams = valExams.replace(/\n+/g, '');
-                valExams = valExams.replace(',', '\n');
-                $("#exams").val(valExams);
             }
         }
 
         function setStudy(e, key) {
             if ($(`#${e.target.id}`).is(':checked')) {
-                valStudy = (valStudy == "") ? e.target.value : valStudy + ',\n' + e.target.value;
                 studies_array.push({
                     code_studies: $(`#${e.target.id}`).data('code')
                 });
-                valStudy = valStudy.replace(',,', ',');
-                $("#studies").val(valStudy);
             } else {
-                valStudy = valStudy.replace(e.target.value, '');
-                valStudy = valStudy.replace(',,', ',');
-                if (valStudy == ",") valStudy = valStudy.replace(',', '');
-                valStudy = valStudy.replace(/\n+/g, '');
-                valStudy = valStudy.replace(',', '\n');
                 studies_array.splice(key, 1);
-                $("#studies").val(valStudy);
             }
         }
 
@@ -697,8 +698,8 @@
                                 <div class="accordion-body">
                                     <div class="row">
                                         <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 162px;">
-                                            <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : (($Patient->genere=="femenino")? asset('/img/avatar/avatar mujer.png'):asset('/img/avatar/avatar hombre.png')) }}" width="150"
-                                            height="150" alt="Imagen del paciente" class="img-medical">
+                                            <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                width="150" height="150" alt="Imagen del paciente" class="img-medical">
                                         </div>
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
                                             <strong>Nombre Completo:</strong><span class="text-capitalize">
@@ -713,7 +714,8 @@
                                             <span>
                                                 {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                             <br>
-                                            <strong>Genero:</strong> <span class="text-capitalize"> {{ $Patient->genere }}</span>
+                                            <strong>Genero:</strong> <span class="text-capitalize">
+                                                {{ $Patient->genere }}</span>
                                             <br>
                                             <strong>Nº Historial:</strong><span>
                                                 {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
@@ -802,39 +804,23 @@
                                                 <div class="overflow-auto p-3 bg-light mt-3"
                                                     style="max-width: 100%; max-height: 200px; position: relative;">
                                                     @foreach ($exam as $key => $item)
-                                                        <ul id="exam" style="padding-inline-start: 0; padding-left: 5px;">
-                                                            <li> 
-                                                                <input type="checkbox" 
-                                                                class="btn-check"
-                                                                id="{{ $key }}"
-                                                                name="chk{{ $key }}"
-                                                                autocomplete="off"
-                                                                data-code="{{ $item->cod_exam }}" 
-                                                                onclick="setExams(event,{{ $key }})"
-                                                                value="{{ $item->description }}">
-                                                                <label class="btn btn-outline-primary check-cm" for="{{ $key }}">
+                                                        <ul id="exam"
+                                                            style="padding-inline-start: 0; padding-left: 5px;">
+                                                            <li>
+                                                                <input type="checkbox" class="btn-check"
+                                                                    id="{{ $item->cod_exam }}"
+                                                                    name="chk{{ $key }}" autocomplete="off"
+                                                                    data-code="{{ $item->cod_exam }}"
+                                                                    onclick="setExams(event,{{ $key }})"
+                                                                    value="{{ $item->description }}">
+                                                                <label class="btn btn-outline-primary check-cm"
+                                                                    for="{{ $item->cod_exam }}">
                                                                     {{ $item->description }}
-                                                                </label>
-                                                                {{-- <label>
-                                                                    <input type="checkbox"
-                                                                        onclick="setExams(event,{{ $key }})"
-                                                                        name="chk{{ $key }}"
-                                                                        id="{{ $key }}"
-                                                                        data-code="{{ $item->cod_exam }}"
-                                                                        value="{{ $item->description }}">
-                                                                    {{ $item->description }}
-                                                                </label>
-                                                                <br> --}}
+                                                                </label>                                                             
                                                             </li>
                                                         </ul>
                                                     @endforeach
-                                                </div>
-
-                                                <div class="form-group mt-3" style="display:none">
-                                                    <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Examenes</label>
-                                                    <textarea readonly id="exams" rows="8" name="exams" class="form-control"></textarea>
-                                                </div>
+                                                </div>                                                
                                             </div>
 
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
@@ -848,39 +834,20 @@
                                                 <div class="overflow-auto p-3 bg-light mt-3 card-study"
                                                     style="max-width: 100%; max-height: 200px; position: relative;">
                                                     @foreach ($study as $key => $item)
-                                                        
                                                         <ul id="studie">
-                                                            <li> 
-                                                                <input type="checkbox" 
-                                                                    class="btn-check"
-                                                                    autocomplete="off"
-                                                                    name="chk{{ $key }}"
-                                                                    id="chectt{{ $key }}"
+                                                            <li>
+                                                                <input type="checkbox" class="btn-check"
+                                                                    autocomplete="off" name="chk{{ $key }}"
+                                                                    id="{{ $item->cod_study }}"
                                                                     onclick="setStudy(event,{{ $key }})"
                                                                     data-code="{{ $item->cod_study }}"
-                                                                    value="{{ $item->description }}"
-                                                                    >
-                                                                <label class="btn btn-outline-success check-cm" for="chectt{{ $key }}">{{ $item->description }}</label><br>
-                                                                {{-- <label>
-                                                                    <input type="checkbox"
-                                                                        name="chk{{ $key }}"
-                                                                        id="chectt{{ $key }}"
-                                                                        onclick="setStudy(event,{{ $key }})"
-                                                                        data-code="{{ $item->cod_study }}"
-                                                                        value="{{ $item->description }}"
-                                                                        >
-                                                                    {{ $item->description }}
-                                                                </label>
-                                                                <br> --}}
+                                                                    value="{{ $item->description }}">
+                                                                <label class="btn btn-outline-success check-cm"
+                                                                    for="{{ $item->cod_study }}">{{ $item->description }}</label><br>
                                                             </li>
                                                         </ul>
                                                     @endforeach
-                                                </div>
-                                                <div class="form-group mt-3" style="display:none">
-                                                    <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Estudios</label>
-                                                    <textarea readonly id="studies" rows="8" name="studies" class="form-control"></textarea>
-                                                </div>
+                                                </div>                                               
                                             </div>
                                         </div>
 
@@ -892,7 +859,10 @@
                                                     <h5 style="margin-bottom: 17px;">Tratamiento</h5>
                                                     <hr style="margin-bottom: 0;">
                                                     <div style="display: flex">
-                                                        <span class="text-warning mt-3" style="font-size: 14px;margin-right: 10px;">Debe cargar al menos un tratamiento</span><i style="font-size:18px" class="bi bi-exclamation-triangle st-icon mt-3 text-warning "></i>
+                                                        <span class="text-warning mt-3"
+                                                            style="font-size: 14px;margin-right: 10px;">Debe cargar al
+                                                            menos un tratamiento</span><i style="font-size:18px"
+                                                            class="bi bi-exclamation-triangle st-icon mt-3 text-warning "></i>
                                                     </div>
                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                         <div class="form-group">
@@ -952,7 +922,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3 offset-md-5">
+                                                    <div
+                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3 offset-md-5">
                                                         <span type="" onclick="addMedacition(event)"
                                                             class="btn btn-outline-secondary addMedacition" id="btn"
                                                             style="padding: 7px"><i class="bi bi-plus-lg"></i>Añadir
@@ -1064,25 +1035,37 @@
                                                 <tbody>
                                                     @foreach ($medical_record_user as $item)
                                                         <tr>
-                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});">
+                                                            <td class="text-center td-pad"
+                                                                onclick="showDataEdit({{ json_encode($item) }});">
                                                                 {{ $item['data']['record_code'] }}</td>
-                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});">
+                                                            <td class="text-center td-pad"
+                                                                onclick="showDataEdit({{ json_encode($item) }});">
                                                                 {{ $item['data']['cod_ref'] }}</td>
-                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});">{{ $item['date'] }}</td>
-                                                            <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});">
+                                                            <td class="text-center td-pad"
+                                                                onclick="showDataEdit({{ json_encode($item) }});">
+                                                                {{ $item['date'] }}</td>
+                                                            <td class="text-center td-pad text-capitalize"
+                                                                onclick="showDataEdit({{ json_encode($item) }});">
                                                                 {{ $item['name_patient'] }}
                                                             </td>
-                                                            <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});">{{ $item['genere'] }}
+                                                            <td class="text-center td-pad text-capitalize"
+                                                                onclick="showDataEdit({{ json_encode($item) }});">
+                                                                {{ $item['genere'] }}
                                                             </td>
-                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});">{{ $item['center'] }}</td>
-                                                            <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});">{{ $item['full_name_doc'] }}
+                                                            <td class="text-center td-pad"
+                                                                onclick="showDataEdit({{ json_encode($item) }});">
+                                                                {{ $item['center'] }}</td>
+                                                            <td class="text-center td-pad text-capitalize"
+                                                                onclick="showDataEdit({{ json_encode($item) }});">
+                                                                {{ $item['full_name_doc'] }}
                                                             </td>
                                                             <td class="text-center td-pad">
                                                                 <div class="d-flex">
                                                                     @if ($item['data']['status_exam'])
                                                                         <div
                                                                             class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <a href="{{ route('mr_exam', $item['patient_id']) }}">
+                                                                            <a
+                                                                                href="{{ route('mr_exam', $item['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     class="btn refresf btn-iSecond rounded-circle"
                                                                                     data-bs-toggle="tooltip"
@@ -1094,20 +1077,22 @@
                                                                             </a>
                                                                         </div>
                                                                     @else
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                                <button type="button"
-                                                                                    class="refresf btn-idanger rounded-circle"
-                                                                                    data-bs-container="body" 
-                                                                                    data-bs-toggle="popover"
-                                                                                    data-bs-custom-class="custom-popover"
-                                                                                    data-bs-placement="bottom" 
-                                                                                    data-bs-content="No hay exámenes cargados">
-                                                                                    <i class="bi bi-exclamation-lg"></i>
-                                                                                </button>
+                                                                        <div
+                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <button type="button"
+                                                                                class="refresf btn-idanger rounded-circle"
+                                                                                data-bs-container="body"
+                                                                                data-bs-toggle="popover"
+                                                                                data-bs-custom-class="custom-popover"
+                                                                                data-bs-placement="bottom"
+                                                                                data-bs-content="No hay exámenes cargados">
+                                                                                <i class="bi bi-exclamation-lg"></i>
+                                                                            </button>
                                                                         </div>
                                                                     @endif
                                                                     @if ($item['data']['status_study'])
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <div
+                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <a
                                                                                 href="{{ route('mr_study', $item['patient_id']) }}">
                                                                                 <button type="button"
@@ -1121,17 +1106,18 @@
                                                                             </a>
                                                                         </div>
                                                                     @else
-                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                        <button type="button"
-                                                                            class="refresf btn-idanger rounded-circle"
-                                                                            data-bs-container="body" 
-                                                                            data-bs-toggle="popover"
-                                                                            data-bs-custom-class="custom-popover"
-                                                                            data-bs-placement="bottom" 
-                                                                            data-bs-content="No hay estudios cargados" >
-                                                                            <i class="bi bi-exclamation-lg"></i>
-                                                                        </button>
-                                                                    </div>
+                                                                        <div
+                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <button type="button"
+                                                                                class="refresf btn-idanger rounded-circle"
+                                                                                data-bs-container="body"
+                                                                                data-bs-toggle="popover"
+                                                                                data-bs-custom-class="custom-popover"
+                                                                                data-bs-placement="bottom"
+                                                                                data-bs-content="No hay estudios cargados">
+                                                                                <i class="bi bi-exclamation-lg"></i>
+                                                                            </button>
+                                                                        </div>
                                                                     @endif
                                                                     <div
                                                                         class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
