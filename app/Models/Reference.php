@@ -29,8 +29,8 @@ class Reference extends Model
         'center_id',
         'cod_medical_record', //codigo de la consulta
         'date',
-        'exams',
-        'studies',
+        // 'exams',
+        // 'studies',
         'status_ref', //1- abierta  2- cerrada
         'laboratory_id',
         'cod_lab',

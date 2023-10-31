@@ -407,7 +407,8 @@ class UtilsController extends Controller
 						'medications_supplements' 		=>  json_decode($val->medications_supplements) ,
 						'status_exam' 		=>  $val->status_exam,
 						'status_study' 		=> $val->status_study,
-
+						'study' 		=> $val->get_study_medical,
+						'exam' 		=> $val->get_exam_medical,
 					],
 				];
 			}
