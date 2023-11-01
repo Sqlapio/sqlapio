@@ -37,14 +37,9 @@
                     Fecha: {{ $mailData['reference_date'] }}
                     <br>
                     Examenes solicitados:
-                    <br>
-                    
-                        {{-- @for($i=0; $i < count($mailData['patient_exam']); $i++)
-                            {{ str_replace('|',': ',$mailData['patient_exam'][$i]) }}<br>
-                        @endfor --}}
-
+                    <br>                       
                         @foreach ($mailData['patient_exam'] as $item)
-                                {{ $item->code_exams}}<br>
+                                {{ $item->description}}<br>
                         @endforeach
 
                     <br>
@@ -52,14 +47,8 @@
                     <br>
 
                             @foreach ($mailData['patient_study'] as $item)
-                            {{ $item->code_studies}}<br>
-                            @endforeach
-
-{{--                     
-                        @for($i=0; $i < count($mailData['patient_study']); $i++)
-                            {{ str_replace('|',': ',$mailData['patient_study'][$i]) }}<br>
-                        @endfor --}}
-                    
+                            {{ $item->description}}<br>
+                            @endforeach                   
                   </th>
                 </tr>
               </table>

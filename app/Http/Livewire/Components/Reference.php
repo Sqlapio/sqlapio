@@ -156,7 +156,6 @@ class Reference extends Component
             'patient_exam' =>  $data_exams,
             'patient_study' =>  $data_studies ,
         ];
-        
 
         UtilsController::notification_mail($mailData, $type);
     }
