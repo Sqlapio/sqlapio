@@ -39,17 +39,26 @@
                     Examenes solicitados:
                     <br>
                     
-                        @for($i=0; $i < count($mailData['patient_exam']); $i++)
+                        {{-- @for($i=0; $i < count($mailData['patient_exam']); $i++)
                             {{ str_replace('|',': ',$mailData['patient_exam'][$i]) }}<br>
-                        @endfor
+                        @endfor --}}
+
+                        @foreach ($mailData['patient_exam'] as $item)
+                                {{ $item->code_exams}}<br>
+                        @endforeach
 
                     <br>
                     Estudios o imagenes medicas solicitadas:
                     <br>
-                    
+
+                            @foreach ($mailData['patient_study'] as $item)
+                            {{ $item->code_studies}}<br>
+                            @endforeach
+
+{{--                     
                         @for($i=0; $i < count($mailData['patient_study']); $i++)
                             {{ str_replace('|',': ',$mailData['patient_study'][$i]) }}<br>
-                        @endfor
+                        @endfor --}}
                     
                   </th>
                 </tr>
