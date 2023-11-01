@@ -571,7 +571,8 @@
         function setExams(e, key) {
             if ($(`#${e.target.id}`).is(':checked')) {
                 exams_array.push({
-                    code_exams: $(`#${e.target.id}`).data('code')
+                    code_exams: $(`#${e.target.id}`).data('code'),
+                    description: $(`#${e.target.id}`).val(),
                 });
             } else {
                 exams_array.splice(key, 1);
@@ -581,7 +582,9 @@
         function setStudy(e, key) {
             if ($(`#${e.target.id}`).is(':checked')) {
                 studies_array.push({
-                    code_studies: $(`#${e.target.id}`).data('code')
+                    code_studies: $(`#${e.target.id}`).data('code'),
+                    description: $(`#${e.target.id}`).val(),
+
                 });
             } else {
                 studies_array.splice(key, 1);
