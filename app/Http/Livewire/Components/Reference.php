@@ -61,24 +61,7 @@ class Reference extends Component
             $patient_email = Representative::where('patient_id', $reference->patient_id)->first()->re_email;
         }else{
             $patient_email = $patient->email;
-        }
-
-        // $array_exam = explode(',' , $data->exams);
-        // $array_study = explode(',' , $data->studies);
-
-        $mailData = [
-            'dr_name' => $user->name . ' ' . $user->last_name,
-            'center' => Center::where('id', $reference->center_id)->first()->description,
-            'patient_name' => $patient->name . ' ' . $patient->last_name,
-            'medical_record_code' => $reference->cod_medical_record,
-            'reference_code' => $reference->cod_ref,
-            'reference_date' => $reference->date,
-            'patient_email' => $patient_email,
-            'patient_exam' => '$array_exam',
-            'patient_study' => '$array_study',
-        ];
-
-        UtilsController::notification_mail($mailData, $type);
+        }     
 
         /**
          * Envio de notificacion al whatsaap del paciente
@@ -159,6 +142,22 @@ class Reference extends Component
                 $studies_patient->save();
             }
         }
+
+
+      
+        $mailData = [
+            'dr_name' => $user->name . ' ' . $user->last_name,
+            'center' => Center::where('id', $reference->center_id)->first()->description,
+            'patient_name' => $patient->name . ' ' . $patient->last_name,
+            'medical_record_code' => $reference->cod_medical_record,
+            'reference_code' => $reference->cod_ref,
+            'reference_date' => $reference->date,
+            'patient_email' => $patient_email,
+            'patient_exam' =>  $data_exams,
+            'patient_study' =>  $data_studies ,
+        ];
+
+        UtilsController::notification_mail($mailData, $type);
     }
 
     public function render()
