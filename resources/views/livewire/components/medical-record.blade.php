@@ -182,12 +182,12 @@
                     treatment: {
                         required: true,
                     },
-                    exams: {
-                        required: true,
-                    },
-                    studies: {
-                        required: true,
-                    },
+                    // exams: {
+                    //     required: true,
+                    // },
+                    // studies: {
+                    //     required: true,
+                    // },
                     center_id: {
                         required: true,
                     },
@@ -209,12 +209,12 @@
                     treatment: {
                         required: "Tratamiento es obligatorio",
                     },
-                    exams: {
-                        required: "Examenes es obligatorio",
-                    },
-                    studies: {
-                        required: "Estudios es obligatorio",
-                    },
+                    // exams: {
+                    //     required: "Examenes es obligatorio",
+                    // },
+                    // studies: {
+                    //     required: "Estudios es obligatorio",
+                    // },
                     center_id: {
                         required: "Centro es obligatorio",
                     },
@@ -511,9 +511,11 @@
             $("#razon").attr('disabled', false);
             $("#diagnosis").attr('disabled', false);
             $("#treatment").attr('disabled', false);
-            $("#exams").attr('disabled', false);
-            $("#studies").attr('disabled', false);
-
+            // $("#exams").attr('disabled', false);
+            // $("#studies").attr('disabled', false);
+            $('#form-consulta').find('input:checkbox').attr('checked', false);   
+             exams_array = [];
+             studies_array = [];        
 
         }
 
@@ -527,8 +529,8 @@
             $("#razon").val(item.data.razon).attr('disabled', true);
             $("#diagnosis").val(item.data.diagnosis).attr('disabled', true);
             $("#treatment").val(item.data.treatment).attr('disabled', true);
-            $("#exams").val(item.data.exams);
-            $("#studies").val(item.data.studies);
+            // $("#exams").val(item.data.exams);
+            // $("#studies").val(item.data.studies);
             $("#medicine").attr('disabled', true);
             $("#indication").attr('disabled', true);
             $("#treatmentDuration").attr('disabled', true);
