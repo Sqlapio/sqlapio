@@ -191,7 +191,9 @@ Route::middleware(['auth'])->group(function () {
      * @param value
      * cancelar cita del paciente
      */
+    
     Route::get('/cancelled-appointments/{id}', [Diary::class, 'cancelled'])->name("cancelled_appointments");
+    Route::get('/finalizar-appointments/{id}', [UtilsController::class, 'update_status_dairy'])->name("finalizar_appointments");
 
     /**
      * @method cancelled 

@@ -1284,7 +1284,6 @@ class UtilsController extends Controller
 		}
 	}
 
-
 	static function responce_references()
 	{
 
@@ -1294,4 +1293,76 @@ class UtilsController extends Controller
 
 		return ["data_exam_res" => $data_exam_res, "data_study_res" => $data_study_res];
 	}
+
+	static function update_status_dairy($id)
+	{
+		try {
+			$user_id = Auth::user()->id;
+			$appointments = Appointment::where('user_id', $user_id)->where('id', $id)
+			->update([
+				'status' 		=> 3,
+			]);
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.update_status_dairy()', $message);
+		}
+
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Funciones para grafico estadistico general del laboratorio
+	|--------------------------------------------------------------------------
+	|
+	| Se calculan el total de examenes atendidos por el laboratio
+	| asi como los el total de examenes y studios diferentes
+	| que son atendidios
+	|
+	*/
+
+	/**
+	 * Gráfico 1
+	 * Total de examenes atendidos
+	 */
+	static function total_exams()
+	{
+		try {
+
+			$user_id = Auth::user()->id;
+
+			$total_exams =  ExamPatient::where('laboratory_id', $user_id)->count();
+
+			return ["total" => $total_exams];
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.total_exams()', $message);
+		}
+	}
+
+	/**
+	 * Gráfico 2
+	 * Total de studios atendidos
+	 */
+	static function total_studies()
+	{
+		try {
+
+			$user_id = Auth::user()->id;
+
+			$total_studies =  StudyPatient::where('laboratory_id', $user_id)->count();
+
+			return ["total" => $total_studies];
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.total_studies()', $message);
+		}
+	}
+
+
+
+
+
 }
