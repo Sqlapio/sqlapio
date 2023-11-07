@@ -234,5 +234,6 @@ Route::get('/pp', function () {
     dd($res);
 });
 Route::group(array('prefix' => 'public'), function () {
-    Route::get('/payment-form', [PaymentForm::class, 'render'])->name("payment-form");
+    Route::get('/payment-form/{type_plan}', [PaymentForm::class, 'render'])->name("payment-form");
+    Route::post('/pay-plan', [PaymentForm::class, 'pay_plan'])->name("pay-plan");
 });
