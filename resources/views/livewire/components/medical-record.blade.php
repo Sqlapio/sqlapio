@@ -144,6 +144,8 @@
 
             let doctor_centers = @json($doctor_centers);
             let validate_histroy = @json($validate_histroy);
+            $('#not-exam').hide();
+            $('#not-studie').hide();     
 
             if (doctor_centers.length === 0) {
                 Swal.fire({
@@ -522,7 +524,9 @@
              $('#exam_filter').hide();        
              $('#study_filter').hide();        
              $('#exam').show();        
-             $('#studie').show();        
+             $('#studie').show();
+             $('#not-exam').hide();
+             $('#not-studie').hide();     
 
         }
 
@@ -618,16 +622,16 @@
                         $('#study_filter').append(list);
                 })
 
+                
                 if (study_filter.length == 0) {
                     $('#not-studie').show();
                 } else {
                     $('#not-studie').hide();
                 }
-
-
+                
+                
             });
         }
-
 
         function search(e, id) {
             var value = e.target.value.toLowerCase();
