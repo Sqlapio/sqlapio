@@ -14,6 +14,7 @@
         let type_plan = @json($type_plan);
         console.log(type_plan);
         $(document).ready(() => {
+            $('#type_plan').val(type_plan);
 
             $('#form-payment').validate({
                 ignore: [],
@@ -54,16 +55,16 @@
                 },
                 messages: {
                     name: {
-                        required: "Nombres es obligatorio",                       
+                        required: "Nombres es obligatorio",
                     },
                     last_name: {
-                        required: "Apellidos es obligatorio",                       
+                        required: "Apellidos es obligatorio",
                     },
                     amount: {
-                        required: "Monto es obligatorio",                       
+                        required: "Monto es obligatorio",
                     },
                     number_id: {
-                        required: "Numero de cedula es obligatorio",                      
+                        required: "Numero de cedula es obligatorio",
                     },
                     number_card: {
                         required: "Numero de tarjeta es obligatorio",
@@ -109,7 +110,7 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
-                                
+
                             });
                         },
                         error: function(error) {
@@ -132,7 +133,7 @@
             });
         });
 
-        function handlerMethodoPaymet(val){
+        function handlerMethodoPaymet(val) {
             $('#methodo_payment').val(val);
         }
     </script>
@@ -157,37 +158,41 @@
 
                                 <div class="row">
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img onclick="handlerMethodoPaymet(1)" class="binance" src="{{ asset('img/binance-logo.jpeg') }}" alt="">
+                                        <img onclick="handlerMethodoPaymet(1)" class="binance"
+                                            src="{{ asset('img/binance-logo.jpeg') }}" alt="">
                                     </div>
 
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img  onclick="handlerMethodoPaymet(2)" class="binance" src="{{ asset('img/zelle-logo.png') }}" alt="">
+                                        <img onclick="handlerMethodoPaymet(2)" class="binance"
+                                            src="{{ asset('img/zelle-logo.png') }}" alt="">
                                     </div>
 
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img onclick="handlerMethodoPaymet(3)" class="binance" src="{{ asset('img/banca-amiga-logo.png') }}" alt="">
+                                        <img onclick="handlerMethodoPaymet(3)" class="binance"
+                                            src="{{ asset('img/banca-amiga-logo.png') }}" alt="">
                                     </div>
                                 </div>
 
                                 <div class="row mt-3">
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img onclick="handlerMethodoPaymet(4)" class="binance" src="{{ asset('img/banco-mercantil-logo.jpeg') }}"
-                                            alt="">
+                                        <img onclick="handlerMethodoPaymet(4)" class="binance"
+                                            src="{{ asset('img/banco-mercantil-logo.jpeg') }}" alt="">
                                     </div>
 
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img onclick="handlerMethodoPaymet(5)" class="binance" src="{{ asset('img/banco-venezuela-logo.png') }}"
-                                            alt="">
+                                        <img onclick="handlerMethodoPaymet(5)" class="binance"
+                                            src="{{ asset('img/banco-venezuela-logo.png') }}" alt="">
                                     </div>
 
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img onclick="handlerMethodoPaymet(6)" class="binance" src="{{ asset('img/banesco-logo.png') }}" alt="">
+                                        <img onclick="handlerMethodoPaymet(6)" class="binance"
+                                            src="{{ asset('img/banesco-logo.png') }}" alt="">
                                     </div>
                                 </div>
                                 {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment']) }}
-                                {{ csrf_field() }}
                                 <div class="row">
                                     <input type="hidden" name="methodo_payment" id="methodo_payment">
+                                    <input type="hidden" name="type_plan" id="type_plan">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                         <div class="form-group">
                                             <div class="Icon-inside">
@@ -266,13 +271,13 @@
                                 <div class="d-flex justify-content-center">
                                     <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-3 mb-3"
                                         style="display: flex; justify-content: space-around;">
-                                        <input class="btn btnSave send " value="Pagar"
-                                        type="submit" style="margin-left: 20px" />
+                                        <input class="btn btnSave send " value="Pagar" type="submit"
+                                            style="margin-left: 20px" />
                                         <a href="/"><button type="button"
                                                 class="btn btnSecond btn2">Cancelar</button></a>
                                     </div>
 
-                                    
+
                                 </div>
                                 {{ Form::close() }}
                             </div>

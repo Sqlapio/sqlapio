@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Components;
 
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 class PaymentForm extends Component
