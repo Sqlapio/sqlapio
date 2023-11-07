@@ -546,6 +546,50 @@ function cancelled_appointments(id, url, active = null) {
 
 }
 
+function finalizar_appointments(id, url, active = null) {
+
+  Swal.fire({
+    icon: 'warning',
+    title: '¿Confirma que desea FINALIZAR la cita?',
+    allowOutsideClick: false,
+    confirmButtonColor: '#42ABE2',
+    confirmButtonText: 'Aceptar',
+    showCancelButton: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $('#send').hide();
+      $('#spinner').show();
+      url = url.replace(':id', id);
+      $.ajax({
+        url: url,
+        type: 'GET',
+        headers: {
+          'X-CSRF-TOKEN': $(
+            'meta[name="csrf-token"]').attr(
+              'content')
+        },
+        success: function (res) {
+          console.log(res);
+          Swal.fire({
+            icon: 'error',
+            title: 'Cita cancelada exitosamente!',
+            allowOutsideClick: false,
+            confirmButtonColor: '#42ABE2',
+            confirmButtonText: 'Aceptar'
+          }).then((result) => {
+            if (active) {
+              window.location.href = active;
+            } else {
+              window.location.href = urlDairy;
+            }
+          });
+        }
+      });
+    }
+  });
+
+}
+
 function handlerTime(e) {
   if (e.target.value == "am") {
     dataDos = arrayAm;
@@ -571,6 +615,7 @@ function handlerPrice(e) {
 }
 window.update_appointments = update_appointments;
 window.cancelled_appointments = cancelled_appointments;
+window.finalizar_appointments = finalizar_appointments;
 window.getAppointments = getAppointments;
 window.searchPatients = searchPatients;
 window.handlerPrice = handlerPrice;

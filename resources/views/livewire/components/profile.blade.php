@@ -293,8 +293,7 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
-                                // window.location.href =
-                                //     "{{ route('DashboardComponent') }}";
+                                $('div-seal-content').hide();                               
                             });
                         },
                         error: function(error) {
@@ -448,7 +447,7 @@
                         </div>
                     @endif
                     @if ($user->digital_cello === null)
-                        <div class="alert alert-warning" role="alert">
+                        <div class="alert alert-warning" role="alert" id="div-seal-content">
                             Debe cargar su sello digital!
                         </div>
                     @endif

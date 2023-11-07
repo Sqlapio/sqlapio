@@ -324,7 +324,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
-                        if (response.length===0) {
+                        if (response.length === 0) {
                             Swal.fire({
                                 icon: 'warning',
                                 title: 'No existe referencias para este documento de identidad!',
@@ -582,7 +582,16 @@
                                                                             <i class="bi bi-calendar-x"></i>
                                                                         </button>
                                                                     </div>
-                                                                </div>
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
+                                                                        style="margin-left: 10px; width: 32px;">
+                                                                        <button type="button"
+                                                                            class="btn btn-iSecond rounded-circle"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom"
+                                                                            title="Finalizar Cita"
+                                                                            onclick="finalizar_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('finalizar_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
+                                                                            <i class="bi bi-clipboard-x"></i>
+                                                                    </div>
                                                             </td>
                                                         </tr>
                                                     @endforeach
