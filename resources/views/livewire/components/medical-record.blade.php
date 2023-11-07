@@ -879,7 +879,7 @@
                                                 <div class="overflow-auto p-3 bg-light mt-3"
                                                     style="max-width: 100%; max-height: 245px; min-height: 245px ;position: relative;">
                                                     <ul id="exam_filter" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap;"> </ul>
-                                                    <span id='not-exam'>No hay exámenes para mostrar de este paciente</span>
+                                                    <span id='not-exam'>No hay exámenes para mostrar de este paciente </span>
                                                     <ul id="exam" class="exam" style="padding-inline-start: 0; display: flex;
                                                     flex-wrap: wrap;">
                                                         @foreach ($exam as $key => $item)
@@ -912,7 +912,7 @@
                                                 <div class="overflow-auto p-3 bg-light mt-3 card-study"
                                                     style="max-width: 100%; max-height: 245px;  min-height: 245px; position: relative;">
                                                     <ul id="study_filter" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap;"></ul>
-                                                    <span id='not-studie'>No hay estudios para mostrar de este paciente</span>
+                                                    <span id='not-studie'>No hay estudios para mostrar de este paciente </span>
                                                     <ul id="studie" class="studie" style="display: flex; flex-wrap: wrap;">
                                                             @foreach ($study as $key => $item)
                                                             <li style="margin-bottom: 10px; padding-right: 5px">
