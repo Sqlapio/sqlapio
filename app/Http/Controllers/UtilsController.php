@@ -1333,6 +1333,8 @@ class UtilsController extends Controller
 
 			$total_exams =  ExamPatient::where('laboratory_id', $user_id)->count();
 
+			return ["total" => $total_exams];
+
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.total_exams()', $message);
@@ -1349,7 +1351,9 @@ class UtilsController extends Controller
 
 			$user_id = Auth::user()->id;
 
-			$total_exams =  StudyPatient::where('laboratory_id', $user_id)->count();
+			$total_studies =  StudyPatient::where('laboratory_id', $user_id)->count();
+
+			return ["total" => $total_studies];
 
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
