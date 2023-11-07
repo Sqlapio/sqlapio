@@ -11,6 +11,8 @@ export default defineConfig({
             'resources/js/graphicCountAll.js',
             'resources/js/mychartGrafica.js',
             'resources/js/mychartGraficaFac.js',
+            'resources/js/graphic_laboratory_coun_study.js',
+            'resources/js/graphic_laboratory_coun_exam.js',
             'resources/js/centers.js',
             'resources/js/dairy.js',
             'public/assets/js/bootstrap-datepicker',
