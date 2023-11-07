@@ -1329,11 +1329,11 @@ class UtilsController extends Controller
 	{
 		try {
 
-			$user_id = Auth::user()->id;
+			$user_id = Auth::user()->get_laboratorio->id;
 
 			$total_exams =  ExamPatient::where('laboratory_id', $user_id)->count();
 
-			return ["total" => $total_exams];
+			return $total_exams;
 
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
@@ -1349,11 +1349,11 @@ class UtilsController extends Controller
 	{
 		try {
 
-			$user_id = Auth::user()->id;
+			$user_id = Auth::user()->get_laboratorio->id;
 
 			$total_studies =  StudyPatient::where('laboratory_id', $user_id)->count();
 
-			return ["total" => $total_studies];
+			return $total_studies;
 
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
