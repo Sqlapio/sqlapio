@@ -525,7 +525,6 @@ function cancelled_appointments(id, url, active = null) {
               'content')
         },
         success: function (res) {
-          console.log(res);
           Swal.fire({
             icon: 'error',
             title: 'Cita cancelada exitosamente!',
@@ -569,10 +568,9 @@ function finalizar_appointments(id, url, active = null) {
               'content')
         },
         success: function (res) {
-          console.log(res);
           Swal.fire({
-            icon: 'error',
-            title: 'Cita cancelada exitosamente!',
+            icon: 'success',
+            title: 'Cita finalizada exitosamente!',
             allowOutsideClick: false,
             confirmButtonColor: '#42ABE2',
             confirmButtonText: 'Aceptar'

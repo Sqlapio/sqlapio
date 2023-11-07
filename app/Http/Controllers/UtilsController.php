@@ -1300,7 +1300,7 @@ class UtilsController extends Controller
 			$user_id = Auth::user()->id;
 			$appointments = Appointment::where('user_id', $user_id)->where('id', $id)
 			->update([
-				'status' 		=> 'finalizada',
+				'status' 		=> 3,
 			]);
 
 		} catch (\Throwable $th) {
