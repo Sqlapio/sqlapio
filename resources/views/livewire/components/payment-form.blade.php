@@ -52,6 +52,10 @@
                     methodo_payment: {
                         required: true,
                     },
+                    email:{
+                        required: true,
+                        email:true
+                    }
                 },
                 messages: {
                     name: {
@@ -74,6 +78,9 @@
                     },
                     methodo_payment: {
                         required: "Debe Selecciones un metodo de pago",
+                    },
+                    email: {
+                        required: "Correo electronico es obligatorio",
                     },
                 }
             });
@@ -227,6 +234,18 @@
                                                     cedula</label>
                                                 <input autocomplete="off" class="form-control" id="number_id"
                                                     name="number_id" type="text" value="">
+                                                <i class="bi bi-envelope st-icon"></i>
+                                            </div>
+                                        </diV>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <label for="name" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo electronico</label>
+                                                <input autocomplete="off" class="form-control" id="email"
+                                                    name="email" type="text" value="">
                                                 <i class="bi bi-envelope st-icon"></i>
                                             </div>
                                         </diV>
