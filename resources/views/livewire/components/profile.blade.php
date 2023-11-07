@@ -446,7 +446,7 @@
                             Debe verificar su correo!
                         </div>
                     @endif
-                    @if ($user->digital_cello === null)
+                    @if ($user->digital_cello === null && Auth::user()->role == 'medico')
                         <div class="alert alert-warning" role="alert" id="div-seal-content">
                             Debe cargar su sello digital!
                         </div>

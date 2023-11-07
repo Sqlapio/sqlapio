@@ -1,6 +1,6 @@
 @extends('layouts.app-auth')
 @section('title', 'Tablero')
-@vite(['resources/js/graphicCountAll.js', 'resources/js/dairy.js'])
+@vite(['resources/js/graphicCountAll.js', 'resources/js/dairy.js','resources/js/graphic_laboratory_coun_study.js','resources/js/graphic_laboratory_coun_exam.js'])
 <style>
     .mt-gf {
         margin-top: 3rem !important;
@@ -18,6 +18,8 @@
         let countMedicalRecordr = @json($count_medical_recordr);
         let countHistoryRegister = @json($count_history_register);
         let count_patient_genero = @json($count_patient_genero);
+        let count_study = @json($count_study);
+        let count_examen = @json($count_examen);
         let elderly = @json($elderly);
         let boy_girl = @json($boy_girl);
         let teen = @json($teen);
@@ -38,6 +40,8 @@
             get_history_register(countHistoryRegister);
             get_genere(boy_girl, teen);
             get_general(elderly, adult);
+            get_study(count_study),
+            get_examen(count_examen),
             //validar formulario
             $('#form-load-img').validate({
                 ignore: [],
@@ -685,7 +689,7 @@
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-1">
                                             <div class="card text-white" style="background-color: rgb(251,220,226)">
                                                 <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
-                                                    <canvas id="countPatientRegister"></canvas>
+                                                    <canvas id="countStudies"></canvas>
                                                 </div>
                                             </div>
                                         </div>
@@ -693,18 +697,10 @@
                                         <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-1">
                                             <div class="card text-white" style="background-color: rgb(219,242,242)">
                                                 <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
-                                                    <canvas id="countMedicalRecordr"></canvas>
+                                                    <canvas id="countExamenes"></canvas>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-1">
-                                            <div class="card text-white" style="background-color: rgb(235,224,255)">
-                                                <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
-                                                    <canvas id="countHistoryRegister"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </div>                                       
                                     </div>
                                 </div>
                             </div>
