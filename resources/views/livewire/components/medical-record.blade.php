@@ -127,6 +127,8 @@
         let studies_array = [];
         let medications_supplements = [];
         let countMedicationAdd = 0;
+        let exam_filter = [];
+        let study_filter = [];
 
         $(document).ready(() => {
 
@@ -503,19 +505,24 @@
             $('#table-medicamento > tbody').empty();
             $('.send').attr('disabled', false);
             $('.btn-check').attr('disabled', false);
-            $("#medicine").attr('disabled', false);
-            $("#indication").attr('disabled', false);
-            $("#treatmentDuration").attr('disabled', false);
+            $(".medicine-form").show();
+            // $("#indication").show();
+            // $("#treatmentDuration").show();
             $("#center_id").attr('disabled', false);
             $("#background").attr('disabled', false);
             $("#razon").attr('disabled', false);
             $("#diagnosis").attr('disabled', false);
             $("#treatment").attr('disabled', false);
+            $(".addMedacition").show();
             // $("#exams").attr('disabled', false);
             // $("#studies").attr('disabled', false);
             $('#form-consulta').find('input:checkbox').attr('checked', false);   
              exams_array = [];
-             studies_array = [];        
+             studies_array = [];
+             $('#exam_filter').hide();        
+             $('#study_filter').hide();        
+             $('#exam').show();        
+             $('#studie').show();        
 
         }
 
@@ -531,12 +538,21 @@
             $("#treatment").val(item.data.treatment).attr('disabled', true);
             // $("#exams").val(item.data.exams);
             // $("#studies").val(item.data.studies);
-            $("#medicine").attr('disabled', true);
-            $("#indication").attr('disabled', true);
-            $("#treatmentDuration").attr('disabled', true);
+            $(".medicine-form").hide();
+            // $("#indication").hide();
+            // $("#treatmentDuration").hide();
+            $(".addMedacition").hide();
             $('.send').attr('disabled', true);
             $('.btn-check').attr('disabled', true);
             $('#table-medicamento > tbody').empty();
+            $('#exam_filter > ul').empty();
+            $('#study_filter > ul').empty();
+            exam_filter = [];
+            study_filter = [];
+            $('#exam').hide();
+            $('#studie').hide();
+            $('#exam_filter').show();
+            $('#study_filter').show();
             item.data.medications_supplements.map((element, key) => {
                 countMedicationAdd = countMedicationAdd + 1;
                 var row = `
@@ -551,15 +567,67 @@
                 //setiar examenes
                 item.data.exam.map((elem, key) => {
                     $(`#${elem.cod_exam}`).attr('checked', true);
+                    const examFilter = exam_filter.push(elem.description);
                 });
+                
+                exam_filter.map((element) => {
+
+                    var list = `
+                    <ul style="padding-inline-start: 0;">
+                        <li style="margin-bottom: 10px; padding-right: 5px">
+                            <input type="checkbox" class="btn-check"
+                                autocomplete="off"
+                                checked
+                                disabled >
+                            <label class="btn btn-outline-primary check-cm"
+                                for={elem.cod_exam}>
+                                ${element}
+                            </label>
+                        </li>
+                    </ul>`;
+                        $('#exam_filter').append(list);
+                })
+
+                if (exam_filter.length == 0) {
+                    $('#not-exam').show();
+                } else {
+                    $('#not-exam').hide();
+                }
+
                 //setiar estudios   
                 item.data.study.map((elem, key) => {
                     $(`#${elem.cod_study}`).attr('checked', true);
+                    const examStudy = study_filter.push(elem.description);
                 });
+
+                study_filter.map((element) => {
+
+                    var list = `
+                    <ul style="padding-inline-start: 0;">
+                        <li style="margin-bottom: 10px; padding-right: 5px">
+                            <input type="checkbox" class="btn-check"
+                                autocomplete="off"
+                                checked
+                                disabled >
+                            <label class="btn btn-outline-success check-cm"
+                                for={elem.cod_exam}>
+                                ${element}
+                            </label>
+                        </li>
+                    </ul>`;
+                        $('#study_filter').append(list);
+                })
+
+                if (study_filter.length == 0) {
+                    $('#not-studie').show();
+                } else {
+                    $('#not-studie').hide();
+                }
 
 
             });
         }
+
 
         function search(e, id) {
             var value = e.target.value.toLowerCase();
@@ -681,11 +749,13 @@
                 }
             });
         }
-    </script>
+        </script>
 @endpush
 @section('content')
-    <div class="container-fluid" style="padding: 3%">
-        @if ($validate_histroy != null)
+
+<div class="container-fluid" style="padding: 3%">
+    {{-- {console.log()} --}}
+    @if ($validate_histroy != null)
             <div class="accordion" id="accordionExample">
                 {{-- datos del paciente --}}
                 <div class="row">
@@ -807,11 +877,13 @@
                                                         class="form-control" id="floatingInput" placeholder="">
                                                 </div>
                                                 <div class="overflow-auto p-3 bg-light mt-3"
-                                                    style="max-width: 100%; max-height: 200px; position: relative;">
-                                                    @foreach ($exam as $key => $item)
-                                                        <ul id="exam"
-                                                            style="padding-inline-start: 0; padding-left: 5px;">
-                                                            <li>
+                                                    style="max-width: 100%; max-height: 245px; min-height: 245px ;position: relative;">
+                                                    <ul id="exam_filter" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap;"> </ul>
+                                                    <span id='not-exam'>No hay exámenes para mostrar de este paciente </span>
+                                                    <ul id="exam" class="exam" style="padding-inline-start: 0; display: flex;
+                                                    flex-wrap: wrap;">
+                                                        @foreach ($exam as $key => $item)
+                                                            <li style="margin-bottom: 10px; padding-right: 5px">
                                                                 <input type="checkbox" class="btn-check"
                                                                     id="{{ $item->cod_exam }}"
                                                                     name="chk{{ $key }}" autocomplete="off"
@@ -823,8 +895,9 @@
                                                                     {{ $item->description }}
                                                                 </label>                                                             
                                                             </li>
-                                                        </ul>
-                                                    @endforeach
+                                                        @endforeach
+                                                    </ul>
+                                            
                                                 </div>                                                
                                             </div>
 
@@ -837,10 +910,12 @@
                                                         class="form-control" placeholder="" id="floatingInputt">
                                                 </div>
                                                 <div class="overflow-auto p-3 bg-light mt-3 card-study"
-                                                    style="max-width: 100%; max-height: 200px; position: relative;">
-                                                    @foreach ($study as $key => $item)
-                                                        <ul id="studie">
-                                                            <li>
+                                                    style="max-width: 100%; max-height: 245px;  min-height: 245px; position: relative;">
+                                                    <ul id="study_filter" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap;"></ul>
+                                                    <span id='not-studie'>No hay estudios para mostrar de este paciente </span>
+                                                    <ul id="studie" class="studie" style="display: flex; flex-wrap: wrap;">
+                                                            @foreach ($study as $key => $item)
+                                                            <li style="margin-bottom: 10px; padding-right: 5px">
                                                                 <input type="checkbox" class="btn-check"
                                                                     autocomplete="off" name="chk{{ $key }}"
                                                                     id="{{ $item->cod_study }}"
@@ -850,8 +925,8 @@
                                                                 <label class="btn btn-outline-success check-cm"
                                                                     for="{{ $item->cod_study }}">{{ $item->description }}</label><br>
                                                             </li>
+                                                            @endforeach
                                                         </ul>
-                                                    @endforeach
                                                 </div>                                               
                                             </div>
                                         </div>
@@ -859,10 +934,10 @@
                                         {{-- Medicacion --}}
                                         <div class="row mt-3">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <div class="row mt-3">
-                                                    <hr>
-                                                    <h5 style="margin-bottom: 17px;">Tratamiento</h5>
-                                                    <hr style="margin-bottom: 0;">
+                                                <hr>
+                                                <h5 style="margin-bottom: 17px;">Tratamiento</h5>
+                                                <hr style="margin-bottom: 0;">
+                                                <div class="row mt-3 medicine-form">
                                                     <div style="display: flex">
                                                         <span class="text-warning mt-3"
                                                             style="font-size: 14px;margin-right: 10px;">Debe cargar al
@@ -906,16 +981,16 @@
                                                                     class="form-control combo-textbox-input">
                                                                     <option value="">Seleccione</option>
                                                                     <option value="1 Día">1 Día</option>
-                                                                    <option value="2 Día">2 Días</option>
-                                                                    <option value="3 Día">3 Días</option>
-                                                                    <option value="4 Día">4 Días</option>
-                                                                    <option value="5 Día">5 Días</option>
-                                                                    <option value="6 Día">6 Días</option>
-                                                                    <option value="7 Día">7 Días</option>
+                                                                    <option value="2 Días">2 Días</option>
+                                                                    <option value="3 Días">3 Días</option>
+                                                                    <option value="4 Días">4 Días</option>
+                                                                    <option value="5 Días">5 Días</option>
+                                                                    <option value="6 Días">6 Días</option>
+                                                                    <option value="7 Días">7 Días</option>
                                                                     <option value="1 Semana">1 Semana</option>
-                                                                    <option value="2 Semana">2 Semanas</option>
-                                                                    <option value="3 Semana">3 Semanas</option>
-                                                                    <option value="4 Semana">4 Semanas</option>
+                                                                    <option value="2 Semanas">2 Semanas</option>
+                                                                    <option value="3 Semanas">3 Semanas</option>
+                                                                    <option value="4 Semanas">4 Semanas</option>
                                                                     <option value="1 Mes">1 Mes</option>
                                                                     <option value="2 Mes">2 Meses</option>
                                                                     <option value="3 Mes">3 Meses</option>
