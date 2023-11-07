@@ -19,6 +19,7 @@ use App\Http\Livewire\Components\ClinicalHistory;
 use App\Http\Livewire\Components\Centers;
 use App\Http\Livewire\Components\Examen;
 use App\Http\Livewire\Components\Laboratory;
+use App\Http\Livewire\Components\PaymentForm;
 use App\Http\Livewire\Components\PlansVerify;
 use App\Http\Livewire\Components\Statistics;
 use App\Http\Livewire\Components\Register;
@@ -231,4 +232,7 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/pp', function () {
     $res = 'http://sqlapio.test/public/img/notification_email/cita_header.jpg';
     dd($res);
+});
+Route::group(array('prefix' => 'public'), function () {
+    Route::get('/payment-form', [PaymentForm::class, 'render'])->name("payment-form");
 });
