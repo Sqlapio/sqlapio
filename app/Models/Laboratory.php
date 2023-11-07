@@ -53,5 +53,15 @@ class Laboratory extends Model
     {
         return $this->hasMany(StudyPatient::class, 'laboratory_id', 'id');
     }
+
+    /**
+     * Get all of the comments for the Laboratory
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function get_billed_plans(): HasMany
+    {
+        return $this->hasMany(BilledPlan::class, 'laboratory_id', 'id');
+    }
 }
  
