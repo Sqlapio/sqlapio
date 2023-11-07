@@ -1284,7 +1284,6 @@ class UtilsController extends Controller
 		}
 	}
 
-
 	static function responce_references()
 	{
 
@@ -1293,5 +1292,21 @@ class UtilsController extends Controller
 		$data_study_res = ComponentsLaboratory::res_studies();
 
 		return ["data_exam_res" => $data_exam_res, "data_study_res" => $data_study_res];
+	}
+
+	static function update_status_dairy($id)
+	{
+		try {
+			$user_id = Auth::user()->id;
+			$appointments = Appointment::where('user_id', $user_id)->where('id', $id)
+			->update([
+				'status' 		=> 'finalizada',
+			]);
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.update_status_dairy()', $message);
+		}
+
 	}
 }
