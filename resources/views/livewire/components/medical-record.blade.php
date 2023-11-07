@@ -127,6 +127,8 @@
         let studies_array = [];
         let medications_supplements = [];
         let countMedicationAdd = 0;
+        let exam_filter = [];
+        let study_filter = [];
 
         $(document).ready(() => {
 
@@ -511,11 +513,16 @@
             $("#razon").attr('disabled', false);
             $("#diagnosis").attr('disabled', false);
             $("#treatment").attr('disabled', false);
+            $(".addMedacition").show();
             // $("#exams").attr('disabled', false);
             // $("#studies").attr('disabled', false);
             $('#form-consulta').find('input:checkbox').attr('checked', false);   
              exams_array = [];
-             studies_array = [];        
+             studies_array = [];
+             $('#exam_filter').hide();        
+             $('#study_filter').hide();        
+             $('#exam').show();        
+             $('#studie').show();        
 
         }
 
@@ -534,9 +541,18 @@
             $("#medicine").attr('disabled', true);
             $("#indication").attr('disabled', true);
             $("#treatmentDuration").attr('disabled', true);
+            $(".addMedacition").hide();
             $('.send').attr('disabled', true);
             $('.btn-check').attr('disabled', true);
             $('#table-medicamento > tbody').empty();
+            $('#exam_filter > ul').empty();
+            $('#study_filter > ul').empty();
+            exam_filter = [];
+            study_filter = [];
+            $('#exam').hide();
+            $('#studie').hide();
+            $('#exam_filter').show();
+            $('#study_filter').show();
             item.data.medications_supplements.map((element, key) => {
                 countMedicationAdd = countMedicationAdd + 1;
                 var row = `
@@ -551,15 +567,56 @@
                 //setiar examenes
                 item.data.exam.map((elem, key) => {
                     $(`#${elem.cod_exam}`).attr('checked', true);
+                    const examFilter = exam_filter.push(elem.description);
                 });
+                
+                exam_filter.map((element) => {
+
+                    var list = `
+                    <ul style="padding-inline-start: 0;">
+                        <li style="margin-bottom: 10px; padding-right: 5px">
+                            <input type="checkbox" class="btn-check"
+                                autocomplete="off"
+                                checked
+                                disabled >
+                            <label class="btn btn-outline-primary check-cm"
+                                for={elem.cod_exam}>
+                                ${element}
+                            </label>
+                        </li>
+                    </ul>`;
+                        $('#exam_filter').append(list);
+                })
+                
+
                 //setiar estudios   
                 item.data.study.map((elem, key) => {
                     $(`#${elem.cod_study}`).attr('checked', true);
+                    const examStudy = study_filter.push(elem.description);
                 });
+
+                study_filter.map((element) => {
+
+                    var list = `
+                    <ul style="padding-inline-start: 0;">
+                        <li style="margin-bottom: 10px; padding-right: 5px">
+                            <input type="checkbox" class="btn-check"
+                                autocomplete="off"
+                                checked
+                                disabled >
+                            <label class="btn btn-outline-success check-cm"
+                                for={elem.cod_exam}>
+                                ${element}
+                            </label>
+                        </li>
+                    </ul>`;
+                        $('#study_filter').append(list);
+                })
 
 
             });
         }
+
 
         function search(e, id) {
             var value = e.target.value.toLowerCase();
@@ -681,11 +738,13 @@
                 }
             });
         }
-    </script>
+        </script>
 @endpush
 @section('content')
-    <div class="container-fluid" style="padding: 3%">
-        @if ($validate_histroy != null)
+
+<div class="container-fluid" style="padding: 3%">
+    
+    @if ($validate_histroy != null)
             <div class="accordion" id="accordionExample">
                 {{-- datos del paciente --}}
                 <div class="row">
@@ -807,11 +866,15 @@
                                                         class="form-control" id="floatingInput" placeholder="">
                                                 </div>
                                                 <div class="overflow-auto p-3 bg-light mt-3"
-                                                    style="max-width: 100%; max-height: 200px; position: relative;">
-                                                    @foreach ($exam as $key => $item)
-                                                        <ul id="exam"
-                                                            style="padding-inline-start: 0; padding-left: 5px;">
-                                                            <li>
+                                                    style="max-width: 100%; max-height: 230px; min-height: 230px ;position: relative;">
+                                                    <ul id="exam_filter" class="exam" style="padding-inline-start: 0; display: flex;
+                                                    flex-wrap: wrap;">
+                                                       
+                                                    </ul>
+                                                    <ul id="exam" class="exam" style="padding-inline-start: 0; display: flex;
+                                                    flex-wrap: wrap;">
+                                                        @foreach ($exam as $key => $item)
+                                                            <li style="margin-bottom: 10px; padding-right: 5px">
                                                                 <input type="checkbox" class="btn-check"
                                                                     id="{{ $item->cod_exam }}"
                                                                     name="chk{{ $key }}" autocomplete="off"
@@ -823,8 +886,9 @@
                                                                     {{ $item->description }}
                                                                 </label>                                                             
                                                             </li>
-                                                        </ul>
-                                                    @endforeach
+                                                        @endforeach
+                                                    </ul>
+                                            
                                                 </div>                                                
                                             </div>
 
@@ -837,10 +901,14 @@
                                                         class="form-control" placeholder="" id="floatingInputt">
                                                 </div>
                                                 <div class="overflow-auto p-3 bg-light mt-3 card-study"
-                                                    style="max-width: 100%; max-height: 200px; position: relative;">
-                                                    @foreach ($study as $key => $item)
-                                                        <ul id="studie">
-                                                            <li>
+                                                    style="max-width: 100%; max-height: 230px;  min-height: 230px; position: relative;">
+                                                    <ul id="study_filter" class="studie" style="padding-inline-start: 0; display: flex;
+                                                    flex-wrap: wrap;">
+                                                       
+                                                    </ul>
+                                                    <ul id="studie" class="studie" style="display: flex; flex-wrap: wrap;">
+                                                            @foreach ($study as $key => $item)
+                                                            <li style="margin-bottom: 10px; padding-right: 5px">
                                                                 <input type="checkbox" class="btn-check"
                                                                     autocomplete="off" name="chk{{ $key }}"
                                                                     id="{{ $item->cod_study }}"
@@ -850,8 +918,8 @@
                                                                 <label class="btn btn-outline-success check-cm"
                                                                     for="{{ $item->cod_study }}">{{ $item->description }}</label><br>
                                                             </li>
+                                                            @endforeach
                                                         </ul>
-                                                    @endforeach
                                                 </div>                                               
                                             </div>
                                         </div>
