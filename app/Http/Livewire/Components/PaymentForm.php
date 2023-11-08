@@ -72,6 +72,7 @@ class PaymentForm extends Component
                 $user->last_name = $request->last_name;
                 $user->ci = $request->number_id;
                 $user->email = $request->email;
+                $user->type_plane = $request->type_plan;
                 $user->role = $rol;
                 $user->save();
 
