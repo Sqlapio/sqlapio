@@ -18,13 +18,13 @@ return new class extends Migration
             $table->string('business_name')->nullable();
             $table->string('email');
             $table->string('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             /**
              * Roles:
              * @uses medico
              * @uses paciente
              */
-            $table->string('role');
+            $table->string('role')->nullable();
             $table->string('specialty')->nullable();
             /**
              * Informacion adicional

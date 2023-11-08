@@ -21,7 +21,6 @@ class VerifyPlans
             switch (auth()->user()->type_plane) {
                 case 1:
                     if (
-                        auth()->user()->patient_counter >= 10 ||
                         auth()->user()->medical_record_counter >= 20 ||
                         auth()->user()->ref_counter >= 20
 
@@ -34,7 +33,6 @@ class VerifyPlans
                     break;
                 case 2:
                     if (
-                        auth()->user()->patient_counter >= 40 ||
                         auth()->user()->medical_record_counter >= 80 ||
                         auth()->user()->ref_counter >= 80
                     ) {

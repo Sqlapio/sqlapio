@@ -273,221 +273,225 @@
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
                                 let url =
-                                    "{{ route('get_medical_record_user', ':id') }}";
+                                    "{{ route('MedicalRecord', ':id') }}";
                                 url = url.replace(':id', id);
-                                $.ajax({
-                                    url: url,
-                                    type: 'GET',
-                                    headers: {
-                                        'X-CSRF-TOKEN': $(
-                                                'meta[name="csrf-token"]')
-                                            .attr(
-                                                'content')
-                                    },
-                                    success: function(res) {
-                                        let data = [];
-                                        res.map((elem) => {
-                                            let route =
-                                                "{{ route('PDF_medical_record', ':id') }}";
-                                            route = route
-                                                .replace(
-                                                    ':id', elem
-                                                    .id);
+                                window.location.href = url;
+                                // let url =
+                                //     "{{ route('get_medical_record_user', ':id') }}";
+                                // url = url.replace(':id', id);
+                                // $.ajax({
+                                //     url: url,
+                                //     type: 'GET',
+                                //     headers: {
+                                //         'X-CSRF-TOKEN': $(
+                                //                 'meta[name="csrf-token"]')
+                                //             .attr(
+                                //                 'content')
+                                //     },
+                                //     success: function(res) {
+                                //         let data = [];
+                                //         res.map((elem) => {
+                                //             let route =
+                                //                 "{{ route('PDF_medical_record', ':id') }}";
+                                //             route = route
+                                //                 .replace(
+                                //                     ':id', elem
+                                //                     .id);
 
-                                            let route_mr_exam =
-                                                "{{ route('mr_exam', ':id') }}";
-                                            route_mr_exam =
-                                                route_mr_exam
-                                                .replace(
-                                                    ':id', elem
-                                                    .patient_id);
+                                //             let route_mr_exam =
+                                //                 "{{ route('mr_exam', ':id') }}";
+                                //             route_mr_exam =
+                                //                 route_mr_exam
+                                //                 .replace(
+                                //                     ':id', elem
+                                //                     .patient_id);
 
-                                            let route_mr_study =
-                                                "{{ route('mr_study', ':id') }}";
-                                            route_mr_study =
-                                                route_mr_study
-                                                .replace(
-                                                    ':id', elem
-                                                    .patient_id);
+                                //             let route_mr_study =
+                                //                 "{{ route('mr_study', ':id') }}";
+                                //             route_mr_study =
+                                //                 route_mr_study
+                                //                 .replace(
+                                //                     ':id', elem
+                                //                     .patient_id);
 
-                                            let route_pdf_medical_prescription =
-                                                "{{ route('pdf_medical_prescription', ':id') }}";
-                                            route_pdf_medical_prescription
-                                                =
-                                                route_pdf_medical_prescription
-                                                .replace(
-                                                    ':id', elem
-                                                    .id);
+                                //             let route_pdf_medical_prescription =
+                                //                 "{{ route('pdf_medical_prescription', ':id') }}";
+                                //             route_pdf_medical_prescription
+                                //                 =
+                                //                 route_pdf_medical_prescription
+                                //                 .replace(
+                                //                     ':id', elem
+                                //                     .id);
 
-                                            let btnExam = `
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                    <button type="button"
-                                                        class="refresf btn-idanger rounded-circle"
-                                                        data-bs-container="body" 
-                                                        data-bs-toggle="popover"
-                                                        data-bs-custom-class="custom-popover"
-                                                        data-bs-placement="bottom" 
-                                                        data-bs-content="No hay exámenes cargados">
-                                                        <i class="bi bi-exclamation-lg"></i>
-                                                    </button>
-                                            </div>`;
+                                //             let btnExam = `
+                                //             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                //                     <button type="button"
+                                //                         class="refresf btn-idanger rounded-circle"
+                                //                         data-bs-container="body" 
+                                //                         data-bs-toggle="popover"
+                                //                         data-bs-custom-class="custom-popover"
+                                //                         data-bs-placement="bottom" 
+                                //                         data-bs-content="No hay exámenes cargados">
+                                //                         <i class="bi bi-exclamation-lg"></i>
+                                //                     </button>
+                                //             </div>`;
 
-                                            if (elem.data
-                                                .status_exam != null
-                                            ) {
-                                                btnExam = `  
-                                                        <div
-                                                    class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                    <a href="${route_mr_exam}">
-                                                    <button type="button"
-                                                    class="btn refresf btn-iSecond rounded-circle"
-                                                    data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom"
-                                                    data-bs-custom-class="custom-tooltip"
-                                                    data-html="true" title="ver exámenes">
-                                                    <i class="i bi-card-heading"></i>
-                                                    </button>
-                                                    </a>
-                                                    </div>`
+                                //             if (elem.data
+                                //                 .status_exam != null
+                                //             ) {
+                                //                 btnExam = `  
+                                //                         <div
+                                //                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                //                     <a href="${route_mr_exam}">
+                                //                     <button type="button"
+                                //                     class="btn refresf btn-iSecond rounded-circle"
+                                //                     data-bs-toggle="tooltip"
+                                //                     data-bs-placement="bottom"
+                                //                     data-bs-custom-class="custom-tooltip"
+                                //                     data-html="true" title="ver exámenes">
+                                //                     <i class="i bi-card-heading"></i>
+                                //                     </button>
+                                //                     </a>
+                                //                     </div>`
 
-                                            }
-                                            let btnStudy = `<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                <button type="button"
-                                                                    class="refresf btn-idanger rounded-circle"
-                                                                    data-bs-container="body" 
-                                                                    data-bs-toggle="popover"
-                                                                    data-bs-custom-class="custom-popover"
-                                                                    data-bs-placement="bottom" 
-                                                                    data-bs-content="No hay estudios cargados">
-                                                                    <i class="bi bi-exclamation-lg"></i>
-                                                                </button>
-                                                            </div>`
+                                //             }
+                                //             let btnStudy = `<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                //                                 <button type="button"
+                                //                                     class="refresf btn-idanger rounded-circle"
+                                //                                     data-bs-container="body" 
+                                //                                     data-bs-toggle="popover"
+                                //                                     data-bs-custom-class="custom-popover"
+                                //                                     data-bs-placement="bottom" 
+                                //                                     data-bs-content="No hay estudios cargados">
+                                //                                     <i class="bi bi-exclamation-lg"></i>
+                                //                                 </button>
+                                //                             </div>`
 
-                                            if (elem.data
-                                                .status_study !=
-                                                null
-                                            ) {
-                                                btnStudy = `  
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                    <a
-                                                    href="${route_mr_study}">
-                                                    <button type="button"
-                                                    class="btn refresf btn-iSecond rounded-circle"
-                                                    data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom"
-                                                    data-bs-custom-class="custom-tooltip"
-                                                    data-html="true" title="ver estudios">
-                                                    <i class="i bi-card-heading"></i>
-                                                    </button>
-                                                    </a>
-                                                    </div>`
+                                //             if (elem.data
+                                //                 .status_study !=
+                                //                 null
+                                //             ) {
+                                //                 btnStudy = `  
+                                //                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                //                     <a
+                                //                     href="${route_mr_study}">
+                                //                     <button type="button"
+                                //                     class="btn refresf btn-iSecond rounded-circle"
+                                //                     data-bs-toggle="tooltip"
+                                //                     data-bs-placement="bottom"
+                                //                     data-bs-custom-class="custom-tooltip"
+                                //                     data-html="true" title="ver estudios">
+                                //                     <i class="i bi-card-heading"></i>
+                                //                     </button>
+                                //                     </a>
+                                //                     </div>`
 
-                                            }
+                                //             }
 
 
-                                            elem.btn = `                                                                    
-                                                    <div class="d-flex">
-                                                    ${btnExam}
-                                                    ${btnStudy}
-                                                    <div
-                                                    class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                    <a target="_blank"
-                                                    href="${route_pdf_medical_prescription}">
-                                                    <button type="button"
-                                                    class="btn refresf btn-iSecond rounded-circle"><i
-                                                    class="bi bi-file-earmark-pdf"
-                                                    data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom"
-                                                    data-bs-custom-class="custom-tooltip"
-                                                    data-html="true"
-                                                    title="Ver recipe"></i>
-                                                    </button>
-                                                    </a>
-                                                    </div>                                               
-                                                    <div
-                                                    class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                    <a target="_blank"
-                                                    href="${route}">
-                                                    <button type="button"
-                                                    class="btn refresf btn-iSecond rounded-circle"><i
-                                                    class="bi bi-file-earmark-pdf"
-                                                    data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom"
-                                                    data-bs-custom-class="custom-tooltip"
-                                                    data-html="true" title="ver PDF"></i>
-                                                    </button>
-                                                    </a>
-                                                    </div>
-                                                    </div>`;
-                                            data.push(elem);
-                                        });
+                                //             elem.btn = `                                                                    
+                                //                     <div class="d-flex">
+                                //                     ${btnExam}
+                                //                     ${btnStudy}
+                                //                     <div
+                                //                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                //                     <a target="_blank"
+                                //                     href="${route_pdf_medical_prescription}">
+                                //                     <button type="button"
+                                //                     class="btn refresf btn-iSecond rounded-circle"><i
+                                //                     class="bi bi-file-earmark-pdf"
+                                //                     data-bs-toggle="tooltip"
+                                //                     data-bs-placement="bottom"
+                                //                     data-bs-custom-class="custom-tooltip"
+                                //                     data-html="true"
+                                //                     title="Ver recipe"></i>
+                                //                     </button>
+                                //                     </a>
+                                //                     </div>                                               
+                                //                     <div
+                                //                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                //                     <a target="_blank"
+                                //                     href="${route}">
+                                //                     <button type="button"
+                                //                     class="btn refresf btn-iSecond rounded-circle"><i
+                                //                     class="bi bi-file-earmark-pdf"
+                                //                     data-bs-toggle="tooltip"
+                                //                     data-bs-placement="bottom"
+                                //                     data-bs-custom-class="custom-tooltip"
+                                //                     data-html="true" title="ver PDF"></i>
+                                //                     </button>
+                                //                     </a>
+                                //                     </div>
+                                //                     </div>`;
+                                //             data.push(elem);
+                                //         });
 
-                                        new DataTable(
-                                            '#table-medical-record', {
-                                                language: {
-                                                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
-                                                },
-                                                // reponsive: true,
-                                                bDestroy: true,
-                                                data: data,
-                                                "searching": false,
-                                                "bLengthChange": false,
-                                                columns: [{
-                                                        data: 'data.record_code',
-                                                        title: 'Código de la consulta',
-                                                        className: "text-center td-pad",
-                                                    },
-                                                    {
-                                                        data: 'data.cod_ref',
-                                                        title: 'Código de la referencia',
-                                                        className: "text-center td-pad",
-                                                    },
-                                                    {
-                                                        data: 'date',
-                                                        title: 'Fecha de la consulta',
-                                                        className: "text-center td-pad",
-                                                    },
-                                                    {
-                                                        data: 'name_patient',
-                                                        title: 'Nombre del paciente',
-                                                        className: "text-center td-pad",
-                                                    },
-                                                    {
-                                                        data: 'genere',
-                                                        title: 'Género',
-                                                        className: "text-center td-pad",
-                                                    },
-                                                    {
-                                                        data: 'center',
-                                                        title: 'Centro',
-                                                        className: "text-center td-pad",
-                                                    },
-                                                    {
-                                                        data: 'full_name_doc',
-                                                        title: 'Médico',
-                                                        className: "text-center td-pad",
-                                                    },
-                                                    {
-                                                        data: 'btn',
-                                                        title: 'Ver',
-                                                        className: "text-center td-pad",
-                                                    }
-                                                ],
-                                            });
-                                        $('#table-medical-record').on(
-                                            'click', 'td',
-                                            function() {
-                                                let table =
-                                                    new DataTable(
-                                                        '.table'
-                                                    );
-                                                let row = table.row(
-                                                    this).data();
-                                                showDataEdit(row);
-                                            })
+                                //         new DataTable(
+                                //             '#table-medical-record', {
+                                //                 language: {
+                                //                     url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                                //                 },
+                                //                 // reponsive: true,
+                                //                 bDestroy: true,
+                                //                 data: data,
+                                //                 "searching": false,
+                                //                 "bLengthChange": false,
+                                //                 columns: [{
+                                //                         data: 'data.record_code',
+                                //                         title: 'Código de la consulta',
+                                //                         className: "text-center td-pad",
+                                //                     },
+                                //                     {
+                                //                         data: 'data.cod_ref',
+                                //                         title: 'Código de la referencia',
+                                //                         className: "text-center td-pad",
+                                //                     },
+                                //                     {
+                                //                         data: 'date',
+                                //                         title: 'Fecha de la consulta',
+                                //                         className: "text-center td-pad",
+                                //                     },
+                                //                     {
+                                //                         data: 'name_patient',
+                                //                         title: 'Nombre del paciente',
+                                //                         className: "text-center td-pad",
+                                //                     },
+                                //                     {
+                                //                         data: 'genere',
+                                //                         title: 'Género',
+                                //                         className: "text-center td-pad",
+                                //                     },
+                                //                     {
+                                //                         data: 'center',
+                                //                         title: 'Centro',
+                                //                         className: "text-center td-pad",
+                                //                     },
+                                //                     {
+                                //                         data: 'full_name_doc',
+                                //                         title: 'Médico',
+                                //                         className: "text-center td-pad",
+                                //                     },
+                                //                     {
+                                //                         data: 'btn',
+                                //                         title: 'Ver',
+                                //                         className: "text-center td-pad",
+                                //                     }
+                                //                 ],
+                                //             });
+                                //         $('#table-medical-record').on(
+                                //             'click', 'td',
+                                //             function() {
+                                //                 let table =
+                                //                     new DataTable(
+                                //                         '.table'
+                                //                     );
+                                //                 let row = table.row(
+                                //                     this).data();
+                                //                 showDataEdit(row);
+                                //             })
 
-                                    }
-                                });
+                                //     }
+                                // });
                             });
                         },
                         error: function(error) {

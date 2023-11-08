@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class BilledPlan extends Model
 {
@@ -20,19 +21,15 @@ class BilledPlan extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-
-        'plan_id',
         'user_id',
         'laboratory_id',
-        'ci',
-        'email',
+        'type_plan',
+        'methodo_payment',
+        'number_card',
+        'code_card',
         'amount',
-        'reference',
-        'account_number',
-        'bank',
         'date',
         'status'
-
     ];
 
     /**
@@ -42,7 +39,7 @@ class BilledPlan extends Model
      */
     public function get_user(): HasOne
     {
-        return $this->hasOne(User::class, 'user_id', 'id');
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 
     /**
@@ -52,7 +49,7 @@ class BilledPlan extends Model
      */
     public function get_laboratory(): HasOne
     {
-        return $this->hasOne(User::class, 'laboratory_id', 'id');
+        return $this->hasOne(User::class, 'id', 'laboratory_id');
     }
 
 }

@@ -44,7 +44,7 @@ use App\View\Components\VerifyplansComponent;
 
 Route::get('/', [Login::class, 'render']);
 Route::post('/login', [Login::class, 'login'])->name('login');
-Route::get('/register-user', [Register::class, 'render'])->name('Register');
+Route::get('/register-user/{id?}', [Register::class, 'render'])->name('Register');
 Route::post('/register', [Register::class, 'store'])->name('Register-create');
 Route::get('/recovery-password', [RecoveryPassword::class, 'render'])->name('recovery_password');
 Route::post('/create-password-temporary', [RecoveryPassword::class, 'create_password_temporary'])->name('create_password_temporary');
@@ -81,7 +81,7 @@ Route::middleware(['auth'])->group(function () {
         Route::middleware(['VerifySelloDigital', 'verify_email'])->group(function () {
             Route::get('/home', [Home::class, 'render'])->name('home');
             Route::get('/dashboard', [DashboardComponent::class, 'render'])->name('DashboardComponent');
-            Route::get('/patients', [Patients::class, 'render'])->name('Patients')->middleware(['VerifyPlans']);
+            Route::get('/patients', [Patients::class, 'render'])->name('Patients');
             Route::get('/setting', [setting::class, 'render'])->name('Setting');
             Route::get('/diary', [Diary::class, 'render'])->name('Diary')->middleware(['VerifyPlans']);
             Route::post('/create-appointment', [Diary::class, 'store'])->name('CreateAppointment');
@@ -93,11 +93,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/examen', [Examen::class, 'render'])->name('Examen');
 
             Route::group(array('prefix' => 'patients'), function () {
-                Route::get('/medical-record/{id}', [MedicalRecord::class, 'render'])->name('MedicalRecord');
-                Route::post('/medical-consultation-create', [MedicalRecord::class, 'store'])->name('MedicalRecordCreate');
+                Route::get('/medical-record/{id}', [MedicalRecord::class, 'render'])->name('MedicalRecord')->middleware(['VerifyPlans']);
+                Route::post('/medical-consultation-create', [MedicalRecord::class, 'store'])->name('MedicalRecordCreate')->middleware(['VerifyPlans']);
                 Route::get('/medical-history', [MedicalHistory::class, 'render'])->name('MedicalHistory');
-                Route::post('/register-patients', [Patients::class, 'store'])->name('register-patients');
-                Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail');
+                Route::post('/register-patients', [Patients::class, 'store'])->name('register-patients')->middleware(['VerifyPlans']);
+                Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail')->middleware(['VerifyPlans']);
                 Route::post('/clinical-history-create', [MedicalHistory::class, 'store'])->name('ClinicalHistoryCreate');
                 Route::get('/search-patient/{value}', [Patients::class, 'search'])->name('search-patient');
                 Route::get('/medicard_record_study/{id}', [Study::class, 'render'])->name("mr_study");
@@ -107,6 +107,7 @@ Route::middleware(['auth'])->group(function () {
 
         ///
         Route::group(array('prefix' => 'setting'), function () {
+            Route::get('/verify-plans', [PlansVerify::class, 'render'])->name('verify-plans');
             Route::get('/user', [User::class, 'render'])->name('User');
             Route::post('/update-profile', [Register::class, 'update'])->name('update-profile');
             Route::get('/suscription', [Suscription::class, 'render'])->name('Suscription');
