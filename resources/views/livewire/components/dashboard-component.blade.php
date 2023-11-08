@@ -686,7 +686,7 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
-                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-1">
+                                        <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-1">
                                             <div class="card text-white" style="background-color: rgb(251,220,226)">
                                                 <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
                                                     <canvas id="countStudies"></canvas>
@@ -694,7 +694,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-4 md-4 lg-4 xl-4 xxl-4 mt-1">
+                                        <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-1">
                                             <div class="card text-white" style="background-color: rgb(219,242,242)">
                                                 <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
                                                     <canvas id="countExamenes"></canvas>

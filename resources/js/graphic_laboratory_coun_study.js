@@ -3,8 +3,6 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 function get_study(countStudy) {
 
-  console.log(countStudy);
-
   const labels = [
     'Total de estudios realizados',
   ];
