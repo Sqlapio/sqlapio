@@ -105,6 +105,8 @@ class Login extends Component {
 	}
 
 	public function render() {
+
+		// dd();
 		$this->show = true;
 		return view('livewire.components.login', ['show' => $this->show]);
 	}

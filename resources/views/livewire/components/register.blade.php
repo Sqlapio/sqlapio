@@ -42,6 +42,7 @@
         bottom: 0;
         margin: auto
     }
+
     .btn-bg-lb img:last-of-type {
         opacity: 0;
         position: absolute;
@@ -76,7 +77,7 @@
 
     @media only screen and (max-width: 768px) {
 
-        body {  
+        body {
             background: url({{ asset('img/fondo-mobile-rg-v2.jpg') }}) no-repeat top center fixed !important;
         }
 
@@ -150,7 +151,6 @@
             display: none;
         }
     }
-
 </style>
 @push('scripts')
     <script>
@@ -191,9 +191,9 @@
                         //maxlength: 8,
                         handlerPass: true
                     },
-                    rol: {
-                        required: true,
-                    },
+                    // rol: {
+                    //     required: true,
+                    // },
                 },
                 messages: {
                     name: {
@@ -217,16 +217,16 @@
                     password: {
                         required: "Contraseña es obligatoria",
                         minlength: "Contraseña debe ser mayor a 6 caracteres",
-                       // maxlength: "Contraseña debe ser menor a 8 caracteres",
+                        // maxlength: "Contraseña debe ser menor a 8 caracteres",
                     },
                     password_confrimation: {
                         required: "Confirmar Contraseña es obligatoria",
                         minlength: "Confirmar Contraseña debe ser mayor a 6 caracteres",
                         //maxlength: "Confirmar Contraseña debe ser menor a 8 caracteres",
                     },
-                    rol: {
-                        required: "Rol es obligatorio",
-                    },
+                    // rol: {
+                    //     required: "Rol es obligatorio",
+                    // },
                 },
                 invalidHandler: function(event, validator) {
 
@@ -263,21 +263,7 @@
             } else {
                 input[0].type = "password";
             }
-        }
-
-        function handlerRol(val) {
-            if (val == 'laboratorio') {
-                $('#business-name').show();
-                $('#name-input').hide();
-                $('#apellidos').hide();
-
-            } else {
-                $('#business-name').hide();
-            }
-            $('#rol').val(val);
-            $('#div-form').show();
-            $('#btn-rol').hide();
-        }
+        }       
     </script>
 @endpush
 @section('content')
@@ -289,7 +275,7 @@
                         <img class="img" src="{{ asset('img/registro.png') }}" style="width: 200px;">
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                     <div class="container container-icon" style="display: flex; justify-content: center;">
                         <div id="btn-rol" class="row justify-content-center">
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 btn-bg">
@@ -314,9 +300,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
-                    <div class="card" id="div-form" style="display: none">
+                    <div class="card" id="div-form">
                         <div class="card-body">
                             <div>
                                 <div class="container">
@@ -328,57 +314,66 @@
                                 {{ Form::open(['url' => 'register', 'method' => 'post', 'id' => 'form-register']) }}
                                 {{ csrf_field() }}
                                 <div class="row">
-                                    <div id="name-input" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
-                                                <input autocomplete="off"
-                                                    class="form-control mask-text @error('name') is-invalid @enderror"
-                                                    id="name" name="name" type="text" value="">
-                                                <i class="bi bi-person-circle st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
+                                    @if ($bellied_plan->get_user->role == 'medico')
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
+                                                    <input autocomplete="off"
+                                                        class="form-control mask-text @error('name') is-invalid @enderror"
+                                                        id="name" name="name" type="text" readonly
+                                                        value="{!! !empty($bellied_plan) ? $bellied_plan->get_user->name : '' !!}">
+                                                    <i class="bi bi-person-circle st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
+                                                    <input autocomplete="off"
+                                                        class="form-control mask-text @error('last_name') is-invalid @enderror"
+                                                        id="last_name" name="last_name" readonly type="text"
+                                                        value="{!! !empty($bellied_plan) ? $bellied_plan->get_user->last_name : '' !!}">
+                                                    <i class="bi bi-person-circle st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+                                    @endif
+                                    @if ($bellied_plan->get_user->role == 'laboratorio')
+                                        <div id="business-name" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                            style="display: none">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombre
+                                                        del
+                                                        Laboratorio</label>
+                                                    <input autocomplete="off"
+                                                        class="form-control mask-text @error('business_name') is-invalid @enderror"
+                                                        id="business_name" name="business_name" type="text"
+                                                        value="">
+                                                    <i class="bi bi-person-circle st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+                                    @endif
 
-                                    <div id="business-name" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombre del
-                                                    Laboratorio</label>
-                                                <input autocomplete="off"
-                                                    class="form-control mask-text @error('business_name') is-invalid @enderror"
-                                                    id="business_name" name="business_name" type="text" value="">
-                                                <i class="bi bi-person-circle st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
-                                    <div id="apellidos" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
-                                                <input autocomplete="off"
-                                                    class="form-control mask-text @error('last_name') is-invalid @enderror"
-                                                    id="last_name" name="last_name" type="text" value="">
-                                                <i class="bi bi-person-circle st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
                                                     Electrónico</label>
-                                                <input autocomplete="off" class="form-control" id="email"
-                                                    name="email" type="text" value="">
+                                                <input autocomplete="off" class="form-control" id="email" name="email"
+                                                    type="text" readonly value="{!! !empty($bellied_plan) ? $bellied_plan->get_user->email : '' !!}">
                                                 <i class="bi bi-envelope st-icon"></i>
                                             </div>
                                         </diV>
                                     </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: none">
+                                    {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: none">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
@@ -389,15 +384,14 @@
                                                 <i class="bi bi-caret-down st-icon"></i>
                                             </div>
                                         </diV>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Contraseña</label>
-                                                <input placeholder="Contraseña" autocomplete="off"
-                                                    {{-- data-bs-toggle="tooltip" data-bs-placement="right"
+                                                <input placeholder="Contraseña" autocomplete="off" {{-- data-bs-toggle="tooltip" data-bs-placement="right"
                                                     data-bs-custom-class="custom-tooltip tooltip-ps" data-html="true"
                                                     title="La contraseña debe contener:
                                                             Al menos una letra mayúscula.
@@ -419,8 +413,8 @@
                                                     Contraseña</label>
                                                 <input autocomplete="off" placeholder="Confirmar Contraseña"
                                                     class="form-control @error('password_confrimation') is-invalid @enderror"
-                                                    id="password_confrimation" name="password_confrimation"
-                                                    type="password" value="">
+                                                    id="password_confrimation" name="password_confrimation" type="password"
+                                                    value="">
                                                 <i onclick="showPassConfimation();" class="bi bi-eye-fill st-icon"></i>
                                             </div>
                                         </diV>

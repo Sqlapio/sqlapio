@@ -126,7 +126,7 @@
                 {{ Form::close() }}
                 <div class="row justify-content-center">
                     <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
-                        <a class="links" href="{{ route('Register') }}">Registrar Usuario</a>
+                        <a class="links" href="{{ env('APP_WEB') }}">Registrar Usuario</a>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <a class="links" href="{{route('recovery_password')}}">Recuperar Contraseña</a>
