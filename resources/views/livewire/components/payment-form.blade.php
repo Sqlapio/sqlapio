@@ -12,9 +12,37 @@
 @push('scripts')
     <script>
         let type_plan = @json($type_plan);
-        console.log(type_plan);
+        let listPlanes = [1, 2, 3];
+
         $(document).ready(() => {
+            const find = listPlanes.find((e) => e === Number(type_plan));
+            if (find == undefined) {
+                $('#div-content').hide();
+                return false;
+            }
             $('#type_plan').val(type_plan);
+
+            switch (Number(type_plan)) {
+                case 1:
+
+                    $("#amount").val('0');
+                    $("#code_card").attr('disabled', true)
+                    $("#number_card").attr('disabled', true)
+                    $("#methodo_payment").attr('disabled', true)                    
+
+                    break;
+                case 2:
+                    $("#amount").val('$19.99');
+
+                    break;
+                case 3:
+                    $("#amount").val('$39.99');
+
+                    break;
+
+                default:
+                    break;
+            }
 
             $('#form-payment').validate({
                 ignore: [],
@@ -30,9 +58,7 @@
                         maxlength: 50,
                     },
                     amount: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50,
+                        required: true,                       
                     },
                     number_id: {
                         required: true,
@@ -52,9 +78,9 @@
                     methodo_payment: {
                         required: true,
                     },
-                    email:{
+                    email: {
                         required: true,
-                        email:true
+                        email: true
                     }
                 },
                 messages: {
@@ -84,6 +110,8 @@
                     },
                 }
             });
+
+
 
             $.validator.addMethod("onlyNumber", function(value, element) {
                 var pattern = /^\d+\.?\d*$/;
@@ -117,6 +145,10 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
+                                let url =
+                                    "{{ route('Register', ':id') }}";
+                                url = url.replace(':id', response.data);
+                                window.location.href = url;
 
                             });
                         },
@@ -139,10 +171,6 @@
                 }
             });
         });
-
-        function handlerMethodoPaymet(val) {
-            $('#methodo_payment').val(val);
-        }
     </script>
 @endpush
 @section('content')
@@ -155,7 +183,7 @@
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
                     <div class="card" id="div-form">
                         <div class="card-body">
-                            <div>
+                            <div id="div-content">
                                 <div class="container">
                                     <div class="row mt-3" style="display: grid; justify-items: center;">
                                         <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-02.png') }}"
@@ -165,41 +193,56 @@
 
                                 <div class="row">
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img onclick="handlerMethodoPaymet(1)" class="binance"
-                                            src="{{ asset('img/binance-logo.jpeg') }}" alt="">
+                                        <img class="binance" src="{{ asset('img/binance-logo.jpeg') }}" alt="">
                                     </div>
 
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img onclick="handlerMethodoPaymet(2)" class="binance"
-                                            src="{{ asset('img/zelle-logo.png') }}" alt="">
+                                        <img class="binance" src="{{ asset('img/zelle-logo.png') }}" alt="">
                                     </div>
 
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img onclick="handlerMethodoPaymet(3)" class="binance"
-                                            src="{{ asset('img/banca-amiga-logo.png') }}" alt="">
+                                        <img class="binance" src="{{ asset('img/banca-amiga-logo.png') }}" alt="">
                                     </div>
                                 </div>
 
                                 <div class="row mt-3">
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img onclick="handlerMethodoPaymet(4)" class="binance"
-                                            src="{{ asset('img/banco-mercantil-logo.jpeg') }}" alt="">
+                                        <img class="binance" src="{{ asset('img/banco-mercantil-logo.jpeg') }}"
+                                            alt="">
                                     </div>
 
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img onclick="handlerMethodoPaymet(5)" class="binance"
-                                            src="{{ asset('img/banco-venezuela-logo.png') }}" alt="">
+                                        <img class="binance" src="{{ asset('img/banco-venezuela-logo.png') }}"
+                                            alt="">
                                     </div>
 
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img onclick="handlerMethodoPaymet(6)" class="binance"
-                                            src="{{ asset('img/banesco-logo.png') }}" alt="">
+                                        <img class="binance" src="{{ asset('img/banesco-logo.png') }}" alt="">
                                     </div>
                                 </div>
                                 {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment']) }}
                                 <div class="row">
-                                    <input type="hidden" name="methodo_payment" id="methodo_payment">
                                     <input type="hidden" name="type_plan" id="type_plan">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <label for="methodo_payment" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Metodo de pago</label>
+                                                <select name="methodo_payment" id="methodo_payment"
+                                                    placeholder="Seleccione"class="form-control"
+                                                    class="form-control combo-textbox-input">
+                                                    <option value="">Seleccione...</option>
+                                                    <option value="1">Banco de Venezuela</option>
+                                                    <option value="2">Banco Mercantil</option>
+                                                    <option value="3">Banco Banesco</option>
+                                                    <option value="4">Bancamiga</option>
+                                                    <option value="5">Zelle</option>
+                                                </select>
+                                                <i class="bi bi-calendar-range st-icon"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                         <div class="form-group">
                                             <div class="Icon-inside">
@@ -243,7 +286,8 @@
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo electronico</label>
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
+                                                    electronico</label>
                                                 <input autocomplete="off" class="form-control" id="email"
                                                     name="email" type="text" value="">
                                                 <i class="bi bi-envelope st-icon"></i>
@@ -279,7 +323,7 @@
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Monto</label>
-                                                <input autocomplete="off" class="form-control" id="amount"
+                                                <input readonly autocomplete="off" class="form-control" id="amount"
                                                     name="amount" type="text" value="">
                                                 <i class="bi bi-envelope st-icon"></i>
                                             </div>
