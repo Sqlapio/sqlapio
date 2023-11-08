@@ -143,4 +143,14 @@ class User extends Authenticatable {
         return $this->hasMany(Study::class, 'user_id', 'id');
     }
 
+	/**
+	 * Get all of the get_plans for the User
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function get_billed_plans(): HasMany
+	{
+		return $this->hasManyThrough(BilledPlan::class, 'user_id', 'id');
+	}
+
 }
