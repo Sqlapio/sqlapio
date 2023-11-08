@@ -55,9 +55,7 @@
                         maxlength: 50,
                     },
                     amount: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50,
+                        required: true,                       
                     },
                     number_id: {
                         required: true,
