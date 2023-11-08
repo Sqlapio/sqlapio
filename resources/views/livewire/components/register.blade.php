@@ -335,7 +335,7 @@
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
                                                 <input autocomplete="off"
                                                     class="form-control mask-text @error('name') is-invalid @enderror"
-                                                    id="name" name="name" type="text" value="">
+                                                    id="name" name="name" type="text" readonly value="{!! !empty($bellied_plan) ? $bellied_plan->get_user->name : '' !!}">
                                                 <i class="bi bi-person-circle st-icon"></i>
                                             </div>
                                         </diV>
@@ -361,7 +361,7 @@
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
                                                 <input autocomplete="off"
                                                     class="form-control mask-text @error('last_name') is-invalid @enderror"
-                                                    id="last_name" name="last_name" type="text" value="">
+                                                    id="last_name" name="last_name" readonly type="text" value="{!! !empty($bellied_plan) ? $bellied_plan->get_user->last_name : '' !!}">
                                                 <i class="bi bi-person-circle st-icon"></i>
                                             </div>
                                         </diV>
@@ -373,7 +373,7 @@
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
                                                     Electrónico</label>
                                                 <input autocomplete="off" class="form-control" id="email"
-                                                    name="email" type="text" value="">
+                                                    name="email" type="text" readonly value="{!! !empty($bellied_plan) ? $bellied_plan->get_user->email : '' !!}">
                                                 <i class="bi bi-envelope st-icon"></i>
                                             </div>
                                         </diV>

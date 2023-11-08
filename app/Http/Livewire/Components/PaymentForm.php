@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Livewire\Component;
 use Illuminate\Support\Facades\Validator;
 use App\Models\BilledPlan;
+use App\Models\User;
 
 class PaymentForm extends Component
 {
@@ -17,14 +18,14 @@ class PaymentForm extends Component
 
             $rules = [
                 'type_plan'         => 'required',
-                'methodo_payment'   => 'required',
+                // 'methodo_payment'   => 'required',
                 'name'              => 'required',
                 'last_name'         => 'required',
                 'number_id'         => 'required',
                 'email'             => 'required',
-                'number_card'       => 'required',
-                'code_card'         => 'required',
-                'amount'            => 'required',
+                // 'number_card'       => 'required',
+                // 'code_card'         => 'required',
+                // 'amount'            => 'required',
             ];
 
             $msj = [
@@ -57,14 +58,18 @@ class PaymentForm extends Component
 
             if($response == '200')
             {
+                $user = new User();
+                $user->name = $request->name;
+                $user->last_name = $request->last_name;
+                $user->ci = $request->number_id;
+                $user->email = $request->email;
+                $user->save();
+
 
                 $billed_plans = new BilledPlan();
+                $billed_plans->user_id = $user->id;
                 $billed_plans->type_plan = $request->type_plan;
                 $billed_plans->methodo_payment = $request->methodo_payment;
-                $billed_plans->name = $request->name;
-                $billed_plans->last_name = $request->last_name;
-                $billed_plans->number_id = $request->number_id;
-                $billed_plans->email = $request->email;
                 $billed_plans->number_card = $request->number_card;
                 $billed_plans->code_card = $request->code_card;
                 $billed_plans->amount = $request->amount;
@@ -73,7 +78,8 @@ class PaymentForm extends Component
 
                 return response()->json([
                     'success' => 'true',
-                    'mjs'  => 'El pago fue registrado de forma exitosa'
+                    'mjs'  => 'El pago fue registrado de forma exitosa',
+                    'data' => encrypt($billed_plans->id),
                 ], 200);
 
             }else{

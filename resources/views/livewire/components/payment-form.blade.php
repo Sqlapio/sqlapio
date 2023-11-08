@@ -26,6 +26,9 @@
                 case 1:
 
                     $("#amount").val('0');
+                    $("#code_card").attr('disabled', true)
+                    $("#number_card").attr('disabled', true)
+                    $("#methodo_payment").attr('disabled', true)                    
 
                     break;
                 case 2:
@@ -142,6 +145,10 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
+                                let url =
+                                    "{{ route('Register', ':id') }}";
+                                url = url.replace(':id', response.data);
+                                window.location.href = url;
 
                             });
                         },
@@ -220,8 +227,7 @@
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="methodo_payment" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Duración
-                                                    de tratamiento</label>
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Metodo de pago</label>
                                                 <select name="methodo_payment" id="methodo_payment"
                                                     placeholder="Seleccione"class="form-control"
                                                     class="form-control combo-textbox-input">

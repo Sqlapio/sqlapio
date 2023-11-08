@@ -44,7 +44,7 @@ use App\View\Components\VerifyplansComponent;
 
 Route::get('/', [Login::class, 'render']);
 Route::post('/login', [Login::class, 'login'])->name('login');
-Route::get('/register-user', [Register::class, 'render'])->name('Register');
+Route::get('/register-user/{id?}', [Register::class, 'render'])->name('Register');
 Route::post('/register', [Register::class, 'store'])->name('Register-create');
 Route::get('/recovery-password', [RecoveryPassword::class, 'render'])->name('recovery_password');
 Route::post('/create-password-temporary', [RecoveryPassword::class, 'create_password_temporary'])->name('create_password_temporary');

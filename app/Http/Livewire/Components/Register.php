@@ -6,6 +6,7 @@ use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\ApiServicesController;
 use App\Http\Controllers\EstadisticaController;
 use App\Http\Controllers\UtilsController;
+use App\Models\BilledPlan;
 use App\Models\Laboratory;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,8 +19,6 @@ use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Register extends Component {
-
-	public $show;
 
 	public function store(Request $request) 
 	{
@@ -39,7 +38,7 @@ class Register extends Component {
 			$rules = [
 				'name'      => 'required',
 				'last_name' => 'required',
-				'email'     => 'required|unique:users',
+				'email'     => 'required',
 				'password'  => 'required',
 			];
 	
@@ -66,15 +65,11 @@ class Register extends Component {
 
 			try {
 
-				$user = User::create([
-
-					'name' 				=> $request->name,
-					'last_name' 		=> $request->last_name,
-					'email' 			=> $request->email,
+				User::where('email', $request->email)
+				->update([
 					'password' 			=> Hash::make($request->password),
 					'role'				=> $request->rol,
 					'verification_code' => Str::random(30)
-	
 				]);
 			
 			/**
@@ -87,11 +82,12 @@ class Register extends Component {
 			/**
 			 * Envio de notificacion por correo
 			 */
+			$user = User::where('email', $request->email)->first();
 			$type = 'verify_email';
 			$mailData = [
-				'dr_name' => $user['name'].' '.$user['last_name'],
-				'dr_email' => $user['email'],
-				'verify_code' => $user['verification_code'],
+				'dr_name' => $request->name.' '.$request->last_name,
+				'dr_email' => $request->email,
+				'verify_code' => $user->verification_code,
 			];
 
 			UtilsController::notification_mail($mailData, $type);
@@ -368,9 +364,12 @@ class Register extends Component {
 
 	}
 
-	public function render() {
-		$this->show = true;
-		return view('livewire.components.register', ['show' => $this->show]);
+	public function render($id=null) {
+		if($id!=null){
+			$bellied_plan = BilledPlan::where('id', decrypt($id))->first();
+		}
+		$show = true;
+		return view('livewire.components.register', compact('show', 'bellied_plan'));
 	}
 
 }
