@@ -13,17 +13,24 @@ return new class extends Migration
     {
         Schema::create('billed_plans', function (Blueprint $table) {
             $table->id();
-            $table->integer('plan_id')->nullabel();
             $table->integer('user_id')->nullabel();
             $table->integer('laboratory_id')->nullabel();
-            $table->string('ci')->nullabel();
+            
+            /**
+             * Formularios de pago
+             * -------------------
+             */
+            $table->string('type_plan')->nullabel();
+            $table->string('methodo_payment')->nullabel();
+            $table->string('name')->nullabel();
+            $table->string('last_name')->nullabel();
+            $table->string('number_id')->nullabel();
             $table->string('email')->nullabel();
-            $table->decimal('amount',8,2)->nullabel();
-            $table->string('reference')->nullabel();
-            $table->string('account_number')->nullabel();
-            $table->string('bank')->nullabel();
+            $table->string('number_card')->nullabel();
+            $table->string('code_card')->nullabel();
+            $table->string('amount')->nullabel();
             $table->string('date')->nullabel();
-            $table->string('status')->nullabel();
+            $table->string('status')->default('first payment');
             $table->timestamps();
         });
     }

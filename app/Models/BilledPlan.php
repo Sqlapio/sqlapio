@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class BilledPlan extends Model
 {
     use HasFactory;
@@ -24,12 +25,15 @@ class BilledPlan extends Model
         'plan_id',
         'user_id',
         'laboratory_id',
-        'ci',
+        'type_plan',
+        'methodo_payment',
+        'name',
+        'last_name',
+        'number_id',
         'email',
+        'number_card',
+        'code_card',
         'amount',
-        'reference',
-        'account_number',
-        'bank',
         'date',
         'status'
 

@@ -4,14 +4,89 @@ namespace App\Http\Livewire\Components;
 
 use Illuminate\Http\Request;
 use Livewire\Component;
+use Illuminate\Support\Facades\Validator;
+use App\Models\BilledPlan;
 
 class PaymentForm extends Component
 {
 
 
-    public function pay_plan(Request $request) {
-        
-        dd(Request()->all());
+    public function pay_plan(Request $request) 
+    {
+        try {
+
+            $rules = [
+                'type_plan'         => 'required',
+                'methodo_payment'   => 'required',
+                'name'              => 'required',
+                'last_name'         => 'required',
+                'number_id'         => 'required',
+                'email'             => 'required',
+                'number_card'       => 'required',
+                'code_card'         => 'required',
+                'amount'            => 'required',
+            ];
+
+            $msj = [
+                'type_plan.required'         => 'Campo requerido',
+                'methodo_payment.required'   => 'Campo requerido',
+                'name.required'              => 'Campo requerido',
+                'last_name.required'         => 'Campo requerido',
+                'number_id.required'         => 'Campo requerido',
+                'email.required'             => 'Campo requerido',
+                'number_card.required'       => 'Campo requerido',
+                'code_card.required'         => 'Campo requerido',
+                'amount.required'            => 'Campo requerido',
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $msj);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => 'false',
+                    'errors'  => $validator->errors()->all()
+                ], 400);
+            }
+
+            /**
+             * API PASARELA DE PAGO
+             * --------------------
+             */
+
+            $response = '200';
+
+            if($response == '200')
+            {
+
+                $billed_plans = new BilledPlan();
+                $billed_plans->type_plan = $request->type_plan;
+                $billed_plans->methodo_payment = $request->methodo_payment;
+                $billed_plans->name = $request->name;
+                $billed_plans->last_name = $request->last_name;
+                $billed_plans->number_id = $request->number_id;
+                $billed_plans->email = $request->email;
+                $billed_plans->number_card = $request->number_card;
+                $billed_plans->code_card = $request->code_card;
+                $billed_plans->amount = $request->amount;
+                $billed_plans->date = date('d-m-Y');
+                $billed_plans->save();
+
+                return response()->json([
+                    'success' => 'true',
+                    'mjs'  => 'El pago fue registrado de forma exitosa'
+                ], 200);
+
+            }else{
+                
+                return response()->json([
+                    'error' => 'true',
+                    'errors'  => 'No se pudo realizar el pago, por favor intente mas tarde'
+                ], 400);
+            }
+
+        } catch (\Throwable $th) {
+            dd($th);
+        }
 
     }
 
