@@ -1328,12 +1328,12 @@ class UtilsController extends Controller
 	static function total_exams()
 	{
 		try {
-
-			$user_id = Auth::user()->id;
-
-			$total_exams =  ExamPatient::where('laboratory_id', $user_id)->count();
-
-			return ["total" => $total_exams];
+			$total_exams =[];
+			if(Auth::user()->get_laboratorio!= null){
+				$user_id = Auth::user()->get_laboratorio->id;
+				$total_exams =  ExamPatient::where('laboratory_id', $user_id)->count();
+			}
+			return $total_exams;
 
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
@@ -1347,13 +1347,13 @@ class UtilsController extends Controller
 	 */
 	static function total_studies()
 	{
-		try {
-
-			$user_id = Auth::user()->id;
-
-			$total_studies =  StudyPatient::where('laboratory_id', $user_id)->count();
-
-			return ["total" => $total_studies];
+		try {		
+			$total_studies =[];
+			if(Auth::user()->get_laboratorio!= null){
+				$user_id = Auth::user()->get_laboratorio->id;
+				$total_studies =  StudyPatient::where('laboratory_id', $user_id)->count();
+			}
+			return $total_studies;
 
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
