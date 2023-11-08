@@ -49,7 +49,7 @@ class BilledPlan extends Model
      */
     public function get_laboratory(): HasOne
     {
-        return $this->hasOne(User::class, 'laboratory_id', 'id');
+        return $this->hasOne(User::class, 'id', 'laboratory_id');
     }
 
 }

@@ -58,11 +58,21 @@ class PaymentForm extends Component
 
             if($response == '200')
             {
+                /**
+                 * Asignar rol al usuario
+                 */
+                $rol = 'laboratorio';
+                if($request->type_plan == '1' || $request->type_plan == '2' || $request->type_plan == '3')
+                {
+                    $rol = 'medico';
+                }
+
                 $user = new User();
                 $user->name = $request->name;
                 $user->last_name = $request->last_name;
                 $user->ci = $request->number_id;
                 $user->email = $request->email;
+                $user->role = $rol;
                 $user->save();
 
 

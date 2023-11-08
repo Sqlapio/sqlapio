@@ -33,7 +33,9 @@ class Register extends Component {
 		 * NOTA: El resto de la informacion del usuario sera cargada desde el modulo de configuracion
 		 * al completar el registro
 		 */
-		if($request->rol == 'medico')
+		$user = User::where('email', $request->email)->first();
+
+		if($user->role == 'medico')
 		{
 			$rules = [
 				'name'      => 'required',
@@ -68,7 +70,6 @@ class Register extends Component {
 				User::where('email', $request->email)
 				->update([
 					'password' 			=> Hash::make($request->password),
-					'role'				=> $request->rol,
 					'verification_code' => Str::random(30)
 				]);
 			
@@ -82,7 +83,7 @@ class Register extends Component {
 			/**
 			 * Envio de notificacion por correo
 			 */
-			$user = User::where('email', $request->email)->first();
+			
 			$type = 'verify_email';
 			$mailData = [
 				'dr_name' => $request->name.' '.$request->last_name,
@@ -100,7 +101,7 @@ class Register extends Component {
 			}
 		}
 
-		if($request->rol == 'laboratorio')
+		if($user->role == 'laboratorio')
 		{
 
 			$rules = [
