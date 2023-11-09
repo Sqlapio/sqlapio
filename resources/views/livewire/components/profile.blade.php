@@ -293,7 +293,7 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
-                                $('div-seal-content').hide();                               
+                                $('#div-seal-content').hide();                               
                             });
                         },
                         error: function(error) {
