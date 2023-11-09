@@ -1,11 +1,25 @@
 @extends('layouts.app')
 @section('title', 'Pago del plan')
 <style>
-    .binance {
-        width: 110% !important;
+    .logo-bank {
+        width: 40%;
+        height: auto;
+    }
+
+    .logoSq {
+        width: 50% !important;
         height: auto;
         margin-top: -15% !important;
         margin-bottom: -15% !important;
+    }
+
+    @media only screen and (max-width: 390px) {
+
+        .logoSq {
+            width: 30%;
+            height: auto;
+            margin-top: -14% !important;
+        }
 
     }
 </style>
@@ -175,12 +189,12 @@
 @endpush
 @section('content')
     <div>
-        <div class="container-fluid">
+        <div class="container-fluid pt-4 mb-3">
             <div id="spinner" style="display: none">
                 <x-load-spinner />
             </div>
-            <div class="row form-sq">
-                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
+            <div class="row form-sq" style="position: relative">
+                <div class="col-sm-10 col-md-10 col-lg-6 col-xl-6 col-xxl-6 mb-3">
                     <div class="card" id="div-form">
                         <div class="card-body">
                             <div id="div-content">
@@ -190,60 +204,11 @@
                                             alt="">
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img class="binance" src="{{ asset('img/binance-logo.jpeg') }}" alt="">
-                                    </div>
-
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img class="binance" src="{{ asset('img/zelle-logo.png') }}" alt="">
-                                    </div>
-
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img class="binance" src="{{ asset('img/banca-amiga-logo.png') }}" alt="">
-                                    </div>
-                                </div>
-
-                                <div class="row mt-3">
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img class="binance" src="{{ asset('img/banco-mercantil-logo.jpeg') }}"
-                                            alt="">
-                                    </div>
-
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img class="binance" src="{{ asset('img/banco-venezuela-logo.png') }}"
-                                            alt="">
-                                    </div>
-
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                        <img class="binance" src="{{ asset('img/banesco-logo.png') }}" alt="">
-                                    </div>
-                                </div>
                                 {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment']) }}
                                 <div class="row">
                                     <input type="hidden" name="type_plan" id="type_plan">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="methodo_payment" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Metodo de pago</label>
-                                                <select name="methodo_payment" id="methodo_payment"
-                                                    placeholder="Seleccione"class="form-control"
-                                                    class="form-control combo-textbox-input">
-                                                    <option value="">Seleccione...</option>
-                                                    <option value="1">Banco de Venezuela</option>
-                                                    <option value="2">Banco Mercantil</option>
-                                                    <option value="3">Banco Banesco</option>
-                                                    <option value="4">Bancamiga</option>
-                                                    <option value="5">Zelle</option>
-                                                </select>
-                                                <i class="bi bi-calendar-range st-icon"></i>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
@@ -255,9 +220,7 @@
                                             </div>
                                         </diV>
                                     </div>
-
-
-                                    <div id="apellidos" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="apellidos">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
@@ -269,75 +232,115 @@
                                             </div>
                                         </diV>
                                     </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Numero de
-                                                    cedula</label>
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">C.I</label>
                                                 <input autocomplete="off" class="form-control" id="number_id"
                                                     name="number_id" type="text" value="">
-                                                <i class="bi bi-envelope st-icon"></i>
+                                                <i class="bi bi-person-vcard-fill st-icon"></i>
                                             </div>
                                         </diV>
                                     </div>
-
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
-                                                    electronico</label>
+                                                    eléctronico</label>
                                                 <input autocomplete="off" class="form-control" id="email"
                                                     name="email" type="text" value="">
-                                                <i class="bi bi-envelope st-icon"></i>
+                                                <i class="bi bi-envelope-ats st-icon"></i>
                                             </div>
                                         </diV>
                                     </div>
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8">
+                                    
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <label for="methodo_payment" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Método de pago</label>
+                                                <select name="methodo_payment" id="methodo_payment"
+                                                    placeholder="Seleccione"class="form-control"
+                                                    class="form-control combo-textbox-input">
+                                                    <option value="">Seleccione...</option>
+                                                    <option value="1">Banco de Venezuela</option>
+                                                    <option value="2">Banco Mercantil</option>
+                                                    <option value="3">Banco Banesco</option>
+                                                    <option value="4">Bancamiga</option>
+                                                    <option value="5">Zelle</option>
+                                                </select>
+                                                <i class="bi bi-credit-card st-icon"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; align-items: center;
+                                        justify-content: flex-end; text-align: end;">
+                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                            <img class="logo-bank" src="{{ asset('img/mercantil-icon.jpg') }}" alt="">
+                                        </div>
+                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                            <img class="logo-bank" src="{{ asset('img/banesco-icon.png') }}" alt="">
+                                        </div>
+    
+
+                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                            <img class="logo-bank" src="{{ asset('img/zelle-icon.png') }}" alt="">
+                                        </div>
+    
+                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                            <img class="logo-bank" src="{{ asset('img/bdv-icon.png') }}" alt="">
+                                        </div>
+                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                            <img class="logo-bank" src="{{ asset('img/bancamiga-icon.png') }}" alt="">
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Numero de
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número de
                                                     tarjeta</label>
                                                 <input autocomplete="off" class="form-control" id="number_card"
                                                     name="number_card" type="text" value="">
-                                                <i class="bi bi-envelope st-icon"></i>
+                                                <i class="bi bi-credit-card st-icon"></i>
                                             </div>
                                         </diV>
                                     </div>
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Codigo de
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Código de
                                                     tarjeta</label>
                                                 <input autocomplete="off" class="form-control" id="code_card"
                                                     name="code_card" type="text" value="">
-                                                <i class="bi bi-envelope st-icon"></i>
+                                                <i class="bi bi-credit-card st-icon"></i>
                                             </div>
                                         </diV>
                                     </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Monto</label>
-                                                <input readonly autocomplete="off" class="form-control" id="amount"
+                                                    <input readonly autocomplete="off" class="form-control" id="amount"
                                                     name="amount" type="text" value="">
-                                                <i class="bi bi-envelope st-icon"></i>
-                                            </div>
-                                        </diV>
+                                                    <i class="bi bi-currency-dollar st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+                                        
                                     </div>
-
-                                </div>
+                                    
                                 <div class="d-flex justify-content-center">
                                     <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-3 mb-3"
-                                        style="display: flex; justify-content: space-around;">
-                                        <input class="btn btnSave send " value="Pagar" type="submit"
+                                        style="display: flex; justify-content: center;">
+                                        <input class="btn btnSave send " value="Adquiere tu plan" type="submit"
                                             style="margin-left: 20px" />
-                                        <a href="/"><button type="button"
-                                                class="btn btnSecond btn2">Cancelar</button></a>
                                     </div>
 
 
