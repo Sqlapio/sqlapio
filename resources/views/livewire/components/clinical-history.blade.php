@@ -630,12 +630,17 @@
                 case 'temperature':
                     let temperature = e.target.value.replace(',', '');
                     temperature = temperature.replace('°', '');
-                    if (Number(temperature) < 3400) {
+                    if (Number(temperature) < 34) {
                         $(`#${e.target.id}`).val('');
                         $(`#${e.target.id}`).focus();
                     } else if (Number(temperature) > 4200) {
                         $(`#${e.target.id}`).val('');
                         $(`#${e.target.id}`).focus();
+                    } else if (temperature.length == 2) {
+                        if (Number(temperature) > 42) {
+                            $(`#${e.target.id}`).val('');
+                            $(`#${e.target.id}`).focus();
+                        }
                     }
                     break;
 
