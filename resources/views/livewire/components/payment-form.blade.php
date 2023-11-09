@@ -12,7 +12,7 @@
 @push('scripts')
     <script>
         let type_plan = @json($type_plan);
-        let listPlanes = [1, 2, 3];
+        let listPlanes = [1,2,3,4,5,6];
 
         $(document).ready(() => {
             const find = listPlanes.find((e) => e === Number(type_plan));
