@@ -9,16 +9,21 @@
     .logoSq {
         width: 50% !important;
         height: auto;
-        margin-top: -15% !important;
-        margin-bottom: -15% !important;
     }
 
-    @media only screen and (max-width: 390px) {
+    @media only screen and (max-width: 576px) {
+        .mt-m3 {
+            margin-top: 100px
+        }
 
         .logoSq {
             width: 30%;
             height: auto;
-            margin-top: -14% !important;
+        }
+
+        .logo-bank {
+            width: 20px;
+            margin-left: 20px;
         }
 
     }
@@ -189,18 +194,18 @@
 @endpush
 @section('content')
     <div>
-        <div class="container-fluid pt-4 mb-3">
+        <div class="container-fluid">
             <div id="spinner" style="display: none">
                 <x-load-spinner />
             </div>
-            <div class="row form-sq" style="position: relative">
-                <div class="col-sm-10 col-md-10 col-lg-6 col-xl-6 col-xxl-6 mb-3">
-                    <div class="card" id="div-form">
+            <div class="row form-sq">
+                <div class="col-sm-10 col-md-10 col-lg-6 col-xl-6 col-xxl-6">
+                    <div class="card mb-3 mt-m3" id="div-form">
                         <div class="card-body">
                             <div id="div-content">
                                 <div class="container">
-                                    <div class="row mt-3" style="display: grid; justify-items: center;">
-                                        <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-02.png') }}"
+                                    <div class="row" style="display: grid; justify-items: center;">
+                                        <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-03.png') }}"
                                             alt="">
                                     </div>
                                 </div>
@@ -275,9 +280,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mt-3">
+                                    <div class="row mt-3" style="padding-right: 0" >
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; align-items: center;
-                                        justify-content: flex-end; text-align: end;">
+                                        justify-content: flex-end; text-align: end; padding-right: 0">
                                         <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
                                             <img class="logo-bank" src="{{ asset('img/mercantil-icon.jpg') }}" alt="">
                                         </div>
@@ -342,8 +347,6 @@
                                         <input class="btn btnSave send " value="Adquiere tu plan" type="submit"
                                             style="margin-left: 20px" />
                                     </div>
-
-
                                 </div>
                                 {{ Form::close() }}
                             </div>
