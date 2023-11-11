@@ -169,10 +169,11 @@
 
     })
 
-    function renew_plan(action) {
+    function renew_plan(action, type_plan) {
         $('#planes-content-revew').hide();
         $('#planes-content-revew-select').hide();
         $('#ModalRenewPlanes').modal('show');
+        switch_type_plane(type_plan);
         if (action == 1) {
             $('#planes-content-revew').show();
         } else {
@@ -261,10 +262,12 @@
                     </ol>
                     <div class="row justify-content-center mt-3">
                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                            <button type="button" onclick="renew_plan(1)" class="btn btnPrimary">Renovar</button>
+                            <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})"
+                                class="btn btnPrimary">Renovar</button>
                         </div>
                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                            <button type="button" onclick="renew_plan(2)"class="btn btnSecond">Cambiar de
+                            <button type="button"
+                                onclick="renew_plan(2,{{ Auth::user()->type_plane }})"class="btn btnSecond">Cambiar de
                                 plan</button>
                         </div>
                     </div>
