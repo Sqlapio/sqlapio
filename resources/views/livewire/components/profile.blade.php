@@ -1,33 +1,6 @@
 @extends('layouts.app-auth')
 @section('title', 'Perfil')
 <style>
-    .logo-bank {
-        width: 40%;
-        height: auto;
-    }
-
-    .logoSq {
-        width: 50% !important;
-        height: auto;
-    }
-
-    @media only screen and (max-width: 576px) {
-        .mt-m3 {
-            margin-top: 100px
-        }
-
-        .logoSq {
-            width: 30%;
-            height: auto;
-        }
-
-        .logo-bank {
-            width: 20px;
-            margin-left: 20px;
-        }
-
-    }
-
     .sel {
         margin-top: -10px !important;
     }
