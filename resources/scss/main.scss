@@ -1661,3 +1661,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background-color: #748b4e !important;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.custom-popover {
+    --bs-popover-border-color: #42ABE1;
+    --bs-popover-bg: #42ABE1;
+    --bs-popover-body-color: #ffffff;
+}
+

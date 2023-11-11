@@ -83,6 +83,8 @@
         let pathologiesArray = [];
         let patients = @json($patients);
         let centers = @json($centers);
+        let user = @json($user);
+
         let urlPostCreateAppointment = '{{ route('CreateAppointment') }}';
         let urlDiary = "{{ route('Diary') }}";
         let status = "";
@@ -90,6 +92,28 @@
         let urlhist = "{{ route('ClinicalHistoryDetail', ':id') }}";
 
         $(document).ready(() => {
+
+            switch (Number(user.type_plane)) {
+                case 1:
+                    console.log(user.patient_counter);
+                    if (Number(user.patient_counter) >= 10) {
+                        $('#content-patient').hide();
+                        $('#paciente-registrado').hide();
+                        $('#paciente-warnig').show();
+                        return false;
+                    }
+                    break;
+                case 2:
+                if (Number(user.patient_counter) >= 40) {
+                        $('#content-patient').hide();
+                        $('#paciente-registrado').hide();
+                        $('#paciente-warnig').show();
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
+            }
 
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             tooltipTriggerList.forEach(element => {
@@ -275,7 +299,7 @@
                 $("#form-patients").validate();
                 if ($("#form-patients").valid()) {
                     $('#send').hide();
-                    $('#spinner').show();
+                    $('#spinner2').show();
                     var data = $('#form-patients').serialize();
                     $.ajax({
                         url: "{{ route('register-patients') }}",
@@ -286,7 +310,7 @@
                         },
                         success: function(response) {
                             $('#send').show();
-                            $('#spinner').hide();
+                            $('#spinner2').hide();
                             // $("#form-patients").trigger("reset");
                             $(".holder").hide();
                             Swal.fire({
@@ -301,7 +325,8 @@
                                 $("#bnt-cons").find('a').remove();
                                 $("#bnt-cons").append(
                                     `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`
-                                    );
+                                );
+                                $('#send').show().attr('disabled', true);
                             });
                         },
                         error: function(error) {
@@ -313,8 +338,8 @@
                                     confirmButtonColor: '#42ABE2',
                                     confirmButtonText: 'Aceptar'
                                 }).then((result) => {
-                                    $('#send').show();
-                                    $('#spinner').hide();
+                                    $('#send').show().attr('disabled', true);;
+                                    $('#spinner2').hide();
                                     $(".holder").hide();
                                 });
                             });
@@ -619,32 +644,34 @@
             }
         }
 
-        $(function(){
+        $(function() {
             var dtToday = new Date();
             var month = dtToday.getMonth() + 1;
             var day = dtToday.getDate();
             var year = dtToday.getFullYear();
-            if(month < 10)
+            if (month < 10)
                 month = '0' + month.toString();
-            if(day < 10)
+            if (day < 10)
                 day = '0' + day.toString();
-            var minDate= year + '-' + month + '-' + day;
+            var minDate = year + '-' + month + '-' + day;
             $('.date-diary').attr('min', minDate);
         })
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             var today = new Date();
-            var day=today.getDate()>9?today.getDate():"0"+today.getDate(); // format should be "DD" not "D" e.g 09
-            var month=(today.getMonth()+1)>9?(today.getMonth()+1):"0"+(today.getMonth()+1);
-            var year=today.getFullYear();
+            var day = today.getDate() > 9 ? today.getDate() : "0" + today.getDate();
+            var month = (today.getMonth() + 1) > 9 ? (today.getMonth() + 1) : "0" + (today.getMonth() + 1);
+            var year = today.getFullYear();
 
             $(".date-bd").attr('max', year + "-" + month + "-" + day);
         });
-
     </script>
 @endpush
 @section('content')
     <div>
+        <div id="spinner2" style="display: none">
+            <x-load-spinner show="true" />
+        </div>
         <div class="container-fluid body" style="padding: 3%">
             <div class="accordion" id="accordion">
                 <div class="row">
@@ -660,7 +687,16 @@
                             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row mt-3">
+                                    <div class="row mt-3" id="paciente-warnig" style="display: none">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <h1>Limite de pacientes registrados</h1>
+                                        </div>
+                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-3">
+                                            <a style="margin-top: 2px;" href="{{route('verify-plans')}}"
+                                                class="btn btnSecond">Pagar plan</a>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3" id="paciente-registrado">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <div class="form-check form-switch">
                                                 <label style="margin-top: 6px;" for="">Paciente registrado</label>
@@ -704,8 +740,8 @@
                                         </div>
                                     </div>
                                     <div class="row" id="show-info-pat" style="display: none">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <h5 class="mb-4">Lista de paciente registrado bajo este documento de identidad
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive">
+                                            <h5 class="mb-4 mt-4">Hijos de paciente registrado
                                             </h5>
                                             <table id="table-show-info-pat" class="table table-striped table-bordered"
                                                 style="width:100%; ">
@@ -769,8 +805,8 @@
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha
                                                             de
                                                             Nacimiento</label>
-                                                        <input class="form-control date-bd" id="birthdate" name="birthdate"
-                                                            type="date" value=""
+                                                        <input class="form-control date-bd" id="birthdate"
+                                                            name="birthdate" type="date" value=""
                                                             onchange="calculateAge(event,'age'), handlerAge(event)">
                                                     </div>
                                                 </diV>

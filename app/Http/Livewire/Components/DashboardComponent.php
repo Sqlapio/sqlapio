@@ -23,8 +23,8 @@ class DashboardComponent extends Component
         $ref = UtilsController::get_ref();
         $res_exams = Laboratory::res_exams();
         $res_studies = Laboratory::res_studies();
-        
-        // $res_studies = Laboratory::res_studies();
+        $count_study = UtilsController::total_studies();
+        $count_examen = UtilsController::total_exams();
     
         return view(
             'livewire.components.dashboard-component',
@@ -40,7 +40,9 @@ class DashboardComponent extends Component
                 'adult',
                 'ref',
                 'res_exams',
-                'res_studies'
+                'res_studies',
+                'count_study',
+                'count_examen'
             )
         );
     }

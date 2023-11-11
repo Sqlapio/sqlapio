@@ -33,8 +33,8 @@ class Reference extends Component
         $reference->center_id = $data->center_id;
         $reference->cod_medical_record = $medical_record_code;
         $reference->date = date('d-m-Y');
-        $reference->exams = $data->exams;
-        $reference->studies = $data->studies;
+        // $reference->exams = $data->exams;
+        // $reference->studies = $data->studies;
         $reference->medical_record_id = $medical_record->id;
         $reference->save();
 
@@ -61,24 +61,7 @@ class Reference extends Component
             $patient_email = Representative::where('patient_id', $reference->patient_id)->first()->re_email;
         }else{
             $patient_email = $patient->email;
-        }
-
-        $array_exam = explode(',' , $data->exams);
-        $array_study = explode(',' , $data->studies);
-
-        $mailData = [
-            'dr_name' => $user->name . ' ' . $user->last_name,
-            'center' => Center::where('id', $reference->center_id)->first()->description,
-            'patient_name' => $patient->name . ' ' . $patient->last_name,
-            'medical_record_code' => $reference->cod_medical_record,
-            'reference_code' => $reference->cod_ref,
-            'reference_date' => $reference->date,
-            'patient_email' => $patient_email,
-            'patient_exam' => $array_exam,
-            'patient_study' => $array_study,
-        ];
-
-        UtilsController::notification_mail($mailData, $type);
+        }     
 
         /**
          * Envio de notificacion al whatsaap del paciente
@@ -129,6 +112,7 @@ class Reference extends Component
                 $exams_patient->user_id = $user->id;
                 $exams_patient->center_id = $data->center_id;
                 $exams_patient->patient_id = $data->id;
+                $exams_patient->medical_record_id = $medical_record->id;
                 $exams_patient->date = date('d-m-Y');
                 $exams_patient->save();
             }
@@ -153,10 +137,27 @@ class Reference extends Component
                 $studies_patient->user_id = $user->id;
                 $studies_patient->center_id = $data->center_id;
                 $studies_patient->patient_id = $data->id;
+                $studies_patient->medical_record_id = $medical_record->id;
                 $studies_patient->date = date('d-m-Y');
                 $studies_patient->save();
             }
         }
+
+
+      
+        $mailData = [
+            'dr_name' => $user->name . ' ' . $user->last_name,
+            'center' => Center::where('id', $reference->center_id)->first()->description,
+            'patient_name' => $patient->name . ' ' . $patient->last_name,
+            'medical_record_code' => $reference->cod_medical_record,
+            'reference_code' => $reference->cod_ref,
+            'reference_date' => $reference->date,
+            'patient_email' => $patient_email,
+            'patient_exam' =>  $data_exams,
+            'patient_study' =>  $data_studies ,
+        ];
+
+        UtilsController::notification_mail($mailData, $type);
     }
 
     public function render()
