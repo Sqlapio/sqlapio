@@ -31,7 +31,7 @@
 @push('scripts')
     <script>
         let type_plan = @json($type_plan);
-        let listPlanes = [1,2,3,4,5,6];
+        let listPlanes = [1, 2, 3, 4, 5, 6];
 
         $(document).ready(() => {
             const find = listPlanes.find((e) => e === Number(type_plan));
@@ -47,7 +47,7 @@
                     $("#amount").val('0');
                     $("#code_card").attr('disabled', true)
                     $("#number_card").attr('disabled', true)
-                    $("#methodo_payment").attr('disabled', true)                    
+                    $("#methodo_payment").attr('disabled', true)
 
                     break;
                 case 2:
@@ -55,6 +55,18 @@
 
                     break;
                 case 3:
+                    $("#amount").val('$39.99');
+
+                    break;
+                case 4:
+                    $("#amount").val('$39.99');
+
+                    break;
+                case 5:
+                    $("#amount").val('$39.99');
+
+                    break;
+                case 6:
                     $("#amount").val('$39.99');
 
                     break;
@@ -77,7 +89,7 @@
                         maxlength: 50,
                     },
                     amount: {
-                        required: true,                       
+                        required: true,
                     },
                     number_id: {
                         required: true,
@@ -254,18 +266,19 @@
                                                 <label for="name" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
                                                     eléctronico</label>
-                                                <input autocomplete="off" class="form-control" id="email"
-                                                    name="email" type="text" value="">
+                                                <input autocomplete="off" class="form-control" id="email" name="email"
+                                                    type="text" value="">
                                                 <i class="bi bi-envelope-ats st-icon"></i>
                                             </div>
                                         </diV>
                                     </div>
-                                    
+
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="methodo_payment" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Método de pago</label>
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Método de
+                                                    pago</label>
                                                 <select name="methodo_payment" id="methodo_payment"
                                                     placeholder="Seleccione"class="form-control"
                                                     class="form-control combo-textbox-input">
@@ -280,27 +293,33 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mt-3" style="padding-right: 0" >
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; align-items: center;
+                                    <div class="row mt-3" style="padding-right: 0">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                            style="display: flex; align-items: center;
                                         justify-content: flex-end; text-align: end; padding-right: 0">
-                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                            <img class="logo-bank" src="{{ asset('img/mercantil-icon.jpg') }}" alt="">
-                                        </div>
-                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                            <img class="logo-bank" src="{{ asset('img/banesco-icon.png') }}" alt="">
-                                        </div>
-    
+                                            <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                                <img class="logo-bank" src="{{ asset('img/mercantil-icon.jpg') }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                                <img class="logo-bank" src="{{ asset('img/banesco-icon.png') }}"
+                                                    alt="">
+                                            </div>
 
-                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                            <img class="logo-bank" src="{{ asset('img/zelle-icon.png') }}" alt="">
-                                        </div>
-    
-                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                            <img class="logo-bank" src="{{ asset('img/bdv-icon.png') }}" alt="">
-                                        </div>
-                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                            <img class="logo-bank" src="{{ asset('img/bancamiga-icon.png') }}" alt="">
-                                        </div>
+
+                                            <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                                <img class="logo-bank" src="{{ asset('img/zelle-icon.png') }}"
+                                                    alt="">
+                                            </div>
+
+                                            <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                                <img class="logo-bank" src="{{ asset('img/bdv-icon.png') }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                                <img class="logo-bank" src="{{ asset('img/bancamiga-icon.png') }}"
+                                                    alt="">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3">
@@ -332,15 +351,15 @@
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Monto</label>
-                                                    <input readonly autocomplete="off" class="form-control" id="amount"
+                                                <input readonly autocomplete="off" class="form-control" id="amount"
                                                     name="amount" type="text" value="">
-                                                    <i class="bi bi-currency-dollar st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        
+                                                <i class="bi bi-currency-dollar st-icon"></i>
+                                            </div>
+                                        </diV>
                                     </div>
-                                    
+
+                                </div>
+
                                 <div class="d-flex justify-content-center">
                                     <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-3 mb-3"
                                         style="display: flex; justify-content: center;">

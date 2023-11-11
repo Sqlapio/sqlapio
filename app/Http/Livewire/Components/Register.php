@@ -106,7 +106,7 @@ class Register extends Component {
 
 			$rules = [
 				'business_name' => 'required',
-				'email'     	=> 'required|unique:users',
+				'email'     	=> 'required',
 				'password'  	=> 'required',
 			];
 
@@ -136,7 +136,7 @@ class Register extends Component {
 					'business_name' 	=> $request->business_name,
 					'email' 			=> $request->email,
 					'password' 			=> Hash::make($request->password),
-					'role' 				=> $request->rol,
+					'role' 				=> $user->role,
 					'verification_code' => Str::random(30),
 
 				]);

@@ -343,8 +343,7 @@
                                         </div>
                                     @endif
                                     @if ($bellied_plan->get_user->role == 'laboratorio')
-                                        <div id="business-name" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                            style="display: none">
+                                        <div id="business-name" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
@@ -353,7 +352,9 @@
                                                         Laboratorio</label>
                                                     <input autocomplete="off"
                                                         class="form-control mask-text @error('business_name') is-invalid @enderror"
-                                                        id="business_name" name="business_name" type="text"
+                                                        id="business_name" name="business_name"
+                                                        value="{!! !empty($bellied_plan) ? $bellied_plan->get_user->business_name : '' !!}"
+                                                         type="text"
                                                         value="">
                                                     <i class="bi bi-person-circle st-icon"></i>
                                                 </div>
