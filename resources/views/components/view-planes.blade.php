@@ -64,6 +64,7 @@
         const data = data_palnes.find((e) => e.type_plan == user.type_plane);
 
         $('.card-title').text(data.description);
+        $('.pacientes').text(`${data.count_patients} Consultas`);
         $('.consultas').text(`${data.count_ref} Consultas`);
         $('.examenes').text(`${data.count_exam} Examenes`);
         $('.estudios').text(`${data.count_study} Estudios`);
@@ -257,7 +258,7 @@
                     <ol class="list-group list-group-numbered">
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto">
-                                <div class="fw-bold tile-planes"></div>
+                                <div class="fw-bold tile-planes pacientes"></div>
                                 Cupos consumidos:
                             </div>
                             <span
