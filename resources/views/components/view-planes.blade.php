@@ -55,6 +55,30 @@
                 count_ref: 'ILIMITADO',
                 count_exam: 'ILIMITADO',
                 count_study: 'ILIMITADO',
+            },
+            {
+                type_plan: 4,
+                description: "Mi plan ILIMITADO",
+                count_patients: 'ILIMITADO',
+                count_ref: 'ILIMITADO',
+                count_exam: 'ILIMITADO',
+                count_study: 'ILIMITADO',
+            },
+            {
+                type_plan: 5,
+                description: "Mi plan ILIMITADO",
+                count_patients: 'ILIMITADO',
+                count_ref: 'ILIMITADO',
+                count_exam: 'ILIMITADO',
+                count_study: 'ILIMITADO',
+            },
+            {
+                type_plan: 6,
+                description: "Mi plan ILIMITADO",
+                count_patients: 'ILIMITADO',
+                count_ref: 'ILIMITADO',
+                count_exam: 'ILIMITADO',
+                count_study: 'ILIMITADO',
             }
         ];
 
