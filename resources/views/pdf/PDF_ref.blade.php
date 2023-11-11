@@ -278,7 +278,7 @@
             <tbody>
                 <tr>
                     <td class="table-border">
-                        @foreach ($reference->get_exam as $item)
+                        @foreach ($reference->get_studie as $item)
                             {{ $item->description . ',' }}
                         @endforeach
                     </td>
