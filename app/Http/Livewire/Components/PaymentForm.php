@@ -107,6 +107,12 @@ class PaymentForm extends Component
 
     }
 
+    public function pay_plan_renew(Request $request) {
+
+        dd(Request()->all());
+        
+    }
+
     public function render($type_plan)
     {
         return view('livewire.components.payment-form',compact('type_plan'));
