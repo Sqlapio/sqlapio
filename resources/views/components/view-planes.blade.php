@@ -146,6 +146,7 @@
 
     function handler_renew_plan(type_plan) {
         $('#planes-content-revew').show();
+        $("#change_plan").val(true);
         switch_type_plane(type_plan);
     }
 
@@ -153,7 +154,7 @@
 
         switch (Number(type_plane)) {
             case 1:
-
+                $("#type_plan").val(type_plane);
                 $("#amount").val('0');
                 $("#code_card").attr('disabled', true)
                 $("#number_card").attr('disabled', true)
@@ -161,6 +162,7 @@
 
                 break;
             case 2:
+                $("#type_plan").val(type_plane);
                 $("#amount").val('$19.99');
                 $("#code_card").attr('disabled', false);
                 $("#number_card").attr('disabled', false);
@@ -169,6 +171,7 @@
 
                 break;
             case 3:
+                $("#type_plan").val(type_plane);
                 $("#amount").val('$39.99');
                 $("#code_card").attr('disabled', false);
                 $("#number_card").attr('disabled', false);
@@ -340,7 +343,7 @@
                                                 {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment-renew']) }}
                                                 <div class="row">
                                                     <input type="hidden" name="type_plan" id="type_plan">
-
+                                                    <input type="hidden" name="change_plan" id="change_plan">
                                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
