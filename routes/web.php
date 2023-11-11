@@ -116,6 +116,9 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/create-seal', [Profile::class, 'create_seal'])->name('create_seal');
             Route::get('/auth/setting/profile', [Profile::class, 'render'])->name('Profile');
             Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');
+            // planes
+            Route::post('/pay-plan-renew', [PaymentForm::class, 'pay_plan_renew'])->name("pay-plan-renew");
+
         });
 
 
