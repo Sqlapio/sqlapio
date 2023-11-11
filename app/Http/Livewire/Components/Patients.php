@@ -459,6 +459,7 @@ class Patients extends Component
         $cities = UtilsController::get_cities();
         $states = UtilsController::get_states();
         $centers = DoctorCenter::where('user_id', Auth::user()->id)->where('status', 1)->get();
-        return view('livewire.components.patients', compact('patients', 'cities', 'states', 'centers'));
+        $user = Auth::user();
+        return view('livewire.components.patients', compact('patients', 'cities', 'states', 'centers','user'));
     }
 }

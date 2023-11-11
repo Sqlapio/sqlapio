@@ -12,24 +12,26 @@
     .input-one {
         margin-right: 0px
     }
+
     .img-medical {
         border-radius: 20px;
         border: 3px solid #47525e;
         object-fit: cover;
     }
 
-    @media only screen and (max-width: 390px) { 
+    @media only screen and (max-width: 390px) {
         .data-medical {
             width: 185px !important;
             font-size: 14px;
         }
     }
 
-    @media (min-width: 391px) and (max-width: 576px) { 
+    @media (min-width: 391px) and (max-width: 576px) {
 
         .mt-cr {
             padding-top: 20px;
         }
+
         .data-medical {
             width: 222px !important;
             font-size: 14px;
@@ -586,6 +588,96 @@
 
             });
         }
+
+        function handlerValidate(e, input) {
+
+            switch (input) {
+                case 'age':
+                    if (Number(e.target.value.replace(',', '')) > 30000) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    }
+                    break;
+                case 'height':
+
+                    let value = e.target.value.replace(',', '');
+                    value = value.replace('CM', '');
+                    if (Number(value) > 25000) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    }
+                    break;
+                case 'strain':
+                    if (Number(e.target.value) < 50) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    } else if (Number(e.target.value) > 250) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+
+                    }
+                    break;
+                case 'strain_two':
+                    if (Number(e.target.value) < 30) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    } else if (Number(e.target.value) > 150) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+
+                    }
+                    break;
+                case 'temperature':
+                    let temperature = e.target.value.replace(',', '');
+                    temperature = temperature.replace('°', '');
+                    if (Number(temperature) < 34) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    } else if (Number(temperature) > 4200) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    } else if (temperature.length == 2) {
+                        if (Number(temperature) > 42) {
+                            $(`#${e.target.id}`).val('');
+                            $(`#${e.target.id}`).focus();
+                        }
+                    }
+                    break;
+
+                case 'breaths':
+                    if (Number(e.target.value.replace('/Min', '')) < 12) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    } else if (Number(e.target.value.replace('/Min', '')) > 30) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    }
+                    break;
+
+                case 'pulse':
+                    if (Number(e.target.value) < 40) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    } else if (Number(e.target.value) > 200) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    }
+                    break;
+
+                case 'saturation':
+                    if (Number(e.target.value.replace('%', '')) < 70) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    } else if (Number(e.target.value.replace('%', '')) > 100) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
     </script>
 @endpush
 @section('content')
@@ -611,12 +703,12 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
-                                        
+
                                         <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 162px;">
-                                            <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : (($Patient->genere=="femenino")? asset('/img/avatar/avatar mujer.png'):asset('/img/avatar/avatar hombre.png')) }}" width="150"
-                                            height="150" alt="Imagen del paciente" class="img-medical">
-                                         </div>
-                                      
+                                            <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                width="150" height="150" alt="Imagen del paciente" class="img-medical">
+                                        </div>
+
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
                                             <strong>Nombre Completo:</strong><span class="text-capitalize">
                                                 {{ $Patient->last_name . ', ' . $Patient->name }}</span>
@@ -630,7 +722,8 @@
                                             <span>
                                                 {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                             <br>
-                                            <strong>Genero:</strong> <span class="text-capitalize"> {{ $Patient->genere }}</span>
+                                            <strong>Genero:</strong> <span class="text-capitalize">
+                                                {{ $Patient->genere }}</span>
                                             <br>
                                             <strong>Nº Historial:</strong><span>
                                                 {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
@@ -690,8 +783,8 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <div class="row mt-3" style="display: none">
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                    <div class="row mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="display: none">
                                             <div class="input-group flex-nowrap">
                                                 <span class="input-group-text" id="">Total
                                                     Antecedentes</span>
@@ -761,8 +854,8 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <div class="row mt-3" style="display: none">
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                    <div class="row mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="display: none">
                                             <div class="input-group flex-nowrap">
                                                 <span class="input-group-text">Total patológicos
                                                 </span>
@@ -832,8 +925,8 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <div class="row mt-3" style="display: none">
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                    <div class="row mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="display: none">
                                             <div class="input-group flex-nowrap">
                                                 <span class="input-group-text">Total historia no patológica
                                                 </span>
@@ -1236,6 +1329,7 @@
                                                     <input autocomplete="off"
                                                         class="mask-input form-control @error('weight') is-invalid @enderror"
                                                         id="weight" name="weight" type="text"
+                                                        onchange="handlerValidate(event,'age');"
                                                         value="{!! !empty($validateHistory) ? $Patient->get_history->weight : '' !!}">
                                                     <i class="bi bi-file-earmark-medical st-icon"></i>
                                                 </div>
@@ -1250,6 +1344,7 @@
                                                     <input autocomplete="off"
                                                         class="mask-input-height form-control @error('height') is-invalid @enderror"
                                                         id="height" name="height" type="text"
+                                                        onchange="handlerValidate(event,'height');"
                                                         value="{!! !empty($validateHistory) ? $Patient->get_history->height : '' !!}">
                                                     <i class="bi bi-rulers st-icon"></i>
                                                 </div>
@@ -1269,9 +1364,11 @@
                                             <div class="input-group">
                                                 <input type="text" name="strain" id="strain"
                                                     class="form-control  mask-input-two input-one" placeholder="Alta"
-                                                    aria-label="strain" value="{!! !empty($validateHistory) ? $data[0] : '' !!}">
+                                                    onchange="handlerValidate(event,'strain');" aria-label="strain"
+                                                    value="{!! !empty($validateHistory) ? $data[0] : '' !!}">
                                                 <span class="input-group-text span-input">/</span>
                                                 <input type="text" name="strain_two" id="strain_two"
+                                                    onchange="handlerValidate(event,'strain_two');"
                                                     class="form-control mask-input-two" placeholder="Baja"
                                                     aria-label="strain" value="{!! !empty($validateHistory) ? $data[1] : '' !!}">
                                             </div>
@@ -1285,6 +1382,7 @@
                                                     <input autocomplete="off"
                                                         class="mask-only-temperature form-control @error('temperature') is-invalid @enderror"
                                                         id="temperature" name="temperature" type="text"
+                                                        onchange="handlerValidate(event,'temperature');"
                                                         value="{!! !empty($validateHistory) ? $Patient->get_history->temperature : '' !!}">
                                                     <i class="bi bi-thermometer st-icon"></i>
                                                 </div>
@@ -1298,7 +1396,8 @@
                                                         (por minuto)</label>
                                                     <input autocomplete="off"
                                                         class="mask-only-breaths form-control @error('breaths') is-invalid @enderror"
-                                                        id="breaths" name="breaths" type="text" maxlength="3"
+                                                        onchange="handlerValidate(event,'breaths');" id="breaths"
+                                                        name="breaths" type="text" maxlength="3"
                                                         value="{!! !empty($validateHistory) ? $Patient->get_history->breaths : '' !!}">
                                                     <i class="bi bi-lungs st-icon"></i>
                                                 </div>
@@ -1312,7 +1411,8 @@
                                                         (Latidos por minuto)</label>
                                                     <input autocomplete="off"
                                                         class="mask-only-number form-control @error('pulse') is-invalid @enderror"
-                                                        id="pulse" name="pulse" type="text" maxlength="3"
+                                                        onchange="handlerValidate(event,'pulse');" id="pulse"
+                                                        name="pulse" type="text" maxlength="3"
                                                         value="{!! !empty($validateHistory) ? $Patient->get_history->pulse : '' !!}">
                                                     <i class="bi bi-heart-pulse st-icon"></i>
                                                 </div>
@@ -1327,6 +1427,7 @@
                                                     <input autocomplete="off"
                                                         class="mask-input-por form-control @error('saturation') is-invalid @enderror"
                                                         id="saturation" name="saturation" type="text"
+                                                        onchange="handlerValidate(event,'saturation');"
                                                         value="{!! !empty($validateHistory) ? $Patient->get_history->saturation : '' !!}">
                                                     <i class="bi bi-lungs st-icon"></i>
                                                 </div>
@@ -1572,7 +1673,8 @@
                                                             @foreach ($medications_supplements as $key => $item)
                                                                 <tr id="{{ $key }}">
                                                                     <td class="text-center">{{ $item['dose'] }}</td>
-                                                                    <td class="text-center" class="text-capitalize"> {{ $item['medicine'] }}
+                                                                    <td class="text-center" class="text-capitalize">
+                                                                        {{ $item['medicine'] }}
                                                                     </td>
                                                                     <td class="text-center"> {{ $item['patologi'] }}
                                                                     </td>

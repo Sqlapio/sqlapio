@@ -30,6 +30,7 @@ class MedicalRecord extends Component
             
             $data = json_decode($request->data);
             $user = Auth::user()->id;
+            
 
             /**
              * Paciente mayor de edad
@@ -51,8 +52,8 @@ class MedicalRecord extends Component
                 'background'  => 'required',
                 'razon'       => 'required',
                 'diagnosis'   => 'required',
-                'exams'       => 'required',
-                'studies'     => 'required',
+                // 'exams'       => 'required',
+                // 'studies'     => 'required',
                 'medications_supplements' => 'required',
             ];
 
@@ -60,8 +61,8 @@ class MedicalRecord extends Component
                 'background'  => 'Campo requerido',
                 'razon'       => 'Campo requerido',
                 'diagnosis'   => 'Campo requerido',
-                'exams'       => 'Campo requerido',
-                'studies'     => 'Campo requerido',
+                // 'exams'       => 'Campo requerido',
+                // 'studies'     => 'Campo requerido',
                 'medications_supplements' => 'Campo requerido',
             ];
 
@@ -90,8 +91,8 @@ class MedicalRecord extends Component
                 'background'    => $data->background,
                 'razon'         => $data->razon,
                 'diagnosis'     => $data->diagnosis,
-                'exams'         => $data->exams,
-                'studies'       => $data->studies,
+                // 'exams'         => $data->exams,
+                // 'studies'       => $data->studies,
                 'medications_supplements'       => $data->medications_supplements,
             ]);
 

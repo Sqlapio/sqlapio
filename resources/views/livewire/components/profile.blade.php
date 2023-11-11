@@ -1,6 +1,33 @@
 @extends('layouts.app-auth')
 @section('title', 'Perfil')
 <style>
+    .logo-bank {
+        width: 40%;
+        height: auto;
+    }
+
+    .logoSq {
+        width: 50% !important;
+        height: auto;
+    }
+
+    @media only screen and (max-width: 576px) {
+        .mt-m3 {
+            margin-top: 100px
+        }
+
+        .logoSq {
+            width: 30%;
+            height: auto;
+        }
+
+        .logo-bank {
+            width: 20px;
+            margin-left: 20px;
+        }
+
+    }
+
     .sel {
         margin-top: -10px !important;
     }
@@ -12,6 +39,7 @@
 @push('scripts')
     <script>
         $(document).ready(() => {
+
             $('#form-profile').validate({
                 rules: {
                     name: {
@@ -157,6 +185,7 @@
             let img;
             let seal_img;
             let user = @json($user);
+
             if (user.role == 'medico') {
                 img = user.user_img;
                 seal_img = user.digital_cello;
@@ -293,8 +322,7 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
-                                // window.location.href =
-                                //     "{{ route('DashboardComponent') }}";
+                                $('#div-seal-content').hide();
                             });
                         },
                         error: function(error) {
@@ -427,12 +455,12 @@
         $(document).ready(function() {
             var today = new Date();
             var day = today.getDate() > 9 ? today.getDate() : "0" + today
-                .getDate(); // format should be "DD" not "D" e.g 09
+                .getDate();
             var month = (today.getMonth() + 1) > 9 ? (today.getMonth() + 1) : "0" + (today.getMonth() + 1);
             var year = today.getFullYear();
 
             $(".date-bd").attr('max', year + "-" + month + "-" + day);
-        });
+        });   
     </script>
 @endpush
 @section('content')
@@ -447,8 +475,8 @@
                             Debe verificar su correo!
                         </div>
                     @endif
-                    @if ($user->digital_cello === null)
-                        <div class="alert alert-warning" role="alert">
+                    @if ($user->digital_cello === null && Auth::user()->role == 'medico')
+                        <div class="alert alert-warning" role="alert" id="div-seal-content">
                             Debe cargar su sello digital!
                         </div>
                     @endif
@@ -834,7 +862,6 @@
                     </div>
                 </div>
             </div>
-
             @if ($user->email_verified_at !== null)
                 {{-- actualizacion de correo Electronico --}}
                 <div class="row">
@@ -912,6 +939,26 @@
                     </div>
                 @endif
             @endif
-        </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                    <div class="accordion-item">
+                        <span class="accordion-header title" id="headingPlanes">
+                            <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapsePlanes" aria-expanded="true" aria-controls="collapsePlanes"
+                                style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                <i class="bi bi-person"></i> Informacion del plan
+                            </button>
+                        </span>
+                        <div id="collapsePlanes" class="accordion-collapse collapse show" aria-labelledby="headingPlanes"
+                            data-bs-parent="#accordion">
+                            <div class="accordion-body">
+                                <x-view-planes/>                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>     
     </div>
+
 @endsection
