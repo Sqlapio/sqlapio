@@ -115,9 +115,6 @@ class Register extends Component {
 				'email'             => 'Campo requerido',
 				'email.unique'      => 'El email ya se encuentra registrado',
 				'password'          => 'Campo requerido',
-				'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
-				'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
-				'password.regex'    => 'Formato de contraseña  incorrecto',
 			];
 
 			$validator = Validator::make($request->all(), $rules, $msj);
@@ -131,14 +128,10 @@ class Register extends Component {
 
 			try {
 
-				$user = User::create([
-
-					'business_name' 	=> $request->business_name,
-					'email' 			=> $request->email,
+				User::where('email', $request->email)
+				->update([
 					'password' 			=> Hash::make($request->password),
-					'role' 				=> $user->role,
-					'verification_code' => Str::random(30),
-
+					'verification_code' => Str::random(30)
 				]);
 
 				/**
@@ -147,11 +140,9 @@ class Register extends Component {
 				 */
 				$laboratory = User::where('email', $request->email)->first();
 				Laboratory::create([
-
 					'user_id'			=> $laboratory->id,
 					'business_name' 	=> $request->business_name,
 					'email' 			=> $request->email,
-
 				]);
 
 			/**

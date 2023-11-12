@@ -60,14 +60,34 @@
                     break;
                 case 4:
                     $("#amount").val('$39.99');
+                    $("#nombre").hide();
+                    $("#apellidos").hide();
+                    $("#cedula").hide();
+                    $("#empresa").show();
+                    $("#tipo_rif").show();
+                    $("#Rif").show();
 
                     break;
                 case 5:
                     $("#amount").val('$39.99');
+                    $("#nombre").hide();
+                    $("#apellidos").hide();
+                    $("#cedula").hide();
+                    $("#empresa").show();
+                    $("#tipo_rif").show();
+                    $("#Rif").show();
+
+
 
                     break;
                 case 6:
                     $("#amount").val('$39.99');
+                    $("#nombre").hide();
+                    $("#apellidos").hide();
+                    $("#cedula").hide();
+                    $("#empresa").show();
+                    $("#tipo_rif").show();
+                    $("#Rif").show();
 
                     break;
 
@@ -76,7 +96,6 @@
             }
 
             $('#form-payment').validate({
-                ignore: [],
                 rules: {
                     name: {
                         required: true,
@@ -112,6 +131,16 @@
                     email: {
                         required: true,
                         email: true
+                    },
+                    rif: {
+                        required: true,
+                    },
+                    business_name: {
+                        required: true,
+                    },
+                    type_rif:{
+                        required: true,
+
                     }
                 },
                 messages: {
@@ -139,6 +168,15 @@
                     email: {
                         required: "Correo electronico es obligatorio",
                     },
+                    rif: {
+                        required: "Rif es obligatorio",
+                    },
+                    business_name: {
+                        required: "Nombre de la empresa es obligatorio",
+                    },
+                    type_rif: {
+                        required: "Tipo de documento es obligatorio",
+                    }
                 }
             });
 
@@ -202,6 +240,10 @@
                 }
             });
         });
+
+        function handlerTypeDoc(e) {
+            $('#rif').val(e.target.value);
+        }
     </script>
 @endpush
 @section('content')
@@ -225,7 +267,7 @@
                                 <div class="row">
                                     <input type="hidden" name="type_plan" id="type_plan">
 
-                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="nombre">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
@@ -249,7 +291,7 @@
                                             </div>
                                         </diV>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="cedula">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
@@ -260,6 +302,51 @@
                                             </div>
                                         </diV>
                                     </div>
+
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="empresa" style="display: none">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <label for="name" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon social</label>
+                                                <input autocomplete="off" class="form-control" id="business_name"
+                                                    name="business_name" type="text" value="">
+                                                <i class="bi bi-person-vcard-fill st-icon"></i>
+                                            </div>
+                                        </diV>
+                                    </div>
+                                  
+
+                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3" id="tipo_rif" style="display: none">
+                                        <div class="form-group">
+                                            <label for="name" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Tipo
+                                                de documento</label>
+                                            <select onchange="handlerTypeDoc(event)" name="type_rif"
+                                                id="type_rif" class="form-control">
+                                                <option value="">Seleccione</option>
+                                                <option value="F-">Firma personal</option>
+                                                <option value="J-">Jurídico</option>
+                                                <option value="C-">Comuna</option>
+                                                <option value="G-">Gubernamental</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3" id="Rif" style="display: none">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <label for="name" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
+                                                    de Identificación o RIF</label>
+                                                <input autocomplete="off" placeholder=""
+                                                    class="form-control mask-rif @error('rif') is-invalid @enderror"
+                                                    id="rif" name="rif" type="text" maxlength="17"
+                                                    value="">
+                                                <i class="bi bi-person-vcard" style="top: 30px"></i>
+                                            </div>
+                                        </diV>
+                                    </div>
+
                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                         <div class="form-group">
                                             <div class="Icon-inside">
