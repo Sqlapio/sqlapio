@@ -19,22 +19,12 @@ class PaymentForm extends Component
 
             $rules = [
                 'type_plan'         => 'required',
-                'name'              => 'required',
-                'last_name'         => 'required',
-                'number_id'         => 'required',
                 'email'             => 'required',
             ];
 
             $msj = [
                 'type_plan.required'         => 'Campo requerido',
-                'methodo_payment.required'   => 'Campo requerido',
-                'name.required'              => 'Campo requerido',
-                'last_name.required'         => 'Campo requerido',
-                'number_id.required'         => 'Campo requerido',
                 'email.required'             => 'Campo requerido',
-                'number_card.required'       => 'Campo requerido',
-                'code_card.required'         => 'Campo requerido',
-                'amount.required'            => 'Campo requerido',
             ];
 
             $validator = Validator::make($request->all(), $rules, $msj);
