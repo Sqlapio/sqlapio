@@ -307,7 +307,7 @@
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombre de la empresa</label>
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon social</label>
                                                 <input autocomplete="off" class="form-control" id="business_name"
                                                     name="business_name" type="text" value="">
                                                 <i class="bi bi-person-vcard-fill st-icon"></i>
@@ -346,9 +346,6 @@
                                             </div>
                                         </diV>
                                     </div>
-
-
-
 
                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                         <div class="form-group">

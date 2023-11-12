@@ -109,7 +109,7 @@ class PaymentForm extends Component
 
     public function pay_plan_renew(Request $request) {
 
-        dd(Request()->all());
+        // dd(Request()->all());
 
         /**
          * Condicional que evalua null para indicar que el
@@ -129,7 +129,7 @@ class PaymentForm extends Component
 
             User::where('id', $user->id)->where('email', $request->email)
             ->update([
-                'type_plan' => $request->type_plan,
+                'type_plane' => $request->type_plan,
                 'patient_counter' => 0,
                 'medical_record_counter' => 0,
                 'ref_counter' => 0,
