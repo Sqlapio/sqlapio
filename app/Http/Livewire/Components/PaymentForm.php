@@ -107,27 +107,19 @@ class PaymentForm extends Component
 
     }
 
-    public function pay_plan_renew(Request $request) {
+    public function pay_plan_renew(Request $request) 
+    {
+        $user = Auth::user();
 
-        // dd(Request()->all());
+        $billed_plans = new BilledPlan();
+        $billed_plans->user_id = $user->id;
+        $billed_plans->type_plan = $request->type_plan;
+        $billed_plans->amount = $request->amount;
+        $billed_plans->date = date('d-m-Y');
+        $billed_plans->status = 'renovated';
+        $billed_plans->save();
 
-        /**
-         * Condicional que evalua null para indicar que el
-         * plan esta siendo renovado por el usuario
-         */
-        if($request->change_plan == null)
-        {
-            $user = Auth::user();
-
-            $billed_plans = new BilledPlan();
-            $billed_plans->user_id = $user->id;
-            $billed_plans->type_plan = $request->type_plan;
-            $billed_plans->amount = $request->amount;
-            $billed_plans->date = date('d-m-Y');
-            $billed_plans->status = 'renovated';
-            $billed_plans->save();
-
-            User::where('id', $user->id)->where('email', $request->email)
+        User::where('id', $user->id)->where('email', $request->email)
             ->update([
                 'type_plane' => $request->type_plan,
                 'patient_counter' => 0,
@@ -135,12 +127,10 @@ class PaymentForm extends Component
                 'ref_counter' => 0,
             ]);
 
-            return response()->json([
-                'success' => 'true',
-                'mjs'  => 'Su plan fue renovado con éxito',
-            ], 200);
-
-        }
+        return response()->json([
+            'success' => 'true',
+            'mjs'  => 'Su plan fue renovado con éxito',
+        ], 200);
         
     }
 
