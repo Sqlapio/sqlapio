@@ -45,8 +45,6 @@
                 count_ref: 80,
                 count_exam: 80,
                 count_study: 80,
-
-
             },
             {
                 type_plan: 3,
@@ -88,7 +86,7 @@
         const data = data_palnes.find((e) => e.type_plan == user.type_plane);
 
         $('.card-title').text(data.description);
-        $('.pacientes').text(`${data.count_patients} Consultas`);
+        $('.pacientes').text(`${data.count_patients} Pacientes`);
         $('.consultas').text(`${data.count_ref} Consultas`);
         $('.examenes').text(`${data.count_exam} Examenes`);
         $('.estudios').text(`${data.count_study} Estudios`);
@@ -320,8 +318,7 @@
                         </div>
                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                             <button type="button"
-                                onclick="renew_plan(2,{{ Auth::user()->type_plane }})"class="btn btnSecond">Cambiar de
-                                plan</button>
+                                onclick="renew_plan(2,{{ Auth::user()->type_plane }})"class="btn btnSecond">Cambiar plan</button>
                         </div>
                     </div>
                 </div>
