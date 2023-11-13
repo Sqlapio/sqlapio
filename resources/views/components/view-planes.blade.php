@@ -9,6 +9,34 @@
         height: auto;
     }
 
+    .title-card {
+        font-size: 20px;
+        color: #133837;
+        text-align: start;
+        font-weight: normal;
+    }
+
+    .card-plans {
+        /* background-color: #ffffff !important; */
+        -webkit-background-size: cover !important;
+        -moz-background-size: cover !important;
+        -o-background-size: cover !important;
+        background-size: cover !important;
+        background: url('/img/bg1.jpg') no-repeat center center;
+        box-shadow: 0px 0px 11px 0px rgba(120, 116, 116, 0.7);
+        border-radius: 20px !important;
+        font-size: 13px;
+        width: 100%;;
+    }
+
+    .count-plan-0 {
+        color: red
+    }
+
+    .count-plan {
+        color: #459594
+    }
+
     @media only screen and (max-width: 576px) {
         .mt-m3 {
             margin-top: 100px
@@ -33,7 +61,7 @@
 
         let data_palnes = [{
                 type_plan: 1,
-                description: "Mi plan FREE",
+                description: "Plan - FREE",
                 count_patients: 10,
                 count_ref: 20,
                 count_exam: 20,
@@ -41,9 +69,9 @@
             },
             {
                 type_plan: 2,
-                description: "Mi plan PROFESIONAL",
+                description: "Plan - PROFESIONAL",
                 count_patients: 40,
-                count_ref: 80,
+                count_ref: 40,
                 count_exam: 80,
                 count_study: 80,
             },
@@ -90,10 +118,10 @@
         const data = data_palnes.find((e) => e.type_plan == user.type_plane);
 
         $('.card-title').text(data.description);
-        $('.pacientes').text(`${data.count_patients} Pacientes`);
-        $('.consultas').text(`${data.count_ref} Consultas`);
-        $('.examenes').text(`${data.count_exam} Examenes`);
-        $('.estudios').text(`${data.count_study} Estudios`);
+        $('#pacientes').text(`${data.count_patients}`);
+        $('#consultas').text(`${data.count_ref}`);
+        $('#examenes').text(`${data.count_exam}`);
+        $('#estudios').text(`${data.count_study}`);
 
         $('#form-payment-renew').validate({
             rules: {
@@ -268,11 +296,22 @@
                 $("#number_card").attr('disabled', true);
                 $("#methodo_payment").attr('disabled', true);
                 if (Number(user.patient_counter) >= 10) {
-                    $('#paciente_span').attr('class', 'badge bg-danger rounded-pill');
+                    $('#paciente_span').attr('class', 'count-plan-0');
+                    $('#pacientes').attr('class', 'count-plan-0');
                 }
-                if (Number(user.medical_record_counter) >= 40) {
-                    $('#consulta_span').attr('class', 'badge bg-danger rounded-pill');
+                if (Number(user.medical_record_counter) >= 20) {
+                    $('#consulta_span').attr('class', 'count-plan-0');
+                    $('#consultas').attr('class', 'count-plan-0');
                 }
+                if (Number(user.ref_counter) >= 20) {
+                    $('#examene_span').attr('class', 'count-plan-0');
+                    $('#examenes').attr('class', 'count-plan-0');
+                    $('#estudio_span').attr('class', 'count-plan-0');
+                    $('#estudios').attr('class', 'count-plan-0');
+                }
+                $('#free').show();
+                $('#profesional').hide();
+                $('#ilimitado').hide();
                 break;
             case 2:
                 $("#type_plan").val(type_plane);
@@ -281,11 +320,22 @@
                 $("#number_card").attr('disabled', false);
                 $("#methodo_payment").attr('disabled', false);
                      if (Number(user.patient_counter) >= 40) {
-                    $('#paciente_span').attr('class', 'badge bg-danger rounded-pill');
+                    $('#paciente_span').attr('class', 'count-plan-0');
+                    $('#pacientes').attr('class', 'count-plan-0');
+
                 }
-                if (Number(user.medical_record_counter) >= 80) {
-                    $('#consulta_span').attr('class', 'badge bg-danger rounded-pill');
+                if (Number(user.medical_record_counter) >= 40) {
+                    $('#consulta_span').attr('class', 'count-plan-0');
+                    $('#consultas').attr('class', 'count-plan-0');
+
                 }
+                if (Number(user.ref_counter) >= 80) {
+                    $('#examene_span').attr('class', 'count-plan-0');
+                    $('#estudio_span').attr('class', 'count-plan-0');
+                }
+                $('#free').hide();
+                $('#profesional').show();
+                $('#ilimitado').hide();
                 break;
             case 3:
                 $("#type_plan").val(type_plane);
@@ -293,6 +343,9 @@
                 $("#code_card").attr('disabled', false);
                 $("#number_card").attr('disabled', false);
                 $("#methodo_payment").attr('disabled', false);
+                $('#free').hide();
+                $('#profesional').hide();
+                $('#ilimitado').show();
                 break;
             case 4:
                 $("#type_plan").val(type_plane);
@@ -340,57 +393,79 @@
     }
 </script>
 <div>
-    <div class="row justify-content-center">
-        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-            <div class="card">
-                <div class="card-body">
-                    <h1 class="card-title tile-planes-dos"></h1>
-                    <ol class="list-group list-group-numbered">
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold tile-planes pacientes"></div>
-                                Cupos consumidos:
+    <div class="row">
+            <h2 class="title-card fw-bold tile-planes-dos card-title"></h2>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                        <div class="card mt-3 card-plans">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <h5 class="fw-bold" style="color: #133837">Pacientes</h5>
+                                    <div style="display: flex">
+                                        <h3 id="paciente_span" class="count-plan">{{ auth()->user()->patient_counter }}/</h3>
+                                        <h3 id="pacientes" class="count-plan"></h3>
+                                    </div>
+                                    </div>
+                                </div>
                             </div>
-                            <span id="paciente_span"
-                                class="badge bg-success rounded-pill">{{ auth()->user()->patient_counter }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold tile-planes consultas"></div>
-                                Cupos consumidos:
-                            </div>
-                            <span id="consulta_span"
-                                class="badge bg-success rounded-pill">{{ auth()->user()->medical_record_counter }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold tile-planes examenes"></div>
-                                Cupos consumidos:
-                            </div>
-                            <span id="examene_span"
-                                class="badge bg-success rounded-pill">{{ auth()->user()->ref_counter }}</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold tile-planes estudios"></div>
-                                Cupos consumidos:
-                            </div>
-                            <span id="estudio_span"
-                                class="badge bg-success rounded-pill">{{ auth()->user()->ref_counter }}</span>
-                        </li>
-                    </ol>
-                    <div class="row justify-content-center mt-3">
-                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                            <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})"
-                                class="btn btnPrimary">Renovar</button>
                         </div>
-                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                            <button type="button"
-                                onclick="renew_plan(2,{{ Auth::user()->type_plane }})"class="btn btnSecond">Cambiar
-                                plan</button>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                        <div class="card mt-3 card-plans">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <h5 class="fw-bold" style="color: #133837">Consultas</h5>
+                                        
+                                        <div style="display: flex">
+                                            <h3 id="consulta_span" class="count-plan">{{ auth()->user()->medical_record_counter }}/</h3>
+                                            <h3 id="consultas" class="count-plan"></h3>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                        <div class="card mt-3 card-plans">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <h5 class="fw-bold" style="color: #133837">Exámenes</h5>
+                                        
+                                        <div style="display: flex">
+                                            <h3 id="examene_span" class="count-plan">{{ auth()->user()->ref_counter }}/</h3>
+                                            <h3 id="examenes" class="count-plan"></h3>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                        <div class="card mt-3 card-plans">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <h5 class="fw-bold" style="color: #133837">Estudios </h5>
+                                        <div style="display: flex">
+                                            <h3  id="estudio_span" class="count-plan">{{ auth()->user()->ref_counter }}/</h3>
+                                            <h3 id="estudios" class="count-plan"></h3>
+                                        </div>
+                                        
+                                    </div>  
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl--12 mt-3 mb-3"
+                style="display: flex; justify-content: flex-end;">
+                <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})" class="btn btnPrimary">Renovar</button>
+                <button type="button" onclick="renew_plan(2,{{ Auth::user()->type_plane }})" class="btn btnSecond" style='margin-left: 20px'>Cambiar de plan</button>
             </div>
         </div>
     </div>
@@ -406,241 +481,259 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header title">
-                    <i class="bi bi-calendar-week"></i>
-                    <span style="padding-left: 5px">Pagar plan</span>
+                    <i class="bi bi-repeat"></i>
+                    <span style="padding-left: 5px">Renovar plan</span>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         style="font-size: 12px;"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row form-sq">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                            <div class="card mb-3 mt-m3" id="div-form">
-                                <div class="card-body">
-                                    <div id="div-content">
-                                        <div class="container">
-                                            <div class="row" style="display: grid; justify-items: center;">
-                                                <img class="logoSq"
-                                                    src="{{ asset('img/logo sqlapio variaciones-03.png') }}"
-                                                    alt="">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="div-form">
+                            <div id="div-content">
+                                <div class="container">
+                                    <div class="row" style="display: grid; justify-items: center;">
+                                        <img class="logoSq"
+                                            src="{{ asset('img/logo sqlapio variaciones-03.png') }}"
+                                            alt="">
+                                    </div>
+                                </div>
+                                {{-- seleccionar planes --}}
+                                <div class="row justify-content-center mt-3" id="planes-content-revew-select">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: space-around;">
+                                        <button type="button" onclick="handler_renew_plan(1)" class="btn btnPrimary">FREE</button>
+                                        <button type="button" onclick="handler_renew_plan(2)"class="btn btnPrimary">PROFESIONAL</button>
+                                        <button type="button" onclick="handler_renew_plan(3)"class="btn btnPrimary">ILIMITADO</button>
+                                    </div>
+                                </div>
+                                {{-- formulario de pago --}}
+                                <div id="planes-content-revew" style="display: none">
+                                    {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment-renew']) }}
+                                    <div class="row">
+                                        <input type="hidden" name="type_plan" id="type_plan">
+                                        <input type="hidden" name="change_plan" id="change_plan">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            <div id="free" style="display: none">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 10 <b>Pacientes</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Consultas</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Exámenes</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Estudios</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i>  <b style="text-decoration: line-through;">Estudios con videos</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Consultas en IA</b> </li>
+                                                </ul>
+                                            </diV>
+                                            <div id="profesional" style="display: none">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>Pacientes</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>Consultas</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>Exámenes</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>Estudios</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i>  <b style="text-decoration: line-through;">Estudios con videos</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Consultas en IA</b> </li>
+                                                </ul>
+                                            </diV>
+                                            <div id="ilimitado" style="display: none">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>Pacientes</b> Ilimitados</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>Consultas</b> Ilimitados</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>Exámenes</b> Ilimitados</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>Estudios</b> Ilimitados</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 0.10 por Gb <b>Estudios con videos</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 300 <b>Consultas en IA</b></li>
+                                                </ul>
+                                            </diV>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="nombre">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
+                                                    <input readonly autocomplete="off"
+                                                        class="form-control mask-text"
+                                                        id="name" name="name" type="text"
+                                                        value="{{Auth::user()->name}}">                                                                
+                                                    <i class="bi bi-person-circle st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="apellidos">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
+                                                    <input  readonly autocomplete="off"
+                                                        class="form-control mask-text"
+                                                        id="last_name" name="last_name" type="text" value="{{Auth::user()->last_name}}">
+                                                    <i class="bi bi-person-circle st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="cedula">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">C.I</label>
+                                                    <input readonly autocomplete="off" class="form-control" id="number_id"
+                                                        name="number_id" type="text" value="{{Auth::user()->ci}}">
+                                                    <i class="bi bi-person-vcard-fill st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+    
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="empresa" style="display: none">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon social</label>
+                                                    <input readonly autocomplete="off" class="form-control" id="business_name"
+                                                        name="business_name" type="text" value="{{Auth::user()->business_name}}">
+                                                    <i class="bi bi-person-vcard-fill st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+                                        
+    
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3" id="tipo_rif" style="display: none">
+                                            <div class="form-group">
+                                                <label for="name" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Tipo
+                                                    de documento</label>
+                                                <select  readonly onchange="handlerTypeDoc(event)" name="type_rif_pay"
+                                                    id="type_rif_pay" class="form-control">
+                                                    <option value="">Seleccione</option>
+                                                    <option value="F-">Firma personal</option>
+                                                    <option value="J-">Jurídico</option>
+                                                    <option value="C-">Comuna</option>
+                                                    <option value="G-">Gubernamental</option>
+                                                </select>
                                             </div>
                                         </div>
-                                        {{-- seleccionar planes --}}
-                                        <div class="row justify-content-center mt-3" id="planes-content-revew-select">
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                <button type="button" onclick="handler_renew_plan(1)"
-                                                    class="btn btnPrimary">FREE</button>
-                                            </div>
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                <button type="button"
-                                                    onclick="handler_renew_plan(2)"class="btn btnPrimary">PROFESIONAL</button>
-                                            </div>
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                <button type="button"
-                                                    onclick="handler_renew_plan(3)"class="btn btnPrimary">ILIMITADO</button>
+    
+                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3" id="Rif" style="display: none">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
+                                                        de Identificación o RIF</label>
+                                                    <input readonly autocomplete="off" placeholder=""
+                                                        class="form-control mask-rif"
+                                                        id="rif_pay" name="rif_pay" type="text" maxlength="17"
+                                                        value="{!! !empty(Auth::user()->get_laboratorio != null) ? Auth::user()->get_laboratorio->rif : '' !!}">
+                                                    <i class="bi bi-person-vcard" style="top: 30px"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+    
+                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
+                                                        eléctronico</label>
+                                                    <input readonly  autocomplete="off" class="form-control" id="email" name="email"
+                                                        type="text" value="{{Auth::user()->email}}">
+                                                    <i class="bi bi-envelope-ats st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+    
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="methodo_payment" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Método de
+                                                        pago</label>
+                                                    <select name="methodo_payment" id="methodo_payment"
+                                                        placeholder="Seleccione"class="form-control"
+                                                        class="form-control combo-textbox-input">
+                                                        <option value="">Seleccione...</option>
+                                                        <option value="1">Banco de Venezuela</option>
+                                                        <option value="2">Banco Mercantil</option>
+                                                        <option value="3">Banco Banesco</option>
+                                                        <option value="4">Bancamiga</option>
+                                                        <option value="5">Zelle</option>
+                                                    </select>
+                                                    <i class="bi bi-credit-card st-icon"></i>
+                                                </div>
                                             </div>
                                         </div>
-                                        {{-- formulario de pago --}}
-                                        <div id="planes-content-revew" style="display: none">
-                                            {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment-renew']) }}
-                                            <div class="row">
-                                                <input type="hidden" name="type_plan" id="type_plan">
-                                                <input type="hidden" name="change_plan" id="change_plan">
-
-                                                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="nombre">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="name" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
-                                                            <input readonly autocomplete="off"
-                                                                class="form-control mask-text"
-                                                                id="name" name="name" type="text"
-                                                                value="{{Auth::user()->name}}">                                                                
-                                                            <i class="bi bi-person-circle st-icon"></i>
-                                                        </div>
-                                                    </diV>
+                                        <div class="row mt-3" style="padding-right: 0">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                style="display: flex; align-items: center;
+                                            justify-content: flex-end; text-align: end; padding-right: 0">
+                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                                    <img class="logo-bank" src="{{ asset('img/mercantil-icon.jpg') }}"
+                                                        alt="">
                                                 </div>
-                                                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="apellidos">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="name" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
-                                                            <input  readonly autocomplete="off"
-                                                                class="form-control mask-text"
-                                                                id="last_name" name="last_name" type="text" value="{{Auth::user()->last_name}}">
-                                                            <i class="bi bi-person-circle st-icon"></i>
-                                                        </div>
-                                                    </diV>
+                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                                    <img class="logo-bank" src="{{ asset('img/banesco-icon.png') }}"
+                                                        alt="">
                                                 </div>
-                                                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="cedula">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="name" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">C.I</label>
-                                                            <input readonly autocomplete="off" class="form-control" id="number_id"
-                                                                name="number_id" type="text" value="{{Auth::user()->ci}}">
-                                                            <i class="bi bi-person-vcard-fill st-icon"></i>
-                                                        </div>
-                                                    </diV>
+    
+    
+                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                                    <img class="logo-bank" src="{{ asset('img/zelle-icon.png') }}"
+                                                        alt="">
                                                 </div>
-            
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="empresa" style="display: none">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="name" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon social</label>
-                                                            <input readonly autocomplete="off" class="form-control" id="business_name"
-                                                                name="business_name" type="text" value="{{Auth::user()->business_name}}">
-                                                            <i class="bi bi-person-vcard-fill st-icon"></i>
-                                                        </div>
-                                                    </diV>
+    
+                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                                    <img class="logo-bank" src="{{ asset('img/bdv-icon.png') }}"
+                                                        alt="">
                                                 </div>
-                                              
-            
-                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3" id="tipo_rif" style="display: none">
-                                                    <div class="form-group">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Tipo
-                                                            de documento</label>
-                                                        <select  readonly onchange="handlerTypeDoc(event)" name="type_rif_pay"
-                                                            id="type_rif_pay" class="form-control">
-                                                            <option value="">Seleccione</option>
-                                                            <option value="F-">Firma personal</option>
-                                                            <option value="J-">Jurídico</option>
-                                                            <option value="C-">Comuna</option>
-                                                            <option value="G-">Gubernamental</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-            
-                                                <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3" id="Rif" style="display: none">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="name" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
-                                                                de Identificación o RIF</label>
-                                                            <input readonly autocomplete="off" placeholder=""
-                                                                class="form-control mask-rif"
-                                                                id="rif_pay" name="rif_pay" type="text" maxlength="17"
-                                                                value="{!! !empty(Auth::user()->get_laboratorio != null) ? Auth::user()->get_laboratorio->rif : '' !!}">
-                                                            <i class="bi bi-person-vcard" style="top: 30px"></i>
-                                                        </div>
-                                                    </diV>
-                                                </div>
-            
-                                                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="name" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
-                                                                eléctronico</label>
-                                                            <input readonly  autocomplete="off" class="form-control" id="email" name="email"
-                                                                type="text" value="{{Auth::user()->email}}">
-                                                            <i class="bi bi-envelope-ats st-icon"></i>
-                                                        </div>
-                                                    </diV>
-                                                </div>
-            
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="methodo_payment" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Método de
-                                                                pago</label>
-                                                            <select name="methodo_payment" id="methodo_payment"
-                                                                placeholder="Seleccione"class="form-control"
-                                                                class="form-control combo-textbox-input">
-                                                                <option value="">Seleccione...</option>
-                                                                <option value="1">Banco de Venezuela</option>
-                                                                <option value="2">Banco Mercantil</option>
-                                                                <option value="3">Banco Banesco</option>
-                                                                <option value="4">Bancamiga</option>
-                                                                <option value="5">Zelle</option>
-                                                            </select>
-                                                            <i class="bi bi-credit-card st-icon"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-3" style="padding-right: 0">
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                        style="display: flex; align-items: center;
-                                                    justify-content: flex-end; text-align: end; padding-right: 0">
-                                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                            <img class="logo-bank" src="{{ asset('img/mercantil-icon.jpg') }}"
-                                                                alt="">
-                                                        </div>
-                                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                            <img class="logo-bank" src="{{ asset('img/banesco-icon.png') }}"
-                                                                alt="">
-                                                        </div>
-            
-            
-                                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                            <img class="logo-bank" src="{{ asset('img/zelle-icon.png') }}"
-                                                                alt="">
-                                                        </div>
-            
-                                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                            <img class="logo-bank" src="{{ asset('img/bdv-icon.png') }}"
-                                                                alt="">
-                                                        </div>
-                                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                            <img class="logo-bank" src="{{ asset('img/bancamiga-icon.png') }}"
-                                                                alt="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="name" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número de
-                                                                tarjeta</label>
-                                                            <input autocomplete="off" class="form-control" id="number_card"
-                                                                name="number_card" type="text" value="">
-                                                            <i class="bi bi-credit-card st-icon"></i>
-                                                        </div>
-                                                    </diV>
-                                                </div>
-                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="name" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Código de
-                                                                tarjeta</label>
-                                                            <input autocomplete="off" class="form-control" id="code_card"
-                                                                name="code_card" type="text" value="">
-                                                            <i class="bi bi-credit-card st-icon"></i>
-                                                        </div>
-                                                    </diV>
-                                                </div>
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="name" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Monto</label>
-                                                            <input readonly autocomplete="off" class="form-control" id="amount"
-                                                                name="amount" type="text" value="">
-                                                            <i class="bi bi-currency-dollar st-icon"></i>
-                                                        </div>
-                                                    </diV>
+                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                                    <img class="logo-bank" src="{{ asset('img/bancamiga-icon.png') }}"
+                                                        alt="">
                                                 </div>
                                             </div>
-
-                                            <div class="d-flex justify-content-center">
-                                                <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-3 mb-3"
-                                                    style="display: flex; justify-content: center;">
-                                                    <input class="btn btnSave send " value="Adquiere tu plan"
-                                                        type="submit" style="margin-left: 20px" />
+                                        </div>
+                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número de
+                                                        tarjeta</label>
+                                                    <input autocomplete="off" class="form-control" id="number_card"
+                                                        name="number_card" type="text" value="">
+                                                    <i class="bi bi-credit-card st-icon"></i>
                                                 </div>
-                                            </div>
-                                            {{ Form::close() }}
+                                            </diV>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Código de
+                                                        tarjeta</label>
+                                                    <input autocomplete="off" class="form-control" id="code_card"
+                                                        name="code_card" type="text" value="">
+                                                    <i class="bi bi-credit-card st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Monto</label>
+                                                    <input readonly autocomplete="off" class="form-control" id="amount"
+                                                        name="amount" type="text" value="">
+                                                    <i class="bi bi-currency-dollar st-icon"></i>
+                                                </div>
+                                            </diV>
                                         </div>
                                     </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-3 mb-3"
+                                            style="display: flex; justify-content: center;">
+                                            <input class="btn btnSave send " value="Adquiere tu plan"
+                                                type="submit" style="margin-left: 20px" />
+                                        </div>
+                                    </div>
+                                    {{ Form::close() }}
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
