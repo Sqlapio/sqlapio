@@ -77,7 +77,7 @@
             },
             {
                 type_plan: 3,
-                description: "Mi plan ILIMITADO",
+                description: "Plan - ILIMITADO",
                 count_patients: 'ILIMITADO',
                 count_ref: 'ILIMITADO',
                 count_exam: 'ILIMITADO',
@@ -85,7 +85,7 @@
             },
             {
                 type_plan: 4,
-                description: "Mi plan ILIMITADO",
+                description: "Plan - ILIMITADO",
                 count_patients: 'ILIMITADO',
                 count_ref: 'ILIMITADO',
                 count_exam: 'ILIMITADO',
@@ -93,7 +93,7 @@
             },
             {
                 type_plan: 5,
-                description: "Mi plan ILIMITADO",
+                description: "Plan - ILIMITADO",
                 count_patients: 'ILIMITADO',
                 count_ref: 'ILIMITADO',
                 count_exam: 'ILIMITADO',
@@ -101,7 +101,7 @@
             },
             {
                 type_plan: 6,
-                description: "Mi plan ILIMITADO",
+                description: "Plan - ILIMITADO",
                 count_patients: 'ILIMITADO',
                 count_ref: 'ILIMITADO',
                 count_exam: 'ILIMITADO',
@@ -338,6 +338,9 @@
                 $('#ilimitado').hide();
                 break;
             case 3:
+                $('#paciente_span').hide();
+                $('#consulta_span').hide();
+                $('#examene_span').hide();
                 $("#type_plan").val(type_plane);
                 $("#amount").val('$39.99');
                 $("#code_card").attr('disabled', false);
