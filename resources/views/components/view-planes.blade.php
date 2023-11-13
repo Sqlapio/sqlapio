@@ -341,6 +341,7 @@
                 $('#paciente_span').hide();
                 $('#consulta_span').hide();
                 $('#examene_span').hide();
+                $('#estudio_span').hide();
                 $("#type_plan").val(type_plane);
                 $("#amount").val('$39.99');
                 $("#code_card").attr('disabled', false);
@@ -396,7 +397,7 @@
     }
 </script>
 <div>
-    <div class="row">
+    <div class="row" style="padding: 20px;">
             <h2 class="title-card fw-bold tile-planes-dos card-title"></h2>
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                 <div class="row">
