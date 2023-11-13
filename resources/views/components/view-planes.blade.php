@@ -1,3 +1,43 @@
+
+<style>
+    .card-plans {
+        /* background-color: #ffffff !important; */
+        -webkit-background-size: cover !important;
+        -moz-background-size: cover !important;
+        -o-background-size: cover !important;
+        background-size: cover !important;
+        background: url('/img/bg1.jpg') no-repeat center center;
+        box-shadow: 0px 0px 11px 0px rgba(120, 116, 116, 0.7);
+        border-radius: 20px !important;
+        font-size: 13px;
+        width: 100%;;
+    }
+
+    .count-plan-0 {
+        color: red
+    }
+
+    .count-plan {
+        color: #459594
+    }
+
+    .custom-popover {
+        --bs-popover-max-width: 200px;
+        --bs-popover-border-color: var(--bd-violet-bg);
+        --bs-popover-header-bg: var(--bd-violet-bg);
+        --bs-popover-header-color: var(--bs-white);
+        --bs-popover-body-padding-x: 1rem;
+        --bs-popover-body-padding-y: .5rem;
+    }
+
+    .title-card {
+        font-size: 20px;
+        color: #133837;
+        text-align: start;
+        font-weight: normal;
+    }
+
+</style>
 <script>
     $(document).ready(() => {
 
@@ -158,6 +198,9 @@
                 $("#code_card").attr('disabled', true)
                 $("#number_card").attr('disabled', true)
                 $("#methodo_payment").attr('disabled', true)
+                $('#free').show();
+                $('#profesional').hide();
+                $('#ilimitado').hide();
 
                 break;
             case 2:
@@ -165,6 +208,9 @@
                 $("#code_card").attr('disabled', false);
                 $("#number_card").attr('disabled', false);
                 $("#methodo_payment").attr('disabled', false);
+                $('#free').hide();
+                $('#profesional').show();
+                $('#ilimitado').hide();
 
 
                 break;
@@ -173,72 +219,150 @@
                 $("#code_card").attr('disabled', false);
                 $("#number_card").attr('disabled', false);
                 $("#methodo_payment").attr('disabled', false);
+                $('#free').hide();
+                $('#profesional').hide();
+                $('#ilimitado').show();
+
                 break;
 
             default:
                 break;
         }
     }
+
+    document.querySelectorAll('[data-bs-toggle="popover"]')
+        .forEach(popover => {
+            new bootstrap.Popover(popover)
+        })
+
+        const popover = new bootstrap.Popover('.popover-dismiss', {
+    trigger: 'focus'
+})
 </script>
 <div>
     @if (auth()->user()->type_plane == 1)
-        <div class="row justify-content-center">
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h1 class="card-title tile-planes-dos">Mi plan Free</h1>
-                        <ol class="list-group list-group-numbered">
-                            <li class="list-group-item d-flex justify-content-between align-items-start">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold tile-planes">10 Pacientes</div>
-                                    Cupos consumidos:
+        <div class="row">
+            <h2 class="title-card fw-bold tile-planes-dos">Plan - Free</h2>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                        <div class="card mt-3 card-plans">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <h5 class="fw-bold" style="color: #133837">Pacientes</h5>
+                                        <h3 class="{{ auth()->user()->patient_counter >= 10 ? 'count-plan-0' : 'count-plan' }}">{{ auth()->user()->patient_counter }}/10</h3>
+                                    </div>
                                 </div>
-                                <span
-                                    class="{{ auth()->user()->patient_counter >= 10 ? 'badge bg-danger rounded-pill' : 'badge bg-success rounded-pill' }}">{{ auth()->user()->patient_counter }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-start">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold tile-planes">20 Consultas</div>
-                                    Cupos consumidos:
-                                </div>
-                                <span
-                                    class="{{ auth()->user()->medical_record_counter >= 20 ? 'badge bg-danger rounded-pill' : 'badge bg-success rounded-pill' }}">{{ auth()->user()->medical_record_counter }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-start">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold tile-planes">20 Examnenes</div>
-                                    Cupos consumidos:
-                                </div>
-                                <span
-                                    class="{{ auth()->user()->ref_counter >= 20 ? 'badge bg-danger rounded-pill' : 'badge bg-success rounded-pill' }}">{{ auth()->user()->ref_counter }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-start">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold tile-planes">20 Estudios</div>
-                                    Cupos consumidos:
-                                </div>
-                                <span
-                                    class="{{ auth()->user()->ref_counter >= 20 ? 'badge bg-danger rounded-pill' : 'badge bg-success rounded-pill' }}">{{ auth()->user()->ref_counter }}</span>
-                            </li>
-                        </ol>
-                        <div class="row justify-content-center mt-3">
-                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                <button type="button" class="btn btnPrimary">pagar</button>
-
                             </div>
-                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                <button type="button" class="btn btnSecond">Cambiar de
-                                    plan</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                        <div class="card mt-3 card-plans">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <h5 class="fw-bold" style="color: #133837">Consultas</h5>
+                                        <h3 class="{{ auth()->user()->medical_record_counter >= 20 ? 'count-plan-0' : 'count-plan' }}">{{ auth()->user()->medical_record_counter }}/20</h3>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                        <div class="card mt-3 card-plans">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <h5 class="fw-bold" style="color: #133837">Exámenes</h5>
+                                        <h3 class="{{ auth()->user()->ref_counter >= 20 ? 'count-plan-0' : 'count-plan' }}">{{ auth()->user()->ref_counter }}/20</h3>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                        <div class="card mt-3 card-plans">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <h5 class="fw-bold" style="color: #133837">Estudios </h5>
+                                        <h3 class="{{ auth()->user()->ref_counter >= 20 ? 'count-plan-0' : 'count-plan' }}">{{ auth()->user()->ref_counter }}/20</h3>
+                                    </div>  
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl--12 mt-3 mb-3"
+                style="display: flex; justify-content: flex-end;">
+                <button type="button" class="btn btnPrimary">Pagar</button>
+                <button type="button" class="btn btnSecond" style='margin-left: 20px'>Cambiar de plan</button>
+            </div>
         </div>
     @endif
     @if (auth()->user()->type_plane == 2)
-        <div class="row justify-content-center">
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+        <div class="row">
+            <h2 class="title-card fw-bold tile-planes-dos">Plan - Profesional</h2>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                        <div class="card mt-3 card-plans">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <h5 class="fw-bold" style="color: #133837">Pacientes</h5>
+                                        <h3 class="{{ auth()->user()->patient_counter >= 40 ? 'count-plan-0' : 'count-plan' }}">{{ auth()->user()->patient_counter }}/40</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                        <div class="card mt-3 card-plans">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <h5 class="fw-bold" style="color: #133837">Consultas</h5>
+                                        <h3 class="{{ auth()->user()->medical_record_counter >= 40 ? 'count-plan-0' : 'count-plan' }}">{{ auth()->user()->medical_record_counter }}/40</h3>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                        <div class="card mt-3 card-plans">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <h5 class="fw-bold" style="color: #133837">Exámenes</h5>
+                                        <h3 class="{{ auth()->user()->ref_counter >= 80 ? 'count-plan-0' : 'count-plan' }}">{{ auth()->user()->ref_counter }}/80</h3>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                        <div class="card mt-3 card-plans">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <h5 class="fw-bold" style="color: #133837">Estudios</h5>
+                                        <h3 class="{{ auth()->user()->ref_counter >= 80 ? 'count-plan-0' : 'count-plan' }}">{{ auth()->user()->ref_counter }}/80</h3>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl--12 mt-3 mb-3"
+                style="display: flex; justify-content: flex-end;">
+                <button type="button" onclick="renew_plan(1)" class="btn btnPrimary">Renovar</button>
+                <button type="button" onclick="renew_plan(2)"class="btn btnSecond" style='margin-left: 20px'>Cambiar de plan</button>
+            </div>
+            {{-- <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                 <div class="card">
                     <div class="card-body">
                         <h1 class="card-title tile-planes-dos">Mi plan Profesional</h1>
@@ -287,7 +411,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     @endif
 
@@ -301,16 +425,16 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header title">
-                        <i class="bi bi-calendar-week"></i>
-                        <span style="padding-left: 5px">Pagar plan</span>
+                        <i class="bi bi-repeat"></i>
+                        <span style="padding-left: 5px">Renovar plan</span>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                             style="font-size: 12px;"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row form-sq">
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                <div class="card mb-3 mt-m3" id="div-form">
-                                    <div class="card-body">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mt-m3" id="div-form">
+                                {{-- <div class="card mb-3 mt-m3" >
+                                    <div class="card-body"> --}}
                                         <div id="div-content">
                                             <div class="container">
                                                 <div class="row" style="display: grid; justify-items: center;">
@@ -322,17 +446,10 @@
                                             {{-- seleccionar planes --}}
                                             <div class="row justify-content-center mt-3"
                                                 id="planes-content-revew-select">
-                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                    <button type="button" onclick="handler_renew_plan(1)"
-                                                        class="btn btnPrimary">FREE</button>
-                                                </div>
-                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                    <button type="button"
-                                                        onclick="handler_renew_plan(2)"class="btn btnPrimary">PROFESIONAL</button>
-                                                </div>
-                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                    <button type="button"
-                                                        onclick="handler_renew_plan(3)"class="btn btnPrimary">ILIMITADO</button>
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: space-around;">
+                                                    <button type="button" onclick="handler_renew_plan(1)" class="btn btnPrimary">FREE</button>
+                                                    <button type="button" onclick="handler_renew_plan(2)"class="btn btnPrimary">PROFESIONAL</button>
+                                                    <button type="button" onclick="handler_renew_plan(3)"class="btn btnPrimary">ILIMITADO</button>
                                                 </div>
                                             </div>
                                             {{-- formulario de pago --}}
@@ -340,7 +457,38 @@
                                                 {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment-renew']) }}
                                                 <div class="row">
                                                     <input type="hidden" name="type_plan" id="type_plan">
-
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                                        <div id="free" style="display: none">
+                                                            <ul class="list-group list-group-flush">
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 10 <b>Pacientes</b></li>
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Consultas</b></li>
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Exámenes</b></li>
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Estudios</b></li>
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i>  <b style="text-decoration: line-through;">Estudios con videos</b></li>
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Consultas en IA</b> </li>
+                                                            </ul>
+                                                        </diV>
+                                                        <div id="profesional" style="display: none">
+                                                            <ul class="list-group list-group-flush">
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>Pacientes</b></li>
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>Consultas</b></li>
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>Exámenes</b></li>
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>Estudios</b></li>
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i>  <b style="text-decoration: line-through;">Estudios con videos</b></li>
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Consultas en IA</b> </li>
+                                                            </ul>
+                                                        </diV>
+                                                        <div id="ilimitado" style="display: none">
+                                                            <ul class="list-group list-group-flush">
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>Pacientes</b> Ilimitados</li>
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>Consultas</b> Ilimitados</li>
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>Exámenes</b> Ilimitados</li>
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>Estudios</b> Ilimitados</li>
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 0.10 por Gb <b>Estudios con videos</b></li>
+                                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 300 <b>Consultas en IA</b></li>
+                                                            </ul>
+                                                        </diV>
+                                                    </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
@@ -389,7 +537,7 @@
                                                                 <input autocomplete="off" class="form-control"
                                                                     id="email" name="email" type="text"
                                                                     value="">
-                                                                <i class="bi bi-envelope-ats st-icon"></i>
+                                                                    <i class="bi bi-envelope-at st-icon"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
@@ -503,15 +651,12 @@
                                                 {{ Form::close() }}
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    {{-- </div>
+                                </div> --}}
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>

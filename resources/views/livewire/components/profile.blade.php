@@ -906,7 +906,7 @@
                 @if (Auth::user()->role == 'medico')
                     {{-- firma Digital --}}
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd"
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                             style="margin-top: 20px; ">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
@@ -940,13 +940,13 @@
                 @endif
             @endif
             <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd" style="margin-top: 20px;">
                     <div class="accordion-item">
                         <span class="accordion-header title" id="headingPlanes">
                             <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapsePlanes" aria-expanded="true" aria-controls="collapsePlanes"
                                 style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                <i class="bi bi-person"></i> Informacion del plan
+                                <i class="bi bi-info-lg"></i> Informacion del plan
                             </button>
                         </span>
                         <div id="collapsePlanes" class="accordion-collapse collapse show" aria-labelledby="headingPlanes"

@@ -212,7 +212,6 @@
                                 {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment']) }}
                                 <div class="row">
                                     <input type="hidden" name="type_plan" id="type_plan">
-
                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                         <div class="form-group">
                                             <div class="Icon-inside">
@@ -289,8 +288,6 @@
                                         <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
                                             <img class="logo-bank" src="{{ asset('img/banesco-icon.png') }}" alt="">
                                         </div>
-    
-
                                         <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
                                             <img class="logo-bank" src="{{ asset('img/zelle-icon.png') }}" alt="">
                                         </div>
