@@ -75,7 +75,7 @@ Route::get('/paciente/verify/{verification_code}', [UtilsController::class, 'pat
 Route::get('/confirmation/dairy/{code}', [UtilsController::class, 'confirmation_dairy']);
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','VerifyPlanExpiredPlan'])->group(function () {
 
     Route::group(array('prefix' => 'auth'), function () {
         Route::middleware(['VerifySelloDigital', 'verify_email'])->group(function () {

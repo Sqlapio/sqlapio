@@ -73,19 +73,7 @@ class Login extends Component {
 
 						$user = Auth::user();
 						$status_register = $user->status_register;
-						$speciality = Specialty::all();
-
-
-                        /** Validacion para plan vencido por transcurridos los 30 dias */
-
-                        $date_today = Carbon::now();
-                        
-                        if($user->date_end_plan == $date_today)
-                        {
-                            User::where('id', $user->id)->update([
-                                'expired_plan' => true,
-                            ]);
-                        }
+						$speciality = Specialty::all();                       
 
 						// Redireccion segun status de registro
 						if ($status_register == '1') {
