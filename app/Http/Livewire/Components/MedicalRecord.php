@@ -94,8 +94,7 @@ class MedicalRecord extends Component
                 ->where('user_id', $user)
                 ->where('date_start', date('Y-m-d'))
                 ->update([
-                    'status'        => 2,   /** FINALIZADA EN LA AGENDA */
-                    'confirmation'  => 2    /** FINALIZADA EN EL DASHBOARD*/
+                    'status'        => 3,   /** FINALIZADA EN LA AGENDA */
                 ]);
 
             $action = '11';

@@ -553,18 +553,7 @@
                                                             <td class="text-center td-pad">
                                                                 {{ $item['extendedProps']['center'] }}</td>
                                                             <td class="text-center td-pad">
-                                                                @if ($item['extendedProps']['status'] == 0)
-                                                                    <span class="badge rounded-pill bg-secondary">Sin
-                                                                        confirmar</span>
-                                                                @endif
-                                                                @if ($item['extendedProps']['status'] == 1)
-                                                                    <span
-                                                                        class="badge rounded-pill bg-success">Confimada</span>
-                                                                @endif
-                                                                @if ($item['extendedProps']['status'] == 3)
-                                                                    <span
-                                                                        class="badge rounded-pill bg-danger">Finalizada</span>
-                                                                @endif
+                                                                <span class="badge rounded-pill bg-{{$item['extendedProps']['status_class'] }}">{{$item['extendedProps']['status'] }}</span>
                                                             </td>
                                                             <td>
                                                                 <div class="d-flex" style="justify-content: center;">

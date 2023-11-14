@@ -51,7 +51,7 @@ class Appointment extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function comments(): HasOne
+    public function get_status(): HasOne
     {
         return $this->hasOne(StatusDairy::class, 'id', 'status');
     }
