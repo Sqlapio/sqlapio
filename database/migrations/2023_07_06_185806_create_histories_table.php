@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('cod_history')->unique();
             $table->string('patient_id')->nullable();
+            $table->string('user_id')->nullable();
             // codigo del paciente = cedula del paciente
             $table->string('cod_patient');
             // fecha de registro de la historia clinica
@@ -116,7 +117,7 @@ return new class extends Migration
             $table->string('observations_back_family')->nullable();
             $table->string('observations_diagnosis')->nullable();
             $table->string('observations_not_pathological')->nullable();
-            
+
             $table->timestamps();
         });
     }
