@@ -266,7 +266,7 @@ class UtilsController extends Controller
 	{
 		try {
 			$appointments = Appointment::where('user_id', $id)
-				->where('status', 1)->get();
+				->WhereBetween('status', [1,2])->get();
 			$data = [];
 			foreach ($appointments as $key => $val) {
 				$data[$key] = [
@@ -905,7 +905,7 @@ class UtilsController extends Controller
 			$update = DB::table('appointments')
 				->where('code', $code)
 				->update([
-					'confirmation' => 1,
+					'status' => 2,
 				]);
 
 			return true;

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Appointment extends Model
@@ -43,5 +44,15 @@ class Appointment extends Model
     public function get_center(): HasOne
     {
         return $this->hasOne(Center::class, 'id', 'center_id');
+    }
+
+    /**
+     * Get all of the comments for the Appointment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function comments(): HasOne
+    {
+        return $this->hasOne(StatusDairy::class, 'id', 'status');
     }
 }
