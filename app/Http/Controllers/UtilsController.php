@@ -266,6 +266,7 @@ class UtilsController extends Controller
 	{
 		try {
 			$appointments = Appointment::where('user_id', $id)
+                ->where('date_start', date('Y-m-d'))
 				->where('status', 1)->get();
 			$data = [];
 			foreach ($appointments as $key => $val) {
@@ -616,7 +617,7 @@ class UtilsController extends Controller
 
 	/**
 	 * Funcion que para la verificacion del correo
-	 * 
+	 *
 	 * @param verification_code
 	 */
 	static function patient_verify_email($verification_code)
@@ -637,7 +638,7 @@ class UtilsController extends Controller
 	/**
 	 * Funcion que envia las notificaciones al paciente y al medico
 	 * justo despues que la cita es creada a nivel de sistemas
-	 * 
+	 *
 	 * @param email 		-> direccion de correo del medico
 	 * @param patient_email -> correo del paciente
 	 */
@@ -874,7 +875,7 @@ class UtilsController extends Controller
 	/**
 	 * Funcion que envia las notificaciones al paciente y al medico
 	 * justo despues que la cita es creada a nivel de sistemas
-	 * 
+	 *
 	 * @param email 		-> direccion de correo del medico
 	 * @param patient_email -> correo del paciente
 	 */
@@ -1183,7 +1184,7 @@ class UtilsController extends Controller
 
 		$data = [];
 		if ($row != 'cod_ref') {
-			
+
 			$tablePat =  Patient::where($row, $value);
 
 			$tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($value) {
@@ -1199,7 +1200,7 @@ class UtilsController extends Controller
 			foreach ($patients as $key => $val) {
 
 				$data_exam = ExamPatient::where('patient_id', $val->id)
-				->where('status', 2)				
+				->where('status', 2)
 				->with('get_laboratory')
 				->get();
 
@@ -1212,11 +1213,11 @@ class UtilsController extends Controller
 				];
 			}
 
-			return $data;	
-			
-		} else {		
+			return $data;
 
-			
+		} else {
+
+
 			$tablePat =  Reference::whereHas('get_patient', function ($q) use ($value) {
 				$q->where('ci', $value);
 			});
@@ -1227,7 +1228,7 @@ class UtilsController extends Controller
 				});
 			});
 
-			$reference = $tablePat->union($tableRep)->get();			
+			$reference = $tablePat->union($tableRep)->get();
 
 			foreach($reference as $key => $val){
 					$data[$key] = [
@@ -1237,9 +1238,9 @@ class UtilsController extends Controller
 						'cod_medical_record' => $val->cod_medical_record,
 						'get_exam' => $val->get_exam,
 						'get_studie' => $val->get_studie,
-						'get_patient' => $val->get_patient,	
+						'get_patient' => $val->get_patient,
 					];
-				
+
 			}
 
 			return $data;
@@ -1267,7 +1268,7 @@ class UtilsController extends Controller
 			foreach ($patients as $key => $val) {
 
 				$data_study = StudyPatient::where('patient_id', $val->id)
-				->where('status', 2)				
+				->where('status', 2)
 				->with('get_laboratory')
 				->get();
 
@@ -1347,7 +1348,7 @@ class UtilsController extends Controller
 	 */
 	static function total_studies()
 	{
-		try {		
+		try {
 			$total_studies =[];
 			if(Auth::user()->get_laboratorio!= null){
 				$user_id = Auth::user()->get_laboratorio->id;
