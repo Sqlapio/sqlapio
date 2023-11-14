@@ -207,15 +207,15 @@
 
                 $('#content-data').append(div);
 
-                const tooltipTriggerList = document.querySelectorAll(
-                    '[data-bs-toggle="tooltip"]')
-                tooltipTriggerList.forEach(element => {
-                    new bootstrap.Tooltip(element)
-                });
-
+                
             });
-
+            
         }
+        const tooltipTriggerList = document.querySelectorAll(
+            '[data-bs-toggle="tooltip"]')
+        tooltipTriggerList.forEach(element => {
+            new bootstrap.Tooltip(element)
+        });
     </script>
 @endpush
 @section('content')
@@ -238,7 +238,7 @@
                                 <x-search-person />
 
                                 <div class="row" id="show-info-pat" style="display: none">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                         <h5 class="mb-4">Resultados</h5>
                                         <table id="table-info-pat" class="table table-striped table-bordered"
                                             style="width:100%; ">
