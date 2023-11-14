@@ -26,6 +26,7 @@ class History extends Model
         'cod_history',
         'cod_patient',
         'history_date',
+        'user_id',
         'weight',
         'height',
         'reason',

@@ -26,7 +26,8 @@
         box-shadow: 0px 0px 11px 0px rgba(120, 116, 116, 0.7);
         border-radius: 20px !important;
         font-size: 13px;
-        width: 100%;;
+        width: 100%;
+        ;
     }
 
     .count-plan-0 {
@@ -109,7 +110,7 @@
             }
         ];
 
-        if(user.role=="laboratorio"){
+        if (user.role == "laboratorio") {
             $('#type_rif_pay').val(user.get_laboratorio.rif[0] + "-").change();
         }
 
@@ -201,7 +202,7 @@
                 rif_pay: {
                     required: "Rif es obligatorio",
                 },
-                business_name:{
+                business_name: {
                     required: "Razon social es obligatorio",
                 }
 
@@ -242,7 +243,7 @@
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
                         }).then((result) => {
-                            let url ="{{ route('DashboardComponent') }}";
+                            let url = "{{ route('DashboardComponent') }}";
                             window.location.href = url;
 
                         });
@@ -319,7 +320,7 @@
                 $("#code_card").attr('disabled', false);
                 $("#number_card").attr('disabled', false);
                 $("#methodo_payment").attr('disabled', false);
-                     if (Number(user.patient_counter) >= 40) {
+                if (Number(user.patient_counter) >= 40) {
                     $('#paciente_span').attr('class', 'count-plan-0');
                     $('#pacientes').attr('class', 'count-plan-0');
 
@@ -398,81 +399,94 @@
 </script>
 <div>
     <div class="row" style="padding: 20px;">
-            <h2 class="title-card fw-bold tile-planes-dos card-title"></h2>
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
-                        <div class="card mt-3 card-plans">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <h5 class="fw-bold" style="color: #133837">Pacientes</h5>
+        @if (auth()->user()->expired_plan === 1)
+            <strong
+                class="text-danger">{{ \Carbon\Carbon::parse(auth()->user()->date_end_plan)->format('d-m-Y') . ' su plan a expirado!' }}</strong>
+        @endif
+
+        <h2 class="title-card fw-bold tile-planes-dos card-title mt-3"></h2>
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+            <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3"
+                    style="display: flex; justify-content: center;">
+                    <div class="card mt-3 card-plans">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    <h5 class="fw-bold" style="color: #133837">Pacientes</h5>
                                     <div style="display: flex">
-                                        <h3 id="paciente_span" class="count-plan">{{ auth()->user()->patient_counter }}/</h3>
+                                        <h3 id="paciente_span" class="count-plan">{{ auth()->user()->patient_counter }}/
+                                        </h3>
                                         <h3 id="pacientes" class="count-plan"></h3>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3"
+                    style="display: flex; justify-content: center;">
+                    <div class="card mt-3 card-plans">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    <h5 class="fw-bold" style="color: #133837">Consultas</h5>
+
+                                    <div style="display: flex">
+                                        <h3 id="consulta_span" class="count-plan">
+                                            {{ auth()->user()->medical_record_counter }}/</h3>
+                                        <h3 id="consultas" class="count-plan"></h3>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
-                        <div class="card mt-3 card-plans">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <h5 class="fw-bold" style="color: #133837">Consultas</h5>
-                                        
-                                        <div style="display: flex">
-                                            <h3 id="consulta_span" class="count-plan">{{ auth()->user()->medical_record_counter }}/</h3>
-                                            <h3 id="consultas" class="count-plan"></h3>
-                                        </div>
-                                    </div>  
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3"
+                    style="display: flex; justify-content: center;">
+                    <div class="card mt-3 card-plans">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    <h5 class="fw-bold" style="color: #133837">Exámenes</h5>
+
+                                    <div style="display: flex">
+                                        <h3 id="examene_span" class="count-plan">{{ auth()->user()->ref_counter }}/</h3>
+                                        <h3 id="examenes" class="count-plan"></h3>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
-                        <div class="card mt-3 card-plans">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <h5 class="fw-bold" style="color: #133837">Exámenes</h5>
-                                        
-                                        <div style="display: flex">
-                                            <h3 id="examene_span" class="count-plan">{{ auth()->user()->ref_counter }}/</h3>
-                                            <h3 id="examenes" class="count-plan"></h3>
-                                        </div>
-                                    </div>  
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
-                        <div class="card mt-3 card-plans">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <h5 class="fw-bold" style="color: #133837">Estudios </h5>
-                                        <div style="display: flex">
-                                            <h3  id="estudio_span" class="count-plan">{{ auth()->user()->ref_counter }}/</h3>
-                                            <h3 id="estudios" class="count-plan"></h3>
-                                        </div>
-                                        
-                                    </div>  
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3"
+                    style="display: flex; justify-content: center;">
+                    <div class="card mt-3 card-plans">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    <h5 class="fw-bold" style="color: #133837">Estudios </h5>
+                                    <div style="display: flex">
+                                        <h3 id="estudio_span" class="count-plan">{{ auth()->user()->ref_counter }}/</h3>
+                                        <h3 id="estudios" class="count-plan"></h3>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl--12 mt-3 mb-3"
-                style="display: flex; justify-content: flex-end;">
-                <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})" class="btn btnPrimary">Renovar</button>
-                <button type="button" onclick="renew_plan(2,{{ Auth::user()->type_plane }})" class="btn btnSecond" style='margin-left: 20px'>Cambiar de plan</button>
-            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl--12 mt-3 mb-3"
+            style="display: flex; justify-content: flex-end;">
+            <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})"
+                class="btn btnPrimary">Renovar</button>
+            <button type="button" onclick="renew_plan(2,{{ Auth::user()->type_plane }})" class="btn btnSecond"
+                style='margin-left: 20px'>Cambiar de plan</button>
         </div>
     </div>
+</div>
 </div>
 
 <!-- Modal para renover el plan-->
@@ -496,17 +510,20 @@
                             <div id="div-content">
                                 <div class="container">
                                     <div class="row" style="display: grid; justify-items: center;">
-                                        <img class="logoSq"
-                                            src="{{ asset('img/logo sqlapio variaciones-03.png') }}"
+                                        <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-03.png') }}"
                                             alt="">
                                     </div>
                                 </div>
                                 {{-- seleccionar planes --}}
                                 <div class="row justify-content-center mt-3" id="planes-content-revew-select">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: space-around;">
-                                        <button type="button" onclick="handler_renew_plan(1)" class="btn btnPrimary">FREE</button>
-                                        <button type="button" onclick="handler_renew_plan(2)"class="btn btnPrimary">PROFESIONAL</button>
-                                        <button type="button" onclick="handler_renew_plan(3)"class="btn btnPrimary">ILIMITADO</button>
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                        style="display: flex; justify-content: space-around;">
+                                        <button type="button" onclick="handler_renew_plan(1)"
+                                            class="btn btnPrimary">FREE</button>
+                                        <button type="button"
+                                            onclick="handler_renew_plan(2)"class="btn btnPrimary">PROFESIONAL</button>
+                                        <button type="button"
+                                            onclick="handler_renew_plan(3)"class="btn btnPrimary">ILIMITADO</button>
                                     </div>
                                 </div>
                                 {{-- formulario de pago --}}
@@ -518,91 +535,125 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                             <div id="free" style="display: none">
                                                 <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 10 <b>Pacientes</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Consultas</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Exámenes</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Estudios</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i>  <b style="text-decoration: line-through;">Estudios con videos</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Consultas en IA</b> </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                            style="color: green;"></i> 10 <b>Pacientes</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                            style="color: green;"></i> 20 <b>Consultas</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                            style="color: green;"></i> 20 <b>Exámenes</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                            style="color: green;"></i> 20 <b>Estudios</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x"
+                                                            style="color: red;"></i> <b
+                                                            style="text-decoration: line-through;">Estudios con
+                                                            videos</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x"
+                                                            style="color: red;"></i> <b
+                                                            style="text-decoration: line-through;">Consultas en IA</b>
+                                                    </li>
                                                 </ul>
                                             </diV>
                                             <div id="profesional" style="display: none">
                                                 <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>Pacientes</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>Consultas</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>Exámenes</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>Estudios</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i>  <b style="text-decoration: line-through;">Estudios con videos</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Consultas en IA</b> </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                            style="color: green;"></i> 40 <b>Pacientes</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                            style="color: green;"></i> 40 <b>Consultas</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                            style="color: green;"></i> 80 <b>Exámenes</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                            style="color: green;"></i> 80 <b>Estudios</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x"
+                                                            style="color: red;"></i> <b
+                                                            style="text-decoration: line-through;">Estudios con
+                                                            videos</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x"
+                                                            style="color: red;"></i> <b
+                                                            style="text-decoration: line-through;">Consultas en IA</b>
+                                                    </li>
                                                 </ul>
                                             </diV>
                                             <div id="ilimitado" style="display: none">
                                                 <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>Pacientes</b> Ilimitados</li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>Consultas</b> Ilimitados</li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>Exámenes</b> Ilimitados</li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>Estudios</b> Ilimitados</li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 0.10 por Gb <b>Estudios con videos</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 300 <b>Consultas en IA</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                            style="color: green;"></i> <b>Pacientes</b> Ilimitados</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                            style="color: green;"></i> <b>Consultas</b> Ilimitados</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                            style="color: green;"></i> <b>Exámenes</b> Ilimitados</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                            style="color: green;"></i> <b>Estudios</b> Ilimitados</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                            style="color: green;"></i> 0.10 por Gb <b>Estudios con
+                                                            videos</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                            style="color: green;"></i> 300 <b>Consultas en IA</b></li>
                                                 </ul>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="nombre">
+                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3"
+                                            id="nombre">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
-                                                    <input readonly autocomplete="off"
-                                                        class="form-control mask-text"
+                                                    <input readonly autocomplete="off" class="form-control mask-text"
                                                         id="name" name="name" type="text"
-                                                        value="{{Auth::user()->name}}">                                                                
+                                                        value="{{ Auth::user()->name }}">
                                                     <i class="bi bi-person-circle st-icon"></i>
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="apellidos">
+                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3"
+                                            id="apellidos">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
-                                                    <input  readonly autocomplete="off"
-                                                        class="form-control mask-text"
-                                                        id="last_name" name="last_name" type="text" value="{{Auth::user()->last_name}}">
+                                                    <input readonly autocomplete="off" class="form-control mask-text"
+                                                        id="last_name" name="last_name" type="text"
+                                                        value="{{ Auth::user()->last_name }}">
                                                     <i class="bi bi-person-circle st-icon"></i>
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="cedula">
+                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3"
+                                            id="cedula">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">C.I</label>
-                                                    <input readonly autocomplete="off" class="form-control" id="number_id"
-                                                        name="number_id" type="text" value="{{Auth::user()->ci}}">
+                                                    <input readonly autocomplete="off" class="form-control"
+                                                        id="number_id" name="number_id" type="text"
+                                                        value="{{ Auth::user()->ci }}">
                                                     <i class="bi bi-person-vcard-fill st-icon"></i>
                                                 </div>
                                             </diV>
                                         </div>
-    
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="empresa" style="display: none">
+
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                            id="empresa" style="display: none">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon social</label>
-                                                    <input readonly autocomplete="off" class="form-control" id="business_name"
-                                                        name="business_name" type="text" value="{{Auth::user()->business_name}}">
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon
+                                                        social</label>
+                                                    <input readonly autocomplete="off" class="form-control"
+                                                        id="business_name" name="business_name" type="text"
+                                                        value="{{ Auth::user()->business_name }}">
                                                     <i class="bi bi-person-vcard-fill st-icon"></i>
                                                 </div>
                                             </diV>
                                         </div>
-                                        
-    
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3" id="tipo_rif" style="display: none">
+
+
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3" id="tipo_rif"
+                                            style="display: none">
                                             <div class="form-group">
                                                 <label for="name" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Tipo
                                                     de documento</label>
-                                                <select  readonly onchange="handlerTypeDoc(event)" name="type_rif_pay"
+                                                <select readonly onchange="handlerTypeDoc(event)" name="type_rif_pay"
                                                     id="type_rif_pay" class="form-control">
                                                     <option value="">Seleccione</option>
                                                     <option value="F-">Firma personal</option>
@@ -612,40 +663,43 @@
                                                 </select>
                                             </div>
                                         </div>
-    
-                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3" id="Rif" style="display: none">
+
+                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3" id="Rif"
+                                            style="display: none">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
                                                         de Identificación o RIF</label>
                                                     <input readonly autocomplete="off" placeholder=""
-                                                        class="form-control mask-rif"
-                                                        id="rif_pay" name="rif_pay" type="text" maxlength="17"
+                                                        class="form-control mask-rif" id="rif_pay" name="rif_pay"
+                                                        type="text" maxlength="17"
                                                         value="{!! !empty(Auth::user()->get_laboratorio != null) ? Auth::user()->get_laboratorio->rif : '' !!}">
                                                     <i class="bi bi-person-vcard" style="top: 30px"></i>
                                                 </div>
                                             </diV>
                                         </div>
-    
+
                                         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
                                                         eléctronico</label>
-                                                    <input readonly  autocomplete="off" class="form-control" id="email" name="email"
-                                                        type="text" value="{{Auth::user()->email}}">
+                                                    <input readonly autocomplete="off" class="form-control"
+                                                        id="email" name="email" type="text"
+                                                        value="{{ Auth::user()->email }}">
                                                     <i class="bi bi-envelope-ats st-icon"></i>
                                                 </div>
                                             </diV>
                                         </div>
-    
+
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="methodo_payment" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Método de
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Método
+                                                        de
                                                         pago</label>
                                                     <select name="methodo_payment" id="methodo_payment"
                                                         placeholder="Seleccione"class="form-control"
@@ -666,27 +720,27 @@
                                                 style="display: flex; align-items: center;
                                             justify-content: flex-end; text-align: end; padding-right: 0">
                                                 <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                    <img class="logo-bank" src="{{ asset('img/mercantil-icon.jpg') }}"
-                                                        alt="">
+                                                    <img class="logo-bank"
+                                                        src="{{ asset('img/mercantil-icon.jpg') }}" alt="">
                                                 </div>
                                                 <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
                                                     <img class="logo-bank" src="{{ asset('img/banesco-icon.png') }}"
                                                         alt="">
                                                 </div>
-    
-    
+
+
                                                 <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
                                                     <img class="logo-bank" src="{{ asset('img/zelle-icon.png') }}"
                                                         alt="">
                                                 </div>
-    
+
                                                 <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
                                                     <img class="logo-bank" src="{{ asset('img/bdv-icon.png') }}"
                                                         alt="">
                                                 </div>
                                                 <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                    <img class="logo-bank" src="{{ asset('img/bancamiga-icon.png') }}"
-                                                        alt="">
+                                                    <img class="logo-bank"
+                                                        src="{{ asset('img/bancamiga-icon.png') }}" alt="">
                                                 </div>
                                             </div>
                                         </div>
@@ -694,7 +748,8 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número de
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
+                                                        de
                                                         tarjeta</label>
                                                     <input autocomplete="off" class="form-control" id="number_card"
                                                         name="number_card" type="text" value="">
@@ -706,7 +761,8 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Código de
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Código
+                                                        de
                                                         tarjeta</label>
                                                     <input autocomplete="off" class="form-control" id="code_card"
                                                         name="code_card" type="text" value="">
@@ -719,8 +775,8 @@
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Monto</label>
-                                                    <input readonly autocomplete="off" class="form-control" id="amount"
-                                                        name="amount" type="text" value="">
+                                                    <input readonly autocomplete="off" class="form-control"
+                                                        id="amount" name="amount" type="text" value="">
                                                     <i class="bi bi-currency-dollar st-icon"></i>
                                                 </div>
                                             </diV>
@@ -730,8 +786,8 @@
                                     <div class="d-flex justify-content-center">
                                         <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-3 mb-3"
                                             style="display: flex; justify-content: center;">
-                                            <input class="btn btnSave send " value="Adquiere tu plan"
-                                                type="submit" style="margin-left: 20px" />
+                                            <input class="btn btnSave send " value="Adquiere tu plan" type="submit"
+                                                style="margin-left: 20px" />
                                         </div>
                                     </div>
                                     {{ Form::close() }}

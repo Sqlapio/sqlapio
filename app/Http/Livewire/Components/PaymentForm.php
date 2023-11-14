@@ -6,14 +6,16 @@ use Illuminate\Http\Request;
 use Livewire\Component;
 use Illuminate\Support\Facades\Validator;
 use App\Models\BilledPlan;
+use App\Models\Laboratory;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentForm extends Component
 {
 
 
-    public function pay_plan(Request $request) 
+    public function pay_plan(Request $request)
     {
         try {
 
@@ -48,7 +50,10 @@ class PaymentForm extends Component
                 /**
                  * Asignar rol al usuario
                  */
-                
+
+                 $date_today = Carbon::createFromFormat('Y-m-d', date('Y-m-d'));
+                 $date_today = $date_today->addDay(30)->format('Y-m-d');
+
                 if($request->type_plan == '1' || $request->type_plan == '2' || $request->type_plan == '3')
                 {
                     $rol = 'medico';
@@ -59,6 +64,7 @@ class PaymentForm extends Component
                     $user->email = $request->email;
                     $user->type_plane = $request->type_plan;
                     $user->role = $rol;
+                    $user->date_end_plan = $date_today;
                     $user->save();
 
                 }
@@ -71,7 +77,19 @@ class PaymentForm extends Component
                     $user->email = $request->email;
                     $user->type_plane = $request->type_plan;
                     $user->role = $rol;
+                    $user->date_end_plan = $date_today;
                     $user->save();
+
+                    /**
+                     * Solicitamos el id del laboratorio
+                     * para almacenar en la tabla laboratorios
+                     */
+                    Laboratory::create([
+                        'user_id'           => $user->id,
+                        'business_name' 	=> $request->business_name,
+                        'rif' 	            => $request->rif,
+                        'email' 			=> $request->email,
+                    ]);
 
                 }
 
@@ -94,7 +112,7 @@ class PaymentForm extends Component
 
 
             }else{
-                
+
                 return response()->json([
                     'error' => 'true',
                     'errors'  => 'No se pudo realizar el pago, por favor intente mas tarde'
@@ -107,7 +125,7 @@ class PaymentForm extends Component
 
     }
 
-    public function pay_plan_renew(Request $request) 
+    public function pay_plan_renew(Request $request)
     {
         $user = Auth::user();
 
@@ -131,7 +149,7 @@ class PaymentForm extends Component
             'success' => 'true',
             'mjs'  => 'Su plan fue renovado con éxito',
         ], 200);
-        
+
     }
 
     public function render($type_plan)

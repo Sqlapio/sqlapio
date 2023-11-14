@@ -265,7 +265,9 @@
         </table>
     </div>
     <br>
-    <br>
+    @if(strlen($MedicalRecord->background)>2000)
+        <div style="page-break-after:always;"></div>
+    @endif
     <div>
         <table class="table-info-pat">
             <thead>
@@ -288,7 +290,9 @@
         </table>
     </div>
     <br>
-    <br>
+    @if(strlen($MedicalRecord->razon)>1000)
+    <div style="page-break-after:always;"></div>
+    @endif
     <div>
         <table class="table-info-pat">
             <thead>
@@ -312,6 +316,9 @@
     </div>
     <br>
     <br>
+    @if(strlen($MedicalRecord->diagnosis)>2000)
+    <div style="page-break-after:always;"></div>
+    @endif
     <div>
         <table class="table-info-pat">
             <thead>
