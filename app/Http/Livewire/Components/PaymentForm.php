@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\BilledPlan;
 use App\Models\Laboratory;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentForm extends Component
@@ -60,6 +61,7 @@ class PaymentForm extends Component
                     $user->email = $request->email;
                     $user->type_plane = $request->type_plan;
                     $user->role = $rol;
+                    $user->date_end_plan = Carbon::now()->addDay(30);
                     $user->save();
 
                 }
@@ -72,6 +74,7 @@ class PaymentForm extends Component
                     $user->email = $request->email;
                     $user->type_plane = $request->type_plan;
                     $user->role = $rol;
+                    $user->date_end_plan = Carbon::now()->addDay(30);
                     $user->save();
 
                     /**
