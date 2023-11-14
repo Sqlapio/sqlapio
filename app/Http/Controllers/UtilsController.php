@@ -1362,6 +1362,21 @@ class UtilsController extends Controller
 		}
 	}
 
+    static function get_counter()
+	{
+		try {
+
+			$user_patient_counter = Auth::user()->patient_counter;
+            return $user_patient_counter;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.total_studies()', $message);
+		}
+	}
+
+
+
 
 
 
