@@ -237,7 +237,7 @@
         <div class="accordion" id="accordionExample">
             {{-- datos del paciente --}}
             <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" style="margin-top: 20px;">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd"  style="margin-top: 20px; margin-bottom: 20px">
                     <div class="accordion-item">
                         <span class="accordion-header title" id="headingOne">
                             <button class="accordion-button bg-7" type="button" data-bs-toggle="collapse"
