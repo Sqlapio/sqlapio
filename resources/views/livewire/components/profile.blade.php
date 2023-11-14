@@ -218,7 +218,9 @@
                     $('#city').val(user.get_laboratorio.city).change();
                     $('#type_laboratory').val(user.get_laboratorio.type_laboratory).change();
                     $('#type_rif').val(user.get_laboratorio.rif[0] + "-").change();
-                    $('#rif').val(user.get_laboratorio.rif);
+                    setTimeout(() => {                        
+                        $('#rif').val(user.get_laboratorio.rif);
+                    }, 10);
                 }
             }
 

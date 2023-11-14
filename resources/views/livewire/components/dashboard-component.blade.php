@@ -1,6 +1,6 @@
 @extends('layouts.app-auth')
 @section('title', 'Tablero')
-@vite(['resources/js/graphicCountAll.js', 'resources/js/dairy.js','resources/js/graphic_laboratory_coun_study.js','resources/js/graphic_laboratory_coun_exam.js'])
+@vite(['resources/js/graphicCountAll.js', 'resources/js/dairy.js', 'resources/js/graphic_laboratory_coun_study.js', 'resources/js/graphic_laboratory_coun_exam.js'])
 <style>
     .mt-gf {
         margin-top: 3rem !important;
@@ -41,27 +41,27 @@
             get_genere(boy_girl, teen);
             get_general(elderly, adult);
             get_study(count_study),
-            get_examen(count_examen),
-            //validar formulario
-            $('#form-load-img').validate({
-                ignore: [],
-                rules: {
-                    img: {
-                        required: true,
+                get_examen(count_examen),
+                //validar formulario
+                $('#form-load-img').validate({
+                    ignore: [],
+                    rules: {
+                        img: {
+                            required: true,
+                        },
+                        count: {
+                            required: true,
+                        }
                     },
-                    count: {
-                        required: true,
+                    messages: {
+                        img: {
+                            required: 'Debe cargar un Archivo',
+                        },
+                        count: {
+                            required: 'Debe selecionar un resultado',
+                        }
                     }
-                },
-                messages: {
-                    img: {
-                        required: 'Debe cargar un Archivo',
-                    },
-                    count: {
-                        required: 'Debe selecionar un resultado',
-                    }
-                }
-            });
+                });
 
             //envio del formulario
             $("#form-load-img").submit(function(event) {
@@ -553,13 +553,7 @@
                                                             <td class="text-center td-pad">
                                                                 {{ $item['extendedProps']['center'] }}</td>
                                                             <td class="text-center td-pad">
-                                                                @if ($item['extendedProps']['confirmation'] != 0)
-                                                                    <span
-                                                                        class="badge rounded-pill bg-success">Confimada</span>
-                                                                @else
-                                                                    <span class="badge rounded-pill bg-secondary">Sin
-                                                                        confirmar</span>
-                                                                @endif
+                                                                <span class="badge rounded-pill bg-{{$item['extendedProps']['status_class'] }}">{{$item['extendedProps']['status'] }}</span>
                                                             </td>
                                                             <td>
                                                                 <div class="d-flex" style="justify-content: center;">
@@ -700,7 +694,7 @@
                                                     <canvas id="countExamenes"></canvas>
                                                 </div>
                                             </div>
-                                        </div>                                       
+                                        </div>
                                     </div>
                                 </div>
                             </div>

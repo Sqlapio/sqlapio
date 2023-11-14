@@ -29,7 +29,8 @@ class DatabaseSeeder extends Seeder
             ExamsList::class,
             StudiesList::class,
             ProfessionList::class,
-            PlansList::class
+            PlansList::class,
+            StatusDairyList::class
         ]);
 
     }

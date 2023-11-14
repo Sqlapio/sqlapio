@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Components;
 use App\Http\Controllers\ActivityLogController;
 use App\Models\Specialty;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -72,7 +73,7 @@ class Login extends Component {
 
 						$user = Auth::user();
 						$status_register = $user->status_register;
-						$speciality = Specialty::all();
+						$speciality = Specialty::all();                       
 
 						// Redireccion segun status de registro
 						if ($status_register == '1') {
