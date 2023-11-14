@@ -74,6 +74,8 @@ Route::get('/paciente/verify/{verification_code}', [UtilsController::class, 'pat
  */
 Route::get('/confirmation/dairy/{code}', [UtilsController::class, 'confirmation_dairy']);
 
+ // planes
+ Route::post('/pay-plan-renew', [PaymentForm::class, 'pay_plan_renew'])->name("pay-plan-renew")->middleware(['auth','VerifySelloDigital', 'verify_email', 'VerifyPlans']);;
 
 Route::middleware(['auth','VerifyPlanExpiredPlan'])->group(function () {
 
@@ -115,9 +117,7 @@ Route::middleware(['auth','VerifyPlanExpiredPlan'])->group(function () {
             Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp')->middleware(['VerifySelloDigital', 'verify_email', 'VerifyPlans']);
             Route::post('/create-seal', [Profile::class, 'create_seal'])->name('create_seal');
             Route::get('/auth/setting/profile', [Profile::class, 'render'])->name('Profile');
-            Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');
-            // planes
-            Route::post('/pay-plan-renew', [PaymentForm::class, 'pay_plan_renew'])->name("pay-plan-renew");
+            Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');          
 
         });
 
@@ -163,10 +163,7 @@ Route::middleware(['auth','VerifyPlanExpiredPlan'])->group(function () {
      */
     Route::get('/get_medical_record/{id}', [UtilsController::class, 'get_medical_record_user'])->name('get_medical_record_user');
 
-    /**
-     * Logout
-     */
-    Route::get('/logout', [Login::class, 'logout'])->name('logout');
+   
 
     /**
      * @method PDF
@@ -241,3 +238,8 @@ Route::group(array('prefix' => 'public'), function () {
     Route::get('/payment-form/{type_plan}', [PaymentForm::class, 'render'])->name("payment-form");
     Route::post('/pay-plan', [PaymentForm::class, 'pay_plan'])->name("pay-plan");
 });
+
+ /**
+     * Logout
+     */
+    Route::get('/logout', [Login::class, 'logout'])->name('logout');

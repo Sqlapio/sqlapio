@@ -52,7 +52,7 @@ class PaymentForm extends Component
                  */
 
                  $date_today = Carbon::createFromFormat('Y-m-d', date('Y-m-d'));
-                 $date_today->addDay(30)->format('Y-m-d');
+                 $date_today = $date_today->addDay(30)->format('Y-m-d');
 
                 if($request->type_plan == '1' || $request->type_plan == '2' || $request->type_plan == '3')
                 {
