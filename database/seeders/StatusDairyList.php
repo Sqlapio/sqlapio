@@ -19,7 +19,7 @@ class StatusDairyList extends Seeder
 
             [
                 'description' => 'Sin confirmar',
-                'class' => 'secundary',
+                'class' => 'secondary',
 
 
             ],
