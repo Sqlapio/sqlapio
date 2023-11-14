@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Livewire\Component;
 use Illuminate\Support\Facades\Validator;
 use App\Models\BilledPlan;
+use App\Models\Laboratory;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
