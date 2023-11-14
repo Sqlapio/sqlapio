@@ -134,18 +134,6 @@ class Register extends Component {
 					'verification_code' => Str::random(30)
 				]);
 
-				/**
-				 * Solicitamos el id del laboratorio
-				 * para almacenar en la tabla laboratorios
-				 */
-				$laboratory = User::where('email', $request->email)->first();
-				Laboratory::create([
-					'user_id'			=> $laboratory->id,
-					'business_name' 	=> $request->business_name,
-                    'rif' 	            => $request->rif,
-					'email' 			=> $request->email,
-				]);
-
 			/**
 			 * Registro de accion en el log
 			 * del sistema

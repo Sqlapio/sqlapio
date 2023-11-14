@@ -13,7 +13,7 @@ class PaymentForm extends Component
 {
 
 
-    public function pay_plan(Request $request) 
+    public function pay_plan(Request $request)
     {
         try {
 
@@ -48,7 +48,7 @@ class PaymentForm extends Component
                 /**
                  * Asignar rol al usuario
                  */
-                
+
                 if($request->type_plan == '1' || $request->type_plan == '2' || $request->type_plan == '3')
                 {
                     $rol = 'medico';
@@ -73,6 +73,17 @@ class PaymentForm extends Component
                     $user->role = $rol;
                     $user->save();
 
+                    /**
+                     * Solicitamos el id del laboratorio
+                     * para almacenar en la tabla laboratorios
+                     */
+                    Laboratory::create([
+                        'user_id'           => $user->id,
+                        'business_name' 	=> $request->business_name,
+                        'rif' 	            => $request->rif,
+                        'email' 			=> $request->email,
+                    ]);
+
                 }
 
 
@@ -94,7 +105,7 @@ class PaymentForm extends Component
 
 
             }else{
-                
+
                 return response()->json([
                     'error' => 'true',
                     'errors'  => 'No se pudo realizar el pago, por favor intente mas tarde'
@@ -107,7 +118,7 @@ class PaymentForm extends Component
 
     }
 
-    public function pay_plan_renew(Request $request) 
+    public function pay_plan_renew(Request $request)
     {
         $user = Auth::user();
 
@@ -131,7 +142,7 @@ class PaymentForm extends Component
             'success' => 'true',
             'mjs'  => 'Su plan fue renovado con éxito',
         ], 200);
-        
+
     }
 
     public function render($type_plan)
