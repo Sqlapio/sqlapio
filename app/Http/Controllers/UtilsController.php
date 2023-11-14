@@ -266,8 +266,51 @@ class UtilsController extends Controller
 	{
 		try {
 			$appointments = Appointment::where('user_id', $id)
-                ->where('date_start', date('Y-m-d'))
 				->where('status', 1)->get();
+			$data = [];
+			foreach ($appointments as $key => $val) {
+				$data[$key] = [
+					'id' => $val->id,
+					'title' => substr($val->hour_start, 2) . "," . $val->get_patients->name . "," . $val->get_patients->last_name,
+					'start' => date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 0, -9),
+					'end' =>  date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 6, -3),
+					// 'allDay'=> true,
+					'rendering' => 'background',
+					'color' => $val->color,
+					'extendedProps' => [
+						'id' =>  $val->id,
+						'price' => $val->price,
+						'confirmation' => $val->confirmation,
+						'phone' => $val->get_patients->is_minor== "true" ? $val->get_patients->get_reprensetative->re_phone. '  (Rep)' : $val->get_patients->phone,
+						'name' => $val->get_patients->name,
+						'last_name' => $val->get_patients->last_name,
+						'ci' => $val->get_patients->is_minor== "true" ? $val->get_patients->get_reprensetative->re_ci. '  (Rep)' :$val->get_patients->ci,
+						'email' => $val->get_patients->is_minor== "true" ? $val->get_patients->get_reprensetative->re_email. '  (Rep)':$val->get_patients->email,
+						'genere' => $val->get_patients->genere,
+						'age' =>  $val->get_patients->age,
+						'patient_id' =>  $val->get_patients->id,
+						'center_id' =>  $val->center_id,
+						'center' =>  $val->get_center->description,
+						'data' => substr($val->hour_start, 0, -3),
+						'img' => $val->get_patients->patient_img,
+						'data_app' => $val->date_start,
+						'time_zone_start' => substr($val->hour_start, 12),
+					],
+				];
+			}
+			return $data;
+			//code...
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_appointments()', $message);
+		}
+	}
+
+    static function get_appointments_dashboard($id)
+	{
+		try {
+			$appointments = Appointment::where('user_id', $id)
+                ->where('date_start', date('Y-m-d'))->get();
 			$data = [];
 			foreach ($appointments as $key => $val) {
 				$data[$key] = [
