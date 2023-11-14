@@ -384,8 +384,9 @@ class Patients extends Component
             $action = '5';
             ActivityLogController::store_log($action);
 
-            /** Retorna el contador de pacientes registrador por el usuario */
+            /** Retorna el contador de pacientes registrador por el usuarios */
             $patient_counter = UtilsController::get_counter();
+            $patient_counter = $patient_counter + 1;
 
             return [$patient, $patient_counter];
 
