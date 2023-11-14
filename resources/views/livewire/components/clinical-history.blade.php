@@ -1325,7 +1325,7 @@
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Peso
-                                                        (Kg)</label>
+                                                        (0 - 300 kg)</label>
                                                     <input autocomplete="off"
                                                         class="mask-input form-control @error('weight') is-invalid @enderror"
                                                         id="weight" name="weight" type="text"
@@ -1340,7 +1340,7 @@
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Altura
-                                                        (Cm)</label>
+                                                        (0 - 250 Cm)</label>
                                                     <input autocomplete="off"
                                                         class="mask-input-height form-control @error('height') is-invalid @enderror"
                                                         id="height" name="height" type="text"
@@ -1360,7 +1360,7 @@
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <label for="phone" class="form-label"
                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Presión
-                                                arterial (mmHg)</label>
+                                                arterial (Alta 50 - 250 , Baja 30 - 150 mmHg)</label>
                                             <div class="input-group">
                                                 <input type="text" name="strain" id="strain"
                                                     class="form-control  mask-input-two input-one" placeholder="Alta"
@@ -1378,7 +1378,7 @@
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tempetura
-                                                        (°C)</label>
+                                                        (34 - 42 °C)</label>
                                                     <input autocomplete="off"
                                                         class="mask-only-temperature form-control @error('temperature') is-invalid @enderror"
                                                         id="temperature" name="temperature" type="text"
@@ -1393,7 +1393,7 @@
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Respiraciones
-                                                        (por minuto)</label>
+                                                        (12 - 30 por minuto)</label>
                                                     <input autocomplete="off"
                                                         class="mask-only-breaths form-control @error('breaths') is-invalid @enderror"
                                                         onchange="handlerValidate(event,'breaths');" id="breaths"
@@ -1408,7 +1408,7 @@
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Pulso
-                                                        (Latidos por minuto)</label>
+                                                        (40 - 200 Latidos por minuto)</label>
                                                     <input autocomplete="off"
                                                         class="mask-only-number form-control @error('pulse') is-invalid @enderror"
                                                         onchange="handlerValidate(event,'pulse');" id="pulse"
@@ -1423,7 +1423,7 @@
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Saturación
-                                                        (%)</label>
+                                                        (70 - 100 %)</label>
                                                     <input autocomplete="off"
                                                         class="mask-input-por form-control @error('saturation') is-invalid @enderror"
                                                         id="saturation" name="saturation" type="text"
