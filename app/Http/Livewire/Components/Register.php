@@ -142,6 +142,7 @@ class Register extends Component {
 				Laboratory::create([
 					'user_id'			=> $laboratory->id,
 					'business_name' 	=> $request->business_name,
+                    'rif' 	            => $request->rif,
 					'email' 			=> $request->email,
 				]);
 
