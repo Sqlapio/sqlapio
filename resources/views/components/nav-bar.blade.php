@@ -219,7 +219,7 @@
         }
 
         .nav-menu {
-            margin-left: 63px;
+            margin-left: 55px;
         }
     }
 
@@ -264,6 +264,7 @@
         .strong {
             color: white;
             width: 175px;
+            font-size: 14px;
         }
 
         .logo-sql {
