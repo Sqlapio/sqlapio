@@ -339,6 +339,7 @@ class UtilsController extends Controller
 						'img' => $val->get_patients->patient_img,
 						'data_app' => $val->date_start,
 						'time_zone_start' => substr($val->hour_start, 12),
+						'status' => $val->status,
 					],
 				];
 			}

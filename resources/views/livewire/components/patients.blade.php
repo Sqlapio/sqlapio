@@ -90,12 +90,12 @@
         let status = "";
         let url = "{{ route('MedicalRecord', ':id') }}";
         let urlhist = "{{ route('ClinicalHistoryDetail', ':id') }}";
+        let path = "{{ route('verify-plans') }}";
 
         $(document).ready(() => {
 
             switch (Number(user.type_plane)) {
                 case 1:
-                    console.log(user.patient_counter);
                     if (Number(user.patient_counter) >= 10) {
                         $('#content-patient').hide();
                         $('#paciente-registrado').hide();
@@ -104,7 +104,7 @@
                     }
                     break;
                 case 2:
-                if (Number(user.patient_counter) >= 40) {
+                    if (Number(user.patient_counter) >= 40) {
                         $('#content-patient').hide();
                         $('#paciente-registrado').hide();
                         $('#paciente-warnig').show();
@@ -320,13 +320,15 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
-                                url = url.replace(':id', response.id);
+                                url = url.replace(':id', response[0].id);
                                 $("#bnt-cons").show();
                                 $("#bnt-cons").find('a').remove();
                                 $("#bnt-cons").append(
                                     `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`
                                 );
                                 $('#send').show().attr('disabled', true);
+
+                                switch_type_plane(user.type_plane, response[1]);
                             });
                         },
                         error: function(error) {
@@ -665,6 +667,41 @@
 
             $(".date-bd").attr('max', year + "-" + month + "-" + day);
         });
+
+        function switch_type_plane(type_plane, count_pat) {
+
+            switch (Number(type_plane)) {
+                case 1:
+                    if (Number(count_pat) >= 10) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'A consumido el total de pacientes registrado!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            window.location.href = path;
+                        });
+                    }
+                    break;
+                case 2:
+                    if (Number(count_pat) >= 40) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'A consumido el total de pacientes registrado !',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            window.location.href = path;
+                        });
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
     </script>
 @endpush
 @section('content')
@@ -687,13 +724,25 @@
                             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row mt-3" id="paciente-warnig" style="display: none">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <h1>Limite de pacientes registrados</h1>
-                                        </div>
-                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-3">
-                                            <a style="margin-top: 2px;" href="{{route('verify-plans')}}"
-                                                class="btn btnSecond">Pagar plan</a>
+                                    <div class="row mt-3 justify-content-center" id="paciente-warnig" style="display: none">
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">                                            
+                                            <div class="card" style="width: 18rem;">
+                                                <div class="card-body">
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">                                            
+                                                            <h5 class="card-title">A consumido el total de pacientes registrados!</h5>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">                                            
+                                                            <img width="150" height="auto"
+                                                            src="{{ asset('/img/icon-warning.png') }}" alt="avatar">
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">                                            
+                                                            <a style="margin-top: 2px;" href="{{ route('verify-plans') }}"
+                                                            class="btn btnSecond">Detalles del plan</a>
+                                                        </div>
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row mt-3" id="paciente-registrado">
