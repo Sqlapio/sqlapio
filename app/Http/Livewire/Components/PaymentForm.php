@@ -51,6 +51,9 @@ class PaymentForm extends Component
                  * Asignar rol al usuario
                  */
 
+                 $date_today = Carbon::createFromFormat('Y-m-d', date('Y-m-d'));
+                 $date_today->addDay(30)->format('Y-m-d');
+
                 if($request->type_plan == '1' || $request->type_plan == '2' || $request->type_plan == '3')
                 {
                     $rol = 'medico';
@@ -61,7 +64,7 @@ class PaymentForm extends Component
                     $user->email = $request->email;
                     $user->type_plane = $request->type_plan;
                     $user->role = $rol;
-                    $user->date_end_plan = Carbon::now()->addDay(30);
+                    $user->date_end_plan = $date_today;
                     $user->save();
 
                 }
@@ -74,7 +77,7 @@ class PaymentForm extends Component
                     $user->email = $request->email;
                     $user->type_plane = $request->type_plan;
                     $user->role = $rol;
-                    $user->date_end_plan = Carbon::now()->addDay(30);
+                    $user->date_end_plan = $date_today;
                     $user->save();
 
                     /**
