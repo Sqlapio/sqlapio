@@ -135,6 +135,7 @@
 
             $('#form-patients').validate({
                 rules: {
+                    ignore: [],
                     name: {
                         required: true,
                         minlength: 3,
@@ -298,6 +299,7 @@
                 event.preventDefault();
                 $("#form-patients").validate();
                 if ($("#form-patients").valid()) {
+                    $('#btn-save').attr('disabled', true);
                     $('#send').hide();
                     $('#spinner2').show();
                     var data = $('#form-patients').serialize();
@@ -326,7 +328,6 @@
                                 $("#bnt-cons").append(
                                     `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`
                                 );
-                                $('#send').show().attr('disabled', true);
 
                                 switch_type_plane(user.type_plane, response[1]);
                             });
@@ -340,7 +341,7 @@
                                     confirmButtonColor: '#42ABE2',
                                     confirmButtonText: 'Aceptar'
                                 }).then((result) => {
-                                    $('#send').show().attr('disabled', true);;
+                                    $('#btn-save').attr('disabled', false);
                                     $('#spinner2').hide();
                                     $(".holder").hide();
                                 });
@@ -352,51 +353,30 @@
         });
 
         function handlerAge(e) {
-            if (Number($("#age").val()) >= 18) {
-                $("#email").rules('add', {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 50,
-                    email: true
-                });
-                $("#profession").rules('add', {
-                    required: true
-                });
+            if (Number($("#age").val()) >= 18) {          
                 $("#ci").rules('add', {
                     required: true,
                     minlength: 5,
                     maxlength: 8,
                     onlyNumber: true
-                });
-                $("#phone").rules('add', {
-                    required: true
-                });
-                //
+                });               
                 $('#data-rep').hide();
                 $('#is_minor').val(false);
                 $("#profesion-div").show();
                 $("#ci-div").show();
                 $("#email-div").show();
+                $("#div-phone").show();                    
 
             } else {
-                // validar si el nino tienes menos de 8 anos
-                if (Number($("#age").val()) <= 8) {
                     $("#profesion-div").hide();
                     $("#ci-div").hide();
                     $("#email-div").hide();
-                    $("#profession").rules('remove');
-                    $("#phone").rules('remove');
-
-                } else {
-                    $("#profesion-div").show();
-                    $("#ci-div").show();
-                    $("#email-div").show();
-                    //remover valdaciones
-                    $("#email").rules('remove');
-                    $("#profession").rules('remove');
+                    $("#div-phone").hide();                    
+                
+                // validar si el nino tiene menos de 8 anos
+                if (Number($("#age").val()) > 8) {
+                    $("#ci-div").show();                   
                     $("#ci").rules('remove');
-                    $("#phone").rules('remove');
-
                 }
 
                 $('#data-rep').show();
@@ -446,6 +426,8 @@
             $("#form-patients").trigger("reset");
             $('#is_minor').val(false);
             $('#id').val('');
+            $('#btn-save').attr('disabled', false);
+
         }
 
         function handlerPatExit(e) {
@@ -893,7 +875,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                                <div id="div-phone" class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -923,7 +905,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <x-professions />
+                                                    <x-professions />
                                                 <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
                                                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                     <div class="form-group">
@@ -1041,7 +1023,7 @@
                                                         style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
                                                     <div id="bnt-hist"
                                                         style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
-                                                    <input class="btn btnSave send" value="Guardar" type="submit"
+                                                    <input class="btn btnSave send" id="btn-save" value="Guardar" type="submit"
                                                         style="margin-left: 10px; margin-bottom: 10px" />
                                                     <button style="margin-left: 10px; padding: 8px; margin-bottom: 10px"
                                                         type="button" onclick="refreshForm();" class="btn btnSecond"
