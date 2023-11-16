@@ -40,7 +40,7 @@ class Register extends Component {
 			$rules = [
 				'name'      => 'required',
 				'last_name' => 'required',
-				'email'     => 'required',
+				'email'     => 'required|email|unique:users',
 				'password'  => 'required',
 			];
 

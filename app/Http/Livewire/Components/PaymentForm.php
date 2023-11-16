@@ -21,7 +21,7 @@ class PaymentForm extends Component
 
             $rules = [
                 'type_plan'         => 'required',
-                'email'             => 'required',
+                'email'             => 'required|email|unique:users',
             ];
 
             $msj = [
