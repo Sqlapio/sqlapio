@@ -29,8 +29,8 @@ return new class extends Migration
             /**
              * Informacion adicional
              */
-            $table->string('ci')->nullable();
-            $table->string('birthdate')->nullable(); 
+            $table->string('ci')->unique()->nullable();
+            $table->string('birthdate')->nullable();
             $table->string('age')->nullable();
             $table->string('genere')->nullable();
             $table->string('phone')->nullable();
@@ -45,7 +45,7 @@ return new class extends Migration
              * Campos para contar
              * acciones del usuario de acuerdo
              * al plan asignado
-             * 
+             *
             */
             $table->string('type_plane')->nullable();
             $table->string('token')->nullable();

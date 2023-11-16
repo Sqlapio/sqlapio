@@ -19,26 +19,6 @@ class PaymentForm extends Component
     {
         try {
 
-            $rules = [
-                'type_plan'         => 'required',
-                'email'             => 'required|email|unique:users',
-            ];
-
-            $msj = [
-                'type_plan.required' => 'Campo requerido',
-                'email.required'     => 'Campo requerido',
-                'email.unique'       => 'El correo electrónico ya se encuentra registrado. Intente con un nuevo correo',
-            ];
-
-            $validator = Validator::make($request->all(), $rules, $msj);
-
-            if ($validator->fails()) {
-                return response()->json([
-                    'success' => 'false',
-                    'errors'  => $validator->errors()->all()
-                ], 400);
-            }
-
             /**
              * API PASARELA DE PAGO
              * --------------------
@@ -57,6 +37,28 @@ class PaymentForm extends Component
 
                 if($request->type_plan == '1' || $request->type_plan == '2' || $request->type_plan == '3')
                 {
+                    $rules = [
+                        'type_plan'         => 'required',
+                        'number_id'         => 'required|unique:users',
+                        'email'             => 'required|email|unique:users',
+                    ];
+
+                    $msj = [
+                        'type_plan.required' => 'Campo requerido',
+                        'email.required'     => 'Campo requerido',
+                        'email.unique'       => 'El correo electrónico ya se encuentra registrado. Intente con un nuevo correo',
+                        'number_id.unique'   => 'La cédula de identidad ya se encuentra registrado. Intente con una diferente',
+                    ];
+
+                    $validator = Validator::make($request->all(), $rules, $msj);
+
+                    if ($validator->fails()) {
+                        return response()->json([
+                            'success' => 'false',
+                            'errors'  => $validator->errors()->all()
+                        ], 400);
+                    }
+
                     $rol = 'medico';
                     $user = new User();
                     $user->name = $request->name;
@@ -72,6 +74,28 @@ class PaymentForm extends Component
 
                 if($request->type_plan == '4' || $request->type_plan == '5' || $request->type_plan == '6')
                 {
+                    $rules = [
+                        'type_plan'         => 'required',
+                        'rif'               => 'required|unique:laboratories',
+                        'email'             => 'required|email|unique:users',
+                    ];
+
+                    $msj = [
+                        'type_plan.required' => 'Campo requerido',
+                        'email.required'     => 'Campo requerido',
+                        'email.unique'       => 'El correo electrónico ya se encuentra registrado. Intente con un nuevo correo',
+                        'rif.unique'         => 'La RIF ya se encuentra registrado. Intente con una diferente',
+                    ];
+
+                    $validator = Validator::make($request->all(), $rules, $msj);
+
+                    if ($validator->fails()) {
+                        return response()->json([
+                            'success' => 'false',
+                            'errors'  => $validator->errors()->all()
+                        ], 400);
+                    }
+
                     $rol = 'laboratorio';
                     $user = new User();
                     $user->business_name = $request->business_name;
