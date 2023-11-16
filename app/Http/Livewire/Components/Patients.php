@@ -237,7 +237,7 @@ class Patients extends Component
 
                         'name'          => 'required|min:3|max:50',
                         'last_name'     => 'required|min:3|max:50',
-                        'ci'            => 'required|min:5|max:8',
+                        'ci'            => "required|min:5|max:8|unique:patients,ci,$request->id",
                         'email'         => "required|email|unique:patients,email,$request->id",
                         'phone'         => 'required',
                         'profession'    => 'required',
@@ -260,6 +260,7 @@ class Patients extends Component
                     'ci'           => 'Campo requerido',
                     'ci.min'       => 'Su cedula debe ser mayor a 5 caracteres',
                     'ci.max'       => 'Su cedula invalida.',
+                    'ci.unique'       => 'cedula ya se encuentra registrado en el sistema.',
                     'email'        => 'Campo requerido',
                     'email.unique' => 'El correo ya se encuentra registrado en el sistema',
                     'profession'   => 'Campo requerido',

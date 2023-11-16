@@ -59,9 +59,7 @@
     let user = @json(Auth::user());
 
     $(document).ready(() => {
-
-        if(user.type_plane!==Number(1) || user.type_plane!==Number(4) ) $('#renew-btn').hide();
-
+      
         let data_palnes = [{
                 type_plan: 1,
                 description: "Plan - FREE",
@@ -290,6 +288,7 @@
     }
 
     function switch_type_plane(type_plane) {
+        console.log(type_plane);
 
         switch (Number(type_plane)) {
             case 1:
@@ -315,6 +314,9 @@
                 $('#free').show();
                 $('#profesional').hide();
                 $('#ilimitado').hide();
+                ///ocultar botones
+                $('#renew-btn').hide();
+                $('#free-btn').hide();
                 break;
             case 2:
                 $("#type_plan").val(type_plane);
@@ -339,6 +341,9 @@
                 $('#free').hide();
                 $('#profesional').show();
                 $('#ilimitado').hide();
+                ///ocultar botones
+                $('#free-btn').hide();
+                $('#profesional-btn').hide();
                 break;
             case 3:
                 $('#paciente_span').hide();
@@ -353,6 +358,9 @@
                 $('#free').hide();
                 $('#profesional').hide();
                 $('#ilimitado').show();
+                ///ocultar botones
+                $('#free-btn').hide();
+                $('#profesional-btn').hide();
                 break;
             case 4:
                 $("#type_plan").val(type_plane);
@@ -366,6 +374,8 @@
                 $("#empresa").show();
                 $("#tipo_rif").show();
                 $("#Rif").show();
+                $('#renew-btn').hide();
+
                 break;
             case 5:
                 $("#type_plan").val(type_plane);
@@ -401,7 +411,7 @@
 </script>
 <div>
     <div class="row" style="padding: 20px;">
-        <strong>{{ 'Fecha de activación: ' . \Carbon\Carbon::parse(auth()->user()->date_end_plan)->format('d-m-Y') }}</strong>
+        <strong>{{ 'Fecha de activación: ' . \Carbon\Carbon::parse(auth()->user()->date_start_plan)->format('d-m-Y') }}</strong>
         <br>
         <strong
             class="{{ auth()->user()->expired_plan === 1 ? 'text-danger' : '' }} mt-3">{{ 'Fecha de corte: ' . \Carbon\Carbon::parse(auth()->user()->date_end_plan)->format('d-m-Y') }}</strong>
@@ -482,8 +492,8 @@
         </div>
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl--12 mt-3 mb-3"
             style="display: flex; justify-content: flex-end;">
-                <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})"
-                    class="btn btnPrimary" id="renew-btn">Renovar</button>
+            <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})" class="btn btnPrimary"
+                id="renew-btn">Renovar</button>
             <button type="button" onclick="renew_plan(2,{{ Auth::user()->type_plane }})" class="btn btnSecond"
                 style='margin-left: 20px'>Cambiar de plan</button>
         </div>
@@ -520,11 +530,11 @@
                                 <div class="row justify-content-center mt-3" id="planes-content-revew-select">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                         style="display: flex; justify-content: space-around;">
-                                        <button type="button" onclick="handler_renew_plan(1)"
+                                        <button id="free-btn" type="button" onclick="handler_renew_plan(1)"
                                             class="btn btnPrimary">FREE</button>
-                                        <button type="button"
+                                        <button id="profesional-btn" type="button"
                                             onclick="handler_renew_plan(2)"class="btn btnPrimary">PROFESIONAL</button>
-                                        <button type="button"
+                                        <button id="ILIMITADO"-bnt type="button"
                                             onclick="handler_renew_plan(3)"class="btn btnPrimary">ILIMITADO</button>
                                     </div>
                                 </div>
