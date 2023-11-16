@@ -60,6 +60,8 @@
 
     $(document).ready(() => {
 
+        if(user.type_plane!==Number(1) || user.type_plane!==Number(4) ) $('#renew-btn').hide();
+
         let data_palnes = [{
                 type_plan: 1,
                 description: "Plan - FREE",
@@ -399,10 +401,10 @@
 </script>
 <div>
     <div class="row" style="padding: 20px;">
-        @if (auth()->user()->expired_plan === 1)
-            <strong
-                class="text-danger">{{ \Carbon\Carbon::parse(auth()->user()->date_end_plan)->format('d-m-Y') . ' su plan a expirado!' }}</strong>
-        @endif
+        <strong>{{ 'Fecha de activación: ' . \Carbon\Carbon::parse(auth()->user()->date_end_plan)->format('d-m-Y') }}</strong>
+        <br>
+        <strong
+            class="{{ auth()->user()->expired_plan === 1 ? 'text-danger' : '' }} mt-3">{{ 'Fecha de corte: ' . \Carbon\Carbon::parse(auth()->user()->date_end_plan)->format('d-m-Y') }}</strong>
 
         <h2 class="title-card fw-bold tile-planes-dos card-title mt-3"></h2>
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
@@ -480,8 +482,8 @@
         </div>
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl--12 mt-3 mb-3"
             style="display: flex; justify-content: flex-end;">
-            <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})"
-                class="btn btnPrimary">Renovar</button>
+                <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})"
+                    class="btn btnPrimary" id="renew-btn">Renovar</button>
             <button type="button" onclick="renew_plan(2,{{ Auth::user()->type_plane }})" class="btn btnSecond"
                 style='margin-left: 20px'>Cambiar de plan</button>
         </div>

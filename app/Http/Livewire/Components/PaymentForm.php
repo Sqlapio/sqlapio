@@ -39,7 +39,7 @@ class PaymentForm extends Component
                 {
                     $rules = [
                         'type_plan'         => 'required',
-                        'number_id'         => 'required|unique:users',
+                        'ci'         => 'required|unique:users',
                         'email'             => 'required|email|unique:users',
                     ];
 
@@ -47,7 +47,7 @@ class PaymentForm extends Component
                         'type_plan.required' => 'Campo requerido',
                         'email.required'     => 'Campo requerido',
                         'email.unique'       => 'El correo electrónico ya se encuentra registrado. Intente con un nuevo correo',
-                        'number_id.unique'   => 'La cédula de identidad ya se encuentra registrado. Intente con una diferente',
+                        'ci.unique'   => 'La cédula de identidad ya se encuentra registrado. Intente con una diferente',
                     ];
 
                     $validator = Validator::make($request->all(), $rules, $msj);
@@ -63,7 +63,7 @@ class PaymentForm extends Component
                     $user = new User();
                     $user->name = $request->name;
                     $user->last_name = $request->last_name;
-                    $user->ci = $request->number_id;
+                    $user->ci = $request->ci;
                     $user->email = $request->email;
                     $user->type_plane = $request->type_plan;
                     $user->role = $rol;
