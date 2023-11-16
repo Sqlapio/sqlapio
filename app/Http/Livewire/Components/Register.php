@@ -40,7 +40,7 @@ class Register extends Component {
 			$rules = [
 				'name'      => 'required',
 				'last_name' => 'required',
-				'email'     => 'required|email|unique:users',
+				'email'     => 'required|email|unique:users,email,'.$request->email,
 				'password'  => 'required',
 			];
 
@@ -106,7 +106,7 @@ class Register extends Component {
 
 			$rules = [
 				'business_name' => 'required',
-				'email'     	=> 'required|email|unique:users',
+				'email'     	=> 'required|email|unique:users,email,'.$request->email,
 				'password'  	=> 'required',
 			];
 
