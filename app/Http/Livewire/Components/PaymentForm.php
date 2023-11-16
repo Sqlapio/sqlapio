@@ -25,8 +25,9 @@ class PaymentForm extends Component
             ];
 
             $msj = [
-                'type_plan.required'         => 'Campo requerido',
-                'email.required'             => 'Campo requerido',
+                'type_plan.required' => 'Campo requerido',
+                'email.required'     => 'Campo requerido',
+                'email.unique'       => 'El correo electrónico ya se encuentra registrado. Intente con un nuevo correo',
             ];
 
             $validator = Validator::make($request->all(), $rules, $msj);

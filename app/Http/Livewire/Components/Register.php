@@ -48,7 +48,7 @@ class Register extends Component {
 				'name'              => 'Campo requerido',
 				'last_name'         => 'Campo requerido',
 				'email'             => 'Campo requerido',
-				'email.unique'      => 'El email ya se encuentra registrado',
+				'email.unique'       => 'El correo electrónico ya se encuentra registrado. Intente con un nuevo correo',
 				'password'          => 'Campo requerido',
 				'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
 				'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
@@ -106,14 +106,14 @@ class Register extends Component {
 
 			$rules = [
 				'business_name' => 'required',
-				'email'     	=> 'required',
+				'email'     	=> 'required|email|unique:users',
 				'password'  	=> 'required',
 			];
 
 			$msj = [
 				'business_name'     => 'Campo requerido',
 				'email'             => 'Campo requerido',
-				'email.unique'      => 'El email ya se encuentra registrado',
+				'email.unique'       => 'El correo electrónico ya se encuentra registrado. Intente con un nuevo correo',
 				'password'          => 'Campo requerido',
 			];
 
