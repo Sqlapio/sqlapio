@@ -54,6 +54,7 @@ return new class extends Migration
             $table->integer('ref_counter')->default(0)->nullable();
             $table->string('cod_update_email')->nullable();
             $table->string('cod_update_pass')->nullable();
+            $table->string('date_start_plan')->nullable();
             $table->string('date_end_plan')->nullable();
             $table->boolean('expired_plan')->nullable()->default(false);
 
