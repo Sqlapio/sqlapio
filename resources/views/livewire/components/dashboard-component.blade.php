@@ -580,7 +580,7 @@
                                                                             <i class="bi bi-calendar-x"></i>
                                                                         </button>
                                                                     </div>
-                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
+                                                                    {{-- <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
                                                                         style="margin-left: 10px; width: 32px;">
                                                                         <button type="button"
                                                                             class="btn btn-iSecond rounded-circle"
@@ -589,7 +589,7 @@
                                                                             title="Finalizar Cita"
                                                                             onclick="finalizar_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('finalizar_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
                                                                             <i class="bi bi-clipboard-x"></i>
-                                                                    </div>
+                                                                    </div> --}}
                                                             </td>
                                                         </tr>
                                                     @endforeach

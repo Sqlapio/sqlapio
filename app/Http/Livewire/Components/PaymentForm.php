@@ -156,6 +156,9 @@ class PaymentForm extends Component
     {
         $user = Auth::user();
 
+        $date_today = Carbon::createFromFormat('Y-m-d', date('Y-m-d'));
+        $date_today = $date_today->addDay(30)->format('Y-m-d');
+
         $billed_plans = new BilledPlan();
         $billed_plans->user_id = $user->id;
         $billed_plans->type_plan = $request->type_plan;
@@ -168,6 +171,7 @@ class PaymentForm extends Component
             ->update([
                 'type_plane' => $request->type_plan,
                 'date_start_plan' => date('Y-m-d'),
+                'date_end_plan' => $date_today,
                 'patient_counter' => 0,
                 'medical_record_counter' => 0,
                 'ref_counter' => 0,
