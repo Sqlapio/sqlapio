@@ -75,7 +75,7 @@ Route::get('/paciente/verify/{verification_code}', [UtilsController::class, 'pat
 Route::get('/confirmation/dairy/{code}', [UtilsController::class, 'confirmation_dairy']);
 
  // planes
- Route::post('/pay-plan-renew', [PaymentForm::class, 'pay_plan_renew'])->name("pay-plan-renew")->middleware(['auth','VerifySelloDigital', 'verify_email', 'VerifyPlans']);;
+ Route::post('/pay-plan-renew', [PaymentForm::class, 'pay_plan_renew'])->name("pay-plan-renew")->middleware(['auth','VerifySelloDigital', 'verify_email']);
 
 Route::middleware(['auth','VerifyPlanExpiredPlan'])->group(function () {
 
