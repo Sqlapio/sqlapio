@@ -19,25 +19,6 @@ class PaymentForm extends Component
     {
         try {
 
-            $rules = [
-                'type_plan'         => 'required',
-                'email'             => 'required',
-            ];
-
-            $msj = [
-                'type_plan.required'         => 'Campo requerido',
-                'email.required'             => 'Campo requerido',
-            ];
-
-            $validator = Validator::make($request->all(), $rules, $msj);
-
-            if ($validator->fails()) {
-                return response()->json([
-                    'success' => 'false',
-                    'errors'  => $validator->errors()->all()
-                ], 400);
-            }
-
             /**
              * API PASARELA DE PAGO
              * --------------------
@@ -56,14 +37,37 @@ class PaymentForm extends Component
 
                 if($request->type_plan == '1' || $request->type_plan == '2' || $request->type_plan == '3')
                 {
+                    $rules = [
+                        'type_plan'         => 'required',
+                        'ci'         => 'required|unique:users',
+                        'email'             => 'required|email|unique:users',
+                    ];
+
+                    $msj = [
+                        'type_plan.required' => 'Campo requerido',
+                        'email.required'     => 'Campo requerido',
+                        'email.unique'       => 'El correo electrónico ya se encuentra registrado. Intente con un nuevo correo',
+                        'ci.unique'   => 'La cédula de identidad ya se encuentra registrado. Intente con una diferente',
+                    ];
+
+                    $validator = Validator::make($request->all(), $rules, $msj);
+
+                    if ($validator->fails()) {
+                        return response()->json([
+                            'success' => 'false',
+                            'errors'  => $validator->errors()->all()
+                        ], 400);
+                    }
+
                     $rol = 'medico';
                     $user = new User();
                     $user->name = $request->name;
                     $user->last_name = $request->last_name;
-                    $user->ci = $request->number_id;
+                    $user->ci = $request->ci;
                     $user->email = $request->email;
                     $user->type_plane = $request->type_plan;
                     $user->role = $rol;
+                    $user->date_start_plan = date('Y-m-d');
                     $user->date_end_plan = $date_today;
                     $user->save();
 
@@ -71,12 +75,35 @@ class PaymentForm extends Component
 
                 if($request->type_plan == '4' || $request->type_plan == '5' || $request->type_plan == '6')
                 {
+                    $rules = [
+                        'type_plan'         => 'required',
+                        'rif'               => 'required|unique:laboratories',
+                        'email'             => 'required|email|unique:users',
+                    ];
+
+                    $msj = [
+                        'type_plan.required' => 'Campo requerido',
+                        'email.required'     => 'Campo requerido',
+                        'email.unique'       => 'El correo electrónico ya se encuentra registrado. Intente con un nuevo correo',
+                        'rif.unique'         => 'La RIF ya se encuentra registrado. Intente con una diferente',
+                    ];
+
+                    $validator = Validator::make($request->all(), $rules, $msj);
+
+                    if ($validator->fails()) {
+                        return response()->json([
+                            'success' => 'false',
+                            'errors'  => $validator->errors()->all()
+                        ], 400);
+                    }
+
                     $rol = 'laboratorio';
                     $user = new User();
                     $user->business_name = $request->business_name;
                     $user->email = $request->email;
                     $user->type_plane = $request->type_plan;
                     $user->role = $rol;
+                    $user->date_start_plan = $user->date_start_plan = date('Y-m-d');
                     $user->date_end_plan = $date_today;
                     $user->save();
 
@@ -140,6 +167,7 @@ class PaymentForm extends Component
         User::where('id', $user->id)->where('email', $request->email)
             ->update([
                 'type_plane' => $request->type_plan,
+                'date_start_plan' => date('Y-m-d'),
                 'patient_counter' => 0,
                 'medical_record_counter' => 0,
                 'ref_counter' => 0,
