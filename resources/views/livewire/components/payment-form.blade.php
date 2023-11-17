@@ -110,7 +110,7 @@
                     amount: {
                         required: true,
                     },
-                    number_id: {
+                    ci: {
                         required: true,
                         minlength: 3,
                         maxlength: 50,
@@ -153,7 +153,7 @@
                     amount: {
                         required: "Monto es obligatorio",
                     },
-                    number_id: {
+                    ci: {
                         required: "Numero de cedula es obligatorio",
                     },
                     number_card: {
@@ -296,8 +296,8 @@
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">C.I</label>
-                                                <input autocomplete="off" class="form-control" id="number_id"
-                                                    name="number_id" type="text" value="">
+                                                <input autocomplete="off" class="form-control" id="ci"
+                                                    name="ci" type="text" value="">
                                                 <i class="bi bi-person-vcard-fill st-icon"></i>
                                             </div>
                                         </diV>
