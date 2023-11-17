@@ -14,11 +14,13 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
-class Login extends Component {
+class Login extends Component
+{
 
 	public $show;
 
-	public function rules() {
+	public function rules()
+	{
 		$rules = [
 			'username' => 'required|min:3|max:50',
 			'password' => 'required|min:6',
@@ -27,7 +29,8 @@ class Login extends Component {
 		return $rules;
 	}
 
-	public function messages() {
+	public function messages()
+	{
 		$messages = [
 			'username.required' => 'Usuario requerido',
 			'password.required' => 'Contraseña requerida',
@@ -40,14 +43,14 @@ class Login extends Component {
 		return $messages;
 	}
 
-	public function login(Request $request) {
+	public function login(Request $request)
+	{
 
 		$validator = Validator::make($request->all(), $this->rules(), $this->messages());
 
 		if ($validator->fails()) {
 
 			return Redirect::to('/')->withErrors($validator);
-
 		} else {
 
 			try {
@@ -72,24 +75,27 @@ class Login extends Component {
 						ActivityLogController::store_log($action);
 
 						$user = Auth::user();
+
+						// verificar si vlaido el correo
+						if ($user->email_verified_at === null) {
+							return Redirect::to('/')->withErrors('Debe verificar su correo electronico!');
+						}
+		
 						$status_register = $user->status_register;
-						$speciality = Specialty::all();                       
+						$speciality = Specialty::all();
 
 						// Redireccion segun status de registro
 						if ($status_register == '1') {
-							return view('livewire.components.profile', compact('user','speciality'));
-
+							return view('livewire.components.profile', compact('user', 'speciality'));
 						} else {
 
 							return Redirect::route('DashboardComponent');
 						}
 					}
-
 				} else {
 
 					return back()->with('error', 'User created successfully.');
 				}
-
 			} catch (\Throwable $th) {
 				$message = $th->getMessage();
 				return Redirect::to('/')->withErrors('Autenticación incorrecta');
@@ -101,11 +107,12 @@ class Login extends Component {
 	public function logout()
 	{
 		Session::flush();
-        Auth::logout();
-        return redirect('/');
+		Auth::logout();
+		return redirect('/');
 	}
 
-	public function render() {
+	public function render()
+	{
 
 		// dd();
 		$this->show = true;

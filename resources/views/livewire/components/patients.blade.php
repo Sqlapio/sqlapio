@@ -96,14 +96,37 @@
 
             switch (Number(user.type_plane)) {
                 case 1:
+                    if (Number(user.patient_counter) == 5) {
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Su plan esta proximo a vencerse!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
+                    }
                     if (Number(user.patient_counter) >= 10) {
                         $('#content-patient').hide();
                         $('#paciente-registrado').hide();
                         $('#paciente-warnig').show();
                         return false;
                     }
+
                     break;
                 case 2:
+                    if (Number(user.patient_counter) == 35) {
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Su plan esta proximo a vencerse!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
+                    }
                     if (Number(user.patient_counter) >= 40) {
                         $('#content-patient').hide();
                         $('#paciente-registrado').hide();
@@ -353,29 +376,29 @@
         });
 
         function handlerAge(e) {
-            if (Number($("#age").val()) >= 18) {          
+            if (Number($("#age").val()) >= 18) {
                 $("#ci").rules('add', {
                     required: true,
                     minlength: 5,
                     maxlength: 8,
                     onlyNumber: true
-                });               
+                });
                 $('#data-rep').hide();
                 $('#is_minor').val(false);
                 $("#profesion-div").show();
                 $("#ci-div").show();
                 $("#email-div").show();
-                $("#div-phone").show();                    
+                $("#div-phone").show();
 
             } else {
-                    $("#profesion-div").hide();
-                    $("#ci-div").hide();
-                    $("#email-div").hide();
-                    $("#div-phone").hide();                    
-                
+                $("#profesion-div").hide();
+                $("#ci-div").hide();
+                $("#email-div").hide();
+                $("#div-phone").hide();
+
                 // validar si el nino tiene menos de 8 anos
                 if (Number($("#age").val()) > 8) {
-                    $("#ci-div").show();                   
+                    $("#ci-div").show();
                     $("#ci").rules('remove');
                 }
 
@@ -654,6 +677,17 @@
 
             switch (Number(type_plane)) {
                 case 1:
+                    if (Number(count_pat) == 5) {
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Su plan esta proximo a vencerse!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
+                    }
                     if (Number(count_pat) >= 10) {
                         Swal.fire({
                             icon: 'warning',
@@ -667,6 +701,17 @@
                     }
                     break;
                 case 2:
+                    if (Number(count_pat) == 35) {
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Su plan esta proximo a vencerse!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
+                    }
                     if (Number(count_pat) >= 40) {
                         Swal.fire({
                             icon: 'warning',
@@ -707,22 +752,23 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row mt-3 justify-content-center" id="paciente-warnig" style="display: none">
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">                                            
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                             <div class="card" style="width: 18rem;">
                                                 <div class="card-body">
                                                     <div class="row justify-content-center">
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">                                            
-                                                            <h5 class="card-title">A consumido el total de pacientes registrados!</h5>
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                            <h5 class="card-title">A consumido el total de pacientes
+                                                                registrados!</h5>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">                                            
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                             <img width="150" height="auto"
-                                                            src="{{ asset('/img/icon-warning.png') }}" alt="avatar">
+                                                                src="{{ asset('/img/icon-warning.png') }}" alt="avatar">
                                                         </div>
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">                                            
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                             <a style="margin-top: 2px;" href="{{ route('verify-plans') }}"
-                                                            class="btn btnSecond">Detalles del plan</a>
+                                                                class="btn btnSecond">Detalles del plan</a>
                                                         </div>
-                                                    </div>                                                    
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -875,7 +921,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div id="div-phone" class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                                <div id="div-phone"
+                                                    class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -905,7 +952,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                    <x-professions />
+                                                <x-professions />
                                                 <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
                                                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                     <div class="form-group">
@@ -1023,8 +1070,8 @@
                                                         style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
                                                     <div id="bnt-hist"
                                                         style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
-                                                    <input class="btn btnSave send" id="btn-save" value="Guardar" type="submit"
-                                                        style="margin-left: 10px; margin-bottom: 10px" />
+                                                    <input class="btn btnSave send" id="btn-save" value="Guardar"
+                                                        type="submit" style="margin-left: 10px; margin-bottom: 10px" />
                                                     <button style="margin-left: 10px; padding: 8px; margin-bottom: 10px"
                                                         type="button" onclick="refreshForm();" class="btn btnSecond"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
