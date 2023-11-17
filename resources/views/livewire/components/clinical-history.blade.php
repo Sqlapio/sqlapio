@@ -1471,15 +1471,7 @@
                                                     Actual</label>
                                                 <textarea id="current_illness" name="current_illness" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->current_illness : '' !!}</textarea>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                            <div class="form-group">
-                                                <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Estudios
-                                                    realizados</label>
-                                                <textarea id="applied_studies" name="applied_studies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->applied_studies : '' !!}</textarea>
-                                            </div>
-                                        </div>
+                                        </div>                                      
                                         @php
                                             $count_vital_signs = 0;
                                         @endphp
@@ -1512,6 +1504,14 @@
                                                 </div>
                                             </div>
                                         @endforeach
+
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            <div class="form-group">
+                                                <label for="phone" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
+                                                <textarea id="applied_studies" name="applied_studies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->applied_studies : '' !!}</textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row mt-3" style="display: none">
                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
