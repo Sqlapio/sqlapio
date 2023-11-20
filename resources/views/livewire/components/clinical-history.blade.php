@@ -82,7 +82,7 @@
                     applied_studies: {
                         required: true,
                     },
-                    strain: {
+                    strain_two: {
                         required: true
                     },
                     temperature: {
@@ -121,7 +121,7 @@
                         required: "Altura es obligatoria",
                     },
                     applied_studies: {
-                        required: "Estudios realizados es obligatorio"
+                        required: "Observaciones es obligatorio"
                     },
                     countBackFamily: {
                         required: "Debe seleccionar una opción"
@@ -136,10 +136,10 @@
                         required: "Enfermedad Actual es obligatoria",
                     },
                     reason: {
-                        required: "Motivo de  la consulta es obligatoria"
+                        required: "Motivo de la consulta es obligatoria"
                     },
-                    strain: {
-                        required: "Tesión es obligatoria"
+                    strain_two: {
+                        required: "Tensión es obligatoria"
                     },
                     temperature: {
                         required: "Temperatura es obligatoria"
@@ -176,6 +176,12 @@
             $("#form-mecal-histroy").submit(function(event) {
                 event.preventDefault();
                 $("#form-mecal-histroy").validate();
+                if ($("#form-mecal-histroy").validate()) {
+                    $("#collapseOne").collapse('show')
+                    $("#collapseTwo").collapse('show')
+                    $("#collapseThree").collapse('show')
+                    $("#collapseFour").collapse('show')
+                }
                 if ($("#form-mecal-histroy").valid()) {
                     $('#send').hide();
                     $('#spinner').show();
@@ -678,6 +684,8 @@
                     break;
             }
         }
+
+        
     </script>
 @endpush
 @section('content')
@@ -750,6 +758,11 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
+                                        <div style="display: flex">
+                                            <span class="text-warning mt-2"
+                                                style="font-size: 15px;margin-right: 10px;">Debe seleccionar al menos un antecedente</span><i style="font-size:18px; margin-top: 11px"
+                                                class="bi bi-exclamation-triangle st-icon text-warning "></i>
+                                        </div>
                                         @php
                                             $count_back_bamiliy = 0;
                                         @endphp
@@ -763,6 +776,7 @@
                                                     }
                                                 }
                                             @endphp
+                                            
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="floating-label-group">
                                                     <div class="form-check" style="display: flex; ">
@@ -821,6 +835,11 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
+                                        <div style="display: flex">
+                                            <span class="text-warning mt-2"
+                                                style="font-size: 15px;margin-right: 10px;">Debe seleccionar al menos un antecedente</span><i style="font-size:18px; margin-top: 11px"
+                                                class="bi bi-exclamation-triangle st-icon text-warning "></i>
+                                        </div>
                                         @php
                                             $count_dagnosis = 0;
                                         @endphp
@@ -891,6 +910,11 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
+                                        <div style="display: flex">
+                                            <span class="text-warning mt-2"
+                                                style="font-size: 15px;margin-right: 10px;">Debe seleccionar al menos un antecedente</span><i style="font-size:18px; margin-top: 11px"
+                                                class="bi bi-exclamation-triangle st-icon text-warning "></i>
+                                        </div>
                                         @php
                                             $count_notpathologica = 0;
                                         @endphp
@@ -1325,7 +1349,7 @@
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Peso
-                                                        (0 - 300 kg)</label>
+                                                        (0 - 300 kg)*</label>
                                                     <input autocomplete="off"
                                                         class="mask-input form-control @error('weight') is-invalid @enderror"
                                                         id="weight" name="weight" type="text"
@@ -1340,7 +1364,7 @@
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Altura
-                                                        (0 - 250 Cm)</label>
+                                                        (0 - 250 Cm)*</label>
                                                     <input autocomplete="off"
                                                         class="mask-input-height form-control @error('height') is-invalid @enderror"
                                                         id="height" name="height" type="text"
@@ -1360,7 +1384,7 @@
                                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-3">
                                             <label for="phone" class="form-label"
                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Presión
-                                                arterial (Alta 50 - 250 , Baja 30 - 150 mmHg)</label>
+                                                arterial (Alta 50 - 250 , Baja 30 - 150 mmHg)*</label>
                                             <div class="input-group">
                                                 <input type="text" name="strain" id="strain"
                                                     class="form-control  mask-input-two input-one" placeholder="Alta"
@@ -1378,7 +1402,7 @@
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tempetura
-                                                        (34 - 42 °C)</label>
+                                                        (34 - 42 °C)*</label>
                                                     <input autocomplete="off"
                                                         class="mask-only-temperature form-control @error('temperature') is-invalid @enderror"
                                                         id="temperature" name="temperature" type="text"
@@ -1393,7 +1417,7 @@
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Respiraciones
-                                                        (12 - 30 por minuto)</label>
+                                                        (12 - 30 por minuto)*</label>
                                                     <input autocomplete="off"
                                                         class="mask-only-breaths form-control @error('breaths') is-invalid @enderror"
                                                         onchange="handlerValidate(event,'breaths');" id="breaths"
@@ -1408,7 +1432,7 @@
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Pulso
-                                                        (40 - 200 Latidos por minuto)</label>
+                                                        (40 - 200 Latidos por minuto)*</label>
                                                     <input autocomplete="off"
                                                         class="mask-only-number form-control @error('pulse') is-invalid @enderror"
                                                         onchange="handlerValidate(event,'pulse');" id="pulse"
@@ -1423,7 +1447,7 @@
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Saturación
-                                                        (70 - 100 %)</label>
+                                                        (70 - 100 %)*</label>
                                                     <input autocomplete="off"
                                                         class="mask-input-por form-control @error('saturation') is-invalid @enderror"
                                                         id="saturation" name="saturation" type="text"
@@ -1438,7 +1462,7 @@
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Condición
-                                                        general</label>
+                                                        general*</label>
                                                     <select name="condition" id="condition"
                                                         placeholder="Seleccione"class="form-control"
                                                         class="form-control combo-textbox-input">
@@ -1460,7 +1484,7 @@
                                             <div class="form-group">
                                                 <label for="phone" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Motivo
-                                                    de la consulta</label>
+                                                    de la consulta*</label>
                                                 <textarea id="reason" name="reason" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->reason : '' !!}</textarea>
                                             </div>
                                         </div>
@@ -1508,7 +1532,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones*</label>
                                                 <textarea id="applied_studies" name="applied_studies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->applied_studies : '' !!}</textarea>
                                             </div>
                                         </div>
