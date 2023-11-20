@@ -736,10 +736,10 @@
         <div id="spinner2" style="display: none">
             <x-load-spinner show="true" />
         </div>
-        <div class="container-fluid body" style="padding: 3%">
+        <div class="container-fluid body" style="padding: 0 3% 3%">
             <div class="accordion" id="accordion">
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
@@ -752,25 +752,21 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row mt-3 justify-content-center" id="paciente-warnig" style="display: none">
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                            <div class="card" style="width: 18rem;">
-                                                <div class="card-body">
-                                                    <div class="row justify-content-center">
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                            <h5 class="card-title">A consumido el total de pacientes
-                                                                registrados!</h5>
-                                                        </div>
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                            <img width="150" height="auto"
-                                                                src="{{ asset('/img/icon-warning.png') }}" alt="avatar">
-                                                        </div>
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                            <a style="margin-top: 2px;" href="{{ route('verify-plans') }}"
-                                                                class="btn btnSecond">Detalles del plan</a>
-                                                        </div>
-                                                    </div>
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">                                            
+                                            <div class="row justify-content-center">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">                                            
+                                                    <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">A consumido el total de pacientes registrados!</h5>
                                                 </div>
-                                            </div>
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">                                            
+                                                    <img width="150" height="auto"
+                                                    src="{{ asset('/img/icon-warning.png') }}" alt="avatar">
+                                                </div>
+                                            </div>      
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex;
+                                        justify-content: flex-end;">                                            
+                                            <a style="margin-top: 10px;" href="{{ route('verify-plans') }}"
+                                            class="btn btnSecond">Detalles del plan</a>
                                         </div>
                                     </div>
                                     <div class="row mt-3" id="paciente-registrado">
@@ -818,8 +814,9 @@
                                     </div>
                                     <div class="row" id="show-info-pat" style="display: none">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive">
-                                            <h5 class="mb-4 mt-4">Hijos de paciente registrado
-                                            </h5>
+                                            <hr>
+                                            <h5 style="margin-bottom: 17px;">Hijos de paciente registrado</h5>
+                                            <hr>
                                             <table id="table-show-info-pat" class="table table-striped table-bordered"
                                                 style="width:100%; ">
                                                 <thead>
@@ -953,7 +950,6 @@
                                                     </div>
                                                 </div>
                                                 <x-professions />
-                                                <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
                                                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
@@ -964,6 +960,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
+                                                
                                                 <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">

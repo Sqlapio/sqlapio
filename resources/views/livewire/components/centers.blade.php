@@ -257,7 +257,7 @@
 @endpush
 @section('content')
     <div>
-        <div class="container-fluid" style="padding: 3%">
+        <div class="container-fluid" style="padding: 0 3% 3%">
             <div class="row mt-2">
                 {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
                     <h5 class="text-capitalize">Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}</h5>
