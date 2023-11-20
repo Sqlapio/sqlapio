@@ -501,7 +501,7 @@
                                     </button>
                                 </div>
                                 
-                                <div class="col-xs-6 col-sm-6 col-md-6" style="display: flex; justify-content: flex-end;     ">
+                                <div class="col-xs-6 col-sm-6 col-md-6" style="display: flex; justify-content: flex-end;">
                                     
                                     <a class="nav-link icon-p mt-text" href="#">
                                         @if (Auth::user()->user_img != null && Auth::user()->role == 'medico')
