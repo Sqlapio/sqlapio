@@ -580,6 +580,7 @@
                                             <span class="nav-link active" aria-current="page" href="#">Configuración</span>
                                         </a>
                                     </li>
+                                    
                                 </ul>
                             </div>
                         </div>
@@ -591,12 +592,13 @@
             </nav>
         </div>
     </div>
-
-    <div class="container-fluid">
-        <div class="d-flex justify-content-center mt-2">
-            <img class="banner" src="{{ asset('img/leaderboard-banner (1).gif') }}" alt="">
+    @if (Auth::user()->type_plane == '1')
+        <div class="container-fluid">
+            <div class="d-flex justify-content-center mt-2">
+                <img class="banner" src="{{ asset('img/leaderboard-banner (1).gif') }}" alt="">
+            </div>
         </div>
-    </div>
+    @endif 
 </div>
 
 <script>
