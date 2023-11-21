@@ -416,7 +416,7 @@
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número de
                                                     tarjeta</label>
                                                 <input autocomplete="off" class="form-control" id="number_card"
-                                                    name="number_card" type="text" value="">
+                                                    name="number_card" type="number" value="">
                                                 <i class="bi bi-credit-card st-icon"></i>
                                             </div>
                                         </diV>
@@ -425,9 +425,9 @@
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">CVC</label>
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">CVC/CVV</label>
                                                 <input autocomplete="off" class="form-control" id="code_card"
-                                                    name="code_card" type="text" value="">
+                                                    name="code_card" type="number" value="">
                                                 <i class="bi bi-credit-card st-icon"></i>
                                             </div>
                                         </diV>
