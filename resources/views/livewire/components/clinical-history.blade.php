@@ -690,13 +690,13 @@
 @endpush
 @section('content')
     {{-- <div> --}}
-    <div class="container-fluid" style="padding: 3%">
+    <div class="container-fluid" style="padding: 0 3% 3%">
 
         <form id="form-mecal-histroy" method="post" action="/">
             {{ csrf_field() }}
             <div class="accordion" id="accordion">
                 {{-- Datos paciente --}}
-                <div class="row mt-3">
+                <div class="row mt-2">
                     <input type="hidden" name="id" id="id_patient" value="{{ $Patient->id }}">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div class="accordion-item">
@@ -835,11 +835,13 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
-                                        <div style="display: flex">
-                                            <span class="text-warning mt-2"
-                                                style="font-size: 15px;margin-right: 10px;">Debe seleccionar al menos un antecedente</span><i style="font-size:18px; margin-top: 11px"
+                                        <div style="display: flex" id="countDiagnosis" name="countDiagnosis">
+                                            <span class="text-warning mt-2" 
+                                                style="font-size: 15px;margin-right: 10px;">Debe seleccionar al menos un antecedente patológico</span><i style="font-size:18px; margin-top: 11px"
                                                 class="bi bi-exclamation-triangle st-icon text-warning "></i>
                                         </div>
+                                        {{-- <input type="text" id="countDiagnosis" name="countDiagnosis"
+                                                    class="form-control" readonly value="{!! !empty($validateHistory) ? $count_dagnosis : '' !!}"> --}}
                                         @php
                                             $count_dagnosis = 0;
                                         @endphp
