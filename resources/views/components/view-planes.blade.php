@@ -361,6 +361,7 @@
                 ///ocultar botones
                 $('#free-btn').hide();
                 $('#profesional-btn').hide();
+                $('#change-btn').hide();
                 break;
             case 4:
                 $("#type_plan").val(type_plane);
@@ -494,7 +495,7 @@
             <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})" class="btn btnPrimary"
                 id="renew-btn">Renovar</button>
             <button type="button" onclick="renew_plan(2,{{ Auth::user()->type_plane }})" class="btn btnSecond"
-                style='margin-left: 20px'>Cambiar de plan</button>
+                id="change-btn" style='margin-left: 20px'>Cambiar de plan</button>
         </div>
     </div>
 </div>
@@ -772,9 +773,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Código
-                                                        de
-                                                        tarjeta</label>
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">CVC</label>
                                                     <input autocomplete="off" class="form-control" id="code_card"
                                                         name="code_card" type="text" value="">
                                                     <i class="bi bi-credit-card st-icon"></i>

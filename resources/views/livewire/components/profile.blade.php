@@ -921,7 +921,7 @@
                             <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapsePlanes" aria-expanded="true" aria-controls="collapsePlanes"
                                 style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                <i class="bi bi-info-lg"></i> Informacion del plan
+                                <i class="bi bi-info-lg"></i> Información del plan
                             </button>
                         </span>
                         <div id="collapsePlanes" class="accordion-collapse collapse show" aria-labelledby="headingPlanes"
