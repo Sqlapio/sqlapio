@@ -527,7 +527,7 @@
                                                             <th class="text-center" scope="col">Teléfono</th>
                                                             <th class="text-center" scope="col">Email</th>
                                                             <th class="text-center" scope="col">Centro de salud</th>
-                                                            <th class="text-center" scope="col">Confirmación</th>
+                                                            <th class="text-center" scope="col">Estatus</th>
                                                             <th class="text-center" scope="col">Acciones</th>
                                                         </tr>
                                                     </thead>

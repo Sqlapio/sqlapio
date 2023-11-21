@@ -800,13 +800,12 @@
 @endpush
 @section('content')
 
-    <div class="container-fluid" style="padding: 3%">
-        {{-- {console.log()} --}}
+    <div class="container-fluid" style="padding: 0 3% 3%">
         @if ($validate_histroy != null)
             <div class="accordion" id="accordionExample">
                 {{-- datos del paciente --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
