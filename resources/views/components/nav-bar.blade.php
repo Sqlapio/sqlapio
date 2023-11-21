@@ -526,7 +526,7 @@
                                         @endif
                                     </a>
                                     <button onclick="logout()" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cerrar sesión" data-bs-custom-class="custom-tooltip" class="mt-text">
-                                        <i class="bi bi-power" style="color: white; font-size: 30px;"></i>
+                                        <i class="bi bi-power" style="color: white; font-size: 30px; position: relative" ></i>
                                     </button>
                                 </div>
                             </div>
