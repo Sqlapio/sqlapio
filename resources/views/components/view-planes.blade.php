@@ -563,6 +563,10 @@
                                                             style="color: red;"></i> <b
                                                             style="text-decoration: line-through;">Consultas en IA</b>
                                                     </li>
+						                            <li class="list-group-item text-capitalize"><i class="fa fa-check" 
+                                                        aria-hidden="true" style="color: green;"></i><b>Publicidad</b>
+                                                    </li>
+
                                                 </ul>
                                             </diV>
                                             <div id="profesional" style="display: none">
@@ -583,6 +587,10 @@
                                                             style="color: red;"></i> <b
                                                             style="text-decoration: line-through;">Consultas en IA</b>
                                                     </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x"
+                                                            style="color: red;"></i> <b
+                                                            style="text-decoration: line-through;">Publicidad</b>
+                                                    </li>
                                                 </ul>
                                             </diV>
                                             <div id="ilimitado" style="display: none">
@@ -600,6 +608,10 @@
                                                             videos</b></li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check"
                                                             style="color: green;"></i> 300 <b>Consultas en IA</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x"
+                                                            style="color: red;"></i> <b
+                                                            style="text-decoration: line-through;">Publicidad</b>
+                                                    </li>
                                                 </ul>
                                             </diV>
                                         </div>
@@ -764,7 +776,7 @@
                                                         de
                                                         tarjeta</label>
                                                     <input autocomplete="off" class="form-control" id="number_card"
-                                                        name="number_card" type="text" value="">
+                                                        name="number_card" type="number" value="">
                                                     <i class="bi bi-credit-card st-icon"></i>
                                                 </div>
                                             </diV>
@@ -773,9 +785,9 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">CVC</label>
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">CVC/CVV</label>
                                                     <input autocomplete="off" class="form-control" id="code_card"
-                                                        name="code_card" type="text" value="">
+                                                        name="code_card" type="number" value="">
                                                     <i class="bi bi-credit-card st-icon"></i>
                                                 </div>
                                             </diV>
