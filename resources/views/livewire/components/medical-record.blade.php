@@ -873,8 +873,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro
-                                                            de salud</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro de salud</label>
                                                         <select name="center_id" id="center_id"
                                                             placeholder="Seleccione"class="form-control"
                                                             class="form-control combo-textbox-input">
