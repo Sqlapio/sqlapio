@@ -1002,7 +1002,7 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-clipboard2-pulse"></i> Antecedentes ginecologicos (si aplica)
+                                    <i class="bi bi-clipboard2-pulse"></i> Antecedentes ginecologicos (si aplica) 
                                 </button>
                             </span>
                             <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
