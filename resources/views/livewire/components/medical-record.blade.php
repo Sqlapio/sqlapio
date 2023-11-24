@@ -244,6 +244,14 @@
                 $("#form-consulta").validate();
                 if(countMedicationAdd === 0) {
                     $("#med").html(`Debe agregar al menos un tratamiento <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`);
+                    Swal.fire({
+                            icon: 'warning',
+                            title: 'Debe agregar al menos un tratamiento',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
                 } 
                 if ($("#form-consulta").valid()) {
                     $('#send').hide();
