@@ -235,10 +235,16 @@
                 return pattern.test(value);
             }, "No se permiten caracteres especiales");
 
+            
+
+
             //envio del formulario
             $("#form-consulta").submit(function(event) {
                 event.preventDefault();
                 $("#form-consulta").validate();
+                if(countMedicationAdd === 0) {
+                    $("#med").html(`Debe agregar al menos un tratamiento <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`);
+                } 
                 if ($("#form-consulta").valid()) {
                     $('#send').hide();
                     $('#spinner').show();
@@ -670,8 +676,10 @@
             }
         }
 
+        
         //agregar medicamento
         function addMedacition(e) {
+            
             // validaciones para agragar medicacion
             if ($('#medicine').val() === "") {
                 $("#medicine_span").text('Campo obligatorio');
@@ -738,6 +746,8 @@
                 $('#indication').val("");
                 $('#treatmentDuration').val("");
             }
+
+            
         }
 
         //borrar medicamento
@@ -992,10 +1002,8 @@
                                                 <hr style="margin-bottom: 0;">
                                                 <div class="row mt-3 medicine-form">
                                                     <div style="display: flex">
-                                                        <span class="text-warning mt-3"
-                                                            style="font-size: 14px;margin-right: 10px;">Debe cargar al
-                                                            menos un tratamiento</span><i style="font-size:18px"
-                                                            class="bi bi-exclamation-triangle st-icon mt-3 text-warning "></i>
+                                                        <span class="text-warning mt-3" id='med'
+                                                            style="font-size: 14px;margin-right: 10px;"></span>
                                                     </div>
                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                         <div class="form-group">
