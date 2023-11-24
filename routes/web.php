@@ -98,7 +98,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/medical-record/{id}', [MedicalRecord::class, 'render'])->name('MedicalRecord')->middleware(['VerifyPlans']);
                 Route::post('/medical-consultation-create', [MedicalRecord::class, 'store'])->name('MedicalRecordCreate')->middleware(['VerifyPlans']);
                 Route::get('/medical-history', [MedicalHistory::class, 'render'])->name('MedicalHistory');
-                Route::post('/register-patients', [Patients::class, 'store'])->name('register-patients')->middleware(['VerifyPlans','VerifyPlanExpiredPlan']);
+                Route::post('/register-patients', [Patients::class, 'store'])->name('register-patients');
                 Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail')->middleware(['VerifyPlans','VerifyPlanExpiredPlan']);
                 Route::post('/clinical-history-create', [MedicalHistory::class, 'store'])->name('ClinicalHistoryCreate');
                 Route::get('/search-patient/{value}', [Patients::class, 'search'])->name('search-patient');
