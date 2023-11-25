@@ -322,6 +322,7 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
     eventClick: function (info) {
       setValue(info.event._def.title, info);
       $('#exampleModal').modal('show');
+
     },
     dateClick: function (info) {
       let dateString = getDateWithoutTime(new Date()).toISOString().substring(0,10);
@@ -365,9 +366,16 @@ function clearInput(date) {
   $('#div-pat').hide();
   $("#center_id").attr("disabled", false);
   $("#timeIni").attr("disabled", false);
-  $('#registrer-pac').attr("disabled", false);
+  $('#registrer-pac').attr("disabled", false).show();
   $('#hour_start').attr("disabled", false);
+  $("#title-modal").text('Agendar Cita');
+  $("#appointment-data").hide();
 
+  $("#FC").show();
+  $("#TH").show();
+  $("#HS").show();
+  $("#CM").show();
+  $("#check-price").show();
 }
 
 function setValue(data, info) {
@@ -383,6 +391,12 @@ function setValue(data, info) {
   }
   // let dataPers = data.split(",");
   // datos del paciente
+
+  console.log(new Date(info.event._instance.range.start).toISOString().split('T')[0])
+  console.log(info.event.extendedProps.time_zone_start)
+  console.log(info.event.extendedProps.data)
+  console.log(info.event.extendedProps.center)
+  console.log(info.event.extendedProps)
   $("#btn-con").find('a').remove();
   $("#btn-cancell").find('button').remove();
   url = url.replace(':id', info.event.extendedProps.patient_id);
@@ -404,9 +418,22 @@ function setValue(data, info) {
   $('#div-pat').show();
   $("#img-pat").attr("src", `${img_url}`);
   
-  $('#registrer-pac').attr("disabled", true);
+  $('#registrer-pac').attr("disabled", false).hide();
 
+
+  $("#title-modal").text('Cita');
   ////
+  
+  $("#appointment-data").show();
+  $("#fecha").text(new Date(info.event._instance.range.start).toISOString().split('T')[0]);
+  $("#hour").text(info.event.extendedProps.data + ' ' + info.event.extendedProps.time_zone_start);
+  $("#center").text(info.event.extendedProps.center);
+
+  $("#FC").hide();
+  $("#TH").hide();
+  $("#HS").hide();
+  $("#CM").hide();
+  $("#check-price").hide();
 
   
 }
@@ -489,8 +516,11 @@ function searchPatients(res) {
   $('#div-pat').show();
   $("#img-pat").attr("src",);
 
-  $('#registrer-pac').attr("disabled", false);
+  $('#registrer-pac').show();
   $('#timeIni').focus();
+  $("#title-modal").text('Agendar Cita');
+  $("#appointment-data").hide();
+
 }
 
 function update_appointments(url, data) {
