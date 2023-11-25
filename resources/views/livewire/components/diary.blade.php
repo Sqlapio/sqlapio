@@ -166,9 +166,9 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                     style="font-size: 12px;"></button>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body" >
                                 {{-- <div class="d-flex"> --}}
-                                    <x-select-dos :data="$patient" />
+                                    <x-select-dos :data="$patient"/>
                                     {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                         id="search-patients-show">
                                         <div class="floating-label-group">

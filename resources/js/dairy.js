@@ -359,13 +359,28 @@ function clearInput(date) {
   $("#genere").text('');
   $("#age").text('');
   $("#form-appointment").trigger("reset");
-  $("#date_start").val(new Date(date).toISOString().split('T')[0]);
+  $("#date_start").val(new Date(date).toISOString().split('T')[0]).attr("disabled", false);
   $("#patient_id").val('');
   $("#searchPatients").val('');
   $('#div-pat').hide();
+  $("#center_id").attr("disabled", false);
+  $("#timeIni").attr("disabled", false);
+  $('#registrer-pac').attr("disabled", false);
+  $('#hour_start').attr("disabled", false);
+
 }
 
 function setValue(data, info) {
+
+  let img_url = `${ulrimge}/${info.event.extendedProps.img}`;
+
+  if (info.event.extendedProps.img === null) {
+    if (info.event.extendedProps.genere == "femenino") {
+      img_url = `${avatar_imge}/avatar mujer.png`;
+    } else {
+      img_url = `${avatar_imge}/avatar hombre.png`;
+    }
+  }
   // let dataPers = data.split(",");
   // datos del paciente
   $("#btn-con").find('a').remove();
@@ -374,21 +389,26 @@ function setValue(data, info) {
   $("#btn-con").append(`<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`);
   $("#btn-cancell").append(`<button type="button" onclick="cancelled_appointments(${info.event.extendedProps.id},'${urlCancelled}')" class="btn btnSecond">Cancelar Cita</button>`);
   $("#search-patients-show").hide();
-  $("#center_id").val(info.event.extendedProps.center_id).change();
-  $("#timeIni").val(info.event.extendedProps.time_zone_start).change();
+  $("#center_id").val(info.event.extendedProps.center_id).change().attr("disabled", true);
+  $("#timeIni").val(info.event.extendedProps.time_zone_start).change().attr("disabled", true);
   $("#name").text(info.event.extendedProps.name + ' ' + info.event.extendedProps.last_name);
   $("#email").text(info.event.extendedProps.email);
   $("#phone").text(info.event.extendedProps.phone);
   $("#ci").text(info.event.extendedProps.ci);
-  $("#hour_start").val(info.event.extendedProps.data).change();
+  $("#hour_start").val(info.event.extendedProps.data).change().attr("disabled", true);
   $("#genere").text(info.event.extendedProps.genere);
   $("#age").text(info.event.extendedProps.age);
   $("#patient_id").val(info.event.extendedProps.patient_id);
   $("#date_start").val(new Date(info.event._instance.range.start).toISOString().split('T')[0]);
   $("#price").val(info.event.extendedProps.price);
   $('#div-pat').show();
-  $("#img-pat").attr("src", `${ulrimge}/${info.event.extendedProps.img}`);
+  $("#img-pat").attr("src", `${img_url}`);
+  
+  $('#registrer-pac').attr("disabled", true);
+
   ////
+
+  
 }
 
 function searchPatients(res) {
