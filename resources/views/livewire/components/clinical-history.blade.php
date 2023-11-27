@@ -170,7 +170,7 @@
             $.validator.addMethod("onlyNumber", function(value, element) {
                 let pattern = /^\d+\.?\d\s*$/;
                 return pattern.test(value);
-            }, "Campo solo numero");
+            }, "Campo numérico");
 
             //envio del formulario
             $("#form-mecal-histroy").submit(function(event) {

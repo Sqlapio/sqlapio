@@ -788,7 +788,7 @@
 
                         Swal.fire({
                             icon: 'warning',
-                            title: 'Su plan esta proximo a vencerse!',
+                            title: '¡Su plan está en el límite de su capacidad de registro!',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
@@ -801,7 +801,7 @@
 
                         Swal.fire({
                             icon: 'warning',
-                            title: 'Su plan esta proximo a vencerse!',
+                            title: '¡Su plan está en el límite de su capacidad de registro!',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
@@ -814,6 +814,7 @@
                     break;
             }
         }
+
     </script>
 @endpush
 @section('content')
