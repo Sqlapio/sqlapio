@@ -342,10 +342,23 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
         "color": info.event._def.ui.backgroundColor,
         "extendedProps": info.event._def.extendedProps
       }
-      update_appointments(ulrUpdate, data);
+      if (data.extendedProps.data_app < data.end && data.start) {
+        
+        update_appointments(ulrUpdate, data);
+      } else {
+          Swal.fire({
+            icon: 'warning',
+            title: '¡Esta seleccionando una fecha anterior!',
+            allowOutsideClick: false,
+            confirmButtonColor: '#42ABE2',
+            confirmButtonText: 'Aceptar'
+        });
+          info.revert()
+          return false;
+      }
     }
   });
-
+  
   calendar.render();
 }
 
@@ -391,12 +404,6 @@ function setValue(data, info) {
   }
   // let dataPers = data.split(",");
   // datos del paciente
-
-  console.log(new Date(info.event._instance.range.start).toISOString().split('T')[0])
-  console.log(info.event.extendedProps.time_zone_start)
-  console.log(info.event.extendedProps.data)
-  console.log(info.event.extendedProps.center)
-  console.log(info.event.extendedProps)
   $("#btn-con").find('a').remove();
   $("#btn-cancell").find('button').remove();
   url = url.replace(':id', info.event.extendedProps.patient_id);
