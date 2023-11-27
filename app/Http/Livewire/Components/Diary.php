@@ -90,7 +90,7 @@ class Diary extends Component
             {
                 return response()->json([
                     'success' => 'false',
-                    'errors'  => 'Ya usted tiene una cita agendada en esa posicion'
+                    'errors'  => 'Ya usted tiene una cita agendada en la fecha seleccionada'
                 ], 400);
 
             }else{
@@ -176,7 +176,7 @@ class Diary extends Component
                 if($request)
                 return response()->json([
                     'success' => 'false',
-                    'errors'  => 'Ya usted tiene una cita agendada en esa posicion'
+                    'errors'  => 'Ya usted tiene una cita agendada en la fecha seleccionada'
                 ], 400);
 
             }else{
