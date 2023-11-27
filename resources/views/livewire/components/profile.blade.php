@@ -140,7 +140,7 @@
             $.validator.addMethod("onlyNumber", function(value, element) {
                 var pattern = /^\d+\.?\d*$/;
                 return pattern.test(value);
-            }, "Campo solo numero");
+            }, "Campo numérico");
 
             $('#form-seal').validate({
                 rules: {
