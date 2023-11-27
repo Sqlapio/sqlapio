@@ -100,7 +100,7 @@
 
                         Swal.fire({
                             icon: 'warning',
-                            title: 'Su plan esta proximo a vencerse!',
+                            title: '¡Su plan está en el límite de su capacidad de registro!',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
@@ -120,7 +120,7 @@
 
                         Swal.fire({
                             icon: 'warning',
-                            title: 'Su plan esta proximo a vencerse!',
+                            title: '¡Su plan está en el límite de su capacidad de registro!',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
@@ -315,7 +315,7 @@
             $.validator.addMethod("onlyNumber", function(value, element) {
                 var pattern = /^\d+\.?\d*$/;
                 return pattern.test(value);
-            }, "Campo solo numero");
+            }, "Campo numérico");
 
             //envio del formulario
             $("#form-patients").submit(function(event) {
@@ -681,7 +681,7 @@
 
                         Swal.fire({
                             icon: 'warning',
-                            title: 'Su plan esta proximo a vencerse!',
+                            title: '¡Su plan está en el límite de su capacidad de registro!'
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
@@ -691,7 +691,7 @@
                     if (Number(count_pat) >= 10) {
                         Swal.fire({
                             icon: 'warning',
-                            title: 'A consumido el total de pacientes registrado!',
+                            title: '¡Ha consumido el total de pacientes registrados!',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
@@ -705,7 +705,7 @@
 
                         Swal.fire({
                             icon: 'warning',
-                            title: 'Su plan esta proximo a vencerse!',
+                            title: '¡Su plan está en el límite de su capacidad de registro!',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
@@ -715,7 +715,7 @@
                     if (Number(count_pat) >= 40) {
                         Swal.fire({
                             icon: 'warning',
-                            title: 'A consumido el total de pacientes registrado !',
+                            title: '¡Ha consumido el total de pacientes registrados!',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
@@ -755,7 +755,7 @@
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">                                            
                                             <div class="row justify-content-center">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">                                            
-                                                    <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">A consumido el total de pacientes registrados!</h5>
+                                                    <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">¡Ha consumido el total de pacientes registrados! </h5>
                                                 </div>
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">                                            
                                                     <img width="150" height="auto"
@@ -1227,7 +1227,7 @@
                             <span style="padding-left: 5px">Agendar Cita</span>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                 style="font-size: 12px;"></button>
-                        </div>
+                        </div> 
                         <div class="modal-body">
                             <div id="div-pat" style="display: none">
                                 <div class="d-flex mt-3">
