@@ -342,7 +342,7 @@
                                             </diV>
                                         </div>
                                     @endif
-                                    @if ($bellied_plan->get_user->role == 'laboratorio')
+                                    @if ($bellied_plan->get_user->role == 'laboratorio' || $bellied_plan->get_user->role == 'corporativo' )
                                         <div id="business-name" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <div class="form-group">
                                                 <div class="Icon-inside">

@@ -97,7 +97,7 @@
         color: white;
         font-size: 15px;
         text-align: right;
-        text-transform: capitalize; 
+        text-transform: capitalize;
         padding-right: 15px;
     }
 
@@ -113,6 +113,7 @@
     .navbar-text {
         color: #fff;
     }
+
     .mt-icon {
         margin-top: -60px !important;
     }
@@ -232,7 +233,8 @@
         }
 
         .mt-icon {
-            margin-top: 19px !important;;
+            margin-top: 19px !important;
+            ;
         }
 
         .mt-text {
@@ -294,7 +296,8 @@
         }
 
         .mt-icon {
-            margin-top: 19px !important;;
+            margin-top: 19px !important;
+            ;
         }
 
         .mt-text {
@@ -356,7 +359,8 @@
         }
 
         .mt-icon {
-            margin-top: 19px !important;;
+            margin-top: 19px !important;
+            ;
         }
 
         .mt-text {
@@ -414,7 +418,8 @@
         }
 
         .mt-icon {
-            margin-top: 19px !important;;
+            margin-top: 19px !important;
+            ;
         }
 
         .mt-text {
@@ -470,15 +475,14 @@
         }
 
         .mt-icon {
-            margin-top: 19px !important;;
+            margin-top: 19px !important;
+            ;
         }
-        
+
         .mt-text {
             margin-top: 3px;
         }
     }
-
-
 </style>
 <div>
     <div class="container-fluid">
@@ -491,23 +495,27 @@
                         {{-- Imagen del medico --}}
 
                     </div>
-                    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 col-xl-11 col-xxl-11 flex-column nav-column mt-nav">
+                    <div
+                        class="col-xs-11 col-sm-11 col-md-11 col-lg-11 col-xl-11 col-xxl-11 flex-column nav-column mt-nav">
                         <div class="row header-nav">
                             <div class="col-xs-12 col-sm-12 col-md-12 nav-text">
                                 <div class="col-xs-1 col-sm-1 col-md-1 nav-menu">
-                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-                                        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false"
+                                        aria-label="Toggle navigation">
                                         <span class="icon-bar navbar-toggler-icon"></span>
                                     </button>
                                 </div>
-                                
-                                <div class="col-xs-6 col-sm-6 col-md-6" style="display: flex; justify-content: flex-end;">
-                                    
+
+                                <div class="col-xs-6 col-sm-6 col-md-6"
+                                    style="display: flex; justify-content: flex-end;">
+
                                     <a class="nav-link icon-p mt-text" href="#">
                                         @if (Auth::user()->user_img != null && Auth::user()->role == 'medico')
                                             <span class="strong"> Dr.
                                                 {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
-                                            <img class="avatar-user" src="{{ asset('/imgs/' . Auth::user()->user_img) }}"
+                                            <img class="avatar-user"
+                                                src="{{ asset('/imgs/' . Auth::user()->user_img) }}"
                                                 class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
                                         @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) == null)
                                             <span class="strong"> {{ Auth::user()->business_name }} </span>
@@ -525,8 +533,10 @@
                                                 class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
                                         @endif
                                     </a>
-                                    <button onclick="logout()" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cerrar sesión" data-bs-custom-class="custom-tooltip" class="mt-text">
-                                        <i class="bi bi-power" style="color: white; font-size: 30px; position: relative" ></i>
+                                    <button onclick="logout()" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                        title="Cerrar sesión" data-bs-custom-class="custom-tooltip" class="mt-text">
+                                        <i class="bi bi-power"
+                                            style="color: white; font-size: 30px; position: relative"></i>
                                     </button>
                                 </div>
                             </div>
@@ -534,59 +544,75 @@
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                     <li>
                                         <a class="nav-item" href="{{ route('DashboardComponent') }}" title="Dashboard">
-                                            <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}" alt="Dashboard">
+                                            <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
+                                                alt="Dashboard">
                                             <span class="nav-link active" aria-current="page">Dashboard</span>
                                         </a>
                                     </li>
                                     @if (Auth::user()->role == 'medico')
-                                        <li >
+                                        <li>
                                             <a class="nav-item" href="{{ route('Patients') }}" title="Pacientes">
-                                                <img class="icon-menu" src="{{ asset('img/V2/Contacts.png') }}" alt="Pacientes">
-                                                <span class="nav-link active" aria-current="page" href="#">Pacientes</span>
+                                                <img class="icon-menu" src="{{ asset('img/V2/Contacts.png') }}"
+                                                    alt="Pacientes">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">Pacientes</span>
                                             </a>
                                         </li>
                                     @endif
                                     @if (Auth::user()->role == 'medico')
-                                        <li >
+                                        <li>
                                             <a class="nav-item" href="{{ route('Diary') }}" title="Agenda">
-                                                <img class="icon-menu" src="{{ asset('img/V2/Calendar.png') }}" alt="Agenda">
-                                                <span class="nav-link active" aria-current="page" href="#">Agenda</span>
+                                                <img class="icon-menu" src="{{ asset('img/V2/Calendar.png') }}"
+                                                    alt="Agenda">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">Agenda</span>
                                             </a>
                                         </li>
                                     @endif
-                                    @if (Auth::user()->role == 'medico')
-                                        <li >
+                                    @if (Auth::user()->role == 'medico' || Auth::user()->role == 'corporativo')
+                                        <li>
                                             <a class="nav-item" href="{{ route('Centers') }}" title="Clínica">
-                                                <img class="icon-menu" src="{{ asset('img/V2/Maps.png') }}" alt="Clínica">
-                                                <span class="nav-link active" aria-current="page" href="#">Centros</span>
-                                            </a>
-                                        </li>
-                                        <li >
-                                            <a class="nav-item" href="{{ route('Examen') }}" title="Exámenes">
-                                                <img class="icon-menu" src="{{ asset('img/V2/Reminders.png') }}" alt="Exámenes">
-                                                <span class="nav-link active" aria-current="page" href="#">Exámenes</span>
-                                            </a>
-                                        </li>
-                                          <li >
-                                            <a class="nav-item" href="{{ route('Study') }}" title="Estudios">
-                                                <img class="icon-menu" src="{{ asset('img/V2/Books.png') }}" alt="Estudios">
-                                                <span class="nav-link active" aria-current="page" href="#">Estudios</span>
+                                                <img class="icon-menu" src="{{ asset('img/V2/Maps.png') }}"
+                                                    alt="Clínica">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">Centros</span>
                                             </a>
                                         </li>
                                     @endif
-                                    <li >
+
+                                    @if (Auth::user()->role == 'medico')
+                                        <li>
+                                            <a class="nav-item" href="{{ route('Examen') }}" title="Exámenes">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Reminders.png') }}"
+                                                    alt="Exámenes">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">Exámenes</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-item" href="{{ route('Study') }}" title="Estudios">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Books.png') }}"
+                                                    alt="Estudios">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">Estudios</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    <li>
                                         <a class="nav-item" href="{{ route('Profile') }}" title="Configuración">
-                                            <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}" alt="Configuración">
-                                            <span class="nav-link active" aria-current="page" href="#">Configuración</span>
+                                            <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
+                                                alt="Configuración">
+                                            <span class="nav-link active" aria-current="page"
+                                                href="#">Configuración</span>
                                         </a>
                                     </li>
-                                    
+
                                 </ul>
                             </div>
                         </div>
-                        
+
                     </div>
-                    
+
                 </div>
 
             </nav>
@@ -598,7 +624,7 @@
                 <img class="banner" src="{{ asset('img/leaderboard-banner (1).gif') }}" alt="">
             </div>
         </div>
-    @endif 
+    @endif
 </div>
 
 <script>
