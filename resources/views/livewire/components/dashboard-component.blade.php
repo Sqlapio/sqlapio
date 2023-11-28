@@ -554,7 +554,8 @@
                                                                 <td class="text-center td-pad">
                                                                     {{ $item['extendedProps']['center'] }}</td>
                                                                 <td class="text-center td-pad">
-                                                                    <span class="badge rounded-pill bg-{{$item['extendedProps']['status_class'] }}">{{$item['extendedProps']['status'] }}</span>
+                                                                    <span
+                                                                        class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">{{ $item['extendedProps']['status'] }}</span>
                                                                 </td>
                                                                 <td>
                                                                     <div class="d-flex" style="justify-content: center;">
@@ -576,7 +577,8 @@
                                                                             <button type="button"
                                                                                 class="btn btn-iSecond rounded-circle"
                                                                                 data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom" title="Cancelar Cita"
+                                                                                data-bs-placement="bottom"
+                                                                                title="Cancelar Cita"
                                                                                 onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
                                                                                 <i class="bi bi-calendar-x"></i>
                                                                             </button>
@@ -620,7 +622,8 @@
                                         <div class="row">
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-1">
                                                 <div class="card text-white" style="background-color: rgb(251,220,226)">
-                                                    <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
                                                         <canvas id="countPatientRegister"></canvas>
                                                     </div>
                                                 </div>
@@ -628,7 +631,8 @@
 
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-1">
                                                 <div class="card text-white" style="background-color: rgb(219,242,242)">
-                                                    <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
                                                         <canvas id="countMedicalRecordr"></canvas>
                                                     </div>
                                                 </div>
@@ -636,7 +640,8 @@
 
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-1">
                                                 <div class="card text-white" style="background-color: rgb(235,224,255)">
-                                                    <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
                                                         <canvas id="countHistoryRegister"></canvas>
                                                     </div>
                                                 </div>
@@ -645,7 +650,8 @@
                                         <div class="row mt-gf">
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-1">
                                                 <div class="card text-white" style="background-color: rgb(255,255,255)">
-                                                    <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
                                                         <canvas id="countGenere"></canvas>
                                                     </div>
                                                 </div>
@@ -653,7 +659,8 @@
 
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-1">
                                                 <div class="card text-white" style="background-color: rgb(255,255,255)">
-                                                    <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
                                                         <canvas id="countGereral"></canvas>
                                                     </div>
                                                 </div>
@@ -666,7 +673,7 @@
                     </div>
                 </div>
             </div>
-        @else
+        @elseif (Auth::user()->role == 'laboratorio')
             {{-- rol laboratorio --}}
             <div class="container-fluid body" style="padding: 0 3% 3%">
                 <div class="accordion" id="accordion">
@@ -686,7 +693,8 @@
                                         <div class="row">
                                             <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-1">
                                                 <div class="card text-white" style="background-color: rgb(251,220,226)">
-                                                    <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
                                                         <canvas id="countStudies"></canvas>
                                                     </div>
                                                 </div>
@@ -694,7 +702,8 @@
 
                                             <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-1">
                                                 <div class="card text-white" style="background-color: rgb(219,242,242)">
-                                                    <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
                                                         <canvas id="countExamenes"></canvas>
                                                     </div>
                                                 </div>
@@ -729,7 +738,8 @@
                                                         <tr>
                                                             <th class="text-center" scope="col">Fecha</th>
                                                             <th class="text-center" scope="col">Referencia</th>
-                                                            <th class="text-center" scope="col">Referencia consulta médica
+                                                            <th class="text-center" scope="col">Referencia consulta
+                                                                médica
                                                             </th>
                                                             <th class="text-center" scope="col">Nombres</th>
                                                             <th class="text-center" scope="col">Cédula</th>
@@ -755,14 +765,15 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
                             <div class="accordion-item accordion-dashboard">
                                 <span class="accordion-header title" id="headingThree">
-                                    <button class="accordion-button collapsed bg-1" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                                    <button class="accordion-button collapsed bg-1" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseThree"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-card-list"></i> Examenes cargados
                                     </button>
                                 </span>
-                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                                    data-bs-parent="#accordion">
+                                <div id="collapseThree" class="accordion-collapse collapse"
+                                    aria-labelledby="headingThree" data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
                                             style="margin-top: 20px:">
@@ -792,7 +803,8 @@
                                                             <td class="text-center text-capitalize">
                                                                 {{ $item['patient_info']['full_name'] }}
                                                             </td>
-                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }}</td>
+                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }}
+                                                            </td>
                                                             <td class="text-center text-capitalize">
                                                                 {{ $item['patient_info']['genere'] }}
                                                             </td>
@@ -812,8 +824,9 @@
                             style="margin-top: 20px; margin-bottom: 20px">
                             <div class="accordion-item accordion-dashboard">
                                 <span class="accordion-header title" id="headingFour">
-                                    <button class="accordion-button collapsed bg-1" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour"
+                                    <button class="accordion-button collapsed bg-1" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false"
+                                        aria-controls="collapseFour"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-card-list"></i> Estudios cargados
                                     </button>
@@ -849,7 +862,8 @@
                                                             <td class="text-center text-capitalize">
                                                                 {{ $item['patient_info']['full_name'] }}
                                                             </td>
-                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }}</td>
+                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }}
+                                                            </td>
                                                             <td class="text-center text-capitalize">
                                                                 {{ $item['patient_info']['genere'] }}
                                                             </td>
@@ -867,8 +881,55 @@
                     </div>
                 </div>
             </div>
+        @elseif (Auth::user()->role == 'corporativo')
+            <div class="container-fluid body" style="padding: 0 3% 3%">
+                <div class="accordion" id="accordion">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                            <div class="accordion-item ">
+                                <span class="accordion-header title" id="headingOne">
+                                    <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                        style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                        <i class="bi bi-graph-up"></i> Estadisticas
+                                    </button>
+                                </span>
+                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                                    data-bs-parent="#accordion">
+                                    <div class="accordion-body">
+                                        <div class="row">
+                                            <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-1">
+                                                <div class="card text-white" style="background-color: rgb(251,220,226)">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
+                                                        <canvas id="countStudies"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-1">
+                                                <div class="card text-white" style="background-color: rgb(219,242,242)">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
+                                                        <canvas id="countExamenes"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
         @endif
     </div>
+
+
     <!-- Modal -->
     <div class="modal fade" id="ModalLoadResult" tabindex="-1" aria-labelledby="ModalLoadResultLabel"
         aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">

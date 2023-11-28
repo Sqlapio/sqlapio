@@ -681,7 +681,7 @@
 
                         Swal.fire({
                             icon: 'warning',
-                            title: '¡Su plan está en el límite de su capacidad de registro!'
+                            title: '¡Su plan está en el límite de su capacidad de registro!',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
