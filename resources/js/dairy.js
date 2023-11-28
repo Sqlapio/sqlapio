@@ -344,8 +344,6 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
         "extendedProps": info.event._def.extendedProps
       }
       
-
-      IIRFilterNode
       let dateEnd = data.end && data.start
       if (dateEnd >= dateString) {
           update_appointments(ulrUpdate, data); 
