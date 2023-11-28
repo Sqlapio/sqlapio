@@ -285,6 +285,8 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
   ulrimge = ulrImge;
   ulrUpdate = updateAppointments;
   avatar_imge = ulr_imge_avatar;
+  let dateString = getDateWithoutTime(new Date()).toISOString().substring(0,10);
+
   //
   const calendarEl = document.getElementById('calendar')
   calendar = new Calendar(calendarEl, {
@@ -325,7 +327,6 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
 
     },
     dateClick: function (info) {
-      let dateString = getDateWithoutTime(new Date()).toISOString().substring(0,10);
       if (info.dateStr >= dateString === false)
           return (info.start >= getDateWithoutTime(new Date()));
       else {
@@ -342,10 +343,13 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
         "color": info.event._def.ui.backgroundColor,
         "extendedProps": info.event._def.extendedProps
       }
-      if (data.extendedProps.data_app < data.end && data.start) {
-        
-        update_appointments(ulrUpdate, data);
-      } else {
+      
+      let dateEnd = data.end && data.start
+      if (dateEnd >= dateString) {
+          update_appointments(ulrUpdate, data); 
+      } else if (data.extendedProps.data_app < dateEnd){
+          update_appointments(ulrUpdate, data); 
+        } else {
           Swal.fire({
             icon: 'warning',
             title: '¡Esta seleccionando una fecha anterior!',
