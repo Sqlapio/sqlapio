@@ -73,7 +73,7 @@ class PaymentForm extends Component
 
                 }
 
-                if($request->type_plan == '4' || $request->type_plan == '5' || $request->type_plan == '6')
+                if($request->type_plan == '4' || $request->type_plan == '5' || $request->type_plan == '6' ||$request->type_plan == '7' )
                 {
                     $rules = [
                         'type_plan'         => 'required',
@@ -95,9 +95,11 @@ class PaymentForm extends Component
                             'success' => 'false',
                             'errors'  => $validator->errors()->all()
                         ], 400);
+
+                        
                     }
 
-                    $rol = 'laboratorio';
+                    $rol = ($request->type_plan=="7") ? 'corporativo' :'laboratorio';
                     $user = new User();
                     $user->business_name = $request->business_name;
                     $user->email = $request->email;

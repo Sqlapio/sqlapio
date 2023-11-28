@@ -98,7 +98,7 @@ class Register extends Component {
 			}
 		}
 
-		if($user->role == 'laboratorio')
+		if($user->role == 'laboratorio' || $user->role == 'corporativo')
 		{
 
 			$rules = [
