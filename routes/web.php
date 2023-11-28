@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UtilsController;
+use App\Http\Livewire\Components\AdminPatients;
 use App\Http\Livewire\Components\RecoveryPassword;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Components\Login;
@@ -17,6 +18,7 @@ use App\Http\Livewire\Components\Suscription;
 use App\Http\Livewire\Components\Diary;
 use App\Http\Livewire\Components\ClinicalHistory;
 use App\Http\Livewire\Components\Centers;
+use App\Http\Livewire\Components\Doctors;
 use App\Http\Livewire\Components\Examen;
 use App\Http\Livewire\Components\Laboratory;
 use App\Http\Livewire\Components\PaymentForm;
@@ -227,6 +229,15 @@ Route::middleware(['auth'])->group(function () {
         // Referencias atendidas
         Route::get('/references/res', [UtilsController::class, 'responce_references'])->name("references_res");
     });
+
+    //grupos de rutas de corporativo
+    Route::group(array('prefix' => 'corporate'), function () {
+        Route::get('/doctors', [Doctors::class, 'render'])->name("doctors");
+        Route::get('/admin-patients', [AdminPatients::class, 'render'])->name("admin_patients");
+    });
+
+
+    
 });
 
 //route
