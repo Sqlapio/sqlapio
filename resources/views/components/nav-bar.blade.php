@@ -590,16 +590,7 @@
                                                 <span class="nav-link active" aria-current="page"
                                                     href="#">Estudios</span>
                                             </a>
-                                        </li>
-
-                                        <li>
-                                            <a class="nav-item" href="{{ route('Profile') }}" title="Configuración">
-                                                <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
-                                                    alt="Configuración">
-                                                <span class="nav-link active" aria-current="page"
-                                                    href="#">Configuración</span>
-                                            </a>
-                                        </li>
+                                        </li>                                      
                                     @endif
 
                                     @if (Auth::user()->role == 'corporativo')
