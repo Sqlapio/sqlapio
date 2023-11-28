@@ -230,7 +230,7 @@ class Register extends Component {
 				return true;
 			}
 
-			if($request->rol == 'laboratorio')
+			if($request->rol == 'laboratorio' || $request->rol == 'corporativo')
 			{
 				$rules = [
 					'rif' 		=> 'required',

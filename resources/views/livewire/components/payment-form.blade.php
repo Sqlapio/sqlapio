@@ -101,7 +101,7 @@
                     $("#center").show();
                     $("#tipo_rif").show();
                     $("#Rif").show();
-
+                    $("#div-payment-metodo").hide();
                     break;
 
                 default:
@@ -399,89 +399,91 @@
                                             </div>
                                         </diV>
                                     </div>
-
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="methodo_payment" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Método de
-                                                    pago</label>
-                                                <select name="methodo_payment" id="methodo_payment"
-                                                    placeholder="Seleccione"class="form-control"
-                                                    class="form-control combo-textbox-input">
-                                                    <option value="">Seleccione...</option>
-                                                    <option value="1">Banco de Venezuela</option>
-                                                    <option value="2">Banco Mercantil</option>
-                                                    <option value="3">Banco Banesco</option>
-                                                    <option value="4">Bancamiga</option>
-                                                    <option value="5">Zelle</option>
-                                                </select>
-                                                <i class="bi bi-credit-card st-icon"></i>
+                                    
+                                    <div class="row" id="div-payment-metodo">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="methodo_payment" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Método de
+                                                        pago</label>
+                                                    <select name="methodo_payment" id="methodo_payment"
+                                                        placeholder="Seleccione"class="form-control"
+                                                        class="form-control combo-textbox-input">
+                                                        <option value="">Seleccione...</option>
+                                                        <option value="1">Banco de Venezuela</option>
+                                                        <option value="2">Banco Mercantil</option>
+                                                        <option value="3">Banco Banesco</option>
+                                                        <option value="4">Bancamiga</option>
+                                                        <option value="5">Zelle</option>
+                                                    </select>
+                                                    <i class="bi bi-credit-card st-icon"></i>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row mt-3" style="padding-right: 0">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                            style="display: flex; align-items: center;
-                                        justify-content: flex-end; text-align: end; padding-right: 0">
-                                            <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                <img class="logo-bank" src="{{ asset('img/mercantil-icon.jpg') }}"
-                                                    alt="">
-                                            </div>
-                                            <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                <img class="logo-bank" src="{{ asset('img/banesco-icon.png') }}"
-                                                    alt="">
-                                            </div>
-
-
-                                            <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                <img class="logo-bank" src="{{ asset('img/zelle-icon.png') }}"
-                                                    alt="">
-                                            </div>
-
-                                            <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                <img class="logo-bank" src="{{ asset('img/bdv-icon.png') }}"
-                                                    alt="">
-                                            </div>
-                                            <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                <img class="logo-bank" src="{{ asset('img/bancamiga-icon.png') }}"
-                                                    alt="">
+                                        <div class="row mt-3" style="padding-right: 0">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                style="display: flex; align-items: center;
+                                            justify-content: flex-end; text-align: end; padding-right: 0">
+                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                                    <img class="logo-bank" src="{{ asset('img/mercantil-icon.jpg') }}"
+                                                        alt="">
+                                                </div>
+                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                                    <img class="logo-bank" src="{{ asset('img/banesco-icon.png') }}"
+                                                        alt="">
+                                                </div>
+    
+    
+                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                                    <img class="logo-bank" src="{{ asset('img/zelle-icon.png') }}"
+                                                        alt="">
+                                                </div>
+    
+                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                                    <img class="logo-bank" src="{{ asset('img/bdv-icon.png') }}"
+                                                        alt="">
+                                                </div>
+                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                                    <img class="logo-bank" src="{{ asset('img/bancamiga-icon.png') }}"
+                                                        alt="">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número de
-                                                    tarjeta</label>
-                                                <input autocomplete="off" class="form-control" id="number_card"
-                                                    name="number_card" type="number" value="">
-                                                <i class="bi bi-credit-card st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">CVC/CVV</label>
-                                                <input autocomplete="off" class="form-control" id="code_card"
-                                                    name="code_card" type="number" value="">
-                                                <i class="bi bi-credit-card st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Monto</label>
-                                                <input readonly autocomplete="off" class="form-control" id="amount"
-                                                    name="amount" type="text" value="">
-                                                <i class="bi bi-currency-dollar st-icon"></i>
-                                            </div>
-                                        </diV>
+                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número de
+                                                        tarjeta</label>
+                                                    <input autocomplete="off" class="form-control" id="number_card"
+                                                        name="number_card" type="number" value="">
+                                                    <i class="bi bi-credit-card st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">CVC/CVV</label>
+                                                    <input autocomplete="off" class="form-control" id="code_card"
+                                                        name="code_card" type="number" value="">
+                                                    <i class="bi bi-credit-card st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Monto</label>
+                                                    <input readonly autocomplete="off" class="form-control" id="amount"
+                                                        name="amount" type="text" value="">
+                                                    <i class="bi bi-currency-dollar st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
                                     </div>
 
                                 </div>

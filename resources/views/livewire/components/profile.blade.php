@@ -218,7 +218,7 @@
                     $('#city').val(user.get_laboratorio.city).change();
                     $('#type_laboratory').val(user.get_laboratorio.type_laboratory).change();
                     $('#type_rif').val(user.get_laboratorio.rif[0] + "-").change();
-                    setTimeout(() => {                        
+                    setTimeout(() => {
                         $('#rif').val(user.get_laboratorio.rif);
                     }, 10);
                 }
@@ -435,7 +435,7 @@
             var year = today.getFullYear();
 
             $(".date-bd").attr('max', year + "-" + month + "-" + day);
-        });   
+        });
     </script>
 @endpush
 @section('content')
@@ -647,11 +647,16 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon social</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon
+                                                            social</label>
                                                         <input autocomplete="off" placeholder=""
                                                             class="form-control mask-text  @error('business_name') is-invalid @enderror"
                                                             id="business_name" name="business_name" type="text"
-                                                            value="{!! !empty($user->get_laboratorio != null) ?($user->role == 'corporativo')? $user->get_center->description : $user->get_laboratorio->business_name : '' !!}">
+                                                            value="{!! !empty($user->get_laboratorio != null)
+                                                                ? ($user->role == 'corporativo'
+                                                                    ? $user->get_center->description
+                                                                    : $user->get_laboratorio->business_name)
+                                                                : '' !!}">
                                                         <i class="bi bi-person-vcard" style="top: 30px"></i>
                                                     </div>
                                                 </diV>
@@ -746,12 +751,12 @@
                                                 </diV>
                                             </div>
 
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tipo
-                                                            de laboratorio</label>
+                                                            de empresa</label>
                                                         <select name="type_laboratory" id="type_laboratory"
                                                             class="form-control">
                                                             <option value="">Seleccione</option>
@@ -759,7 +764,8 @@
                                                             <option value="investigacion">Laboratorio investigación
                                                             </option>
                                                             <option value="microbiológico">Laboratorio microbiológico
-                                                            </option>
+                                                            <option value="centro_clinico">Centro clinico</option>
+                                                            <option value="hospital">Hospital</option>
                                                             <option value="etc">etc</option>
                                                         </select>
                                                         <i class="bi bi-flag" style="top: 30px"></i>
@@ -767,7 +773,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -782,7 +788,7 @@
                                                 </diV>
                                             </div>
 
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -799,7 +805,7 @@
                                                 </diV>
                                             </div>
 
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                            {{-- <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -811,9 +817,15 @@
                                                         <i class="bi bi-geo" style="top: 30px"></i>
                                                     </div>
                                                 </diV>
-                                            </div>
+                                            </div> --}}
+                                            @php
+                                                $title = 'Cargar imagen';
+                                                if (Auth::user()->role == 'corporativo') {
+                                                    $title = 'Cargar logo de empresa';
+                                                }
+                                            @endphp
 
-                                            <x-upload-image />
+                                            <x-upload-image :title="$title" />
                                         @endif
                                         <div class="row mt-3 justify-content-md-end">
                                             <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
@@ -880,8 +892,7 @@
                 @if (Auth::user()->role == 'medico')
                     {{-- firma Digital --}}
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                            style="margin-top: 20px; ">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px; ">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
                                     <button class="accordion-button collapsed bg-8" type="button"
@@ -926,13 +937,13 @@
                         <div id="collapsePlanes" class="accordion-collapse collapse show" aria-labelledby="headingPlanes"
                             data-bs-parent="#accordion">
                             <div class="accordion-body">
-                                <x-view-planes/>                               
+                                <x-view-planes />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>     
+        </div>
     </div>
 
 @endsection
