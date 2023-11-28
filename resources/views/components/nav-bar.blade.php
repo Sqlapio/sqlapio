@@ -569,7 +569,7 @@
                                             </a>
                                         </li>
                                     @endif
-                                    @if (Auth::user()->role == 'medico' || Auth::user()->role == 'corporativo')
+                                    @if (Auth::user()->role == 'medico')
                                         <li>
                                             <a class="nav-item" href="{{ route('Centers') }}" title="Clínica">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Maps.png') }}"

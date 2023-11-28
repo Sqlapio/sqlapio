@@ -28,12 +28,15 @@
 
     }
 </style>
+
 @push('scripts')
+
     <script>
         let type_plan = @json($type_plan);
         let listPlanes = [1, 2, 3, 4, 5, 6, 7];
 
         $(document).ready(() => {
+
             const find = listPlanes.find((e) => e === Number(type_plan));
             if (find == undefined) {
                 $('#div-content').hide();
@@ -95,7 +98,7 @@
                     $("#nombre").hide();
                     $("#apellidos").hide();
                     $("#cedula").hide();
-                    $("#empresa").show();
+                    $("#center").show();
                     $("#tipo_rif").show();
                     $("#Rif").show();
 
@@ -150,7 +153,9 @@
                     },
                     type_rif: {
                         required: true,
-
+                    },
+                    center_id: {
+                        required: true,
                     }
                 },
                 messages: {
@@ -186,6 +191,9 @@
                     },
                     type_rif: {
                         required: "Tipo de documento es obligatorio",
+                    },
+                    center_id: {
+                        required: "Centro es obligatorio",
                     }
                 }
             });
@@ -327,6 +335,24 @@
                                         </diV>
                                     </div>
 
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="center"
+                                        style="display: none">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <label for="center_id" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro de salud</label>
+                                                <select style="width:100% !important " class="js-example-matcher" name="center_id" id="center_id"
+                                                    placeholder="Seleccione"class="form-control"
+                                                    class="form-control combo-textbox-input">
+                                                    <option value="">Seleccione...</option>
+                                                    @foreach ($centers as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->description }}</option>
+                                                    @endforeach
+                                                </select>
+                                                {{-- <i class="bi bi-credit-card st-icon"></i> --}}
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3" id="tipo_rif"
                                         style="display: none">

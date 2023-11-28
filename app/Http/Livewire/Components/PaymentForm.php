@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components;
 
+use App\Http\Controllers\UtilsController;
 use Illuminate\Http\Request;
 use Livewire\Component;
 use Illuminate\Support\Facades\Validator;
@@ -188,6 +189,7 @@ class PaymentForm extends Component
 
     public function render($type_plan)
     {
-        return view('livewire.components.payment-form',compact('type_plan'));
+        $centers= UtilsController::get_centers();
+        return view('livewire.components.payment-form',compact('type_plan','centers'));
     }
 }

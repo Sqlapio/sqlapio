@@ -647,8 +647,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombre
-                                                            del laboratorio</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon social</label>
                                                         <input autocomplete="off" placeholder=""
                                                             class="form-control mask-text  @error('business_name') is-invalid @enderror"
                                                             id="business_name" name="business_name" type="text"
