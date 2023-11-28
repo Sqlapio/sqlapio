@@ -1,33 +1,6 @@
 @extends('layouts.app-auth')
 @section('title', 'Perfil')
 <style>
-    .logo-bank {
-        width: 40%;
-        height: auto;
-    }
-
-    .logoSq {
-        width: 50% !important;
-        height: auto;
-    }
-
-    @media only screen and (max-width: 576px) {
-        .mt-m3 {
-            margin-top: 100px
-        }
-
-        .logoSq {
-            width: 30%;
-            height: auto;
-        }
-
-        .logo-bank {
-            width: 20px;
-            margin-left: 20px;
-        }
-
-    }
-
     .sel {
         margin-top: -10px !important;
     }
@@ -167,7 +140,7 @@
             $.validator.addMethod("onlyNumber", function(value, element) {
                 var pattern = /^\d+\.?\d*$/;
                 return pattern.test(value);
-            }, "Campo solo numero");
+            }, "Campo numérico");
 
             $('#form-seal').validate({
                 rules: {
@@ -245,7 +218,9 @@
                     $('#city').val(user.get_laboratorio.city).change();
                     $('#type_laboratory').val(user.get_laboratorio.type_laboratory).change();
                     $('#type_rif').val(user.get_laboratorio.rif[0] + "-").change();
-                    $('#rif').val(user.get_laboratorio.rif);
+                    setTimeout(() => {                        
+                        $('#rif').val(user.get_laboratorio.rif);
+                    }, 10);
                 }
             }
 
@@ -464,12 +439,12 @@
     </script>
 @endpush
 @section('content')
-    <div class="container-fluid" style="padding: 3%">
+    <div class="container-fluid" style="padding: 0 3% 3%">
         <div class="accordion" id="accordion">
 
             {{-- datos del paciente --}}
             <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                     @if ($user->email_verified_at === null)
                         <div class="alert alert-warning" role="alert">
                             Debe verificar su correo!
@@ -906,7 +881,7 @@
                 @if (Auth::user()->role == 'medico')
                     {{-- firma Digital --}}
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd"
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                             style="margin-top: 20px; ">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
@@ -940,13 +915,13 @@
                 @endif
             @endif
             <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd" style="margin-top: 20px;">
                     <div class="accordion-item">
                         <span class="accordion-header title" id="headingPlanes">
                             <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapsePlanes" aria-expanded="true" aria-controls="collapsePlanes"
                                 style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                <i class="bi bi-person"></i> Informacion del plan
+                                <i class="bi bi-info-lg"></i> Información del plan
                             </button>
                         </span>
                         <div id="collapsePlanes" class="accordion-collapse collapse show" aria-labelledby="headingPlanes"

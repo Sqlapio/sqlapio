@@ -82,7 +82,7 @@
                     applied_studies: {
                         required: true,
                     },
-                    strain: {
+                    strain_two: {
                         required: true
                     },
                     temperature: {
@@ -121,7 +121,7 @@
                         required: "Altura es obligatoria",
                     },
                     applied_studies: {
-                        required: "Estudios realizados es obligatorio"
+                        required: "Observaciones es obligatorio"
                     },
                     countBackFamily: {
                         required: "Debe seleccionar una opción"
@@ -136,10 +136,10 @@
                         required: "Enfermedad Actual es obligatoria",
                     },
                     reason: {
-                        required: "Motivo de  la consulta es obligatoria"
+                        required: "Motivo de la consulta es obligatoria"
                     },
-                    strain: {
-                        required: "Tesión es obligatoria"
+                    strain_two: {
+                        required: "Tensión es obligatoria"
                     },
                     temperature: {
                         required: "Temperatura es obligatoria"
@@ -170,12 +170,46 @@
             $.validator.addMethod("onlyNumber", function(value, element) {
                 let pattern = /^\d+\.?\d\s*$/;
                 return pattern.test(value);
-            }, "Campo solo numero");
+            }, "Campo numérico");
 
             //envio del formulario
             $("#form-mecal-histroy").submit(function(event) {
                 event.preventDefault();
-                $("#form-mecal-histroy").validate();
+                $("#form-mecal-histroy").validate();    
+                if ($('#countBackFamily').val() === "") {
+                    $("#APF").html(`Debe seleccionar al menos un antecedente personal y familiar <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`);
+                    $("#collapseTwo").collapse('show')
+                } else { 
+                    $("#APF").text('');
+                    $("#collapseTwo").removeClass("show")
+                }
+                if ($('#countDiagnosis').val() === "") {
+                    $("#APP").html(`Debe seleccionar al menos un antecedente personal patológico <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`);
+                    $('#collapseThree').collapse('show')
+                } else { 
+                    $("#APP").text('');
+                    $("#collapseThree").removeClass("show")
+                }
+                if ($('#countNotPathological').val() === "") {
+                    $("#ANP").html(`Debe seleccionar al menos un antecedente personal no patológico <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`);
+                    $('#collapseFour').collapse('show')
+                } else { 
+                    $("#ANP").text('');
+                    $("#collapseFour").removeClass("show")
+                }
+                if ($('#weight').val() === "" || $('#strain').val() === "" || 
+                $('#strain_two').val() === "" || $('#temperature').val() === "" || 
+                $('#breaths').val() === "" || $('#pulse').val() === "" || 
+                $('#saturation').val() === "" || $('#condition').val() === "" || 
+                $('#reason').val() === "" || $('#current_illness').val() === "" ||
+                $('#countVitalSigns').val() === "" || $('#countVitalSigns').val() === "" ) {
+                    $("#EF").html(`Debe completar los datos <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`);
+                    $("#VS").html(`Debe seleccionar al menos una opción <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`);
+                    $('#collapseOne').collapse('show')
+                } else { 
+                    $("#EF").text('');
+                    $("#collapseOne").removeClass("show")
+                }
                 if ($("#form-mecal-histroy").valid()) {
                     $('#send').hide();
                     $('#spinner').show();
@@ -678,17 +712,19 @@
                     break;
             }
         }
+
+        
     </script>
 @endpush
 @section('content')
     {{-- <div> --}}
-    <div class="container-fluid" style="padding: 3%">
+    <div class="container-fluid" style="padding: 0 3% 3%">
 
         <form id="form-mecal-histroy" method="post" action="/">
             {{ csrf_field() }}
             <div class="accordion" id="accordion">
                 {{-- Datos paciente --}}
-                <div class="row mt-3">
+                <div class="row mt-2">
                     <input type="hidden" name="id" id="id_patient" value="{{ $Patient->id }}">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div class="accordion-item">
@@ -750,6 +786,9 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
+                                        <div style="display: flex">
+                                            <span class="text-warning mt-2" id='APF' style="font-size: 15px;margin-right: 10px;"></span>
+                                        </div>
                                         @php
                                             $count_back_bamiliy = 0;
                                         @endphp
@@ -763,6 +802,7 @@
                                                     }
                                                 }
                                             @endphp
+                                            
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="floating-label-group">
                                                     <div class="form-check" style="display: flex; ">
@@ -821,6 +861,9 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
+                                        <div style="display: flex">
+                                            <span class="text-warning mt-2" id="APP" style="font-size: 15px;margin-right: 10px;"></span>
+                                        </div>
                                         @php
                                             $count_dagnosis = 0;
                                         @endphp
@@ -891,6 +934,9 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
+                                        <div style="display: flex">
+                                            <span class="text-warning mt-2" id="ANP" style="font-size: 15px;margin-right: 10px;"></span>
+                                        </div>
                                         @php
                                             $count_notpathologica = 0;
                                         @endphp
@@ -956,7 +1002,7 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-clipboard2-pulse"></i> Antecedentes ginecologicos (si aplica)
+                                    <i class="bi bi-clipboard2-pulse"></i> Antecedentes ginecologicos (si aplica) 
                                 </button>
                             </span>
                             <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
@@ -1318,16 +1364,19 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
+                                        <div style="display: flex">
+                                            <span class="text-warning mt-2" id="EF" style="font-size: 15px;margin-right: 10px;"></span>
+                                        </div>
                                         <input type="hidden" name="history_vital_signs[]" id="history_vital_signs"
                                             value="">
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="phone" class="form-label"
+                                                    <label for="weight" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Peso
-                                                        (Kg)</label>
+                                                        (0 - 300 kg)*</label>
                                                     <input autocomplete="off"
-                                                        class="mask-input form-control @error('weight') is-invalid @enderror"
+                                                        class="EF mask-input form-control @error('weight') is-invalid @enderror"
                                                         id="weight" name="weight" type="text"
                                                         onchange="handlerValidate(event,'age');"
                                                         value="{!! !empty($validateHistory) ? $Patient->get_history->weight : '' !!}">
@@ -1335,14 +1384,14 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Altura
-                                                        (Cm)</label>
+                                                        (0 - 250 Cm)*</label>
                                                     <input autocomplete="off"
-                                                        class="mask-input-height form-control @error('height') is-invalid @enderror"
+                                                        class="EF mask-input-height form-control @error('height') is-invalid @enderror"
                                                         id="height" name="height" type="text"
                                                         onchange="handlerValidate(event,'height');"
                                                         value="{!! !empty($validateHistory) ? $Patient->get_history->height : '' !!}">
@@ -1350,37 +1399,35 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         @php
                                             if ($validateHistory) {
                                                 $data = explode('/', $Patient->get_history->strain);
                                             }
                                         @endphp
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
-                                            <label for="phone" class="form-label"
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-3">
+                                            <label for="strain" class="form-label"
                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Presión
-                                                arterial (mmHg)</label>
+                                                arterial (Alta 50 - 250 , Baja 30 - 150 mmHg)*</label>
                                             <div class="input-group">
                                                 <input type="text" name="strain" id="strain"
-                                                    class="form-control  mask-input-two input-one" placeholder="Alta"
+                                                    class="EF form-control  mask-input-two input-one" placeholder="Alta"
                                                     onchange="handlerValidate(event,'strain');" aria-label="strain"
                                                     value="{!! !empty($validateHistory) ? $data[0] : '' !!}">
                                                 <span class="input-group-text span-input">/</span>
                                                 <input type="text" name="strain_two" id="strain_two"
                                                     onchange="handlerValidate(event,'strain_two');"
-                                                    class="form-control mask-input-two" placeholder="Baja"
+                                                    class="EF form-control mask-input-two" placeholder="Baja"
                                                     aria-label="strain" value="{!! !empty($validateHistory) ? $data[1] : '' !!}">
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="phone" class="form-label"
+                                                    <label for="temperature" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tempetura
-                                                        (°C)</label>
+                                                        (34 - 42 °C)*</label>
                                                     <input autocomplete="off"
-                                                        class="mask-only-temperature form-control @error('temperature') is-invalid @enderror"
+                                                        class="EF mask-only-temperature form-control @error('temperature') is-invalid @enderror"
                                                         id="temperature" name="temperature" type="text"
                                                         onchange="handlerValidate(event,'temperature');"
                                                         value="{!! !empty($validateHistory) ? $Patient->get_history->temperature : '' !!}">
@@ -1388,14 +1435,14 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="phone" class="form-label"
+                                                    <label for="breaths" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Respiraciones
-                                                        (por minuto)</label>
+                                                        (12 - 30 por minuto)*</label>
                                                     <input autocomplete="off"
-                                                        class="mask-only-breaths form-control @error('breaths') is-invalid @enderror"
+                                                        class="EF mask-only-breaths form-control @error('breaths') is-invalid @enderror"
                                                         onchange="handlerValidate(event,'breaths');" id="breaths"
                                                         name="breaths" type="text" maxlength="3"
                                                         value="{!! !empty($validateHistory) ? $Patient->get_history->breaths : '' !!}">
@@ -1403,14 +1450,14 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="phone" class="form-label"
+                                                    <label for="pulse" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Pulso
-                                                        (Latidos por minuto)</label>
+                                                        (40 - 200 Latidos por minuto)*</label>
                                                     <input autocomplete="off"
-                                                        class="mask-only-number form-control @error('pulse') is-invalid @enderror"
+                                                        class="EF mask-only-number form-control @error('pulse') is-invalid @enderror"
                                                         onchange="handlerValidate(event,'pulse');" id="pulse"
                                                         name="pulse" type="text" maxlength="3"
                                                         value="{!! !empty($validateHistory) ? $Patient->get_history->pulse : '' !!}">
@@ -1418,14 +1465,14 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="phone" class="form-label"
+                                                    <label for="saturation" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Saturación
-                                                        (%)</label>
+                                                        (70 - 100 %)*</label>
                                                     <input autocomplete="off"
-                                                        class="mask-input-por form-control @error('saturation') is-invalid @enderror"
+                                                        class="EF mask-input-por form-control @error('saturation') is-invalid @enderror"
                                                         id="saturation" name="saturation" type="text"
                                                         onchange="handlerValidate(event,'saturation');"
                                                         value="{!! !empty($validateHistory) ? $Patient->get_history->saturation : '' !!}">
@@ -1433,15 +1480,15 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="phone" class="form-label"
+                                                    <label for="condition" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Condición
-                                                        general</label>
+                                                        general*</label>
                                                     <select name="condition" id="condition"
                                                         placeholder="Seleccione"class="form-control"
-                                                        class="form-control combo-textbox-input">
+                                                        class="EF form-control combo-textbox-input">
                                                         <option value="">Seleccione</option>
                                                         @foreach ($get_condition as $item)
                                                             <option value="{{ $item->description }}"
@@ -1460,8 +1507,8 @@
                                             <div class="form-group">
                                                 <label for="phone" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Motivo
-                                                    de la consulta</label>
-                                                <textarea id="reason" name="reason" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->reason : '' !!}</textarea>
+                                                    de la consulta*</label>
+                                                <textarea id="reason" name="reason" class="EF form-control">{!! !empty($validateHistory) ? $Patient->get_history->reason : '' !!}</textarea>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
@@ -1469,17 +1516,9 @@
                                                 <label for="phone" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Enfermedad
                                                     Actual</label>
-                                                <textarea id="current_illness" name="current_illness" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->current_illness : '' !!}</textarea>
+                                                <textarea id="current_illness" name="current_illness" class="EF form-control">{!! !empty($validateHistory) ? $Patient->get_history->current_illness : '' !!}</textarea>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                            <div class="form-group">
-                                                <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Estudios
-                                                    realizados</label>
-                                                <textarea id="applied_studies" name="applied_studies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->applied_studies : '' !!}</textarea>
-                                            </div>
-                                        </div>
+                                        </div>                                      
                                         @php
                                             $count_vital_signs = 0;
                                         @endphp
@@ -1493,7 +1532,10 @@
                                                     }
                                                 }
                                             @endphp
-                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                <div style="display: flex">
+                                                    <span class="text-warning mt-2" id="VS" style="font-size: 15px;margin-right: 10px;"></span>
+                                                </div>
                                                 <div class="floating-label-group">
                                                     <div class="form-check" style="display: flex; ">
                                                         <div style="margin-right: 30px;">
@@ -1512,6 +1554,14 @@
                                                 </div>
                                             </div>
                                         @endforeach
+
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            <div class="form-group">
+                                                <label for="phone" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones*</label>
+                                                <textarea id="applied_studies" name="applied_studies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->applied_studies : '' !!}</textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row mt-3" style="display: none">
                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">

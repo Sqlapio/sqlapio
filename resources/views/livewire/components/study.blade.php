@@ -54,9 +54,18 @@
                 })
             }
 
+            
+            
         });
+        
+        var popoverTriggerList = Array.prototype.slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+        })
+
 
         function searchPerson() {
+
             if ($('#search_person').val() != '') {
                 let route = '{{ route('search_studio', [':value', ':row']) }}';
                 route = route.replace(':value', $('#search_person').val());
@@ -95,18 +104,23 @@
                                 let elemData = JSON.stringify(elem);
                                 elem.btn = ` 
                                                 <button onclick='showStudy(${elemData})'
-                                                type="button" class="btn-2 btnSecond">Ver estudios</button>
+                                                type="button" class="btn-2 btnSecond"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom"
+                                                data-bs-custom-class="custom-tooltip"
+                                                data-html="true" title="ver estudios">Ver estudios</button>
                                                 </div>`;
 
                                 if (elem.study.length === 0) {
                                     elem.btn = `<button type="button"
-                                                        class="refresf btn-idanger rounded-circle"
-                                                        data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom"
-                                                        data-bs-custom-class="custom-tooltip"
-                                                        data-html="true" title="No hay estudios cargados">
-                                                        <i class="bi bi-exclamation-lg"></i>
-                                                    </button>`;
+                                                    class="refresf btn-idanger rounded-circle"
+                                                    data-bs-container="body"
+                                                    data-bs-toggle="popover"
+                                                    data-bs-custom-class="custom-popover"
+                                                    data-bs-placement="bottom"
+                                                    data-bs-content="No hay estudios cargados">
+                                                    <i class="bi bi-exclamation-lg"></i>
+                                                </button>`;
                                 }
                                 data.push(elem);
                             });
@@ -211,23 +225,19 @@
 
                 $('#content-data').append(div);
 
-                const tooltipTriggerList = document.querySelectorAll(
-                    '[data-bs-toggle="tooltip"]')
-                tooltipTriggerList.forEach(element => {
-                    new bootstrap.Tooltip(element)
-                });
-
+                
+                
+                
             });
-
         }
     </script>
 @endpush
 @section('content')
-    <div class="container-fluid" style="padding: 3%">
+    <div class="container-fluid" style="padding: 0 3% 3%">
         <div class="accordion" id="accordionExample">
             {{-- datos del paciente --}}
             <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" style="margin-top: 20px;">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2">
                     <div class="accordion-item">
                         <span class="accordion-header title" id="headingOne">
                             <button class="accordion-button bg-7" type="button" data-bs-toggle="collapse"
@@ -242,7 +252,7 @@
                                 <x-search-person />
 
                                 <div class="row" id="show-info-pat" style="display: none">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                         <h5 class="mb-4">Resultados</h5>
                                         </h5>
                                         <table id="table-info-pat" class="table table-striped table-bordered"

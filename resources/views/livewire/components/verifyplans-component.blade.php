@@ -16,7 +16,7 @@
                                 <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-person"></i> Informacion de planes
+                                    <i class="bi bi-person"></i> Información de planes
                                 </button>
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"

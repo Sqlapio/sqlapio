@@ -60,14 +60,14 @@ class Diary extends Component
 
             $validator = Validator::make($request->all(), $rules, $msj);
 
-            if ($validator->fails()) 
+            if ($validator->fails())
             {
                 return response()->json([
                     'success' => 'false',
                     'errors'  => $validator->errors()->all()
                 ], 400);
             }
-            
+
             $date= explode('-',$request->hour_start);
             $appointment = new Appointment();
             $appointment->code = 'SQ-D-'.random_int(11111111, 99999999);
@@ -75,7 +75,7 @@ class Diary extends Component
             $appointment->patient_id = $request->patient_id;
             $appointment->date_start = $request->date_start;
             $appointment->hour_start = $date[0].'-'.$date[1]." ".$request->timeIni;
-            $appointment->center_id = $request->center_id;   
+            $appointment->center_id = $request->center_id;
             $appointment->price = $request->price;
             $appointment->color = $date[2];
 
@@ -90,12 +90,12 @@ class Diary extends Component
             {
                 return response()->json([
                     'success' => 'false',
-                    'errors'  => 'Ya usted tiene una cita agendada en esa posicion'
+                    'errors'  => 'Ya usted tiene una cita agendada en la fecha seleccionada'
                 ], 400);
 
             }else{
 
-                $appointment->save();  
+                $appointment->save();
 
             }
 
@@ -103,7 +103,7 @@ class Diary extends Component
             ActivityLogController::store_log($action);
 
              /**
-             * Logica para el envio de la notificacion 
+             * Logica para el envio de la notificacion
              * via correo electronico
              */
             $user = Auth::user();
@@ -133,12 +133,12 @@ class Diary extends Component
             UtilsController::notification_mail($mailData, $type);
 
             return true;
-            
+
         } catch (\Throwable $th) {
             $message = $th->getMessage();
 			dd('Error Livewire.Components.Diary.store()', $message);
-        }  
-        
+        }
+
     }
 
     public function cancelled($id)
@@ -146,7 +146,11 @@ class Diary extends Component
         try {
             $cancelled = DB::table('appointments')
                 ->where('id', $id)
-                ->update(['status' => 2]);
+                /**
+                 * Status 2 => FINALIZADA
+                 * Status 3 => CANCELADA
+                 */
+                ->update(['status' => 3]);
 
             $action = '12';
             ActivityLogController::store_log($action);
@@ -157,7 +161,7 @@ class Diary extends Component
             $message = $th->getMessage();
 			dd('Error Livewire.Components.Diary.cancelled()', $message);
         }
-        
+
     }
 
     public function update(Request $request)
@@ -172,30 +176,30 @@ class Diary extends Component
                 if($request)
                 return response()->json([
                     'success' => 'false',
-                    'errors'  => 'Ya usted tiene una cita agendada en esa posicion'
+                    'errors'  => 'Ya usted tiene una cita agendada en la fecha seleccionada'
                 ], 400);
 
             }else{
-                    
+
                 DB::table('appointments')
                 ->where('id', $request->id)
                 ->update([
                             'date_start' => $request->start,
                         ]);
-    
+
                 $action = '14';
                 ActivityLogController::store_log($action);
             }
-          
+
             return true;
 
         } catch (\Throwable $th) {
             $message = $th->getMessage();
 			dd('Error Livewire.Components.Diary.update()', $message);
         }
-        
+
     }
-    
+
     public function render()
     {
         $appointments = UtilsController::get_appointments(Auth::user()->id);

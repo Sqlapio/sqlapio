@@ -74,6 +74,8 @@ Route::get('/paciente/verify/{verification_code}', [UtilsController::class, 'pat
  */
 Route::get('/confirmation/dairy/{code}', [UtilsController::class, 'confirmation_dairy']);
 
+ // planes
+ Route::post('/pay-plan-renew', [PaymentForm::class, 'pay_plan_renew'])->name("pay-plan-renew")->middleware(['auth','VerifySelloDigital', 'verify_email']);
 
 Route::middleware(['auth'])->group(function () {
 
@@ -81,10 +83,10 @@ Route::middleware(['auth'])->group(function () {
         Route::middleware(['VerifySelloDigital', 'verify_email'])->group(function () {
             Route::get('/home', [Home::class, 'render'])->name('home');
             Route::get('/dashboard', [DashboardComponent::class, 'render'])->name('DashboardComponent');
-            Route::get('/patients', [Patients::class, 'render'])->name('Patients');
+            Route::get('/patients', [Patients::class, 'render'])->name('Patients')->middleware(['VerifyPlanExpiredPlan']);
             Route::get('/setting', [setting::class, 'render'])->name('Setting');
-            Route::get('/diary', [Diary::class, 'render'])->name('Diary')->middleware(['VerifyPlans']);
-            Route::post('/create-appointment', [Diary::class, 'store'])->name('CreateAppointment');
+            Route::get('/diary', [Diary::class, 'render'])->name('Diary');
+            Route::post('/create-appointment', [Diary::class, 'store'])->name('CreateAppointment')->middleware(['VerifyPlanExpiredPlan']);
             Route::get('/clinical-history', [ClinicalHistory::class, 'render'])->name('ClinicalHistory');
             Route::get('/centers', [Centers::class, 'render'])->name('Centers');
             Route::post('/register-centers', [Centers::class, 'store'])->name('register-centers');
@@ -96,8 +98,8 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/medical-record/{id}', [MedicalRecord::class, 'render'])->name('MedicalRecord')->middleware(['VerifyPlans']);
                 Route::post('/medical-consultation-create', [MedicalRecord::class, 'store'])->name('MedicalRecordCreate')->middleware(['VerifyPlans']);
                 Route::get('/medical-history', [MedicalHistory::class, 'render'])->name('MedicalHistory');
-                Route::post('/register-patients', [Patients::class, 'store'])->name('register-patients')->middleware(['VerifyPlans']);
-                Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail')->middleware(['VerifyPlans']);
+                Route::post('/register-patients', [Patients::class, 'store'])->name('register-patients');
+                Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail')->middleware(['VerifyPlans','VerifyPlanExpiredPlan']);
                 Route::post('/clinical-history-create', [MedicalHistory::class, 'store'])->name('ClinicalHistoryCreate');
                 Route::get('/search-patient/{value}', [Patients::class, 'search'])->name('search-patient');
                 Route::get('/medicard_record_study/{id}', [Study::class, 'render'])->name("mr_study");
@@ -115,9 +117,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp')->middleware(['VerifySelloDigital', 'verify_email', 'VerifyPlans']);
             Route::post('/create-seal', [Profile::class, 'create_seal'])->name('create_seal');
             Route::get('/auth/setting/profile', [Profile::class, 'render'])->name('Profile');
-            Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');
-            // planes
-            Route::post('/pay-plan-renew', [PaymentForm::class, 'pay_plan_renew'])->name("pay-plan-renew");
+            Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');          
 
         });
 
@@ -163,10 +163,7 @@ Route::middleware(['auth'])->group(function () {
      */
     Route::get('/get_medical_record/{id}', [UtilsController::class, 'get_medical_record_user'])->name('get_medical_record_user');
 
-    /**
-     * Logout
-     */
-    Route::get('/logout', [Login::class, 'logout'])->name('logout');
+   
 
     /**
      * @method PDF
@@ -241,3 +238,8 @@ Route::group(array('prefix' => 'public'), function () {
     Route::get('/payment-form/{type_plan}', [PaymentForm::class, 'render'])->name("payment-form");
     Route::post('/pay-plan', [PaymentForm::class, 'pay_plan'])->name("pay-plan");
 });
+
+ /**
+     * Logout
+     */
+    Route::get('/logout', [Login::class, 'logout'])->name('logout');

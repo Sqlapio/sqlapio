@@ -57,8 +57,8 @@ class Patients extends Component
 
             }else{
                 $nameFile = $request->img;
-            }      
-            
+            }
+
             if ($request->is_minor == "true") {
                 $rules = [
 
@@ -167,9 +167,9 @@ class Patients extends Component
 
                 /**
                  * Logica para aumentar el contador
-                 * de almacenamiento para el numero 
+                 * de almacenamiento para el numero
                  * de pacientes.
-                 * 
+                 *
                  * Esta logica se aplica al tema de los planes
                  */
                 UtilsController::update_patient_counter($user_id);
@@ -192,7 +192,7 @@ class Patients extends Component
 
                     UtilsController::notification_mail($mailData, $type);
                 }
-                
+
 
                 /**
                  * Notificacion al paciente
@@ -214,7 +214,7 @@ class Patients extends Component
                     'patient_email' => $re_patient->re_email,
                     'patient_phone' => $re_patient->re_phone,
 				];
-                
+
                 UtilsController::notification_mail($mailData, $type);
 
                 /**
@@ -227,7 +227,7 @@ class Patients extends Component
                 $image = 'http://sqldevelop.sqlapio.net/img/notification_email/cita_header.jpg';
 
                 $phone = preg_replace('/[\(\)\-\" "]+/', '', $request->re_phone);
-                
+
                 ApiServicesController::sms_welcome($phone, $caption, $image);
 
                 ApiServicesController::sms_info($phone, $body);
@@ -237,7 +237,7 @@ class Patients extends Component
 
                         'name'          => 'required|min:3|max:50',
                         'last_name'     => 'required|min:3|max:50',
-                        'ci'            => 'required|min:5|max:8',
+                        'ci'            => "required|min:5|max:8|unique:patients,ci,$request->id",
                         'email'         => "required|email|unique:patients,email,$request->id",
                         'phone'         => 'required',
                         'profession'    => 'required',
@@ -260,6 +260,7 @@ class Patients extends Component
                     'ci'           => 'Campo requerido',
                     'ci.min'       => 'Su cedula debe ser mayor a 5 caracteres',
                     'ci.max'       => 'Su cedula invalida.',
+                    'ci.unique'       => 'cedula ya se encuentra registrado en el sistema.',
                     'email'        => 'Campo requerido',
                     'email.unique' => 'El correo ya se encuentra registrado en el sistema',
                     'profession'   => 'Campo requerido',
@@ -283,13 +284,13 @@ class Patients extends Component
                         'success' => 'false',
                         'errors'  => $validator->errors()->all()
                     ], 400);
-                }                                          
-            
+                }
+
 
                 $patient=  Patient::updateOrCreate(['id' => $request->id],
                 [
 
-                    'patient_code'  => UtilsController::get_patient_code($request->ci),            
+                    'patient_code'  => UtilsController::get_patient_code($request->ci),
                     'name'          => $request->name,
                     'last_name'     => $request->last_name,
                     'ci'            => $request->ci,
@@ -318,9 +319,9 @@ class Patients extends Component
 
                 /**
                  * Logica para aumentar el contador
-                 * de almacenamiento para el numero 
+                 * de almacenamiento para el numero
                  * de pacientes.
-                 * 
+                 *
                  * Esta logica se aplica al tema de los planes
                  */
                 UtilsController::update_patient_counter($user_id);
@@ -342,7 +343,7 @@ class Patients extends Component
 
                     UtilsController::notification_mail($mailData, $type);
                 }
-                
+
                 /**
                  * Notificacion al paciente
                  * por haber sido registrado
@@ -364,7 +365,7 @@ class Patients extends Component
                     'patient_email' => $patient['email'],
                     'patient_phone' => $patient['phone'],
 				];
-                
+
                 UtilsController::notification_mail($mailData, $type);
 
 
@@ -384,7 +385,12 @@ class Patients extends Component
             $action = '5';
             ActivityLogController::store_log($action);
 
-            return $patient;
+            /** Retorna el contador de pacientes registrador por el usuarios */
+            $patient_counter = UtilsController::get_counter();
+            $patient_counter = $patient_counter + 1;
+
+            return [$patient, $patient_counter];
+
         } catch (\Throwable $th) {
             $message = $th->getMessage();
             dd('Error Livewire.Components.Patient.store()', $message);
@@ -396,7 +402,7 @@ class Patients extends Component
         try {
 
             $array = explode('-', $ci);
-            
+
             if($array[1] == 'true'){
                 $patient = Patient::where('ci', $array[0])->first();
                 if($patient == null){
@@ -405,7 +411,7 @@ class Patients extends Component
                         'errors'  => 'El paciente no existe debe registrarlo'
                     ], 400);
                 }else{
-                    return $patient;               
+                    return $patient;
                 }
             }else{
                 $representative = Representative::where('re_ci', $array[0])->get();
@@ -423,9 +429,9 @@ class Patients extends Component
                             'name_full' => $data_patient->name." ".$data_patient->last_name,
                             'patient_code' => $data_patient->patient_code,
                             'name' => $data_patient->name,
-                            'last_name' => $data_patient->last_name, 
-                            'email' => $data_patient->email, 
-                            'profession' => $data_patient->profession, 
+                            'last_name' => $data_patient->last_name,
+                            'email' => $data_patient->email,
+                            'profession' => $data_patient->profession,
                             'age' => $data_patient->age,
                             'genere' => $data_patient->genere,
                             'birthdate' => $data_patient->birthdate,
@@ -446,7 +452,7 @@ class Patients extends Component
                     }
                     return $patient_re;
                 }
-                
+
             }
         } catch (\Throwable $th) {
             $message = $th->getMessage();

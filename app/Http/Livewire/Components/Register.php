@@ -40,15 +40,12 @@ class Register extends Component {
 			$rules = [
 				'name'      => 'required',
 				'last_name' => 'required',
-				'email'     => 'required',
 				'password'  => 'required',
 			];
 
 			$msj = [
 				'name'              => 'Campo requerido',
 				'last_name'         => 'Campo requerido',
-				'email'             => 'Campo requerido',
-				'email.unique'      => 'El email ya se encuentra registrado',
 				'password'          => 'Campo requerido',
 				'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
 				'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
@@ -106,18 +103,12 @@ class Register extends Component {
 
 			$rules = [
 				'business_name' => 'required',
-				'email'     	=> 'required|unique:users',
 				'password'  	=> 'required',
 			];
 
 			$msj = [
 				'business_name'     => 'Campo requerido',
-				'email'             => 'Campo requerido',
-				'email.unique'      => 'El email ya se encuentra registrado',
 				'password'          => 'Campo requerido',
-				'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
-				'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
-				'password.regex'    => 'Formato de contraseña  incorrecto',
 			];
 
 			$validator = Validator::make($request->all(), $rules, $msj);
@@ -131,27 +122,10 @@ class Register extends Component {
 
 			try {
 
-				$user = User::create([
-
-					'business_name' 	=> $request->business_name,
-					'email' 			=> $request->email,
+				User::where('email', $request->email)
+				->update([
 					'password' 			=> Hash::make($request->password),
-					'role' 				=> $request->rol,
-					'verification_code' => Str::random(30),
-
-				]);
-
-				/**
-				 * Solicitamos el id del laboratorio
-				 * para almacenar en la tabla laboratorios
-				 */
-				$laboratory = User::where('email', $request->email)->first();
-				Laboratory::create([
-
-					'user_id'			=> $laboratory->id,
-					'business_name' 	=> $request->business_name,
-					'email' 			=> $request->email,
-
+					'verification_code' => Str::random(30)
 				]);
 
 			/**

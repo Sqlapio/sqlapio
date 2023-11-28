@@ -130,7 +130,10 @@
         let exam_filter = [];
         let study_filter = [];
 
+        let user = @json(Auth::user());
+
         $(document).ready(() => {
+            switch_type_plane(user);
 
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             tooltipTriggerList.forEach(element => {
@@ -145,7 +148,7 @@
             let doctor_centers = @json($doctor_centers);
             let validate_histroy = @json($validate_histroy);
             $('#not-exam').hide();
-            $('#not-studie').hide();     
+            $('#not-studie').hide();
 
             if (doctor_centers.length === 0) {
                 Swal.fire({
@@ -232,10 +235,24 @@
                 return pattern.test(value);
             }, "No se permiten caracteres especiales");
 
+            
+
+
             //envio del formulario
             $("#form-consulta").submit(function(event) {
                 event.preventDefault();
                 $("#form-consulta").validate();
+                if(countMedicationAdd === 0) {
+                    $("#med").html(`Debe agregar al menos un tratamiento <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`);
+                    Swal.fire({
+                            icon: 'warning',
+                            title: 'Debe agregar al menos un tratamiento',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
+                } 
                 if ($("#form-consulta").valid()) {
                     $('#send').hide();
                     $('#spinner').show();
@@ -324,105 +341,105 @@
                                 //                     .id);
 
                                 //             let btnExam = `
-                                //             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                //                     <button type="button"
-                                //                         class="refresf btn-idanger rounded-circle"
-                                //                         data-bs-container="body" 
-                                //                         data-bs-toggle="popover"
-                                //                         data-bs-custom-class="custom-popover"
-                                //                         data-bs-placement="bottom" 
-                                //                         data-bs-content="No hay exámenes cargados">
-                                //                         <i class="bi bi-exclamation-lg"></i>
-                                //                     </button>
-                                //             </div>`;
+                            //             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                            //                     <button type="button"
+                            //                         class="refresf btn-idanger rounded-circle"
+                            //                         data-bs-container="body" 
+                            //                         data-bs-toggle="popover"
+                            //                         data-bs-custom-class="custom-popover"
+                            //                         data-bs-placement="bottom" 
+                            //                         data-bs-content="No hay exámenes cargados">
+                            //                         <i class="bi bi-exclamation-lg"></i>
+                            //                     </button>
+                            //             </div>`;
 
                                 //             if (elem.data
                                 //                 .status_exam != null
                                 //             ) {
                                 //                 btnExam = `  
-                                //                         <div
-                                //                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                //                     <a href="${route_mr_exam}">
-                                //                     <button type="button"
-                                //                     class="btn refresf btn-iSecond rounded-circle"
-                                //                     data-bs-toggle="tooltip"
-                                //                     data-bs-placement="bottom"
-                                //                     data-bs-custom-class="custom-tooltip"
-                                //                     data-html="true" title="ver exámenes">
-                                //                     <i class="i bi-card-heading"></i>
-                                //                     </button>
-                                //                     </a>
-                                //                     </div>`
+                            //                         <div
+                            //                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                            //                     <a href="${route_mr_exam}">
+                            //                     <button type="button"
+                            //                     class="btn refresf btn-iSecond rounded-circle"
+                            //                     data-bs-toggle="tooltip"
+                            //                     data-bs-placement="bottom"
+                            //                     data-bs-custom-class="custom-tooltip"
+                            //                     data-html="true" title="ver exámenes">
+                            //                     <i class="i bi-card-heading"></i>
+                            //                     </button>
+                            //                     </a>
+                            //                     </div>`
 
                                 //             }
                                 //             let btnStudy = `<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                //                                 <button type="button"
-                                //                                     class="refresf btn-idanger rounded-circle"
-                                //                                     data-bs-container="body" 
-                                //                                     data-bs-toggle="popover"
-                                //                                     data-bs-custom-class="custom-popover"
-                                //                                     data-bs-placement="bottom" 
-                                //                                     data-bs-content="No hay estudios cargados">
-                                //                                     <i class="bi bi-exclamation-lg"></i>
-                                //                                 </button>
-                                //                             </div>`
+                            //                                 <button type="button"
+                            //                                     class="refresf btn-idanger rounded-circle"
+                            //                                     data-bs-container="body" 
+                            //                                     data-bs-toggle="popover"
+                            //                                     data-bs-custom-class="custom-popover"
+                            //                                     data-bs-placement="bottom" 
+                            //                                     data-bs-content="No hay estudios cargados">
+                            //                                     <i class="bi bi-exclamation-lg"></i>
+                            //                                 </button>
+                            //                             </div>`
 
                                 //             if (elem.data
                                 //                 .status_study !=
                                 //                 null
                                 //             ) {
                                 //                 btnStudy = `  
-                                //                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                //                     <a
-                                //                     href="${route_mr_study}">
-                                //                     <button type="button"
-                                //                     class="btn refresf btn-iSecond rounded-circle"
-                                //                     data-bs-toggle="tooltip"
-                                //                     data-bs-placement="bottom"
-                                //                     data-bs-custom-class="custom-tooltip"
-                                //                     data-html="true" title="ver estudios">
-                                //                     <i class="i bi-card-heading"></i>
-                                //                     </button>
-                                //                     </a>
-                                //                     </div>`
+                            //                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                            //                     <a
+                            //                     href="${route_mr_study}">
+                            //                     <button type="button"
+                            //                     class="btn refresf btn-iSecond rounded-circle"
+                            //                     data-bs-toggle="tooltip"
+                            //                     data-bs-placement="bottom"
+                            //                     data-bs-custom-class="custom-tooltip"
+                            //                     data-html="true" title="ver estudios">
+                            //                     <i class="i bi-card-heading"></i>
+                            //                     </button>
+                            //                     </a>
+                            //                     </div>`
 
                                 //             }
 
 
                                 //             elem.btn = `                                                                    
-                                //                     <div class="d-flex">
-                                //                     ${btnExam}
-                                //                     ${btnStudy}
-                                //                     <div
-                                //                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                //                     <a target="_blank"
-                                //                     href="${route_pdf_medical_prescription}">
-                                //                     <button type="button"
-                                //                     class="btn refresf btn-iSecond rounded-circle"><i
-                                //                     class="bi bi-file-earmark-pdf"
-                                //                     data-bs-toggle="tooltip"
-                                //                     data-bs-placement="bottom"
-                                //                     data-bs-custom-class="custom-tooltip"
-                                //                     data-html="true"
-                                //                     title="Ver recipe"></i>
-                                //                     </button>
-                                //                     </a>
-                                //                     </div>                                               
-                                //                     <div
-                                //                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                //                     <a target="_blank"
-                                //                     href="${route}">
-                                //                     <button type="button"
-                                //                     class="btn refresf btn-iSecond rounded-circle"><i
-                                //                     class="bi bi-file-earmark-pdf"
-                                //                     data-bs-toggle="tooltip"
-                                //                     data-bs-placement="bottom"
-                                //                     data-bs-custom-class="custom-tooltip"
-                                //                     data-html="true" title="ver PDF"></i>
-                                //                     </button>
-                                //                     </a>
-                                //                     </div>
-                                //                     </div>`;
+                            //                     <div class="d-flex">
+                            //                     ${btnExam}
+                            //                     ${btnStudy}
+                            //                     <div
+                            //                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                            //                     <a target="_blank"
+                            //                     href="${route_pdf_medical_prescription}">
+                            //                     <button type="button"
+                            //                     class="btn refresf btn-iSecond rounded-circle"><i
+                            //                     class="bi bi-file-earmark-pdf"
+                            //                     data-bs-toggle="tooltip"
+                            //                     data-bs-placement="bottom"
+                            //                     data-bs-custom-class="custom-tooltip"
+                            //                     data-html="true"
+                            //                     title="Ver recipe"></i>
+                            //                     </button>
+                            //                     </a>
+                            //                     </div>                                               
+                            //                     <div
+                            //                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                            //                     <a target="_blank"
+                            //                     href="${route}">
+                            //                     <button type="button"
+                            //                     class="btn refresf btn-iSecond rounded-circle"><i
+                            //                     class="bi bi-file-earmark-pdf"
+                            //                     data-bs-toggle="tooltip"
+                            //                     data-bs-placement="bottom"
+                            //                     data-bs-custom-class="custom-tooltip"
+                            //                     data-html="true" title="ver PDF"></i>
+                            //                     </button>
+                            //                     </a>
+                            //                     </div>
+                            //                     </div>`;
                                 //             data.push(elem);
                                 //         });
 
@@ -522,15 +539,15 @@
             $(".addMedacition").show();
             // $("#exams").attr('disabled', false);
             // $("#studies").attr('disabled', false);
-            $('#form-consulta').find('input:checkbox').attr('checked', false);   
-             exams_array = [];
-             studies_array = [];
-             $('#exam_filter').hide();        
-             $('#study_filter').hide();        
-             $('#exam').show();        
-             $('#studie').show();
-             $('#not-exam').hide();
-             $('#not-studie').hide();     
+            $('#form-consulta').find('input:checkbox').attr('checked', false);
+            exams_array = [];
+            studies_array = [];
+            $('#exam_filter').hide();
+            $('#study_filter').hide();
+            $('#exam').show();
+            $('#studie').show();
+            $('#not-exam').hide();
+            $('#not-studie').hide();
 
         }
 
@@ -577,7 +594,7 @@
                     $(`#${elem.cod_exam}`).attr('checked', true);
                     const examFilter = exam_filter.push(elem.description);
                 });
-                
+
                 exam_filter.map((element) => {
 
                     var list = `
@@ -593,7 +610,7 @@
                             </label>
                         </li>
                     </ul>`;
-                        $('#exam_filter').append(list);
+                    $('#exam_filter').append(list);
                 })
 
                 if (exam_filter.length == 0) {
@@ -623,17 +640,17 @@
                             </label>
                         </li>
                     </ul>`;
-                        $('#study_filter').append(list);
+                    $('#study_filter').append(list);
                 })
 
-                
+
                 if (study_filter.length == 0) {
                     $('#not-studie').show();
                 } else {
                     $('#not-studie').hide();
                 }
-                
-                
+
+
             });
         }
 
@@ -667,8 +684,10 @@
             }
         }
 
+        
         //agregar medicamento
         function addMedacition(e) {
+            
             // validaciones para agragar medicacion
             if ($('#medicine').val() === "") {
                 $("#medicine_span").text('Campo obligatorio');
@@ -735,6 +754,8 @@
                 $('#indication').val("");
                 $('#treatmentDuration').val("");
             }
+
+            
         }
 
         //borrar medicamento
@@ -757,17 +778,53 @@
                 }
             });
         }
-        </script>
+
+
+        function switch_type_plane(user) {
+
+            switch (Number(user.type_plane)) {
+                case 1:
+                    if (Number(user.ref_counter) == 15) {
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
+                    }
+                    break;
+                case 2:
+                if (Number(user.ref_counter) == 75) {
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+    </script>
 @endpush
 @section('content')
 
-<div class="container-fluid" style="padding: 3%">
-    {{-- {console.log()} --}}
-    @if ($validate_histroy != null)
+    <div class="container-fluid" style="padding: 0 3% 3%">
+        @if ($validate_histroy != null)
             <div class="accordion" id="accordionExample">
                 {{-- datos del paciente --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
@@ -835,8 +892,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro
-                                                            de salud</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro de salud</label>
                                                         <select name="center_id" id="center_id"
                                                             placeholder="Seleccione"class="form-control"
                                                             class="form-control combo-textbox-input">
@@ -886,9 +942,13 @@
                                                 </div>
                                                 <div class="overflow-auto p-3 bg-light mt-3"
                                                     style="max-width: 100%; max-height: 245px; min-height: 245px ;position: relative;">
-                                                    <ul id="exam_filter" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap;"> </ul>
-                                                    <span id='not-exam'>No hay exámenes para mostrar de este paciente </span>
-                                                    <ul id="exam" class="exam" style="padding-inline-start: 0; display: flex;
+                                                    <ul id="exam_filter" class="exam"
+                                                        style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
+                                                    </ul>
+                                                    <span id='not-exam'>No hay exámenes para mostrar de este paciente
+                                                    </span>
+                                                    <ul id="exam" class="exam"
+                                                        style="padding-inline-start: 0; display: flex;
                                                     flex-wrap: wrap;">
                                                         @foreach ($exam as $key => $item)
                                                             <li style="margin-bottom: 10px; padding-right: 5px">
@@ -901,12 +961,12 @@
                                                                 <label class="btn btn-outline-primary check-cm"
                                                                     for="{{ $item->cod_exam }}">
                                                                     {{ $item->description }}
-                                                                </label>                                                             
+                                                                </label>
                                                             </li>
                                                         @endforeach
                                                     </ul>
-                                            
-                                                </div>                                                
+
+                                                </div>
                                             </div>
 
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
@@ -919,10 +979,14 @@
                                                 </div>
                                                 <div class="overflow-auto p-3 bg-light mt-3 card-study"
                                                     style="max-width: 100%; max-height: 245px;  min-height: 245px; position: relative;">
-                                                    <ul id="study_filter" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap;"></ul>
-                                                    <span id='not-studie'>No hay estudios para mostrar de este paciente </span>
-                                                    <ul id="studie" class="studie" style="display: flex; flex-wrap: wrap;">
-                                                            @foreach ($study as $key => $item)
+                                                    <ul id="study_filter" class="studie"
+                                                        style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
+                                                    </ul>
+                                                    <span id='not-studie'>No hay estudios para mostrar de este paciente
+                                                    </span>
+                                                    <ul id="studie" class="studie"
+                                                        style="display: flex; flex-wrap: wrap;">
+                                                        @foreach ($study as $key => $item)
                                                             <li style="margin-bottom: 10px; padding-right: 5px">
                                                                 <input type="checkbox" class="btn-check"
                                                                     autocomplete="off" name="chk{{ $key }}"
@@ -933,9 +997,9 @@
                                                                 <label class="btn btn-outline-success check-cm"
                                                                     for="{{ $item->cod_study }}">{{ $item->description }}</label><br>
                                                             </li>
-                                                            @endforeach
-                                                        </ul>
-                                                </div>                                               
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -947,10 +1011,8 @@
                                                 <hr style="margin-bottom: 0;">
                                                 <div class="row mt-3 medicine-form">
                                                     <div style="display: flex">
-                                                        <span class="text-warning mt-3"
-                                                            style="font-size: 14px;margin-right: 10px;">Debe cargar al
-                                                            menos un tratamiento</span><i style="font-size:18px"
-                                                            class="bi bi-exclamation-triangle st-icon mt-3 text-warning "></i>
+                                                        <span class="text-warning mt-3" id='med'
+                                                            style="font-size: 14px;margin-right: 10px;"></span>
                                                     </div>
                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                         <div class="form-group">

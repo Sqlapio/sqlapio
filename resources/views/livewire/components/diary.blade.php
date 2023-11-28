@@ -162,13 +162,13 @@
                         <div class="modal-content">
                             <div class="modal-header title">
                                 <i class="bi bi-calendar-week"></i>
-                                <span style="padding-left: 5px">Agendar Cita</span>
+                                <span style="padding-left: 5px" id="title-modal"></span>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                     style="font-size: 12px;"></button>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body" >
                                 {{-- <div class="d-flex"> --}}
-                                    <x-select-dos :data="$patient" />
+                                    <x-select-dos :data="$patient"/>
                                     {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                         id="search-patients-show">
                                         <div class="floating-label-group">
@@ -210,6 +210,17 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="appointment-data">
+                                    <div>
+                                        <hr>
+                                        <h5>Información de la cita</h5>
+                                        <strong>Fecha: </strong><span id="fecha"></span>
+                                        <br>
+                                        <strong>Hora: </strong><span id="hour"></span>
+                                        <br>
+                                        <strong>Centro: </strong><span id="center"></span>
+                                    </div>
                                 </div>                                
                                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                                 <form action="" id="form-appointment">
@@ -218,7 +229,7 @@
 
                                     <div class="row">
                                         <input type="hidden" id="patient_id" name="patient_id" value="">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="FC">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="date" class="form-label"
@@ -231,7 +242,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="TH">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -248,7 +259,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="HS">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -321,9 +332,9 @@
                                         </div>
                                     </div> --}}
 
-                                        <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" />
+                                        <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"/>
 
-                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3 text-center">
+                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3 text-center" id="check-price">
                                             <div class="form-check form-switch">
                                                 <input onchange="handlerPrice(event);" style="width: 5em"
                                                     class="form-check-input" type="checkbox" role="switch"

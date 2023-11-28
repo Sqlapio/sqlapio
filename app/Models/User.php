@@ -74,6 +74,8 @@ class User extends Authenticatable {
 		'ref_counter',
 		'cod_update_email',
 		'cod_update_pass',
+        'date_end_plan',
+        'expired_plan',
 
 	];
 

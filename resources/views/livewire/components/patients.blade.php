@@ -90,21 +90,44 @@
         let status = "";
         let url = "{{ route('MedicalRecord', ':id') }}";
         let urlhist = "{{ route('ClinicalHistoryDetail', ':id') }}";
+        let path = "{{ route('verify-plans') }}";
 
         $(document).ready(() => {
 
             switch (Number(user.type_plane)) {
                 case 1:
-                    console.log(user.patient_counter);
+                    if (Number(user.patient_counter) == 5) {
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
+                    }
                     if (Number(user.patient_counter) >= 10) {
                         $('#content-patient').hide();
                         $('#paciente-registrado').hide();
                         $('#paciente-warnig').show();
                         return false;
                     }
+
                     break;
                 case 2:
-                if (Number(user.patient_counter) >= 40) {
+                    if (Number(user.patient_counter) == 35) {
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
+                    }
+                    if (Number(user.patient_counter) >= 40) {
                         $('#content-patient').hide();
                         $('#paciente-registrado').hide();
                         $('#paciente-warnig').show();
@@ -135,6 +158,7 @@
 
             $('#form-patients').validate({
                 rules: {
+                    ignore: [],
                     name: {
                         required: true,
                         minlength: 3,
@@ -291,13 +315,14 @@
             $.validator.addMethod("onlyNumber", function(value, element) {
                 var pattern = /^\d+\.?\d*$/;
                 return pattern.test(value);
-            }, "Campo solo numero");
+            }, "Campo numérico");
 
             //envio del formulario
             $("#form-patients").submit(function(event) {
                 event.preventDefault();
                 $("#form-patients").validate();
                 if ($("#form-patients").valid()) {
+                    $('#btn-save').attr('disabled', true);
                     $('#send').hide();
                     $('#spinner2').show();
                     var data = $('#form-patients').serialize();
@@ -320,13 +345,14 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
-                                url = url.replace(':id', response.id);
+                                url = url.replace(':id', response[0].id);
                                 $("#bnt-cons").show();
                                 $("#bnt-cons").find('a').remove();
                                 $("#bnt-cons").append(
                                     `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`
                                 );
-                                $('#send').show().attr('disabled', true);
+
+                                switch_type_plane(user.type_plane, response[1]);
                             });
                         },
                         error: function(error) {
@@ -338,7 +364,7 @@
                                     confirmButtonColor: '#42ABE2',
                                     confirmButtonText: 'Aceptar'
                                 }).then((result) => {
-                                    $('#send').show().attr('disabled', true);;
+                                    $('#btn-save').attr('disabled', false);
                                     $('#spinner2').hide();
                                     $(".holder").hide();
                                 });
@@ -351,50 +377,29 @@
 
         function handlerAge(e) {
             if (Number($("#age").val()) >= 18) {
-                $("#email").rules('add', {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 50,
-                    email: true
-                });
-                $("#profession").rules('add', {
-                    required: true
-                });
                 $("#ci").rules('add', {
                     required: true,
                     minlength: 5,
                     maxlength: 8,
                     onlyNumber: true
                 });
-                $("#phone").rules('add', {
-                    required: true
-                });
-                //
                 $('#data-rep').hide();
                 $('#is_minor').val(false);
                 $("#profesion-div").show();
                 $("#ci-div").show();
                 $("#email-div").show();
+                $("#div-phone").show();
 
             } else {
-                // validar si el nino tienes menos de 8 anos
-                if (Number($("#age").val()) <= 8) {
-                    $("#profesion-div").hide();
-                    $("#ci-div").hide();
-                    $("#email-div").hide();
-                    $("#profession").rules('remove');
-                    $("#phone").rules('remove');
+                $("#profesion-div").hide();
+                $("#ci-div").hide();
+                $("#email-div").hide();
+                $("#div-phone").hide();
 
-                } else {
-                    $("#profesion-div").show();
+                // validar si el nino tiene menos de 8 anos
+                if (Number($("#age").val()) > 8) {
                     $("#ci-div").show();
-                    $("#email-div").show();
-                    //remover valdaciones
-                    $("#email").rules('remove');
-                    $("#profession").rules('remove');
                     $("#ci").rules('remove');
-                    $("#phone").rules('remove');
-
                 }
 
                 $('#data-rep').show();
@@ -444,6 +449,8 @@
             $("#form-patients").trigger("reset");
             $('#is_minor').val(false);
             $('#id').val('');
+            $('#btn-save').attr('disabled', false);
+
         }
 
         function handlerPatExit(e) {
@@ -665,6 +672,63 @@
 
             $(".date-bd").attr('max', year + "-" + month + "-" + day);
         });
+
+        function switch_type_plane(type_plane, count_pat) {
+
+            switch (Number(type_plane)) {
+                case 1:
+                    if (Number(count_pat) == 5) {
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '¡Su plan está en el límite de su capacidad de registro!'
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
+                    }
+                    if (Number(count_pat) >= 10) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '¡Ha consumido el total de pacientes registrados!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            window.location.href = path;
+                        });
+                    }
+                    break;
+                case 2:
+                    if (Number(count_pat) == 35) {
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
+                    }
+                    if (Number(count_pat) >= 40) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '¡Ha consumido el total de pacientes registrados!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            window.location.href = path;
+                        });
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
     </script>
 @endpush
 @section('content')
@@ -672,10 +736,10 @@
         <div id="spinner2" style="display: none">
             <x-load-spinner show="true" />
         </div>
-        <div class="container-fluid body" style="padding: 3%">
+        <div class="container-fluid body" style="padding: 0 3% 3%">
             <div class="accordion" id="accordion">
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
@@ -687,13 +751,22 @@
                             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row mt-3" id="paciente-warnig" style="display: none">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <h1>Limite de pacientes registrados</h1>
+                                    <div class="row mt-3 justify-content-center" id="paciente-warnig" style="display: none">
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">                                            
+                                            <div class="row justify-content-center">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">                                            
+                                                    <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">¡Ha consumido el total de pacientes registrados! </h5>
+                                                </div>
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">                                            
+                                                    <img width="150" height="auto"
+                                                    src="{{ asset('/img/icon-warning.png') }}" alt="avatar">
+                                                </div>
+                                            </div>      
                                         </div>
-                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-3">
-                                            <a style="margin-top: 2px;" href="{{route('verify-plans')}}"
-                                                class="btn btnSecond">Pagar plan</a>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex;
+                                        justify-content: flex-end;">                                            
+                                            <a style="margin-top: 10px;" href="{{ route('verify-plans') }}"
+                                            class="btn btnSecond">Detalles del plan</a>
                                         </div>
                                     </div>
                                     <div class="row mt-3" id="paciente-registrado">
@@ -741,8 +814,9 @@
                                     </div>
                                     <div class="row" id="show-info-pat" style="display: none">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive">
-                                            <h5 class="mb-4 mt-4">Hijos de paciente registrado
-                                            </h5>
+                                            <hr>
+                                            <h5 style="margin-bottom: 17px;">Hijos de paciente registrado</h5>
+                                            <hr>
                                             <table id="table-show-info-pat" class="table table-striped table-bordered"
                                                 style="width:100%; ">
                                                 <thead>
@@ -844,7 +918,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                                <div id="div-phone"
+                                                    class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -875,7 +950,6 @@
                                                     </div>
                                                 </div>
                                                 <x-professions />
-                                                <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
                                                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
@@ -886,6 +960,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
+                                                
                                                 <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
@@ -992,8 +1068,8 @@
                                                         style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
                                                     <div id="bnt-hist"
                                                         style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
-                                                    <input class="btn btnSave send" value="Guardar" type="submit"
-                                                        style="margin-left: 10px; margin-bottom: 10px" />
+                                                    <input class="btn btnSave send" id="btn-save" value="Guardar"
+                                                        type="submit" style="margin-left: 10px; margin-bottom: 10px" />
                                                     <button style="margin-left: 10px; padding: 8px; margin-bottom: 10px"
                                                         type="button" onclick="refreshForm();" class="btn btnSecond"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -1151,7 +1227,7 @@
                             <span style="padding-left: 5px">Agendar Cita</span>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                 style="font-size: 12px;"></button>
-                        </div>
+                        </div> 
                         <div class="modal-body">
                             <div id="div-pat" style="display: none">
                                 <div class="d-flex mt-3">
