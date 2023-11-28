@@ -347,13 +347,11 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombre
-                                                        del
-                                                        Laboratorio</label>
-                                                    <input autocomplete="off"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon social</label>
+                                                    <input readonly autocomplete="off"
                                                         class="form-control mask-text @error('business_name') is-invalid @enderror"
                                                         id="business_name" name="business_name"
-                                                        value="{!! !empty($bellied_plan) ? $bellied_plan->get_user->business_name : '' !!}"
+                                                        value="{!! !empty($bellied_plan) ? ($bellied_plan->get_user->role == 'corporativo')? $bellied_plan->get_user->get_center->description :$bellied_plan->get_user->business_name : '' !!}"
                                                          type="text"
                                                         value="">
                                                     <i class="bi bi-person-circle st-icon"></i>

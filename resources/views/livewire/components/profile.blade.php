@@ -651,7 +651,7 @@
                                                         <input autocomplete="off" placeholder=""
                                                             class="form-control mask-text  @error('business_name') is-invalid @enderror"
                                                             id="business_name" name="business_name" type="text"
-                                                            value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->business_name : '' !!}">
+                                                            value="{!! !empty($user->get_laboratorio != null) ?($user->role == 'corporativo')? $user->get_center->description : $user->get_laboratorio->business_name : '' !!}">
                                                         <i class="bi bi-person-vcard" style="top: 30px"></i>
                                                     </div>
                                                 </diV>
