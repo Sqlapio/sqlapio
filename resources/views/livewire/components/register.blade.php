@@ -263,7 +263,7 @@
             } else {
                 input[0].type = "password";
             }
-        }       
+        }
     </script>
 @endpush
 @section('content')
@@ -275,32 +275,7 @@
                         <img class="img" src="{{ asset('img/registro.png') }}" style="width: 200px;">
                     </div>
                 </div>
-                {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                    <div class="container container-icon" style="display: flex; justify-content: center;">
-                        <div id="btn-rol" class="row justify-content-center">
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 btn-bg">
-                                <img data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                    data-bs-custom-class="custom-tooltip" data-html="true" title="Registrar como médico"
-                                    onclick="handlerRol('medico')" src="{{ asset('/img/V2/Boton_medico.png') }}"
-                                    height="auto" alt="avatar">
-                                <img data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                    data-bs-custom-class="custom-tooltip" data-html="true" title="Registrar como médico"
-                                    onclick="handlerRol('medico')" src="{{ asset('/img/V2/Boton_medico_bg.png') }}"
-                                    height="auto" alt="avatar">
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 btn-bg-lb">
-                                <img data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                    data-bs-custom-class="custom-tooltip" data-html="true"
-                                    title="Registrar como laboratorio" onclick="handlerRol('laboratorio')"
-                                    src="{{ asset('/img/V2/Boton_laboratorio.png') }}" height="auto" alt="avatar">
-                                <img data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                    data-bs-custom-class="custom-tooltip" data-html="true"
-                                    title="Registrar como laboratorio" onclick="handlerRol('laboratorio')"
-                                    src="{{ asset('/img/V2/Boton_laboratorio_bg.png') }}" height="auto" alt="avatar">
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
+
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
                     <div class="card" id="div-form">
                         <div class="card-body">
@@ -314,7 +289,72 @@
                                 {{ Form::open(['url' => 'register', 'method' => 'post', 'id' => 'form-register']) }}
                                 {{ csrf_field() }}
                                 <div class="row">
-                                    @if ($bellied_plan->get_user->role == 'medico')
+                                    {{-- registro normal  --}}
+                                    @if ($bellied_plan !== null)
+                                        @if ($bellied_plan->get_user->role == 'medico')
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="name" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
+                                                        <input autocomplete="off"
+                                                            class="form-control mask-text @error('name') is-invalid @enderror"
+                                                            id="name" name="name" type="text" readonly
+                                                            value="{!! !empty($bellied_plan) ? $bellied_plan->get_user->name : '' !!}">
+                                                        <i class="bi bi-person-circle st-icon"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="name" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
+                                                        <input autocomplete="off"
+                                                            class="form-control mask-text @error('last_name') is-invalid @enderror"
+                                                            id="last_name" name="last_name" readonly type="text"
+                                                            value="{!! !empty($bellied_plan) ? $bellied_plan->get_user->last_name : '' !!}">
+                                                        <i class="bi bi-person-circle st-icon"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+                                        @endif
+                                        @if ($bellied_plan->get_user->role == 'laboratorio' || $bellied_plan->get_user->role == 'corporativo')
+                                            <div id="business-name"
+                                                class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="name" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon
+                                                            social</label>
+                                                        <input readonly autocomplete="off"
+                                                            class="form-control mask-text @error('business_name') is-invalid @enderror"
+                                                            id="business_name" name="business_name"
+                                                            value="{!! !empty($bellied_plan)
+                                                                ? ($bellied_plan->get_user->role == 'corporativo'
+                                                                    ? $bellied_plan->get_user->get_center->description
+                                                                    : $bellied_plan->get_user->business_name)
+                                                                : '' !!}" type="text" value="">
+                                                        <i class="bi bi-person-circle st-icon"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+                                        @endif
+
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
+                                                        Electrónico</label>
+                                                    <input readonly autocomplete="off" class="form-control" id="email"
+                                                        name="email" type="text" value="{!! !empty($bellied_plan) ? $bellied_plan->get_user->email : '' !!}">
+                                                    <i class="bi bi-envelope st-icon"></i>
+                                                </div>
+                                            </diV>
+                                        </div>
+                                    @else
+                                        {{-- registro medico con plan corporativco  --}}
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
@@ -322,8 +362,7 @@
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
                                                     <input autocomplete="off"
                                                         class="form-control mask-text @error('name') is-invalid @enderror"
-                                                        id="name" name="name" type="text" readonly
-                                                        value="{!! !empty($bellied_plan) ? $bellied_plan->get_user->name : '' !!}">
+                                                        id="name" name="name" type="text" value="">
                                                     <i class="bi bi-person-circle st-icon"></i>
                                                 </div>
                                             </diV>
@@ -335,55 +374,24 @@
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
                                                     <input autocomplete="off"
                                                         class="form-control mask-text @error('last_name') is-invalid @enderror"
-                                                        id="last_name" name="last_name" readonly type="text"
-                                                        value="{!! !empty($bellied_plan) ? $bellied_plan->get_user->last_name : '' !!}">
+                                                        id="last_name" name="last_name" type="text" value="">
                                                     <i class="bi bi-person-circle st-icon"></i>
                                                 </div>
                                             </diV>
                                         </div>
-                                    @endif
-                                    @if ($bellied_plan->get_user->role == 'laboratorio' || $bellied_plan->get_user->role == 'corporativo' )
-                                        <div id="business-name" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon social</label>
-                                                    <input readonly autocomplete="off"
-                                                        class="form-control mask-text @error('business_name') is-invalid @enderror"
-                                                        id="business_name" name="business_name"
-                                                        value="{!! !empty($bellied_plan) ? ($bellied_plan->get_user->role == 'corporativo')? $bellied_plan->get_user->get_center->description :$bellied_plan->get_user->business_name : '' !!}"
-                                                         type="text"
-                                                        value="">
-                                                    <i class="bi bi-person-circle st-icon"></i>
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
+                                                        Electrónico</label>
+                                                    <input autocomplete="off" class="form-control" id="email"
+                                                        name="email" type="text" value="">
+                                                    <i class="bi bi-envelope st-icon"></i>
                                                 </div>
                                             </diV>
                                         </div>
                                     @endif
-
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
-                                                    Electrónico</label>
-                                                <input autocomplete="off" class="form-control" id="email" name="email"
-                                                    type="text" readonly value="{!! !empty($bellied_plan) ? $bellied_plan->get_user->email : '' !!}">
-                                                <i class="bi bi-envelope st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
-                                    {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: none">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Rol</label>
-                                                <input autocomplete="off" placeholder="Rol"
-                                                    class="form-control @error('rol') is-invalid @enderror" id="rol"
-                                                    name="rol" type="text" value="" readonly="readonly">
-                                                <i class="bi bi-caret-down st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div> --}}
 
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                         <div class="form-group">
@@ -412,8 +420,8 @@
                                                     Contraseña</label>
                                                 <input autocomplete="off" placeholder="Confirmar Contraseña"
                                                     class="form-control @error('password_confrimation') is-invalid @enderror"
-                                                    id="password_confrimation" name="password_confrimation" type="password"
-                                                    value="">
+                                                    id="password_confrimation" name="password_confrimation"
+                                                    type="password" value="">
                                                 <i onclick="showPassConfimation();" class="bi bi-eye-fill st-icon"></i>
                                             </div>
                                         </diV>

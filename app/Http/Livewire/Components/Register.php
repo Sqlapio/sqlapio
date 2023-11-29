@@ -340,6 +340,9 @@ class Register extends Component {
 	}
 
 	public function render($id=null) {
+
+		$bellied_plan = null;
+		
 		if($id!=null){
 			$bellied_plan = BilledPlan::where('id', decrypt($id))->first();
 		}
