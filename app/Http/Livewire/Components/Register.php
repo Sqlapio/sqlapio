@@ -175,7 +175,7 @@ class Register extends Component {
             $validator = Validator::make($request->all(), $rules, $msj);
 
             if ($validator->fails()) {
-                return Redirect::to('/')->withErrors($validator);
+                return Redirect::back()->withErrors($validator);
             }
 
             try {
@@ -185,7 +185,7 @@ class Register extends Component {
                         'password'             => Hash::make($request->password),
                         'verification_code' => Str::random(30),
                         'role'              => 'medico',
-                        'type_plan'         => '7',
+                        'type_plane'         => '7',
                         'center_id'         => $request->center_id,
                     ]);
 

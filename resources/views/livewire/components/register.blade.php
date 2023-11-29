@@ -289,6 +289,13 @@
                                 {{ Form::open(['url' => 'register', 'method' => 'post', 'id' => 'form-register']) }}
                                 {{ csrf_field() }}
                                 <div class="row">
+                                    @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        @foreach ($errors->all() as $message)
+                                            <span class="text-danger error-span"> {{ $message }}</span><br />
+                                        @endforeach
+                                    </div>
+                                @endif
                                     {{-- registro normal  --}}
                                     @if ($bellied_plan !== null)
                                         @if ($bellied_plan->get_user->role == 'medico')
@@ -357,15 +364,23 @@
                                     @else
                                         {{-- registro medico con plan corporativco  --}}
                                         <div class="row mt-4" style="display: grid; justify-items: center;">
-                                            <img class="logoSq" style="margin-right: -9%;" src="{{ asset('imgs/'.$corporate->get_laboratorio->lab_img) }}"
+                                            <img class="logoSq" style="margin-right: -9%;"
+                                                src="{{ asset('imgs/' . $corporate->get_laboratorio->lab_img) }}"
                                                 alt="">
                                         </div>
 
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-5" >
-                                            <strong>{{$corporate->get_center->description}}</strong>                                            
+
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-5">
+                                            <strong>{{ $corporate->get_center->description }}</strong>
                                         </div>
+
+
+                                      
+
                                         <input type="hidden" name="doctor_corporate" value="true">
-                                        <input type="hidden" name="user_corp_id" value="{{$corporate->id}}">
+                                        <input type="hidden" name="user_corp_id" value="{{ $corporate->id }}">
+                                        <input type="hidden" name="center_id" value="{{ $corporate->center_id }}">
+
 
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
