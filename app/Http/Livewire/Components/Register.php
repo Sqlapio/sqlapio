@@ -36,138 +36,189 @@ class Register extends Component {
 		 */
         $user = User::where('email', $request->email)->first();
 
-		if($user->role == 'medico')
-		{
-			$rules = [
-				'name'      => 'required',
-				'last_name' => 'required',
-				'password'  => 'required',
-			];
+        if($user != null && $request->doctor_corporate == 'false')
+        {
+            if($user->role == 'medico')
+            {
+                $rules = [
+                    'name'      => 'required',
+                    'last_name' => 'required',
+                    'password'  => 'required',
+                ];
 
-			$msj = [
-				'name'              => 'Campo requerido',
-				'last_name'         => 'Campo requerido',
-				'password'          => 'Campo requerido',
-				'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
-				'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
-				'password.regex'    => 'Formato de contraseña  incorrecto',
-			];
+                $msj = [
+                    'name'              => 'Campo requerido',
+                    'last_name'         => 'Campo requerido',
+                    'password'          => 'Campo requerido',
+                    'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
+                    'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
+                    'password.regex'    => 'Formato de contraseña  incorrecto',
+                ];
 
-			$validator = Validator::make($request->all(), $rules, $msj);
+                $validator = Validator::make($request->all(), $rules, $msj);
 
-			if ($validator->fails()) {
-				return Redirect::to('/')->withErrors($validator);
-			}
+                if ($validator->fails()) {
+                    return Redirect::to('/')->withErrors($validator);
+                }
 
-			try {
+                try {
 
-                if($request->doctor_corporate == true)
-                {
-                    if($user->type_plan != '7')
-                    {
-                        return response()->json([
-                            'error' => 'true',
-                            'mjs'  => 'Usted ya se encuentra registrado en SQLAPIO.COM, debe registrarce con correo electrónico distinto.',
-                        ], 400);
-                    }else{
-                        User::where('email', $request->email)
-                            ->update([
-                                'password' 			=> Hash::make($request->password),
-                                'verification_code' => Str::random(30)
-                            ]);
-                    } 
-                }else{
                     User::where('email', $request->email)
                         ->update([
                             'password'             => Hash::make($request->password),
                             'verification_code' => Str::random(30)
                         ]);
+
+                /**
+                 * Registro de accion en el log
+                 * del sistema
+                 */
+                $action = '3';
+                ActivityLogController::store_log($action);
+
+                /**
+                 * Envio de notificacion por correo
+                 */
+                $user_update = User::where('email', $request->email)->first();
+                $type = 'verify_email';
+                $mailData = [
+                    'dr_name' => $request->name.' '.$request->last_name,
+                    'dr_email' => $request->email,
+                    'verify_code' => $user_update->verification_code,
+                ];
+
+                UtilsController::notification_mail($mailData, $type);
+
+                return redirect('/')->with('success', 'El registro inicial satisfactorio');
+
+                } catch (\Throwable $th) {
+                    $message = $th->getMessage();
+                    dd('Error Livewire.Components.Register.store()', $message);
+                }
+            }
+
+            if($user->role == 'laboratorio' || $user->role == 'corporativo')
+            {
+
+                $rules = [
+                    'business_name' => 'required',
+                    'password'  	=> 'required',
+                ];
+
+                $msj = [
+                    'business_name'     => 'Campo requerido',
+                    'password'          => 'Campo requerido',
+                ];
+
+                $validator = Validator::make($request->all(), $rules, $msj);
+
+                if ($validator->fails()) {
+                    return response()->json([
+                        'success' => 'false',
+                        'errors'  => $validator->errors()->all()
+                    ], 400);
                 }
 
-			/**
-			 * Registro de accion en el log
-			 * del sistema
-			 */
-			$action = '3';
-			ActivityLogController::store_log($action);
+                try {
 
-			/**
-			 * Envio de notificacion por correo
-			 */
+                    User::where('email', $request->email)
+                    ->update([
+                        'password' 			=> Hash::make($request->password),
+                        'verification_code' => Str::random(30)
+                    ]);
+
+                /**
+                 * Registro de accion en el log
+                 * del sistema
+                 */
+                $action = '16';
+                ActivityLogController::store_log($action);
+
+                /**
+                 * Envio de notificacion por correo
+                 */
+                $type = 'verify_email_laboratory';
+                $mailData = [
+                    'laboratory_name' => $user['business_name'],
+                    'laboratory_email' => $user['email'],
+                    'verify_code' => $user['verification_code'],
+                ];
+                UtilsController::notification_mail($mailData, $type);
+
+                return redirect('/')->with('success', 'El registro inicial fue satisfactorio');
+
+                } catch (\Throwable $th) {
+                    $message = $th->getMessage();
+                    dd('Error Livewire.Components.Register.store()', $message);
+                }
+            }
+
+        }else{
+
+            $rules = [
+                'name'      => 'required',
+                'last_name' => 'required',
+                'email'     => 'required|unique:users',
+                'password'  => 'required',
+            ];
+
+            $msj = [
+                'name'              => 'Campo requerido',
+                'last_name'         => 'Campo requerido',
+                'password'          => 'Campo requerido',
+                'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
+                'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
+                'password.regex'    => 'Formato de contraseña  incorrecto',
+                'unique'            => 'El correo electronico ya se encuentra registrado. Por favor intente con uno distinto.'
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $msj);
+
+            if ($validator->fails()) {
+                return Redirect::to('/')->withErrors($validator);
+            }
+
+            try {
+
+                User::where('email', $request->email)
+                    ->update([
+                        'password'             => Hash::make($request->password),
+                        'verification_code' => Str::random(30),
+                        'role'              => 'medico',
+                        'type_plan'         => '7',
+                        'center_id'         => $request->center_id,
+                    ]);
+
+            /**
+             * Registro de accion en el log
+             * del sistema
+             */
+            $action = '3';
+            ActivityLogController::store_log($action);
+
+            /**
+             * Envio de notificacion por correo
+             */
             $user_update = User::where('email', $request->email)->first();
-			$type = 'verify_email';
-			$mailData = [
-				'dr_name' => $request->name.' '.$request->last_name,
-				'dr_email' => $request->email,
-				'verify_code' => $user_update->verification_code,
-			];
+            $type = 'verify_email';
+            $mailData = [
+                'dr_name' => $request->name.' '.$request->last_name,
+                'dr_email' => $request->email,
+                'verify_code' => $user_update->verification_code,
+            ];
 
-			UtilsController::notification_mail($mailData, $type);
+            UtilsController::notification_mail($mailData, $type);
 
-			return redirect('/')->with('success', 'El registro inicial satisfactorio');
+            return redirect('/')->with('success', 'El registro inicial satisfactorio');
 
-			} catch (\Throwable $th) {
-				$message = $th->getMessage();
-				dd('Error Livewire.Components.Register.store()', $message);
-			}
-		}
+            } catch (\Throwable $th) {
+                $message = $th->getMessage();
+                dd('Error Livewire.Components.Register.store()', $message);
+            }
+        }
 
-		if($user->role == 'laboratorio' || $user->role == 'corporativo')
-		{
 
-			$rules = [
-				'business_name' => 'required',
-				'password'  	=> 'required',
-			];
-
-			$msj = [
-				'business_name'     => 'Campo requerido',
-				'password'          => 'Campo requerido',
-			];
-
-			$validator = Validator::make($request->all(), $rules, $msj);
-
-			if ($validator->fails()) {
-				return response()->json([
-					'success' => 'false',
-					'errors'  => $validator->errors()->all()
-				], 400);
-			}
-
-			try {
-
-				User::where('email', $request->email)
-				->update([
-					'password' 			=> Hash::make($request->password),
-					'verification_code' => Str::random(30)
-				]);
-
-			/**
-			 * Registro de accion en el log
-			 * del sistema
-			 */
-			$action = '16';
-			ActivityLogController::store_log($action);
-
-			/**
-			 * Envio de notificacion por correo
-			 */
-			$type = 'verify_email_laboratory';
-			$mailData = [
-				'laboratory_name' => $user['business_name'],
-				'laboratory_email' => $user['email'],
-				'verify_code' => $user['verification_code'],
-			];
-			UtilsController::notification_mail($mailData, $type);
-
-			return redirect('/')->with('success', 'El registro inicial fue satisfactorio');
-
-			} catch (\Throwable $th) {
-				$message = $th->getMessage();
-				dd('Error Livewire.Components.Register.store()', $message);
-			}
-		}
-
+		
 	}
 
 	public function update(Request $request)
