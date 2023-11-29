@@ -340,6 +340,7 @@
                                                 </diV>
                                             </div>
                                         @endif
+                                        <input type="hidden" name="doctor_corporate" value="false">
 
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <div class="form-group">
