@@ -11,6 +11,7 @@
 </style>
 @push('scripts')
     <script>
+        let link = ''
         $(document).ready(() => {
 
             $('#form-profile').validate({
@@ -436,6 +437,18 @@
 
             $(".date-bd").attr('max', year + "-" + month + "-" + day);
         });
+
+            const triggerExample = async (token) => {
+                link = `http://localhost:8000/register-user-corporate/${token}`
+
+            try {
+                await navigator.clipboard.writeText(link);
+                $("#icon-copy").css("color", "#04AA6D");
+
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+            }
+        }
     </script>
 @endpush
 @section('content')
@@ -640,6 +653,19 @@
                                             </div>
                                             <x-upload-image />
                                         @else
+                                            @if (Auth::user()->role == 'corporativo')
+                                                <div class="row">
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                                        <small id=""><a id="Link-medicos" href="http://localhost:8000/register-user-corporate/{{ Auth::user()->token_corporate }}" target="_blank">Asociación de medicos</a></small>
+                                                    </div>
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4  mt-3">
+                                                        <input type="hidden" id="link-input" value="">
+                                                        <i id="icon-copy" onclick="triggerExample('{{ Auth::user()->token_corporate }}');" class="bi bi-clipboard2-plus"></i>
+                                                    </div>
+                                                </div>
+                                            @endif
+
+
                                             {{-- rol laboratorio --}}
                                             <input type="hidden" id="id" name="id"
                                                 value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->id : '' !!}">
@@ -944,6 +970,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>  
 
 @endsection
