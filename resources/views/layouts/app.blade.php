@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
     @livewireStyles
+{{-- select dos --}}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 </head>
 {{-- llamado de js jquery --}}
 <script src="{{ asset('jquery-ui-1.13.2/external/jquery/jquery.js') }}" type="text/javascript"></script>
@@ -17,6 +20,10 @@
 <script src="{{ asset('assets/locales/bootstrap-datepicker.es.min.js') }}"></script>
 {{-- llamado de js locales validation --}}
 <script src="{{ asset('jquery-validation-1.19.5/dist/jquery.validate.min.js') }}" type="text/javascript"></script>
+{{-- select dos --}}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
 @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 <style>
     @import url('/fuentes/Roboto-Black.ttf');

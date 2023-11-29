@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components;
 
+use App\Http\Controllers\UtilsController;
 use Illuminate\Http\Request;
 use Livewire\Component;
 use Illuminate\Support\Facades\Validator;
@@ -10,6 +11,7 @@ use App\Models\Laboratory;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class PaymentForm extends Component
 {
@@ -47,7 +49,7 @@ class PaymentForm extends Component
                         'type_plan.required' => 'Campo requerido',
                         'email.required'     => 'Campo requerido',
                         'email.unique'       => 'El correo electrónico ya se encuentra registrado. Intente con un nuevo correo',
-                        'ci.unique'   => 'La cédula de identidad ya se encuentra registrado. Intente con una diferente',
+                        'ci.unique'   => 'La cédula de identidad ya se encuentra registrado. Intente con uno diferente',
                     ];
 
                     $validator = Validator::make($request->all(), $rules, $msj);
@@ -73,7 +75,7 @@ class PaymentForm extends Component
 
                 }
 
-                if($request->type_plan == '4' || $request->type_plan == '5' || $request->type_plan == '6' ||$request->type_plan == '7' )
+                if($request->type_plan == '4' || $request->type_plan == '5' || $request->type_plan == '6' || $request->type_plan == '7' )
                 {
                     $rules = [
                         'type_plan'         => 'required',
@@ -85,7 +87,7 @@ class PaymentForm extends Component
                         'type_plan.required' => 'Campo requerido',
                         'email.required'     => 'Campo requerido',
                         'email.unique'       => 'El correo electrónico ya se encuentra registrado. Intente con un nuevo correo',
-                        'rif.unique'         => 'La RIF ya se encuentra registrado. Intente con una diferente',
+                        'rif.unique'         => 'La RIF ya se encuentra registrado. Intente con uno diferente',
                     ];
 
                     $validator = Validator::make($request->all(), $rules, $msj);
@@ -96,10 +98,14 @@ class PaymentForm extends Component
                             'errors'  => $validator->errors()->all()
                         ], 400);
 
-                        
-                    }
 
-                    $rol = ($request->type_plan=="7") ? 'corporativo' :'laboratorio';
+                    }
+                    $rol ='laboratorio';
+                    $url_token = null;
+                    if($request->type_plan=="7"){
+                        $rol = 'corporativo';
+                        $url_token = env('APP_URL',"http://localhost:8000/register-user-corporate/").Crypt::encryptString($request->center_id);
+                    }
                     $user = new User();
                     $user->business_name = $request->business_name;
                     $user->email = $request->email;
@@ -107,6 +113,8 @@ class PaymentForm extends Component
                     $user->role = $rol;
                     $user->date_start_plan = $user->date_start_plan = date('Y-m-d');
                     $user->date_end_plan = $date_today;
+                    $user->center_id = $request->center_id;
+                    $user->token_corporate = $url_token;
                     $user->save();
 
                     /**
@@ -188,6 +196,7 @@ class PaymentForm extends Component
 
     public function render($type_plan)
     {
-        return view('livewire.components.payment-form',compact('type_plan'));
+        $centers= UtilsController::get_centers();
+        return view('livewire.components.payment-form',compact('type_plan','centers'));
     }
 }

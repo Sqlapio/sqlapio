@@ -38,15 +38,12 @@ class ActivityLogController extends Controller {
 
 
 				$laboratory = User::all()->last();
-				$activity_log->user = $laboratory->business_name;
+				$activity_log->user = ($laboratory->business_name == null)?  $laboratory->get_center->description : $laboratory->business_name;
 				$activity_log->user_email = $laboratory->email;
 				$activity_log->ip = $_SERVER['REMOTE_ADDR'];
 				$activity_log->browser = $_SERVER['HTTP_USER_AGENT'];
 				$activity_log->action = UtilsController::get_action($action);
 				$activity_log->save();
-				
-
-
 			}else{
 
 				$user = Auth::user();
