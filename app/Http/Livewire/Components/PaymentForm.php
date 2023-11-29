@@ -11,6 +11,7 @@ use App\Models\Laboratory;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class PaymentForm extends Component
 {
@@ -109,6 +110,7 @@ class PaymentForm extends Component
                     $user->date_start_plan = $user->date_start_plan = date('Y-m-d');
                     $user->date_end_plan = $date_today;
                     $user->center_id = $request->center_id;
+                    $user->token_corporate = Crypt::encryptString($request->center_id);
                     $user->save();
 
                     /**

@@ -11,6 +11,7 @@ use App\Models\Laboratory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
@@ -338,6 +339,15 @@ class Register extends Component {
 		}
 
 	}
+
+    public function register_doctor_corporate($hash)
+    {
+        $user = User::where('center_id', Crypt::decryptString($hash))->first();
+        
+        $bellied_plan = null;
+        $show = true;
+        return view('livewire.components.register', compact('show', 'bellied_plan', 'user'));
+    }
 
 	public function render($id=null) {
 
