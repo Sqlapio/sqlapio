@@ -355,7 +355,16 @@
                                         </div>
                                     @else
                                         {{-- registro medico con plan corporativco  --}}
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <div class="row mt-4" style="display: grid; justify-items: center;">
+                                            <img class="logoSq" style="margin-right: -9%;" src="{{ asset('imgs/'.$corporate->get_laboratorio->lab_img) }}"
+                                                alt="">
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-5" >
+                                            <strong>{{$corporate->get_center->description}}</strong>                                            
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"

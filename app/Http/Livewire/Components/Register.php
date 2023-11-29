@@ -342,10 +342,10 @@ class Register extends Component {
 
     public function register_doctor_corporate($hash)
     {
-        $user = User::where('center_id', Crypt::decryptString($hash))->first();        
+        $corporate = User::where('center_id', Crypt::decryptString($hash))->first();        
         $bellied_plan = null;
         $show = true;
-        return view('livewire.components.register', compact('show', 'bellied_plan', 'user'));
+        return view('livewire.components.register', compact('show', 'bellied_plan', 'corporate'));
     }
 
 	public function render($id=null) {
