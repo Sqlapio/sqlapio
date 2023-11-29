@@ -180,14 +180,16 @@ class Register extends Component {
 
             try {
 
-                User::where('email', $request->email)
-                    ->update([
-                        'password'             => Hash::make($request->password),
-                        'verification_code' => Str::random(30),
-                        'role'              => 'medico',
-                        'type_plane'         => '7',
-                        'center_id'         => $request->center_id,
-                    ]);
+                $user_corporate = new User();
+                $user_corporate->name = $request->name;
+                $user_corporate->last_name = $request->last_name;
+                $user_corporate->email = $request->email;
+                $user_corporate->password = $request->password;
+                $user_corporate->verification_code = Str::random(30);
+                $user_corporate->role = 'medico';
+                $user_corporate->type_plane = '7';
+                $user_corporate->center_id = $request->center_id;
+                $user_corporate->save();
 
             /**
              * Registro de accion en el log

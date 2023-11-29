@@ -444,8 +444,7 @@
         });
 
         const triggerExample = async (token) => {
-            link = `http://localhost:8000/register-user-corporate/${token}`
-
+            link = `${token}`;
             try {
                 await navigator.clipboard.writeText(link);
                 $("#icon-copy").css("color", "#04AA6D");
@@ -662,7 +661,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <small id=""><a id="Link-medicos"
-                                                                href="http://localhost:8000/register-user-corporate/{{ Auth::user()->token_corporate }}"
+                                                                href="{{ Auth::user()->token_corporate }}"
                                                                 target="_blank">Asociación de medicos</a></small>
                                                     </div>
                                                     <div style="margin-left: -17%;"

@@ -100,8 +100,12 @@ class PaymentForm extends Component
 
 
                     }
-
-                    $rol = ($request->type_plan=="7") ? 'corporativo' :'laboratorio';
+                    $rol ='laboratorio';
+                    $url_token = null;
+                    if($request->type_plan=="7"){
+                        $rol = 'corporativo';
+                        $url_token = env('APP_URL',"http://localhost:8000/register-user-corporate/").Crypt::encryptString($request->center_id);
+                    }
                     $user = new User();
                     $user->business_name = $request->business_name;
                     $user->email = $request->email;
@@ -110,7 +114,7 @@ class PaymentForm extends Component
                     $user->date_start_plan = $user->date_start_plan = date('Y-m-d');
                     $user->date_end_plan = $date_today;
                     $user->center_id = $request->center_id;
-                    $user->token_corporate = Crypt::encryptString($request->center_id);
+                    $user->token_corporate = $url_token;
                     $user->save();
 
                     /**
