@@ -1169,12 +1169,16 @@ class UtilsController extends Controller
 	static function update_patient_counter($user_id)
 	{
 		try {
-			$value = User::where('id', $user_id)->first()->patient_counter;
-			$counter = DB::table('users')
-				->where('id', $user_id)
-				->update([
-					'patient_counter' => $value + 1,
-				]);
+			$value = User::where('id', $user_id)->first();
+            if($value != '7')
+            {
+                $counter = DB::table('users')
+                    ->where('id', $user_id)
+                    ->update([
+                        'patient_counter' => $value->patient_counter + 1,
+                    ]);
+            }
+
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_patient_counter()', $message);
@@ -1184,12 +1188,16 @@ class UtilsController extends Controller
 	static function update_mr_counter($user_id)
 	{
 		try {
-			$value = User::where('id', $user_id)->first()->medical_record_counter;
-			$counter = DB::table('users')
-				->where('id', $user_id)
-				->update([
-					'medical_record_counter' => $value + 1,
-				]);
+			$value = User::where('id', $user_id)->first();
+            if($value != '7')
+            {
+                $counter = DB::table('users')
+                    ->where('id', $user_id)
+                    ->update([
+                        'medical_record_counter' => $value->medical_record_counter + 1,
+                    ]);
+            }
+			
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_mr_counter()', $message);
@@ -1199,12 +1207,15 @@ class UtilsController extends Controller
 	static function update_ref_counter($user_id)
 	{
 		try {
-			$value = User::where('id', $user_id)->first()->ref_counter;
-			$counter = DB::table('users')
-				->where('id', $user_id)
-				->update([
-					'ref_counter' => $value + 1,
-				]);
+			$value = User::where('id', $user_id)->first();
+            if($value != '7') 
+            {
+                $counter = DB::table('users')
+                    ->where('id', $user_id)
+                    ->update([
+                        'ref_counter' => $value->ref_counter + 1,
+                    ]);
+            }
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_ref_exam_counter()', $message);

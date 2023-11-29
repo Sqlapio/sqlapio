@@ -49,7 +49,7 @@ class PaymentForm extends Component
                         'type_plan.required' => 'Campo requerido',
                         'email.required'     => 'Campo requerido',
                         'email.unique'       => 'El correo electrónico ya se encuentra registrado. Intente con un nuevo correo',
-                        'ci.unique'   => 'La cédula de identidad ya se encuentra registrado. Intente con una diferente',
+                        'ci.unique'   => 'La cédula de identidad ya se encuentra registrado. Intente con uno diferente',
                     ];
 
                     $validator = Validator::make($request->all(), $rules, $msj);
@@ -87,7 +87,7 @@ class PaymentForm extends Component
                         'type_plan.required' => 'Campo requerido',
                         'email.required'     => 'Campo requerido',
                         'email.unique'       => 'El correo electrónico ya se encuentra registrado. Intente con un nuevo correo',
-                        'rif.unique'         => 'La RIF ya se encuentra registrado. Intente con una diferente',
+                        'rif.unique'         => 'La RIF ya se encuentra registrado. Intente con uno diferente',
                     ];
 
                     $validator = Validator::make($request->all(), $rules, $msj);

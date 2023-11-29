@@ -56,20 +56,33 @@ class Register extends Component {
 			$validator = Validator::make($request->all(), $rules, $msj);
 
 			if ($validator->fails()) {
-				// return response()->json([
-				// 	'success' => 'false',
-				// 	'errors'  => $validator->errors()->all()
-				// ], 400);
 				return Redirect::to('/')->withErrors($validator);
 			}
 
 			try {
 
-				User::where('email', $request->email)
-				->update([
-					'password' 			=> Hash::make($request->password),
-					'verification_code' => Str::random(30)
-				]);
+                if($request->doctor_corporate == true)
+                {
+                    if($user->type_plan != '7')
+                    {
+                        return response()->json([
+                            'error' => 'true',
+                            'mjs'  => 'Usted ya se encuentra registrado en SQLAPIO.COM, debe registrarce con correo electrónico distinto.',
+                        ], 400);
+                    }else{
+                        User::where('email', $request->email)
+                            ->update([
+                                'password' 			=> Hash::make($request->password),
+                                'verification_code' => Str::random(30)
+                            ]);
+                    } 
+                }else{
+                    User::where('email', $request->email)
+                        ->update([
+                            'password'             => Hash::make($request->password),
+                            'verification_code' => Str::random(30)
+                        ]);
+                }
 
 			/**
 			 * Registro de accion en el log
