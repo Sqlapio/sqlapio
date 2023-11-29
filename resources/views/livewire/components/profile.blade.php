@@ -14,6 +14,11 @@
         let link = ''
         $(document).ready(() => {
 
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            tooltipTriggerList.forEach(element => {
+                new bootstrap.Tooltip(element)
+            });
+
             $('#form-profile').validate({
                 rules: {
                     name: {
@@ -438,8 +443,8 @@
             $(".date-bd").attr('max', year + "-" + month + "-" + day);
         });
 
-            const triggerExample = async (token) => {
-                link = `http://localhost:8000/register-user-corporate/${token}`
+        const triggerExample = async (token) => {
+            link = `http://localhost:8000/register-user-corporate/${token}`
 
             try {
                 await navigator.clipboard.writeText(link);
@@ -655,12 +660,17 @@
                                         @else
                                             @if (Auth::user()->role == 'corporativo')
                                                 <div class="row">
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
-                                                        <small id=""><a id="Link-medicos" href="http://localhost:8000/register-user-corporate/{{ Auth::user()->token_corporate }}" target="_blank">Asociación de medicos</a></small>
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <small id=""><a id="Link-medicos"
+                                                                href="http://localhost:8000/register-user-corporate/{{ Auth::user()->token_corporate }}"
+                                                                target="_blank">Asociación de medicos</a></small>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4  mt-3">
-                                                        <input type="hidden" id="link-input" value="">
-                                                        <i id="icon-copy" onclick="triggerExample('{{ Auth::user()->token_corporate }}');" class="bi bi-clipboard2-plus"></i>
+                                                    <div style="margin-left: -17%;"
+                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4  mt-2">
+                                                        <i id="icon-copy" data-bs-toggle="tooltip"
+                                                            data-bs-placement="bottom" title="Copiar enlace"
+                                                            onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
+                                                            class="bi bi-clipboard2-plus"></i>
                                                     </div>
                                                 </div>
                                             @endif
@@ -970,6 +980,6 @@
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
 
 @endsection
