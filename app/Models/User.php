@@ -76,6 +76,7 @@ class User extends Authenticatable {
 		'cod_update_pass',
         'date_end_plan',
         'expired_plan',
+		'center_id',
 
 	];
 
@@ -153,6 +154,11 @@ class User extends Authenticatable {
 	public function get_billed_plans(): HasMany
 	{
 		return $this->hasManyThrough(BilledPlan::class, 'user_id', 'id');
+	}
+
+	public function get_center(): HasOne
+	{
+		return $this->hasOne(Center::class, 'id', 'center_id');
 	}
 
 }
