@@ -558,8 +558,6 @@
                                                     href="#">Pacientes</span>
                                             </a>
                                         </li>
-                                    @endif
-                                    @if (Auth::user()->role == 'medico')
                                         <li>
                                             <a class="nav-item" href="{{ route('Diary') }}" title="Agenda">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Calendar.png') }}"
@@ -568,8 +566,7 @@
                                                     href="#">Agenda</span>
                                             </a>
                                         </li>
-                                    @endif
-                                    @if (Auth::user()->role == 'medico' || Auth::user()->role == 'corporativo')
+
                                         <li>
                                             <a class="nav-item" href="{{ route('Centers') }}" title="Clínica">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Maps.png') }}"
@@ -578,9 +575,6 @@
                                                     href="#">Centros</span>
                                             </a>
                                         </li>
-                                    @endif
-
-                                    @if (Auth::user()->role == 'medico')
                                         <li>
                                             <a class="nav-item" href="{{ route('Examen') }}" title="Exámenes">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Reminders.png') }}"
@@ -596,8 +590,29 @@
                                                 <span class="nav-link active" aria-current="page"
                                                     href="#">Estudios</span>
                                             </a>
-                                        </li>
+                                        </li>                                      
                                     @endif
+
+                                    @if (Auth::user()->role == 'corporativo')
+                                    <li>
+                                        <a class="nav-item" href="{{ route('doctors') }}" title="Configuración">
+                                            <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
+                                                alt="Configuración">
+                                            <span class="nav-link active" aria-current="page"
+                                                href="#">Medicos</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-item" href="{{ route('admin_patients') }}" title="Pacientes">
+                                            <img class="icon-menu" src="{{ asset('img/V2/Contacts.png') }}"
+                                                alt="Pacientes">
+                                            <span class="nav-link active" aria-current="page"
+                                                href="#">Pacientes</span>
+                                        </a>
+                                    </li>
+                                       
+                                    @endif
+
                                     <li>
                                         <a class="nav-item" href="{{ route('Profile') }}" title="Configuración">
                                             <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
@@ -606,6 +621,7 @@
                                                 href="#">Configuración</span>
                                         </a>
                                     </li>
+
 
                                 </ul>
                             </div>
