@@ -1507,14 +1507,32 @@ class UtilsController extends Controller
 		}
 	}
 
-    static function update_status_doctor_corporate($id)
+    static function habilitar_doctor_corporate($id)
 	{
 		try {
 
             $doctor = User::where('id', $id)
                 ->where('type_plane', '7')
+                ->where('tipo_status', '1')
                 ->update([
                         'tipo_status' => '2'
+                    ]);
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.update_status_doctor_corporate()', $message);
+		}
+	}
+
+    static function deshabilitar_doctor_corporate($id)
+	{
+		try {
+
+            $doctor = User::where('id', $id)
+                ->where('type_plane', '7')
+                ->where('tipo_status', '2')
+                ->update([
+                        'tipo_status' => '1'
                     ]);
 
 		} catch (\Throwable $th) {
