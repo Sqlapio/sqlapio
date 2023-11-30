@@ -1517,6 +1517,11 @@ class UtilsController extends Controller
                         'tipo_status' => '1'
                     ]);
 
+            $doctor_update = User::all();
+
+            return $doctor_update;
+
+
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_status_doctor_corporate()', $message);
@@ -1532,6 +1537,10 @@ class UtilsController extends Controller
                 ->update([
                         'tipo_status' => '2'
                     ]);
+
+            $doctor_update = User::all();
+
+            return $doctor_update;
 
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
