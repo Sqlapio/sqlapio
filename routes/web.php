@@ -156,7 +156,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/admin-patients', [AdminPatients::class, 'render'])->name("admin_patients");
             Route::get('/get_patient_corporate', [UtilsController::class, 'get_patient_corporate'])->name("get_patient_corporate");
             Route::get('/get_medical_record_corporate', [UtilsController::class, 'get_medical_record_corporate'])->name("get_medical_record_corporate");
-            Route::get('/get_doctor_corporate', [UtilsController::class, 'get_doctor_corporate'])->name("get_doctor_corporate");
+            Route::get('/get_doctor_corporate', [UtilsController::class, 'get_doctor_corporate'])->name("get_doctor_corporate");          
+            Route::get('/get_list_exam', [UtilsController::class, 'get_list_exam'])->name("get_list_exam");
+            Route::get('/get_list_study', [UtilsController::class, 'get_list_study'])->name("get_list_study");
         });
     });
 
@@ -242,20 +244,6 @@ Route::middleware(['auth'])->group(function () {
         // Referencias atendidas
         Route::get('/references/res', [UtilsController::class, 'responce_references'])->name("references_res");
     });
-
-    //grupos de rutas de corporativo
-    Route::group(array('prefix' => 'corporate'), function () {
-        Route::get('/doctors', [Doctors::class, 'render'])->name("doctors");
-        Route::get('/admin-patients', [AdminPatients::class, 'render'])->name("admin_patients");
-        Route::get('/get_patient_corporate', [UtilsController::class, 'get_patient_corporate'])->name("get_patient_corporate");
-        Route::get('/get_medical_record_corporate', [UtilsController::class, 'get_medical_record_corporate'])->name("get_medical_record_corporate");
-        Route::get('/get_doctor_corporate', [UtilsController::class, 'get_doctor_corporate'])->name("get_doctor_corporate");
-        Route::get('/get_list_exam', [UtilsController::class, 'get_list_exam'])->name("get_list_exam");
-        Route::get('/get_list_study', [UtilsController::class, 'get_list_study'])->name("get_list_study");
-
-    });
-
-
 
 });
 
