@@ -89,7 +89,13 @@ class Login extends Component
 							return view('livewire.components.profile', compact('user', 'speciality'));
 						} else {
 
-							return Redirect::route('DashboardComponent');
+							if($user->role=="corporativo"){
+								return Redirect::route('Dashboard-corporate');
+
+							}else{
+								return Redirect::route('DashboardComponent');
+							}
+
 						}
 					}
 				} else {

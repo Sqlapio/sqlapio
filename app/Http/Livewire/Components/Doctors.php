@@ -8,6 +8,7 @@ class Doctors extends Component
 {
     public function render()
     {
-        return view('livewire.components.doctors');
+        //list de medicos
+        return view('livewire.components.profile_corporate.doctors');
     }
 }
