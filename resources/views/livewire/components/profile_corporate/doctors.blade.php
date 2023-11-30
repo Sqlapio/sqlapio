@@ -2,6 +2,13 @@
 @section('title', 'Gestión de Medicos')
 <style>
 
+
+
+.ci.form-check-input {
+    background-color: #C3002F !important;
+    border-color: C3002F !important;
+    transform: scale(0.6);
+}
 </style>
 @push('scripts')
     <script>
@@ -60,6 +67,8 @@
 
             let data = [];
             let checked = ''
+            let classC = 'form-check-input'
+
             res.map((elem) => {
                 if (elem.tipo_status ==
                     "1") {
@@ -67,11 +76,12 @@
 
                 } else {
                     checked = '';
+                    classC = "form-check-input ci"
                 }
                 elem.btn =
                     ` <div class="form-check form-switch">
-                            <input onchange="handlerCenter(event);" style="width: 5em"
-                            class="form-check-input" type="checkbox" role="switch"
+                            <input onchange="handlerDoctor(event);" style="width: 5em"
+                            class="${classC}" type="checkbox" role="switch"
                             id="flexSwitchCheckChecked" value="${elem.id}"
                             ${checked}>
                             </div>`;
@@ -169,7 +179,7 @@
                                                     <td class="text-center table-check w-5">
                                                         <div class="form-check form-switch ">
                                                             <input onchange="handlerDoctor(event);" style="width: 5em"
-                                                                class="form-check-input" type="checkbox" role="switch"
+                                                                class="{{$item->tipo_status == '1' ?'form-check-input': 'form-check-input ci' }}" type="checkbox" role="switch"
                                                                 id="flexSwitchCheckChecked" value="{{ $item->id }}"
                                                                 {{ $item->tipo_status!= '1' ? '' : 'checked' }}>
                                                         </div>
