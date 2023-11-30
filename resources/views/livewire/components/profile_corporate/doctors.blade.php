@@ -67,12 +67,13 @@
 
             let data = [];
             let checked = ''
-            let classC = 'form-check-input'
+            let classC = ''
 
             res.map((elem) => {
                 if (elem.tipo_status ==
                     "1") {
                     checked = "checked";
+                    classC = "form-check-input"
 
                 } else {
                     checked = '';
