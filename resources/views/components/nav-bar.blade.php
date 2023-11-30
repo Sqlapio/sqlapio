@@ -568,7 +568,7 @@
                                                     href="#">Agenda</span>
                                             </a>
                                         </li>
-
+                                        @if (Auth::user()->type_plane != '7')                                            
                                         <li>
                                             <a class="nav-item" href="{{ route('Centers') }}" title="Clínica">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Maps.png') }}"
@@ -577,6 +577,7 @@
                                                     href="#">Centros</span>
                                             </a>
                                         </li>
+                                        @endif
                                         <li>
                                             <a class="nav-item" href="{{ route('Examen') }}" title="Exámenes">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Reminders.png') }}"

@@ -144,7 +144,7 @@
             });
 
             getUrl(urlPostCreateAppointment, urlDiary);
-            if (centers.length === 0) {
+            if (user.type_plane!='7' && centers.length === 0) {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Debe asociar  un centro!',
