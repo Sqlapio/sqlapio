@@ -55,13 +55,11 @@ class Login extends Component
 
 			try {
 				// Verificamos que el usuario exita en base de datos
-				$user = User::where('email', $request->username)->get();
-				foreach ($user as $item) {
-					$pass = $item->password;
-				}
+				$user_exist = User::where('email', $request->username)->first();
 
-				if ($user = !null) {
-					if (Hash::check($request->password, $pass)) {
+				if ($user_exist != null) {
+					if (Hash::check($request->password, $user_exist->password) && $user_exist->tipo_status == '1')
+                    {
 
 						$credenciales = [
 							'email' => $request->username,
@@ -80,7 +78,7 @@ class Login extends Component
 						if ($user->email_verified_at === null) {
 							return Redirect::to('/')->withErrors('Debe verificar su correo electronico!');
 						}
-		
+
 						$status_register = $user->status_register;
 						$speciality = Specialty::all();
 
@@ -100,7 +98,7 @@ class Login extends Component
 					}
 				} else {
 
-					return back()->with('error', 'User created successfully.');
+					return back()->with('error', 'El usuario no existe o se encuentra deshabilitado. Por favor valide la información y vuelva a intentarlo');
 				}
 			} catch (\Throwable $th) {
 				$message = $th->getMessage();
