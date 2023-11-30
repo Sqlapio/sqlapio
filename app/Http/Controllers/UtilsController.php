@@ -1197,7 +1197,7 @@ class UtilsController extends Controller
                         'medical_record_counter' => $value->medical_record_counter + 1,
                     ]);
             }
-			
+
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_mr_counter()', $message);
@@ -1208,7 +1208,7 @@ class UtilsController extends Controller
 	{
 		try {
 			$value = User::where('id', $user_id)->first();
-            if($value->type_plan != '7') 
+            if($value->type_plan != '7')
             {
                 $counter = DB::table('users')
                     ->where('id', $user_id)
@@ -1434,7 +1434,7 @@ class UtilsController extends Controller
 	/**
 	 * Metodos para listar informacion
 	 * del plan corporativo.
-	 * 
+	 *
 	 * Esta informacion sera colocada en tablas
 	 * para ser vista en el dashboard del medico administrador
 	 */
@@ -1444,7 +1444,7 @@ class UtilsController extends Controller
 		try {
 
 			$user = Auth::user();
-			$lista_patient = Patient::where('center_id', $user->center_id)->get();
+			$lista_patient = Patient::where('center_id', $user->center_id)->where('type_plane', '7')->get();
             return $lista_patient;
 
 		} catch (\Throwable $th) {
@@ -1458,7 +1458,7 @@ class UtilsController extends Controller
 		try {
 
 			$user = Auth::user();
-			$lista_medical_record = MedicalRecord::where('center_id', $user->center_id)->get();
+			$lista_medical_record = MedicalRecord::where('center_id', $user->center_id)->where('type_plane', '7')->get();
             return $lista_medical_record;
 
 		} catch (\Throwable $th) {
@@ -1472,7 +1472,7 @@ class UtilsController extends Controller
 		try {
 
 			$user = Auth::user();
-			$lista_doctor = User::where('center_id', $user->center_id)->get();
+			$lista_doctor = User::where('center_id', $user->center_id)->where('type_plane', '7')->get();
             return $lista_doctor;
 
 		} catch (\Throwable $th) {
@@ -1481,12 +1481,31 @@ class UtilsController extends Controller
 		}
 	}
 
+    static function get_list_exam()
+	{
+		try {
 
+			$list_exam = Exam::all();
+            return $list_exam;
 
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_list_exam()', $message);
+		}
+	}
 
+    static function get_list_study()
+	{
+		try {
 
+			$list_study = Study::all();
+            return $list_study;
 
-
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_list_study()', $message);
+		}
+	}
 
 
 }
