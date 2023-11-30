@@ -5,7 +5,7 @@
 </style>
 @push('scripts')
     <script>
-        const handlerDoctor = async (e) =>  {
+        const handlerDoctor = async (e) => {
             if ($(`#${e.target.id}`).is(':checked')) {
                 Swal.fire({
                     icon: 'warning',
@@ -14,7 +14,7 @@
                     confirmButtonColor: '#42ABE2',
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
-                    handlerStatus("{{ route('center_enabled', ':id') }}", e.target.value);
+                    handlerStatus("{{ route('enabled-doctor', ':id') }}", e.target.value);
                 });
             } else {
                 Swal.fire({
@@ -24,30 +24,107 @@
                     confirmButtonColor: '#42ABE2',
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
-                    handlerStatus("{{ route('center_disabled', ':id') }}", e.target.value);
+                    handlerStatus("{{ route('disabled-doctor', ':id') }}", e.target.value);
                 });
             }
 
         }
 
-        function handlerStatus(route, id) {
+        const handlerStatus = async (route, id) => {
             route = route.replace(':id', id);
-            console.log(route);
-            // $.ajax({
-            //     url: route,
-            //     type: 'GET',
-            //     headers: {
-            //         'X-CSRF-TOKEN': $(
-            //             'meta[name="csrf-token"]').attr(
-            //             'content')
-            //     },
-            //     success: function(res) {
-            //         refreshTable();
-            //     }
-            // });
+            $.ajax({
+                url: route,
+                type: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': $(
+                        'meta[name="csrf-token"]').attr(
+                        'content')
+                },
+                success: function(res) {
 
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Operacion Exitosa',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#42ABE2',
+                        confirmButtonText: 'Aceptar'
+                    }).then((result) => {
+                        refreshTable(res);
+                    });
+
+                }
+            });
         }
 
+        function refreshTable(res) {
+
+            let data = [];
+            let checked = ''
+            res.map((elem) => {
+                if (elem.tipo_status ==
+                    "1") {
+                    checked = "checked";
+
+                } else {
+                    checked = '';
+                }
+                elem.btn =
+                    ` <div class="form-check form-switch">
+                            <input onchange="handlerCenter(event);" style="width: 5em"
+                            class="form-check-input" type="checkbox" role="switch"
+                            id="flexSwitchCheckChecked" value="${elem.id}"
+                            ${checked}>
+                            </div>`;
+
+                data.push(elem);
+
+                elem.name = `${elem.name} ${elem.last_name}`
+            });
+            new DataTable('#table-patients-corp', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                },
+                reponsive: true,
+                bDestroy: true,
+                data: data,
+                "searching": false,
+                "bLengthChange": false,
+                columns: [{
+                        data: 'name',
+                        title: 'Nombre y apellidos',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'ci',
+                        title: 'documento de identidad',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'email',
+                        title: 'Correo',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'specialty',
+                        title: 'Especialidad',
+                        className: "text-center",
+                    },
+
+                    {
+                        data: 'phone',
+                        title: 'Teléfono del consultorio',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'btn',
+                        title: 'Habilitar/Desahabilitar',
+                        className: "text-center table-check w-5",
+                    }
+                ],
+            });
+
+
+        }
     </script>
 @endpush
 @section('content')
@@ -68,8 +145,8 @@
                             data-bs-parent="#accordion">
                             <div class="accordion-body">
 
-                                <div class="table-responsive" id="table-patients" style="margin-top: 20px; width: 100%;">
-                                    <table id="table-centers" class="table table-striped table-bordered"
+                                <div class="table-responsive" id="div-patients-corp" style="margin-top: 20px; width: 100%;">
+                                    <table id="table-patients-corp" class="table table-striped table-bordered"
                                         style="width: 100%;">
                                         <thead class="table-light">
                                             <tr>
@@ -91,12 +168,10 @@
                                                     <td class="text-center">{{ $item->phone }}</td>
                                                     <td class="text-center table-check w-5">
                                                         <div class="form-check form-switch ">
-                                                            <input 
-                                                                onchange="handlerDoctor(event);"
-                                                                style="width: 5em"
+                                                            <input onchange="handlerDoctor(event);" style="width: 5em"
                                                                 class="form-check-input" type="checkbox" role="switch"
                                                                 id="flexSwitchCheckChecked" value="{{ $item->id }}"
-                                                                {{ $item['status'] != '1' ? '' : 'checked' }}>
+                                                                {{ $item->tipo_status!= '1' ? '' : 'checked' }}>
                                                         </div>
                                                     </td>
                                                 </tr>

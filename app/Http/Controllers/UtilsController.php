@@ -1517,7 +1517,7 @@ class UtilsController extends Controller
                         'tipo_status' => '1'
                     ]);
 
-            $doctor_update = User::all();
+			$doctor_update = UtilsController::get_doctor_corporate();
 
             return $doctor_update;
 
@@ -1538,9 +1538,9 @@ class UtilsController extends Controller
                         'tipo_status' => '2'
                     ]);
 
-            $doctor_update = User::all();
+					$doctor_update = UtilsController::get_doctor_corporate();
 
-            return $doctor_update;
+					return $doctor_update;
 
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();

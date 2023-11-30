@@ -159,6 +159,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/get_doctor_corporate', [UtilsController::class, 'get_doctor_corporate'])->name("get_doctor_corporate");          
             Route::get('/get_list_exam', [UtilsController::class, 'get_list_exam'])->name("get_list_exam");
             Route::get('/get_list_study', [UtilsController::class, 'get_list_study'])->name("get_list_study");
+            Route::get('/enabled-doctor/{id}', [UtilsController::class, 'habilitar_doctor_corporate'])->name("enabled-doctor");
+            Route::get('/disabled-doctor/{id}', [UtilsController::class, 'deshabilitar_doctor_corporate'])->name("disabled-doctor");
+
         });
     });
 
