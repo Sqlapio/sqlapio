@@ -235,6 +235,10 @@ Route::middleware(['auth'])->group(function () {
     Route::group(array('prefix' => 'corporate'), function () {
         Route::get('/doctors', [Doctors::class, 'render'])->name("doctors");
         Route::get('/admin-patients', [AdminPatients::class, 'render'])->name("admin_patients");
+        Route::get('/get_patient_corporate', [UtilsController::class, 'get_patient_corporate'])->name("get_patient_corporate");
+        Route::get('/get_medical_record_corporate', [UtilsController::class, 'get_medical_record_corporate'])->name("get_medical_record_corporate");
+        Route::get('/get_doctor_corporate', [UtilsController::class, 'get_doctor_corporate'])->name("get_doctor_corporate");
+        
     });
 
 
@@ -255,3 +259,5 @@ Route::group(array('prefix' => 'public'), function () {
      * Logout
      */
     Route::get('/logout', [Login::class, 'logout'])->name('logout');
+
+    
