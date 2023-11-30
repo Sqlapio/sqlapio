@@ -59,7 +59,8 @@ class Patients extends Component
                 $nameFile = $request->img;
             }
 
-            if ($request->is_minor == "true") {
+            if ($request->is_minor == "true")
+            {/** Paciente menor de edad */
                 $rules = [
 
                     'name'          => 'required|min:3|max:50',
@@ -117,6 +118,14 @@ class Patients extends Component
                     ], 400);
                 }
 
+                /** Validacion para cargar el centro correcto cuando el medico
+                 * esta asociado al plan corporativo
+                 */
+                if(Auth::user()->center_id != null)
+                {
+                    $center_id_corporativo = Auth::user()->center_id;
+                }
+
                 // Guardamos la informacion del paciente menor de edad
 
                 $patient= Patient::updateOrCreate(['id' => $request->id],
@@ -134,7 +143,7 @@ class Patients extends Component
                     'address'       => $request->address,
                     'zip_code'      => $request->zip_code,
                     'user_id'       => $user_id,
-                    'center_id'     => $request->center_id,
+                    'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
                     'patient_img'   => $nameFile,
                     'verification_code' => Str::random(30)
 
@@ -232,7 +241,7 @@ class Patients extends Component
 
                 ApiServicesController::sms_info($phone, $body);
 
-            } else {
+            } else { /** Paciente mayor de edad */
                 $rules =[
 
                         'name'          => 'required|min:3|max:50',
@@ -249,7 +258,7 @@ class Patients extends Component
                         'address'       => 'required',
                         'zip_code'      => 'required',
 
-                    ];
+                ];
 
                 $msj = [
 
@@ -286,6 +295,13 @@ class Patients extends Component
                     ], 400);
                 }
 
+                /** Validacion para cargar el centro correcto cuando el medico
+                 * esta asociado al plan corporativo
+                 */
+                if(Auth::user()->center_id != null)
+                {
+                    $center_id_corporativo = Auth::user()->center_id;
+                }
 
                 $patient=  Patient::updateOrCreate(['id' => $request->id],
                 [
@@ -305,7 +321,7 @@ class Patients extends Component
                     'address'       => $request->address,
                     'zip_code'      => $request->zip_code,
                     'user_id'       => $user_id,
-                    'center_id'     => $request->center_id,
+                    'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
                     'patient_img'   => $nameFile,
                     'verification_code' => Str::random(30)
 

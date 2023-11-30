@@ -67,6 +67,13 @@ class MedicalRecord extends Component
                 'medications_supplements' => 'Campo requerido',
             ];
 
+            /** Validacion para cargar el centro correcto cuando el medico
+             * esta asociado al plan corporativo
+             */
+            if (Auth::user()->center_id != null) {
+                $center_id_corporativo = Auth::user()->center_id;
+            }
+
             $medical_record = ModelsMedicalRecord::updateOrCreate(['id' => $data->medical_record_id],
             [
                 /**
@@ -77,7 +84,7 @@ class MedicalRecord extends Component
                  */
                 'user_id'       => $user,
                 'patient_id'    => $data->id,
-                'center_id'     => $data->center_id,
+                'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id,
                 'record_code'   => 'SQ-C-'.random_int(11111111, 99999999),
                 'record_date'   => date('d-m-Y'),
                 'background'    => $data->background,

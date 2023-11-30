@@ -20,29 +20,34 @@ class Reference extends Component
 
         /**
          * Logica para guardar los examenes y estudios
-         * solicitados por el medico y generar la 
+         * solicitados por el medico y generar la
          * referencia
          */
-        
+
         $user = Auth::user();
+
+        /** Validacion para cargar el centro correcto cuando el medico
+             * esta asociado al plan corporativo
+             */
+            if ($user->center_id != null) {
+                $center_id_corporativo = $user->center_id;
+            }
 
         $reference = new ModelsReference();
         $reference->cod_ref = 'SQ-REF-' . random_int(11111111, 99999999);
         $reference->user_id = $user->id;
         $reference->patient_id = $data->id;
-        $reference->center_id = $data->center_id;
+        $reference->center_id = isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id;
         $reference->cod_medical_record = $medical_record_code;
         $reference->date = date('d-m-Y');
-        // $reference->exams = $data->exams;
-        // $reference->studies = $data->studies;
         $reference->medical_record_id = $medical_record->id;
         $reference->save();
 
         /**
          * Logica para aumentar el contador
-         * de almacenamiento para el numero 
+         * de almacenamiento para el numero
          * de referencia cargadas por el medico.
-         * 
+         *
          * Esta logica se aplica al tema de los planes
          */
         UtilsController::update_ref_counter($user->id);
@@ -61,7 +66,7 @@ class Reference extends Component
             $patient_email = Representative::where('patient_id', $reference->patient_id)->first()->re_email;
         }else{
             $patient_email = $patient->email;
-        }     
+        }
 
         /**
          * Envio de notificacion al whatsaap del paciente
@@ -144,7 +149,7 @@ class Reference extends Component
         }
 
 
-      
+
         $mailData = [
             'dr_name' => $user->name . ' ' . $user->last_name,
             'center' => Center::where('id', $reference->center_id)->first()->description,
