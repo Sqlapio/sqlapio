@@ -137,11 +137,12 @@ class Register extends Component {
                 /**
                  * Envio de notificacion por correo
                  */
+                $user_update = User::where('email', $request->email)->first();
                 $type = 'verify_email_laboratory';
                 $mailData = [
-                    'laboratory_name' => $user['business_name'],
-                    'laboratory_email' => $user['email'],
-                    'verify_code' => $user['verification_code'],
+                    'laboratory_name' => $user_update->business_name,
+                    'laboratory_email' => $user_update->email,
+                    'verify_code' => $user_update->verification_code,
                 ];
                 UtilsController::notification_mail($mailData, $type);
 
@@ -220,7 +221,7 @@ class Register extends Component {
         }
 
 
-		
+
 	}
 
 	public function update(Request $request)
@@ -408,7 +409,7 @@ class Register extends Component {
 
     public function register_doctor_corporate($hash)
     {
-        $corporate = User::where('center_id', Crypt::decryptString($hash))->first();        
+        $corporate = User::where('center_id', Crypt::decryptString($hash))->first();
         $bellied_plan = null;
         $show = true;
         return view('livewire.components.register', compact('show', 'bellied_plan', 'corporate'));
