@@ -1444,7 +1444,7 @@ class UtilsController extends Controller
 		try {
 
 			$user = Auth::user();
-			$lista_patient = Patient::where('center_id', $user->center_id)->where('type_plane', '7')->get();
+			$lista_patient = Patient::where('center_id', $user->center_id)->where('role', 'medico')->get();
             return $lista_patient;
 
 		} catch (\Throwable $th) {
@@ -1458,7 +1458,7 @@ class UtilsController extends Controller
 		try {
 
 			$user = Auth::user();
-			$lista_medical_record = MedicalRecord::where('center_id', $user->center_id)->where('type_plane', '7')->get();
+			$lista_medical_record = MedicalRecord::where('center_id', $user->center_id)->where('role', 'medico')->get();
             return $lista_medical_record;
 
 		} catch (\Throwable $th) {
@@ -1472,7 +1472,7 @@ class UtilsController extends Controller
 		try {
 
 			$user = Auth::user();
-			$lista_doctor = User::where('center_id', $user->center_id)->where('type_plane', '7')->get();
+			$lista_doctor = User::where('center_id', $user->center_id)->where('role', 'medico')->get();
             return $lista_doctor;
 
 		} catch (\Throwable $th) {
@@ -1513,9 +1513,8 @@ class UtilsController extends Controller
 
             $doctor = User::where('id', $id)
                 ->where('type_plane', '7')
-                ->where('tipo_status', '1')
                 ->update([
-                        'tipo_status' => '2'
+                        'tipo_status' => '1'
                     ]);
 
 		} catch (\Throwable $th) {
@@ -1530,9 +1529,8 @@ class UtilsController extends Controller
 
             $doctor = User::where('id', $id)
                 ->where('type_plane', '7')
-                ->where('tipo_status', '2')
                 ->update([
-                        'tipo_status' => '1'
+                        'tipo_status' => '2'
                     ]);
 
 		} catch (\Throwable $th) {
