@@ -976,8 +976,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <x-centers_user
-                                                    class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
+                                                @if (Auth::user()->type_plane !== '7')                                                    
+                                                <x-centers_user  class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
+                                                @endif
                                                 <x-upload-image />
                                                 {{-- data del representante --}}
                                                 <div class="row mt-3" id="data-rep" style="display: none">

@@ -48,83 +48,64 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- @foreach ($patients as $item)
-                                    <tr>
-                                        <td class="table-avatar">
-                                            <img class="avatar"
-                                                src=" {{ $item->get_paciente->patient_img ? asset('/imgs/' . $item->get_paciente->patient_img) : ($item->get_paciente->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
-                                                alt="Imagen del paciente">
-                                        </td>
-                                        <td class="text-center">
-                                            <button
-                                                onclick="agendarCita({{ $item->get_paciente }},{{ $item->get_paciente->get_reprensetative }})"
-                                                type="button" class="btn btnSecond"
-                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                data-bs-custom-class="custom-tooltip" data-html="true"
-                                                title="Agendar cita">{{ $item->get_paciente->patient_code }}</button>
-                                        </td>
-                                        <td class="text-center text-capitalize">
-                                            {{ $item->get_paciente->name }}
-                                            {{ $item->get_paciente->last_name }}</td>
-                                        <td class="text-center">
-                                            {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_ci . '  (Rep)' : $item->get_paciente->ci }}
-                                        </td>
-                                        <td class="text-center">
-                                            {{ date('d-m-Y', strtotime($item->get_paciente->birthdate)) }}
-                                        </td>
-                                        <td class="text-center text-capitalize">
-                                            {{ $item->get_paciente->genere }}</td>
-                                        <td class="text-center">
-                                            {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_phone . '  (Rep)' : $item->get_paciente->phone }}
-                                        </td>
-                                        <td class="text-center">
-                                            {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_email . '  (Rep)' : $item->get_paciente->email }}
-                                        </td>
-                                        <td class="text-center">
-                                            {{ $item->get_center->description }}</td>
-                                        <td class="text-center">
-                                            <div class="d-flex">
-                                                <div
-                                                    class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                    <button
-                                                        onclick="editPatien({{ json_encode($item->get_paciente) }},true); "
-                                                        type="button"
-                                                        class="btn btn-iSecond rounded-circle"
-                                                        data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom" title="Editar">
-                                                        <i class="bi bi-pencil"></i>
-                                                    </button>
-                                                </div>
-                                                <div
-                                                    class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                    <a
-                                                        href="{{ route('MedicalRecord', $item->get_paciente->id) }}">
-                                                        <button type="button"
-                                                            class="btn btn-iPrimary rounded-circle"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-placement="bottom"
-                                                            title="Consulta médica">
-                                                            <i class="bi bi-file-earmark-text"></i>
-                                                        </button>
-                                                    </a>
-                                                </div>
-                                                <div
-                                                    class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                    <a
-                                                        href="{{ route('ClinicalHistoryDetail', $item->get_paciente->id) }}">
-                                                        <button type="button"
-                                                            class="btn btn-iSecond rounded-circle"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-placement="bottom"
-                                                            title="Historia Clínica">
-                                                            <i class="bi bi-file-earmark-text"></i>
-                                                        </button>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach --}}
+                                                @foreach ($patients as $item)
+                                                    <tr>
+                                                        <td class="table-avatar">
+                                                            <img class="avatar"
+                                                                src=" {{ $item->patient_img ? asset('/imgs/' . $item->patient_img) : ($item->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                                alt="Imagen del paciente">
+                                                        </td>
+                                                        <td class="text-center">{{ $item->patient_code }}</td>
+                                                        <td class="text-center text-capitalize">
+                                                            {{ $item->name }}
+                                                            {{ $item->last_name }}</td>
+                                                        <td class="text-center">
+                                                            {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_ci . '  (Rep)' : $item->ci }}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {{ date('d-m-Y', strtotime($item->birthdate)) }}
+                                                        </td>
+                                                        <td class="text-center text-capitalize">
+                                                            {{ $item->genere }}</td>
+                                                        <td class="text-center">
+                                                            {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_phone . '  (Rep)' : $item->phone }}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_email . '  (Rep)' : $item->email }}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {{ "Sdd" }}</td>
+                                                        <td class="text-center">
+                                                            <div class="d-flex">                                                               
+                                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                    {{-- <a
+                                                                        href="{{ route('MedicalRecord', $item->id) }}"> --}}
+                                                                        <button type="button"
+                                                                            class="btn btn-iPrimary rounded-circle"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom"
+                                                                            title="Detalles del paciente">
+                                                                            <i class="bi bi-file-earmark-text"></i>
+                                                                        </button>
+                                                                    {{-- </a> --}}
+                                                                </div>
+                                                                {{-- 
+                                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                    <a
+                                                                        href="{{ route('ClinicalHistoryDetail', $item->id) }}">
+                                                                        <button type="button"
+                                                                            class="btn btn-iSecond rounded-circle"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom"
+                                                                            title="Historia Clínica">
+                                                                            <i class="bi bi-file-earmark-text"></i>
+                                                                        </button>
+                                                                    </a>
+                                                                </div> --}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
