@@ -53,8 +53,6 @@ class MedicalRecord extends Component
                 'background'  => 'required',
                 'razon'       => 'required',
                 'diagnosis'   => 'required',
-                // 'exams'       => 'required',
-                // 'studies'     => 'required',
                 'medications_supplements' => 'required',
             ];
 
@@ -62,8 +60,6 @@ class MedicalRecord extends Component
                 'background'  => 'Campo requerido',
                 'razon'       => 'Campo requerido',
                 'diagnosis'   => 'Campo requerido',
-                // 'exams'       => 'Campo requerido',
-                // 'studies'     => 'Campo requerido',
                 'medications_supplements' => 'Campo requerido',
             ];
 
