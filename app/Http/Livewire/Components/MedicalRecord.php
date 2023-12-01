@@ -86,7 +86,7 @@ class MedicalRecord extends Component
                 'background'    => $data->background,
                 'razon'         => $data->razon,
                 'diagnosis'     => $data->diagnosis,
-                'medications_supplements'       => $data->medications_supplements,
+                'medications_supplements' => $data->medications_supplements,
             ]);
 
             /**
@@ -97,7 +97,7 @@ class MedicalRecord extends Component
                 ->where('user_id', $user)
                 ->where('date_start', date('Y-m-d'))
                 ->update([
-                    'status'        => 3,   /** FINALIZADA EN LA AGENDA */
+                    'status' => 3,   /** FINALIZADA EN LA AGENDA */
                 ]);
 
             $action = '11';
