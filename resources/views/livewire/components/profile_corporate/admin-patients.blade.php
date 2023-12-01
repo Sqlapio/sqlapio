@@ -1,7 +1,64 @@
 @extends('layouts.app-auth')
 @section('title', 'Gestión Pacientes')
 <style>
+    .
+    #img-pat {
+        border-radius: 27px;
+        border: 2px solid #44525F;
+        height: 150px;
+        margin: 5px 23px;
+        object-fit: cover;
+    }
 
+    body {
+        /* font-family: 'Roboto', 'Inter', "Helvetica Neue", Helvetica, 'Source Sans Pro' !important; */
+        letter-spacing: -.022em;
+        color: #1d1d1f;
+    }
+
+ 
+
+    .avatar {
+        border-radius: 50%;
+        width: 45px !important;
+        height: 45px !important;
+        border: 2px solid #44525f;
+        object-fit: cover;
+    }
+
+    .table-avatar {
+        text-align: center;
+        vertical-align: middle;
+    }
+    .img img {
+        max-height: 220px;
+        text-align: left;
+        margin-right: 70%;
+    }
+
+  
+    .modal-d {
+        max-width: 200px;
+    }
+
+
+    @media screen and (max-width: 390px) {
+       
+        #img-pat {
+            margin: 23px 20px 0 0;
+        }
+
+    }
+
+    @media (min-width: 391px) and (max-width: 576px) {
+        .modal-d {
+            max-width: 165px;
+        }
+
+        #img-pat {
+            margin: 7px 20px 0 0;
+        }
+    }
 </style>
 @push('scripts')
     <script></script>
@@ -43,7 +100,7 @@
                                                     <th class="text-center" scope="col">Email</th>
                                                     <th class="text-center" scope="col">Centro de
                                                         salud</th>
-                                                    <th class="text-center"scope="col">Acciones</th>
+                                                    <th class="text-center"scope="col">Detalle</th>
 
                                                 </tr>
                                             </thead>
@@ -74,34 +131,17 @@
                                                             {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_email . '  (Rep)' : $item->email }}
                                                         </td>
                                                         <td class="text-center">
-                                                            {{ "Sdd" }}</td>
+                                                            {{ 'Sdd' }}</td>
                                                         <td class="text-center">
-                                                            <div class="d-flex">                                                               
+                                                            <div class="d-flex">
                                                                 <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                    {{-- <a
-                                                                        href="{{ route('MedicalRecord', $item->id) }}"> --}}
-                                                                        <button type="button"
-                                                                            class="btn btn-iPrimary rounded-circle"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom"
-                                                                            title="Detalles del paciente">
-                                                                            <i class="bi bi-file-earmark-text"></i>
-                                                                        </button>
-                                                                    {{-- </a> --}}
+                                                                    <button type="button"
+                                                                        class="btn btn-iPrimary rounded-circle"
+                                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                                        title="Detalles del paciente">
+                                                                        <i class="bi bi-info-circle-fill"></i>
+                                                                    </button>
                                                                 </div>
-                                                                {{-- 
-                                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                    <a
-                                                                        href="{{ route('ClinicalHistoryDetail', $item->id) }}">
-                                                                        <button type="button"
-                                                                            class="btn btn-iSecond rounded-circle"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom"
-                                                                            title="Historia Clínica">
-                                                                            <i class="bi bi-file-earmark-text"></i>
-                                                                        </button>
-                                                                    </a>
-                                                                </div> --}}
                                                             </div>
                                                         </td>
                                                     </tr>
