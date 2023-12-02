@@ -54,47 +54,53 @@ class Login extends Component
 		} else {
 
 			try {
+				$user_exist = User::where('email', $request->username)->first();
 				// Verificamos que el usuario exita en base de datos
-				$user = User::where('email', $request->username)->get();
-				foreach ($user as $item) {
-					$pass = $item->password;
-				}
+				if ($user_exist != null) {
+					// Verificamos status del usuriao habilitadoi
+					if ($user_exist->tipo_status == '1') {
+						if (Hash::check($request->password, $user_exist->password)) {
 
-				if ($user = !null) {
-					if (Hash::check($request->password, $pass)) {
+							$credenciales = [
+								'email' => $request->username,
+								'password' => $request->password,
+							];
 
-						$credenciales = [
-							'email' => $request->username,
-							'password' => $request->password,
-						];
+							Auth::attempt($credenciales);
+							$request->session()->regenerate();
 
-						Auth::attempt($credenciales);
-						$request->session()->regenerate();
+							$action = '1';
+							ActivityLogController::store_log($action);
 
-						$action = '1';
-						ActivityLogController::store_log($action);
+							$user = Auth::user();
 
-						$user = Auth::user();
+							// verificar si vlaido el correo
+							if ($user->email_verified_at === null) {
+								return Redirect::to('/')->withErrors('Debe verificar su correo electronico!');
+							}
 
-						// verificar si vlaido el correo
-						if ($user->email_verified_at === null) {
-							return Redirect::to('/')->withErrors('Debe verificar su correo electronico!');
+							$status_register = $user->status_register;
+							$speciality = Specialty::all();
+
+							// Redireccion segun status de registro
+							if ($status_register == '1') {
+								return view('livewire.components.profile', compact('user', 'speciality'));
+							} else {
+
+								if ($user->role == "corporativo") {
+									return Redirect::route('Dashboard-corporate');
+								} else {
+									return Redirect::route('DashboardComponent');
+								}
+							}
+						} else { // credenciales incorrectas
+							return Redirect::to('/')->withErrors('Autenticación incorrecta');
 						}
-		
-						$status_register = $user->status_register;
-						$speciality = Specialty::all();
-
-						// Redireccion segun status de registro
-						if ($status_register == '1') {
-							return view('livewire.components.profile', compact('user', 'speciality'));
-						} else {
-
-							return Redirect::route('DashboardComponent');
-						}
+					} else { // usuario desahabilitado
+						return Redirect::to('/')->withErrors('El usuario no existe o se encuentra deshabilitado. Por favor valide la información y vuelva a intentarlo');
 					}
-				} else {
-
-					return back()->with('error', 'User created successfully.');
+				} else {//no exite usuario
+					return Redirect::to('/')->withErrors('Autenticación incorrecta');
 				}
 			} catch (\Throwable $th) {
 				$message = $th->getMessage();

@@ -63,6 +63,7 @@ class MedicalHistory extends Component
                 'esfera_cardiopulmonar' => (isset($data->esfera_cardiopulmonar) ? $data->esfera_cardiopulmonar : null),
                 'esfera_abdominal'      => (isset($data->esfera_abdominal) ? $data->esfera_abdominal : null),
                 'extremidades'          => (isset($data->extremidades) ? $data->extremidades : null),
+                'trombosis_embolas'          => (isset($data->trombosis_embolas) ? $data->trombosis_embolas : null),
 
                 //Antecedentes Personales y Familiares
                 'cancer'                    => (isset($data->cancer) ? $data->cancer : null),
