@@ -24,6 +24,7 @@ use App\Http\Livewire\Components\Examen;
 use App\Http\Livewire\Components\Laboratory;
 use App\Http\Livewire\Components\PaymentForm;
 use App\Http\Livewire\Components\PlansVerify;
+use App\Http\Livewire\Components\ProfilePatients\QueryDetalyPatient;
 use App\Http\Livewire\Components\Statistics;
 use App\Http\Livewire\Components\Register;
 use App\Http\Livewire\Components\Study;
@@ -258,6 +259,14 @@ Route::get('/pp', function () {
 Route::group(array('prefix' => 'public'), function () {
     Route::get('/payment-form/{type_plan}', [PaymentForm::class, 'render'])->name("payment-form");
     Route::post('/pay-plan', [PaymentForm::class, 'pay_plan'])->name("pay-plan");
+
+    Route::group(array('prefix' => 'patient'), function () {
+        Route::get('/query-detaly-patient', [QueryDetalyPatient::class, 'render'])->name("query-detaly-patient");
+        Route::post('/search-detaly-patient', [QueryDetalyPatient::class, 'search_detaly'])->name("search-detaly-patient");
+
+    });
+
+
 });
 
 /**
