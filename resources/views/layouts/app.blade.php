@@ -22,7 +22,9 @@
 <script src="{{ asset('jquery-validation-1.19.5/dist/jquery.validate.min.js') }}" type="text/javascript"></script>
 {{-- select dos --}}
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
+{{-- llamado de js locales validation --}}
+<script src="{{ asset('wizard-step/jquery.steps.js') }}" type="text/javascript"></script>
+<script src="{{ asset('wizard-step/jquery.steps.min.js') }}" type="text/javascript"></script>
 
 @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 <style>
