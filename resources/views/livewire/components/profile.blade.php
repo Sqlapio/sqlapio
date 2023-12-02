@@ -263,14 +263,25 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
-                                window.location.href =
-                                    "{{ route('DashboardComponent') }}";
+                                window.location.href =(user.role =="corporativo")? "{{ route('Dashboard') }}": "{{ route('DashboardComponent') }}";
                             });
                         },
                         error: function(error) {
                             $('#send').show();
                             $('#spinner').hide();
-                            console.log(error.responseJSON.errors);
+                            error.responseJSON.errors.map((elm) => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: elm,
+                                    allowOutsideClick: false,
+                                    confirmButtonColor: '#42ABE2',
+                                    confirmButtonText: 'Aceptar'
+                                }).then((result) => {
+                                    $('#btn-save').attr('disabled', false);
+                                    $('#spinner2').hide();
+                                    $(".holder").hide();
+                                });
+                            });
 
                         }
                     });
