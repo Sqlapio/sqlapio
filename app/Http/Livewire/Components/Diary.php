@@ -49,13 +49,11 @@ class Diary extends Component
             $rules = [
                 'date_start' => 'required',
                 'hour_start' => 'required',
-                'center_id' => 'required'
             ];
 
             $msj = [
                 'date_start.required' => 'Campo requerido',
                 'hour_start.required' => 'Campo requerido',
-                'center_id.required' => 'Campo requerido',
             ];
 
             $validator = Validator::make($request->all(), $rules, $msj);
