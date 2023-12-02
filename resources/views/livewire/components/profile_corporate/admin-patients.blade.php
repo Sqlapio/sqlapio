@@ -1,8 +1,7 @@
 @extends('layouts.app-auth')
 @section('title', 'Gestión Pacientes')
 <style>
-    .
-    #img-pat {
+    . #img-pat {
         border-radius: 27px;
         border: 2px solid #44525F;
         height: 150px;
@@ -16,7 +15,11 @@
         color: #1d1d1f;
     }
 
- 
+    .list-group-item.active {
+
+        background-color: #415467 !important;
+        border-color: #415467 !important;
+    }
 
     .avatar {
         border-radius: 50%;
@@ -30,20 +33,21 @@
         text-align: center;
         vertical-align: middle;
     }
+
     .img img {
         max-height: 220px;
         text-align: left;
         margin-right: 70%;
     }
 
-  
-    .modal-d {
-        max-width: 200px;
+
+    .modal.show .modal-dialog {
+        width: 200% !important;
     }
 
 
     @media screen and (max-width: 390px) {
-       
+
         #img-pat {
             margin: 23px 20px 0 0;
         }
@@ -61,12 +65,68 @@
     }
 </style>
 @push('scripts')
-    <script></script>
+    <script>
+        const hendlerModal = async (id) => {
+            let url = "{{ route('get_medical_record_user', ':id') }}";
+            url = url.replace(':id', id);
+            // ajax para refrescar la tabla s
+            $.ajax({
+                url: url,
+                type: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': $(
+                        'meta[name="csrf-token"]').attr(
+                        'content')
+                },
+                success: function(res) {
+                    $('.list-group').empty();
+                    if (res.length > 0) {
+                        res.map((e, key) => {
+                            let element = '';
+                            if ((key % 2) == 0) {
+                                element = `<a href="#" class="list-group-item list-group-item-action  active ${key}"
+                                        aria-current="true">
+                                        <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb- text-capitalize">Médico: ${e.full_name_doc} </h5><br>
+                                        </div>
+                                        <small>Código de consulta:</small> <strong>${e.data.record_code}</strong>
+                                        <br>
+                                        <small>Fecha de consulta:</small> <strong>${e.date}</strong>
+                                        </a>`
+                            } else {
+                                element = `<a href="#" class="list-group-item list-group-item-action  ${key}"
+                                        aria-current="true">
+                                        <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1 text-capitalize">Medico: ${e.full_name_doc} </h5><br>
+                                        </div>
+                                        <small>Codigo de consulta:</small> <strong>${e.data.record_code}</strong>
+                                        <br>
+                                        <small>Fecha de consulta:</small> <strong>${e.date}</strong>
+                                        </a>`
+                            }
+                            $('.list-group').append(element);
+                        })
+
+                        $('#modalDetaly').modal('show');
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Paciente sin consulta medica!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    }
+                }
+            });
+
+
+        }
+    </script>
 @endpush
 @section('content')
     <div class="container-fluid" style="padding: 0 3% 3%">
         <div class="row mt-2">
-
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd">
                 <div class="accordion" id="accordion">
                     <div class="accordion-item">
@@ -136,6 +196,7 @@
                                                             <div class="d-flex">
                                                                 <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                     <button type="button"
+                                                                        onclick="hendlerModal({{ $item->id }})"
                                                                         class="btn btn-iPrimary rounded-circle"
                                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                                         title="Detalles del paciente">
@@ -150,6 +211,31 @@
                                         </table>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modalDetaly" tabindex="-1" aria-labelledby="modalDetalyLabel" aria-hidden="true"
+        id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header title">
+                        <i class="bi bi-calendar-week"></i>
+                        <span style="padding-left: 5px">Consultas medicas del paciente</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            style="font-size: 12px;"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd">
+                                <div class="list-group">
+                                </div>
+
                             </div>
                         </div>
                     </div>
