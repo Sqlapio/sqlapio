@@ -542,14 +542,16 @@
                             </div>
                             <div class="collapse navbar-collapse mt-icon" id="navbarText" style="position: ">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                    <li>
-                                        <a class="nav-item" href="{{ route('DashboardComponent') }}" title="Dashboard">
-                                            <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
-                                                alt="Dashboard">
-                                            <span class="nav-link active" aria-current="page">Dashboard</span>
-                                        </a>
-                                    </li>
+                                    {{-- menu segun rol del usuario --}}
                                     @if (Auth::user()->role == 'medico')
+                                        <li>
+                                            <a class="nav-item" href="{{ route('DashboardComponent') }}"
+                                                title="Dashboard">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
+                                                    alt="Dashboard">
+                                                <span class="nav-link active" aria-current="page">Dashboard</span>
+                                            </a>
+                                        </li>
                                         <li>
                                             <a class="nav-item" href="{{ route('Patients') }}" title="Pacientes">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Contacts.png') }}"
@@ -566,7 +568,7 @@
                                                     href="#">Agenda</span>
                                             </a>
                                         </li>
-
+                                        @if (Auth::user()->type_plane != '7')                                            
                                         <li>
                                             <a class="nav-item" href="{{ route('Centers') }}" title="Clínica">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Maps.png') }}"
@@ -575,6 +577,7 @@
                                                     href="#">Centros</span>
                                             </a>
                                         </li>
+                                        @endif
                                         <li>
                                             <a class="nav-item" href="{{ route('Examen') }}" title="Exámenes">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Reminders.png') }}"
@@ -590,39 +593,74 @@
                                                 <span class="nav-link active" aria-current="page"
                                                     href="#">Estudios</span>
                                             </a>
-                                        </li>                                      
+                                        </li>
+                                        <li>
+                                            <a class="nav-item" href="{{ route('Profile') }}" title="Configuración">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
+                                                    alt="Configuración">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">Configuración</span>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    @if (Auth::user()->role == 'laboratorio')
+                                        <li>
+                                            <a class="nav-item" href="{{ route('DashboardComponent') }}"
+                                                title="Dashboard">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
+                                                    alt="Dashboard">
+                                                <span class="nav-link active" aria-current="page">Dashboard</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a class="nav-item" href="{{ route('Profile') }}" title="Configuración">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
+                                                    alt="Configuración">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">Configuración</span>
+                                            </a>
+                                        </li>
                                     @endif
 
                                     @if (Auth::user()->role == 'corporativo')
-                                    <li>
-                                        <a class="nav-item" href="{{ route('doctors') }}" title="Configuración">
-                                            <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
-                                                alt="Configuración">
-                                            <span class="nav-link active" aria-current="page"
-                                                href="#">Medicos</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="nav-item" href="{{ route('admin_patients') }}" title="Pacientes">
-                                            <img class="icon-menu" src="{{ asset('img/V2/Contacts.png') }}"
-                                                alt="Pacientes">
-                                            <span class="nav-link active" aria-current="page"
-                                                href="#">Pacientes</span>
-                                        </a>
-                                    </li>
-                                       
+                                        <li>
+                                            <a class="nav-item" href="{{ route('Dashboard-corporate') }}"
+                                                title="Dashboard">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
+                                                    alt="Dashboard">
+                                                <span class="nav-link active" aria-current="page">Dashboard</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-item" href="{{ route('doctors') }}" title="Configuración">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
+                                                    alt="Configuración">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">Medicos</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-item" href="{{ route('admin_patients') }}"
+                                                title="Pacientes">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Contacts.png') }}"
+                                                    alt="Pacientes">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">Pacientes</span>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a class="nav-item" href="{{ route('Profile') }}" title="Configuración">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
+                                                    alt="Configuración">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">Configuración</span>
+                                            </a>
+                                        </li>
                                     @endif
-
-                                    <li>
-                                        <a class="nav-item" href="{{ route('Profile') }}" title="Configuración">
-                                            <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
-                                                alt="Configuración">
-                                            <span class="nav-link active" aria-current="page"
-                                                href="#">Configuración</span>
-                                        </a>
-                                    </li>
-
-
+                                    {{-- end --}}
                                 </ul>
                             </div>
                         </div>

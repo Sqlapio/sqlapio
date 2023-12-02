@@ -1197,7 +1197,7 @@ class UtilsController extends Controller
                         'medical_record_counter' => $value->medical_record_counter + 1,
                     ]);
             }
-			
+
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_mr_counter()', $message);
@@ -1208,7 +1208,7 @@ class UtilsController extends Controller
 	{
 		try {
 			$value = User::where('id', $user_id)->first();
-            if($value->type_plan != '7') 
+            if($value->type_plan != '7')
             {
                 $counter = DB::table('users')
                     ->where('id', $user_id)
@@ -1431,10 +1431,122 @@ class UtilsController extends Controller
 		}
 	}
 
+	/**
+	 * Metodos para listar informacion
+	 * del plan corporativo.
+	 *
+	 * Esta informacion sera colocada en tablas
+	 * para ser vista en el dashboard del medico administrador
+	 */
+
+	static function get_patient_corporate()
+	{
+		try {
+
+			$user = Auth::user();
+			$lista_patient = Patient::where('center_id', $user->center_id)->get();
+            return $lista_patient;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_patient_corporate()', $message);
+		}
+	}
+
+	static function get_medical_record_corporate()
+	{
+		try {
+
+			$user = Auth::user();
+			$lista_medical_record = MedicalRecord::where('center_id', $user->center_id)->get();
+            return $lista_medical_record;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_medical_record_corporate()', $message);
+		}
+	}
+
+	static function get_doctor_corporate()
+	{
+		try {
+
+			$user = Auth::user();
+			$lista_doctor = User::where('center_id', $user->center_id)->where('role', 'medico')->get();
+            return $lista_doctor;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_doctor_corporate()', $message);
+		}
+	}
+
+    static function get_list_exam()
+	{
+		try {
+
+			$list_exam = Exam::all();
+            return $list_exam;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_list_exam()', $message);
+		}
+	}
+
+    static function get_list_study()
+	{
+		try {
+
+			$list_study = Study::all();
+            return $list_study;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_list_study()', $message);
+		}
+	}
+
+    static function habilitar_doctor_corporate($id)
+	{
+		try {
+
+            $doctor = User::where('id', $id)
+                ->where('type_plane', '7')
+                ->update([
+                        'tipo_status' => '1'
+                    ]);
+
+			$doctor_update = UtilsController::get_doctor_corporate();
+
+            return $doctor_update;
 
 
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.update_status_doctor_corporate()', $message);
+		}
+	}
 
+    static function deshabilitar_doctor_corporate($id)
+	{
+		try {
 
+            $doctor = User::where('id', $id)
+                ->where('type_plane', '7')
+                ->update([
+                        'tipo_status' => '2'
+                    ]);
+
+					$doctor_update = UtilsController::get_doctor_corporate();
+
+					return $doctor_update;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.update_status_doctor_corporate()', $message);
+		}
+	}
 
 
 }
