@@ -76,10 +76,14 @@
                                 }).then((result) => {
                                     //mostar datos el paciente 
                                     $('#div-content').find('#info-pat').empty();
-                                    let = ulr_img = "{{ URL::asset('/imgs/') }}";                                   
+                                    let ulr_img = "{{ URL::asset('/imgs/') }}";
                                     let img = ''
-                                    if(response[0].info_patient.patient_img!=null){
-                                        img = `${ulr_img}/${response[0].info_patient.patient_img}`;
+                                    if (response[0].img != null) {
+                                        img = `${ulr_img}/${response[0].img}`;
+                                    } else {
+
+                                        img = (response[0].genere == 'femenino') ?"{{ URL::asset('/img/avatar/avatar mujer.png') }}" :"{{ URL::asset('/img/avatar/avatar hombre.png') }}";
+
                                     }
                                     let e = ` <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 162px;">
                                             <img src="${img}"
@@ -88,23 +92,23 @@
 
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
                                             <small>Nombre Completo:</small><span class="text-capitalize">
-                                                ${ response[0].info_patient.name}  ${ response[0].info_patient.last_name}</span>
+                                                ${ response[0].full_name}</span>
                                             <br>
-                                            <small>Fecha de Nacimiento:</small><br><span>${response[0].info_patient.birthdate }</span>
+                                            <small>Fecha de Nacimiento:</small><br><span>${response[0].birthdate }</span>
                                             <br>
-                                            <small>Edad:</small><span> ${ response[0].info_patient.age } años</span>
+                                            <small>Edad:</small><span> ${ response[0].age } años</span>
                                             <br>
-                                            <small>C.I:</small><span> ${ response[0].info_patient.ci} </span>
+                                            <small>C.I:</small><span> ${ response[0].ci} </span>
                                             <br>
-                                            <small>Genero:</small><span class="text-capitalize"> ${ response[0].info_patient.genere} </span>                                           
+                                            <small>Genero:</small><span class="text-capitalize"> ${ response[0].genere} </span>                                           
                                         </div>`;
                                     $('#div-content').find('#info-pat').append(e);
                                     //end   
                                     //mostar resumen de la historia
-                                    $('#numero-hist').text(response[0].info_history.cod_history);
-                                    $('#peso').text(response[0].info_history.weight);
-                                    $('#altura').text(response[0].info_history.height);
-                                    $('#presion').text(response[0].info_history.strain);
+                                    $('#numero-hist').text(response[0].cod_history);
+                                    $('#peso').text(response[0].weight);
+                                    $('#altura').text(response[0].height);
+                                    $('#presion').text(response[0].strain);
 
                                     //end
 
@@ -117,8 +121,9 @@
                                             element = `<a href="#" class="list-group-item list-group-item-action  active ${key}"
                                         aria-current="true">
                                         <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb- text-capitalize">Médico: ${e.record_code} </h5><br>
+                                        <h5 class="mb- text-capitalize">Médico: ${e.doctor} </h5><br>
                                         </div>
+                                        <small>Especialidad:</small> <strong>${e.specialty}</strong><br>
                                         <small>Código de consulta:</small> <strong>${e.record_code}</strong>
                                         <br>
                                         <small>Fecha de consulta:</small> <strong>${e.record_date}</strong>
@@ -224,15 +229,15 @@
                                         <section>
                                             <div class="row">
                                                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                                    <strong>Numero de historia: </strong><span
-                                                        class="text-capitalize" id="numero-hist"></span>
+                                                    <strong>Numero de historia: </strong><span class="text-capitalize"
+                                                        id="numero-hist"></span>
                                                     <br>
-                                                    <strong>Peso: </strong><span
-                                                        class="text-capitalize" id="peso"></span>
+                                                    <strong>Peso: </strong><span class="text-capitalize"
+                                                        id="peso"></span>
                                                     <br>
                                                     <strong>Altura: </strong><span id="altura"></span>
                                                     <br>
-                                                    <strong>Presion artirial: </strong><span id="presion"></span>                                                    
+                                                    <strong>Presion artirial: </strong><span id="presion"></span>
                                                 </div>
                                             </div>
                                         </section>
