@@ -4,13 +4,13 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 function get_examen(countExamen) {
 
   const labels = [
-    'Total de examenes realizados',
+    'Total de exámenes realizados',
   ];
 
   const data = {
     labels: labels,
     datasets: [{
-      label: ["Nro. examenes"],
+      label: ["Nro. Exámenes"],
       data: [countExamen],
       backgroundColor: [
         'rgb(71,82,94)',
