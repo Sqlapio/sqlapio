@@ -13,9 +13,7 @@ class QueryDetalyPatient extends Component
 	{
 
 		$data = [];
-		$medicard_record = [];
-		$exams = [];
-		$study = [];
+		$medicard_record = [];		
 
 		$tablePat =  Patient::where('ci', $request->ci)->where('birthdate', $request->birthdate);
 
@@ -25,20 +23,22 @@ class QueryDetalyPatient extends Component
 			});
 		$patients = $tablePat->union($tableRep)->first();
 	
-
+		//preparar datos de la consulta medica
 		if ($patients != null) {
 
-
 			foreach($patients->get_medicard_record as $key => $record ){
+
 				$medicard_record[$key] = [
 					"id" =>encrypt($record->id),
 					"record_code" =>$record->record_code,
 					"record_date" =>$record->record_date,
 					"doctor" =>$record->get_doctor->name." ".$record->get_doctor->last_name,	
-					"specialty" =>$record->get_doctor->specialty,				
+					"specialty" =>$record->get_doctor->specialty,	
+					"study_medical" =>	$record->get_study_medical,		
+					"exam_medical" =>	$record->get_exam_medical,
 				];
 			}
-
+			//end
 
 			$data[] = [
 				//datos del paciente
@@ -55,9 +55,7 @@ class QueryDetalyPatient extends Component
 				'height' =>  $patients->get_history->height,
 				'strain' =>  $patients->get_history->strain,
 				///
-				'info_medical_record' =>  $medicard_record,
-				'data_exam' =>  $exams,
-				'data_study' =>  $study,
+				'info_medical_record' =>  $medicard_record,				
 			];
 		}
 
