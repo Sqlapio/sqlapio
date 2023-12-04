@@ -20,32 +20,32 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE CRANEO SIMPLE')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE CRANEO SIMPLE')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CRANEO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE BASE DE CRANEO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE BASE DE CRANEO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CRANEO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE SILLA TURCA')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE SILLA TURCA')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CRANEO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE MASTOIDES COMPARATIVAS')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE MASTOIDES COMPARATIVAS')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CRANEO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE PEÑASCOS')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE PEÑASCOS')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CRANEO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE CONDUCTO AUDITIVO INTERNO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE CONDUCTO AUDITIVO INTERNO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CRANEO')),
             ],
 
@@ -53,52 +53,52 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE CARA (PERFILOGRAMA)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE CARA (PERFILOGRAMA)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ORBITAS')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ORBITAS')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE AGUJEROS OPTICOS')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE AGUJEROS OPTICOS')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE MALAR')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE MALAR')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ARCO CIGOMATICO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ARCO CIGOMATICO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE HUESOS NASALES')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE HUESOS NASALES')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE SENOS PARANASALES')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE SENOS PARANASALES')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE MAXILAR SUPERIOR')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE MAXILAR SUPERIOR')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE MAXILAR INFERIOR')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE MAXILAR INFERIOR')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ARTICULACION TEMPOROMAXILAR [ATM]')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ARTICULACION TEMPOROMAXILAR [ATM]')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
 
@@ -106,12 +106,12 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE TEJIDOS BLANDOS DE CUELLO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE TEJIDOS BLANDOS DE CUELLO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE CAVUM FARINGEO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE CAVUM FARINGEO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CUELLO')),
             ],
 
@@ -119,57 +119,57 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE COLUMNA CERVICAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE COLUMNA CERVICAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE COLUMNA UNION CERVICO DORSAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE COLUMNA UNION CERVICO DORSAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE COLUMNA TORACICA')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE COLUMNA TORACICA')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE COLUMNA DORSOLUMBAR')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE COLUMNA DORSOLUMBAR')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE COLUMNA LUMBOSACRA')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE COLUMNA LUMBOSACRA')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE SACRO COCCIX')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE SACRO COCCIX')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE COLUMNA VERTEBRAL TOTAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE COLUMNA VERTEBRAL TOTAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PANORAMICA DE COLUMNA (GONIOMETRIA U ORTOGRAMA) FORMATO 14″ X 36″ (ADULTOS)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PANORAMICA DE COLUMNA (GONIOMETRIA U ORTOGRAMA) FORMATO 14″ X 36″ (ADULTOS)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PANORAMICA DE COLUMNA (GONIOMETRIA U ORTOGRAMA) FORMATO 14″ X 17″ (NIÑOS)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PANORAMICA DE COLUMNA (GONIOMETRIA U ORTOGRAMA) FORMATO 14″ X 17″ (NIÑOS)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DINAMICA DE COLUMNA VERTEBRAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DINAMICA DE COLUMNA VERTEBRAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ARTICULACIONES SACROILIACAS')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ARTICULACIONES SACROILIACAS')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
 
@@ -177,22 +177,22 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE REJA COSTAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE REJA COSTAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE TORAX')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ESTERNON')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ESTERNON')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE TORAX')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE TORAX (PA O AP Y LATERAL DECUBITO LATERAL OBLICUAS O LATERAL) CON BARIO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE TORAX (PA O AP Y LATERAL DECUBITO LATERAL OBLICUAS O LATERAL) CON BARIO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE TORAX')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ARTICULACIONES ESTERNOCLAVICULARES')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ARTICULACIONES ESTERNOCLAVICULARES')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE TORAX')),
             ],
             [   
@@ -210,7 +210,7 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PARA SERIE CARDIOVASCULAR (CORAZON Y GRANDES VASOS SILUETA CARDIACA) CON BARIO EN ESOFAGO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PARA SERIE CARDIOVASCULAR (CORAZON Y GRANDES VASOS SILUETA CARDIACA) CON BARIO EN ESOFAGO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CORAZON Y GRANDES VASOS')),
             ],
 
@@ -218,7 +218,7 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ESOFAGO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ESOFAGO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE MEDIASTINO Y ORGANOS RELACIONADOS')),
             ],
 
@@ -226,12 +226,12 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ABDOMEN SIMPLE')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ABDOMEN SIMPLE')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ABDOMEN')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ABDOMEN SIMPLE CON PROYECCIONES ADICIONALES (SERIE DE ABDOMEN AGUDO)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ABDOMEN SIMPLE CON PROYECCIONES ADICIONALES (SERIE DE ABDOMEN AGUDO)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ABDOMEN')),
             ],
 
@@ -239,37 +239,37 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE TRANSITO INTESTINAL CONVENCIONAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE TRANSITO INTESTINAL CONVENCIONAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE VIA DIGESTIVA')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE TRANSITO INTESTINAL DOBLE CONTRASTE')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE TRANSITO INTESTINAL DOBLE CONTRASTE')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE VIA DIGESTIVA')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE COLON POR ENEMA O COLON POR INGESTA')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE COLON POR ENEMA O COLON POR INGESTA')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE VIA DIGESTIVA')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE COLON POR ENEMA CON DOBLE CONTRASTE')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE COLON POR ENEMA CON DOBLE CONTRASTE')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE VIA DIGESTIVA')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE VIAS DIGESTIVAS ALTAS (ESOFAGO ESTOMAGO Y DUODENO)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE VIAS DIGESTIVAS ALTAS (ESOFAGO ESTOMAGO Y DUODENO)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE VIA DIGESTIVA')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE VIAS DIGESTIVAS ALTAS (ESOFAGO ESTOMAGO Y DUODENO) CON DOBLE CONTRASTE')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE VIAS DIGESTIVAS ALTAS (ESOFAGO ESTOMAGO Y DUODENO) CON DOBLE CONTRASTE')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE VIA DIGESTIVA')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE VIAS DIGESTIVAS ALTAS (ESOFAGO ESTOMAGO Y DUODENO) Y TRANSITO INTESTINAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE VIAS DIGESTIVAS ALTAS (ESOFAGO ESTOMAGO Y DUODENO) Y TRANSITO INTESTINAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE VIA DIGESTIVA')),
             ],
 
@@ -290,22 +290,22 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PARA SERIE ESQUELETICA')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PARA SERIE ESQUELETICA')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE HUESOS LARGOS SERIE COMPLETA (ESQUELETO AXIAL Y APENDICULAR)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE HUESOS LARGOS SERIE COMPLETA (ESQUELETO AXIAL Y APENDICULAR)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PARA ESTUDIOS DE LONGITUD DE LOS HUESOS (ORTORRADIOGRAFIA Y ESCANOGRAMA)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PARA ESTUDIOS DE LONGITUD DE LOS HUESOS (ORTORRADIOGRAFÍA  Y ESCANOGRAMA)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PARA DETECTAR EDAD OSEA [CARPOGRAMA]')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PARA DETECTAR EDAD OSEA [CARPOGRAMA]')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES')),
             ],
 
@@ -313,22 +313,22 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE OMOPLATO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE OMOPLATO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES SUPERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE CLAVICULA')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE CLAVICULA')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES SUPERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE HUMERO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE HUMERO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES SUPERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ANTEBRAZO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ANTEBRAZO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES SUPERIORES')),
             ],
 
@@ -336,57 +336,57 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PARA MEDICION DE MIEMBROS INFERIORES [ESTUDIO DE FARILL U OSTEOMETRIA] ESTUDIO DE PIE PLANO (PIES CON APOYO)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PARA MEDICION DE MIEMBROS INFERIORES [ESTUDIO DE FARILL U OSTEOMETRIA] ESTUDIO DE PIE PLANO (PIES CON APOYO)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PANORAMICA DE MIEMBROS INFERIORES (GONIOMETRIA U ORTOGRAMA) EN FORMATO 14″ X 36″ (ADULTOS)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PANORAMICA DE MIEMBROS INFERIORES (GONIOMETRIA U ORTOGRAMA) EN FORMATO 14″ X 36″ (ADULTOS)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PANORAMICA DE MIEMBROS INFERIORES (GONIOMETRIA U ORTOGRAMA) EN FORMATO 14″ X 17″ (NIÑOS)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PANORAMICA DE MIEMBROS INFERIORES (GONIOMETRIA U ORTOGRAMA) EN FORMATO 14″ X 17″ (NIÑOS)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DIGITAL DE MIEMBROS INFERIORES (ESTUDIO DE LONGITUD)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DIGITAL DE MIEMBROS INFERIORES (ESTUDIO DE LONGITUD)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ANTEVERSION FEMORAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ANTEVERSION FEMORAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE FEMUR (AP LATERAL)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE FEMUR (AP LATERAL)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE PIERNA (AP LATERAL)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE PIERNA (AP LATERAL)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ANTEVERSION TIBIAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ANTEVERSION TIBIAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE PIE (AP LATERAL)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE PIE (AP LATERAL)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE CALCANEO (AXIAL Y LATERAL)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE CALCANEO (AXIAL Y LATERAL)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE MIEMBRO INFERIOR (AP LATERAL)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE MIEMBRO INFERIOR (AP LATERAL)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
 
@@ -394,52 +394,52 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE CADERA O ARTICULACION COXO-FEMORAL (AP LATERAL)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE CADERA O ARTICULACION COXO-FEMORAL (AP LATERAL)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE CADERA COMPARATIVA')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE CADERA COMPARATIVA')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE RODILLA (AP LATERAL)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE RODILLA (AP LATERAL)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE RODILLAS COMPARATIVAS POSICION VERTICAL (UNICAMENTE VISTA ANTEROPOSTERIOR)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE RODILLAS COMPARATIVAS POSICION VERTICAL (UNICAMENTE VISTA ANTEROPOSTERIOR)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA TANGENCIAL DE ROTULA')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  TANGENCIAL DE ROTULA')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIAS AXIALES DE ROTULA O LONGITUD DE MIEMBROS INFERIORES')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA S AXIALES DE ROTULA O LONGITUD DE MIEMBROS INFERIORES')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE TOBILLO (AP LATERAL Y ROTACION INTERNA)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE TOBILLO (AP LATERAL Y ROTACION INTERNA)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ANTEPIE (AP OBLICUA)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ANTEPIE (AP OBLICUA)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIAS COMPARATIVAS DE EXTREMIDADES INFERIORES')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA S COMPARATIVAS DE EXTREMIDADES INFERIORES')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIAS EN EXTREMIDADES PROYECCIONES ADICIONALES (STRESS TUNEL OBLICUAS)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA S EN EXTREMIDADES PROYECCIONES ADICIONALES (STRESS TUNEL OBLICUAS)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
 
@@ -524,12 +524,12 @@ class StudiesList extends Seeder
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS DE LA CABEZA CARA Y CUELLO')),
             ],
 
-            //RADIOGRAFIAS DE CONTRASTE EN CEREBRO Y CRANEO
+            //RADIOGRAFÍA S DE CONTRASTE EN CEREBRO Y CRANEO
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
                 'description' => ucfirst(strtolower('CISTERNOGRAFIA SOD')),
-                'category' => ucfirst(strtolower('RADIOGRAFIAS DE CONTRASTE EN CEREBRO Y CRANEO')),
+                'category' => ucfirst(strtolower('RADIOGRAFÍA S DE CONTRASTE EN CEREBRO Y CRANEO')),
             ],
 
             //FLEBOGRAFIA DE VASOS DE CABEZA Y CUELLO
