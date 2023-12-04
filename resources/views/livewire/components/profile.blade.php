@@ -443,33 +443,6 @@
             $(".date-bd").attr('max', year + "-" + month + "-" + day);
         });
 
-        // $('button').tooltip({
-        //     trigger: 'click',
-        //     placement: 'bottom'
-        // });
-
-        // function setTooltip(btn, message) {
-        //     $(btn).tooltip('hide').attr('data-original-title', message).tooltip('show');
-        // }
-
-        // function hideTooltip(btn) {
-        //     setTimeout(function() { $(btn).tooltip('hide'); }, 1000);
-        // }
-
-        //     // Clipboard
-
-        //  var clipboard = new Clipboard('button');
-
-        // clipboard.on('success', function(e) {
-        //     setTooltip(e.trigger, 'Copied!');
-        //     hideTooltip(e.trigger);
-        // });
-
-        // clipboard.on('error', function(e) {
-        //     setTooltip(e.trigger, 'Failed!');
-        //     hideTooltip(e.trigger);
-        // });
-
         const triggerExample = async (token) => {
             link = `${token}`;
             try {
@@ -706,10 +679,6 @@
                                                             onclick="triggerExample('{{ Auth::user()->token_corporate }}');">
                                                             <i class="bi bi-file-earmark-text"></i>
                                                         </button> <span style="padding-left: 5px" id="copied"></span>
-                                                        {{-- <i id="icon-copy" data-bs-toggle="tooltip"
-                                                            data-bs-placement="bottom" title="Copiar enlace"
-                                                            onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
-                                                            class="bi bi-clipboard2-plus"></i> <span style="padding-left: 5px" id="copied"></span> --}}
                                                     </div>
                                                 </div>
                                             @endif
