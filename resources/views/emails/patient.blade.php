@@ -33,7 +33,7 @@
                     <br>
                     Piso: {{ $mailData['center_piso'] }}
                     <br>
-                    Nro de consultorio: {{ $mailData['center_consulting_room'] }}
+                    Nro. de consultorio: {{ $mailData['center_consulting_room'] }}
                     <br>
                     Teléfono: {{ $mailData['center_phone'] }}
                 </h3>
@@ -55,7 +55,7 @@
                 Ing. Jhonny Martinez<br>CEO
             </p>
             <p style="text-align: justify; font-style: italic; margin-left: 20px;">
-                Para mayor información puede comunicarse 24/7 con nuestro equipo a traves de sqlapiotechnology@sqlapio.com
+                Para mayor información puede comunicarse 24/7 con nuestro equipo a través de sqlapiotechnology@sqlapio.com
             </p>
         </div>
     <img style="

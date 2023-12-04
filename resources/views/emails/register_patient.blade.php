@@ -27,11 +27,11 @@
                 <h3 style="text-align: justify; margin-left: 20px;">
                     Sr.(a): {{ $mailData['patient_name'] }}
                     <br>
-                    Codigo del paciente: {{ $mailData['patient_code'] }}
+                    Código del paciente: {{ $mailData['patient_code'] }}
                     <br>
-                    Telefono: {{ $mailData['patient_phone'] }}
+                    Teléfono: {{ $mailData['patient_phone'] }}
                     <br>
-                    Correo Electronico: {{ $mailData['patient_email'] }}   
+                    Correo Electrónico: {{ $mailData['patient_email'] }}   
                 </h3>
             </p>
 
@@ -51,7 +51,7 @@
                 Ing. Jhonny Martinez<br>CEO
             </p>
             <p style="text-align: justify; font-style: italic; margin-left: 20px;">
-                Para mayor información puede comunicarse 24/7 con nuestro equipo a traves de sqlapiotechnology@sqlapio.com
+                Para mayor información puede comunicarse 24/7 con nuestro equipo a través de sqlapiotechnology@sqlapio.com
             </p>
         </div>
     <img style="
