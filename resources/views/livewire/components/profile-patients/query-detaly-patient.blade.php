@@ -6,16 +6,38 @@
         letter-spacing: -.022em;
         color: #1d1d1f;
     }
+    .div-overflow {
+        overflow: scroll;
+        height: 100%;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+    .data-medical small {
+        font-size: 66%
+    }
+
+    .list-group-item.active {
+
+        background-color: #47525E !important;
+        border-color: #47525E !important;
+    }
 </style>
 @push('scripts')
     <script>
         $(document).ready(() => {
             $("#wizard").steps({
                 headerTag: "h3",
+                cssClass: "wizard",
                 bodyTag: "section",
                 transitionEffect: "slideLeft",
-                autoFocus: true
+                autoFocus: true,
+                enableAllSteps: true,
+                enablePagination: false,
             });
+            ////
             $('#form-detaly-patient').validate({
                 rules: {
                     ci: {
@@ -82,7 +104,9 @@
                                         img = `${ulr_img}/${response[0].img}`;
                                     } else {
 
-                                        img = (response[0].genere == 'femenino') ?"{{ URL::asset('/img/avatar/avatar mujer.png') }}" :"{{ URL::asset('/img/avatar/avatar hombre.png') }}";
+                                        img = (response[0].genere == 'femenino') ?
+                                            "{{ URL::asset('/img/avatar/avatar mujer.png') }}" :
+                                            "{{ URL::asset('/img/avatar/avatar hombre.png') }}";
 
                                     }
                                     let e = ` <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 162px;">
@@ -114,7 +138,10 @@
 
                                     //mostrar consultas
                                     $('#div-content').show();
-                                    $('.list-group').empty();
+                                    $('.list-con').empty();
+                                    $('.ul-exmen').empty();
+                                    $('.ul-study').empty();
+
                                     response[0].info_medical_record.map((e, key) => {
                                         let element = '';
                                         if ((key % 2) == 0) {
@@ -132,14 +159,42 @@
                                             element = `<a href="#" class="list-group-item list-group-item-action  ${key}"
                                         aria-current="true">
                                         <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1 text-capitalize">Medico: ${e.record_code} </h5><br>
+                                        <h5 class="mb- text-capitalize">Médico: ${e.doctor} </h5><br>
                                         </div>
-                                        <small>Codigo de consulta:</small> <strong>${e.record_code}</strong>
+                                        <small>Especialidad:</small> <strong>${e.specialty}</strong><br>
+                                        <small>Código de consulta:</small> <strong>${e.record_code}</strong>
                                         <br>
                                         <small>Fecha de consulta:</small> <strong>${e.record_date}</strong>
                                         </a>`
                                         }
-                                        $('.list-group').append(element);
+                                        $('.list-con').append(element);
+                                        /// data estudios
+
+                                        e.study_medical.map((item, i) => {
+                                            let et = '';
+                                            if ((i % 2) == 0) {
+                                                et = `<li style="padding: 10px 10px 10px 10px" class="list-group-item  ${i}" aria-current="true">${item.description} ${item.record_code}</li>`
+                                            } else {
+                                                et = `<li style="padding: 10px 10px 10px 10px"  class="list-group-item ${i}"" aria-current="true">${item.description} ${item.record_code}</li>`
+                                            }
+                                            $('.ul-study').append(et);
+                                        });
+                                        //end
+
+                                        /// data examenes
+
+                                        e.exam_medical.map((item, e) => {
+                                            let ett = '';
+                                            if ((e % 2) == 0) {
+                                                ett =
+                                                    `<li style="padding: 10px 10px 10px 10px"  class="list-group-item  ${e}" aria-current="true">${item.description} ${item.record_code}</li>`
+                                            } else {
+                                                ett =
+                                                    `<li style="padding: 10px 10px 10px 10px"  class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}</li>`
+                                            }
+                                            $('.ul-exmen').append(ett);
+                                        });
+                                        //end
                                     });
                                     //end
 
@@ -220,7 +275,7 @@
                             <div class="row mt-5" id="div-content" style="display: none">
                                 <hr>
                                 <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mb-cd">
-                                    <div class="row" id="info-pat"></div>
+                                    <div class="row justify-content-center" id="info-pat"></div>
                                 </div>
 
                                 <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mb-cd">
@@ -243,17 +298,25 @@
                                         </section>
                                         <h3>Consultas medicas</h3>
                                         <section>
-                                            <div class="list-group">
+                                            <div class="list-group list-con ">
                                             </div>
                                         </section>
                                         <h3>Estudios Realizados</h3>
                                         <section>
-                                            <div class="row">
+                                            <div class="row p-3 div-overflow">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                    <ul class="list-group ul-study list-group-flush overflow-auto">
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </section>
                                         <h3>Examenes Realizados</h3>
                                         <section>
-                                            <div class="list-groupsss">
+                                            <div class="row p-3 div-overflow">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                    <ul class="list-group ul-exmen list-group-flush overflow-auto">
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </section>
                                     </div>
