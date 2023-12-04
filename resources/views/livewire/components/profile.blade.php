@@ -443,14 +443,44 @@
             $(".date-bd").attr('max', year + "-" + month + "-" + day);
         });
 
+        // $('button').tooltip({
+        //     trigger: 'click',
+        //     placement: 'bottom'
+        // });
+
+        // function setTooltip(btn, message) {
+        //     $(btn).tooltip('hide').attr('data-original-title', message).tooltip('show');
+        // }
+
+        // function hideTooltip(btn) {
+        //     setTimeout(function() { $(btn).tooltip('hide'); }, 1000);
+        // }
+
+        //     // Clipboard
+
+        //  var clipboard = new Clipboard('button');
+
+        // clipboard.on('success', function(e) {
+        //     setTooltip(e.trigger, 'Copied!');
+        //     hideTooltip(e.trigger);
+        // });
+
+        // clipboard.on('error', function(e) {
+        //     setTooltip(e.trigger, 'Failed!');
+        //     hideTooltip(e.trigger);
+        // });
+
         const triggerExample = async (token) => {
             link = `${token}`;
             try {
                 await navigator.clipboard.writeText(link);
-                $("#icon-copy").css("color", "#04AA6D");
+                $("#icon-copy").css("background", "#04AA6D");
+                setTimeout(function() { $('#copied').hide(); }, 2000);
+                $("#copied").text('Enlace copiado!');
 
             } catch (err) {
                 console.error('Failed to copy: ', err);
+                $("#copied").text('Error al copiar enlace!');
             }
         }
     </script>
@@ -660,16 +690,26 @@
                                             @if (Auth::user()->role == 'corporativo')
                                                 <div class="row">
                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                                        <small id=""><a id="Link-medicos"
-                                                                href="{{ Auth::user()->token_corporate }}"
-                                                                target="_blank">Asociación de medicos</a></small>
+                                                        <a id="Link-medicos" href="{{ Auth::user()->token_corporate }}"
+                                                                target="_blank">
+                                                                <button  type="button" class="btn btnPrimary">Registrar médicos</button>
+                                                        </a>
                                                     </div>
                                                     <div style="margin-left: -17%;"
                                                         class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4  mt-2">
-                                                        <i id="icon-copy" data-bs-toggle="tooltip"
+                                                        <button type="button"
+                                                            id="icon-copy"
+                                                            class="btn btn-iSecond rounded-circle"
+                                                            data-bs-toggle="tooltip"
+                                                            data-bs-placement="bottom"
+                                                            title="Copiar enlace de registro"
+                                                            onclick="triggerExample('{{ Auth::user()->token_corporate }}');">
+                                                            <i class="bi bi-file-earmark-text"></i>
+                                                        </button> <span style="padding-left: 5px" id="copied"></span>
+                                                        {{-- <i id="icon-copy" data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom" title="Copiar enlace"
                                                             onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
-                                                            class="bi bi-clipboard2-plus"></i>
+                                                            class="bi bi-clipboard2-plus"></i> <span style="padding-left: 5px" id="copied"></span> --}}
                                                     </div>
                                                 </div>
                                             @endif
@@ -682,7 +722,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
                                                             social</label>
                                                         <input autocomplete="off" placeholder=""
                                                             class="form-control mask-text  @error('business_name') is-invalid @enderror"
@@ -886,7 +926,7 @@
             @if ($user->email_verified_at !== null)
                 {{-- actualizacion de correo Electronico --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3" style="margin-top: 20px;">
                         <div class="accordion-item ">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"
@@ -927,7 +967,7 @@
                 @if (Auth::user()->role == 'medico')
                     {{-- firma Digital --}}
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px; ">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
                                     <button class="accordion-button collapsed bg-8" type="button"
@@ -959,25 +999,27 @@
                     </div>
                 @endif
             @endif
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd" style="margin-top: 20px;">
-                    <div class="accordion-item">
-                        <span class="accordion-header title" id="headingPlanes">
-                            <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapsePlanes" aria-expanded="true" aria-controls="collapsePlanes"
-                                style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                <i class="bi bi-info-lg"></i> Información del plan
-                            </button>
-                        </span>
-                        <div id="collapsePlanes" class="accordion-collapse collapse show" aria-labelledby="headingPlanes"
-                            data-bs-parent="#accordion">
-                            <div class="accordion-body">
-                                <x-view-planes />
+            @if (Auth::user()->role !== 'corporativo' )
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd" style="margin-top: 20px;">
+                        <div class="accordion-item">
+                            <span class="accordion-header title" id="headingPlanes">
+                                <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapsePlanes" aria-expanded="true" aria-controls="collapsePlanes"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-info-lg"></i> Información del plan
+                                </button>
+                            </span>
+                            <div id="collapsePlanes" class="accordion-collapse collapse show" aria-labelledby="headingPlanes"
+                                data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    <x-view-planes />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 

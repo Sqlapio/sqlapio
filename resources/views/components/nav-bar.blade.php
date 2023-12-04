@@ -596,10 +596,10 @@
                                     @if (Auth::user()->role == 'corporativo')
                                     <li>
                                         <a class="nav-item" href="{{ route('doctors') }}" title="Configuración">
-                                            <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
+                                            <img class="icon-menu" src="{{ asset('img/V2/Contacts.png') }}"
                                                 alt="Configuración">
                                             <span class="nav-link active" aria-current="page"
-                                                href="#">Medicos</span>
+                                                href="#">Médicos</span>
                                         </a>
                                     </li>
                                     <li>
