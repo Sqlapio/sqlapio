@@ -22,7 +22,7 @@
             <p style="text-align: justify; margin-left: 20px;">
                 Gracias por ser parte de nuestra familia Sqlapio.com, usted acaba de registrarse en nuestro sistema.
                 <br>
-                Es importate para nosotro que realize la confirmacion de su correo electronico a travez del siguiente link:
+                Es importate para nosotro que realize la confirmación de su correo electrónico a través del siguiente link:
                 <br>
                 http://sqldevelop.sqlapio.net/verify/{{ $mailData['verify_code'] }}
             </p>
@@ -44,7 +44,7 @@
                 Ing. Jhonny Martinez<br>CEO
             </p>
             <p style="text-align: justify; font-style: italic; margin-left: 20px;">
-                Para mayor información puede comunicarse 24/7 con nuestro equipo a traves de sqlapiotechnology@sqlapio.com
+                Para mayor información puede comunicarse 24/7 con nuestro equipo a través de sqlapiotechnology@sqlapio.com
             </p>
         </div>
     <img style="

@@ -249,7 +249,7 @@
                         <strong>Condición general: </strong><span>{{ $history->condition }}</span>
                         <br>
                         <strong>Estudios Realizados: </strong><span>{{ $history->applied_studies }}</span>
-                        <h2>Información basica adicional</h2>
+                        <h2>Información básica adicional</h2>
 
                         <ul style="margin-left: -30px">
                             <li> {{ $history->hidratado === '1' ? 'Hidratado' : null }} </li>
