@@ -6,27 +6,19 @@
         height: auto;
     }
 
-    .form-sq-mv {
-        align-content: flex-start;
-    }
-
-
     .logoSq {
         width: 50% !important;
         height: auto;
     }
 
-    @media only screen and (max-width: 576px) {
-        .mt-m3 {
-            margin-top: 20px;
-
-        }        
-    }
-
 
     @media only screen and (max-width: 576px) {
+
+        .form-sq-mv {
+            align-content: flex-start !important;
+        }
         .mt-m3 {
-            margin-top: 100px
+            margin-top: 20px
         }
 
         .logoSq {
@@ -63,6 +55,7 @@
                     $("#code_card").attr('disabled', true)
                     $("#number_card").attr('disabled', true)
                     $("#methodo_payment").attr('disabled', true)
+                    $("#div-payment-metodo").hide()
 
                     break;
                 case 2:
@@ -282,7 +275,7 @@
             <div id="spinner" style="display: none">
                 <x-load-spinner />
             </div>
-            <div class="row form-sq">
+            <div class="row form-sq form-sq-mv">
                 <div class="col-sm-10 col-md-10 col-lg-6 col-xl-6 col-xxl-6">
                     <div class="card mb-3 mt-m3" id="div-form">
                         <div class="card-body">
@@ -338,7 +331,7 @@
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
                                                     social</label>
                                                 <input autocomplete="off" class="form-control" id="business_name"
                                                     name="business_name" type="text" value="">

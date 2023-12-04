@@ -332,7 +332,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
                                                             social</label>
                                                         <input readonly autocomplete="off"
                                                             class="form-control mask-text @error('business_name') is-invalid @enderror"
