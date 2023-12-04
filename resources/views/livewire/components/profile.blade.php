@@ -680,16 +680,14 @@
                                                                 target="_blank">
                                                                 <button  type="button" class="btn btnPrimary">Registrar médicos</button>
                                                         </a>
-                                                    </div>
-                                                    <div style="margin-left: -17%;"
-                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4  mt-2">
                                                         <button type="button"
                                                             id="icon-copy"
                                                             class="btn btn-iSecond rounded-circle"
                                                             data-bs-toggle="tooltip"
                                                             data-bs-placement="bottom"
                                                             title="Copiar enlace de registro"
-                                                            onclick="triggerExample('{{ Auth::user()->token_corporate }}');">
+                                                            onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
+                                                            style="margin-left: 5%;">
                                                             <i class="bi bi-file-earmark-text"></i>
                                                         </button> <span style="padding-left: 5px" id="copied"></span>
                                                     </div>
@@ -908,7 +906,7 @@
             @if ($user->email_verified_at !== null)
                 {{-- actualizacion de correo Electronico --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd" style="margin-top: 20px;">
                         <div class="accordion-item ">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"

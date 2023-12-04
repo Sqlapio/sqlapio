@@ -159,7 +159,7 @@
                                 <div class="table-responsive" id="div-patients-corp" style="margin-top: 20px; width: 100%;">
                                     <table id="table-patients-corp" class="table table-striped table-bordered"
                                         style="width: 100%;">
-                                        <thead class="table-light">
+                                        <thead>
                                             <tr>
                                                 <th class="text-center">Nombre y apellidos</th>
                                                 <th class="text-center">documento de identidad</th>
