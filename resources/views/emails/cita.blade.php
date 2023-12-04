@@ -41,11 +41,11 @@
         <p style="text-align: justify; margin-left: 20px;">
             Gracias por ser parte de nosotro, Sqlapio.com, innovando para el futuro.
         </p>
-        {{-- <p style="text-align: justify; margin-left: 20px;">
+             <p style="text-align: justify; margin-left: 20px;">
             Para confirmar su cita puede hacerlo a traves del siguiente link:
             <br>
             {{ $mailData['link'] }}
-        </p> --}}
+        </p> 
         <p style="text-align: justify; margin-left: 20px;">
             Atentamente,
             <br>
