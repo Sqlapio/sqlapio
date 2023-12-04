@@ -1,10 +1,17 @@
 <style>
     .avatar-user {
-        width: 45px;
-        height: 45px;
+        width: 55px;
+        height: 55px;
         object-fit: cover;
         border-radius: 50%;
         border: 2px solid #42abe2;
+    }
+
+    .avatar-corporativo {
+        width: 250px;
+        height: 95px;
+        object-fit: cover;
+        margin-right: 14px;
     }
 
     .nav-column {
@@ -89,13 +96,13 @@
     .icon-p {
         display: flex;
         align-items: center;
-        justify-content: flex-end;
+        flex-direction: column-reverse;
     }
 
 
     .strong {
         color: white;
-        font-size: 15px;
+        font-size: 13px;
         text-align: right;
         text-transform: capitalize;
         padding-right: 15px;
@@ -115,12 +122,16 @@
     }
 
     .mt-icon {
-        margin-top: -60px !important;
+        margin-top: -67px !important;
     }
 
 
     .mt-text {
-        margin-top: 20px;
+        margin-top: 10px;
+    }
+
+    .navbar-nav {
+        margin-top: -13px;
     }
 
 
@@ -151,14 +162,23 @@
             margin-top: 15px;
         }
 
+        .navbar-nav {
+            margin-top: 0px;
+        }
+
     }
 
     @media only screen and (max-width: 390px) {
 
+        .icon-p {
+            flex-direction: row;
+        }
+
         .nav-column {
-            padding-top: 5px;
+            /* padding-top: 5px; */
             width: 100%;
             padding-left: 0px;
+            /* padding-bottom: 7px; */
         }
 
         .isotipo-nav {
@@ -240,6 +260,15 @@
         .mt-text {
             margin-top: 3px;
         }
+
+        .navbar-nav {
+            margin-top: 0px;
+        }
+
+        .avatar-corporativo {
+            width: 140px;
+            height: 70px;
+        }
     }
 
     @media (min-width: 391px) and (max-width: 400px) {
@@ -252,6 +281,10 @@
         .icon-menu {
             width: 31px;
             height: auto;
+        }
+
+        .icon-p {
+            flex-direction: row;
         }
 
         .nav-item {
@@ -271,9 +304,10 @@
         }
 
         .nav-column {
-            padding-top: 5px;
+            /* padding-top: 5px; */
             width: 100%;
             padding-left: 0px;
+            /* padding-bottom: 7px; */
         }
 
         .logo-mb {
@@ -304,6 +338,15 @@
             margin-top: 3px;
         }
 
+        .navbar-nav {
+            margin-top: 0px;
+        }
+
+        .avatar-corporativo {
+            width: 140px;
+            height: 70px;
+        }
+
     }
 
     @media (min-width: 401px) and (max-width: 576px) {
@@ -313,10 +356,15 @@
             height: auto;
         }
 
+        .icon-p {
+            flex-direction: row;
+        }
+
         .nav-column {
-            padding-top: 5px;
+            /* padding-top: 5px; */
             width: 100%;
             padding-left: 0px;
+            /* padding-bottom: 7px; */
         }
 
         .icon-menu {
@@ -366,9 +414,22 @@
         .mt-text {
             margin-top: 3px;
         }
+
+        .navbar-nav {
+            margin-top: 0px;
+        }
+
+        .avatar-corporativo {
+            width: 140px;
+            height: 70px;
+        }
     }
 
     @media (min-width: 576px) and (max-width: 768px) {
+
+        .icon-p {
+            flex-direction: row;
+        }
 
         .icon-menu {
             width: 31px;
@@ -383,9 +444,10 @@
         }
 
         .nav-column {
-            padding-top: 5px;
+            /* padding-top: 5px; */
             width: 100%;
             padding-left: 0px;
+            /* padding-bottom: 7px; */
         }
 
         .nav-item {
@@ -425,9 +487,22 @@
         .mt-text {
             margin-top: 3px;
         }
+
+        .navbar-nav {
+            margin-top: 0px;
+        }
+
+        .avatar-corporativo {
+            width: 140px;
+            height: 70px;
+        }
     }
 
     @media (min-width: 768px) and (max-width: 992px) {
+
+        .icon-p {
+            flex-direction: row;
+        }
 
         .icon-menu {
             width: 31px;
@@ -441,15 +516,17 @@
         }
 
         .nav-column {
-            padding-top: 5px;
+            /* padding-top: 5px; */
             width: 100%;
             padding-left: 0px;
+            /* padding-bottom: 7px; */
         }
 
         .nav-item {
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
+            margin-bottom: 15px;
         }
 
         .nav-item span {
@@ -482,12 +559,21 @@
         .mt-text {
             margin-top: 3px;
         }
+
+        .navbar-nav {
+            margin-top: 0px;
+        }
+
+        .avatar-corporativo {
+            width: 140px;
+            height: 70px;
+        }
     }
 </style>
 <div>
     <div class="container-fluid">
         <div class="row">
-            <nav class="navbar navbar-expand-lg div-bar navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg div-bar navbar-dark bg-dark" style="padding: 0;">
                 <div class="container-fluid nav-mb">
                     <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 logo-mb">
                         <img class="isotipo-nav" src="{{ asset('img/Isotipo.png') }}" alt="Logo">
@@ -507,30 +593,36 @@
                                     </button>
                                 </div>
 
-                                <div class="col-xs-6 col-sm-6 col-md-6"
-                                    style="display: flex; justify-content: flex-end;">
-
-                                    <a class="nav-link icon-p mt-text" href="#">
+                                <div class="col-xs-6 col-sm-6 col-md-6" style="display: flex; justify-content: flex-end;">
+                                    <a class="nav-link icon-p" href="#" style="    height: 94px;">
+                                        {{-- <span class="strong"> prueba {{ Auth::user() }}</span> --}}
                                         @if (Auth::user()->user_img != null && Auth::user()->role == 'medico')
-                                            <span class="strong"> Dr.
+                                            <span class="strong" style="margin-bottom: 7px;"> Dr.
                                                 {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
-                                            <img class="avatar-user"
-                                                src="{{ asset('/imgs/' . Auth::user()->user_img) }}"
-                                                class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
-                                        @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) == null)
-                                            <span class="strong"> {{ Auth::user()->business_name }} </span>
-                                            <img class="avatar-user" src="{{ asset('/img/avatar/avatar.png') }}"
-                                                class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
-                                        @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) != null)
-                                            <span class="strong"> {{ Auth::user()->business_name }} </span>
-                                            <img class="avatar-user"
+                                            <img class="avatar-user mt-text avatar img-fluid rounded-circle me-1"
+                                                src="{{ asset('/imgs/' . Auth::user()->user_img) }}" alt="Chris Wood">
+                                        @elseif(Auth::user()->lab_img != null && Auth::user()->role == 'corporativo')
+                                            <img class="avatar-corporativo avatar img-fluid me-1"
                                                 src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}"
-                                                class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
+                                                alt="Chris Wood">
+                                        @elseif(Auth::user()->role == 'corporativo')
+                                            <img class="avatar-corporativo"
+                                                src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}" 
+                                                alt="Chris Wood" style="margin-top:0">
+                                        @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) == null)
+                                            <span class="strong" style="margin-bottom: 7px;"> {{ Auth::user()->business_name }} </span>
+                                            <img class="avatar-user mt-text avatar img-fluid rounded-circle me-1" 
+                                                src="{{ asset('/img/avatar/avatar.png') }}" alt="Chris Wood">
+                                        @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) != null)
+                                            <span class="strong" style="margin-bottom: 7px;"> {{ Auth::user()->business_name }} </span>
+                                            <img class="avatar-user mt-text avatar img-fluid rounded-circle me-1"
+                                                src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}" 
+                                                alt="Chris Wood">
                                         @else
-                                            <span class="strong"> Dr. {{ Auth::user()->last_name }},
+                                            <span class="strong" style="margin-bottom: 7px;"> Dr. {{ Auth::user()->last_name }},
                                                 {{ Auth::user()->name }}</span>
-                                            <img class="avatar-user" src="{{ asset('/img/avatar/avatar.png') }}"
-                                                class="avatar img-fluid rounded-circle me-1" alt="Chris Wood">
+                                            <img class="avatar-user mt-text avatar img-fluid rounded-circle me-1" src="{{ asset('/img/avatar/avatar.png') }}"
+                                                alt="Chris Wood">
                                         @endif
                                     </a>
                                     <button onclick="logout()" data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -540,7 +632,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="collapse navbar-collapse mt-icon" id="navbarText" style="position: ">
+                            <div class="collapse navbar-collapse mt-icon" id="navbarText">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                     {{-- menu segun rol del usuario --}}
                                     @if (Auth::user()->role == 'medico')
@@ -692,4 +784,5 @@
             new bootstrap.Tooltip(element)
         });
     });
+
 </script>
