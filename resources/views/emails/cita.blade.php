@@ -53,7 +53,7 @@
             <img style="
                     display: block;
                     margin-left: 0px;
-                    width: 100px;
+                    width: 128px;
                     height: auto;" src="{{ asset('img/notification_email/fir_jm.png') }}">
             Ing. Jhonny Martinez<br>CEO
         </p>
