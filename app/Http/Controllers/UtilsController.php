@@ -1180,7 +1180,7 @@ class UtilsController extends Controller
 	{
 		try {
 			$value = User::where('id', $user_id)->first();
-            if($value->type_plan != '7')
+            if($value->type_plane != '7')
             {
                 $counter = DB::table('users')
                     ->where('id', $user_id)
@@ -1199,7 +1199,7 @@ class UtilsController extends Controller
 	{
 		try {
 			$value = User::where('id', $user_id)->first();
-            if($value->type_plan != '7')
+            if($value->type_plane != '7')
             {
                 $counter = DB::table('users')
                     ->where('id', $user_id)
@@ -1218,7 +1218,7 @@ class UtilsController extends Controller
 	{
 		try {
 			$value = User::where('id', $user_id)->first();
-            if($value->type_plan != '7')
+            if($value->type_plane != '7')
             {
                 $counter = DB::table('users')
                     ->where('id', $user_id)
