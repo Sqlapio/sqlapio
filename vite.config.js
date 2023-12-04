@@ -18,6 +18,8 @@ export default defineConfig({
             'public/assets/js/bootstrap-datepicker',
             'public/jquery-ui-1.13.2/external/jquery/jquery.js',
             'public/jquery-validation-1.19.5/dist/jquery.validate.min.js',
+            'public/wizard-step/jquery.steps.min.js',
+            'public/wizard-step/jquery.steps.js',
         ],
             refresh: true,          
         }),

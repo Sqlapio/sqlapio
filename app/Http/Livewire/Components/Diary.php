@@ -49,13 +49,11 @@ class Diary extends Component
             $rules = [
                 'date_start' => 'required',
                 'hour_start' => 'required',
-                'center_id' => 'required'
             ];
 
             $msj = [
                 'date_start.required' => 'Campo requerido',
                 'hour_start.required' => 'Campo requerido',
-                'center_id.required' => 'Campo requerido',
             ];
 
             $validator = Validator::make($request->all(), $rules, $msj);
@@ -68,14 +66,21 @@ class Diary extends Component
                 ], 400);
             }
 
-            $date= explode('-',$request->hour_start);
+            /** Validacion para cargar el centro correcto cuando el medico
+             * esta asociado al plan corporativo
+             */
+            if (Auth::user()->center_id != null) {
+                $center_id_corporativo = Auth::user()->center_id;
+            }
+
+            $date = explode('-',$request->hour_start);
             $appointment = new Appointment();
             $appointment->code = 'SQ-D-'.random_int(11111111, 99999999);
             $appointment->user_id = Auth::user()->id;
             $appointment->patient_id = $request->patient_id;
             $appointment->date_start = $request->date_start;
             $appointment->hour_start = $date[0].'-'.$date[1]." ".$request->timeIni;
-            $appointment->center_id = $request->center_id;
+            $appointment->center_id = isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id;
             $appointment->price = $request->price;
             $appointment->color = $date[2];
 
@@ -117,20 +122,39 @@ class Diary extends Component
                 $patient_email = $patient->email;
             }
 
-            $type = 'appointment';
-            $mailData = [
-                'dr_name'       => $user->name. ' ' .$user->last_name,
-                'dr_email'      => $user->email,
-                'patient_name'  => $patient->name. ' ' .$patient->last_name,
-                'cod_patient'   => $patient->patient_code,
-                'patient_email' => $patient_email,
-                'fecha'         => $request->date_start,
-                'horario'       => $date[0].' '.$request->timeIni,
-                'centro'        => $appointment->get_center->description,
-                'link'          => 'http://sqldevelop.sqlapio.net/confirmation/dairy/' . $appointment->code,
-            ];
+            if(isset($center_id_corporativo))
+            {
+                $type = 'appointment';
+                $mailData = [
+                    'dr_name'       => $user->name. ' ' .$user->last_name,
+                    'dr_email'      => $user->email,
+                    'patient_name'  => $patient->name. ' ' .$patient->last_name,
+                    'cod_patient'   => $patient->patient_code,
+                    'patient_email' => $patient_email,
+                    'fecha'         => $request->date_start,
+                    'horario'       => $date[0].' '.$request->timeIni,
+                    'centro'        => $appointment->get_center->description,
+                    'link'          => 'http://sqldevelop.sqlapio.net/confirmation/dairy/' . $appointment->code,
+                ];
 
-            UtilsController::notification_mail($mailData, $type);
+                UtilsController::notification_mail($mailData, $type);
+
+            }else{
+                $type = 'appointment';
+                $mailData = [
+                    'dr_name'       => $user->name. ' ' .$user->last_name,
+                    'dr_email'      => $user->email,
+                    'patient_name'  => $patient->name. ' ' .$patient->last_name,
+                    'cod_patient'   => $patient->patient_code,
+                    'patient_email' => $patient_email,
+                    'fecha'         => $request->date_start,
+                    'horario'       => $date[0].' '.$request->timeIni,
+                    'centro'        => $appointment->get_center->description,
+                    'link'          => 'http://sqldevelop.sqlapio.net/confirmation/dairy/' . $appointment->code,
+                ];
+
+                UtilsController::notification_mail($mailData, $type);
+            }
 
             return true;
 

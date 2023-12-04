@@ -263,14 +263,27 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
-                                window.location.href =
+                                window.location.href = (user.role == "corporativo") ?
+                                    "{{ route('Dashboard-corporate') }}" :
                                     "{{ route('DashboardComponent') }}";
                             });
                         },
                         error: function(error) {
                             $('#send').show();
                             $('#spinner').hide();
-                            console.log(error.responseJSON.errors);
+                            error.responseJSON.errors.map((elm) => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: elm,
+                                    allowOutsideClick: false,
+                                    confirmButtonColor: '#42ABE2',
+                                    confirmButtonText: 'Aceptar'
+                                }).then((result) => {
+                                    $('#btn-save').attr('disabled', false);
+                                    $('#spinner2').hide();
+                                    $(".holder").hide();
+                                });
+                            });
 
                         }
                     });
@@ -968,7 +981,7 @@
                     </div>
                 @endif
             @endif
-            @if (Auth::user()->role !== 'corporativo' )
+            @if (Auth::user()->role == 'medico' && Auth::user()->type_plane != '7')
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd" style="margin-top: 20px;">
                         <div class="accordion-item">
@@ -979,8 +992,8 @@
                                     <i class="bi bi-info-lg"></i> Información del plan
                                 </button>
                             </span>
-                            <div id="collapsePlanes" class="accordion-collapse collapse show" aria-labelledby="headingPlanes"
-                                data-bs-parent="#accordion">
+                            <div id="collapsePlanes" class="accordion-collapse collapse show"
+                                aria-labelledby="headingPlanes" data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <x-view-planes />
                                 </div>

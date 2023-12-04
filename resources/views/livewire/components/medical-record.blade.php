@@ -150,7 +150,7 @@
             $('#not-exam').hide();
             $('#not-studie').hide();
 
-            if (doctor_centers.length === 0) {
+            if ( user.type_plane !== '7' && doctor_centers.length === 0) {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Debe asociar  un centro!',
@@ -233,9 +233,7 @@
             $.validator.addMethod("onlyText", function(value, element) {
                 let pattern = /^[a-zA-ZñÑáéíóúü0-9\s]+$/g;
                 return pattern.test(value);
-            }, "No se permiten caracteres especiales");
-
-            
+            }, "No se permiten caracteres especiales");           
 
 
             //envio del formulario
@@ -810,6 +808,10 @@
                     }
                     break;
 
+                    case 7:
+                            $("#center_id").rules('remove');
+                            break;
+
                 default:
                     break;
             }
@@ -888,6 +890,7 @@
                                         <input type="hidden" name="id" id="id" value="{{ $Patient->id }}">
                                         <div id="input-array"></div>
                                         <div class="row">
+                                            @if (Auth::user()->type_plane !=='7')                                                
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
@@ -907,6 +910,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @endif
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                 <div class="form-group">
                                                     <label for="phone" class="form-label"

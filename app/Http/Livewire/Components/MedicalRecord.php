@@ -53,8 +53,6 @@ class MedicalRecord extends Component
                 'background'  => 'required',
                 'razon'       => 'required',
                 'diagnosis'   => 'required',
-                // 'exams'       => 'required',
-                // 'studies'     => 'required',
                 'medications_supplements' => 'required',
             ];
 
@@ -62,10 +60,15 @@ class MedicalRecord extends Component
                 'background'  => 'Campo requerido',
                 'razon'       => 'Campo requerido',
                 'diagnosis'   => 'Campo requerido',
-                // 'exams'       => 'Campo requerido',
-                // 'studies'     => 'Campo requerido',
                 'medications_supplements' => 'Campo requerido',
             ];
+
+            /** Validacion para cargar el centro correcto cuando el medico
+             * esta asociado al plan corporativo
+             */
+            if (Auth::user()->center_id != null) {
+                $center_id_corporativo = Auth::user()->center_id;
+            }
 
             $medical_record = ModelsMedicalRecord::updateOrCreate(['id' => $data->medical_record_id],
             [
@@ -77,13 +80,13 @@ class MedicalRecord extends Component
                  */
                 'user_id'       => $user,
                 'patient_id'    => $data->id,
-                'center_id'     => $data->center_id,
+                'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id,
                 'record_code'   => 'SQ-C-'.random_int(11111111, 99999999),
                 'record_date'   => date('d-m-Y'),
                 'background'    => $data->background,
                 'razon'         => $data->razon,
                 'diagnosis'     => $data->diagnosis,
-                'medications_supplements'       => $data->medications_supplements,
+                'medications_supplements' => $data->medications_supplements,
             ]);
 
             /**
@@ -94,7 +97,7 @@ class MedicalRecord extends Component
                 ->where('user_id', $user)
                 ->where('date_start', date('Y-m-d'))
                 ->update([
-                    'status'        => 3,   /** FINALIZADA EN LA AGENDA */
+                    'status' => 3,   /** FINALIZADA EN LA AGENDA */
                 ]);
 
             $action = '11';

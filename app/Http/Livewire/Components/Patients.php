@@ -59,7 +59,8 @@ class Patients extends Component
                 $nameFile = $request->img;
             }
 
-            if ($request->is_minor == "true") {
+            if ($request->is_minor == "true")
+            {/** Paciente menor de edad */
                 $rules = [
 
                     'name'          => 'required|min:3|max:50',
@@ -117,6 +118,14 @@ class Patients extends Component
                     ], 400);
                 }
 
+                /** Validacion para cargar el centro correcto cuando el medico
+                 * esta asociado al plan corporativo
+                 */
+                if(Auth::user()->center_id != null)
+                {
+                    $center_id_corporativo = Auth::user()->center_id;
+                }
+
                 // Guardamos la informacion del paciente menor de edad
 
                 $patient= Patient::updateOrCreate(['id' => $request->id],
@@ -134,7 +143,7 @@ class Patients extends Component
                     'address'       => $request->address,
                     'zip_code'      => $request->zip_code,
                     'user_id'       => $user_id,
-                    'center_id'     => $request->center_id,
+                    'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
                     'patient_img'   => $nameFile,
                     'verification_code' => Str::random(30)
 
@@ -195,27 +204,51 @@ class Patients extends Component
 
 
                 /**
-                 * Notificacion al paciente
-                 * por haber sido registrado
+                 * Notificacion al paciente despues de haber sido registrador
                  * en nuestro sistema
                  */
-                $type = 'patient_minor';
-                $center_info = Center::where('id', $request->center_id)->first();
-                $mailData = [
-                    'dr_name' => $user->name . ' ' . $user->last_name,
-                    'center' => $center_info->description,
-                    'center_piso' => $center_info->number_floor,
-                    'center_consulting_room' => $center_info->number_consulting_room,
-                    'center_phone' => $center_info->phone_consulting_room,
-                    'center_address' => $center_info->address,
-                    'patient_email' => $user->email,
-					'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
-                    'patient_code' => $patient['patient_code'],
-                    'patient_email' => $re_patient->re_email,
-                    'patient_phone' => $re_patient->re_phone,
-				];
 
-                UtilsController::notification_mail($mailData, $type);
+                 if(isset($center_id_corporativo))
+                 {  /** Registro del medico con plan corporativo */
+                    $type = 'patient_minor';
+                    $center_info = Center::where('id', $center_id_corporativo)->first();
+                    $mailData = [
+                        'dr_name' => $user->name . ' ' . $user->last_name,
+                        'center' => $center_info->description,
+                        'center_piso' => 'prueba piso 1',
+                        'center_consulting_room' => 'prueba consultorio 1',
+                        'center_phone' => 'prueba tef 02125478596',
+                        'center_address' => 'prueba dir chacao',
+                        'patient_email' => $user->email,
+                        'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
+                        'patient_code' => $patient['patient_code'],
+                        'patient_email' => $re_patient->re_email,
+                        'patient_phone' => $re_patient->re_phone,
+                    ];
+                    UtilsController::notification_mail($mailData, $type);
+
+                 }else /** Registro del medico con plan 1 2 o 3 */
+                 {
+                    $type = 'patient_minor';
+                    $center_info = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
+                    $mailData = [
+                        'dr_name' => $user->name . ' ' . $user->last_name,
+                        'center' => Center::where('id', $request->center_id)->first()->description,
+                        'center_piso' => $center_info->number_floor,
+                        'center_consulting_room' => $center_info->number_consulting_room,
+                        'center_phone' => $center_info->phone_consulting_room,
+                        'center_address' => $center_info->address,
+                        'patient_email' => $user->email,
+                        'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
+                        'patient_code' => $patient['patient_code'],
+                        'patient_email' => $re_patient->re_email,
+                        'patient_phone' => $re_patient->re_phone,
+                    ];
+                    UtilsController::notification_mail($mailData, $type);
+                 }
+
+
+
 
                 /**
                  * Funcion para enviar el mensaje por whatsaap
@@ -232,7 +265,7 @@ class Patients extends Component
 
                 ApiServicesController::sms_info($phone, $body);
 
-            } else {
+            } else { /** Paciente mayor de edad */
                 $rules =[
 
                         'name'          => 'required|min:3|max:50',
@@ -249,7 +282,7 @@ class Patients extends Component
                         'address'       => 'required',
                         'zip_code'      => 'required',
 
-                    ];
+                ];
 
                 $msj = [
 
@@ -286,6 +319,13 @@ class Patients extends Component
                     ], 400);
                 }
 
+                /** Validacion para cargar el centro correcto cuando el medico
+                 * esta asociado al plan corporativo
+                 */
+                if(Auth::user()->center_id != null)
+                {
+                    $center_id_corporativo = Auth::user()->center_id;
+                }
 
                 $patient=  Patient::updateOrCreate(['id' => $request->id],
                 [
@@ -305,7 +345,7 @@ class Patients extends Component
                     'address'       => $request->address,
                     'zip_code'      => $request->zip_code,
                     'user_id'       => $user_id,
-                    'center_id'     => $request->center_id,
+                    'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
                     'patient_img'   => $nameFile,
                     'verification_code' => Str::random(30)
 
@@ -349,25 +389,43 @@ class Patients extends Component
                  * por haber sido registrado
                  * en nuestro sistema
                  */
-                $type = 'patient';
-                $center_name = Center::where('id', $request->center_id)->first();
-                $center_info = DoctorCenter::where('center_id', $request->center_id)->first();
-                $user = Auth::user();
-                $mailData = [
+                if(isset($center_id_corporativo))
+                 {  /** Registro del medico con plan corporativo */
+                    $type = 'patient';
+                    $center_info = Center::where('id', $center_id_corporativo)->first();
+                    $mailData = [
+                        'dr_name' => $user->name . ' ' . $user->last_name,
+                        'center' => $center_info->description,
+                        'center_piso' => 'prueba piso 1',
+                        'center_consulting_room' => 'prueba consultorio 1',
+                        'center_phone' => 'prueba tef 02125478596',
+                        'center_address' => 'prueba dir chacao',
+                        'patient_email' => $user->email,
+                        'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
+                        'patient_code' => $patient['patient_code'],
+                        'patient_email' => $patient['email'],
+                        'patient_phone' => $patient['phone'],
+                    ];
+                    UtilsController::notification_mail($mailData, $type);
+
+                 }else /** Registro del medico con plan 1 2 o 3 */
+                 {
+                    $type = 'patient';
+                    $center_info = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
+                    $mailData = [
                     'dr_name' => $user->name . ' ' . $user->last_name,
-                    'center' => $center_name->description,
+                    'center' => Center::where('id', $request->center_id)->first()->description,
                     'center_piso' => $center_info->number_floor,
                     'center_consulting_room' => $center_info->number_consulting_room,
                     'center_phone' => $center_info->phone_consulting_room,
                     'center_address' => $center_info->address,
-					'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
+                    'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
                     'patient_code' => $patient['patient_code'],
                     'patient_email' => $patient['email'],
                     'patient_phone' => $patient['phone'],
-				];
-
-                UtilsController::notification_mail($mailData, $type);
-
+                    ];
+                    UtilsController::notification_mail($mailData, $type);
+                 }
 
                 $caption = 'Bienvenido a sqlapio.com Sr(a). '.$request->name.' '.$request->last_name;
                 $body = 'Paciente: '.$request->name.' '.$request->last_name.' Codigo:'.$patient['patient_code'];
