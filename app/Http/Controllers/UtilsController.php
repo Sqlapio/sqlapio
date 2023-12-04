@@ -632,6 +632,16 @@ class UtilsController extends Controller
 				$view = 'emails.update_email';
 				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
 			}
+
+            if ($type == 'enable_doc') {
+				$view = 'emails.enable_email';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+            if ($type == 'disable_doc') {
+				$view = 'emails.disable_email';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.send_mail()', $message);
@@ -1519,6 +1529,15 @@ class UtilsController extends Controller
 
 			$doctor_update = UtilsController::get_doctor_corporate();
 
+            $type = 'enable_doc';
+            $mailData = [
+                'dr_name' => $doctor->name . ' ' . $doctor->last_name,
+                'dr_email' => $doctor->email,
+                'center' => Center::where('id', $doctor->center_id)->first()->description
+            ];
+
+            UtilsController::notification_mail($mailData, $type);
+
             return $doctor_update;
 
 
@@ -1538,9 +1557,18 @@ class UtilsController extends Controller
                         'tipo_status' => '2'
                     ]);
 
-					$doctor_update = UtilsController::get_doctor_corporate();
+			$doctor_update = UtilsController::get_doctor_corporate();
 
-					return $doctor_update;
+            $type = 'disable_doc';
+            $mailData = [
+                'dr_name' => $doctor->name . ' ' . $doctor->last_name,
+                'dr_email' => $doctor->email,
+                'center' => Center::where('id', $doctor->center_id)->first()->description
+            ];
+
+            UtilsController::notification_mail($mailData, $type);
+
+			return $doctor_update;
 
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
