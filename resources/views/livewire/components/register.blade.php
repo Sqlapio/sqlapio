@@ -292,25 +292,26 @@
                     <div class="card" id="div-form">
                         <div class="card-body">
                             <div>
-                                <div class="container">
-                                    <div class="row mt-3" style="display: grid; justify-items: center;">
-                                        <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-02.png') }}"
-                                            alt="">
-                                    </div>
-                                </div>
+                                    
                                 {{ Form::open(['url' => 'register', 'method' => 'post', 'id' => 'form-register']) }}
                                 {{ csrf_field() }}
                                 <div class="row">
                                     @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        @foreach ($errors->all() as $message)
-                                            <span class="text-danger error-span"> {{ $message }}</span><br />
-                                        @endforeach
-                                    </div>
-                                @endif
+                                        <div class="alert alert-danger">
+                                            @foreach ($errors->all() as $message)
+                                                <span class="text-danger error-span"> {{ $message }}</span><br />
+                                            @endforeach
+                                        </div>
+                                    @endif
                                     {{-- registro normal  --}}
                                     @if ($bellied_plan !== null)
                                         @if ($bellied_plan->get_user->role == 'medico')
+                                            <div class="container">
+                                                <div class="row mt-3" style="display: grid; justify-items: center;">
+                                                    <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-02.png') }}"
+                                                        alt="">
+                                                </div>
+                                            </div>
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
