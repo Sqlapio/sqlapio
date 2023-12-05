@@ -138,7 +138,14 @@ class Register extends Component {
                  * Envio de notificacion por correo
                  */
                 $user_update = User::where('email', $request->email)->first();
-                $type = 'verify_email_laboratory';
+                if($user->role == 'laboratorio')
+                {
+                    $type = 'verify_email_laboratory';
+
+                }else{
+
+                    $type = 'verify_email_corporate';
+                }
                 $mailData = [
                     'laboratory_name' => $user_update->business_name,
                     'laboratory_email' => $user_update->email,
