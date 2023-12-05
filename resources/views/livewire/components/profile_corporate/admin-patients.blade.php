@@ -191,7 +191,7 @@
                                                             {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_email . '  (Rep)' : $item->email }}
                                                         </td>
                                                         <td class="text-center">
-                                                            {{ 'Sdd' }}</td>
+                                                            {{ $item->center_id }}</td>
                                                         <td class="text-center">
                                                             <div class="d-flex">
                                                                 <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
