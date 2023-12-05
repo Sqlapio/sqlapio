@@ -1529,11 +1529,12 @@ class UtilsController extends Controller
 
 			$doctor_update = UtilsController::get_doctor_corporate();
 
+            $info_doctor = User::where('id', $id)->where('type_plane', '7')->first();
             $type = 'enable_doc';
             $mailData = [
-                'dr_name' => $doctor->name . ' ' . $doctor->last_name,
-                'dr_email' => $doctor->email,
-                'center' => Center::where('id', $doctor->center_id)->first()->description
+                'dr_name' => $info_doctor->name . ' ' . $info_doctor->last_name,
+                'dr_email' => $info_doctor->email,
+                'center' => Center::where('id', $info_doctor->center_id)->first()->description
             ];
 
             UtilsController::notification_mail($mailData, $type);
@@ -1558,12 +1559,12 @@ class UtilsController extends Controller
                     ]);
 
 			$doctor_update = UtilsController::get_doctor_corporate();
-
+            $info_doctor = User::where('id', $id)->where('type_plane', '7')->first();
             $type = 'disable_doc';
             $mailData = [
-                'dr_name' => $doctor->name . ' ' . $doctor->last_name,
-                'dr_email' => $doctor->email,
-                'center' => Center::where('id', $doctor->center_id)->first()->description
+                'dr_name' => $info_doctor->name. ' ' .$info_doctor->last_name,
+                'dr_email' => $info_doctor->email,
+                'center' => Center::where('id', $info_doctor->center_id)->first()->description
             ];
 
             UtilsController::notification_mail($mailData, $type);
