@@ -207,7 +207,7 @@
                         required: "Antecedentes es obligatorio",
                     },
                     razon: {
-                        required: "Razon de la visita es obligatoria",
+                        required: "Razón de la visita es obligatoria",
                     },
 
                     diagnosis: {
@@ -922,7 +922,7 @@
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                 <div class="form-group">
                                                     <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
                                                         de la visita</label>
                                                     <textarea id="razon" rows="8" name="razon" class="form-control"></textarea>
                                                 </div>

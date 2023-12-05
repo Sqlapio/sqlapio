@@ -280,7 +280,7 @@
                                     <hr>
                                     <div class="table-responsive" id="table-patients" style="margin-top: 20px; width: 100%;">
                                         <table id="table-centers" class="table table-striped table-bordered" style="width: 100%;">
-                                            <thead class="table-light">
+                                            <thead>
                                                 <tr>
                                                     <th class="text-center">Nombre de centro</th>
                                                     <th class="text-center">Dirección</th>
