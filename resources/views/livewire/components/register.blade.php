@@ -12,6 +12,13 @@
         margin-bottom: -15% !important;
 
     }
+    .logoCorp {
+        width: 50% !important;
+        height: auto;
+        /* margin-top: -15% !important;
+        margin-bottom: -15% !important; */
+
+    }
 
     .div-col {
         margin-bottom: -85px !important;
@@ -72,6 +79,9 @@
         width: 715px !important;
     }
 
+    
+
+
 
 
 
@@ -115,7 +125,9 @@
             width: 0 !important;
         }
 
-
+        .form-sq-mv {
+        align-content: flex-start !important;
+    }
     }
 
     @media only screen and (max-width: 390px) {
@@ -269,7 +281,7 @@
 @section('content')
     <div>
         <div class="container-fluid">
-            <div class="row form-sq">
+            <div class="row form-sq form-sq-mv">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                     <div class="text-center">
                         <img class="img" src="{{ asset('img/registro.png') }}" style="width: 200px;">
@@ -363,14 +375,12 @@
                                         </div>
                                     @else
                                         {{-- registro medico con plan corporativco  --}}
-                                        <div class="row mt-4" style="display: grid; justify-items: center;">
-                                            <img class="logoSq" style="margin-right: -9%;"
-                                                src="{{ asset('imgs/' . $corporate->get_laboratorio->lab_img) }}"
-                                                alt="">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: grid; justify-items: center;">
+                                            <img class="logoCorp" src="{{ asset('imgs/' . $corporate->get_laboratorio->lab_img) }}" alt="">
                                         </div>
 
 
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-5">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="display: grid; justify-items: center;"  >
                                             <strong>{{ $corporate->get_center->description }}</strong>
                                         </div>
 
@@ -394,7 +404,7 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
@@ -406,7 +416,7 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
@@ -420,7 +430,7 @@
                                         </div>
                                     @endif
 
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
@@ -439,7 +449,7 @@
                                             </div>
                                         </diV>
                                     </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
