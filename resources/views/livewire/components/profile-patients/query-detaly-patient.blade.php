@@ -144,7 +144,7 @@
                                         </div>`;
                                     $('#div-content').find('#info-pat').append(e);
                                     //end   
-                                    //mostar resumen de la historia
+
                                     // Examen fisico 
                                     $('.Examen_fisico').empty();
                                     let Examen_fisico = `
@@ -228,105 +228,56 @@
 
                                     // Antecedentes Personales y Familiares
                                     $('.family_back').empty();
-                                    let array = []
                                     family_back.map((value, keyy) => {
                                         for (const [key, val] of Object.entries(
                                                 response[0])) {
 
                                             if (key == value.name) {
                                                 if (val != null) {
-                                                    let a =
-                                                        `<a href="#" class="list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${value.text}</small></div></a>`
-                                                    array.push(a)
+                                                    $('.family_back').append(
+                                                        `<a href="#" class="${key} list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${value.text}</small></div></a>`
+                                                    );
                                                 }
                                             };
                                         }
-                                    })
-
-                                    let family_backk = `<div class="row p-3">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <ul class="list-group list-group-flush overflow-auto">
-                                                    <a href="#" class="list-group-item aa list-group-item-action  active"
-                                                        aria-current="true">
-                                                        <div class="d-flex w-100 justify-content-between">
-                                                        <h5 class="mb- text-capitalize">Antecedentes Personales y Familiares</h5>                                   
-                                                        </div>
-                                                    </a>
-                                                    ${array}
-                                                </ul>
-                                            </div>
-                                        </div>`
-                                    $('.family_back').append(
-                                        family_backk);                                   
+                                    });
                                     //end
 
                                     // Antecedentes personales patológicos
                                     $('.pathology_back').empty();
-                                    let arrayB = []
                                     pathology_back.map((value, keyy) => {
                                         for (const [key, val] of Object.entries(
                                                 response[0])) {
 
                                             if (key == value.name) {
                                                 if (val != null) {
-                                                    let a =
+
+                                                    $('.pathology_back').append(
                                                         `<a href="#" class="list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${value.text}</small></div></a>`
-                                                    arrayB.push(a)
+                                                    );
                                                 }
+
                                             };
                                         }
-                                    })
-
-                                    let pathology_backk = `<div class="row p-3">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <ul class="list-group list-group-flush overflow-auto">
-                                                    <a href="#" class="list-group-item aa list-group-item-action  active"
-                                                        aria-current="true">
-                                                        <div class="d-flex w-100 justify-content-between">
-                                                        <h5 class="mb- text-capitalize">Antecedentes personales patológicos</h5>                                   
-                                                        </div>
-                                                    </a>
-                                                    ${arrayB}
-                                                </ul>
-                                            </div>
-                                        </div>`
-                                    $('.pathology_back').append(
-                                        pathology_backk);
+                                    });
                                     // end
 
                                     // historia Antecedentes personales no patológicos
                                     $('.non_pathology_back').empty();
-
-                                    let arrayC = []
                                     non_pathology_back.map((value, keyy) => {
                                         for (const [key, val] of Object.entries(
                                                 response[0])) {
 
                                             if (key == value.name) {
                                                 if (val != null) {
-                                                    let a =
-                                                        `<a href="#" class="list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${value.text}</small></div></a>`
-                                                    arrayC.push(a)
+                                                    $('.non_pathology_back')
+                                                        .append(
+                                                            `<a href="#" class="list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${value.text}</small></div></a>`
+                                                        );
                                                 }
                                             };
                                         }
-                                    })
-
-                                    let non_pathology_backk = `<div class="row p-3">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <ul class="list-group list-group-flush overflow-auto">
-                                                    <a href="#" class="list-group-item aa list-group-item-action  active"
-                                                        aria-current="true">
-                                                        <div class="d-flex w-100 justify-content-between">
-                                                        <h5 class="mb- text-capitalize">historia Antecedentes personales no patológicos</h5>                                   
-                                                        </div>
-                                                    </a>
-                                                    ${arrayC}
-                                                </ul>
-                                            </div>
-                                        </div>`
-                                    $('.non_pathology_back').append(
-                                        non_pathology_backk);
+                                    });
                                     // end
 
                                     /// gilecologico
@@ -394,83 +345,32 @@
 
                                     /// alegias
                                     $('.list-alergias').empty();
-                                    let arrayD = [];
                                     response[0].allergies.map((e, key) => {
-                                        arrayD.push(
+                                        $('.list-alergias').append(
                                             `<a href="#" class=" ${key} list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${e.type_alergia} ,${e.detalle_alergia}</small></div></a>`
-                                        );
-                                        //end
+                                            );
                                     });
 
-                                    let element =
-                                        `
-                                            
-                                            <ul class="list-group list-group-flush  overflow-auto">
-                                                            <a href="#"
-                                                                class="list-group-item aa list-group-item-action  active"
-                                                                aria-current="true">
-                                                                <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 class="mb- text-capitalize">Antecedentes alérgicos</h5>
-                                                                </div>
-                                                            </a>  
-                                                            ${arrayD}
-                                                </ul>`
-
-                                    $('.list-alergias').append(element);
                                     //end
 
-                                      /// cirugias
-                                      $('.list-cirugias').empty();
-                                    let arrayE = [];
+                                    /// cirugias
+                                    $('.list-cirugias').empty();
                                     response[0].history_surgical.map((e, key) => {
-                                        arrayE.push(
+                                        $('.list-cirugias').append(
                                             `<a href="#" class=" ${key} list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${e.cirugia} ,${e.datecirugia}</small></div></a>`
-                                        );
-                                        //end
+                                            );
+
                                     });
-
-                                    let cirugias =
-                                        `
-                                            
-                                            <ul class="list-group list-group-flush  overflow-auto">
-                                                            <a href="#"
-                                                                class="list-group-item aa list-group-item-action  active"
-                                                                aria-current="true">
-                                                                <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 class="mb- text-capitalize">Antecedentes quirúrgicos</h5>
-                                                                </div>
-                                                            </a>  
-                                                            ${arrayE}
-                                                </ul>`
-
-                                    $('.list-cirugias').append(cirugias);
                                     //end
 
                                     /// medicamentos
                                     $('.list-medicamentos').empty();
-                                    let arrayf = [];
-                                    response[0].medications_supplements.map((e, key) => {
-                                        arrayf.push(
+                                    response[0].medications_supplements.map((e,
+                                        key) => {
+                                        $('.list-medicamentos').append(
                                             `<a href="#" class=" ${key} list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${e.dose} ,${e.medicine}, ${e.patologi} , ${e.viaAdmin} , ${e.dateIniTreatment} , ${e.dateEndTreatment} , ${e.treatmentDuration}</small></div></a>`
-                                        );
-                                        //end
+                                            );
                                     });
-
-                                    let medicamentos =
-                                        `
-                                            
-                                            <ul class="list-group list-group-flush  overflow-auto">
-                                                            <a href="#"
-                                                                class="list-group-item aa list-group-item-action  active"
-                                                                aria-current="true">
-                                                                <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 class="mb- text-capitalize">Medicamentos</h5>
-                                                                </div>
-                                                            </a>  
-                                                            ${arrayf}
-                                                </ul>`
-
-                                    $('.list-medicamentos').append(medicamentos);
                                     //end
 
                                     //mostrar consultas
@@ -631,29 +531,116 @@
 
                                                 <div class="Examen_fisico"></div>
 
-                                                <div class="family_back mt-3"></div>
+                                                <div class="row p-3 mt-3">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                        <ul class="list-group list-group-flush overflow-auto">
+                                                            <a href="#"
+                                                                class=" 0 list-group-item aa list-group-item-action  active"
+                                                                aria-current="true">
+                                                                <div class="d-flex w-100 justify-content-between">
+                                                                    <h5 class="mb- text-capitalize">Antecedentes
+                                                                        Personales y Familiares</h5>
+                                                                </div>
+                                                            </a>
+                                                            <div class="family_back">
 
-                                                <div class="pathology_back mt-3"></div>
-
-                                                <div class="non_pathology_back mt-3"></div>
-
-                                                <div class="gilecologico mt-3"></div>
-
-                                                <div class="row p-3">
-                                                    <div
-                                                        class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 list-alergias">
+                                                            </div>
+                                                        </ul>
                                                     </div>
                                                 </div>
 
-                                                <div class="row p-3">
-                                                    <div
-                                                        class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 list-cirugias">
+
+                                                <div class="row p-3 mt-3">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                        <ul class="list-group list-group-flush overflow-auto">
+                                                            <a href="#"
+                                                                class=" 0 list-group-item aa list-group-item-action  active"
+                                                                aria-current="true">
+                                                                <div class="d-flex w-100 justify-content-between">
+                                                                    <h5 class="mb- text-capitalize">Antecedentes
+                                                                        personales patológicos</h5>
+                                                                </div>
+                                                            </a>
+                                                            <div class="pathology_back ">
+
+                                                            </div>
+                                                        </ul>
                                                     </div>
                                                 </div>
 
-                                                <div class="row p-3">
-                                                    <div
-                                                        class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 list-medicamentos">
+                                                <div class="row p-3 mt-3">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                        <ul class="list-group list-group-flush overflow-auto">
+                                                            <a href="#"
+                                                                class=" 0 list-group-item aa list-group-item-action  active"
+                                                                aria-current="true">
+                                                                <div class="d-flex w-100 justify-content-between">
+                                                                    <h5 class="mb- text-capitalize">Antecedentes no
+                                                                        patológicos</h5>
+                                                                </div>
+                                                            </a>
+                                                            <div class="non_pathology_back ">
+
+                                                            </div>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <div class="gilecologico mt-3">
+
+                                                </div>
+
+
+                                                <div class="row p-3 mt-3">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                        <ul class="list-group list-group-flush overflow-auto">
+                                                            <a href="#"
+                                                                class=" 0 list-group-item aa list-group-item-action  active"
+                                                                aria-current="true">
+                                                                <div class="d-flex w-100 justify-content-between">
+                                                                    <h5 class="mb- text-capitalize">Antecedentes alérgicos
+                                                                    </h5>
+                                                                </div>
+                                                            </a>
+                                                            <div class="list-alergias ">
+
+                                                            </div>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="row p-3 mt-3">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                        <ul class="list-group list-group-flush overflow-auto">
+                                                            <a href="#"
+                                                                class=" 0 list-group-item aa list-group-item-action  active"
+                                                                aria-current="true">
+                                                                <div class="d-flex w-100 justify-content-between">
+                                                                    <h5 class="mb- text-capitalize">Antecedentes quirúrgicos
+                                                                    </h5>
+                                                                </div>
+                                                            </a>
+                                                            <div class="list-cirugias">
+
+                                                            </div>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row p-3 mt-3">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                        <ul class="list-group list-group-flush overflow-auto">
+                                                            <a href="#"
+                                                                class=" 0 list-group-item aa list-group-item-action  active"
+                                                                aria-current="true">
+                                                                <div class="d-flex w-100 justify-content-between">
+                                                                    <h5 class="mb- text-capitalize">Medicamentos
+                                                                    </h5>
+                                                                </div>
+                                                            </a>
+                                                            <div class="list-medicamentos">
+
+                                                            </div>
+                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>
