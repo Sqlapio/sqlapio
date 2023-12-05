@@ -10,7 +10,7 @@
     .avatar-corporativo {
         width: 250px;
         height: 95px;
-        object-fit: cover;
+        object-fit: fill;
         margin-right: 14px;
     }
 
