@@ -677,7 +677,7 @@
                                                 <div class="row">
                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <a id="Link-medicos" href="{{ Auth::user()->token_corporate }}"
-                                                                target="_blank">
+                                                                target="_blank" style="text-decoration: none;">
                                                                 <button  type="button" class="btn btnPrimary">Registrar médicos</button>
                                                         </a>
                                                         <button type="button"
