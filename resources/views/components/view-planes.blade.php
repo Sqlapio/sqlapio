@@ -203,7 +203,7 @@
                     required: "Rif es obligatorio",
                 },
                 business_name: {
-                    required: "Razon social es obligatorio",
+                    required: "Razón social es obligatorio",
                 }
 
             }
@@ -660,7 +660,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
                                                         social</label>
                                                     <input readonly autocomplete="off" class="form-control"
                                                         id="business_name" name="business_name" type="text"

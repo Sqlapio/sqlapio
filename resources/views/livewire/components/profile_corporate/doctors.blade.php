@@ -149,7 +149,7 @@
                             <button class="accordion-button bg-4" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                 style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                <i class="bi bi-hospital"></i>Gestión de medicos
+                                <i class="bi bi-hospital"></i>Gestión de médicos
                             </button>
                         </span>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
@@ -162,11 +162,11 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">Nombre y apellidos</th>
-                                                <th class="text-center">documento de identidad</th>
+                                                <th class="text-center">Cédula</th>
                                                 <th class="text-center">Correo</th>
                                                 <th class="text-center">Especialidad</th>
                                                 <th class="text-center">Teléfono del consultorio</th>
-                                                <th class="text-center">Habilitar/Desahabilitar</th>
+                                                <th class="text-center">Habilitar/Deshabilitar</th>
                                             </tr>
                                         </thead>
                                         <tbody>
