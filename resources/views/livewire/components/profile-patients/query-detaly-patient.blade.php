@@ -6,6 +6,7 @@
         letter-spacing: -.022em;
         color: #1d1d1f;
     }
+
     .div-overflow {
         overflow: scroll;
         height: 100%;
@@ -24,6 +25,11 @@
         background-color: #47525E !important;
         border-color: #47525E !important;
     }
+
+    .aa.list-group-item.active {
+        background-color: #748b4e !important;
+        border-color: #748b4e !important;
+    }
 </style>
 @push('scripts')
     <script>
@@ -38,6 +44,15 @@
                 enablePagination: false,
             });
             ////
+
+
+            let family_back = @json($family_back);
+            let get_condition = @json($get_condition);
+            let non_pathology_back = @json($non_pathology_back);
+            let vital_sing = @json($vital_sing);
+            let pathology_back = @json($pathology_back);
+
+
             $('#form-detaly-patient').validate({
                 rules: {
                     ci: {
@@ -87,7 +102,6 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function(response) {
-
                             if (response.length > 0) {
                                 Swal.fire({
                                     icon: 'success',
@@ -124,16 +138,339 @@
                                             <br>
                                             <small>C.I:</small><span> ${ response[0].ci} </span>
                                             <br>
-                                            <small>Genero:</small><span class="text-capitalize"> ${ response[0].genere} </span>                                           
+                                            <small>Genero:</small><span class="text-capitalize"> ${ response[0].genere} </span>  
+                                            <br>
+                                            <small>Nº Historial:</small><span class="text-capitalize"> ${ response[0].cod_history} </span>                                          
                                         </div>`;
                                     $('#div-content').find('#info-pat').append(e);
                                     //end   
                                     //mostar resumen de la historia
-                                    $('#numero-hist').text(response[0].cod_history);
-                                    $('#peso').text(response[0].weight);
-                                    $('#altura').text(response[0].height);
-                                    $('#presion').text(response[0].strain);
+                                    // Examen fisico 
+                                    $('.Examen_fisico').empty();
+                                    let Examen_fisico = `
+                                    <div class="row p-3">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                <ul class="list-group list-group-flush overflow-auto">
+                                                    <a href="#" class="list-group-item aa list-group-item-action  active"
+                                                        aria-current="true">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                        <h5 class="mb- text-capitalize">Examen Físico</h5>                                   
+                                                        </div>
+                                                    </a>
 
+                                                    <a href="#" class="list-group-item list-group-item-action"
+                                                        aria-current="true">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <small>Peso:</small><span >${ response[0].weight}</span>
+                                                        </div>
+                                                    </a>
+                                                    <a href="#" class="list-group-item list-group-item-action"
+                                                        aria-current="true">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <small>Altura :</small><span >${ response[0].height}</span>   
+                                                        </div>
+                                                    </a>
+                                                    <a href="#" class="list-group-item list-group-item-action"
+                                                        aria-current="true">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <small>Presión arterial:</small><span >${ response[0].strain}</span>
+                                                        </div>
+                                                    </a>
+                                                    <a href="#" class="list-group-item list-group-item-action"
+                                                        aria-current="true">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <small>Tempetura:</small><span >${ response[0].temperature}</span>   
+                                                        </div>
+                                                    </a>
+                                                    <a href="#" class="list-group-item list-group-item-action"
+                                                        aria-current="true">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <small>Respiraciones:</small><span >${ response[0].breaths}</span>   
+                                                        </div>
+                                                    </a>
+                                                    <a href="#" class="list-group-item list-group-item-action"
+                                                        aria-current="true">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <small>Pulso:</small><span >${ response[0].pulse}</span>   
+                                                        </div>
+                                                    </a>
+                                                    <a href="#" class="list-group-item list-group-item-action"
+                                                        aria-current="true">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <small>Saturación:</small><span >${ response[0].saturation}</span>   
+                                                        </div>
+                                                    </a>
+                                                    <a href="#" class="list-group-item list-group-item-action"
+                                                        aria-current="true">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <small>Condición genera:</small><span >${ response[0].condition}</span>   
+                                                        </div>
+                                                    </a>
+                                                    <a href="#" class="list-group-item list-group-item-action"
+                                                        aria-current="true">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <small>Motivo de la consulta:</small><span >${ response[0].reason}</span>   
+                                                        </div>
+                                                    </a>
+                                                    <a href="#" class="list-group-item list-group-item-action"
+                                                        aria-current="true">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <small>Enfermedad Actual:</small><span >${ response[0].current_illness}</span>   
+                                                        </div>
+                                                    </a>                                             
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    `
+                                    $('.Examen_fisico').append(Examen_fisico);
+                                    // end
+
+                                    // Antecedentes Personales y Familiares
+                                    $('.family_back').empty();
+                                    let array = []
+                                    family_back.map((value, keyy) => {
+                                        for (const [key, val] of Object.entries(
+                                                response[0])) {
+
+                                            if (key == value.name) {
+                                                if (val != null) {
+                                                    let a =
+                                                        `<a href="#" class="list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${value.text}</small></div></a>`
+                                                    array.push(a)
+                                                }
+                                            };
+                                        }
+                                    })
+
+                                    let family_backk = `<div class="row p-3">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                <ul class="list-group list-group-flush overflow-auto">
+                                                    <a href="#" class="list-group-item aa list-group-item-action  active"
+                                                        aria-current="true">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                        <h5 class="mb- text-capitalize">Antecedentes Personales y Familiares</h5>                                   
+                                                        </div>
+                                                    </a>
+                                                    ${array}
+                                                </ul>
+                                            </div>
+                                        </div>`
+                                    $('.family_back').append(
+                                        family_backk);                                   
+                                    //end
+
+                                    // Antecedentes personales patológicos
+                                    $('.pathology_back').empty();
+                                    let arrayB = []
+                                    pathology_back.map((value, keyy) => {
+                                        for (const [key, val] of Object.entries(
+                                                response[0])) {
+
+                                            if (key == value.name) {
+                                                if (val != null) {
+                                                    let a =
+                                                        `<a href="#" class="list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${value.text}</small></div></a>`
+                                                    arrayB.push(a)
+                                                }
+                                            };
+                                        }
+                                    })
+
+                                    let pathology_backk = `<div class="row p-3">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                <ul class="list-group list-group-flush overflow-auto">
+                                                    <a href="#" class="list-group-item aa list-group-item-action  active"
+                                                        aria-current="true">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                        <h5 class="mb- text-capitalize">Antecedentes personales patológicos</h5>                                   
+                                                        </div>
+                                                    </a>
+                                                    ${arrayB}
+                                                </ul>
+                                            </div>
+                                        </div>`
+                                    $('.pathology_back').append(
+                                        pathology_backk);
+                                    // end
+
+                                    // historia Antecedentes personales no patológicos
+                                    $('.non_pathology_back').empty();
+
+                                    let arrayC = []
+                                    non_pathology_back.map((value, keyy) => {
+                                        for (const [key, val] of Object.entries(
+                                                response[0])) {
+
+                                            if (key == value.name) {
+                                                if (val != null) {
+                                                    let a =
+                                                        `<a href="#" class="list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${value.text}</small></div></a>`
+                                                    arrayC.push(a)
+                                                }
+                                            };
+                                        }
+                                    })
+
+                                    let non_pathology_backk = `<div class="row p-3">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                <ul class="list-group list-group-flush overflow-auto">
+                                                    <a href="#" class="list-group-item aa list-group-item-action  active"
+                                                        aria-current="true">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                        <h5 class="mb- text-capitalize">historia Antecedentes personales no patológicos</h5>                                   
+                                                        </div>
+                                                    </a>
+                                                    ${arrayC}
+                                                </ul>
+                                            </div>
+                                        </div>`
+                                    $('.non_pathology_back').append(
+                                        non_pathology_backk);
+                                    // end
+
+                                    /// gilecologico
+                                    $('.gilecologico').empty()
+
+                                    let gine = `<div class="row p-3">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    <ul class="list-group list-group-flush overflow-auto">
+                                    <a href="#" class="list-group-item aa list-group-item-action  active"
+                                    aria-current="true">
+                                    <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb- text-capitalize">Antecedentes ginecologicos (si aplica) </h5>                                   
+                                    </div>
+                                    </a>
+
+                                    <a href="#" class="list-group-item list-group-item-action"
+                                    aria-current="true">
+                                    <div class="d-flex w-100 justify-content-between">
+                                    <small>Edad de primera menstruación:</small><span >${ response[0].edad_primera_menstruation}</span>
+                                    </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action"
+                                    aria-current="true">
+                                    <div class="d-flex w-100 justify-content-between">
+                                    <small>Fecha último periodo :</small><span >${ response[0].fecha_ultima_regla}</span>   
+                                    </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action"
+                                    aria-current="true">
+                                    <div class="d-flex w-100 justify-content-between">
+                                    <small>Número de embarazos:</small><span >${ response[0].numero_embarazos}</span>
+                                    </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action"
+                                    aria-current="true">
+                                    <div class="d-flex w-100 justify-content-between">
+                                    <small>Número de partos:</small><span >${ response[0].numero_embarazos}</span>   
+                                    </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action"
+                                    aria-current="true">
+                                    <div class="d-flex w-100 justify-content-between">
+                                    <small>Número de cesáreas:</small><span >${ response[0].cesareas}</span>   
+                                    </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action"
+                                    aria-current="true">
+                                    <div class="d-flex w-100 justify-content-between">
+                                    <small>Número de abortos:</small><span >${ response[0].numero_abortos}</span>   
+                                    </div>
+                                    </a>
+                                    <a href="#" class="list-group-item list-group-item-action"
+                                    aria-current="true">
+                                    <div class="d-flex w-100 justify-content-between">
+                                    <small>Utiliza algún método anticonceptivo, ¿Cual?:</small><span >${ response[0].pregunta}</span>   
+                                    </div>
+                                    </a>        
+                                    </ul>
+                                    </div>
+                                    </div>`
+
+                                    $('.gilecologico').append(gine)
+
+                                    //// end
+
+                                    /// alegias
+                                    $('.list-alergias').empty();
+                                    let arrayD = [];
+                                    response[0].allergies.map((e, key) => {
+                                        arrayD.push(
+                                            `<a href="#" class=" ${key} list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${e.type_alergia} ,${e.detalle_alergia}</small></div></a>`
+                                        );
+                                        //end
+                                    });
+
+                                    let element =
+                                        `
+                                            
+                                            <ul class="list-group list-group-flush  overflow-auto">
+                                                            <a href="#"
+                                                                class="list-group-item aa list-group-item-action  active"
+                                                                aria-current="true">
+                                                                <div class="d-flex w-100 justify-content-between">
+                                                                    <h5 class="mb- text-capitalize">Antecedentes alérgicos</h5>
+                                                                </div>
+                                                            </a>  
+                                                            ${arrayD}
+                                                </ul>`
+
+                                    $('.list-alergias').append(element);
+                                    //end
+
+                                      /// cirugias
+                                      $('.list-cirugias').empty();
+                                    let arrayE = [];
+                                    response[0].history_surgical.map((e, key) => {
+                                        arrayE.push(
+                                            `<a href="#" class=" ${key} list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${e.cirugia} ,${e.datecirugia}</small></div></a>`
+                                        );
+                                        //end
+                                    });
+
+                                    let cirugias =
+                                        `
+                                            
+                                            <ul class="list-group list-group-flush  overflow-auto">
+                                                            <a href="#"
+                                                                class="list-group-item aa list-group-item-action  active"
+                                                                aria-current="true">
+                                                                <div class="d-flex w-100 justify-content-between">
+                                                                    <h5 class="mb- text-capitalize">Antecedentes quirúrgicos</h5>
+                                                                </div>
+                                                            </a>  
+                                                            ${arrayE}
+                                                </ul>`
+
+                                    $('.list-cirugias').append(cirugias);
+                                    //end
+
+                                    /// medicamentos
+                                    $('.list-medicamentos').empty();
+                                    let arrayf = [];
+                                    response[0].medications_supplements.map((e, key) => {
+                                        arrayf.push(
+                                            `<a href="#" class=" ${key} list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${e.dose} ,${e.medicine}, ${e.patologi} , ${e.viaAdmin} , ${e.dateIniTreatment} , ${e.dateEndTreatment} , ${e.treatmentDuration}</small></div></a>`
+                                        );
+                                        //end
+                                    });
+
+                                    let medicamentos =
+                                        `
+                                            
+                                            <ul class="list-group list-group-flush  overflow-auto">
+                                                            <a href="#"
+                                                                class="list-group-item aa list-group-item-action  active"
+                                                                aria-current="true">
+                                                                <div class="d-flex w-100 justify-content-between">
+                                                                    <h5 class="mb- text-capitalize">Medicamentos</h5>
+                                                                </div>
+                                                            </a>  
+                                                            ${arrayf}
+                                                </ul>`
+
+                                    $('.list-medicamentos').append(medicamentos);
                                     //end
 
                                     //mostrar consultas
@@ -154,6 +491,10 @@
                                         <small>Código de consulta:</small> <strong>${e.record_code}</strong>
                                         <br>
                                         <small>Fecha de consulta:</small> <strong>${e.record_date}</strong>
+                                        <br>
+                                        <small>Razón de la  consulta:</small> <strong>${e.razon}</strong>
+                                        <br>
+                                        <small>Diagnostico:</small> <strong>${e.diagnosis}</strong>
                                         </a>`
                                         } else {
                                             element = `<a href="#" class="list-group-item list-group-item-action  ${key}"
@@ -165,6 +506,10 @@
                                         <small>Código de consulta:</small> <strong>${e.record_code}</strong>
                                         <br>
                                         <small>Fecha de consulta:</small> <strong>${e.record_date}</strong>
+                                        <br>
+                                        <small>Razón de la  consulta:</small> <strong>${e.razon}</strong>
+                                        <br>
+                                        <small>Diagnostico:</small> <strong>${e.diagnosis}</strong>
                                         </a>`
                                         }
                                         $('.list-con').append(element);
@@ -282,23 +627,42 @@
                                     <div id="wizard">
                                         <h3>Historia clinica</h3>
                                         <section>
-                                            <div class="row">
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                                    <strong>Numero de historia: </strong><span class="text-capitalize"
-                                                        id="numero-hist"></span>
-                                                    <br>
-                                                    <strong>Peso: </strong><span class="text-capitalize"
-                                                        id="peso"></span>
-                                                    <br>
-                                                    <strong>Altura: </strong><span id="altura"></span>
-                                                    <br>
-                                                    <strong>Presion artirial: </strong><span id="presion"></span>
+                                            <div class="div-overflow">
+
+                                                <div class="Examen_fisico"></div>
+
+                                                <div class="family_back mt-3"></div>
+
+                                                <div class="pathology_back mt-3"></div>
+
+                                                <div class="non_pathology_back mt-3"></div>
+
+                                                <div class="gilecologico mt-3"></div>
+
+                                                <div class="row p-3">
+                                                    <div
+                                                        class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 list-alergias">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row p-3">
+                                                    <div
+                                                        class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 list-cirugias">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row p-3">
+                                                    <div
+                                                        class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 list-medicamentos">
+                                                    </div>
                                                 </div>
                                             </div>
+
+
                                         </section>
                                         <h3>Consultas medicas</h3>
                                         <section>
-                                            <div class="list-group list-con ">
+                                            <div class="list-group list-con div-overflow">
                                             </div>
                                         </section>
                                         <h3>Estudios Realizados</h3>
