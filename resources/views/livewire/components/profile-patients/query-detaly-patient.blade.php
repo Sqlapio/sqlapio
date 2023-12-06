@@ -180,7 +180,7 @@
                                     let Examen_fisico = `
                                     <div class="row p-3">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <ul class="list-group list-group-flush overflow-auto">
+                                                <ul class="list-group list-group-flush overflow-auto" style="border-radius: 8px;">
                                                     <a href="#" class="list-group-item aa list-group-item-action  active"
                                                         aria-current="true">
                                                         <div class="d-flex w-100 justify-content-between">
@@ -265,7 +265,11 @@
                                             if (key == value.name) {
                                                 if (val != null) {
                                                     $('.family_back').append(
-                                                        `<a href="#" class="${key} list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${value.text}</small></div></a>`
+                                                        `<a href="#" class="${key} list-group-item list-group-item-action" aria-current="true" > 
+                                                            <div class="d-flex w-100 justify-content-between">
+                                                                <small>${value.text}</small>
+                                                            </div>
+                                                        </a>`
                                                     );
                                                 }
                                             };
@@ -283,7 +287,11 @@
                                                 if (val != null) {
 
                                                     $('.pathology_back').append(
-                                                        `<a href="#" class="list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${value.text}</small></div></a>`
+                                                        `<a href="#" class="list-group-item list-group-item-action" aria-current="true"j> 
+                                                            <div class="d-flex w-100 justify-content-between">
+                                                                <small>${value.text}</small>
+                                                            </div>
+                                                        </a>`
                                                     );
                                                 }
 
@@ -302,7 +310,11 @@
                                                 if (val != null) {
                                                     $('.non_pathology_back')
                                                         .append(
-                                                            `<a href="#" class="list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${value.text}</small></div></a>`
+                                                            `<a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                                                                <div class="d-flex w-100 justify-content-between">
+                                                                    <small>${value.text}</small>
+                                                                </div>
+                                                            </a>`
                                                         );
                                                 }
                                             };
@@ -315,57 +327,57 @@
 
                                     let gine = `<div class="row p-3">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                    <ul class="list-group list-group-flush overflow-auto">
-                                    <a href="#" class="list-group-item aa list-group-item-action  active"
-                                    aria-current="true">
-                                    <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb- text-capitalize">Antecedentes ginecologicos (si aplica) </h5>                                   
-                                    </div>
-                                    </a>
+                                        <ul class="list-group list-group-flush overflow-auto" style="border-radius: 8px;">
+                                            <a href="#" class="list-group-item aa list-group-item-action  active"
+                                                aria-current="true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb- text-capitalize">Antecedentes ginecologicos (si aplica) </h5>                                   
+                                                </div>
+                                            </a>
 
-                                    <a href="#" class="list-group-item list-group-item-action"
-                                    aria-current="true">
-                                    <div class="d-flex w-100 justify-content-between">
-                                    <small>Edad de primera menstruación:</small><span >${ response[0].edad_primera_menstruation}</span>
-                                    </div>
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action"
-                                    aria-current="true">
-                                    <div class="d-flex w-100 justify-content-between">
-                                    <small>Fecha último periodo :</small><span >${ response[0].fecha_ultima_regla}</span>   
-                                    </div>
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action"
-                                    aria-current="true">
-                                    <div class="d-flex w-100 justify-content-between">
-                                    <small>Número de embarazos:</small><span >${ response[0].numero_embarazos}</span>
-                                    </div>
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action"
-                                    aria-current="true">
-                                    <div class="d-flex w-100 justify-content-between">
-                                    <small>Número de partos:</small><span >${ response[0].numero_embarazos}</span>   
-                                    </div>
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action"
-                                    aria-current="true">
-                                    <div class="d-flex w-100 justify-content-between">
-                                    <small>Número de cesáreas:</small><span >${ response[0].cesareas}</span>   
-                                    </div>
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action"
-                                    aria-current="true">
-                                    <div class="d-flex w-100 justify-content-between">
-                                    <small>Número de abortos:</small><span >${ response[0].numero_abortos}</span>   
-                                    </div>
-                                    </a>
-                                    <a href="#" class="list-group-item list-group-item-action"
-                                    aria-current="true">
-                                    <div class="d-flex w-100 justify-content-between">
-                                    <small>Utiliza algún método anticonceptivo, ¿Cual?:</small><span >${ response[0].pregunta}</span>   
-                                    </div>
-                                    </a>        
-                                    </ul>
+                                            <a href="#" class="list-group-item list-group-item-action"
+                                                aria-current="true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <small>Edad de primera menstruación:</small><span >${ response[0].edad_primera_menstruation}</span>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action"
+                                                aria-current="true">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                <small>Fecha último periodo :</small><span >${ response[0].fecha_ultima_regla}</span>   
+                                            </div>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action"
+                                                aria-current="true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <small>Número de embarazos:</small><span >${ response[0].numero_embarazos}</span>
+                                                </div>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action"
+                                                aria-current="true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <small>Número de partos:</small><span >${ response[0].numero_embarazos}</span>   
+                                                </div>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action"
+                                                aria-current="true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <small>Número de cesáreas:</small><span >${ response[0].cesareas}</span>   
+                                                </div>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action"
+                                                aria-current="true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <small>Número de abortos:</small><span >${ response[0].numero_abortos}</span>   
+                                                </div>
+                                            </a>
+                                            <a href="#" class="list-group-item list-group-item-action"
+                                                aria-current="true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <small>Utiliza algún método anticonceptivo, ¿Cual?:</small><span >${ response[0].pregunta}</span>   
+                                                </div>
+                                            </a>        
+                                        </ul>
                                     </div>
                                     </div>`
 
@@ -412,34 +424,34 @@
                                     response[0].info_medical_record.map((e, key) => {
                                         let element = '';
                                         if ((key % 2) == 0) {
-                                            element = `<a href="#" class="list-group-item list-group-item-action  active ${key}"
-                                        aria-current="true">
-                                        <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb- text-capitalize">Médico: ${e.doctor} </h5><br>
-                                        </div>
-                                        <small>Especialidad:</small> <strong>${e.specialty}</strong><br>
-                                        <small>Código de consulta:</small> <strong>${e.record_code}</strong>
-                                        <br>
-                                        <small>Fecha de consulta:</small> <strong>${e.record_date}</strong>
-                                        <br>
-                                        <small>Razón de la  consulta:</small> <strong>${e.razon}</strong>
-                                        <br>
-                                        <small>Diagnostico:</small> <strong>${e.diagnosis}</strong>
+                                            element = `<a href="#" class="list-group-item list-group-item-action mb-3 active ${key}" aria-current="true" style="border-radius: 8px;">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="text-capitalize">Médico: ${e.doctor} </h5><br>
+                                            </div>
+                                            <small>Especialidad:</small> <strong>${e.specialty}</strong>
+                                            <br>
+                                            <small>Código de consulta:</small> <strong>${e.record_code}</strong>
+                                            <br>
+                                            <small>Fecha de consulta:</small> <strong>${e.record_date}</strong>
+                                            <br>
+                                            <small>Razón de la  consulta:</small> <strong>${e.razon}</strong>
+                                            <br>
+                                            <small>Diagnostico:</small> <strong>${e.diagnosis}</strong>
                                         </a>`
                                         } else {
-                                            element = `<a href="#" class="list-group-item list-group-item-action  ${key}"
-                                        aria-current="true">
-                                        <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb- text-capitalize">Médico: ${e.doctor} </h5><br>
-                                        </div>
-                                        <small>Especialidad:</small> <strong>${e.specialty}</strong><br>
-                                        <small>Código de consulta:</small> <strong>${e.record_code}</strong>
-                                        <br>
-                                        <small>Fecha de consulta:</small> <strong>${e.record_date}</strong>
-                                        <br>
-                                        <small>Razón de la  consulta:</small> <strong>${e.razon}</strong>
-                                        <br>
-                                        <small>Diagnostico:</small> <strong>${e.diagnosis}</strong>
+                                            element = `<a href="#" class="list-group-item list-group-item-action mb-3 ${key}"
+                                        aria-current="true" style="border-radius: 8px;">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="text-capitalize">Médico: ${e.doctor} </h5><br>
+                                            </div>
+                                            <small>Especialidad:</small> <strong>${e.specialty}</strong><br>
+                                            <small>Código de consulta:</small> <strong>${e.record_code}</strong>
+                                            <br>
+                                            <small>Fecha de consulta:</small> <strong>${e.record_date}</strong>
+                                            <br>
+                                            <small>Razón de la  consulta:</small> <strong>${e.razon}</strong>
+                                            <br>
+                                            <small>Diagnostico:</small> <strong>${e.diagnosis}</strong>
                                         </a>`
                                         }
                                         $('.list-con').append(element);
@@ -562,7 +574,7 @@
 
                                                 <div class="row p-3 mt-3">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group list-group-flush overflow-auto">
+                                                        <ul class="list-group list-group-flush overflow-auto" style="border-radius: 8px;">
                                                             <a href="#"
                                                                 class=" 0 list-group-item aa list-group-item-action  active"
                                                                 aria-current="true">
@@ -581,7 +593,7 @@
 
                                                 <div class="row p-3 mt-3">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group list-group-flush overflow-auto">
+                                                        <ul class="list-group list-group-flush overflow-auto" style="border-radius: 8px;">
                                                             <a href="#"
                                                                 class=" 0 list-group-item aa list-group-item-action  active"
                                                                 aria-current="true">
@@ -598,8 +610,8 @@
                                                 </div>
 
                                                 <div class="row p-3 mt-3">
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group list-group-flush overflow-auto">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" >
+                                                        <ul class="list-group list-group-flush overflow-auto" style="border-radius: 8px;">
                                                             <a href="#"
                                                                 class=" 0 list-group-item aa list-group-item-action  active"
                                                                 aria-current="true">
@@ -622,7 +634,7 @@
 
                                                 <div class="row p-3 mt-3">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group list-group-flush overflow-auto">
+                                                        <ul class="list-group list-group-flush overflow-auto" style="border-radius: 8px;">
                                                             <a href="#"
                                                                 class=" 0 list-group-item aa list-group-item-action  active"
                                                                 aria-current="true">
@@ -639,7 +651,7 @@
                                                 </div>
                                                 <div class="row p-3 mt-3">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group list-group-flush overflow-auto">
+                                                        <ul class="list-group list-group-flush overflow-auto" style="border-radius: 8px;">
                                                             <a href="#"
                                                                 class=" 0 list-group-item aa list-group-item-action  active"
                                                                 aria-current="true">
@@ -657,7 +669,7 @@
 
                                                 <div class="row p-3 mt-3">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group list-group-flush overflow-auto">
+                                                        <ul class="list-group list-group-flush overflow-auto" style="border-radius: 8px;">
                                                             <a href="#"
                                                                 class=" 0 list-group-item aa list-group-item-action  active"
                                                                 aria-current="true">
@@ -676,7 +688,7 @@
 
 
                                         </section>
-                                        <h3>Consultas medicas</h3>
+                                        <h3>Consultas médicas</h3>
                                         <section>
                                             <div class="list-group list-con div-overflow">
                                             </div>
@@ -690,7 +702,7 @@
                                                 </div>
                                             </div>
                                         </section>
-                                        <h3>Examenes Realizados</h3>
+                                        <h3>Exámenes Realizados</h3>
                                         <section>
                                             <div class="row p-3 div-overflow">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
