@@ -633,11 +633,10 @@
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
-                                                        <textarea id="address" rows="3" id="address" name="address"
+                                                        <textarea id="address" rows="3" name="address"
                                                             class="form-control @error('address') is-invalid @enderror" value="{!! !empty($user) ? $user->address : '' !!}"></textarea>
                                                         <i class="bi bi-geo st-icon"></i>
                                                     </div>
-
                                                 </diV>
                                             </div>
 
