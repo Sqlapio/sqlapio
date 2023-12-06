@@ -460,9 +460,12 @@
                                         e.study_medical.map((item, i) => {
                                             let et = '';
                                             if ((i % 2) == 0) {
-                                                et = `<li style="padding: 10px 10px 10px 10px" class="list-group-item  ${i}" aria-current="true">${item.description} ${item.record_code}</li>`
+                                                et = `<li style="padding: 10px 10px 10px 10px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px;" 
+                                                    class="list-group-item  ${i}" aria-current="true">
+                                                    ${item.description} ${item.record_code}
+                                                </li>`
                                             } else {
-                                                et = `<li style="padding: 10px 10px 10px 10px"  class="list-group-item ${i}"" aria-current="true">${item.description} ${item.record_code}</li>`
+                                                et = `<li style="padding: 10px 10px 10px 10px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item ${i}"" aria-current="true">${item.description} ${item.record_code}</li>`
                                             }
                                             $('.ul-study').append(et);
                                         });
@@ -474,10 +477,10 @@
                                             let ett = '';
                                             if ((e % 2) == 0) {
                                                 ett =
-                                                    `<li style="padding: 10px 10px 10px 10px"  class="list-group-item  ${e}" aria-current="true">${item.description} ${item.record_code}</li>`
+                                                    `<li style="padding: 10px 10px 10px 10px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item  ${e}" aria-current="true">${item.description} ${item.record_code}</li>`
                                             } else {
                                                 ett =
-                                                    `<li style="padding: 10px 10px 10px 10px"  class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}</li>`
+                                                    `<li style="padding: 10px 10px 10px 10px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}</li>`
                                             }
                                             $('.ul-exmen').append(ett);
                                         });
