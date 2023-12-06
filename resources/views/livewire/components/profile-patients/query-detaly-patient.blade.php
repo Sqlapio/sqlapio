@@ -57,8 +57,12 @@
         }
 
         .wizard > .steps a, .wizard > .steps a:hover, .wizard > .steps a:active {
-    height: 8%;
-}
+            height: 8%;
+        }
+
+        .pmv-0 {
+            padding: 0 !important;
+        }
 
     }
 </style>
@@ -460,12 +464,12 @@
                                         e.study_medical.map((item, i) => {
                                             let et = '';
                                             if ((i % 2) == 0) {
-                                                et = `<li style="padding: 10px 10px 10px 10px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px;" 
+                                                et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px;" 
                                                     class="list-group-item  ${i}" aria-current="true">
                                                     ${item.description} ${item.record_code}
                                                 </li>`
                                             } else {
-                                                et = `<li style="padding: 10px 10px 10px 10px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item ${i}"" aria-current="true">${item.description} ${item.record_code}</li>`
+                                                et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item ${i}"" aria-current="true">${item.description} ${item.record_code}</li>`
                                             }
                                             $('.ul-study').append(et);
                                         });
@@ -477,10 +481,10 @@
                                             let ett = '';
                                             if ((e % 2) == 0) {
                                                 ett =
-                                                    `<li style="padding: 10px 10px 10px 10px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item  ${e}" aria-current="true">${item.description} ${item.record_code}</li>`
+                                                    `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item  ${e}" aria-current="true">${item.description} ${item.record_code}</li>`
                                             } else {
                                                 ett =
-                                                    `<li style="padding: 10px 10px 10px 10px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}</li>`
+                                                    `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}</li>`
                                             }
                                             $('.ul-exmen').append(ett);
                                         });
@@ -699,7 +703,7 @@
                                         <h3>Estudios Realizados</h3>
                                         <section>
                                             <div class="row p-3 div-overflow">
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pmv-0">
                                                     <ul class="list-group ul-study list-group-flush overflow-auto">
                                                     </ul>
                                                 </div>
@@ -708,7 +712,7 @@
                                         <h3>Exámenes Realizados</h3>
                                         <section>
                                             <div class="row p-3 div-overflow">
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pmv-0">
                                                     <ul class="list-group ul-exmen list-group-flush overflow-auto">
                                                     </ul>
                                                 </div>
