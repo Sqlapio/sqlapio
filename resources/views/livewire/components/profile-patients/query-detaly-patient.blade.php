@@ -10,6 +10,25 @@
     .div-overflow {
         overflow: scroll;
         height: 100%;
+        overflow-x: hidden
+    }
+
+    .img-medical {
+        border-radius: 20px;
+        border: 3px solid #47525e;
+        object-fit: cover;
+    }
+    
+    .wizard > .steps a, .wizard > .steps a:hover, .wizard > .steps a:active {
+        border-radius: 35px !important;
+        background: #9dc8e2;
+        color: #fff;
+        height: 117px;
+    }
+
+    .wizard > .content > .body {
+        width: 100% !important;
+        height: 100% !important;
     }
 
     ul {
@@ -29,6 +48,18 @@
     .aa.list-group-item.active {
         background-color: #748b4e !important;
         border-color: #748b4e !important;
+    }
+
+    @media screen and (max-width: 576px) {
+
+        .wizard > .steps > ul > li {
+            width: 100% !important;
+        }
+
+        .wizard > .steps a, .wizard > .steps a:hover, .wizard > .steps a:active {
+    height: 8%;
+}
+
     }
 </style>
 @push('scripts')
@@ -105,7 +136,7 @@
                             if (response.length > 0) {
                                 Swal.fire({
                                     icon: 'success',
-                                    title: 'Paciente registrado exitosamente!',
+                                    title: 'Resultado exitoso!',
                                     allowOutsideClick: false,
                                     confirmButtonColor: '#42ABE2',
                                     confirmButtonText: 'Aceptar'
@@ -123,24 +154,23 @@
                                             "{{ URL::asset('/img/avatar/avatar hombre.png') }}";
 
                                     }
-                                    let e = ` <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 162px;">
-                                            <img src="${img}"
-                                                width="150" height="150" alt="Imagen del paciente" class="img-medical">
+                                    let e = ` 
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="width: 162px;" >
+                                            <img src="${img}" width="150" height="150" alt="Imagen del paciente" class="img-medical">
                                         </div>
 
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                            <small>Nombre Completo:</small><span class="text-capitalize">
-                                                ${ response[0].full_name}</span>
+                                        <div class="col-sm-8 col-md-8 col-lg-12 col-xl-12 col-xxl-12 data-medical mt-2">
+                                            <strong>Nombre Completo:</strong><span class="text-capitalize"> ${response[0].full_name}</span>
                                             <br>
-                                            <small>Fecha de Nacimiento:</small><br><span>${response[0].birthdate }</span>
+                                            <strong>Fecha de Nacimiento:</strong><span> ${response[0].birthdate }</span>
                                             <br>
-                                            <small>Edad:</small><span> ${ response[0].age } años</span>
+                                            <strong>Edad:</strong><span> ${response[0].age } años</span>
                                             <br>
-                                            <small>C.I:</small><span> ${ response[0].ci} </span>
+                                            <strong>C.I:</strong><span> ${response[0].ci} </span>
                                             <br>
-                                            <small>Genero:</small><span class="text-capitalize"> ${ response[0].genere} </span>  
+                                            <strong>Genero:</strong><span class="text-capitalize"> ${response[0].genere} </span>  
                                             <br>
-                                            <small>Nº Historial:</small><span class="text-capitalize"> ${ response[0].cod_history} </span>                                          
+                                            <strong>Nº Historial:</strong><span class="text-capitalize"> ${response[0].cod_history} </span>                                          
                                         </div>`;
                                     $('#div-content').find('#info-pat').append(e);
                                     //end   
@@ -479,7 +509,7 @@
     <div>
         <div class="container-fluid body" style="padding: 0 3% 3%">
             <div class="row justify-content-center">
-                <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8">
+                <div class="col-sm-12 col-md-12 col-lg-11 col-xl-11 col-xxl-9">
                     <div class="card mt-3 card-ex">
                         <div class="card-body">
                             <form id="form-detaly-patient" method="post" action="">
@@ -494,7 +524,7 @@
                                         <div class="form-group">
                                             <label for="ci"
                                                 class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Ingrese
-                                                número de identificación</label>
+                                                número de cédula</label>
                                             <input maxlength="10" type="text" class="form-control mask-only-number"
                                                 id="ci" name="ci" placeholder="" value="">
                                         </div>
@@ -502,16 +532,15 @@
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                         <div class="form-group">
                                             <label for="phone" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha
-                                                de
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha de
                                                 Nacimiento</label>
                                             <input class="form-control date-bd" id="birthdate" name="birthdate"
                                                 type="date" value="">
                                         </div>
                                     </div>
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3" style="display: flex; align-items: flex-end;">
                                         <input class="btn btnSave send" id="btn-save" value="Consultar" type="submit"
-                                            style="margin-left: 10px; margin-top: 9%" />
+                                            style="margin-left: 10px; margin-bottom: 4px;" />
                                     </div>
                                 </div>
                             </form>
@@ -519,11 +548,11 @@
 
                             <div class="row mt-5" id="div-content" style="display: none">
                                 <hr>
-                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mb-cd">
+                                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4">
                                     <div class="row justify-content-center" id="info-pat"></div>
                                 </div>
 
-                                <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mb-cd">
+                                <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8 mb-cd mt-4">
                                     <div id="wizard">
                                         <h3>Historia clinica</h3>
                                         <section>
