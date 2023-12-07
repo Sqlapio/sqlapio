@@ -129,6 +129,7 @@
                 if ($("#form-detaly-patient").valid()) {
 
                     var data = $('#form-detaly-patient').serialize();
+                    $('#spinner').show();
                     $.ajax({
                         url: "{{ route('search-detaly-patient') }}",
                         type: 'POST',
@@ -138,6 +139,7 @@
                         },
                         success: function(response) {
                             if (response.length > 0) {
+                                $('#spinner').hide();
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Resultado exitoso!',
@@ -494,6 +496,7 @@
 
                                 });
                             } else {
+                                $('#spinner').hide();
                                 Swal.fire({
                                     icon: 'warning',
                                     title: 'Paciente no encontrado!',
@@ -513,7 +516,7 @@
                                     confirmButtonText: 'Aceptar'
                                 }).then((result) => {
                                     $('#btn-save').attr('disabled', false);
-                                    $('#spinner2').hide();
+                                    $('#spinner').hide();
                                     $(".holder").hide();
                                 });
                             });
@@ -526,6 +529,9 @@
 @endpush
 @section('content')
     <div>
+        <div id="spinner" style="display: none" class="spinner-md">
+            <x-load-spinner show="true" />
+        </div>
         <div class="container-fluid body" style="padding: 0 3% 3%">
             <div class="row justify-content-center">
                 <div class="col-sm-12 col-md-12 col-lg-11 col-xl-11 col-xxl-9">
