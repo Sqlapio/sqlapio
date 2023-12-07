@@ -599,10 +599,10 @@
                                         @if (Auth::user()->user_img != null && Auth::user()->role == 'medico')
                                             <span class="strong" style="margin-bottom: 7px;"> Dr.
                                                 {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
-                                            <img class="avatar-user mt-text avatar img-fluid rounded-circle me-1"
+                                            <img class="avatar-user mt-text img-fluid rounded-circle me-1"
                                                 src="{{ asset('/imgs/' . Auth::user()->user_img) }}" alt="Chris Wood">
                                         @elseif(Auth::user()->lab_img != null && Auth::user()->role == 'corporativo')
-                                            <img class="avatar-corporativo avatar img-fluid me-1"
+                                            <img class="avatar-corporativo img-fluid me-1"
                                                 src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}"
                                                 alt="Chris Wood">
                                         @elseif(Auth::user()->role == 'corporativo')
@@ -611,17 +611,17 @@
                                                 alt="Chris Wood" style="margin-top:0">
                                         @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) == null)
                                             <span class="strong" style="margin-bottom: 7px;"> {{ Auth::user()->business_name }} </span>
-                                            <img class="avatar-user mt-text avatar img-fluid rounded-circle me-1" 
+                                            <img class="avatar-user mt-text img-fluid rounded-circle me-1" 
                                                 src="{{ asset('/img/avatar/avatar.png') }}" alt="Chris Wood">
                                         @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) != null)
                                             <span class="strong" style="margin-bottom: 7px;"> {{ Auth::user()->business_name }} </span>
-                                            <img class="avatar-user mt-text avatar img-fluid rounded-circle me-1"
+                                            <img class="avatar-user mt-text img-fluid rounded-circle me-1"
                                                 src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}" 
                                                 alt="Chris Wood">
                                         @else
                                             <span class="strong" style="margin-bottom: 7px;"> Dr. {{ Auth::user()->last_name }},
                                                 {{ Auth::user()->name }}</span>
-                                            <img class="avatar-user mt-text avatar img-fluid rounded-circle me-1" src="{{ asset('/img/avatar/avatar.png') }}"
+                                            <img class="avatar-user mt-text img-fluid rounded-circle me-1" src="{{ asset('/img/avatar/avatar.png') }}"
                                                 alt="Chris Wood">
                                         @endif
                                     </a>
