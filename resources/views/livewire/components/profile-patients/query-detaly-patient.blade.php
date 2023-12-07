@@ -163,7 +163,7 @@
                                             <img src="${img}" width="150" height="150" alt="Imagen del paciente" class="img-medical">
                                         </div>
 
-                                        <div class="col-sm-8 col-md-8 col-lg-12 col-xl-12 col-xxl-12 data-medical mt-2">
+                                        <div class="col-sm-8 col-md-8 col-lg-12 col-xl-12 col-xxl-12 data-medical mt-3">
                                             <strong>Nombre Completo:</strong><span class="text-capitalize"> ${response[0].full_name}</span>
                                             <br>
                                             <strong>Fecha de Nacimiento:</strong><span> ${response[0].birthdate }</span>
