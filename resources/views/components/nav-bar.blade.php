@@ -601,14 +601,11 @@
                                                 {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
                                             <img class="avatar-user mt-text img-fluid rounded-circle me-1"
                                                 src="{{ asset('/imgs/' . Auth::user()->user_img) }}" alt="Chris Wood">
-                                        @elseif(Auth::user()->lab_img != null && Auth::user()->role == 'corporativo')
+                                        @elseif(Auth::user()->get_laboratorio->lab_img != null && Auth::user()->role == 'corporativo')
                                             <img class="avatar-corporativo img-fluid me-1"
-                                                src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}"
-                                                alt="Chris Wood">
+                                            src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}" alt="Chris Wood">
                                         @elseif(Auth::user()->role == 'corporativo')
-                                            <img class="avatar-corporativo"
-                                                src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}" 
-                                                alt="Chris Wood" style="margin-top:0">
+                                            <img class="avatar-corporativo" src="{{ asset('/img/logo sqlapio-02.png') }}" alt="Chris Wood" style="margin-top:0; object-fit: scale-down;">
                                         @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) == null)
                                             <span class="strong" style="margin-bottom: 7px;"> {{ Auth::user()->business_name }} </span>
                                             <img class="avatar-user mt-text img-fluid rounded-circle me-1" 
