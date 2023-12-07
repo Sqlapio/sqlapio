@@ -230,7 +230,7 @@
                                 <button class="accordion-button bg-3" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-person"></i></i> Examenes cargados
+                                    <i class="bi bi-person"></i></i> Exámenes cargados
                                 </button>
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne"
