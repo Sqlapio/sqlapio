@@ -252,6 +252,7 @@ class Register extends Component {
 					'address' 	=> 'required',
 					'zip_code' 	=> 'required',
 					'cod_mpps' 	=> 'required',
+
 				];
 
 				$msj = [
@@ -268,6 +269,7 @@ class Register extends Component {
 					'address' 	=> 'Campo requerido',
 					'zip_code' 	=> 'Campo requerido',
 					'cod_mpps' 	=> 'Campo requerido',
+
 				];
 
 				$validator = Validator::make($request->all(), $rules, $msj);
@@ -307,27 +309,64 @@ class Register extends Component {
 
 			if($request->rol == 'laboratorio' || $request->rol == 'corporativo')
 			{
-				$rules = [
-					'rif' 		=> 'required',
-					'state' 	=> 'required',
-					'city' 		=> 'required',
-					'address' 	=> 'required',
-					'phone' 	=> 'required',
-					'license' 	=> 'required',
-					'type_laboratory' 	=> 'required',
-					'responsible' 		=> 'required',
-				];
+                /** Reglas de validacion para laboratorios */
+                if($request->rol == 'laboratorio')
+                {
+                    $rules = [
+                        'rif' 		=> 'required',
+                        'state' 	=> 'required',
+                        'city' 		=> 'required',
+                        'address' 	=> 'required',
+                        'phone' 	=> 'required',
+                        'license' 	=> 'required',
+                        'type_laboratory' 	=> 'required',
+                        'responsible' 		=> 'required',
+                    ];
 
-				$msj = [
-					'rif' 		=> 'Campo requerido',
-					'state' 	=> 'Campo requerido',
-					'city' 		=> 'Campo requerido',
-					'address' 	=> 'Campo requerido',
-					'phone' 	=> 'Campo requerido',
-					'license' 	=> 'Campo requerido',
-					'type_laboratory' 	=> 'Campo requerido',
-					'responsible' 		=> 'Campo requerido',
-				];
+                    $msj = [
+                        'rif' 		=> 'Campo requerido',
+                        'state' 	=> 'Campo requerido',
+                        'city' 		=> 'Campo requerido',
+                        'address' 	=> 'Campo requerido',
+                        'phone' 	=> 'Campo requerido',
+                        'license' 	=> 'Campo requerido',
+                        'type_laboratory' 	=> 'Campo requerido',
+                        'responsible' 		=> 'Campo requerido',
+                    ];
+                }
+
+                /** Reglas de validacion para corporativos */
+                if($request->rol == 'corporativo')
+                {
+                    $rules = [
+                        'rif' 		=> 'required',
+                        'state' 	=> 'required',
+                        'city' 		=> 'required',
+                        'address' 	=> 'required',
+                        'phone' 	=> 'required',
+                        'license' 	=> 'required',
+                        'type_laboratory' 	=> 'required',
+                        'responsible' 		=> 'required',
+                        'number_floor' 	            => 'required',
+                        'number_consulting_room' 	=> 'required',
+                        'number_consulting_phone'   => 'required'
+                    ];
+
+                    $msj = [
+                        'rif' 		=> 'Campo requerido',
+                        'state' 	=> 'Campo requerido',
+                        'city' 		=> 'Campo requerido',
+                        'address' 	=> 'Campo requerido',
+                        'phone' 	=> 'Campo requerido',
+                        'license' 	=> 'Campo requerido',
+                        'type_laboratory' 	=> 'Campo requerido',
+                        'responsible' 		=> 'Campo requerido',
+                        'number_floor' 	            => 'Campo requerido',
+                        'number_consulting_room' 	=> 'Campo requerido',
+                        'number_consulting_phone'   => 'Campo requerido'
+                    ];
+                }
+
 
 				$validator = Validator::make($request->all(), $rules, $msj);
 
@@ -391,7 +430,10 @@ class Register extends Component {
 					'responsible' 			=> $request->responsible,
 					'descripcion' 			=> $request->descripcion,
 					'website' 				=> $request->website,
-					'lab_img' 				=> $nameFile
+                    'number_floor' 			=> $request->number_floor,
+                    'number_consulting_room'    => $request->number_consulting_room,
+                    'number_consulting_phone'   => $request->number_consulting_phone,
+					'lab_img' 				    => $nameFile
 
 				]);
 
