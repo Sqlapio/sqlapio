@@ -1,14 +1,33 @@
 @extends('layouts.app-auth')
 @section('title', 'Gestión de Medicos')
 <style>
+    .form-switch .form-check-input {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e") !important;
+        background-color: #d70c0cb5 !important;
+        border-color: #d70c0cb5 !important;
+    }
+    
+    .form-switch .form-check-input:checked {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e") !important;
+    }
 
+    .form-check-input:checked {
+        background-color: #42abe2 !important;
+        border-color: #42abe2 !important;
+        transform: scale(0.6);
+    }
 
+    .table-check {
+        text-align: center; 
+        vertical-align: middle;
+        height: 50px; 
+        width: 50px;
+    }
 
-.ci.form-check-input {
-    background-color: #C3002F !important;
-    border-color: C3002F !important;
-    transform: scale(0.6);
-}
+    .w-5 {
+        width: 5%
+    }
+
 </style>
 @push('scripts')
     <script>
@@ -161,8 +180,8 @@
                                         style="width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">Nombre y apellidos</th>
-                                                <th class="text-center">Cédula</th>
+                                                <th class="text-center">Nombre y Apellido</th>
+                                                <th class="text-center">Número de Cédula</th>
                                                 <th class="text-center">Correo</th>
                                                 <th class="text-center">Especialidad</th>
                                                 <th class="text-center">Teléfono del consultorio</th>
@@ -172,15 +191,16 @@
                                         <tbody>
                                             @foreach ($dortors as $key => $item)
                                                 <tr>
-                                                    <td class="text-center">{{ $item->name . ' ' . $item->last_name }}</td>
+                                                    <td class="text-center text-capitalize">{{ $item->name . ' ' . $item->last_name }}</td>
                                                     <td class="text-center">{{ $item->ci }}</td>
                                                     <td class="text-center">{{ $item->email }}</td>
                                                     <td class="text-center">{{ $item->specialty }}</td>
                                                     <td class="text-center">{{ $item->phone }}</td>
                                                     <td class="text-center table-check w-5">
-                                                        <div class="form-check form-switch ">
+                                                        <div class="form-check form-switch" style="display: flex; justify-content: center;">
                                                             <input onchange="handlerDoctor(event);" style="width: 5em"
-                                                                class="{{$item->tipo_status == '1' ?'form-check-input': 'form-check-input ci' }}" type="checkbox" role="switch"
+                                                                class="{{$item->tipo_status == '1' ? 'form-check-input': 'form-check-input ci' }}" type="checkbox" role="switch"
+                                                                {{-- class="{{$item->tipo_status == '1' ? 'form-check-input': 'custom-control-input' }}" type="checkbox" role="switch" --}}
                                                                 id="flexSwitchCheckChecked" value="{{ $item->id }}"
                                                                 {{ $item->tipo_status!= '1' ? '' : 'checked' }}>
                                                         </div>
