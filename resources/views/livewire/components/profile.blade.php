@@ -69,7 +69,16 @@
                     },
                     specialty: {
                         required: true,
-                    }
+                    },
+                    number_consulting_phone: {
+                        required: true,
+                    },
+                    number_floor: {
+                        required: true,
+                    },
+                    number_consulting_room: {
+                        required: true,
+                    },
                 },
                 messages: {
                     name: {
@@ -138,7 +147,16 @@
                     },
                     specialty: {
                         required: "Especialidad es obligatoria"
-                    }
+                    },
+                    number_consulting_phone: {
+                        required: "Número teléfono del consultorio es obligatorio"
+                    },
+                    number_floor: {
+                        required: "Número del piso del consultorio es obligatorio"
+                    },
+                    number_consulting_room: {
+                        required: "Número del consultorio es obligatorio"
+                    },
                 },
 
 
@@ -461,7 +479,9 @@
             try {
                 await navigator.clipboard.writeText(link);
                 $("#icon-copy").css("background", "#04AA6D");
-                setTimeout(function() { $('#copied').hide(); }, 2000);
+                setTimeout(function() {
+                    $('#copied').hide();
+                }, 2000);
                 $("#copied").text('Enlace copiado!');
 
             } catch (err) {
@@ -633,12 +653,60 @@
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
-                                                        <textarea id="address" rows="3" name="address"
-                                                            class="form-control @error('address') is-invalid @enderror" value="{!! !empty($user) ? $user->address : '' !!}"></textarea>
+                                                        <textarea id="address" rows="3" name="address" class="form-control @error('address') is-invalid @enderror"
+                                                            value="{!! !empty($user) ? $user->address : '' !!}"></textarea>
                                                         <i class="bi bi-geo st-icon"></i>
                                                     </div>
                                                 </diV>
                                             </div>
+
+                                            @if (Auth::user()->type_plane == '7')
+
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="name" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Piso
+                                                            del consultorio</label>
+                                                        <input autocomplete="off" class="form-control mask-alfa-numeric @error('number_floor') is-invalid @enderror"
+                                                            id="number_floor" maxlength="10" name="number_floor" type="text"
+                                                            value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->number_floor : '' !!}">
+                                                        <i class="bi bi-geo" style="top: 30px"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+
+
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="name" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
+                                                            del consultorio</label>
+                                                        <input autocomplete="off"  maxlength="10" class="form-control mask-alfa-numeric @error('number_consulting_room') is-invalid @enderror"
+                                                            id="number_consulting_room" name="number_consulting_room"
+                                                            type="text"
+                                                            value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->number_consulting_room : '' !!}">
+                                                        <i class="bi bi-geo" style="top: 30px"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="name" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
+                                                            teléfonico del consultorio</label>
+                                                        <input autocomplete="off" class="form-control phone @error('number_consulting_phone') is-invalid @enderror"
+                                                            id="number_consulting_phone" name="number_consulting_phone"
+                                                            type="text" 
+                                                            value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->number_consulting_phone : '' !!}">
+                                                        <i class="bi bi-geo" style="top: 30px"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+                                            @endif
 
                                             <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
 
@@ -676,14 +744,13 @@
                                                 <div class="row">
                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <a id="Link-medicos" href="{{ Auth::user()->token_corporate }}"
-                                                                target="_blank" style="text-decoration: none;">
-                                                                <button  type="button" class="btn btnPrimary">Registrar médicos</button>
+                                                            target="_blank" style="text-decoration: none;">
+                                                            <button type="button" class="btn btnPrimary">Registrar
+                                                                médicos</button>
                                                         </a>
-                                                        <button type="button"
-                                                            id="icon-copy"
+                                                        <button type="button" id="icon-copy"
                                                             class="btn btn-iSecond rounded-circle"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-placement="bottom"
+                                                            data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                             title="Copiar enlace de registro"
                                                             onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
                                                             style="margin-left: 5%;">
@@ -803,7 +870,7 @@
                                                         <i class="bi bi-geo" style="top: 30px"></i>
                                                     </div>
                                                 </diV>
-                                            </div>
+                                            </div>                                  
 
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="form-group">
@@ -864,7 +931,7 @@
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Descripción</label>
-                                                        <input autocomplete="off" placeholder="Descripción"
+                                                        <input autocomplete="off" 
                                                             class="form-control mask-only-text @error('description') is-invalid @enderror"
                                                             id="description" name="description" type="text"
                                                             value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->description : '' !!}">
