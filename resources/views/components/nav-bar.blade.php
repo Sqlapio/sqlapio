@@ -103,9 +103,8 @@
     .strong {
         color: white;
         font-size: 13px;
-        text-align: right;
+        text-align: center;
         text-transform: capitalize;
-        padding-right: 15px;
     }
 
     .banner {
@@ -595,29 +594,31 @@
 
                                 <div class="col-xs-6 col-sm-6 col-md-6" style="display: flex; justify-content: flex-end;">
                                     <a class="nav-link icon-p" href="#" style="    height: 94px;">
-                                        {{-- <span class="strong"> prueba {{ Auth::user() }}</span> --}}
                                         @if (Auth::user()->user_img != null && Auth::user()->role == 'medico')
-                                            <span class="strong" style="margin-bottom: 7px;"> Dr.
+                                            <span class="strong me-1" style="margin-bottom: 7px;"> Dr.
                                                 {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
                                             <img class="avatar-user mt-text img-fluid rounded-circle me-1"
                                                 src="{{ asset('/imgs/' . Auth::user()->user_img) }}" alt="Chris Wood">
-                                        {{-- @elseif(Auth::user()->get_laboratorio->lab_img != null && Auth::user()->role == 'corporativo')
+                                        @elseif(Auth::user()->role == 'medico' && Auth::user()->type_plane == '7')
+                                            <span class="strong me-1" style="margin-bottom: 7px;"> Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
+                                            <img class="avatar-user mt-text img-fluid rounded-circle me-1" src="{{ asset('/img/avatar/avatar.png') }}"
+                                                alt="Chris Wood">
+                                        @elseif(Auth::user()->role == 'corporativo' && Auth::user()->get_laboratorio->lab_img != null)
                                             <img class="avatar-corporativo img-fluid me-1"
-                                            src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}" alt="Chris Wood"> --}}
+                                            src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}" alt="Chris Wood">
                                         @elseif(Auth::user()->role == 'corporativo')
                                             <img class="avatar-corporativo" src="{{ asset('/img/logo sqlapio-02.png') }}" alt="Chris Wood" style="margin-top:0; object-fit: scale-down;">
-                                        @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) == null)
-                                            <span class="strong" style="margin-bottom: 7px;"> {{ Auth::user()->business_name }} </span>
+                                        @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) == null && Auth::user()->role == 'laboratorio')
+                                            <span class="strong me-1" style="margin-bottom: 7px;"> {{ Auth::user()->business_name }} </span>
                                             <img class="avatar-user mt-text img-fluid rounded-circle me-1" 
                                                 src="{{ asset('/img/avatar/avatar.png') }}" alt="Chris Wood">
-                                        @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) != null)
-                                            <span class="strong" style="margin-bottom: 7px;"> {{ Auth::user()->business_name }} </span>
+                                        @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) != null && Auth::user()->role == 'laboratorio')
+                                            <span class="strong me-1" style="margin-bottom: 7px;"> {{ Auth::user()->business_name }} </span>
                                             <img class="avatar-user mt-text img-fluid rounded-circle me-1"
                                                 src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}" 
                                                 alt="Chris Wood">
-                                        @else
-                                            <span class="strong" style="margin-bottom: 7px;"> Dr. {{ Auth::user()->last_name }},
-                                                {{ Auth::user()->name }}</span>
+                                        @else   
+                                            <span class="strong me-1" style="margin-bottom: 7px;"> Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
                                             <img class="avatar-user mt-text img-fluid rounded-circle me-1" src="{{ asset('/img/avatar/avatar.png') }}"
                                                 alt="Chris Wood">
                                         @endif
