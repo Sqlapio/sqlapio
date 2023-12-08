@@ -139,11 +139,12 @@
                 <tr class="text-header" style="border-radius: 50px!important;">
                     <td style="padding: 10px;">
                         <div>
-                            <strong style="font-size: 15px;">{{ $MedicalRecord->get_center->description }}</strong>
+                            <strong
+                                style="font-size: 15px;">{{ $MedicalRecord->get_center->description }}</strong>
                             <p style="margin-top: 0px">
-                                Dirección: {{ $MedicalRecord->get_center_data->address }},
+                                Dirección: {{ (Auth::user()->type_plane == "7")? ' corporativo': $MedicalRecord->get_center_data->address }},
                                 Local,
-                                {{ $MedicalRecord->get_center_data->number_floor }}<br>{{ $MedicalRecord->get_center_data->phone_consulting_room }}
+                                {{(Auth::user()->type_plane == "7")? "corporativo" : $MedicalRecord->get_center_data->number_floor }}<br>{{(Auth::user()->type_plane == "7")? 'corporativo ': $MedicalRecord->get_center_data->phone_consulting_room }}
                             </p>
                         </div>
                     </td>
