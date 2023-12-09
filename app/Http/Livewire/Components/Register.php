@@ -238,37 +238,82 @@ class Register extends Component {
 
 			if($request->rol == 'medico')
 			{
-				$rules = [
-					'name' 		=> 'required',
-					'last_name'	=> 'required',
-					'ci' 		=> 'required',
-					'birthdate' => 'required',
-					'genere' 	=> 'required',
-					'specialty' => 'required',
-					'age' 		=> 'required',
-					'phone' 	=> 'required',
-					'state' 	=> 'required',
-					'city' 		=> 'required',
-					'address' 	=> 'required',
-					'zip_code' 	=> 'required',
-					'cod_mpps' 	=> 'required',
-				];
+                if(Auth::user()->type_plane == '7')
+                {
+                    /** Reglas de validacion para el medico corporativo */
+                    $rules = [
+                        'name' 		=> 'required',
+                        'last_name'	=> 'required',
+                        'ci' 		=> 'required',
+                        'birthdate' => 'required',
+                        'genere' 	=> 'required',
+                        'specialty' => 'required',
+                        'age' 		=> 'required',
+                        'phone' 	=> 'required',
+                        'state' 	=> 'required',
+                        'city' 		=> 'required',
+                        'address' 	=> 'required',
+                        'zip_code' 	=> 'required',
+                        'cod_mpps' 	=> 'required',
+                        'number_floor' 	            => 'required',
+                        'number_consulting_room' 	=> 'required',
+                        'number_consulting_phone' 	=> 'required',
+                    ];
 
-				$msj = [
-					'name' 		=> 'Campo requerido',
-					'last_name'	=> 'Campo requerido',
-					'ci' 		=> 'Campo requerido',
-					'birthdate' => 'Campo requerido',
-					'genere' 	=> 'Campo requerido',
-					'specialty' => 'Campo requerido',
-					'age' 		=> 'Campo requerido',
-					'phone' 	=> 'Campo requerido',
-					'state' 	=> 'Campo requerido',
-					'city' 		=> 'Campo requerido',
-					'address' 	=> 'Campo requerido',
-					'zip_code' 	=> 'Campo requerido',
-					'cod_mpps' 	=> 'Campo requerido',
-				];
+                    $msj = [
+                        'name' 		=> 'Campo requerido',
+                        'last_name'	=> 'Campo requerido',
+                        'ci' 		=> 'Campo requerido',
+                        'birthdate' => 'Campo requerido',
+                        'genere' 	=> 'Campo requerido',
+                        'specialty' => 'Campo requerido',
+                        'age' 		=> 'Campo requerido',
+                        'phone' 	=> 'Campo requerido',
+                        'state' 	=> 'Campo requerido',
+                        'city' 		=> 'Campo requerido',
+                        'address' 	=> 'Campo requerido',
+                        'zip_code' 	=> 'Campo requerido',
+                        'cod_mpps' 	=> 'Campo requerido',
+                        'number_floor' 	            => 'Campo requerido',
+                        'number_consulting_room' 	=> 'Campo requerido',
+                        'number_consulting_phone' 	=> 'Campo requerido',
+                    ];
+
+                }else{
+
+                    /** Reglas de validacion para el medico libre */
+                    $rules = [
+                        'name' 		=> 'required',
+                        'last_name'	=> 'required',
+                        'ci' 		=> 'required',
+                        'birthdate' => 'required',
+                        'genere' 	=> 'required',
+                        'specialty' => 'required',
+                        'age' 		=> 'required',
+                        'phone' 	=> 'required',
+                        'state' 	=> 'required',
+                        'city' 		=> 'required',
+                        'address' 	=> 'required',
+                        'zip_code' 	=> 'required',
+                        'cod_mpps' 	=> 'required',
+                    ];
+
+                    $msj = [
+                        'name' 		=> 'Campo requerido',
+                        'last_name'	=> 'Campo requerido',
+                        'ci' 		=> 'Campo requerido',
+                        'birthdate' => 'Campo requerido',
+                        'genere' 	=> 'Campo requerido',
+                        'specialty' => 'Campo requerido',
+                        'age' 		=> 'Campo requerido',
+                        'phone' 	=> 'Campo requerido',
+                        'state' 	=> 'Campo requerido',
+                        'city' 		=> 'Campo requerido',
+                        'address' 	=> 'Campo requerido',
+                        'zip_code' 	=> 'Campo requerido',
+                        'cod_mpps' 	=> 'Campo requerido',
+                    ];
+                }
 
 				$validator = Validator::make($request->all(), $rules, $msj);
 
@@ -307,27 +352,29 @@ class Register extends Component {
 
 			if($request->rol == 'laboratorio' || $request->rol == 'corporativo')
 			{
-				$rules = [
-					'rif' 		=> 'required',
-					'state' 	=> 'required',
-					'city' 		=> 'required',
-					'address' 	=> 'required',
-					'phone' 	=> 'required',
-					'license' 	=> 'required',
-					'type_laboratory' 	=> 'required',
-					'responsible' 		=> 'required',
-				];
 
-				$msj = [
-					'rif' 		=> 'Campo requerido',
-					'state' 	=> 'Campo requerido',
-					'city' 		=> 'Campo requerido',
-					'address' 	=> 'Campo requerido',
-					'phone' 	=> 'Campo requerido',
-					'license' 	=> 'Campo requerido',
-					'type_laboratory' 	=> 'Campo requerido',
-					'responsible' 		=> 'Campo requerido',
-				];
+                    $rules = [
+                        'rif' 		=> 'required',
+                        'state' 	=> 'required',
+                        'city' 		=> 'required',
+                        'address' 	=> 'required',
+                        'phone' 	=> 'required',
+                        'license' 	=> 'required',
+                        'type_laboratory' 	=> 'required',
+                        'responsible' 		=> 'required',
+                    ];
+
+                    $msj = [
+                        'rif' 		=> 'Campo requerido',
+                        'state' 	=> 'Campo requerido',
+                        'city' 		=> 'Campo requerido',
+                        'address' 	=> 'Campo requerido',
+                        'phone' 	=> 'Campo requerido',
+                        'license' 	=> 'Campo requerido',
+                        'type_laboratory' 	=> 'Campo requerido',
+                        'responsible' 		=> 'Campo requerido',
+                    ];
+
 
 				$validator = Validator::make($request->all(), $rules, $msj);
 
@@ -391,7 +438,10 @@ class Register extends Component {
 					'responsible' 			=> $request->responsible,
 					'descripcion' 			=> $request->descripcion,
 					'website' 				=> $request->website,
-					'lab_img' 				=> $nameFile
+                    // 'number_floor' 			=> $request->number_floor,
+                    // 'number_consulting_room'    => $request->number_consulting_room,
+                    // 'number_consulting_phone'   => $request->number_consulting_phone,
+					'lab_img' 				    => $nameFile
 
 				]);
 
