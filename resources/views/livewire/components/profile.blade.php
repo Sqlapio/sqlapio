@@ -670,7 +670,7 @@
                                                             del consultorio</label>
                                                         <input autocomplete="off" class="form-control mask-alfa-numeric @error('number_floor') is-invalid @enderror"
                                                             id="number_floor" maxlength="10" name="number_floor" type="text"
-                                                            value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->number_floor : '' !!}">
+                                                            value="{!! !empty($user != null) ? $user->number_floor : '' !!}">
                                                         <i class="bi bi-geo" style="top: 30px"></i>
                                                     </div>
                                                 </diV>
@@ -686,7 +686,7 @@
                                                         <input autocomplete="off"  maxlength="10" class="form-control mask-alfa-numeric @error('number_consulting_room') is-invalid @enderror"
                                                             id="number_consulting_room" name="number_consulting_room"
                                                             type="text"
-                                                            value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->number_consulting_room : '' !!}">
+                                                            value="{!! !empty($user != null) ? $user->number_consulting_room : '' !!}">
                                                         <i class="bi bi-geo" style="top: 30px"></i>
                                                     </div>
                                                 </diV>
@@ -701,7 +701,7 @@
                                                         <input autocomplete="off" class="form-control phone @error('number_consulting_phone') is-invalid @enderror"
                                                             id="number_consulting_phone" name="number_consulting_phone"
                                                             type="text" 
-                                                            value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->number_consulting_phone : '' !!}">
+                                                            value="{!! !empty($user != null) ? $user->number_consulting_phone : '' !!}">
                                                         <i class="bi bi-geo" style="top: 30px"></i>
                                                     </div>
                                                 </diV>

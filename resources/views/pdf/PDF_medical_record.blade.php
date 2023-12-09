@@ -144,7 +144,7 @@
                             <p style="margin-top: 0px">
                                 Dirección: {{ (Auth::user()->type_plane == "7")? ' corporativo': $MedicalRecord->get_center_data->address }},
                                 Local,
-                                {{(Auth::user()->type_plane == "7")? "corporativo" : $MedicalRecord->get_center_data->number_floor }}<br>{{(Auth::user()->type_plane == "7")? 'corporativo ': $MedicalRecord->get_center_data->phone_consulting_room }}
+                                {{(Auth::user()->type_plane == "7")? Auth::user()->number_floor  : $MedicalRecord->get_center_data->number_floor }}<br>{{(Auth::user()->type_plane == "7")?  Auth::user()->number_consulting_phone : $MedicalRecord->get_center_data->phone_consulting_room }}
                             </p>
                         </div>
                     </td>

@@ -143,7 +143,7 @@
                             <p style="margin-top: 0px">
                                 Dirección: {{ $reference->get_center->address }},
                                 Local,
-                                {{ $reference->get_center_data->number_floor }}<br>{{ $reference->get_center_data->phone_consulting_room }}
+                                {{( $reference->get_user->type_plane == "7")? $reference->get_user->number_floor   : $reference->get_center_data->number_floor }}<br>{{( $reference->get_user->type_plane == "7")? $reference->get_user->number_consulting_phone : $reference->get_center_data->phone_consulting_room }}
                             </p>
                         </div>
                     </td>
