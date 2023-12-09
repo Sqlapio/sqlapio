@@ -593,7 +593,10 @@
                                 </div>
 
                                 <div class="col-xs-6 col-sm-6 col-md-6" style="display: flex; justify-content: flex-end;">
-                                    <a class="nav-link icon-p" href="#" style="    height: 94px;">
+                                    @if (Auth::user()->role == 'medico' && Auth::user()->type_plane == '7')
+                                        <img class="avatar-corporativo d-none d-xl-block" src="{{ asset('/img/logo sqlapio-02.png') }}" alt="Chris Wood" style="margin-top:0; object-fit: scale-down;">
+                                    @endif
+                                    <a class="nav-link icon-p" href="#" style="height: 94px;">
                                         @if (Auth::user()->user_img != null && Auth::user()->role == 'medico')
                                             <span class="strong me-1" style="margin-bottom: 7px;"> Dr.
                                                 {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
@@ -605,7 +608,7 @@
                                                 alt="Chris Wood">
                                         @elseif(Auth::user()->role == 'corporativo' && Auth::user()->get_laboratorio->lab_img != null)
                                             <img class="avatar-corporativo img-fluid me-1"
-                                            src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}" alt="Chris Wood">
+                                                src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}" alt="Chris Wood">
                                         @elseif(Auth::user()->role == 'corporativo')
                                             <img class="avatar-corporativo" src="{{ asset('/img/logo sqlapio-02.png') }}" alt="Chris Wood" style="margin-top:0; object-fit: scale-down;">
                                         @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) == null && Auth::user()->role == 'laboratorio')

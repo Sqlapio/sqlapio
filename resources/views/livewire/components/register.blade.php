@@ -377,7 +377,12 @@
                                     @else
                                         {{-- registro medico con plan corporativco  --}}
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: grid; justify-items: center;">
-                                            <img class="logoCorp" src="{{ asset('imgs/' . $corporate->get_laboratorio->lab_img) }}" alt="">
+                                            @if ($corporate->get_laboratorio->lab_img == null)
+                                                <img class="logoCorp" src="{{ asset('/img/logo sqlapio variaciones-03.png') }}" alt="Chris Wood">
+                                                
+                                            @else
+                                                <img class="logoCorp" src="{{ asset('imgs/' . $corporate->get_laboratorio->lab_img) }}" alt="">
+                                            @endif
                                         </div>
 
 
