@@ -50,6 +50,12 @@
         border-color: #748b4e !important;
     }
 
+    @media (min-width: 1040px) and (max-width: 2100px) {
+        .wizard > .steps a, .wizard > .steps a:hover, .wizard > .steps a:active {
+            height: 70px;
+        }
+    }
+
     @media screen and (max-width: 576px) {
 
         .wizard > .steps > ul > li {
@@ -161,11 +167,11 @@
 
                                     }
                                     let e = ` 
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="width: 162px;" >
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" style="width: 162px; margin-top: 13px;" >
                                             <img src="${img}" width="150" height="150" alt="Imagen del paciente" class="img-medical">
                                         </div>
 
-                                        <div class="col-sm-8 col-md-8 col-lg-12 col-xl-12 col-xxl-12 data-medical mt-3">
+                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 data-medical mt-3">
                                             <strong>Nombre Completo:</strong><span class="text-capitalize"> ${response[0].full_name}</span>
                                             <br>
                                             <strong>Fecha de Nacimiento:</strong><span> ${response[0].birthdate }</span>
@@ -534,7 +540,7 @@
         </div>
         <div class="container-fluid body" style="padding: 0 3% 3%">
             <div class="row justify-content-center">
-                <div class="col-sm-12 col-md-12 col-lg-11 col-xl-11 col-xxl-9">
+                <div class="col-sm-12 col-md-12 col-lg-11 col-xl-11 col-xxl-10">
                     <div class="card mt-3 card-ex">
                         <div class="card-body">
                             <form id="form-detaly-patient" method="post" action="">
@@ -542,7 +548,7 @@
 
                                 <div class="row mt-3">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <h5>Consultar Historial del paciente</h5>
+                                        <h5>Historia del paciente</h5>
 
                                     </div>
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
@@ -573,11 +579,11 @@
 
                             <div class="row mt-5" id="div-content" style="display: none">
                                 <hr>
-                                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4">
+                                <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8">
                                     <div class="row justify-content-center" id="info-pat"></div>
                                 </div>
 
-                                <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8 mb-cd mt-4">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-4">
                                     <div id="wizard">
                                         <h3>Historia clinica</h3>
                                         <section>
