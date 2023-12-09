@@ -168,6 +168,9 @@ class UtilsController extends Controller
 					'address' 	=> $request->address,
 					'zip_code' 	=> $request->zip_code,
 					'cod_mpps' 	=> $request->cod_mpps,
+                    'number_floor' 	=> $request->number_floor,
+                    'number_consulting_room' 	=> $request->number_consulting_room,
+                    'number_consulting_phone' 	=> $request->number_consulting_phone,
 					'user_img' 	=> $nameFile,
 					'status_register' => '2',
 				]);
