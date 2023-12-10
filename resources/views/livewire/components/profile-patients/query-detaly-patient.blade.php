@@ -18,15 +18,17 @@
         border: 3px solid #47525e;
         object-fit: cover;
     }
-    
-    .wizard > .steps a, .wizard > .steps a:hover, .wizard > .steps a:active {
+
+    .wizard>.steps a,
+    .wizard>.steps a:hover,
+    .wizard>.steps a:active {
         border-radius: 35px !important;
         background: #9dc8e2;
         color: #fff;
         height: 117px;
     }
 
-    .wizard > .content > .body {
+    .wizard>.content>.body {
         width: 100% !important;
         height: 100% !important;
     }
@@ -51,18 +53,23 @@
     }
 
     @media (min-width: 1040px) and (max-width: 2100px) {
-        .wizard > .steps a, .wizard > .steps a:hover, .wizard > .steps a:active {
+
+        .wizard>.steps a,
+        .wizard>.steps a:hover,
+        .wizard>.steps a:active {
             height: 70px;
         }
     }
 
     @media screen and (max-width: 576px) {
 
-        .wizard > .steps > ul > li {
+        .wizard>.steps>ul>li {
             width: 100% !important;
         }
 
-        .wizard > .steps a, .wizard > .steps a:hover, .wizard > .steps a:active {
+        .wizard>.steps a,
+        .wizard>.steps a:hover,
+        .wizard>.steps a:active {
             height: 8%;
         }
 
@@ -402,7 +409,7 @@
                                     response[0].allergies.map((e, key) => {
                                         $('.list-alergias').append(
                                             `<a href="#" class=" ${key} list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${e.type_alergia} ,${e.detalle_alergia}</small></div></a>`
-                                            );
+                                        );
                                     });
 
                                     //end
@@ -412,7 +419,7 @@
                                     response[0].history_surgical.map((e, key) => {
                                         $('.list-cirugias').append(
                                             `<a href="#" class=" ${key} list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${e.cirugia} ,${e.datecirugia}</small></div></a>`
-                                            );
+                                        );
 
                                     });
                                     //end
@@ -423,7 +430,7 @@
                                         key) => {
                                         $('.list-medicamentos').append(
                                             `<a href="#" class=" ${key} list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${e.dose} ,${e.medicine}, ${e.patologi} , ${e.viaAdmin} , ${e.dateIniTreatment} , ${e.dateEndTreatment} , ${e.treatmentDuration}</small></div></a>`
-                                            );
+                                        );
                                     });
                                     //end
 
@@ -471,13 +478,33 @@
 
                                         e.study_medical.map((item, i) => {
                                             let et = '';
+                                            let target =
+                                                `{{ URL::asset('/imgs/${item.file}') }}`;
                                             if ((i % 2) == 0) {
                                                 et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px;" 
                                                     class="list-group-item  ${i}" aria-current="true">
                                                     ${item.description} ${item.record_code}
+                                                    <a target="_blank" href="${target}"> 
+                                                    <button style="margin-left: 1%;" type="button"
+                                                    class="refresf btn-idanger rounded-circle"
+                                                    data-bs-container="body"
+                                                    data-bs-toggle="popover"
+                                                    data-bs-custom-class="custom-popover"
+                                                    data-bs-placement="bottom"
+                                                    data-bs-content="No hay exámenes cargados">
+                                                    <i class="bi bi-arrow-up-circle-fill"></i>                                                     </a>   
                                                 </li>`
                                             } else {
-                                                et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item ${i}"" aria-current="true">${item.description} ${item.record_code}</li>`
+                                                et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item ${i}"" aria-current="true">${item.description} ${item.record_code}
+                                                    <a target="_blank" href="${target}"> 
+                                                    <button style="margin-left: 1%;" type="button"
+                                                    class="refresf btn-idanger rounded-circle"
+                                                    data-bs-container="body"
+                                                    data-bs-toggle="popover"
+                                                    data-bs-custom-class="custom-popover"
+                                                    data-bs-placement="bottom"
+                                                    data-bs-content="No hay exámenes cargados">
+                                                    <i class="bi bi-arrow-up-circle-fill"></i>                                                     </a>   </li>`
                                             }
                                             $('.ul-study').append(et);
                                         });
@@ -487,12 +514,32 @@
 
                                         e.exam_medical.map((item, e) => {
                                             let ett = '';
+                                            let target =
+                                                `{{ URL::asset('/imgs/${item.file}') }}`;
                                             if ((e % 2) == 0) {
                                                 ett =
-                                                    `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item  ${e}" aria-current="true">${item.description} ${item.record_code}</li>`
+                                                    `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item  ${e}" aria-current="true">${item.description} ${item.record_code}
+                                                        <a target="_blank" href="${target}"> 
+                                                    <button style="margin-left: 1%;" type="button"
+                                                    class="refresf btn-idanger rounded-circle"
+                                                    data-bs-container="body"
+                                                    data-bs-toggle="popover"
+                                                    data-bs-custom-class="custom-popover"
+                                                    data-bs-placement="bottom"
+                                                    data-bs-content="No hay exámenes cargados">
+                                                    <i class="bi bi-arrow-up-circle-fill"></i>                                                     </a>   </li>`
                                             } else {
                                                 ett =
-                                                    `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}</li>`
+                                                    `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}
+                                                        <a target="_blank" href="${target}"> 
+                                                    <button style="margin-left: 1%;" type="button"
+                                                    class="refresf btn-idanger rounded-circle"
+                                                    data-bs-container="body"
+                                                    data-bs-toggle="popover"
+                                                    data-bs-custom-class="custom-popover"
+                                                    data-bs-placement="bottom"
+                                                    data-bs-content="No hay exámenes cargados">
+                                                    <i class="bi bi-arrow-up-circle-fill"></i>                                                     </a>   </li>`
                                             }
                                             $('.ul-exmen').append(ett);
                                         });
@@ -569,7 +616,8 @@
                                                 type="date" value="">
                                         </div>
                                     </div>
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3" style="display: flex; align-items: flex-end;">
+                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3"
+                                        style="display: flex; align-items: flex-end;">
                                         <input class="btn btnSave send" id="btn-save" value="Consultar" type="submit"
                                             style="margin-left: 10px; margin-bottom: 4px;" />
                                     </div>
@@ -593,7 +641,8 @@
 
                                                 <div class="row p-3 mt-3">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group list-group-flush overflow-auto" style="border-radius: 8px;">
+                                                        <ul class="list-group list-group-flush overflow-auto"
+                                                            style="border-radius: 8px;">
                                                             <a href="#"
                                                                 class=" 0 list-group-item aa list-group-item-action  active"
                                                                 aria-current="true">
@@ -612,7 +661,8 @@
 
                                                 <div class="row p-3 mt-3">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group list-group-flush overflow-auto" style="border-radius: 8px;">
+                                                        <ul class="list-group list-group-flush overflow-auto"
+                                                            style="border-radius: 8px;">
                                                             <a href="#"
                                                                 class=" 0 list-group-item aa list-group-item-action  active"
                                                                 aria-current="true">
@@ -629,8 +679,9 @@
                                                 </div>
 
                                                 <div class="row p-3 mt-3">
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" >
-                                                        <ul class="list-group list-group-flush overflow-auto" style="border-radius: 8px;">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                        <ul class="list-group list-group-flush overflow-auto"
+                                                            style="border-radius: 8px;">
                                                             <a href="#"
                                                                 class=" 0 list-group-item aa list-group-item-action  active"
                                                                 aria-current="true">
@@ -653,7 +704,8 @@
 
                                                 <div class="row p-3 mt-3">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group list-group-flush overflow-auto" style="border-radius: 8px;">
+                                                        <ul class="list-group list-group-flush overflow-auto"
+                                                            style="border-radius: 8px;">
                                                             <a href="#"
                                                                 class=" 0 list-group-item aa list-group-item-action  active"
                                                                 aria-current="true">
@@ -670,12 +722,14 @@
                                                 </div>
                                                 <div class="row p-3 mt-3">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group list-group-flush overflow-auto" style="border-radius: 8px;">
+                                                        <ul class="list-group list-group-flush overflow-auto"
+                                                            style="border-radius: 8px;">
                                                             <a href="#"
                                                                 class=" 0 list-group-item aa list-group-item-action  active"
                                                                 aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 class="mb- text-capitalize">Antecedentes quirúrgicos
+                                                                    <h5 class="mb- text-capitalize">Antecedentes
+                                                                        quirúrgicos
                                                                     </h5>
                                                                 </div>
                                                             </a>
@@ -688,7 +742,8 @@
 
                                                 <div class="row p-3 mt-3">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group list-group-flush overflow-auto" style="border-radius: 8px;">
+                                                        <ul class="list-group list-group-flush overflow-auto"
+                                                            style="border-radius: 8px;">
                                                             <a href="#"
                                                                 class=" 0 list-group-item aa list-group-item-action  active"
                                                                 aria-current="true">
