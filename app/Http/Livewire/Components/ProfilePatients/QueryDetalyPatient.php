@@ -27,7 +27,10 @@ class QueryDetalyPatient extends Component
 		//preparar datos de la consulta medica
 		if ($patients != null) {
 
+			
+
 			foreach ($patients->get_medicard_record as $key => $record) {
+
 
 				$medicard_record[$key] = [
 					"id" => encrypt($record->id),
@@ -35,8 +38,8 @@ class QueryDetalyPatient extends Component
 					"record_date" => $record->record_date,
 					"doctor" => $record->get_doctor->name . " " . $record->get_doctor->last_name,
 					"specialty" => $record->get_doctor->specialty,
-					"study_medical" =>	$record->get_study_medical,
-					"exam_medical" =>	$record->get_exam_medical,
+					"study_medical" =>	$record->get_study_medical->where('status','2') ,
+					"exam_medical" =>	$record->get_exam_medical->where('status','2'),
 					"razon" => $record->razon,
 					"diagnosis" => $record->diagnosis,
 				];
