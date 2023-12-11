@@ -435,7 +435,7 @@
                                                     eléctronico</label>
                                                 <input autocomplete="off" class="form-control" id="email"
                                                     name="email" type="text" value="">
-                                                <i class="bi bi-envelope-ats st-icon"></i>
+                                                    <i class="bi bi-envelope st-icon" style="top: 30px"></i>
                                             </div>
                                         </diV>
                                     </div>
