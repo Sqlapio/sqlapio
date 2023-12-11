@@ -240,6 +240,7 @@
                     img = user.get_laboratorio.lab_img;
                     $('#state').val(user.get_laboratorio.state).change();
                     $('#city').val(user.get_laboratorio.city).change();
+                    $('#address').val(user.get_laboratorio.address).change();
                     $('#type_laboratory').val(user.get_laboratorio.type_laboratory).change();
                     $('#type_rif').val(user.get_laboratorio.rif[0] + "-").change();
                     setTimeout(() => {
