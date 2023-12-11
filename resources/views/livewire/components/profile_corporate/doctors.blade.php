@@ -99,12 +99,12 @@
                     classC = "form-check-input ci"
                 }
                 elem.btn =
-                    ` <div class="form-check form-switch">
-                            <input onchange="handlerDoctor(event);" style="width: 5em"
+                    `<div class="form-check form-switch" style="display: flex; justify-content: center;">
+                        <input onchange="handlerDoctor(event);" style="width: 5em"
                             class="${classC}" type="checkbox" role="switch"
                             id="flexSwitchCheckChecked" value="${elem.id}"
-                            ${checked}>
-                            </div>`;
+                        ${checked}>
+                    </div>`;
 
                 data.push(elem);
 
@@ -121,12 +121,12 @@
                 "bLengthChange": false,
                 columns: [{
                         data: 'name',
-                        title: 'Nombre y apellidos',
-                        className: "text-center",
+                        title: 'Nombre y Apellido',
+                        className: "text-center text-capitalize",
                     },
                     {
                         data: 'ci',
-                        title: 'documento de identidad',
+                        title: 'Número de Cédula',
                         className: "text-center",
                     },
                     {
@@ -200,7 +200,6 @@
                                                         <div class="form-check form-switch" style="display: flex; justify-content: center;">
                                                             <input onchange="handlerDoctor(event);" style="width: 5em"
                                                                 class="{{$item->tipo_status == '1' ? 'form-check-input': 'form-check-input ci' }}" type="checkbox" role="switch"
-                                                                {{-- class="{{$item->tipo_status == '1' ? 'form-check-input': 'custom-control-input' }}" type="checkbox" role="switch" --}}
                                                                 id="flexSwitchCheckChecked" value="{{ $item->id }}"
                                                                 {{ $item->tipo_status!= '1' ? '' : 'checked' }}>
                                                         </div>
