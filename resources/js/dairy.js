@@ -367,7 +367,7 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
 }
 
 function clearInput(date) {
-  $("#btn-con").find('a').remove();
+  $("#btn-con").find('button').remove();
   $("#btn-cancell").find('button').remove();
   $("#search-patients-show").show();
   $("#name").text('');
@@ -689,10 +689,6 @@ function handlerMedicalRecord(item) {
     });
 
   }
-
-
-
-
 }
 
 window.update_appointments = update_appointments;
