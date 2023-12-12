@@ -285,7 +285,7 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
   ulrimge = ulrImge;
   ulrUpdate = updateAppointments;
   avatar_imge = ulr_imge_avatar;
-  let dateString = getDateWithoutTime(new Date()).toISOString().substring(0,10);
+  let dateString = getDateWithoutTime(new Date()).toISOString().substring(0, 10);
 
   //
   const calendarEl = document.getElementById('calendar')
@@ -328,10 +328,10 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
     },
     dateClick: function (info) {
       if (info.dateStr >= dateString === false)
-          return (info.start >= getDateWithoutTime(new Date()));
+        return (info.start >= getDateWithoutTime(new Date()));
       else {
-          clearInput(info.dateStr);
-          $('#exampleModal').modal('show');
+        clearInput(info.dateStr);
+        $('#exampleModal').modal('show');
       }
     },
     eventChange(info) {
@@ -343,26 +343,26 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
         "color": info.event._def.ui.backgroundColor,
         "extendedProps": info.event._def.extendedProps
       }
-      
+
       let dateEnd = data.end && data.start
       if (dateEnd >= dateString) {
-          update_appointments(ulrUpdate, data); 
-      } else if (data.extendedProps.data_app < dateEnd){
-          update_appointments(ulrUpdate, data); 
-        } else {
-          Swal.fire({
-            icon: 'warning',
-            title: '¡Esta seleccionando una fecha anterior!',
-            allowOutsideClick: false,
-            confirmButtonColor: '#42ABE2',
-            confirmButtonText: 'Aceptar'
+        update_appointments(ulrUpdate, data);
+      } else if (data.extendedProps.data_app < dateEnd) {
+        update_appointments(ulrUpdate, data);
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: '¡Esta seleccionando una fecha anterior!',
+          allowOutsideClick: false,
+          confirmButtonColor: '#42ABE2',
+          confirmButtonText: 'Aceptar'
         });
-          info.revert()
-          return false;
+        info.revert()
+        return false;
       }
     }
   });
-  
+
   calendar.render();
 }
 
@@ -408,10 +408,11 @@ function setValue(data, info) {
   }
   // let dataPers = data.split(",");
   // datos del paciente
-  $("#btn-con").find('a').remove();
+  $("#btn-con").find('button').remove();
   $("#btn-cancell").find('button').remove();
   url = url.replace(':id', info.event.extendedProps.patient_id);
-  $("#btn-con").append(`<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`);
+  let item = JSON.stringify(info);
+  $("#btn-con").append(`<button onclick='handlerMedicalRecord(${item})' type="button" class="btn btnSecond">Consulta medica</button>`);
   $("#btn-cancell").append(`<button type="button" onclick="cancelled_appointments(${info.event.extendedProps.id},'${urlCancelled}')" class="btn btnSecond">Cancelar Cita</button>`);
   $("#search-patients-show").hide();
   $("#center_id").val(info.event.extendedProps.center_id).change().attr("disabled", true);
@@ -428,13 +429,13 @@ function setValue(data, info) {
   $("#price").val(info.event.extendedProps.price);
   $('#div-pat').show();
   $("#img-pat").attr("src", `${img_url}`);
-  
+
   $('#registrer-pac').attr("disabled", false).hide();
 
 
   $("#title-modal").text('Cita');
   ////
-  
+
   $("#appointment-data").show();
   $("#fecha").text(new Date(info.event._instance.range.start).toISOString().split('T')[0]);
   $("#hour").text(info.event.extendedProps.data + ' ' + info.event.extendedProps.time_zone_start);
@@ -446,7 +447,7 @@ function setValue(data, info) {
   $("#CM").hide();
   $("#check-price").hide();
 
-  
+
 }
 
 function searchPatients(res) {
@@ -672,6 +673,28 @@ function handlerPrice(e) {
     $('#div-price').hide();
   }
 }
+function handlerMedicalRecord(item) {
+
+  if (Number(new Date().toJSON().slice(0, 10).replaceAll('-', '')) === Number(new Date(item.event.start).toISOString().split('T')[0].replaceAll('-', ''))) {
+    url = url.replace(':id', item.event.extendedProps.patient_id);
+    window.location.href = url;
+  } else {
+
+    Swal.fire({
+      icon: 'warning',
+      title: 'No puede realizar esta consulta!',
+      allowOutsideClick: false,
+      confirmButtonColor: '#42ABE2',
+      confirmButtonText: 'Aceptar'
+    });
+
+  }
+
+
+
+
+}
+
 window.update_appointments = update_appointments;
 window.cancelled_appointments = cancelled_appointments;
 window.finalizar_appointments = finalizar_appointments;
@@ -680,9 +703,9 @@ window.searchPatients = searchPatients;
 window.handlerPrice = handlerPrice;
 window.handlerTime = handlerTime;
 window.getUrl = getUrl;
+window.handlerMedicalRecord = handlerMedicalRecord;
 
-function getDateWithoutTime(dt)
-{
-  dt.setHours(0,0,0,0);
+function getDateWithoutTime(dt) {
+  dt.setHours(0, 0, 0, 0);
   return dt;
 }
