@@ -41,38 +41,6 @@
 
         $(document).ready(() => {
 
-             // selec dos
-  function matchCustom(params, data) {
-    // If there are no search terms, return all of the data
-    if ($.trim(params.term) === '') {
-      return data;
-    }
-
-    // Do not display the item if there is no 'text' property
-    if (typeof data.text === 'undefined') {
-      return null;
-    }
-
-    // `params.term` should be the term that is used for searching
-    // `data.text` is the text that is displayed for the data object
-    if (data.text.indexOf(params.term) > -1) {
-      var modifiedData = $.extend({}, data, true);
-      modifiedData.text += ' (matched)';
-
-      // You can return modified objects from here
-      // This includes matching the `children` how you want in nested data sets
-      return modifiedData;
-    }
-
-    // Return `null` if the term should not be displayed
-    return null;
-  }
-
-  $(".js-example-matcher").select2({
-    matcher: matchCustom
-  });
-  ////end
-
             const find = listPlanes.find((e) => e === Number(type_plan));
             if (find == undefined) {
                 $('#div-content').hide();
@@ -382,7 +350,7 @@
                                                 <select style="width:100% !important " 
                                                     name="center_id" id="center_id"
                                                     placeholder="Seleccione"
-                                                    class="form-control combo-textbox-input js-example-matcher">
+                                                    class="form-control combo-textbox-input select_dos">
                                                     <option value="">Seleccione...</option>
                                                     @foreach ($centers as $item)
                                                         <option value="{{ $item->id }}">{{ $item->description }}
