@@ -20,8 +20,12 @@ $('.alpha-no-spaces').mask("A", {
 $("#datepicker").datepicker({
   language: 'es',
 });
-$(document).ready(() => {
-
+$(document).ready(() => { 
+  // selec dos
+  $(".select_dos").select2({    
+    matcher: matchCustom
+  });
+  ////end
   new DataTable('.table', {
     language: {
       url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
@@ -43,6 +47,32 @@ function calculateAge(e, id) {
   $(`#${id}`).val(edad);
   return edad;
 }
+
+function matchCustom(params, data) {
+  // If there are no search terms, return all of the data
+  if ($.trim(params.term) === '') {
+    return data;
+  }
+
+  // Do not display the item if there is no 'text' property
+  if (typeof data.text === 'undefined') {
+    return null;
+  }
+
+  // `params.term` should be the term that is used for searching
+  // `data.text` is the text that is displayed for the data object
+  if (data.text.indexOf(params.term) > -1) {
+    var modifiedData = $.extend({}, data, true);
+    modifiedData.text += ' (matched)';
+
+    // You can return modified objects from here
+    // This includes matching the `children` how you want in nested data sets
+    return modifiedData;
+  }
+
+  // Return `null` if the term should not be displayed
+  return null;
+}
 async function get_data(url) {
   console.log(url);
   // ajax para refrescar la tabla s
@@ -62,3 +92,5 @@ async function get_data(url) {
 }
 window.get_data = get_data;
 window.calculateAge = calculateAge;
+window.matchCustom = matchCustom;
+
