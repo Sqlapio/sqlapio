@@ -45,7 +45,6 @@ class Diary extends Component
     public function store(Request $request)
     {
         try {
-
             $rules = [
                 'date_start' => 'required',
                 'hour_start' => 'required',
@@ -85,9 +84,8 @@ class Diary extends Component
             $appointment->color = $date[2];
 
             //Validacion para evitar que la citas se registren en mismo dia a la misma hora
-
             $validate_dairy = Appointment::where('date_start', $request->date_start)
-            ->where('hour_start', $request->hour_start." ".$request->timeIni)
+            ->where('hour_start',  $date[0].'-'.$date[1]." ".$request->timeIni)
             ->where('status',1)
             ->first();
 
