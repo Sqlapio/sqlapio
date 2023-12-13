@@ -59,7 +59,7 @@
     let user = @json(Auth::user());
 
     $(document).ready(() => {
-      
+
         let data_palnes = [{
                 type_plan: 1,
                 description: "Plan - FREE",
@@ -115,7 +115,7 @@
         }
 
         switch_type_plane(user.type_plane);
-
+        hiddenBtn(user.type_plane);
         const data = data_palnes.find((e) => e.type_plan == user.type_plane);
 
         $('.card-title').text(data.description);
@@ -287,9 +287,25 @@
         switch_type_plane(type_plan);
     }
 
-    function switch_type_plane(type_plane) {
-        console.log(type_plane);
+    function hiddenBtn(type_plane) {
+        switch (Number(type_plane)) {
+            case 1:
+                $('#free-btn').hide();
+                $('#renew-btn').hide();                
+                break;
+            case 2:
+                $('#free-btn').hide();
+                $('#profesional-btn').hide();
+                break;
+            case 3:
+                $('#free-btn').hide();
+                $('#profesional-btn').hide();
+                $('#change-btn').hide();
+                break;
+        }
+    }
 
+    function switch_type_plane(type_plane) {
         switch (Number(type_plane)) {
             case 1:
                 $("#type_plan").val(type_plane);
@@ -313,10 +329,7 @@
                 }
                 $('#free').show();
                 $('#profesional').hide();
-                $('#ilimitado').hide();
-                ///ocultar botones
-                $('#renew-btn').hide();
-                $('#free-btn').hide();
+                $('#ilimitado').hide();             
                 break;
             case 2:
                 $("#type_plan").val(type_plane);
@@ -340,10 +353,7 @@
                 }
                 $('#free').hide();
                 $('#profesional').show();
-                $('#ilimitado').hide();
-                ///ocultar botones
-                $('#free-btn').hide();
-                $('#profesional-btn').hide();
+                $('#ilimitado').hide();                
                 break;
             case 3:
                 $('#paciente_span').hide();
@@ -357,11 +367,7 @@
                 $("#methodo_payment").attr('disabled', false);
                 $('#free').hide();
                 $('#profesional').hide();
-                $('#ilimitado').show();
-                ///ocultar botones
-                $('#free-btn').hide();
-                $('#profesional-btn').hide();
-                $('#change-btn').hide();
+                $('#ilimitado').show();             
                 break;
             case 4:
                 $("#type_plan").val(type_plane);
@@ -563,8 +569,9 @@
                                                             style="color: red;"></i> <b
                                                             style="text-decoration: line-through;">Consultas en IA</b>
                                                     </li>
-						                            <li class="list-group-item text-capitalize"><i class="fa fa-check" 
-                                                        aria-hidden="true" style="color: green;"></i><b>Publicidad</b>
+                                                    <li class="list-group-item text-capitalize"><i class="fa fa-check"
+                                                            aria-hidden="true"
+                                                            style="color: green;"></i><b>Publicidad</b>
                                                     </li>
 
                                                 </ul>

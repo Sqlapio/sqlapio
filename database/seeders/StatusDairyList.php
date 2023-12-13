@@ -31,6 +31,10 @@ class StatusDairyList extends Seeder
                 'description' => 'Finalizada',
                 'class' => 'danger',
             ],
+            [
+                'description' => 'Cancelada',
+                'class' => 'warning',
+            ],
 
 
         ];
