@@ -510,7 +510,7 @@ class UtilsController extends Controller
 	{
 		try {
 
-			$centers = Center::all();
+			$centers = Center::where('corporate', 'false');
 			return $centers;
 			//code...
 		} catch (\Throwable $th) {
