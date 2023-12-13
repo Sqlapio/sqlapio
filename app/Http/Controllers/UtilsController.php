@@ -159,7 +159,7 @@ class UtilsController extends Controller
 					'last_name' => $request->last_name,
 					'ci' 		=> $request->ci,
 					'birthdate' => $request->birthdate,
-					'genere' => $request->genere,
+					'genere'    => $request->genere,
 					'specialty' => $request->specialty,
 					'age' 		=> $request->age,
 					'phone' 	=> $request->phone,
@@ -174,6 +174,7 @@ class UtilsController extends Controller
 					'user_img' 	=> $nameFile,
 					'status_register' => '2',
 				]);
+
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_registro()', $message);
