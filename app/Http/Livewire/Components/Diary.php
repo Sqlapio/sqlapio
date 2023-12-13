@@ -172,7 +172,7 @@ class Diary extends Component
                  * Status 2 => FINALIZADA
                  * Status 3 => CANCELADA
                  */
-                ->update(['status' => 3]);
+                ->update(['status' => 4]);
 
             $action = '12';
             ActivityLogController::store_log($action);
