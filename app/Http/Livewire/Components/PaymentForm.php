@@ -118,7 +118,7 @@ class PaymentForm extends Component
                     /** Actualizamos el valor false a true en la tabla centros
                      * para indicar que el centro pertenece a un plan corporativo
                      */
-                    Center::where('id', '$user->center_id')->update([
+                    Center::where('id', $user->center_id)->update([
                         'corporate' => 'true'
                     ]);
                     $user->token_corporate = $url_token;
