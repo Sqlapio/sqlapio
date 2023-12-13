@@ -29,10 +29,12 @@ use App\Http\Livewire\Components\Statistics;
 use App\Http\Livewire\Components\Register;
 use App\Http\Livewire\Components\Study;
 use App\Http\Middleware\VerifyPlans;
+use App\Models\Center;
 use App\Models\Exam;
 use App\Models\Patient;
 use App\Models\Reference;
 use App\Models\User as ModelsUser;
+use Illuminate\Support\Str;
 use App\View\Components\VerifyplansComponent;
 
 /*
@@ -157,7 +159,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/admin-patients', [AdminPatients::class, 'render'])->name("admin_patients");
             Route::get('/get_patient_corporate', [UtilsController::class, 'get_patient_corporate'])->name("get_patient_corporate");
             Route::get('/get_medical_record_corporate', [UtilsController::class, 'get_medical_record_corporate'])->name("get_medical_record_corporate");
-            Route::get('/get_doctor_corporate', [UtilsController::class, 'get_doctor_corporate'])->name("get_doctor_corporate");          
+            Route::get('/get_doctor_corporate', [UtilsController::class, 'get_doctor_corporate'])->name("get_doctor_corporate");
             Route::get('/get_list_exam', [UtilsController::class, 'get_list_exam'])->name("get_list_exam");
             Route::get('/get_list_study', [UtilsController::class, 'get_list_study'])->name("get_list_study");
             Route::get('/enabled-doctor/{id}', [UtilsController::class, 'habilitar_doctor_corporate'])->name("enabled-doctor");
@@ -251,11 +253,7 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-//route
-Route::get('/pp', function () {
-    $res = 'http://sqlapio.test/public/img/notification_email/cita_header.jpg';
-    dd($res);
-});
+
 Route::group(array('prefix' => 'public'), function () {
     Route::get('/payment-form/{type_plan}', [PaymentForm::class, 'render'])->name("payment-form");
     Route::post('/pay-plan', [PaymentForm::class, 'pay_plan'])->name("pay-plan");

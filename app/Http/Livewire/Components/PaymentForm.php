@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\BilledPlan;
 use App\Models\Laboratory;
 use App\Models\User;
+use App\Models\Center;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -114,6 +115,12 @@ class PaymentForm extends Component
                     $user->date_start_plan = $user->date_start_plan = date('Y-m-d');
                     $user->date_end_plan = $date_today;
                     $user->center_id = $request->center_id;
+                    /** Actualizamos el valor false a true en la tabla centros
+                     * para indicar que el centro pertenece a un plan corporativo
+                     */
+                    Center::where('id', $user->center_id)->update([
+                        'corporate' => 'true'
+                    ]);
                     $user->token_corporate = $url_token;
                     $user->save();
 
