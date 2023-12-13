@@ -139,11 +139,12 @@
                 <tr class="text-header" style="border-radius: 50px!important;">
                     <td style="padding: 10px;">
                         <div>
-                            <strong style="font-size: 15px;">{{ $reference->get_center->description }}</strong>
+                            <strong
+                                style="font-size: 15px;">{{ $reference->get_center->description }}</strong>
                             <p style="margin-top: 0px">
-                                Dirección: {{ $reference->get_center->address }},
+                                Dirección: {{ ($reference->get_user->type_plane == "7")? ' corporativo': $reference->get_center_data->address }},
                                 Local,
-                                {{( $reference->get_user->type_plane == "7")? $reference->get_user->number_floor   : $reference->get_center_data->number_floor }}<br>{{( $reference->get_user->type_plane == "7")? $reference->get_user->number_consulting_phone : $reference->get_center_data->phone_consulting_room }}
+                                {{($reference->get_user->type_plane = "7")? $reference->get_user->number_floor  : $reference->get_center_data->number_floor }}<br>{{($reference->get_user->type_plane == "7")?  $reference->get_user->number_consulting_phone : $reference->get_center_data->phone_consulting_room }}
                             </p>
                         </div>
                     </td>
