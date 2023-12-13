@@ -77,7 +77,7 @@ class User extends Authenticatable {
         'date_end_plan',
         'expired_plan',
 		'center_id',
-
+		'master_corporate_id',
 	];
 
 	/**
@@ -161,4 +161,8 @@ class User extends Authenticatable {
 		return $this->hasOne(Center::class, 'id', 'center_id');
 	}
 
+	public function get_data_corporate_master(): HasOne
+	{
+		return $this->hasOne(User::class, 'id', 'master_corporate_id');
+	}
 }

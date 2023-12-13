@@ -65,8 +65,8 @@ class Register extends Component {
 
                     User::where('email', $request->email)
                         ->update([
-                            'password'             => Hash::make($request->password),
-                            'verification_code' => Str::random(30)
+                            'password'              => Hash::make($request->password),
+                            'verification_code'     => Str::random(30),
                         ]);
 
                 /**
@@ -197,6 +197,7 @@ class Register extends Component {
                 $user_corporate->role = 'medico';
                 $user_corporate->type_plane = '7';
                 $user_corporate->center_id = $request->center_id;
+                $user_corporate->master_corporate_id = $request->user_corp_id;
                 $user_corporate->save();
 
             /**
@@ -424,32 +425,29 @@ class Register extends Component {
 				$patient= Laboratory::updateOrCreate(['id' => $request->id],
                 [
 
-					'code_lab' 				=> 'SQ-LAB-'.random_int(11111111, 99999999),
-					'user_id' 				=> $laboratory->id,
-					'business_name' 		=> $request->business_name,
-					'email' 				=> $request->email,
-					'rif' 					=> $request->rif,
-					'state' 				=> $request->state,
-					'city' 					=> $request->city,
-					'address' 				=> $request->address,
-					'phone_1' 				=> $request->phone,
-					'license' 				=> $request->license,
-					'type_laboratory' 		=> $request->type_laboratory,
-					'responsible' 			=> $request->responsible,
-					'descripcion' 			=> $request->descripcion,
-					'website' 				=> $request->website,
-                    // 'number_floor' 			=> $request->number_floor,
-                    // 'number_consulting_room'    => $request->number_consulting_room,
-                    // 'number_consulting_phone'   => $request->number_consulting_phone,
-					'lab_img' 				    => $nameFile
+					'code_lab' 		  => 'SQ-LAB-'.random_int(11111111, 99999999),
+					'user_id' 		  => $laboratory->id,
+					'business_name'   => $request->business_name,
+					'email' 		  => $request->email,
+					'rif' 			  => $request->rif,
+					'state' 		  => $request->state,
+					'city' 			  => $request->city,
+					'address' 		  => $request->address,
+					'phone_1' 		  => $request->phone,
+					'license' 		  => $request->license,
+					'type_laboratory' => $request->type_laboratory,
+					'responsible' 	  => $request->responsible,
+					'descripcion' 	  => $request->descripcion,
+					'website' 		  => $request->website,
+					'lab_img' 		  => $nameFile
 
 				]);
 
 				$update = DB::table('users')
 					->where('id', $laboratory->id)
 					->update([
-						'status_register' => '2',
-				]);
+						'status_register' => '2',	
+                    ]);
 
 				$action = '17';
 				ActivityLogController::store_log($action);
