@@ -521,31 +521,43 @@
         });
 
         function resetForm() {
-            $("#medical_record_id").val('');
-            $("#form-consulta").trigger("reset");
-            $('#table-medicamento > tbody').empty();
-            $('.send').attr('disabled', false);
-            $('.btn-check').attr('disabled', false);
-            $(".medicine-form").show();
-            // $("#indication").show();
-            // $("#treatmentDuration").show();
-            $("#center_id").attr('disabled', false);
-            $("#background").attr('disabled', false);
-            $("#razon").attr('disabled', false);
-            $("#diagnosis").attr('disabled', false);
-            $("#treatment").attr('disabled', false);
-            $(".addMedacition").show();
-            // $("#exams").attr('disabled', false);
-            // $("#studies").attr('disabled', false);
-            $('#form-consulta').find('input:checkbox').attr('checked', false);
-            exams_array = [];
-            studies_array = [];
-            $('#exam_filter').hide();
-            $('#study_filter').hide();
-            $('#exam').show();
-            $('#studie').show();
-            $('#not-exam').hide();
-            $('#not-studie').hide();
+            Swal.fire({
+                icon: 'warning',
+                title: 'Desea realizar esta acción?',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar',
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $("#medical_record_id").val('');
+                    $("#form-consulta").trigger("reset");
+                    $('#table-medicamento > tbody').empty();
+                    $('.send').attr('disabled', false);
+                    $('.btn-check').attr('disabled', false);
+                    $(".medicine-form").show();
+                    // $("#indication").show();
+                    // $("#treatmentDuration").show();
+                    $("#center_id").attr('disabled', false);
+                    $("#background").attr('disabled', false);
+                    $("#razon").attr('disabled', false);
+                    $("#diagnosis").attr('disabled', false);
+                    $("#treatment").attr('disabled', false);
+                    $(".addMedacition").show();
+                    // $("#exams").attr('disabled', false);
+                    // $("#studies").attr('disabled', false);
+                    $('#form-consulta').find('input:checkbox').attr('checked', false);
+                    exams_array = [];
+                    studies_array = [];
+                    $('#exam_filter').hide();
+                    $('#study_filter').hide();
+                    $('#exam').show();
+                    $('#studie').show();
+                    $('#not-exam').hide();
+                    $('#not-studie').hide();
+                }
+            });
+            
 
         }
 

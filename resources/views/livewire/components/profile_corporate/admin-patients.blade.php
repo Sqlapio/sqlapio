@@ -193,13 +193,13 @@
                                                         <td class="text-center">
                                                             {{ $item->center_id }}</td>
                                                         <td class="text-center">
-                                                            <div class="d-flex">
-                                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                            <div class="d-flex" style="justify-content: center;">
+                                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                                     <button type="button"
                                                                         onclick="hendlerModal({{ $item->id }})"
                                                                         class="btn btn-iPrimary rounded-circle"
                                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                                        title="Detalles del paciente">
+                                                                        title="Detalles del paciente" style="margin-right: 0px;">
                                                                         <i class="bi bi-info-circle-fill"></i>
                                                                     </button>
                                                                 </div>
