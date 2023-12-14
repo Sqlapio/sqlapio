@@ -301,6 +301,9 @@
                 $('#free-btn').hide();
                 $('#profesional-btn').hide();
                 $('#change-btn').hide();
+                $('#paciente_span').hide();
+                $('#consulta_span').hide();
+                $('#examene_span').hide();
                 break;
         }
     }
@@ -356,9 +359,7 @@
                 $('#ilimitado').hide();                
                 break;
             case 3:
-                $('#paciente_span').hide();
-                $('#consulta_span').hide();
-                $('#examene_span').hide();
+                
                 $('#estudio_span').hide();
                 $("#type_plan").val(type_plane);
                 $("#amount").val('$39.99');
