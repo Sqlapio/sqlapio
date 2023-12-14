@@ -123,7 +123,8 @@
         });
 
         function showModal(item, active, info) {
-            count = 0;
+            if (info.length > 0) {
+                count = 0;
             $('#count').val('');
             $('.holder').hide();
             $('#code_ref').val(item.cod_ref);
@@ -172,6 +173,16 @@
             $('#ref').text(item.cod_ref);
             $('#id').val(item.id);
             $('#ref-pat').text(`${item.get_patient.name} ${item.get_patient.last_name}`);
+            } else {
+                Swal.fire({
+                            icon: 'warning',
+                            title: 'Paciente sin exámenes/estudios solicitados por el médico!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+            }
+            
         }
 
         function cuontResul(e, item, type, key) {
@@ -949,12 +960,12 @@
                             {{ csrf_field() }}
                             <input type="hidden" id="id" name="id" value="">
                             <input type="hidden" id="code_ref" name="code_ref" value="">
+                            <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                                <strong>Referencia: </strong><span id="ref"></span>
+                                <br>
+                                <strong>Paciente: </strong><span id="ref-pat"></span>
+                            </div>
                             <div class="row mt-3">
-                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                    <strong>Referencia: </strong><span id="ref"></span>
-                                    <br>
-                                    <strong>Paciente: </strong><span id="ref-pat"></span>
-                                </div>
                                 <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-3 table-responsive" id="info-show">
                                     <table class="table table-striped table-bordered" id="table-info">
                                         <thead>
