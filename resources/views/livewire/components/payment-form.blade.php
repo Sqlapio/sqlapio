@@ -55,15 +55,18 @@
                     $("#code_card").attr('disabled', true)
                     $("#number_card").attr('disabled', true)
                     $("#methodo_payment").attr('disabled', true)
-                    $("#div-payment-metodo").hide()
+                    $("#div-payment-metodo").hide();
+                    $("#free").show();
 
                     break;
                 case 2:
                     $("#amount").val('$19.99');
+                    $("#free").hide();
 
                     break;
                 case 3:
                     $("#amount").val('$39.99');
+                    $("#free").hide();
 
                     break;
                 case 4:
@@ -74,6 +77,7 @@
                     $("#empresa").show();
                     $("#tipo_rif").show();
                     $("#Rif").show();
+                    $("#free").hide();
 
                     break;
                 case 5:
@@ -84,7 +88,8 @@
                     $("#empresa").show();
                     $("#tipo_rif").show();
                     $("#Rif").show();
-
+                    $("#free").hide();
+                    $("#free").hide();
 
 
                     break;
@@ -107,6 +112,8 @@
                     $("#tipo_rif").show();
                     $("#Rif").show();
                     $("#div-payment-metodo").hide();
+                    $("#free").hide()
+
                     break;
 
                 default:
@@ -285,6 +292,32 @@
                                         <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-03.png') }}"
                                             alt="">
                                     </div>
+                                    <div id="free" style="display: none; display: flex; justify-content: center; text-align: center;">
+                                        <div class="row" style="display: flex; width: 60%; font-size: 14px;">
+                                            <ul class="list-group">
+                                                <li class="list-group-item" style="background-color: #6f6f6e; color: white;"><h5>Plan Free</h5></b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                        style="color: green;"></i> 10 <b>Pacientes</b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                        style="color: green;"></i> 20 <b>Consultas</b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                        style="color: green;"></i> 20 <b>Exámenes</b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                        style="color: green;"></i> 20 <b>Estudios</b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-x"
+                                                        style="color: red;"></i> <b
+                                                        style="text-decoration: line-through;">Estudios con
+                                                        videos</b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-x"
+                                                        style="color: red;"></i> <b
+                                                        style="text-decoration: line-through;">Consultas en IA</b>
+                                                </li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check"
+                                                    style="color: green;"></i><b>Publicidad</b>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </diV>
                                 </div>
                                 {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment']) }}
                                 <div class="row">
