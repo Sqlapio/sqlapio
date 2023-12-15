@@ -593,7 +593,11 @@
                                 </div>
 
                                 <div class="col-xs-6 col-sm-6 col-md-6" style="display: flex; justify-content: flex-end;">
-                                    @if (Auth::user()->role == 'medico' && Auth::user()->type_plane == '7')
+                                    @if (Auth::user()->role == 'medico' && Auth::user()->type_plane == '7' && Auth::user()->get_data_corporate_master)
+                                        <img class="avatar-corporativo d-none d-xl-block"
+                                        src="{{ asset('/imgs/' . Auth::user()->get_data_corporate_master->get_laboratorio->lab_img) }}"
+                                        alt="Chris Wood" style="margin-top:0; object-fit: scale-down;">
+                                    @elseif (Auth::user()->get_data_corporate_master == null && Auth::user()->role == 'medico' && Auth::user()->type_plane == '7')
                                         <img class="avatar-corporativo d-none d-xl-block" src="{{ asset('/img/logo sqlapio-02.png') }}" alt="Chris Wood" style="margin-top:0; object-fit: scale-down;">
                                     @endif
                                     <a class="nav-link icon-p" href="#" style="height: 94px;">

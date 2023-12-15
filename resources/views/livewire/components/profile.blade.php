@@ -204,13 +204,13 @@
 
             } else {
 
-                $("#business_name").rules('add', {
+                $("#business_name").attr('disabled', true).rules('add', {
                     required: true,
                     minlength: 3,
                     maxlength: 50,
                 });
 
-                $("#rif").rules('add', {
+                $("#rif").attr('disabled', true).rules('add', {
                     required: true,
                     minlength: 5,
                     maxlength: 17,
@@ -242,7 +242,7 @@
                     $('#city').val(user.get_laboratorio.city).change();
                     $('#address').val(user.get_laboratorio.address).change();
                     $('#type_laboratory').val(user.get_laboratorio.type_laboratory).change();
-                    $('#type_rif').val(user.get_laboratorio.rif[0] + "-").change();
+                    $('#type_rif').attr('disabled', true).val(user.get_laboratorio.rif[0] + "-").change();
                     setTimeout(() => {
                         $('#rif').val(user.get_laboratorio.rif);
                     }, 10);
