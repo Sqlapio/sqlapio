@@ -568,7 +568,7 @@ function cancelled_appointments(id, url, active = null) {
 
   Swal.fire({
     icon: 'warning',
-    title: '¿Confirma que    desea ELIMINAR la cita?',
+    title: '¿Confirma que desea ELIMINAR la cita?',
     allowOutsideClick: false,
     confirmButtonColor: '#42ABE2',
     confirmButtonText: 'Aceptar',
@@ -682,7 +682,7 @@ function handlerMedicalRecord(item) {
 
     Swal.fire({
       icon: 'warning',
-      title: 'No puede realizar esta consulta!',
+      title: 'Para realizar la consulta, debe cambiar la cita al dia de hoy!',
       allowOutsideClick: false,
       confirmButtonColor: '#42ABE2',
       confirmButtonText: 'Aceptar'

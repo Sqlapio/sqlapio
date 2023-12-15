@@ -8,7 +8,7 @@
     }
 
     .avatar-corporativo {
-        width: 250px;
+        width: auto;
         height: 95px;
         object-fit: fill;
         margin-right: 14px;
@@ -265,7 +265,7 @@
         }
 
         .avatar-corporativo {
-            width: 140px;
+            width: auto;
             height: 70px;
         }
     }
@@ -342,7 +342,7 @@
         }
 
         .avatar-corporativo {
-            width: 140px;
+            width: auto;
             height: 70px;
         }
 
@@ -419,7 +419,7 @@
         }
 
         .avatar-corporativo {
-            width: 140px;
+            width: auto;
             height: 70px;
         }
     }
@@ -492,7 +492,7 @@
         }
 
         .avatar-corporativo {
-            width: 140px;
+            width: auto;
             height: 70px;
         }
     }
@@ -564,7 +564,7 @@
         }
 
         .avatar-corporativo {
-            width: 140px;
+            width: auto;
             height: 70px;
         }
     }
@@ -598,7 +598,8 @@
                                         src="{{ asset('/imgs/' . Auth::user()->get_data_corporate_master->get_laboratorio->lab_img) }}"
                                         alt="Chris Wood" style="margin-top:0; object-fit: scale-down;">
                                     @elseif (Auth::user()->get_data_corporate_master == null && Auth::user()->role == 'medico' && Auth::user()->type_plane == '7')
-                                        <img class="avatar-corporativo d-none d-xl-block" src="{{ asset('/img/logo sqlapio-02.png') }}" alt="Chris Wood" style="margin-top:0; object-fit: scale-down;">
+                                        <img class="avatar-corporativo d-none d-xl-block" src="{{ asset('/img/logo sqlapio-02.png') }}" alt="Chris Wood" 
+                                        style="margin-top:0; object-fit: scale-down; width: 180px">
                                     @endif
                                     <a class="nav-link icon-p" href="#" style="height: 94px;">
                                         @if (Auth::user()->user_img != null && Auth::user()->role == 'medico')
@@ -611,10 +612,11 @@
                                             <img class="avatar-user mt-text img-fluid rounded-circle me-1" src="{{ asset('/img/avatar/avatar.png') }}"
                                                 alt="Chris Wood">
                                         @elseif(Auth::user()->role == 'corporativo' && Auth::user()->get_laboratorio->lab_img != null)
-                                            <img class="avatar-corporativo img-fluid me-1"
+                                            <img class="avatar-corporativo img-fluid"
                                                 src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}" alt="Chris Wood">
                                         @elseif(Auth::user()->role == 'corporativo')
-                                            <img class="avatar-corporativo" src="{{ asset('/img/logo sqlapio-02.png') }}" alt="Chris Wood" style="margin-top:0; object-fit: scale-down;">
+                                            <img class="avatar-corporativo" src="{{ asset('/img/logo sqlapio-02.png') }}" alt="Chris Wood" 
+                                            style="margin-top:0; object-fit: scale-down;  width: 180px">
                                         @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) == null && Auth::user()->role == 'laboratorio')
                                             <span class="strong me-1" style="margin-bottom: 7px;"> {{ Auth::user()->business_name }} </span>
                                             <img class="avatar-user mt-text img-fluid rounded-circle me-1" 
