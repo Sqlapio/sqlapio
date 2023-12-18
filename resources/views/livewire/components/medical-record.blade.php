@@ -549,6 +549,7 @@
                     $('#form-consulta').find('input:checkbox').attr('checked', false);
                     exams_array = [];
                     studies_array = [];
+                    medications_supplements = [];
                     $('#exam_filter').hide();
                     $('#study_filter').hide();
                     $('#exam').show();
@@ -595,7 +596,7 @@
                         <td class="text-center">${element.medicine}</td>
                         <td class="text-center">${element.indication}</td>
                         <td class="text-center">${element.treatmentDuration}</td>                  
-                        <td class="text-center"><span onclick="deleteMedication(${countMedicationAdd})" ><i class="bi bi-archive"></i></span></td>                    
+                        <td class="text-center"><span><i class="bi bi-archive"></i></span></td>                    
                         </tr>`;
                 $('#table-medicamento').find('tbody').append(row);
 
@@ -1246,6 +1247,7 @@
                                                                         <div
                                                                             class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <button type="button"
+                                                                                id="popover"
                                                                                 class="refresf btn-idanger rounded-circle"
                                                                                 data-bs-container="body"
                                                                                 data-bs-toggle="popover"
