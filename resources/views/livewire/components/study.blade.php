@@ -114,11 +114,7 @@
                                 if (elem.study.length === 0) {
                                     elem.btn = `<button type="button"
                                                     class="refresf btn-idanger rounded-circle"
-                                                    data-bs-container="body"
-                                                    data-bs-toggle="popover"
-                                                    data-bs-custom-class="custom-popover"
-                                                    data-bs-placement="bottom"
-                                                    data-bs-content="No hay estudios cargados">
+                                                    onclick='showNotStudy()'>
                                                     <i class="bi bi-exclamation-lg"></i>
                                                 </button>`;
                                 }
@@ -229,6 +225,17 @@
                 
                 
             });
+        }
+
+        function showNotStudy() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'No hay estudios cargados',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar'
+            });
+            return false;
         }
     </script>
 @endpush
