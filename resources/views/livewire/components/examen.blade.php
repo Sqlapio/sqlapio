@@ -98,10 +98,7 @@
                                 if(elem.exam.length===0){
                                     elem.btn  = `<button type="button"
                                                         class="refresf btn-idanger rounded-circle"
-                                                        data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom"
-                                                        data-bs-custom-class="custom-tooltip"
-                                                        data-html="true" title="No hay examenes cargados">
+                                                        onclick='showAlertNotExam()'>
                                                         <i class="bi bi-exclamation-lg"></i>
                                                     </button>`;
                                 }
@@ -211,11 +208,23 @@
             });
             
         }
+
         const tooltipTriggerList = document.querySelectorAll(
             '[data-bs-toggle="tooltip"]')
         tooltipTriggerList.forEach(element => {
             new bootstrap.Tooltip(element)
         });
+
+        function showAlertNotExam() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'No hay exámenes cargados',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar'
+            });
+            return false;
+        }
     </script>
 @endpush
 @section('content')
