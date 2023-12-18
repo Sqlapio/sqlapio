@@ -343,16 +343,16 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
         "color": info.event._def.ui.backgroundColor,
         "extendedProps": info.event._def.extendedProps
       }
-
+      
       let dateEnd = data.end && data.start
       if (dateEnd >= dateString) {
         update_appointments(ulrUpdate, data);
-      } else if (data.extendedProps.data_app < dateEnd) {
+      } else if (data.extendedProps.data_app < dateEnd && dateEnd >= dateString) {
         update_appointments(ulrUpdate, data);
       } else {
         Swal.fire({
           icon: 'warning',
-          title: '¡Esta seleccionando una fecha anterior!',
+          title: '¡Esta seleccionando una fecha anterior al dia actual!',
           allowOutsideClick: false,
           confirmButtonColor: '#42ABE2',
           confirmButtonText: 'Aceptar'
