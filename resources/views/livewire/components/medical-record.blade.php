@@ -153,7 +153,7 @@
             if ( user.type_plane !== '7' && doctor_centers.length === 0) {
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Debe asociar  un centro!',
+                    title: 'Debe asociar un centro!',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
                     confirmButtonText: 'Aceptar'
@@ -830,6 +830,28 @@
             }
         }
 
+        function showAlertNotExam() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'No hay exámenes cargados',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar'
+            });
+            return false;
+        }
+
+        function showAlertNotStudy() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'No hay estudios cargados',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar'
+            });
+            return false;
+        }
+
     </script>
 @endpush
 @section('content')
@@ -1247,13 +1269,8 @@
                                                                         <div
                                                                             class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <button type="button"
-                                                                                id="popover"
                                                                                 class="refresf btn-idanger rounded-circle"
-                                                                                data-bs-container="body"
-                                                                                data-bs-toggle="popover"
-                                                                                data-bs-custom-class="custom-popover"
-                                                                                data-bs-placement="bottom"
-                                                                                data-bs-content="No hay exámenes cargados">
+                                                                                onclick="showAlertNotExam();">
                                                                                 <i class="bi bi-exclamation-lg"></i>
                                                                             </button>
                                                                         </div>
@@ -1278,11 +1295,7 @@
                                                                             class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <button type="button"
                                                                                 class="refresf btn-idanger rounded-circle"
-                                                                                data-bs-container="body"
-                                                                                data-bs-toggle="popover"
-                                                                                data-bs-custom-class="custom-popover"
-                                                                                data-bs-placement="bottom"
-                                                                                data-bs-content="No hay estudios cargados">
+                                                                                onclick="showAlertNotStudy();">
                                                                                 <i class="bi bi-exclamation-lg"></i>
                                                                             </button>
                                                                         </div>
