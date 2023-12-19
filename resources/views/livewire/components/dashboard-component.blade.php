@@ -246,7 +246,7 @@
                             data-bs-placement='right'
                             data-bs-custom-class='custom-tooltip' data-html='true'
                             title='Ver pdf' class='btn refresf btn-iSecond rounded-circle'><i
-                            class='bi bi-file-earmark-pdf'></i></button>
+                            class='bi bi-filetype-pdf'></i></button>
                             </a>`;
 
                 data.push(elem);
