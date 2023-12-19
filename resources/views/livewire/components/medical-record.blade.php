@@ -1306,7 +1306,7 @@
                                                                             href="{{ route('pdf_medical_prescription', $item['id']) }}">
                                                                             <button type="button"
                                                                                 class="btn refresf btn-iSecond rounded-circle"><i
-                                                                                    class="bi bi-file-earmark-pdf"
+                                                                                    class="bi bi-filetype-pdf"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
@@ -1322,7 +1322,7 @@
                                                                             href="{{ route('PDF_medical_record', $item['id']) }}">
                                                                             <button type="button"
                                                                                 class="btn refresf btn-iSecond rounded-circle"><i
-                                                                                    class="bi bi-file-earmark-pdf"
+                                                                                    class="bi bi-filetype-pdf"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
