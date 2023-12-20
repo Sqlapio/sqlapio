@@ -228,7 +228,6 @@
                     url: true,
                 });
 
-
                 $("#type_laboratory").rules('add', {
                     required: true
                 });
