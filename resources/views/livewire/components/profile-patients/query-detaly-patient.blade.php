@@ -33,6 +33,11 @@
         height: 100% !important;
     }
 
+    .wizard > .content > .body ul > li {
+        display: flex !important;
+        padding: 7px 22px;
+    }
+
     ul {
         list-style-type: none;
     }
@@ -198,79 +203,66 @@
                                     $('.Examen_fisico').empty();
                                     let Examen_fisico = `
                                     <div class="row p-3">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <ul class="list-group list-group-flush overflow-auto" style="border-radius: 8px;">
-                                                    <a href="#" class="list-group-item aa list-group-item-action  active"
-                                                        aria-current="true">
-                                                        <div class="d-flex w-100 justify-content-between">
-                                                        <h5 class="mb- text-capitalize">Examen Físico</h5>                                   
-                                                        </div>
-                                                    </a>
-
-                                                    <a href="#" class="list-group-item list-group-item-action"
-                                                        aria-current="true">
-                                                        <div class="d-flex w-100 justify-content-between">
-                                                            <small>Peso:</small><span >${ response[0].weight}</span>
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" class="list-group-item list-group-item-action"
-                                                        aria-current="true">
-                                                        <div class="d-flex w-100 justify-content-between">
-                                                            <small>Altura :</small><span >${ response[0].height}</span>   
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" class="list-group-item list-group-item-action"
-                                                        aria-current="true">
-                                                        <div class="d-flex w-100 justify-content-between">
-                                                            <small>Presión arterial:</small><span >${ response[0].strain}</span>
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" class="list-group-item list-group-item-action"
-                                                        aria-current="true">
-                                                        <div class="d-flex w-100 justify-content-between">
-                                                            <small>Tempetura:</small><span >${ response[0].temperature}</span>   
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" class="list-group-item list-group-item-action"
-                                                        aria-current="true">
-                                                        <div class="d-flex w-100 justify-content-between">
-                                                            <small>Respiraciones:</small><span >${ response[0].breaths}</span>   
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" class="list-group-item list-group-item-action"
-                                                        aria-current="true">
-                                                        <div class="d-flex w-100 justify-content-between">
-                                                            <small>Pulso:</small><span >${ response[0].pulse}</span>   
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" class="list-group-item list-group-item-action"
-                                                        aria-current="true">
-                                                        <div class="d-flex w-100 justify-content-between">
-                                                            <small>Saturación:</small><span >${ response[0].saturation}</span>   
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" class="list-group-item list-group-item-action"
-                                                        aria-current="true">
-                                                        <div class="d-flex w-100 justify-content-between">
-                                                            <small>Condición genera:</small><span >${ response[0].condition}</span>   
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" class="list-group-item list-group-item-action"
-                                                        aria-current="true">
-                                                        <div class="d-flex w-100 justify-content-between">
-                                                            <small>Motivo de la consulta:</small><span >${ response[0].reason}</span>   
-                                                        </div>
-                                                    </a>
-                                                    <a href="#" class="list-group-item list-group-item-action"
-                                                        aria-current="true">
-                                                        <div class="d-flex w-100 justify-content-between">
-                                                            <small>Enfermedad Actual:</small><span >${ response[0].current_illness}</span>   
-                                                        </div>
-                                                    </a>                                             
-
-                                                </ul>
-                                            </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <ul class="list-group" style="border-radius: 8px;">
+                                                <li class="list-group-item active aa" aria-current="true">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h5 class="mb-0 text-capitalize">Examen Físico</h5>
+                                                    </div>    
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <small>Peso:</small><span >${ response[0].weight} Kg</span>
+                                                    </div>                                                
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <small>Altura:</small><span >${ response[0].height}</span>   
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <small>Presión arterial:</small><span >${ response[0].strain}</span>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <small>Tempetura:</small><span >${ response[0].temperature}</span>   
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <small>Respiraciones:</small><span >${ response[0].breaths}</span>   
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <small>Pulso:</small><span >${ response[0].pulse}</span>   
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <small>Saturación:</small><span >${ response[0].saturation}</span>   
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <small>Condición general:</small><span >${ response[0].condition}</span>   
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <small>Motivo de la consulta:</small><span >${ response[0].reason}</span>   
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <small>Enfermedad Actual:</small><span >${ response[0].current_illness}</span>   
+                                                    </div>
+                                                </li>                                   
+                                            </ul>
                                         </div>
+                                    </div>
                                     `
                                     $('.Examen_fisico').append(Examen_fisico);
                                     // end
@@ -284,11 +276,11 @@
                                             if (key == value.name) {
                                                 if (val != null) {
                                                     $('.family_back').append(
-                                                        `<a href="#" class="${key} list-group-item list-group-item-action" aria-current="true" > 
+                                                        `<li class="${key} list-group-item" aria-current="true" > 
                                                             <div class="d-flex w-100 justify-content-between">
                                                                 <small>${value.text}</small>
                                                             </div>
-                                                        </a>`
+                                                        </li>`
                                                     );
                                                 }
                                             };
@@ -306,11 +298,11 @@
                                                 if (val != null) {
 
                                                     $('.pathology_back').append(
-                                                        `<a href="#" class="list-group-item list-group-item-action" aria-current="true"j> 
+                                                        `<li class="list-group-item" aria-current="true"j> 
                                                             <div class="d-flex w-100 justify-content-between">
                                                                 <small>${value.text}</small>
                                                             </div>
-                                                        </a>`
+                                                        </li>`
                                                     );
                                                 }
 
@@ -329,11 +321,11 @@
                                                 if (val != null) {
                                                     $('.non_pathology_back')
                                                         .append(
-                                                            `<a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                                                            `<li class="list-group-item" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
                                                                     <small>${value.text}</small>
                                                                 </div>
-                                                            </a>`
+                                                            </li>`
                                                         );
                                                 }
                                             };
@@ -346,58 +338,55 @@
 
                                     let gine = `<div class="row p-3">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <ul class="list-group list-group-flush overflow-auto" style="border-radius: 8px;">
-                                            <a href="#" class="list-group-item aa list-group-item-action  active"
-                                                aria-current="true">
+                                        <ul class="list-group" style="border-radius: 8px;">
+                                            <li class="list-group-item active aa" aria-current="true">
                                                 <div class="d-flex w-100 justify-content-between">
-                                                    <h5 class="mb- text-capitalize">Antecedentes ginecologicos (si aplica) </h5>                                   
+                                                    <h5 class="mb-0 text-capitalize">Antecedentes ginecologicos (si aplica) </h5>                                   
                                                 </div>
-                                            </a>
+                                            </li>
 
-                                            <a href="#" class="list-group-item list-group-item-action"
-                                                aria-current="true">
+                                            <li class="list-group-item" aria-current="true">
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <small>Edad de primera menstruación:</small><span >${ response[0].edad_primera_menstruation}</span>
                                                 </div>
-                                            </a>
-                                            <a href="#" class="list-group-item list-group-item-action"
+                                            </li>
+                                            <li class="list-group-item"
                                                 aria-current="true">
                                                     <div class="d-flex w-100 justify-content-between">
                                                 <small>Fecha último periodo :</small><span >${ response[0].fecha_ultima_regla}</span>   
                                             </div>
-                                            </a>
-                                            <a href="#" class="list-group-item list-group-item-action"
+                                            </li>
+                                            <li class="list-group-item"
                                                 aria-current="true">
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <small>Número de embarazos:</small><span >${ response[0].numero_embarazos}</span>
                                                 </div>
-                                            </a>
-                                            <a href="#" class="list-group-item list-group-item-action"
+                                            </li>
+                                            <li class="list-group-item"
                                                 aria-current="true">
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <small>Número de partos:</small><span >${ response[0].numero_embarazos}</span>   
                                                 </div>
-                                            </a>
-                                            <a href="#" class="list-group-item list-group-item-action"
+                                            </li>
+                                            <li class="list-group-item"
                                                 aria-current="true">
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <small>Número de cesáreas:</small><span >${ response[0].cesareas}</span>   
                                                 </div>
-                                            </a>
-                                            <a href="#" class="list-group-item list-group-item-action"
+                                            </li>
+                                            <li class="list-group-item"
                                                 aria-current="true">
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <small>Número de abortos:</small><span >${ response[0].numero_abortos}</span>   
                                                 </div>
-                                            </a>
-                                            <a href="#" class="list-group-item list-group-item-action"
+                                            </li>
+                                            <li class="list-group-item"
                                                 aria-current="true">
                                                 <div class="d-flex w-100 justify-content-between">
-                                                    <small>Utiliza algún método anticonceptivo, ¿Cual?:</small><span >${ response[0].pregunta}</span>   
+                                                    <small>Utiliza algún método anticonceptivo, ¿Cual?:</small><span>${response[0].pregunta}</span>   
                                                 </div>
-                                            </a>        
+                                            </li>       
                                         </ul>
-                                    </div>
                                     </div>`
 
                                     $('.gilecologico').append(gine)
@@ -408,7 +397,11 @@
                                     $('.list-alergias').empty();
                                     response[0].allergies.map((e, key) => {
                                         $('.list-alergias').append(
-                                            `<a href="#" class=" ${key} list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${e.type_alergia} ,${e.detalle_alergia}</small></div></a>`
+                                            `<li class=" ${key} list-group-item" aria-current="true"> 
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <small class="text-capitalize"><strong>Tipo de Alergia:</strong> ${e.type_alergia}, <strong>Detalle:</strong> ${e.detalle_alergia}</small>
+                                                </div>
+                                            </li>`
                                         );
                                     });
 
@@ -418,7 +411,11 @@
                                     $('.list-cirugias').empty();
                                     response[0].history_surgical.map((e, key) => {
                                         $('.list-cirugias').append(
-                                            `<a href="#" class=" ${key} list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${e.cirugia} ,${e.datecirugia}</small></div></a>`
+                                            `<li class=" ${key} list-group-item" aria-current="true"> 
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <small class="text-capitalize"><strong>Tipo de cirugía:</strong> ${e.cirugia}, <strong>Fecha:</strong> ${e.datecirugia}</small>
+                                                </div>
+                                            </li>`
                                         );
 
                                     });
@@ -429,7 +426,11 @@
                                     response[0].medications_supplements.map((e,
                                         key) => {
                                         $('.list-medicamentos').append(
-                                            `<a href="#" class=" ${key} list-group-item list-group-item-action" aria-current="true"> <div class="d-flex w-100 justify-content-between"><small>${e.dose} ,${e.medicine}, ${e.patologi} , ${e.viaAdmin} , ${e.dateIniTreatment} , ${e.dateEndTreatment} , ${e.treatmentDuration}</small></div></a>`
+                                            `<li class=" ${key} list-group-item" aria-current="true"> 
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <small class="text-capitalize"><strong>Medicamento:</strong> ${e.medicine}, <strong>Dosis:</strong> ${e.dose}, <strong>Patología:</strong> ${e.patologi}, <strong>Duración del tratamiento:</strong> ${e.treatmentDuration}</small>
+                                                </div>
+                                            </li>`
                                         );
                                     });
                                     //end
@@ -443,7 +444,8 @@
                                     response[0].info_medical_record.map((e, key) => {
                                         let element = '';
                                         if ((key % 2) == 0) {
-                                            element = `<a href="#" class="list-group-item list-group-item-action mb-3 active ${key}" aria-current="true" style="border-radius: 8px;">
+                                            element =
+                                        `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px;">
                                             <div class="d-flex w-100 justify-content-between">
                                                 <h5 class="text-capitalize">Médico: ${e.doctor} </h5><br>
                                             </div>
@@ -456,10 +458,10 @@
                                             <small>Razón de la  consulta:</small> <strong>${e.razon}</strong>
                                             <br>
                                             <small>Diagnostico:</small> <strong>${e.diagnosis}</strong>
-                                        </a>`
+                                        </li>`
                                         } else {
-                                            element = `<a href="#" class="list-group-item list-group-item-action mb-3 ${key}"
-                                        aria-current="true" style="border-radius: 8px;">
+                                            element = 
+                                        `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px;">
                                             <div class="d-flex w-100 justify-content-between">
                                                 <h5 class="text-capitalize">Médico: ${e.doctor} </h5><br>
                                             </div>
@@ -471,78 +473,91 @@
                                             <small>Razón de la  consulta:</small> <strong>${e.razon}</strong>
                                             <br>
                                             <small>Diagnostico:</small> <strong>${e.diagnosis}</strong>
-                                        </a>`
+                                        </li>`
                                         }
                                         $('.list-con').append(element);
                                         /// data estudios
-
-                                        e.study_medical.map((item, i) => {
-                                            let et = '';
-                                            let target =
-                                                `{{ URL::asset('/imgs/${item.file}') }}`;
-                                            if ((i % 2) == 0) {
-                                                et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px;" 
-                                                    class="list-group-item  ${i}" aria-current="true">
-                                                    ${item.description} ${item.record_code}
-                                                    <a target="_blank" href="${target}"> 
-                                                    <button style="margin-left: 1%;" type="button"
-                                                    class="refresf btn-idanger rounded-circle"
-                                                    data-bs-container="body"
-                                                    data-bs-toggle="popover"
-                                                    data-bs-custom-class="custom-popover"
-                                                    data-bs-placement="bottom"
-                                                    data-bs-content="No hay exámenes cargados">
-                                                    <i class="bi bi-arrow-up-circle-fill"></i>                                                     </a>   
-                                                </li>`
-                                            } else {
-                                                et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item ${i}"" aria-current="true">${item.description} ${item.record_code}
-                                                    <a target="_blank" href="${target}"> 
-                                                    <button style="margin-left: 1%;" type="button"
-                                                    class="refresf btn-idanger rounded-circle"
-                                                    data-bs-container="body"
-                                                    data-bs-toggle="popover"
-                                                    data-bs-custom-class="custom-popover"
-                                                    data-bs-placement="bottom"
-                                                    data-bs-content="No hay exámenes cargados">
-                                                    <i class="bi bi-arrow-up-circle-fill"></i>                                                     </a>   </li>`
-                                            }
-                                            $('.ul-study').append(et);
-                                        });
+                                        
+                                            e.study_medical.map((item, i) => {
+                                                let et = '';
+                                                let target =
+                                                    `{{ URL::asset('/imgs/${item.file}') }}`;
+                                                if ((i % 2) == 0) {
+                                                    et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
+                                                            justify-content: space-between;" class="list-group-item  ${i}" aria-current="true"> ${item.description} ${item.record_code}
+                                                            <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;"> 
+                                                                <button type="button"
+                                                                    class="refresf btn-idanger rounded-circle"
+                                                                    data-bs-container="body"
+                                                                    data-bs-toggle="popover"
+                                                                    data-bs-custom-class="custom-popover"
+                                                                    data-bs-placement="bottom"
+                                                                    data-bs-content="No hay exámenes cargados">
+                                                                    <i class="bi bi-filetype-pdf"></i>
+                                                                </button>
+                                                            </a>   
+                                                        </li>`
+                                                } else {
+                                                    et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
+                                                            justify-content: space-between;"  class="list-group-item ${i}"" aria-current="true">${item.description} ${item.record_code}
+                                                            <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;"> 
+                                                                <button type="button"
+                                                                    class="refresf btn-idanger rounded-circle"
+                                                                    data-bs-container="body"
+                                                                    data-bs-toggle="popover"
+                                                                    data-bs-custom-class="custom-popover"
+                                                                    data-bs-placement="bottom"
+                                                                    data-bs-content="No hay exámenes cargados">
+                                                                    <i class="bi bi-filetype-pdf"></i>
+                                                                </button>
+                                                            </a>
+                                                        </li>`
+                                                }
+                                                $('.ul-study').append(et);
+                                            });
+                                        
                                         //end
 
                                         /// data examenes
 
-                                        e.exam_medical.map((item, e) => {
-                                            let ett = '';
-                                            let target =
-                                                `{{ URL::asset('/imgs/${item.file}') }}`;
-                                            if ((e % 2) == 0) {
-                                                ett =
-                                                    `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item  ${e}" aria-current="true">${item.description} ${item.record_code}
-                                                        <a target="_blank" href="${target}"> 
-                                                    <button style="margin-left: 1%;" type="button"
-                                                    class="refresf btn-idanger rounded-circle"
-                                                    data-bs-container="body"
-                                                    data-bs-toggle="popover"
-                                                    data-bs-custom-class="custom-popover"
-                                                    data-bs-placement="bottom"
-                                                    data-bs-content="No hay exámenes cargados">
-                                                    <i class="bi bi-arrow-up-circle-fill"></i>                                                     </a>   </li>`
-                                            } else {
-                                                ett =
-                                                    `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}
-                                                        <a target="_blank" href="${target}"> 
-                                                    <button style="margin-left: 1%;" type="button"
-                                                    class="refresf btn-idanger rounded-circle"
-                                                    data-bs-container="body"
-                                                    data-bs-toggle="popover"
-                                                    data-bs-custom-class="custom-popover"
-                                                    data-bs-placement="bottom"
-                                                    data-bs-content="No hay exámenes cargados">
-                                                    <i class="bi bi-arrow-up-circle-fill"></i>                                                     </a>   </li>`
-                                            }
-                                            $('.ul-exmen').append(ett);
-                                        });
+                                            e.exam_medical.map((item, e) => {
+                                                let ett = '';
+                                                let target =
+                                                    `{{ URL::asset('/imgs/${item.file}') }}`;
+                                                if ((e % 2) == 0) {
+                                                    ett =
+                                                        `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
+                                                            justify-content: space-between;" class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}
+                                                            <a target="_blank" href="${target}"  style="color: white; text-decoration: none; font-size: 20px;"> 
+                                                                <button type="button"
+                                                                    class="refresf btn-idanger rounded-circle"
+                                                                    data-bs-container="body"
+                                                                    data-bs-toggle="popover"
+                                                                    data-bs-custom-class="custom-popover"
+                                                                    data-bs-placement="bottom"
+                                                                    data-bs-content="No hay exámenes cargados">
+                                                                    <i class="bi bi-filetype-pdf"></i>
+                                                                </button>
+                                                            </a>
+                                                        </li>`
+                                                } else {
+                                                    ett =
+                                                        `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}
+                                                            <a target="_blank" href="${target}"  style="color: white; text-decoration: none; font-size: 20px;"> 
+                                                                <button type="button"
+                                                                    class="refresf btn-idanger rounded-circle"
+                                                                    data-bs-container="body"
+                                                                    data-bs-toggle="popover"
+                                                                    data-bs-custom-class="custom-popover"
+                                                                    data-bs-placement="bottom"
+                                                                    data-bs-content="No hay exámenes cargados">
+                                                                    <i class="bi bi-filetype-pdf"></i>
+                                                                </button>
+                                                            </a>
+                                                        </li>`
+                                                }
+                                                $('.ul-exmen').append(ett);
+                                            });
                                         //end
                                     });
                                     //end
@@ -641,16 +656,13 @@
 
                                                 <div class="row p-3 mt-3">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group list-group-flush overflow-auto"
-                                                            style="border-radius: 8px;">
-                                                            <a href="#"
-                                                                class=" 0 list-group-item aa list-group-item-action  active"
-                                                                aria-current="true">
+                                                        <ul class="list-group" style="border-radius: 8px;">
+                                                            <li class="list-group-item active aa" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 class="mb- text-capitalize">Antecedentes
+                                                                    <h5 class="mb-0 text-capitalize">Antecedentes
                                                                         Personales y Familiares</h5>
                                                                 </div>
-                                                            </a>
+                                                            </li>
                                                             <div class="family_back">
 
                                                             </div>
@@ -661,16 +673,13 @@
 
                                                 <div class="row p-3 mt-3">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group list-group-flush overflow-auto"
-                                                            style="border-radius: 8px;">
-                                                            <a href="#"
-                                                                class=" 0 list-group-item aa list-group-item-action  active"
-                                                                aria-current="true">
+                                                        <ul class="list-group" style="border-radius: 8px;">
+                                                            <li class="list-group-item active aa" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 class="mb- text-capitalize">Antecedentes
+                                                                    <h5 class="mb-0 text-capitalize">Antecedentes
                                                                         personales patológicos</h5>
                                                                 </div>
-                                                            </a>
+                                                            </li>
                                                             <div class="pathology_back ">
 
                                                             </div>
@@ -680,16 +689,13 @@
 
                                                 <div class="row p-3 mt-3">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group list-group-flush overflow-auto"
-                                                            style="border-radius: 8px;">
-                                                            <a href="#"
-                                                                class=" 0 list-group-item aa list-group-item-action  active"
-                                                                aria-current="true">
+                                                        <ul class="list-group" style="border-radius: 8px;">
+                                                            <li class="list-group-item active aa" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 class="mb- text-capitalize">Antecedentes no
+                                                                    <h5 class="mb-0 text-capitalize">Antecedentes no
                                                                         patológicos</h5>
                                                                 </div>
-                                                            </a>
+                                                            </li>
                                                             <div class="non_pathology_back ">
 
                                                             </div>
@@ -704,16 +710,13 @@
 
                                                 <div class="row p-3 mt-3">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group list-group-flush overflow-auto"
-                                                            style="border-radius: 8px;">
-                                                            <a href="#"
-                                                                class=" 0 list-group-item aa list-group-item-action  active"
-                                                                aria-current="true">
+                                                        <ul class="list-group" style="border-radius: 8px;">
+                                                            <li class="list-group-item active aa" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
                                                                     <h5 class="mb- text-capitalize">Antecedentes alérgicos
                                                                     </h5>
                                                                 </div>
-                                                            </a>
+                                                            </li>
                                                             <div class="list-alergias ">
 
                                                             </div>
@@ -722,17 +725,14 @@
                                                 </div>
                                                 <div class="row p-3 mt-3">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group list-group-flush overflow-auto"
-                                                            style="border-radius: 8px;">
-                                                            <a href="#"
-                                                                class=" 0 list-group-item aa list-group-item-action  active"
-                                                                aria-current="true">
+                                                        <ul class="list-group" style="border-radius: 8px;">
+                                                            <li class="list-group-item active aa" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
                                                                     <h5 class="mb- text-capitalize">Antecedentes
                                                                         quirúrgicos
                                                                     </h5>
                                                                 </div>
-                                                            </a>
+                                                            </li>
                                                             <div class="list-cirugias">
 
                                                             </div>
@@ -742,16 +742,13 @@
 
                                                 <div class="row p-3 mt-3">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <ul class="list-group list-group-flush overflow-auto"
-                                                            style="border-radius: 8px;">
-                                                            <a href="#"
-                                                                class=" 0 list-group-item aa list-group-item-action  active"
-                                                                aria-current="true">
+                                                        <ul class="list-group" style="border-radius: 8px;">
+                                                            <li class="list-group-item active aa" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
                                                                     <h5 class="mb- text-capitalize">Medicamentos
                                                                     </h5>
                                                                 </div>
-                                                            </a>
+                                                            </li>
                                                             <div class="list-medicamentos">
 
                                                             </div>
@@ -771,6 +768,7 @@
                                         <section>
                                             <div class="row p-3 div-overflow">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pmv-0">
+                                                    <a id="study"></a>
                                                     <ul class="list-group ul-study list-group-flush overflow-auto">
                                                     </ul>
                                                 </div>
