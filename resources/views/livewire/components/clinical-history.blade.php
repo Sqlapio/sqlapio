@@ -1648,15 +1648,32 @@
                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="phone" class="form-label"
+                                                    <label for="treatmentDuration" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Duración
-                                                        del tratamiento</label>
-                                                    <input autocomplete="off" class="form-control mask-only-number"
-                                                        id="treatmentDuration" name="treatmentDuration" type="text"
-                                                        value="">
+                                                        de tratamiento</label>
+                                                    <select name="treatmentDuration" id="treatmentDuration"
+                                                        placeholder="Seleccione"class="form-control"
+                                                        class="form-control combo-textbox-input">
+                                                        <option value="">Seleccione</option>
+                                                        <option value="1 Día">1 Día</option>
+                                                        <option value="2 Días">2 Días</option>
+                                                        <option value="3 Días">3 Días</option>
+                                                        <option value="4 Días">4 Días</option>
+                                                        <option value="5 Días">5 Días</option>
+                                                        <option value="6 Días">6 Días</option>
+                                                        <option value="7 Días">7 Días</option>
+                                                        <option value="1 Semana">1 Semana</option>
+                                                        <option value="2 Semanas">2 Semanas</option>
+                                                        <option value="3 Semanas">3 Semanas</option>
+                                                        <option value="4 Semanas">4 Semanas</option>
+                                                        <option value="1 Mes">1 Mes</option>
+                                                        <option value="2 Mes">2 Meses</option>
+                                                        <option value="3 Mes">3 Meses</option>
+                                                        <option value="1 Año">1 Año</option>
+                                                    </select>
                                                     <i class="bi bi-calendar-range st-icon"></i>
+                                                    <span id="treatmentDuration_span" class="text-danger"></span>
                                                 </div>
-                                                <span id="treatmentDuration_span" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
@@ -1722,9 +1739,9 @@
                                                             @endphp
                                                             @foreach ($medications_supplements as $key => $item)
                                                                 <tr id="{{ $key }}">
-                                                                    <td class="text-center">{{ $item['dose'] }}</td>
-                                                                    <td class="text-center" class="text-capitalize">
-                                                                        {{ $item['medicine'] }}
+                                                                    <td class="text-center text-capitalize">{{ $item['medicine'] }}</td>
+                                                                    <td class="text-center">
+                                                                        {{ $item['dose'] }}
                                                                     </td>
                                                                     <td class="text-center"> {{ $item['patologi'] }}
                                                                     </td>
