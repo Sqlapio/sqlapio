@@ -204,13 +204,13 @@
 
             } else {
 
-                $("#business_name").attr('disabled', true).rules('add', {
+                $("#business_name").attr('readonly', true).rules('add', {
                     required: true,
                     minlength: 3,
                     maxlength: 50,
                 });
 
-                $("#rif").attr('disabled', true).rules('add', {
+                $("#rif").attr('readonly', true).rules('add', {
                     required: true,
                     minlength: 5,
                     maxlength: 17,
