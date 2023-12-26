@@ -33,8 +33,8 @@ class MedicalRecord extends Model
         'background',
         'razon',
         'diagnosis',
-        'exams',
-        'studies',
+        // 'exams',
+        // 'studies',
         'medications_supplements',
         'status_exam',
         'status_study',
@@ -62,6 +62,14 @@ class MedicalRecord extends Model
     public function  get_reference(): HasOne
     {
         return $this->hasOne(Reference::class, 'medical_record_id', 'id');
-    }    
+    }  
+    public function  get_study_medical(): HasMany
+    {
+        return $this->hasMany(StudyPatient::class, 'medical_record_id', 'id');
+    }   
+    public function  get_exam_medical(): HasMany
+    {
+        return $this->hasMany(ExamPatient::class, 'medical_record_id', 'id');
+    }     
 
 }

@@ -155,9 +155,9 @@
                             <strong
                                 style="font-size: 15px;">{{ $medical_prescription->get_center->description }}</strong>
                             <p style="margin-top: 0px">
-                                Dirección: {{ $medical_prescription->get_center_data->address }},
+                                Dirección: {{ ($medical_prescription->get_doctor->type_plane == "7")? ' corporativo': $medical_prescription->get_center_data->address }},
                                 Local,
-                                {{ $medical_prescription->get_center_data->number_floor }}<br>{{ $medical_prescription->get_center_data->phone_consulting_room }}
+                                {{($medical_prescription->get_doctor->type_plane = "7")? $medical_prescription->get_doctor->number_floor  : $medical_prescription->get_center_data->number_floor }}<br>{{($medical_prescription->get_doctor->type_plane == "7")?  $medical_prescription->get_doctor->number_consulting_phone : $medical_prescription->get_center_data->phone_consulting_room }}
                             </p>
                         </div>
                     </td>
@@ -234,16 +234,22 @@
                         </div>
                     </td>
                     <td style="text-align: center;">
+
                         <div class="text" style="margin-right: -20px">
                             @if ($medical_prescription->get_paciente->patient_img)
                                 <img class="img-pat" style="border-radius: 20%; object-fit: cover"
-                                    src="../public/imgs/{{ $medical_prescription->get_paciente->patient_img }}"
-                                    alt="Avatar" width="100" height="100">
+                                    src="../public/imgs/{{ $medical_prescription->get_paciente->patient_img }}" alt="Avatar"
+                                    width="100" height="100">
                             @else
-                                <img class="img-pat" src="../public/img/avatar/avatar.png" width="100" height="100"
-                                    style="border-radius: 20%; object-fit: cover" alt="Avatar">
+                                @if ($medical_prescription->get_paciente->genere == 'femenino')
+                                    <img class="img-pat" src="../public/img/avatar/avatar mujer.png" width="100"
+                                        height="100" style="border-radius: 20%; object-fit: cover" alt="Avatar">
+                                @else
+                                    <img class="img-pat" src="../public/img/avatar/avatar hombre.png" width="100"
+                                        height="100" style="border-radius: 20%; object-fit: cover" alt="Avatar">
+                                @endif
                             @endif
-                        </div>
+                        </div>                        
                     </td>
                 </tr>
             </tbody>

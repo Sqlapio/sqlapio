@@ -53,7 +53,7 @@
                 })
             }
         });
-
+        
 
         function searchPerson() {
             if ($('#search_person').val() != '') {
@@ -98,10 +98,7 @@
                                 if(elem.exam.length===0){
                                     elem.btn  = `<button type="button"
                                                         class="refresf btn-idanger rounded-circle"
-                                                        data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom"
-                                                        data-bs-custom-class="custom-tooltip"
-                                                        data-html="true" title="No hay examenes cargados">
+                                                        onclick='showAlertNotExam()'>
                                                         <i class="bi bi-exclamation-lg"></i>
                                                     </button>`;
                                 }
@@ -207,58 +204,72 @@
 
                 $('#content-data').append(div);
 
-                const tooltipTriggerList = document.querySelectorAll(
-                    '[data-bs-toggle="tooltip"]')
-                tooltipTriggerList.forEach(element => {
-                    new bootstrap.Tooltip(element)
-                });
-
+                
             });
+            
+        }
 
+        const tooltipTriggerList = document.querySelectorAll(
+            '[data-bs-toggle="tooltip"]')
+        tooltipTriggerList.forEach(element => {
+            new bootstrap.Tooltip(element)
+        });
+
+        function showAlertNotExam() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'No hay exámenes cargados',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar'
+            });
+            return false;
         }
     </script>
 @endpush
 @section('content')
-    <div class="container-fluid" style="padding: 3%">
-        <div class="accordion" id="accordionExample">
-            {{-- datos del paciente --}}
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" style="margin-top: 20px;">
-                    <div class="accordion-item">
-                        <span class="accordion-header title" id="headingOne">
-                            <button class="accordion-button bg-3" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                                style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                <i class="bi bi-person"></i></i> Examenes cargados
-                            </button>
-                        </span>
-                        <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <x-search-person />
+    <div>
+        <div class="container-fluid" style="padding: 0 3% 3%">
+            <div class="accordion" id="accordionExample">
+                {{-- datos del paciente --}}
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2">
+                        <div class="accordion-item">
+                            <span class="accordion-header title" id="headingOne">
+                                <button class="accordion-button bg-3" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-person"></i></i> Exámenes cargados
+                                </button>
+                            </span>
+                            <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <x-search-person />
 
-                                <div class="row" id="show-info-pat" style="display: none">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                        <h5 class="mb-4">Resultados</h5>
-                                        <table id="table-info-pat" class="table table-striped table-bordered"
-                                            style="width:100%; ">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" scope="col">Nombre</th>
-                                                    <th class="text-center" scope="col">Cédula</th>
-                                                    <th class="text-center" scope="col">Género</th>
-                                                    <th class="text-center"scope="col">Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
+                                    <div class="row" id="show-info-pat" style="display: none">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                            <h5 class="mb-4">Resultados</h5>
+                                            <table id="table-info-pat" class="table table-striped table-bordered"
+                                                style="width:100%; ">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center" scope="col">Nombre</th>
+                                                        <th class="text-center" scope="col">Cédula</th>
+                                                        <th class="text-center" scope="col">Género</th>
+                                                        <th class="text-center"scope="col">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="row mt-3" id="content-result" style="display: none">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <div class="row" id="content-data"></div>
+                                    <div class="row mt-3" id="content-result" style="display: none">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="row" id="content-data"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

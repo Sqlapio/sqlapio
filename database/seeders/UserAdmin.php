@@ -15,10 +15,10 @@ class UserAdmin extends Seeder
     public function run(): void
     {
         ModelsUser::create([
-            'name' => 'Wilfredo',
-            'last_name' => 'Palencia',
-            'email' => 'wilfredopalenciabb@gmail.com',
-            'password' => Hash::make('As123456'),
+            'name' => 'Sqlapio',
+            'last_name' => 'Technology',
+            'email' => 'sqlapiotechnology@gmail.com',
+            'password' => Hash::make('12345678'),
             'role' => 'medico'
         ]);
     }

@@ -20,32 +20,32 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE CRANEO SIMPLE')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE CRANEO SIMPLE')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CRANEO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE BASE DE CRANEO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE BASE DE CRANEO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CRANEO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE SILLA TURCA')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE SILLA TURCA')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CRANEO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE MASTOIDES COMPARATIVAS')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE MASTOIDES COMPARATIVAS')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CRANEO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE PEÑASCOS')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE PEÑASCOS')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CRANEO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE CONDUCTO AUDITIVO INTERNO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE CONDUCTO AUDITIVO INTERNO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CRANEO')),
             ],
 
@@ -53,52 +53,52 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE CARA (PERFILOGRAMA)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE CARA (PERFILOGRAMA)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ORBITAS')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ORBITAS')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE AGUJEROS OPTICOS')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE AGUJEROS OPTICOS')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE MALAR')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE MALAR')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ARCO CIGOMATICO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ARCO CIGOMATICO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE HUESOS NASALES')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE HUESOS NASALES')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE SENOS PARANASALES')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE SENOS PARANASALES')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE MAXILAR SUPERIOR')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE MAXILAR SUPERIOR')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE MAXILAR INFERIOR')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE MAXILAR INFERIOR')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ARTICULACION TEMPOROMAXILAR [ATM]')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ARTICULACIÓN TEMPOROMAXILAR [ATM]')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CARA O HUESOS FACIALES')),
             ],
 
@@ -106,12 +106,12 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE TEJIDOS BLANDOS DE CUELLO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE TEJIDOS BLANDOS DE CUELLO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE CAVUM FARINGEO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE CAVUM FARINGEO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CUELLO')),
             ],
 
@@ -119,57 +119,57 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE COLUMNA CERVICAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE COLUMNA CERVICAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE COLUMNA UNION CERVICO DORSAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE COLUMNA UNION CERVICO DORSAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE COLUMNA TORACICA')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE COLUMNA TORACICA')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE COLUMNA DORSOLUMBAR')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE COLUMNA DORSOLUMBAR')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE COLUMNA LUMBOSACRA')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE COLUMNA LUMBOSACRA')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE SACRO COCCIX')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE SACRO COCCIX')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE COLUMNA VERTEBRAL TOTAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE COLUMNA VERTEBRAL TOTAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PANORAMICA DE COLUMNA (GONIOMETRIA U ORTOGRAMA) FORMATO 14″ X 36″ (ADULTOS)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PANORAMICA DE COLUMNA (GONIOMETRIA U ORTOGRAMA) FORMATO 14″ X 36″ (ADULTOS)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PANORAMICA DE COLUMNA (GONIOMETRIA U ORTOGRAMA) FORMATO 14″ X 17″ (NIÑOS)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PANORAMICA DE COLUMNA (GONIOMETRIA U ORTOGRAMA) FORMATO 14″ X 17″ (NIÑOS)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DINAMICA DE COLUMNA VERTEBRAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DINAMICA DE COLUMNA VERTEBRAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ARTICULACIONES SACROILIACAS')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ARTICULACIONES SACROILIACAS')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE COLUMNA VERTEBRAL')),
             ],
 
@@ -177,22 +177,22 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE REJA COSTAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE REJA COSTAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE TORAX')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ESTERNON')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ESTERNON')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE TORAX')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE TORAX (PA O AP Y LATERAL DECUBITO LATERAL OBLICUAS O LATERAL) CON BARIO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE TORAX (PA O AP Y LATERAL DECUBITO LATERAL OBLICUAS O LATERAL) CON BARIO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE TORAX')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ARTICULACIONES ESTERNOCLAVICULARES')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ARTICULACIONES ESTERNOCLAVICULARES')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE TORAX')),
             ],
             [   
@@ -206,11 +206,11 @@ class StudiesList extends Seeder
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
                 'description' => ucfirst(strtolower('APICOGRAMA')),
-                'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CORAZON Y GRANDES VASOS')),
+                'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CORAZÓN Y GRANDES VASOS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PARA SERIE CARDIOVASCULAR (CORAZON Y GRANDES VASOS SILUETA CARDIACA) CON BARIO EN ESOFAGO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PARA SERIE CARDIOVASCULAR (CORAZÓN Y GRANDES VASOS SILUETA CARDIACA) CON BARIO EN ESOFAGO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE CORAZON Y GRANDES VASOS')),
             ],
 
@@ -218,7 +218,7 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ESOFAGO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ESOFAGO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE MEDIASTINO Y ORGANOS RELACIONADOS')),
             ],
 
@@ -226,12 +226,12 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ABDOMEN SIMPLE')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ABDOMEN SIMPLE')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ABDOMEN')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ABDOMEN SIMPLE CON PROYECCIONES ADICIONALES (SERIE DE ABDOMEN AGUDO)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ABDOMEN SIMPLE CON PROYECCIONES ADICIONALES (SERIE DE ABDOMEN AGUDO)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ABDOMEN')),
             ],
 
@@ -239,37 +239,37 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE TRANSITO INTESTINAL CONVENCIONAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE TRANSITO INTESTINAL CONVENCIONAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE VIA DIGESTIVA')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE TRANSITO INTESTINAL DOBLE CONTRASTE')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE TRANSITO INTESTINAL DOBLE CONTRASTE')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE VIA DIGESTIVA')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE COLON POR ENEMA O COLON POR INGESTA')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE COLON POR ENEMA O COLON POR INGESTA')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE VIA DIGESTIVA')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE COLON POR ENEMA CON DOBLE CONTRASTE')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE COLON POR ENEMA CON DOBLE CONTRASTE')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE VIA DIGESTIVA')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE VIAS DIGESTIVAS ALTAS (ESOFAGO ESTOMAGO Y DUODENO)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE VIAS DIGESTIVAS ALTAS (ESOFAGO ESTOMAGO Y DUODENO)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE VIA DIGESTIVA')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE VIAS DIGESTIVAS ALTAS (ESOFAGO ESTOMAGO Y DUODENO) CON DOBLE CONTRASTE')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE VIAS DIGESTIVAS ALTAS (ESOFAGO ESTOMAGO Y DUODENO) CON DOBLE CONTRASTE')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE VIA DIGESTIVA')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE VIAS DIGESTIVAS ALTAS (ESOFAGO ESTOMAGO Y DUODENO) Y TRANSITO INTESTINAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE VIAS DIGESTIVAS ALTAS (ESOFAGO ESTOMAGO Y DUODENO) Y TRANSITO INTESTINAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE VIA DIGESTIVA')),
             ],
 
@@ -290,22 +290,22 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PARA SERIE ESQUELETICA')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PARA SERIE ESQUELETICA')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE HUESOS LARGOS SERIE COMPLETA (ESQUELETO AXIAL Y APENDICULAR)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE HUESOS LARGOS SERIE COMPLETA (ESQUELETO AXIAL Y APENDICULAR)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PARA ESTUDIOS DE LONGITUD DE LOS HUESOS (ORTORRADIOGRAFIA Y ESCANOGRAMA)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PARA ESTUDIOS DE LONGITUD DE LOS HUESOS (ORTORRADIOGRAFÍA  Y ESCANOGRAMA)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PARA DETECTAR EDAD OSEA [CARPOGRAMA]')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PARA DETECTAR EDAD OSEA [CARPOGRAMA]')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES')),
             ],
 
@@ -313,22 +313,22 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE OMOPLATO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE OMOPLATO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES SUPERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE CLAVICULA')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE CLAVICULA')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES SUPERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE HUMERO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE HUMERO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES SUPERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ANTEBRAZO')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ANTEBRAZO')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES SUPERIORES')),
             ],
 
@@ -336,57 +336,57 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PARA MEDICION DE MIEMBROS INFERIORES [ESTUDIO DE FARILL U OSTEOMETRIA] ESTUDIO DE PIE PLANO (PIES CON APOYO)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PARA MEDICIÓN DE MIEMBROS INFERIORES [ESTUDIO DE FARILL U OSTEOMETRIA] ESTUDIO DE PIE PLANO (PIES CON APOYO)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PANORAMICA DE MIEMBROS INFERIORES (GONIOMETRIA U ORTOGRAMA) EN FORMATO 14″ X 36″ (ADULTOS)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PANORAMICA DE MIEMBROS INFERIORES (GONIOMETRIA U ORTOGRAMA) EN FORMATO 14″ X 36″ (ADULTOS)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA PANORAMICA DE MIEMBROS INFERIORES (GONIOMETRIA U ORTOGRAMA) EN FORMATO 14″ X 17″ (NIÑOS)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  PANORAMICA DE MIEMBROS INFERIORES (GONIOMETRIA U ORTOGRAMA) EN FORMATO 14″ X 17″ (NIÑOS)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DIGITAL DE MIEMBROS INFERIORES (ESTUDIO DE LONGITUD)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DIGITAL DE MIEMBROS INFERIORES (ESTUDIO DE LONGITUD)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ANTEVERSION FEMORAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ANTEVERSIÓN FEMORAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE FEMUR (AP LATERAL)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE FEMUR (AP LATERAL)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE PIERNA (AP LATERAL)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE PIERNA (AP LATERAL)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ANTEVERSION TIBIAL')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ANTEVERSIÓN TIBIAL')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE PIE (AP LATERAL)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE PIE (AP LATERAL)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE CALCANEO (AXIAL Y LATERAL)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE CALCANEO (AXIAL Y LATERAL)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE MIEMBRO INFERIOR (AP LATERAL)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE MIEMBRO INFERIOR (AP LATERAL)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE EXTREMIDADES INFERIORES')),
             ],
 
@@ -394,52 +394,52 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE CADERA O ARTICULACION COXO-FEMORAL (AP LATERAL)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE CADERA O ARTICULACIÓN COXO-FEMORAL (AP LATERAL)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE CADERA COMPARATIVA')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE CADERA COMPARATIVA')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE RODILLA (AP LATERAL)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE RODILLA (AP LATERAL)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE RODILLAS COMPARATIVAS POSICION VERTICAL (UNICAMENTE VISTA ANTEROPOSTERIOR)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE RODILLAS COMPARATIVAS POSICION VERTICAL (UNICAMENTE VISTA ANTEROPOSTERIOR)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA TANGENCIAL DE ROTULA')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  TANGENCIAL DE ROTULA')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIAS AXIALES DE ROTULA O LONGITUD DE MIEMBROS INFERIORES')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA S AXIALES DE ROTULA O LONGITUD DE MIEMBROS INFERIORES')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE TOBILLO (AP LATERAL Y ROTACION INTERNA)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE TOBILLO (AP LATERAL Y ROTACION INTERNA)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIA DE ANTEPIE (AP OBLICUA)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA  DE ANTEPIE (AP OBLICUA)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIAS COMPARATIVAS DE EXTREMIDADES INFERIORES')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA S COMPARATIVAS DE EXTREMIDADES INFERIORES')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RADIOGRAFIAS EN EXTREMIDADES PROYECCIONES ADICIONALES (STRESS TUNEL OBLICUAS)')),
+                'description' => ucfirst(strtolower('RADIOGRAFÍA S EN EXTREMIDADES PROYECCIONES ADICIONALES (STRESS TUNEL OBLICUAS)')),
                 'category' => ucfirst(strtolower('RADIOLOGIA GENERAL DE ARTICULACIONES DE MIEMBRO INFERIOR')),
             ],
 
@@ -455,108 +455,108 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA DE CAROTIDA EXTERNA BILATERAL SELECTIVA EXTRACRANENANA')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA DE CAROTIDA EXTERNA BILATERAL SELECTIVA EXTRACRANENANA')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS DE LA CABEZA CARA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA DE CAROTIDA EXTERNA BILATERAL SELECTIVA INTRACRANEANA')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA DE CAROTIDA EXTERNA BILATERAL SELECTIVA INTRACRANEANA')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS DE LA CABEZA CARA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA DE CAROTIDA EXTERNA UNILATERAL SELECTIVA EXTRACRANEANA')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA DE CAROTIDA EXTERNA UNILATERAL SELECTIVA EXTRACRANEANA')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS DE LA CABEZA CARA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA DE CAROTIDA EXTERNA UNILATERAL SELECTIVA INTRACRANEANA')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA DE CAROTIDA EXTERNA UNILATERAL SELECTIVA INTRACRANEANA')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS DE LA CABEZA CARA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA DE CAROTIDA INTERNA BILATERAL SELECTIVA EXTRACRANENANA')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA DE CAROTIDA INTERNA BILATERAL SELECTIVA EXTRACRANENANA')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS DE LA CABEZA CARA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA DE CAROTIDA INTERNA BILATERAL SELECTIVA INTRACRANENANA')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA DE CAROTIDA INTERNA BILATERAL SELECTIVA INTRACRANENANA')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS DE LA CABEZA CARA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA DE CAROTIDA INTERNA UNILATERAL SELECTIVA EXTRACRANEANA')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA DE CAROTIDA INTERNA UNILATERAL SELECTIVA EXTRACRANEANA')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS DE LA CABEZA CARA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA DE CAROTIDA INTERNA UNILATERAL SELECTIVA INTRACRANEANA')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA DE CAROTIDA INTERNA UNILATERAL SELECTIVA INTRACRANEANA')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS DE LA CABEZA CARA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA DE CAROTIDA BILATERAL SELECTIVA EXTRACRANEANA CON AORTOGRAMA DE CAYADO')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA DE CAROTIDA BILATERAL SELECTIVA EXTRACRANEANA CON AORTOGRAMA DE CAYADO')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS DE LA CABEZA CARA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA VERTEBRAL')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA VERTEBRAL')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS DE LA CABEZA CARA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA VERTEBRAL SELECTIVA EXTRACRANEANA')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA VERTEBRAL SELECTIVA EXTRACRANEANA')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS DE LA CABEZA CARA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA VERTEBRAL SELECTIVA INTRACRANEANA')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA VERTEBRAL SELECTIVA INTRACRANEANA')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS DE LA CABEZA CARA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA VERTEBRAL BILATERAL SELECTIVA CON CAROTIDAS (PANANGIOGRAFIA)')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA VERTEBRAL BILATERAL SELECTIVA CON CAROTIDAS (PANANGIOGRAFIA)')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS DE LA CABEZA CARA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA VERTEBRAL BILATERAL SELECTIVA EXTRACRANEANA CON AORTOGRAMA DE CAYADO')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA VERTEBRAL BILATERAL SELECTIVA EXTRACRANEANA CON AORTOGRAMA DE CAYADO')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS DE LA CABEZA CARA Y CUELLO')),
             ],
 
-            //RADIOGRAFIAS DE CONTRASTE EN CEREBRO Y CRANEO
+            //RADIOGRAFÍA S DE CONTRASTE EN CEREBRO Y CRANEO
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
                 'description' => ucfirst(strtolower('CISTERNOGRAFIA SOD')),
-                'category' => ucfirst(strtolower('RADIOGRAFIAS DE CONTRASTE EN CEREBRO Y CRANEO')),
+                'category' => ucfirst(strtolower('RADIOGRAFÍA S DE CONTRASTE EN CEREBRO Y CRANEO')),
             ],
 
             //FLEBOGRAFIA DE VASOS DE CABEZA Y CUELLO
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('VENOGRAFIA SELECTIVA DIAGNOSTICA DE CABEZA Y CUELLO (UNO O MAS VASOS)')),
+                'description' => ucfirst(strtolower('VENOGRAFÍA SELECTIVA DIAGNOSTICA DE CABEZA Y CUELLO (UNO O MAS VASOS)')),
                 'category' => ucfirst(strtolower('FLEBOGRAFIA DE VASOS DE CABEZA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('FLEBOGRAFIA DE SENO SAGITAL SUPERIOR')),
+                'description' => ucfirst(strtolower('FLEBOGRAFÍA DE SENO SAGITAL SUPERIOR')),
                 'category' => ucfirst(strtolower('FLEBOGRAFIA DE VASOS DE CABEZA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('FLEBOGRAFIA EPIDURAL')),
+                'description' => ucfirst(strtolower('FLEBOGRAFÍA EPIDURAL')),
                 'category' => ucfirst(strtolower('FLEBOGRAFIA DE VASOS DE CABEZA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('FLEBOGRAFIA ORBITARIA')),
+                'description' => ucfirst(strtolower('FLEBOGRAFÍA ORBITARIA')),
                 'category' => ucfirst(strtolower('FLEBOGRAFIA DE VASOS DE CABEZA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('FLEBOGRAFIA YUGULAR CON CATETER')),
+                'description' => ucfirst(strtolower('FLEBOGRAFÍA YUGULAR CON CATETER')),
                 'category' => ucfirst(strtolower('FLEBOGRAFIA DE VASOS DE CABEZA Y CUELLO')),
             ],
 
@@ -564,7 +564,7 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTROGRAFIA DE ARTICULACION TEMPORO MANDIBULAR')),
+                'description' => ucfirst(strtolower('ARTROGRAFIA DE ARTICULACIÓN TEMPORO MANDIBULAR')),
                 'category' => ucfirst(strtolower('ARTROGRAFIA EN CABEZA CARA Y CUELLO')),
             ],
 
@@ -614,7 +614,7 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('FLEBOGRAFIA DE VASOS ESPINALES SOD')),
+                'description' => ucfirst(strtolower('FLEBOGRAFÍA DE VASOS ESPINALES SOD')),
                 'category' => ucfirst(strtolower('FLEBOGRAFIA DE VASOS ESPINALES')),
             ],
 
@@ -646,7 +646,7 @@ class StudiesList extends Seeder
                 'category' => ucfirst(strtolower('MIELOGRAFIAS')),
             ],
 
-            //ARTERIOGRAFIAS EN VASOS DEL TORAX
+            //ARTERIOGRAFÍAS EN VASOS DEL TORAX
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
@@ -655,32 +655,32 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA PULMONAR')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA PULMONAR')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS EN VASOS DEL TORAX')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA PULMONAR BILATERAL SELECTIVA')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA PULMONAR BILATERAL SELECTIVA')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS EN VASOS DEL TORAX')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA PULMONAR UNILATERAL SELECTIVA')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA PULMONAR UNILATERAL SELECTIVA')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS EN VASOS DEL TORAX')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA PULMONAR NO SELECTIVA O POR INYECCION VENOSA')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA PULMONAR NO SELECTIVA O POR INYECCION VENOSA')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS EN VASOS DEL TORAX')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA TORACICA DE ARTERIA MAMARIA INTERNA')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA TORACICA DE ARTERIA MAMARIA INTERNA')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS EN VASOS DEL TORAX')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA SELECTIVA TORACICA DE OTROS VASOS')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA SELECTIVA TORACICA DE OTROS VASOS')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS EN VASOS DEL TORAX')),
             ],
             [   
@@ -729,17 +729,17 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA DE VASOS ABDOMINALES (SELECTIVA)')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA DE VASOS ABDOMINALES (SELECTIVA)')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS ABDOMINALES Y PELVICOS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ESPLENOPORTOGRAFIA ARTERIAL')),
+                'description' => ucfirst(strtolower('ESPLENOPORTOGRAFÍA ARTERIAL')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS ABDOMINALES Y PELVICOS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA PELVICA (SELECTIVA)')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA PELVICA (SELECTIVA)')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIAS DE VASOS ABDOMINALES Y PELVICOS')),
             ],
 
@@ -752,12 +752,12 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('FLEBOGRAFIA ABDOMINAL (SISTEMA DE LA VENA PORTA)')),
+                'description' => ucfirst(strtolower('FLEBOGRAFÍA ABDOMINAL (SISTEMA DE LA VENA PORTA)')),
                 'category' => ucfirst(strtolower('FLEBOGRAFIAS DE VASOS ABDOMINALES Y PELVICOS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('PORTOGRAFIA TRANSHEPATICA')),
+                'description' => ucfirst(strtolower('PORTOGRAFÍA TRANSHEPATICA')),
                 'category' => ucfirst(strtolower('FLEBOGRAFIAS DE VASOS ABDOMINALES Y PELVICOS')),
             ],
 
@@ -765,7 +765,7 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('FISTULOGRAFIA DE PARED ABDOMINAL SOD')),
+                'description' => ucfirst(strtolower('FISTULOGRAFÍA DE PARED ABDOMINAL SOD')),
                 'category' => ucfirst(strtolower('FISTULOGRAFIA DE PARED ABDOMINAL')),
             ],
 
@@ -852,12 +852,12 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA PERIFERICA DE UNA EXTREMIDAD SUPERIOR')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA PERIFERICA DE UNA EXTREMIDAD SUPERIOR')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIA EN VASOS DE EXTREMIDADES SUPERIORES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA PERIFERICA DE MIEMBROS SUPERIORES BILATERAL CON AORTOGRAMA TORACICO')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA PERIFERICA DE MIEMBROS SUPERIORES BILATERAL CON AORTOGRAMA TORACICO')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIA EN VASOS DE EXTREMIDADES SUPERIORES')),
             ],
 
@@ -883,7 +883,7 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('FLEBOGRAFIA DE MIEMBRO INFERIOR')),
+                'description' => ucfirst(strtolower('FLEBOGRAFÍA DE MIEMBRO INFERIOR')),
                 'category' => ucfirst(strtolower('FLEBOGRAFIA EN VASOS DE EXTREMIDADES INFERIORES')),
             ],
 
@@ -972,7 +972,7 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('TOMOGRAFIA COMPUTADA DE ARTICULACION TEMPORO MANDIBULAR (BILATERAL)')),
+                'description' => ucfirst(strtolower('TOMOGRAFIA COMPUTADA DE ARTICULACIÓN TEMPORO MANDIBULAR (BILATERAL)')),
                 'category' => ucfirst(strtolower('TOMOGRAFIA COMPUTADA (TC) DE CABEZA CARA Y CUELLO')),
             ],
             [   
@@ -1041,7 +1041,7 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('TOMOGRAFIA COMPUTADA DE MIEMBROS INFERIORES (ANTEVERSION FEMORAL O TORSION TIBIAL)')),
+                'description' => ucfirst(strtolower('TOMOGRAFIA COMPUTADA DE MIEMBROS INFERIORES (ANTEVERSIÓN FEMORAL O TORSION TIBIAL)')),
                 'category' => ucfirst(strtolower('TOMOGRAFIA COMPUTADA (TC) DE EXTREMIDADES')),
             ],
             [   
@@ -1078,11 +1078,11 @@ class StudiesList extends Seeder
                 'category' => ucfirst(strtolower('OTROS ESTUDIOS CON TOMOGRAFIA COMPUTADA')),
             ],
 
-            //ECOGRAFIA DE CABEZA CARA O CUELLO
+            //ECOGRAFÍA DE CABEZA CARA O CUELLO
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA CEREBRAL TRANSFONTANELAR CON TRANSDUCTOR DE 7MHZ O MAS')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA CEREBRAL TRANSFONTANELAR CON TRANSDUCTOR DE 7MHZ O MAS')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE CABEZA CARA O CUELLO')),
             ],
             [   
@@ -1092,35 +1092,35 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE GLANDULAS SALIVALES CON TRANSDUCTOR DE 7 MHZ O MAS')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE GLANDULAS SALIVALES CON TRANSDUCTOR DE 7 MHZ O MAS')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE CABEZA CARA O CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE TIROIDES CON TRANSDUCTOR DE 7 MHZ O MAS')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE TIROIDES CON TRANSDUCTOR DE 7 MHZ O MAS')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE CABEZA CARA O CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE GLANGLIOS CERVICALES (MAPEO)')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE GLANGLIOS CERVICALES (MAPEO)')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE CABEZA CARA O CUELLO')),
             ],
 
-            //ECOGRAFIA DEL TORAX Y ORGANOS TORACICOS
+            //ECOGRAFÍA DEL TORAX Y ORGANOS TORACICOS
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE MAMA CON TRANSDUCTOR DE 7 MHZ O MAS')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE MAMA CON TRANSDUCTOR DE 7 MHZ O MAS')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DEL TORAX Y ORGANOS TORACICOS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE TORAX (PERICARDIO O PLEURA)')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE TORAX (PERICARDIO O PLEURA)')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DEL TORAX Y ORGANOS TORACICOS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE OTROS SITIOS TORACICOS')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE OTROS SITIOS TORACICOS')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DEL TORAX Y ORGANOS TORACICOS')),
             ],
 
@@ -1128,57 +1128,57 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE TEJIDOS BLANDOS DE PARED ABDOMINAL Y DE PELVIS')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE TEJIDOS BLANDOS DE PARED ABDOMINAL Y DE PELVIS')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE ABDOMEN PELVIS Y ORGANOS O ESTRUCTURAS CONEXAS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE ABDOMEN TOTAL (HIGADO PANCREAS VESICULA VIAS BILIARES RIÑONES BAZO GRANDES VASOS PELVIS Y FLANCOS)')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE ABDOMEN TOTAL (HIGADO PANCREAS VESICULA VIAS BILIARES RIÑONES BAZO GRANDES VASOS PELVIS Y FLANCOS)')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE ABDOMEN PELVIS Y ORGANOS O ESTRUCTURAS CONEXAS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE ABDOMEN SUPERIOR (HIGADO PANCREAS VIAS BILIARES RIÑONES BAZO Y GRANDES VASOS)')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE ABDOMEN SUPERIOR (HIGADO PANCREAS VIAS BILIARES RIÑONES BAZO Y GRANDES VASOS)')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE ABDOMEN PELVIS Y ORGANOS O ESTRUCTURAS CONEXAS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE HIGADO PANCREAS VIA BILIAR Y VESICULA')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE HIGADO PANCREAS VIA BILIAR Y VESICULA')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE ABDOMEN PELVIS Y ORGANOS O ESTRUCTURAS CONEXAS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE ABDOMEN (PILORO)')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE ABDOMEN (PILORO)')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE ABDOMEN PELVIS Y ORGANOS O ESTRUCTURAS CONEXAS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE RIÑONES BAZO AORTA O ADRENALES')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE RIÑONES BAZO AORTA O ADRENALES')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE ABDOMEN PELVIS Y ORGANOS O ESTRUCTURAS CONEXAS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE VIAS URINARIAS (RIÑONES VEJIGA Y PROSTATA TRANSABDOMINAL)')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE VIAS URINARIAS (RIÑONES VEJIGA Y PROSTATA TRANSABDOMINAL)')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE ABDOMEN PELVIS Y ORGANOS O ESTRUCTURAS CONEXAS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE ABDOMEN (MASAS ABDOMINALES Y DE RETROPERITONEO)')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE ABDOMEN (MASAS ABDOMINALES Y DE RETROPERITONEO)')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE ABDOMEN PELVIS Y ORGANOS O ESTRUCTURAS CONEXAS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA PELVICA CON ANALISIS DOPPLER')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA PELVICA CON ANALISIS DOPPLER')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE ABDOMEN PELVIS Y ORGANOS O ESTRUCTURAS CONEXAS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE TEJIDOS BLANDOS DE ABDOMEN CON ANALISIS DOPPLER')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE TEJIDOS BLANDOS DE ABDOMEN CON ANALISIS DOPPLER')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE ABDOMEN PELVIS Y ORGANOS O ESTRUCTURAS CONEXAS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DEL ABDOMEN Y PELVIS COMO GUIA DE PROCEDIMIENTO QUIRURGICO O INTERVENCIONISTA')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DEL ABDOMEN Y PELVIS COMO GUIA DE PROCEDIMIENTO QUIRURGICO O INTERVENCIONISTA')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE ABDOMEN PELVIS Y ORGANOS O ESTRUCTURAS CONEXAS')),
             ],
 
@@ -1186,42 +1186,42 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA PELVICA GINECOLOGICA TRANSVAGINAL')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA PELVICA GINECOLOGICA TRANSVAGINAL')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE PELVIS Y DE GENITALES FEMENINOS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA PELVICA GINECOLOGICA TRANSABDOMINAL')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA PELVICA GINECOLOGICA TRANSABDOMINAL')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE PELVIS Y DE GENITALES FEMENINOS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA PELVICA GINECOLOGICA (ESTUDIO INTEGRAL FOLICULAR CON ECO VAGINAL) (TRANSDUCTOR DE 7 MHZ O MAS)')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA PELVICA GINECOLOGICA (ESTUDIO INTEGRAL FOLICULAR CON ECO VAGINAL) (TRANSDUCTOR DE 7 MHZ O MAS)')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE PELVIS Y DE GENITALES FEMENINOS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA PELVICA GINECOLOGICA (HISTEROSONOGRAFIA O HISTEROSALPINGOSONOGRAFIA)')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA PELVICA GINECOLOGICA (HISTEROSONOGRAFIA O HISTEROSALPINGOSONOGRAFIA)')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE PELVIS Y DE GENITALES FEMENINOS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA OBSTETRICA TRANSABDOMINAL')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA OBSTETRICA TRANSABDOMINAL')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE PELVIS Y DE GENITALES FEMENINOS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA OBSTETRICA TRANSVAGINAL')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA OBSTETRICA TRANSVAGINAL')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE PELVIS Y DE GENITALES FEMENINOS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA OBSTETRICA CON PERFIL BIOFISICO')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA OBSTETRICA CON PERFIL BIOFISICO')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE PELVIS Y DE GENITALES FEMENINOS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA OBSTETRICA CON EVALUACION DE CIRCULACION PLACENTARIA Y FETAL')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA OBSTETRICA CON EVALUACION DE CIRCULACION PLACENTARIA Y FETAL')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE PELVIS Y DE GENITALES FEMENINOS')),
             ],
 
@@ -1229,27 +1229,27 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE PROSTATA TRANSABDOMINAL')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE PROSTATA TRANSABDOMINAL')),
                 'category' => ucfirst(strtolower('ECOGRAFIA PELVICA Y DE GENITALES MASCULINOS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE PROSTATA TRANSRECTAL')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE PROSTATA TRANSRECTAL')),
                 'category' => ucfirst(strtolower('ECOGRAFIA PELVICA Y DE GENITALES MASCULINOS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA TESTICULAR CON TRANSDUCTOR DE 7 MHZ O MAS')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA TESTICULAR CON TRANSDUCTOR DE 7 MHZ O MAS')),
                 'category' => ucfirst(strtolower('ECOGRAFIA PELVICA Y DE GENITALES MASCULINOS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA TESTICULAR CON ANALISIS DOPPLER')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA TESTICULAR CON ANALISIS DOPPLER')),
                 'category' => ucfirst(strtolower('ECOGRAFIA PELVICA Y DE GENITALES MASCULINOS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE PENE CON TRANSDUCTOR DE 7 MHZ O MAS')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE PENE CON TRANSDUCTOR DE 7 MHZ O MAS')),
                 'category' => ucfirst(strtolower('ECOGRAFIA PELVICA Y DE GENITALES MASCULINOS')),
             ],
 
@@ -1257,37 +1257,37 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE TEJIDOS BLANDOS EN LAS EXTREMIDADES SUPERIORES CON TRANSDUCTOR DE 7 MHZ O MAS')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE TEJIDOS BLANDOS EN LAS EXTREMIDADES SUPERIORES CON TRANSDUCTOR DE 7 MHZ O MAS')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE LAS EXTREMIDADES Y ARTICULACIONES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE TEJIDOS BLANDOS EN LAS EXTREMIDADES INFERIORES CON TRANSDUCTOR DE 7 MHZ O MAS')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE TEJIDOS BLANDOS EN LAS EXTREMIDADES INFERIORES CON TRANSDUCTOR DE 7 MHZ O MAS')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE LAS EXTREMIDADES Y ARTICULACIONES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE ALTA RESOLUCION EN NERVIOS DE EXTREMIDADES')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE ALTA RESOLUCION EN NERVIOS DE EXTREMIDADES')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE LAS EXTREMIDADES Y ARTICULACIONES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA ARTICULAR DE HOMBRO')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA ARTICULAR DE HOMBRO')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE LAS EXTREMIDADES Y ARTICULACIONES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA ARTICULAR DE RODILLA')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA ARTICULAR DE RODILLA')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE LAS EXTREMIDADES Y ARTICULACIONES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA ARTICULAR DE CADERA')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA ARTICULAR DE CADERA')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE LAS EXTREMIDADES Y ARTICULACIONES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DE CALCANEO')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DE CALCANEO')),
                 'category' => ucfirst(strtolower('ECOGRAFIA DE LAS EXTREMIDADES Y ARTICULACIONES')),
             ],
 
@@ -1295,12 +1295,12 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA COMO GUIA PARA PROCEDIMIENTOS')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA COMO GUIA PARA PROCEDIMIENTOS')),
                 'category' => ucfirst(strtolower('OTRAS ECOGRAFIAS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA COMO GUIA PARA PROCEDIMIENTOS CON MARCACION')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA COMO GUIA PARA PROCEDIMIENTOS CON MARCACION')),
                 'category' => ucfirst(strtolower('OTRAS ECOGRAFIAS')),
             ],
 
@@ -1313,7 +1313,7 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER TRANSCRANEAL A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER TRANSCRANEAL A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DE LA CABEZA CARA Y CUELLO')),
             ],
             [   
@@ -1323,12 +1323,12 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER DE VASOS DEL CUELLO A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER DE VASOS DEL CUELLO A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DE LA CABEZA CARA Y CUELLO')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER DE OTROS VASOS PERIFERICOS DEL CUELLO A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER DE OTROS VASOS PERIFERICOS DEL CUELLO A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DE LA CABEZA CARA Y CUELLO')),
             ],
 
@@ -1341,12 +1341,12 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER DE VASOS ABDOMINALES O PELVICOS A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER DE VASOS ABDOMINALES O PELVICOS A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DEL ABDOMEN Y PELVIS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER DE AORTA ABDOMINAL A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER DE AORTA ABDOMINAL A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DEL ABDOMEN Y PELVIS')),
             ],
             [   
@@ -1356,7 +1356,7 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER DE ARTERIAS RENALES A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER DE ARTERIAS RENALES A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DEL ABDOMEN Y PELVIS')),
             ],
             [   
@@ -1366,7 +1366,7 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER DE ARTERIAS MESENTERICAS A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER DE ARTERIAS MESENTERICAS A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DEL ABDOMEN Y PELVIS')),
             ],
             [   
@@ -1376,7 +1376,7 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER DE TRONCO CELIACO A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER DE TRONCO CELIACO A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DEL ABDOMEN Y PELVIS')),
             ],
             [   
@@ -1386,7 +1386,7 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER DE VENA CAVA A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER DE VENA CAVA A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DEL ABDOMEN Y PELVIS')),
             ],
             [   
@@ -1396,32 +1396,32 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER DE ARTERIAS ILIACAS A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER DE ARTERIAS ILIACAS A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DEL ABDOMEN Y PELVIS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER DE VASOS DEL PENE A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER DE VASOS DEL PENE A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DEL ABDOMEN Y PELVIS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER DE VASOS ESCROTALES A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER DE VASOS ESCROTALES A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DEL ABDOMEN Y PELVIS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER CON EVALUACION DE FLUJO SANGUINEO EN MASAS ABDOMINALES A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER CON EVALUACION DE FLUJO SANGUINEO EN MASAS ABDOMINALES A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DEL ABDOMEN Y PELVIS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER CON EVALUACION DE FLUJO SANGUINEO EN MASAS PELVICAS A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER CON EVALUACION DE FLUJO SANGUINEO EN MASAS PELVICAS A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DEL ABDOMEN Y PELVIS')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER CON EVALUACION DE FLUJO SANGUINEO EN HIPERTENSION PORTAL A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER CON EVALUACION DE FLUJO SANGUINEO EN HIPERTENSION PORTAL A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DEL ABDOMEN Y PELVIS')),
             ],
             [   
@@ -1444,12 +1444,12 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER DE VASOS ARTERIALES DE MIEMBROS SUPERIORES A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER DE VASOS ARTERIALES DE MIEMBROS SUPERIORES A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DE EXTREMIDADES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER DE VASOS VENOSOS DE MIEMBROS SUPERIORES A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER DE VASOS VENOSOS DE MIEMBROS SUPERIORES A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DE EXTREMIDADES')),
             ],
             [   
@@ -1464,22 +1464,22 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER DE VASOS ARTERIALES DE MIEMBROS INFERIORES A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER DE VASOS ARTERIALES DE MIEMBROS INFERIORES A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DE EXTREMIDADES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER DE VASOS VENOSOS DE MIEMBROS INFERIORES A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER DE VASOS VENOSOS DE MIEMBROS INFERIORES A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DE EXTREMIDADES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('FLEBOGRAFIA DE IMPEDANCIA')),
+                'description' => ucfirst(strtolower('FLEBOGRAFÍA DE IMPEDANCIA')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DE EXTREMIDADES')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('MEDICION DE PRESIONES SEGMENTARIAS E INDICES ARTERIALES CON DOPPLER')),
+                'description' => ucfirst(strtolower('MEDICIÓN DE PRESIONES SEGMENTARIAS E INDICES ARTERIALES CON DOPPLER')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DE EXTREMIDADES')),
             ],
 
@@ -1487,12 +1487,12 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER DE OTROS ORGANOS TRASPLANTADOS A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER DE OTROS ORGANOS TRASPLANTADOS A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DE TRASPLANTES (ORGANOS TRASPLANTADOS)')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ECOGRAFIA DOPPLER DE RIÑON TRASPLANTADO A COLOR')),
+                'description' => ucfirst(strtolower('ECOGRAFÍA DOPPLER DE RIÑON TRASPLANTADO A COLOR')),
                 'category' => ucfirst(strtolower('ESTUDIOS VASCULARES NO INVASIVOS DE TRASPLANTES (ORGANOS TRASPLANTADOS)')),
             ],
 
@@ -1515,7 +1515,7 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('RESONANCIA MAGNETICA DE ARTICULACION TEMPOROMANDIBULAR')),
+                'description' => ucfirst(strtolower('RESONANCIA MAGNETICA DE ARTICULACIÓN TEMPOROMANDIBULAR')),
                 'category' => ucfirst(strtolower('RESONANCIA MAGNETICA DE CABEZA CARA Y CUELLO')),
             ],
             [   
@@ -1606,7 +1606,7 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ANGIORRESONANCIA DE TORAX (SIN INCLUIR CORAZON)')),
+                'description' => ucfirst(strtolower('ANGIORRESONANCIA DE TORAX (SIN INCLUIR CORAZÓN)')),
                 'category' => ucfirst(strtolower('RESONANCIA MAGNETICA DE TORAX')),
             ],
             [   
@@ -1733,7 +1733,7 @@ class StudiesList extends Seeder
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ESPECTROSCOPIA')),
+                'description' => ucfirst(strtolower('ESPECTROSCOÍA')),
                 'category' => ucfirst(strtolower('ESTUDIOS DE RESONANCIA MAGNETICA NO CLASIFICADOS BAJO OTRO CONCEPTO')),
             ],
             [   
@@ -1756,25 +1756,25 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('OSTEODENSITOMETRIA POR TC')),
+                'description' => ucfirst(strtolower('OSTEODENSITOMETRÍA POR TC')),
                 'category' => ucfirst(strtolower('ESTUDIOS DE DENSIDAD MINERAL OSEA')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('OSTEODENSITOMETRIA POR ABSORCION DUAL')),
+                'description' => ucfirst(strtolower('OSTEODENSITOMETRÍA POR ABSORCIÓN DUAL')),
                 'category' => ucfirst(strtolower('ESTUDIOS DE DENSIDAD MINERAL OSEA')),
             ],
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('OSTEODENSITOMETRIA Y COMPOSICION CORPORAL (TEJIDOS BLANDOS)')),
+                'description' => ucfirst(strtolower('OSTEODENSITOMETRÍA Y COMPOSICIÓN CORPORAL (TEJIDOS BLANDOS)')),
                 'category' => ucfirst(strtolower('ESTUDIOS DE DENSIDAD MINERAL OSEA')),
             ],
 
-            //FLEBOGRAFIA EN VASOS DE EXTREMIDADES SUPERIORES
+            //FLEBOGRAFÍA EN VASOS DE EXTREMIDADES SUPERIORES
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('FLEBOGRAFIA DE MIEMBRO SUPERIOR')),
+                'description' => ucfirst(strtolower('FLEBOGRAFÍA DE MIEMBRO SUPERIOR')),
                 'category' => ucfirst(strtolower('FLEBOGRAFIA EN VASOS DE EXTREMIDADES SUPERIORES')),
             ],
 
@@ -1782,7 +1782,7 @@ class StudiesList extends Seeder
 
             [   
                 'cod_study' => 'SQ-ST-'.random_int(11111111, 99999999),
-                'description' => ucfirst(strtolower('ARTERIOGRAFIA PERIFERICA DE UNA EXTREMIDAD INFERIOR POR PUNCION')),
+                'description' => ucfirst(strtolower('ARTERIOGRAFÍA PERIFERICA DE UNA EXTREMIDAD INFERIOR POR PUNCION')),
                 'category' => ucfirst(strtolower('ARTERIOGRAFIA EN VASOS DE EXTREMIDADES INFERIORES')),
             ],
 

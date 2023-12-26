@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Components;
 use App\Http\Controllers\ActivityLogController;
 use App\Models\Specialty;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -13,11 +14,13 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
-class Login extends Component {
+class Login extends Component
+{
 
 	public $show;
 
-	public function rules() {
+	public function rules()
+	{
 		$rules = [
 			'username' => 'required|min:3|max:50',
 			'password' => 'required|min:6',
@@ -26,7 +29,8 @@ class Login extends Component {
 		return $rules;
 	}
 
-	public function messages() {
+	public function messages()
+	{
 		$messages = [
 			'username.required' => 'Usuario requerido',
 			'password.required' => 'Contraseña requerida',
@@ -39,56 +43,65 @@ class Login extends Component {
 		return $messages;
 	}
 
-	public function login(Request $request) {
+	public function login(Request $request)
+	{
 
 		$validator = Validator::make($request->all(), $this->rules(), $this->messages());
 
 		if ($validator->fails()) {
 
 			return Redirect::to('/')->withErrors($validator);
-
 		} else {
 
 			try {
+				$user_exist = User::where('email', $request->username)->first();
 				// Verificamos que el usuario exita en base de datos
-				$user = User::where('email', $request->username)->get();
-				foreach ($user as $item) {
-					$pass = $item->password;
-				}
+				if ($user_exist != null) {
+					// Verificamos status del usuriao habilitadoi
+					if ($user_exist->tipo_status == '1') {
+						if (Hash::check($request->password, $user_exist->password)) {
 
-				if ($user = !null) {
-					if (Hash::check($request->password, $pass)) {
+							$credenciales = [
+								'email' => $request->username,
+								'password' => $request->password,
+							];
 
-						$credenciales = [
-							'email' => $request->username,
-							'password' => $request->password,
-						];
+							Auth::attempt($credenciales);
+							$request->session()->regenerate();
 
-						Auth::attempt($credenciales);
-						$request->session()->regenerate();
+							$action = '1';
+							ActivityLogController::store_log($action);
 
-						$action = '1';
-						ActivityLogController::store_log($action);
+							$user = Auth::user();
 
-						$user = Auth::user();
-						$status_register = $user->status_register;
-						$speciality = Specialty::all();
+							// verificar si vlaido el correo
+							if ($user->email_verified_at === null) {
+								return Redirect::to('/')->withErrors('Debe verificar su correo electronico!');
+							}
 
-						// Redireccion segun status de registro
-						if ($status_register == '1') {
-							return view('livewire.components.profile', compact('user','speciality'));
+							$status_register = $user->status_register;
+							$speciality = Specialty::all();
 
-						} else {
+							// Redireccion segun status de registro
+							if ($status_register == '1') {
+								return view('livewire.components.profile', compact('user', 'speciality'));
+							} else {
 
-							return Redirect::route('DashboardComponent');
+								if ($user->role == "corporativo") {
+									return Redirect::route('Dashboard-corporate');
+								} else {
+									return Redirect::route('DashboardComponent');
+								}
+							}
+						} else { // credenciales incorrectas
+							return Redirect::to('/')->withErrors('Autenticación incorrecta');
 						}
+					} else { // usuario desahabilitado
+						return Redirect::to('/')->withErrors('El usuario no existe o se encuentra deshabilitado. Por favor valide la información y vuelva a intentarlo');
 					}
-
-				} else {
-
-					return back()->with('error', 'User created successfully.');
+				} else {//no exite usuario
+					return Redirect::to('/')->withErrors('Autenticación incorrecta');
 				}
-
 			} catch (\Throwable $th) {
 				$message = $th->getMessage();
 				return Redirect::to('/')->withErrors('Autenticación incorrecta');
@@ -100,11 +113,14 @@ class Login extends Component {
 	public function logout()
 	{
 		Session::flush();
-        Auth::logout();
-        return redirect('/');
+		Auth::logout();
+		return redirect('/');
 	}
 
-	public function render() {
+	public function render()
+	{
+
+		// dd();
 		$this->show = true;
 		return view('livewire.components.login', ['show' => $this->show]);
 	}

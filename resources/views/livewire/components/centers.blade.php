@@ -78,7 +78,7 @@
             $.validator.addMethod("onlyNumber", function(value, element) {
                 var pattern = /^\d+\.?\d*$/;
                 return pattern.test(value);
-            }, "Campo solo numero");
+            }, "Campo numérico");
 
             //envio del formulario
             $("#form-centers").submit(function(event) {
@@ -257,7 +257,7 @@
 @endpush
 @section('content')
     <div>
-        <div class="container-fluid" style="padding: 3%">
+        <div class="container-fluid" style="padding: 0 3% 3%">
             <div class="row mt-2">
                 {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
                     <h5 class="text-capitalize">Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}</h5>
@@ -280,7 +280,7 @@
                                     <hr>
                                     <div class="table-responsive" id="table-patients" style="margin-top: 20px; width: 100%;">
                                         <table id="table-centers" class="table table-striped table-bordered" style="width: 100%;">
-                                            <thead class="table-light">
+                                            <thead>
                                                 <tr>
                                                     <th class="text-center">Nombre de centro</th>
                                                     <th class="text-center">Dirección</th>

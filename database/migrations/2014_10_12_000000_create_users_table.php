@@ -18,19 +18,19 @@ return new class extends Migration
             $table->string('business_name')->nullable();
             $table->string('email');
             $table->string('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             /**
              * Roles:
              * @uses medico
              * @uses paciente
              */
-            $table->string('role');
+            $table->string('role')->nullable();
             $table->string('specialty')->nullable();
             /**
              * Informacion adicional
              */
-            $table->string('ci')->nullable();
-            $table->string('birthdate')->nullable(); 
+            $table->string('ci')->unique()->nullable();
+            $table->string('birthdate')->nullable();
             $table->string('age')->nullable();
             $table->string('genere')->nullable();
             $table->string('phone')->nullable();
@@ -45,7 +45,7 @@ return new class extends Migration
              * Campos para contar
              * acciones del usuario de acuerdo
              * al plan asignado
-             * 
+             *
             */
             $table->string('type_plane')->nullable();
             $table->string('token')->nullable();
@@ -54,6 +54,9 @@ return new class extends Migration
             $table->integer('ref_counter')->default(0)->nullable();
             $table->string('cod_update_email')->nullable();
             $table->string('cod_update_pass')->nullable();
+            $table->string('date_start_plan')->nullable();
+            $table->string('date_end_plan')->nullable();
+            $table->boolean('expired_plan')->nullable()->default(false);
 
             $table->rememberToken();
             $table->timestamps();
