@@ -131,35 +131,50 @@
             $('#img').val('');
             $('#ModalLoadResult').modal('show');
             $('#table-info').find('tbody').empty();
+
             if (active == 0) {
                 urlPost = '{{ route('upload_result_exam') }}';
                 $('.modal-title').text('Examen del Paciente');
                 info.map((elemt, index) => {
-                    let elemData = JSON.stringify(elemt);
+                    let elemData = JSON.stringify(elemt);   
                     let label =
                         `<label><input type="checkbox" id="cod_exam_${index}" onclick='cuontResul(event,${elemData},0,${index});'></label>`
                     if (Number(elemt.status) === 2) {
+                        $('#div-result').hide();
+                        $('#div-btn').hide();
                         label =
-                            `<div  class="pad"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
+                        `<div  class="pad"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
+                    }
+                    if (Number(elemt.status) === 1) {;
+                        $('#div-result').show();
+                        $('#div-btn').show();
                     }
                     let row = `
-                        <tr>
+                    <tr>
                         <td class="text-center">${elemt.cod_exam}</td>
                         <td class="text-center">${elemt.description}</td>     
                         <td class="text-center">${label}</td>                
                         </tr>`;
-                    $('#table-info').find('tbody').append(row);
-                });
+                        $('#table-info').find('tbody').append(row);
+                        
+                    });
             } else {
                 urlPost = '{{ route('upload_result_study') }}';
-                $('.modal-title').text('Información del Estudios');
+                $('.modal-title').text('Información del Estudio');
                 info.map((elemt, index) => {
+                    
                     let elemData = JSON.stringify(elemt);
                     let label =
-                        `<label><input type="checkbox"  id="cod_exam_${index}" onclick='cuontResul(event,${elemData},1,${index});'></label>`
+                    `<label><input type="checkbox"  id="cod_exam_${index}" onclick='cuontResul(event,${elemData},1,${index});'></label>`
                     if (Number(elemt.status) === 2) {
                         label =
                             `<div  class="prueba"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
+                        $('#div-result').hide();
+                        $('#div-btn').hide();
+                    }
+                    if (Number(elemt.status) === 1) {;
+                        $('#div-result').show();
+                        $('#div-btn').show();
                     }
                     let row = `
                         <tr>
@@ -168,6 +183,7 @@
                         <td class="text-center">${label}</label></td>                
                         </tr>`;
                     $('#table-info').find('tbody').append(row);
+                    
                 });
             }
             $('#ref').text(item.cod_ref);
@@ -990,14 +1006,16 @@
                             </div>
 
                             <div id="input-array"></div>
-                            <div class="row mt-3" id="div-result">
-                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                    <x-upload-image title="Cargar Resultados" />
+                            <div id="div-btn">
+                                <div class="row mt-3 div-result">
+                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                                        <x-upload-image title="Cargar Resultados" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row text-center">
-                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                    <input class="btn btnPrimary send " value="Guardar" type="submit" />
+                                <div class="row text-center">
+                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                                        <input class="btn btnPrimary send " value="Guardar" type="submit" />
+                                    </div>
                                 </div>
                             </div>
                         </form>
