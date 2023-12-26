@@ -479,51 +479,44 @@
                                         /// data estudios
                                         
                                             e.study_medical.map((item, i) => {
+                                                
                                                 let et = '';
-                                                let target =
-                                                    `{{ URL::asset('/imgs/${item.file}') }}`;
-                                                if ((i % 2) == 0) {
-                                                    et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
-                                                            justify-content: space-between;" class="list-group-item  ${i}" aria-current="true"> ${item.description} ${item.record_code}
-                                                            <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;"> 
-                                                                <button type="button"
-                                                                    class="refresf btn-idanger rounded-circle"
-                                                                    data-bs-container="body"
-                                                                    data-bs-toggle="popover"
-                                                                    data-bs-custom-class="custom-popover"
-                                                                    data-bs-placement="bottom"
-                                                                    data-bs-content="No hay exámenes cargados">
-                                                                    <i class="bi bi-filetype-pdf"></i>
-                                                                </button>
-                                                            </a>   
-                                                        </li>`
-                                                } else {
-                                                    et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
-                                                            justify-content: space-between;"  class="list-group-item ${i}"" aria-current="true">${item.description} ${item.record_code}
-                                                            <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;"> 
-                                                                <button type="button"
-                                                                    class="refresf btn-idanger rounded-circle"
-                                                                    data-bs-container="body"
-                                                                    data-bs-toggle="popover"
-                                                                    data-bs-custom-class="custom-popover"
-                                                                    data-bs-placement="bottom"
-                                                                    data-bs-content="No hay exámenes cargados">
-                                                                    <i class="bi bi-filetype-pdf"></i>
-                                                                </button>
-                                                            </a>
-                                                        </li>`
+                                                let target = `{{ URL::asset('/imgs/${item.file}') }}`;
+                                                    if ((i % 2) == 0) {
+                                                        et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
+                                                                justify-content: space-between;" class="list-group-item  ${i}" aria-current="true"> ${item.description} ${item.record_code}
+                                                                <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;"> 
+                                                                    <button type="button"
+                                                                        class="refresf btn-idanger rounded-circle">
+                                                                        <i class="bi bi-filetype-pdf"></i>
+                                                                    </button>
+                                                                </a>   
+                                                            </li>`
+                                                    } else {
+                                                        et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
+                                                                justify-content: space-between;"  class="list-group-item ${i}"" aria-current="true">${item.description} ${item.record_code}
+                                                                <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;"> 
+                                                                    <button type="button"
+                                                                        class="refresf btn-idanger rounded-circle">
+                                                                        <i class="bi bi-filetype-pdf"></i>
+                                                                    </button>
+                                                                </a>
+                                                            </li>`
+                                                    }
+                                                    $('.ul-study').append(et);
+
+                                                    if (et) {
+                                                    $('#not-studie').hide();
                                                 }
-                                                $('.ul-study').append(et);
                                             });
                                         
                                         //end
 
                                         /// data examenes
-
                                             e.exam_medical.map((item, e) => {
+
                                                 let ett = '';
-                                                let target =
-                                                    `{{ URL::asset('/imgs/${item.file}') }}`;
+                                                let target = `{{ URL::asset('/imgs/${item.file}') }}`;
                                                 if ((e % 2) == 0) {
                                                     ett =
                                                         `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
@@ -535,14 +528,15 @@
                                                                     data-bs-toggle="popover"
                                                                     data-bs-custom-class="custom-popover"
                                                                     data-bs-placement="bottom"
-                                                                    data-bs-content="No hay exámenes cargados">
+                                                                    data-bs-content="No hay estudios cargados">
                                                                     <i class="bi bi-filetype-pdf"></i>
                                                                 </button>
                                                             </a>
                                                         </li>`
                                                 } else {
                                                     ett =
-                                                        `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px;"  class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}
+                                                        `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
+                                                            justify-content: space-between;" class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}
                                                             <a target="_blank" href="${target}"  style="color: white; text-decoration: none; font-size: 20px;"> 
                                                                 <button type="button"
                                                                     class="refresf btn-idanger rounded-circle"
@@ -550,14 +544,20 @@
                                                                     data-bs-toggle="popover"
                                                                     data-bs-custom-class="custom-popover"
                                                                     data-bs-placement="bottom"
-                                                                    data-bs-content="No hay exámenes cargados">
+                                                                    data-bs-content="No hay estudios cargados">
                                                                     <i class="bi bi-filetype-pdf"></i>
                                                                 </button>
                                                             </a>
                                                         </li>`
                                                 }
                                                 $('.ul-exmen').append(ett);
+
+                                                if (ett) {
+                                                    $('#not-exam').hide();
+                                                }
                                             });
+
+
                                         //end
                                     });
                                     //end
@@ -638,8 +638,6 @@
                                     </div>
                                 </div>
                             </form>
-
-
                             <div class="row mt-5" id="div-content" style="display: none">
                                 <hr>
                                 <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8">
@@ -756,8 +754,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                         </section>
                                         <h3>Consultas médicas</h3>
                                         <section>
@@ -768,9 +764,17 @@
                                         <section>
                                             <div class="row p-3 div-overflow">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pmv-0">
-                                                    <a id="study"></a>
                                                     <ul class="list-group ul-study list-group-flush overflow-auto">
                                                     </ul>
+                                                    <div id='not-studie' class="row justify-content-center">
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">                                            
+                                                            <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">¡No hay estudios para mostrar de este paciente!</h5>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">                                            
+                                                            <img width="150" height="auto"
+                                                            src="{{ asset('/img/icon-warning.png') }}" alt="avatar">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </section>
@@ -780,6 +784,15 @@
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pmv-0">
                                                     <ul class="list-group ul-exmen list-group-flush overflow-auto">
                                                     </ul>
+                                                    <div id='not-exam' class="row justify-content-center">
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">                                            
+                                                            <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">¡No hay exámenes para mostrar de este paciente!</h5>
+                                                        </div>
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">                                            
+                                                            <img width="150" height="auto"
+                                                            src="{{ asset('/img/icon-warning.png') }}" alt="avatar">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </section>
