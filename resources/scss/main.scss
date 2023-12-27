@@ -1626,9 +1626,18 @@ div.ui-jqgrid {
 }
 
 @media only screen and (max-width: 390px) {
+    
     .mb-cd {
         margin-bottom: 20% !important;
     }
+}
+
+@media (min-width: 391px) and (max-width: 576px) {
+
+    .mb-cd {
+        margin-bottom: 20% !important;
+    }
+
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
