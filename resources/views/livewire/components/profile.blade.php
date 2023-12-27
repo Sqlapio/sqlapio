@@ -1013,7 +1013,7 @@
                 @if (Auth::user()->role == 'medico')
                     {{-- firma Digital --}}
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 {{Auth::user()->role == 'medico' && Auth::user()->type_plane != '7' ? "" : "mb-cd"}}">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 {{Auth::user()->role == 'medico' && Auth::user()->type_plane != '7' ? "" : "mb-cd mb-3"}}">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
                                     <button class="accordion-button collapsed bg-8" type="button"
