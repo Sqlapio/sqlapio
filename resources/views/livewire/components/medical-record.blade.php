@@ -861,7 +861,7 @@
             <div class="accordion" id="accordionExample">
                 {{-- datos del paciente --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
@@ -1024,7 +1024,7 @@
                                                     <span id='not-studie'>No hay estudios para mostrar de este paciente
                                                     </span>
                                                     <ul id="studie" class="studie"
-                                                        style="display: flex; flex-wrap: wrap;">
+                                                        style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
                                                         @foreach ($study as $key => $item)
                                                             <li style="margin-bottom: 10px; padding-right: 5px">
                                                                 <input type="checkbox" class="btn-check"
