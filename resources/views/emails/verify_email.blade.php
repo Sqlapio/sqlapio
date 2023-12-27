@@ -18,13 +18,13 @@
             <p style="text-align: justify; margin-left: 20px;">
                 <h2 style="text-align: justify; margin-left: 20px;">Dr(a). {{ $mailData['dr_name'] }}</h2>
             </p>
-    
+
             <p style="text-align: justify; margin-left: 20px;">
                 Gracias por ser parte de nuestra familia Sqlapio.com, usted acaba de registrarse en nuestro sistema.
                 <br>
                 Es importate para nosotro que realize la confirmación de su correo electrónico a través del siguiente link:
                 <br>
-                http://sqldevelop.sqlapio.net/verify/{{ $mailData['verify_code'] }}
+                {{ env('APP_URL') }}/{{ $mailData['verify_code'] }}
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
@@ -54,6 +54,6 @@
             width: 600px;
             height: auto;"
         src="{{ asset('img/notification_email/footer.png') }}">
-    
+
 </body>
 </html>
