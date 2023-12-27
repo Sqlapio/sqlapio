@@ -24,7 +24,7 @@
                 <br>
                 Es importate para nosotro que realize la confirmación de su correo electrónico a través del siguiente link:
                 <br>
-                {{ env('APP_URL') }}/{{ $mailData['verify_code'] }}
+                {{ env('APP_URL') }}/verify/{{ $mailData['verify_code'] }}
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
