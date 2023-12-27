@@ -24,18 +24,24 @@
             width: 185px !important;
             font-size: 14px;
         }
+
+        .mt-cr {
+            padding-top: 1rem;
+        }
     }
 
     @media (min-width: 391px) and (max-width: 576px) {
 
         .mt-cr {
-            padding-top: 20px;
+            padding-top: 1rem;
         }
 
         .data-medical {
             width: 222px !important;
             font-size: 14px;
         }
+
+
     }
 </style>
 @push('scripts')

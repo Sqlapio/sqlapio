@@ -163,7 +163,7 @@
             $("#content-result").show();
             $('#content-data').empty();
             item.exam.map((elem) => {
-                let img = '{{ URL::asset('/img/V2/icon_img.png') }}';
+                let img = '{{ URL::asset('/img/V2/icon_pdf_v1.png') }}';
                 let target = `{{ URL::asset('/imgs/${elem.file}') }}`;
 
                 let url = "{{ route('MedicalRecord', ':id') }}";
@@ -175,9 +175,10 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-                                                <a target="_blank" href="${target}">
-                                                    <img data-bs-toggle="tooltip"  data-bs-placement="bottom" title="Ver documento" style="" src="${img}" width="50 " height="auto"
+                                                <a target="_blank" href="${target}" style="color: #47525e; text-decoration: none;">
+                                                    <img data-bs-toggle="tooltip"  data-bs-placement="bottom" title="Ver archivo" style="" src="${img}" width="50 " height="auto"
                                                     alt="Imagen del paciente" class="img-medical">
+                                                    <span>Ver archivo</span>
                                                 </a> 
                                             </div>
                                             <div class="col-sm-8 col-md-8 col-lg-9 col-xl-9 col-xxl-9">
@@ -185,7 +186,7 @@
                                                 <br>                               
                                                     <strong class="text-capitalize color-f"> ${item.full_name}</strong>
                                                 <br>
-                                                    <span>Cod. consulta:
+                                                    <span>Ver consulta:
                                                         <a href="${url}" class="cod-co">
                                                             <strong class="text-capitalize" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Consulta"> ${elem.record_code}</strong>
                                                         </a>
@@ -194,7 +195,7 @@
                                                 <br>
                                                     <span style="float:right; font-size: 12px;">${elem.cod_exam}</span>
                                                 <br>
-                                                    <span class="text-capitalize" style="float:right;"> ${elem.description}</span>
+                                                    <span class="text-capitalize" style="float:right; text-overflow: ellipsis; white-space: nowrap; width: 230px;"> ${elem.description}</span>
                                             </div>                             
                                         </div>
                                     </div>
