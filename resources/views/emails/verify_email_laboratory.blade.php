@@ -18,7 +18,7 @@
             <p style="text-align: justify; margin-left: 20px;">
                 <h1 style="text-align: justify; margin-left: 20px;">{{ $mailData['laboratory_name'] }}</h1>
             </p>
-    
+
             <p style="text-align: justify; margin-left: 20px;">
                 Espero se encuentre muy bien.
                 <br>
@@ -28,7 +28,7 @@
                 Es importate para nosotro que realize la confirmación de su correo electrónico a través del siguiente link:
                 <br>
                 <br>
-                http://sqldevelop.sqlapio.net/verify/{{ $mailData['verify_code'] }}
+                {{ env('APP_URL') }}/{{ $mailData['verify_code'] }}
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
@@ -57,6 +57,6 @@
             width: 600px;
             height: auto;"
         src="{{ asset('img/notification_email/footer.png') }}">
-    
+
 </body>
 </html>
