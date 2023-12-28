@@ -41,6 +41,7 @@
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
                     handlerStatus("{{ route('enabled-doctor', ':id') }}", e.target.value);
+                    $('#spinner').show();
                 });
             } else {
                 Swal.fire({
@@ -51,6 +52,7 @@
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
                     handlerStatus("{{ route('disabled-doctor', ':id') }}", e.target.value);
+                    $('#spinner').show();
                 });
             }
 
@@ -67,7 +69,7 @@
                         'content')
                 },
                 success: function(res) {
-
+                    $('#spinner').hide();
                     Swal.fire({
                         icon: 'success',
                         title: 'Operacion Exitosa',
@@ -160,7 +162,9 @@
 @section('content')
     <div class="container-fluid" style="padding: 0 3% 3%">
         <div class="row mt-2">
-
+            <div id="spinner" style="display: none">
+                <x-load-spinner />
+            </div>
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd">
                 <div class="accordion" id="accordion">
                     <div class="accordion-item">
