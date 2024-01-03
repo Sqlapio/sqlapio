@@ -287,6 +287,7 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
   avatar_imge = ulr_imge_avatar;
   let dateString = getDateWithoutTime(new Date()).toISOString().substring(0, 10);
 
+
   //
   const calendarEl = document.getElementById('calendar')
   calendar = new Calendar(calendarEl, {
@@ -396,6 +397,8 @@ function clearInput(date) {
 }
 
 function setValue(data, info) {
+
+  console.log(info)
 
   let img_url = `${ulrimge}/${info.event.extendedProps.img}`;
 
@@ -673,13 +676,14 @@ function handlerPrice(e) {
     $('#div-price').hide();
   }
 }
-function handlerMedicalRecord(item) {
 
-  if (Number(new Date().toJSON().slice(0, 10).replaceAll('-', '')) === Number(new Date(item.event.start).toISOString().split('T')[0].replaceAll('-', ''))) {
+function handlerMedicalRecord(item) {
+  let dateString = getDateWithoutTime(new Date()).toISOString().substring(0, 10);
+
+  if (dateString === new Date(item.event.extendedProps.data_app).toISOString().substring(0, 10)) {
     url = url.replace(':id', item.event.extendedProps.patient_id);
     window.location.href = url;
   } else {
-
     Swal.fire({
       icon: 'warning',
       title: 'Para realizar la consulta, debe cambiar la cita al dia de hoy!',

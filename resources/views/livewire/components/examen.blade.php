@@ -175,10 +175,10 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-                                                <a target="_blank" href="${target}" style="color: #47525e; text-decoration: none;">
+                                                <a target="_blank" href="${target}" style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
                                                     <img data-bs-toggle="tooltip"  data-bs-placement="bottom" title="Ver archivo" style="" src="${img}" width="50 " height="auto"
                                                     alt="Imagen del paciente" class="img-medical">
-                                                    <span>Ver archivo</span>
+                                                    <span style="font-size: 11px;" >Ver archivo</span>
                                                 </a> 
                                             </div>
                                             <div class="col-sm-8 col-md-8 col-lg-9 col-xl-9 col-xxl-9">
@@ -195,7 +195,7 @@
                                                 <br>
                                                     <span style="float:right; font-size: 12px;">${elem.cod_exam}</span>
                                                 <br>
-                                                    <span class="text-capitalize" style="float:right; text-overflow: ellipsis; white-space: nowrap; width: 230px;"> ${elem.description}</span>
+                                                <span class="text-capitalize" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width: 100%; display: flex; justify-content: flex-end;"> ${elem.description}</span>
                                             </div>                             
                                         </div>
                                     </div>
