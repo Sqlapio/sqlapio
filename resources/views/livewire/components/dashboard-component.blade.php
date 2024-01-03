@@ -979,7 +979,7 @@
                             <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
                                 <strong>Referencia: </strong><span id="ref"></span>
                                 <br>
-                                <strong>Paciente: </strong><span id="ref-pat"></span>
+                                <strong>Paciente: </strong><span class="text-capitalize" id="ref-pat"></span>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-3 table-responsive" id="info-show">
