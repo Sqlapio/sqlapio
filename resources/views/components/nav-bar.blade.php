@@ -593,14 +593,16 @@
                                 </div>
 
                                 <div class="col-xs-6 col-sm-6 col-md-6" style="display: flex; justify-content: flex-end;">
-                                    @if (Auth::user()->get_data_corporate_master->get_laboratorio->lab_img == null && Auth::user()->role == 'medico' && Auth::user()->type_plane == '7')
-                                    <img class="avatar-corporativo d-none d-xl-block" src="{{ asset('/img/logo sqlapio-02.png') }}"
-                                    style="margin-top:0; object-fit: scale-down; width: 180px">
-                                    @elseif (Auth::user()->role == 'medico' && Auth::user()->type_plane == '7' && Auth::user()->get_data_corporate_master)
-                                        <img class="avatar-corporativo d-none d-xl-block"
-                                        src="{{ asset('/imgs/' . Auth::user()->get_data_corporate_master->get_laboratorio->lab_img) }}"
-                                        alt="Chris Wood" style="margin-top:0; object-fit: scale-down;">
-                                    @endif
+                                    @if (Auth::user()->get_data_corporate_master) 
+                                        @if (Auth::user()->type_plane == '7' && Auth::user()->get_data_corporate_master->get_laboratorio->lab_img == null && Auth::user()->role == 'medico')
+                                        <img class="avatar-corporativo d-none d-xl-block" src="{{ asset('/img/logo sqlapio-02.png') }}"
+                                        style="margin-top:0; object-fit: scale-down; width: 180px">
+                                        @elseif (Auth::user()->role == 'medico' && Auth::user()->type_plane == '7' && Auth::user()->get_data_corporate_master)
+                                            <img class="avatar-corporativo d-none d-xl-block"
+                                            src="{{ asset('/imgs/' . Auth::user()->get_data_corporate_master->get_laboratorio->lab_img) }}"
+                                            alt="Chris Wood" style="margin-top:0; object-fit: scale-down;">
+                                        @endif
+                                    @endif 
                                     <a class="nav-link icon-p" href="#" style="height: 94px;">
                                         @if (Auth::user()->user_img != null && Auth::user()->role == 'medico')
                                             <span class="strong me-1" style="margin-bottom: 7px;"> Dr.
