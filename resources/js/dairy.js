@@ -398,8 +398,6 @@ function clearInput(date) {
 
 function setValue(data, info) {
 
-  console.log(info)
-
   let img_url = `${ulrimge}/${info.event.extendedProps.img}`;
 
   if (info.event.extendedProps.img === null) {
@@ -551,6 +549,7 @@ function update_appointments(url, data) {
         confirmButtonColor: '#42ABE2',
         confirmButtonText: 'Aceptar'
       }).then((result) => {
+        window.location.href = urlDairy;
       });
     }, error: function (error) {
       Swal.fire({
