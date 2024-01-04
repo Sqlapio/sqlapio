@@ -31,7 +31,10 @@ function get_patient_register(countPatientRegister) {
       responsive: true,
       scales: {
         y: {
-          beginAtZero: true
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1 
+          }
         }
       },
       plugins: {
@@ -82,7 +85,10 @@ function get_medical_record(countMedicalRecordr) {
       responsive: true,
       scales: {
         y: {
-          beginAtZero: true
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1 
+          }
         }
       },
       plugins: {
@@ -107,7 +113,7 @@ function get_medical_record(countMedicalRecordr) {
 function get_history_register(countHistoryRegister) {
 
   const labels = [
-    'Total de histrorias realizadas',
+    'Total de historias realizadas',
   ];
 
   const data = {
@@ -134,7 +140,10 @@ function get_history_register(countHistoryRegister) {
       responsive: true,
       scales: {
         y: {
-          beginAtZero: true
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1 
+          }
         }
       },
       plugins: {
@@ -183,6 +192,13 @@ function get_genere(boy_girl, teen) {
     plugins: [ChartDataLabels],
     options: {
       responsive: true,
+      scales: {
+        y: {
+          ticks: {
+            stepSize: 1 
+          }
+        }
+      },
       plugins: {
         datalabels: {
           labels: {
@@ -223,6 +239,13 @@ function get_general(elderly, adult) {
     plugins: [ChartDataLabels],
     options: {
       responsive: true,
+      scales: {
+        y: {
+          ticks: {
+            stepSize: 1 
+          }
+        }
+      },
       plugins: {
         datalabels: {
           labels: {
