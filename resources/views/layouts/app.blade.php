@@ -8,8 +8,8 @@
     @livewireStyles
 {{-- select dos --}}
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon.ico') }}">
+<link rel="icon" sizes="256x256" href="{{ asset('img/favicon.ico') }}">
+<link rel="icon" sizes="180x180" href="{{ asset('img/Isotipo_Mesa de trabajo 1 copia.png') }}">
 
 </head>
 {{-- llamado de js jquery --}}
