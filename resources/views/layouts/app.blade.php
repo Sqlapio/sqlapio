@@ -9,6 +9,8 @@
 {{-- select dos --}}
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon.ico') }}">
+
 </head>
 {{-- llamado de js jquery --}}
 <script src="{{ asset('jquery-ui-1.13.2/external/jquery/jquery.js') }}" type="text/javascript"></script>
@@ -41,7 +43,7 @@
     }
 
     @media only screen and (max-width: 768px) {
-        body {  
+        body {
             background: url({{ asset('img/fondo-mobile.jpg') }}) no-repeat center center fixed;
         }
     }
