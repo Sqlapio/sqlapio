@@ -162,6 +162,8 @@ let arrayPm = [{
 
 }
 ];
+let dateString = getDateWithoutTime(new Date()).toISOString().substring(0, 10);
+
 
 function getUrl(urlPostt, url2) {
   urlPost = urlPostt;
@@ -285,7 +287,6 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
   ulrimge = ulrImge;
   ulrUpdate = updateAppointments;
   avatar_imge = ulr_imge_avatar;
-  let dateString = getDateWithoutTime(new Date()).toISOString().substring(0, 10);
 
 
   //
@@ -677,7 +678,6 @@ function handlerPrice(e) {
 }
 
 function handlerMedicalRecord(item) {
-  let dateString = getDateWithoutTime(new Date()).toISOString().substring(0, 10);
 
   if (dateString === new Date(item.event.extendedProps.data_app).toISOString().substring(0, 10)) {
     url = url.replace(':id', item.event.extendedProps.patient_id);
