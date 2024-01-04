@@ -84,25 +84,24 @@
                         res.map((e, key) => {
                             let element = '';
                             if ((key % 2) == 0) {
-                                element = `<a href="#" class="list-group-item list-group-item-action  active ${key}"
-                                        aria-current="true">
-                                        <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb- text-capitalize">Médico: ${e.full_name_doc} </h5><br>
-                                        </div>
-                                        <small>Código de consulta:</small> <strong>${e.data.record_code}</strong>
-                                        <br>
-                                        <small>Fecha de consulta:</small> <strong>${e.date}</strong>
-                                        </a>`
+                                element = `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px;">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb- text-capitalize">Médico: ${e.full_name_doc} </h5>
+                                                    <br>
+                                                </div>
+                                                <small>Código de consulta:</small> <strong>${e.data.record_code}</strong>
+                                                <br>
+                                                <small>Fecha de consulta:</small> <strong>${e.date}</strong>
+                                            </li>`
                             } else {
-                                element = `<a href="#" class="list-group-item list-group-item-action  ${key}"
-                                        aria-current="true">
-                                        <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1 text-capitalize">Medico: ${e.full_name_doc} </h5><br>
-                                        </div>
-                                        <small>Codigo de consulta:</small> <strong>${e.data.record_code}</strong>
-                                        <br>
-                                        <small>Fecha de consulta:</small> <strong>${e.date}</strong>
-                                        </a>`
+                                element = `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px;">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb-1 text-capitalize">Medico: ${e.full_name_doc} </h5><br>
+                                                </div>
+                                                <small>Codigo de consulta:</small> <strong>${e.data.record_code}</strong>
+                                                <br>
+                                                <small>Fecha de consulta:</small> <strong>${e.date}</strong>
+                                        </li>`
                             }
                             $('.list-group').append(element);
                         })

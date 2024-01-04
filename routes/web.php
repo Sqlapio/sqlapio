@@ -271,3 +271,31 @@ Route::group(array('prefix' => 'public'), function () {
  * Logout
  */
 Route::get('/logout', [Login::class, 'logout'])->name('logout');
+
+Route::get('/gpt', function () {
+    $data = Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+                'Authorization' => 'Bearer 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',
+              ])
+              ->post("https://api.openai.com/v1/chat/completions", [
+                "model" => "gpt-3.5-turbo",
+                'messages' => [
+                    [
+                       "role" => "user",
+                       "content" => "Actua como medico y realiza un diagnostico para un paciente femenino de 34 años con los siguientes sintomas: Dolor de cabeza, dolor de vientre, nauseas, vomitos y mareos. El paciente presenta 2 meses de retrazo en su periodo mestrual. Agrega 3 recomendaciones generales"
+                   ]
+                ],
+                'temperature' => 1,
+                "max_tokens" => 1024,
+                "n" => 1,
+                "stream" => false,
+                "top_p" => 1,
+                "frequency_penalty" => 0,
+                "presence_penalty" => 0,
+            ]);
+
+            return $data->json()['choices'][0]['message']['content'];
+
+
+});

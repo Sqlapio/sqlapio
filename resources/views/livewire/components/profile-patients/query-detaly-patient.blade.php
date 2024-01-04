@@ -337,7 +337,7 @@
                                     $('.gilecologico').empty()
 
                                     let gine = `<div class="row p-3">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                         <ul class="list-group" style="border-radius: 8px;">
                                             <li class="list-group-item active aa" aria-current="true">
                                                 <div class="d-flex w-100 justify-content-between">
@@ -404,6 +404,12 @@
                                             </li>`
                                         );
                                     });
+                                                
+                                    if (response[0].allergies.length === 0) {
+                                        $('#not-alergias').show();
+                                    } else {
+                                        $('#not-alergias').hide();
+                                    }
 
                                     //end
 
@@ -419,6 +425,12 @@
                                         );
 
                                     });
+
+                                    if (response[0].history_surgical.length === 0) {
+                                        $('#not-cirugias').show();
+                                    } else {
+                                        $('#not-cirugias').hide();
+                                    }
                                     //end
 
                                     /// medicamentos
@@ -433,6 +445,12 @@
                                             </li>`
                                         );
                                     });
+
+                                    if (response[0].medications_supplements.length === 0) {
+                                        $('#not-medications').show();
+                                    } else {
+                                        $('#not-medications').hide();
+                                    }
                                     //end
 
                                     //mostrar consultas
@@ -711,12 +729,17 @@
                                                         <ul class="list-group" style="border-radius: 8px;">
                                                             <li class="list-group-item active aa" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 class="mb- text-capitalize">Antecedentes alérgicos
-                                                                    </h5>
+                                                                    <h5 class="mb- text-capitalize">Antecedentes alérgicos</h5>
                                                                 </div>
                                                             </li>
                                                             <div class="list-alergias ">
-
+                                                            </div>
+                                                            <div id="not-alergias">
+                                                                <li  class="list-group-item" aria-current="true"> 
+                                                                    <div class="d-flex w-100 justify-content-between">
+                                                                        <strong>No hay información para mostrar</strong>
+                                                                    </div>
+                                                                </li>
                                                             </div>
                                                         </ul>
                                                     </div>
@@ -732,7 +755,13 @@
                                                                 </div>
                                                             </li>
                                                             <div class="list-cirugias">
-
+                                                            </div>
+                                                            <div id="not-cirugias">
+                                                                <li  class="list-group-item" aria-current="true"> 
+                                                                    <div class="d-flex w-100 justify-content-between">
+                                                                        <strong>No hay información para mostrar</strong>
+                                                                    </div>
+                                                                </li>
                                                             </div>
                                                         </ul>
                                                     </div>
@@ -748,7 +777,13 @@
                                                                 </div>
                                                             </li>
                                                             <div class="list-medicamentos">
-
+                                                            </div>
+                                                            <div id="not-medications">
+                                                                <li  class="list-group-item" aria-current="true"> 
+                                                                    <div class="d-flex w-100 justify-content-between">
+                                                                        <strong>No hay información para mostrar</strong>
+                                                                    </div>
+                                                                </li>
                                                             </div>
                                                         </ul>
                                                     </div>
