@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>    
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,6 +23,8 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <link rel="icon" sizes="256x256" href="{{ asset('images/favicon.ico') }}">
+
+<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon.ico') }}">
 
 @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 <style>
