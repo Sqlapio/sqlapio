@@ -37,6 +37,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Log;
 use Svg\CssLength;
@@ -1583,6 +1584,42 @@ class UtilsController extends Controller
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_status_doctor_corporate()', $message);
+		}
+	}
+
+    static function sqlapio_ia($genere, $age, $symtoms)
+	{
+		try {
+
+            $data = Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+                'Authorization' => 'Bearer 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',
+              ])
+              ->post("https://api.openai.com/v1/chat/completions", [
+                "model" => "gpt-3.5-turbo",
+                'messages' => [
+                    [
+                       "role" => "user",
+                       "content" => "Actua como medico y realiza un diagnostico para un paciente ".$genere." de ".$age." años con los siguientes sintomas: ".$symtoms.". Agrega 3 recomendaciones generales."
+                   ]
+                ],
+                'temperature' => 1,
+                "max_tokens" => 1024,
+                "n" => 1,
+                "stream" => false,
+                "top_p" => 1,
+                "frequency_penalty" => 0,
+                "presence_penalty" => 0,
+            ]);
+
+            $res = $data->json()['choices'][0]['message']['content'];
+
+            return $res;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.sqlapio_ia()', $message);
 		}
 	}
 
