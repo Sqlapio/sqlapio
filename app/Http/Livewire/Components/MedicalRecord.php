@@ -16,6 +16,7 @@ use App\Models\Patient;
 use App\Models\Reference;
 use App\Models\Representative;
 use App\Models\Study;
+use App\Models\Symptom;
 use App\Models\StudyPatient;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -140,6 +141,7 @@ class MedicalRecord extends Component
         $validate_histroy = $Patient->get_history;
         $exam = Exam::all();
         $study = Study::all();
-        return view('livewire.components.medical-record',compact('Patient', 'doctor_centers','validate_histroy','medical_record_user','id','exam','study'));
+        $symptoms = Symptom::all();
+        return view('livewire.components.medical-record',compact('Patient', 'doctor_centers','validate_histroy','medical_record_user','id','exam','study','symptoms'));
     }
 }
