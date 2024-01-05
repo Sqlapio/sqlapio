@@ -124,10 +124,12 @@
         let valStudy = '';
         let id = @json($id);
         let exams_array = [];
+        let symptom_array = [];
         let studies_array = [];
         let medications_supplements = [];
         let countMedicationAdd = 0;
         let exam_filter = [];
+        let symptom_filter = [];
         let study_filter = [];
 
         let user = @json(Auth::user());
@@ -260,6 +262,7 @@
                     let data = {};
                     formData.map((item) => data[item.name] = item.value);
                     data["exams_array"] = JSON.stringify(exams_array);
+                    data["symptom_array"] = JSON.stringify(symptom_array);
                     data["studies_array"] = JSON.stringify(studies_array);
                     data["medications_supplements"] = JSON.stringify(medications_supplements);
 
@@ -548,6 +551,7 @@
                     // $("#studies").attr('disabled', false);
                     $('#form-consulta').find('input:checkbox').attr('checked', false);
                     exams_array = [];
+                    symptom_array = [];
                     studies_array = [];
                     medications_supplements = [];
                     $('#exam_filter').hide();
@@ -672,6 +676,17 @@
             });
         }
 
+        function setSymptoms(e, key) {
+            if ($(`#${e.target.id}`).is(':checked')) {
+                symptom_array.push({
+                    code_symptom: $(`#${e.target.id}`).data('code'),
+                    description: $(`#${e.target.id}`).val(),
+                });
+            } else {
+                symptom_array.splice(key, 1);
+            }
+        }
+
         function setExams(e, key) {
             if ($(`#${e.target.id}`).is(':checked')) {
                 exams_array.push({
@@ -684,6 +699,8 @@
         }
 
         function setStudy(e, key) {
+            console.log(e)
+            console.log(key)
             if ($(`#${e.target.id}`).is(':checked')) {
                 studies_array.push({
                     code_studies: $(`#${e.target.id}`).data('code'),
@@ -960,6 +977,37 @@
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
                                                         de la visita</label>
                                                     <textarea id="razon" rows="8" name="razon" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                                <div class="form-group">
+                                                    <label for="search_symptoms" class="form-label"style="font-size: 13px; margin-bottom: 5px;">
+                                                        Buscar Sintomas
+                                                    </label>
+                                                    <input onkeyup="search(event,'symptoms')" type="text" class="form-control" id="floatingInput" placeholder="">
+                                                </div>
+                                                <div class="overflow-auto p-3 bg-light mt-3" style="max-width: 100%; max-height: 245px; min-height: 245px ;position: relative;">
+                                                    <ul id="symptoms_filter" class="symptoms"
+                                                        style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
+                                                    </ul>
+                                                    <ul id="symptoms" class="symptoms" style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
+                                                        @foreach ($symptoms as $key => $item)
+                                                            <li style="margin-bottom: 10px; padding-right: 5px">
+                                                                <input type="checkbox" class="btn-check"
+                                                                    id="{{ $item->cod_symptoms }}"
+                                                                    name="chk{{ $key }}" autocomplete="off"
+                                                                    data-code="{{ $item->cod_symptoms }}"
+                                                                    onclick="setSymptoms(event,{{ $key }})"
+                                                                    value="{{ $item->description }}">
+                                                                <label class="btn btn-outline-primary check-cm"
+                                                                    for="{{ $item->cod_symptoms }}">
+                                                                    {{ $item->description }}
+                                                                </label>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+
                                                 </div>
                                             </div>
 
