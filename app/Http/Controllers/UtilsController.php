@@ -1587,11 +1587,12 @@ class UtilsController extends Controller
 		}
 	}
 
-    static function sqlapio_ia($genere, $age, $symtoms)
+    static function sqlapio_ia(Request $request)
 	{
 		try {
 
-            $data = Http::withHeaders([
+
+			$data = Http::withHeaders([
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
                 'Authorization' => 'Bearer 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',
@@ -1601,7 +1602,7 @@ class UtilsController extends Controller
                 'messages' => [
                     [
                        "role" => "user",
-                       "content" => "Actua como medico y realiza un diagnostico para un paciente ".$genere." de ".$age." años con los siguientes sintomas: ".$symtoms.". Agrega 3 recomendaciones generales."
+                       "content" => "Actua como medico y realiza un diagnostico para un paciente ".$request->genere." de ".$request->age." años con los siguientes sintomas: ".$request->symtoms.". Agrega 3 recomendaciones generales."
                    ]
                 ],
                 'temperature' => 1,

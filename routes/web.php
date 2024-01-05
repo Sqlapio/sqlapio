@@ -111,6 +111,8 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/search-patient/{value}', [Patients::class, 'search'])->name('search-patient');
                 Route::get('/medicard_record_study/{id}', [Study::class, 'render'])->name("mr_study");
                 Route::get('/medicard_record_exam/{id}', [Examen::class, 'render'])->name("mr_exam");
+                Route::post('/medicard_record_ia', [UtilsController::class, 'sqlapio_ia'])->name("medicard_record_ia");
+
             });
         });
 
