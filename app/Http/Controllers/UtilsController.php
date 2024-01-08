@@ -1595,7 +1595,7 @@ class UtilsController extends Controller
 			$data = Http::withHeaders([
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
-                'Authorization' => 'Bearer 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',
+                'Authorization' => 'Bearer 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',
               ])
               ->post("https://api.openai.com/v1/chat/completions", [
                 "model" => "gpt-3.5-turbo",
@@ -1616,7 +1616,10 @@ class UtilsController extends Controller
 
             $res = $data->json()['choices'][0]['message']['content'];
 
-            return $res;
+			return response()->json([
+				'success' => 'true',
+				'data'  =>  $res
+			], 200);
 
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();

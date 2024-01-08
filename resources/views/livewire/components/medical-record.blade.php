@@ -4,6 +4,13 @@
     ul {
         list-style-type: none;
     }
+    .div-ia{
+        padding: 3%;
+    }
+
+    .p-ia{
+        text-align: justify !important;
+    }
 
     .check-cm {
         padding: 5px 12px !important;
@@ -543,6 +550,8 @@
                     $('.send').attr('disabled', false);
                     $('.btn-check').attr('disabled', false);
                     $(".medicine-form").show();
+                    $('.send-ai').show();
+
                     // $("#indication").show();
                     // $("#treatmentDuration").show();
                     $("#center_id").attr('disabled', false);
@@ -588,6 +597,7 @@
             $(".addMedacition").hide();
             $('.send').attr('disabled', true);
             $('.btn-check').attr('disabled', true);
+            $('.send-ai').hide();
             $('#table-medicamento > tbody').empty();
             $('#exam_filter > ul').empty();
             $('#study_filter > ul').empty();
@@ -681,14 +691,14 @@
         }
 
         function setSymptoms(e, key) {
-
+            valSymptoms = valSymptoms.replace(',,', '');
+            valSymptoms = valSymptoms.replace(',', '');
             if ($(`#${e.target.id}`).is(':checked')) {
                 // symptom_array.push({
                 //     code_symptom: $(`#${e.target.id}`).data('code'),
                 //     description: $(`#${e.target.id}`).val(),
                 // });
                 valSymptoms = valSymptoms.replace(',,', '');
-
                 valSymptoms = (valSymptoms == "") ? e.target.value : `${valSymptoms},${e.target.value}`;
 
                 $("#diagnosis").val(valSymptoms);
@@ -888,6 +898,9 @@
 
             if ($("#diagnosis").val() !== "") {
 
+                $(".send-ai").hide();                
+                $("#spinner").show();
+
                 $.ajax({
                     url: '{{ route('medicard_record_ia') }}',
                     type: 'POST',
@@ -910,9 +923,12 @@
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
                         }).then((result) => {
-                            console.log(response);
                             $('#modalIA').modal("show");
+                            $("#p-ia").text(response.data);
                         });
+                        $(".send-ai").show();
+                        $("#spinner").hide();
+
                     },
                     error: function(error) {
 
@@ -923,8 +939,13 @@
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
                         });
+
+                    $(".send-ai").show();
+                    $("#spinner").hide();
+
                     }
                 });
+
             }
         }
     </script>
@@ -1082,11 +1103,11 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row mt-3 justify-content-md-end">
+                                            <div  class="row mt-3 justify-content-md-end send-ai">
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    id="send" style="display: flex; justify-content: flex-end;">
+                                                     style="display: flex; justify-content: flex-end;">
                                                     <button onclick="handlerIA()" type="button"
-                                                        class="btn btnSave send">Consulta con inteligencia
+                                                        class="btn btnSave">Consulta con inteligencia
                                                         artificial</button>
                                                 </div>
                                             </div>
@@ -1468,10 +1489,7 @@
 
         <!-- Modal -->
         <div class="modal fade" id="modalIA" tabindex="-1" aria-labelledby="modalIALabel" aria-hidden="true"
-            id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
-            <div id="spinner" style="display: none">
-                <x-load-spinner show="true" />
-            </div>
+            id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">          
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -1482,8 +1500,9 @@
                                 style="font-size: 12px;"></button>
                         </div>
                         <div class="modal-body">
-
-
+                            <div class="div-ia">
+                                <p  id="p-ia"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
