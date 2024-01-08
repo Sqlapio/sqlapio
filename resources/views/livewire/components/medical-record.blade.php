@@ -4,6 +4,13 @@
     ul {
         list-style-type: none;
     }
+    .div-ia{
+        padding: 3%;
+    }
+
+    .p-ia{
+        text-align: justify !important;
+    }
 
     .check-cm {
         padding: 5px 12px !important;
@@ -123,6 +130,7 @@
         let valExams = '';
         let valStudy = '';
         let id = @json($id);
+        let patient = @json($Patient);
         let exams_array = [];
         let symptom_array = [];
         let studies_array = [];
@@ -131,6 +139,7 @@
         let exam_filter = [];
         let symptom_filter = [];
         let study_filter = [];
+        let valSymptoms = '';
 
         let user = @json(Auth::user());
 
@@ -152,7 +161,7 @@
             $('#not-exam').hide();
             $('#not-studie').hide();
 
-            if ( user.type_plane !== '7' && doctor_centers.length === 0) {
+            if (user.type_plane !== '7' && doctor_centers.length === 0) {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Debe asociar un centro!',
@@ -235,24 +244,26 @@
             $.validator.addMethod("onlyText", function(value, element) {
                 let pattern = /^[a-zA-ZñÑáéíóúü0-9\s]+$/g;
                 return pattern.test(value);
-            }, "No se permiten caracteres especiales");           
+            }, "No se permiten caracteres especiales");
 
 
             //envio del formulario
             $("#form-consulta").submit(function(event) {
                 event.preventDefault();
                 $("#form-consulta").validate();
-                if(countMedicationAdd === 0) {
-                    $("#med").html(`Debe agregar al menos un tratamiento <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`);
+                if (countMedicationAdd === 0) {
+                    $("#med").html(
+                        `Debe agregar al menos un tratamiento <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`
+                    );
                     Swal.fire({
-                            icon: 'warning',
-                            title: 'Debe agregar al menos un tratamiento',
-                            allowOutsideClick: false,
-                            confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
-                        });
-                        return false;
-                } 
+                        icon: 'warning',
+                        title: 'Debe agregar al menos un tratamiento',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#42ABE2',
+                        confirmButtonText: 'Aceptar'
+                    });
+                    return false;
+                }
                 if ($("#form-consulta").valid()) {
                     $('#send').hide();
                     $('#spinner').show();
@@ -539,6 +550,8 @@
                     $('.send').attr('disabled', false);
                     $('.btn-check').attr('disabled', false);
                     $(".medicine-form").show();
+                    $('.send-ai').show();
+
                     // $("#indication").show();
                     // $("#treatmentDuration").show();
                     $("#center_id").attr('disabled', false);
@@ -562,7 +575,7 @@
                     $('#not-studie').hide();
                 }
             });
-            
+
 
         }
 
@@ -584,6 +597,7 @@
             $(".addMedacition").hide();
             $('.send').attr('disabled', true);
             $('.btn-check').attr('disabled', true);
+            $('.send-ai').hide();
             $('#table-medicamento > tbody').empty();
             $('#exam_filter > ul').empty();
             $('#study_filter > ul').empty();
@@ -677,13 +691,26 @@
         }
 
         function setSymptoms(e, key) {
+            valSymptoms = valSymptoms.replace(',,', '');
+            valSymptoms = valSymptoms.replace(',', '');
             if ($(`#${e.target.id}`).is(':checked')) {
-                symptom_array.push({
-                    code_symptom: $(`#${e.target.id}`).data('code'),
-                    description: $(`#${e.target.id}`).val(),
-                });
+                // symptom_array.push({
+                //     code_symptom: $(`#${e.target.id}`).data('code'),
+                //     description: $(`#${e.target.id}`).val(),
+                // });
+                valSymptoms = valSymptoms.replace(',,', '');
+                valSymptoms = (valSymptoms == "") ? e.target.value : `${valSymptoms},${e.target.value}`;
+
+                $("#diagnosis").val(valSymptoms);
+
             } else {
-                symptom_array.splice(key, 1);
+                valSymptoms = valSymptoms.replace(`${e.target.value}`, '');
+                valSymptoms = valSymptoms.replace(',,', ',');
+                console.log(valSymptoms[0]);
+                // valSymptoms = (valSymptoms[0]==',')?'':valSymptoms;
+                // valSymptoms = (valSymptoms == ",")? valSymptoms.replace(',', ''):valSymptoms ;
+                $("#diagnosis").val(valSymptoms);
+                // symptom_array.splice(key, 1);
             }
         }
 
@@ -699,8 +726,6 @@
         }
 
         function setStudy(e, key) {
-            console.log(e)
-            console.log(key)
             if ($(`#${e.target.id}`).is(':checked')) {
                 studies_array.push({
                     code_studies: $(`#${e.target.id}`).data('code'),
@@ -712,10 +737,10 @@
             }
         }
 
-        
+
         //agregar medicamento
         function addMedacition(e) {
-            
+
             // validaciones para agragar medicacion
             if ($('#medicine').val() === "") {
                 $("#medicine_span").text('Campo obligatorio');
@@ -783,7 +808,7 @@
                 $('#treatmentDuration').val("");
             }
 
-            
+
         }
 
         //borrar medicamento
@@ -825,7 +850,7 @@
                     }
                     break;
                 case 2:
-                if (Number(user.ref_counter) == 75) {
+                    if (Number(user.ref_counter) == 75) {
 
                         Swal.fire({
                             icon: 'warning',
@@ -838,9 +863,9 @@
                     }
                     break;
 
-                    case 7:
-                            $("#center_id").rules('remove');
-                            break;
+                case 7:
+                    $("#center_id").rules('remove');
+                    break;
 
                 default:
                     break;
@@ -869,6 +894,60 @@
             return false;
         }
 
+        const handlerIA = () => {
+
+            if ($("#diagnosis").val() !== "") {
+
+                $(".send-ai").hide();                
+                $("#spinner").show();
+
+                $.ajax({
+                    url: '{{ route('medicard_record_ia') }}',
+                    type: 'POST',
+                    dataType: "json",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "symtoms": $("#diagnosis").val(),
+                        "genere": patient.genere,
+                        "age": patient.age
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Operiación exitosa!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            $('#modalIA').modal("show");
+                            $("#p-ia").text(response.data);
+                        });
+                        $(".send-ai").show();
+                        $("#spinner").hide();
+
+                    },
+                    error: function(error) {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'A ocurrido en error!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+
+                    $(".send-ai").show();
+                    $("#spinner").hide();
+
+                    }
+                });
+
+            }
+        }
     </script>
 @endpush
 @section('content')
@@ -942,26 +1021,27 @@
                                         <input type="hidden" name="id" id="id" value="{{ $Patient->id }}">
                                         <div id="input-array"></div>
                                         <div class="row">
-                                            @if (Auth::user()->type_plane !=='7')                                                
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro de salud</label>
-                                                        <select name="center_id" id="center_id"
-                                                            placeholder="Seleccione"class="form-control"
-                                                            class="form-control combo-textbox-input">
-                                                            <option value="">Seleccione</option>
-                                                            @foreach ($doctor_centers as $item)
-                                                                <option value="{{ $item->center_id }}">
-                                                                    {{ $item->get_center->description }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <i class="bi bi-hospital st-icon"></i>
-                                                        <span id="type_alergia_span" class="text-danger"></span>
+                                            @if (Auth::user()->type_plane !== '7')
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="phone" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro
+                                                                de salud</label>
+                                                            <select name="center_id" id="center_id"
+                                                                placeholder="Seleccione"class="form-control"
+                                                                class="form-control combo-textbox-input">
+                                                                <option value="">Seleccione</option>
+                                                                @foreach ($doctor_centers as $item)
+                                                                    <option value="{{ $item->center_id }}">
+                                                                        {{ $item->get_center->description }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <i class="bi bi-hospital st-icon"></i>
+                                                            <span id="type_alergia_span" class="text-danger"></span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             @endif
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                 <div class="form-group">
@@ -982,16 +1062,20 @@
 
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                                 <div class="form-group">
-                                                    <label for="search_symptoms" class="form-label"style="font-size: 13px; margin-bottom: 5px;">
+                                                    <label for="search_symptoms"
+                                                        class="form-label"style="font-size: 13px; margin-bottom: 5px;">
                                                         Buscar Sintomas
                                                     </label>
-                                                    <input onkeyup="search(event,'symptoms')" type="text" class="form-control" id="floatingInput" placeholder="">
+                                                    <input onkeyup="search(event,'symptoms')" type="text"
+                                                        class="form-control" id="floatingInput" placeholder="">
                                                 </div>
-                                                <div class="overflow-auto p-3 bg-light mt-3" style="max-width: 100%; max-height: 245px; min-height: 245px ;position: relative;">
+                                                <div class="overflow-auto p-3 bg-light mt-3"
+                                                    style="max-width: 100%; max-height: 245px; min-height: 245px ;position: relative;">
                                                     <ul id="symptoms_filter" class="symptoms"
                                                         style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
                                                     </ul>
-                                                    <ul id="symptoms" class="symptoms" style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
+                                                    <ul id="symptoms" class="symptoms"
+                                                        style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
                                                         @foreach ($symptoms as $key => $item)
                                                             <li style="margin-bottom: 10px; padding-right: 5px">
                                                                 <input type="checkbox" class="btn-check"
@@ -1016,6 +1100,15 @@
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Diagnóstico</label>
                                                     <textarea id="diagnosis" rows="8" name="diagnosis" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div  class="row mt-3 justify-content-md-end send-ai">
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                     style="display: flex; justify-content: flex-end;">
+                                                    <button onclick="handlerIA()" type="button"
+                                                        class="btn btnSave">Consulta con inteligencia
+                                                        artificial</button>
                                                 </div>
                                             </div>
 
@@ -1393,5 +1486,27 @@
                 </div>
             </div>
         @endif
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalIA" tabindex="-1" aria-labelledby="modalIALabel" aria-hidden="true"
+            id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">          
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header title">
+                            <i class="bi bi-calendar-week"></i>
+                            <span style="padding-left: 5px">Resultados de la consulta</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                style="font-size: 12px;"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="div-ia">
+                                <p  id="p-ia"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

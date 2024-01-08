@@ -8,6 +8,9 @@
     @livewireStyles
     {{-- select dos --}}
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="icon" sizes="256x256" href="{{ asset('images/favicon.ico') }}">
+
+<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon.ico') }}">
 </head>
 {{-- llamado de js jquery --}}
 <script src="{{ asset('jquery-ui-1.13.2/external/jquery/jquery.js') }}" type="text/javascript"></script>
@@ -22,7 +25,6 @@
 {{-- select dos --}}
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-<link rel="icon" sizes="256x256" href="{{ asset('images/favicon.ico') }}">
 
 <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon.ico') }}">
 
