@@ -28,7 +28,9 @@ use App\Http\Livewire\Components\ProfilePatients\QueryDetalyPatient;
 use App\Http\Livewire\Components\Statistics;
 use App\Http\Livewire\Components\Register;
 use App\Http\Livewire\Components\SalesForces\GeneralManager\Dashboard as GeneralManagerDashboard;
+use App\Http\Livewire\Components\SalesForces\GeneralManager\Profile as GeneralManagerProfile;
 use App\Http\Livewire\Components\SalesForces\GeneralZone\Dashboard as GeneralZoneDashboard;
+use App\Http\Livewire\Components\SalesForces\GeneralZone\Profile as GeneralZoneProfile;
 use App\Http\Livewire\Components\SalesForces\RegisterUserSalesForces;
 use App\Http\Livewire\Components\Study;
 use App\Http\Middleware\VerifyPlans;
@@ -131,7 +133,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp')->middleware(['VerifySelloDigital', 'verify_email', 'VerifyPlans']);
             Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp')->middleware(['VerifySelloDigital', 'verify_email', 'VerifyPlans']);
             Route::post('/create-seal', [Profile::class, 'create_seal'])->name('create_seal');
-            Route::get('/auth/setting/profile', [Profile::class, 'render'])->name('Profile');
+            Route::get('/profile', [Profile::class, 'render'])->name('Profile');
             Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');
 
             Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');
@@ -176,15 +178,29 @@ Route::middleware(['auth'])->group(function () {
 
         //grupos de rutas fuerzas de venta
         Route::group(array('prefix' => 'force-sale'), function () {
-            Route::post('/update-profile', [RegisterUserSalesForces::class, 'update'])->name('update-profile-force-sale');
             //generente general
             Route::group(array('prefix' => 'general-manager'), function () {
-                Route::post('/update-profile', [GeneralManagerDashboard::class, 'update'])->name('update-profile-general-manager');
+
+                Route::get('/dashboard', [GeneralManagerDashboard::class, 'render'])->name('dashboard-general-manager');
+
+
+                Route::group(array('prefix' => 'setting'), function () {
+                    Route::get('/profile', [GeneralManagerProfile::class, 'render'])->name('profile-general-manager');    
+                    Route::post('/update-profile', [GeneralManagerProfile::class, 'render'])->name('update-profile-general-manager');
+
+                });
+
             });
 
             //genrente zona
             Route::group(array('prefix' => 'general-zone'), function () {
-                Route::post('/update-profile', [GeneralZoneDashboard::class, 'update'])->name('update-profile-general-zone');
+                Route::get('/dashboard', [GeneralZoneDashboard::class, 'render'])->name('dashboard-general-zone');
+
+                Route::group(array('prefix' => 'setting'), function () {
+                    Route::get('/profile', [GeneralZoneProfile::class, 'render'])->name('profile-general-zone');    
+                    Route::post('/update-profile', [GeneralZoneProfile::class, 'render'])->name('update-profile-general-zone');
+
+                });
             });
         });
     });
