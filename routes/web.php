@@ -63,7 +63,7 @@ Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp_rp'
 
 //fuerzas de ventas
 Route::get('/register-user-force-sale/{hash?}', [RegisterUserSalesForces::class, 'render'])->name('register_user_force_sale');
-Route::post('/register-create-user-force-sale', [RegisterUserSalesForces::class, 'store'])->name('register-create-user-force-sale');
+Route::post('/register_create_force_sale', [RegisterUserSalesForces::class, 'store'])->name('register_create_force_sale');
 
 //prueba
 Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
