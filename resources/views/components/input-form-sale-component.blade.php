@@ -300,13 +300,12 @@
 
                     Swal.fire({
                         icon: 'success',
-                        title: 'Paciente registrado exitosamente!',
+                        title: 'Usuario registrado exitosamente!',
                         allowOutsideClick: false,
                         confirmButtonColor: '#42ABE2',
                         confirmButtonText: 'Aceptar'
                     }).then((result) => {
-
-
+                        window.location.href = '/';
                     });
                 },
                 error: function(error) {
