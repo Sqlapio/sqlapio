@@ -60,7 +60,10 @@ Route::get('/recovery-password', [RecoveryPassword::class, 'render'])->name('rec
 Route::post('/create-password-temporary', [RecoveryPassword::class, 'create_password_temporary'])->name('create_password_temporary');
 Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp_rp');
 Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp_rp');
-Route::get('/register-user-force-sale/{hash?}', [RegisterUserSalesForces::class, 'register_user'])->name('register_user_force_sale');
+
+//fuerzas de ventas
+Route::get('/register-user-force-sale/{hash?}', [RegisterUserSalesForces::class, 'render'])->name('register_user_force_sale');
+Route::post('/register_create_force_sale', [RegisterUserSalesForces::class, 'store'])->name('register_create_force_sale');
 
 //prueba
 Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
