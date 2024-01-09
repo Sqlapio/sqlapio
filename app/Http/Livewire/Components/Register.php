@@ -446,7 +446,7 @@ class Register extends Component {
 				$update = DB::table('users')
 					->where('id', $laboratory->id)
 					->update([
-						'status_register' => '2',	
+						'status_register' => '2',
                     ]);
 
 				$action = '17';
