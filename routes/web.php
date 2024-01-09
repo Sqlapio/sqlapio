@@ -27,6 +27,9 @@ use App\Http\Livewire\Components\PlansVerify;
 use App\Http\Livewire\Components\ProfilePatients\QueryDetalyPatient;
 use App\Http\Livewire\Components\Statistics;
 use App\Http\Livewire\Components\Register;
+use App\Http\Livewire\Components\SalesForces\GeneralManager\Dashboard as GeneralManagerDashboard;
+use App\Http\Livewire\Components\SalesForces\GeneralZone\Dashboard as GeneralZoneDashboard;
+use App\Http\Livewire\Components\SalesForces\RegisterUserSalesForces;
 use App\Http\Livewire\Components\Study;
 use App\Http\Middleware\VerifyPlans;
 use App\Models\Center;
@@ -57,6 +60,7 @@ Route::get('/recovery-password', [RecoveryPassword::class, 'render'])->name('rec
 Route::post('/create-password-temporary', [RecoveryPassword::class, 'create_password_temporary'])->name('create_password_temporary');
 Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp_rp');
 Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp_rp');
+Route::get('/register-user-force-sale/{hash?}', [RegisterUserSalesForces::class, 'register_user'])->name('register_user_force_sale');
 
 //prueba
 Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
@@ -112,7 +116,6 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/medicard_record_study/{id}', [Study::class, 'render'])->name("mr_study");
                 Route::get('/medicard_record_exam/{id}', [Examen::class, 'render'])->name("mr_exam");
                 Route::post('/medicard_record_ia', [UtilsController::class, 'sqlapio_ia'])->name("medicard_record_ia");
-
             });
         });
 
@@ -166,7 +169,20 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/get_list_study', [UtilsController::class, 'get_list_study'])->name("get_list_study");
             Route::get('/enabled-doctor/{id}', [UtilsController::class, 'habilitar_doctor_corporate'])->name("enabled-doctor");
             Route::get('/disabled-doctor/{id}', [UtilsController::class, 'deshabilitar_doctor_corporate'])->name("disabled-doctor");
+        });
 
+        //grupos de rutas fuerzas de venta
+        Route::group(array('prefix' => 'force-sale'), function () {
+            Route::post('/update-profile', [RegisterUserSalesForces::class, 'update'])->name('update-profile-force-sale');
+            //generente general
+            Route::group(array('prefix' => 'general-manager'), function () {
+                Route::post('/update-profile', [GeneralManagerDashboard::class, 'update'])->name('update-profile-general-manager');
+            });
+
+            //genrente zona
+            Route::group(array('prefix' => 'general-zone'), function () {
+                Route::post('/update-profile', [GeneralZoneDashboard::class, 'update'])->name('update-profile-general-zone');
+            });
         });
     });
 
@@ -252,7 +268,6 @@ Route::middleware(['auth'])->group(function () {
         // Referencias atendidas
         Route::get('/references/res', [UtilsController::class, 'responce_references'])->name("references_res");
     });
-
 });
 
 
@@ -263,10 +278,7 @@ Route::group(array('prefix' => 'public'), function () {
     Route::group(array('prefix' => 'patient'), function () {
         Route::get('/query-detaly-patient', [QueryDetalyPatient::class, 'render'])->name("query-detaly-patient");
         Route::post('/search-detaly-patient', [QueryDetalyPatient::class, 'search_detaly'])->name("search-detaly-patient");
-
     });
-
-
 });
 
 /**
@@ -276,28 +288,26 @@ Route::get('/logout', [Login::class, 'logout'])->name('logout');
 
 Route::get('/gpt', function () {
     $data = Http::withHeaders([
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-                'Authorization' => 'Bearer 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',
-              ])
-              ->post("https://api.openai.com/v1/chat/completions", [
-                "model" => "gpt-3.5-turbo",
-                'messages' => [
-                    [
-                       "role" => "user",
-                       "content" => "Actua como medico y realiza un diagnostico para un paciente femenino de 34 años con los siguientes sintomas: Dolor de cabeza, dolor de vientre, nauseas, vomitos y mareos. El paciente presenta 2 meses de retrazo en su periodo mestrual. Agrega 3 recomendaciones generales"
-                   ]
-                ],
-                'temperature' => 1,
-                "max_tokens" => 1024,
-                "n" => 1,
-                "stream" => false,
-                "top_p" => 1,
-                "frequency_penalty" => 0,
-                "presence_penalty" => 0,
-            ]);
+        'Content-Type' => 'application/json',
+        'Accept' => 'application/json',
+        'Authorization' => 'Bearer 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',
+    ])
+        ->post("https://api.openai.com/v1/chat/completions", [
+            "model" => "gpt-3.5-turbo",
+            'messages' => [
+                [
+                    "role" => "user",
+                    "content" => "Actua como medico y realiza un diagnostico para un paciente femenino de 34 años con los siguientes sintomas: Dolor de cabeza, dolor de vientre, nauseas, vomitos y mareos. El paciente presenta 2 meses de retrazo en su periodo mestrual. Agrega 3 recomendaciones generales"
+                ]
+            ],
+            'temperature' => 1,
+            "max_tokens" => 1024,
+            "n" => 1,
+            "stream" => false,
+            "top_p" => 1,
+            "frequency_penalty" => 0,
+            "presence_penalty" => 0,
+        ]);
 
-            return $data->json()['choices'][0]['message']['content'];
-
-
+    return $data->json()['choices'][0]['message']['content'];
 });
