@@ -23,10 +23,13 @@ class RegisterUserSalesForces extends Component
                     'last_name' => 'required',
                     'password'  => 'required',
                     'email'     => 'required|unique:users',
+                    'state'     => 'required|unique:users',
+
                 ];
 
                 $msj = [
                     'name'              => 'Campo requerido',
+                    'state'             => 'Campo requerido',
                     'email.required'    => 'Campo requerido',
                     'email.unique'      => 'El email ya se encuentra registrado en la base de datos. Por favor intente con uno diferente',
                     'last_name'         => 'Campo requerido',
@@ -83,8 +86,8 @@ class RegisterUserSalesForces extends Component
                 }
 	}
 
-    public function render()
+    public function render($hash=null)
     {
-        return view('livewire.components.sales-forces.register-user-sales-forces');
+        return view('livewire.components.sales-forces.register-user-sales-forces',compact('hash'));
     }
 }

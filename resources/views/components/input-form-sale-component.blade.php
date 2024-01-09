@@ -173,6 +173,7 @@
 
 
         $('#form-register-force-sale').validate({
+            ignore: [],
             rules: {
                 name: {
                     required: true,
@@ -190,7 +191,7 @@
                     maxlength: 50,
                     email: true
                 },
-                role: {
+                state: {
                     required: true,
                 },
                 password: {
@@ -237,9 +238,9 @@
                     minlength: "Confirmar Contraseña debe ser mayor a 6 caracteres",
                     //maxlength: "Confirmar Contraseña debe ser menor a 8 caracteres",
                 },
-                role: {
-                    required: "Rol es obligatorio",
-                },
+                state: {
+                    required: "Esatdo es obligatorio",
+                }
             },
             invalidHandler: function(event, validator) {
 
@@ -327,6 +328,10 @@
         }
     }
 </script>
+@php
+    use App\Models\State;
+    $states = State::all();
+@endphp
 <div>
     <div class="container-fluid">
         <div class="row form-sq form-sq-mv">
@@ -398,23 +403,32 @@
                                         </diV>
                                     </div>
 
+
+                                    @if ($hash == null)
+                                        <input type="hidden" name="role" value="gerente_general">
+                                    @else
+                                        <input type="hidden" name="role" value="gerente_zone">
+                                    @endif
+
+
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Rol</label>
-                                                <select name="role" id="role"
-                                                    placeholder="Seleccione"class="form-control @error('role') is-invalid @enderror"
-                                                    class="form-control combo-textbox-input">
+                                                <label for="state" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 7px">Seleccione el
+                                                    estado</label>
+                                                <select name="state" id="state" class="form-control">
                                                     <option value="">Seleccione</option>
-                                                    <option value="gerente_general">Gerente General</option>
-                                                    <option value="gerente_regional">Gerente Regional</option>
-                                                    <option value="visitador_medico">Visitador Medico</option>
+                                                    @foreach ($states as $item)
+                                                        <option value={{ $item->id }}>{{ $item->description }}
+                                                        </option>
+                                                    @endforeach
                                                 </select>
-                                                <i class="bi bi-gender-ambiguous st-icon"></i>
+                                                <i class="bi bi-flag" style="top: 30px"></i>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">

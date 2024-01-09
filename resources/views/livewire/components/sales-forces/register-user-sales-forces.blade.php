@@ -6,6 +6,6 @@
 @endpush
 @section('content')
     <div>
-       <x-input-form-sale-component/>
+       <x-input-form-sale-component :hash="$hash"/>
     </div>
 @endsection
