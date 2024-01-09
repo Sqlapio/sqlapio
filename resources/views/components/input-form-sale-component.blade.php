@@ -406,10 +406,11 @@
 
                                     @if ($hash == null)
                                         <input type="hidden" name="role" value="gerente_general">
+                                        
                                     @else
                                         <input type="hidden" name="role" value="gerente_zone">
+                                        <input type="hidden" name="user_id" value="{{$hash}}">                                        
                                     @endif
-
 
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">

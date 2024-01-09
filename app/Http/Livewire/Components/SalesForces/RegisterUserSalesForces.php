@@ -6,6 +6,7 @@ use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\UtilsController;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
@@ -50,6 +51,9 @@ class RegisterUserSalesForces extends Component
 
                 try {
 
+                    $url_token =($request->role!=="gerente_general")? env('URL_REGISTER_USER_FORCE_SALE').Crypt::encryptString($request->user_id):null;
+
+
                     $user_general_manager = new User();
                     $user_general_manager->name = $request->name;
                     $user_general_manager->last_name = $request->last_name;
@@ -57,6 +61,7 @@ class RegisterUserSalesForces extends Component
                     $user_general_manager->password = Hash::make($request->password);
                     $user_general_manager->verification_code = Str::random(30);
                     $user_general_manager->role = $request->role;
+                    $user_general_manager->token_corporate = $url_token;
                     $user_general_manager->save();
 
                     /**
