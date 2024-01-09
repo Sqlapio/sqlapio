@@ -39,7 +39,10 @@ class RegisterUserSalesForces extends Component
                 $validator = Validator::make($request->all(), $rules, $msj);
 
                 if ($validator->fails()) {
-                    return Redirect::to('/')->withErrors($validator);
+                    return response()->json([
+                        'success' => 'false',
+                        'errors'  => $validator->errors()->all()
+                    ], 400);
                 }
 
                 try {
@@ -72,7 +75,7 @@ class RegisterUserSalesForces extends Component
 
                     UtilsController::notification_mail($mailData, $type);
 
-                    return redirect('/')->with('success', 'Registro inicial satisfactorio');
+                    return true;
 
                 } catch (\Throwable $th) {
                     $message = $th->getMessage();
