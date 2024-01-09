@@ -50,7 +50,7 @@ class RegisterUserSalesForces extends Component
                     $user_general_manager->email = $request->email;
                     $user_general_manager->password = Hash::make($request->password);
                     $user_general_manager->verification_code = Str::random(30);
-                    $user_general_manager->role = 'general_general';
+                    $user_general_manager->role = $request->role;
                     $user_general_manager->save();
 
                     /**
