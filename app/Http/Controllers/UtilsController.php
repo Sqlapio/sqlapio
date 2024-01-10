@@ -1595,10 +1595,11 @@ class UtilsController extends Controller
 			$data = Http::withHeaders([
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
-                'Authorization' => 'Bearer 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',
+                'Authorization' => 'Bearer '.env('OPENAI_API_KEY'),
               ])
               ->post("https://api.openai.com/v1/chat/completions", [
-                "model" => "gpt-3.5-turbo",
+                //"model" => "gpt-3.5-turbo",
+				"model" => "gpt-4",
                 'messages' => [
                     [
                        "role" => "user",
