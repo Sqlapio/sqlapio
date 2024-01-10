@@ -40,6 +40,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 use Log;
 use Svg\CssLength;
 
@@ -1592,13 +1593,13 @@ class UtilsController extends Controller
 	{
 		try {
 
-            $container = AiContainer::where('symptoms', $request->symtoms)->first();
-            if($container  == null)
+            $container = AiContainer::where('symptoms', $request->symtoms)->get();
+            if(count($container) < 4 || $container == null)
             {
                 $data = Http::withHeaders([
                     'Content-Type' => 'application/json',
                     'Accept' => 'application/json',
-                    'Authorization' => 'Bearer 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',
+                    'Authorization' => 'Bearer '.env('OPENAI_API_KEY'),
                   ])
                   ->post("https://api.openai.com/v1/chat/completions", [
                     //"model" => "gpt-3.5-turbo",
@@ -1631,10 +1632,16 @@ class UtilsController extends Controller
                 ], 200);
 
             }else{
+				$array_res = $container->toArray();
+				$responces = Arr::pluck($array_res, 'responce_chatGPT');
 
+				/** Selecion aleatoria */
+				$n = count($responces);
+				$rand = mt_rand(0, $n-1);
+				$item = $responces[$rand];
                 return response()->json([
                     'success' => 'true',
-                    'data'  =>  $container->responce_chatGPT
+                    'data'  =>  $item
                 ], 200);
             }
 
