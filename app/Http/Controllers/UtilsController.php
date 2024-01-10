@@ -8,6 +8,7 @@ use App\Mail\NotificationEmail;
 use App\Mail\NotificationPatient;
 use App\Mail\NotificationReferences;
 use App\Mail\SendMail;
+use App\Models\AiContainer;
 use App\Models\Appointment;
 use App\Models\Center;
 use App\Models\City;
@@ -39,6 +40,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 use Log;
 use Svg\CssLength;
 
@@ -1591,36 +1593,57 @@ class UtilsController extends Controller
 	{
 		try {
 
+            $container = AiContainer::where('symptoms', $request->symtoms)->get();
+            if(count($container) < 4 || $container == null)
+            {
+                $data = Http::withHeaders([
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json',
+                    'Authorization' => 'Bearer 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',
+                  ])
+                  ->post("https://api.openai.com/v1/chat/completions", [
+                    //"model" => "gpt-3.5-turbo",
+                    "model" => "gpt-4",
+                    'messages' => [
+                        [
+                           "role" => "user",
+                           "content" => "Actua como medico y realiza un diagnostico para un paciente ".$request->genere." de ".$request->age." años con los siguientes sintomas: ".$request->symtoms.". Agrega 3 recomendaciones generales."
+                       ]
+                    ],
+                    'temperature' => 1,
+                    "max_tokens" => 1024,
+                    "n" => 1,
+                    "stream" => false,
+                    "top_p" => 1,
+                    "frequency_penalty" => 0,
+                    "presence_penalty" => 0,
+                ]);
 
-			$data = Http::withHeaders([
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-                'Authorization' => 'Bearer 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',
-              ])
-              ->post("https://api.openai.com/v1/chat/completions", [
-                //"model" => "gpt-3.5-turbo",
-				"model" => "gpt-4",
-                'messages' => [
-                    [
-                       "role" => "user",
-                       "content" => "Actua como medico y realiza un diagnostico para un paciente ".$request->genere." de ".$request->age." años con los siguientes sintomas: ".$request->symtoms.". Agrega 3 recomendaciones generales."
-                   ]
-                ],
-                'temperature' => 1,
-                "max_tokens" => 1024,
-                "n" => 1,
-                "stream" => false,
-                "top_p" => 1,
-                "frequency_penalty" => 0,
-                "presence_penalty" => 0,
-            ]);
+                $res = $data->json()['choices'][0]['message']['content'];
 
-            $res = $data->json()['choices'][0]['message']['content'];
+                $new_responce = new AiContainer();
+                $new_responce->symptoms = $request->symtoms;
+                $new_responce->responce_chatGPT = $res = $data->json()['choices'][0]['message']['content'];
+                $new_responce->save();
 
-			return response()->json([
-				'success' => 'true',
-				'data'  =>  $res
-			], 200);
+                return response()->json([
+                    'success' => 'true',
+                    'data'  =>  $res
+                ], 200);
+
+            }else{
+				$array_res = $container->toArray();
+				$responces = Arr::pluck($array_res, 'responce_chatGPT');
+
+				/** Selecion aleatoria */
+				$n = count($responces);
+				$rand = mt_rand(0, $n-1);
+				$item = $responces[$rand];
+                return response()->json([
+                    'success' => 'true',
+                    'data'  =>  $item
+                ], 200);
+            }
 
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
