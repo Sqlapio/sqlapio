@@ -4,6 +4,16 @@
     ul {
         list-style-type: none;
     }
+
+    pre {
+        white-space: pre-wrap; 
+        white-space: -moz-pre-wrap;  
+        white-space: -pre-wrap;      
+        white-space: -o-pre-wrap;    
+        word-wrap: break-word;
+        text-align: justify; 
+        
+    }
     .div-ia{
         padding: 3%;
     }
@@ -18,14 +28,16 @@
         font-size: 13px;
     }
 
-    .btn-outline-primary:checked+.btn,
-    :not(.btn-outline-primary)+.btn:active,
-    .btn:first-child:active,
-    .btn.active,
-    .btn.show {
-        color: var(--bs-btn-active-color);
-        background-color: #81d1d0 !important;
-        border-color: #81d1d0 !important;
+    .btn-outline-other {
+        --bs-btn-color: #d19e5b !important;
+        --bs-btn-border-color: #d19e5b !important;
+        --bs-btn-hover-bg: #d19e5b !important;
+        --bs-btn-hover-border-color: #d19e5b !important;
+        --bs-btn-active-bg: #d19e5b !important;
+        --bs-btn-active-border-color: #d19e5b !important;
+        --bs-btn-disabled-color: #d19e5b !important;
+        --bs-btn-disabled-border-color: #d19e5b !important;
+        --bs-btn-active-color: #fff !important;
     }
 
     .btn-outline-primary {
@@ -45,8 +57,8 @@
     .btn.active,
     .btn.show {
         color: var(--bs-btn-active-color);
-        background-color: #459594 !important;
-        border-color: #459594 !important;
+        background-color: #45959400;
+        border-color: #45959400;
     }
 
     .btn-outline-success {
@@ -925,6 +937,7 @@
                         }).then((result) => {
                             $('#modalIA').modal("show");
                             $("#p-ia").text(response.data);
+                            console.log(response.data)
                         });
                         $(".send-ai").show();
                         $("#spinner").hide();
@@ -1084,7 +1097,7 @@
                                                                     data-code="{{ $item->cod_symptoms }}"
                                                                     onclick="setSymptoms(event,{{ $key }})"
                                                                     value="{{ $item->description }}">
-                                                                <label class="btn btn-outline-primary check-cm"
+                                                                <label class="btn btn-outline-other check-cm"
                                                                     for="{{ $item->cod_symptoms }}">
                                                                     {{ $item->description }}
                                                                 </label>
@@ -1094,7 +1107,13 @@
 
                                                 </div>
                                             </div>
-
+                                            <div class="row mt-3">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                    <div id="spinner" style="display: none">
+                                                        <x-load-spinner show="true" />
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                                 <div class="form-group">
                                                     <label for="phone" class="form-label"
@@ -1490,18 +1509,18 @@
         <!-- Modal -->
         <div class="modal fade" id="modalIA" tabindex="-1" aria-labelledby="modalIALabel" aria-hidden="true"
             id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">          
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header title">
-                            <i class="bi bi-calendar-week"></i>
-                            <span style="padding-left: 5px">Resultados de la consulta</span>
+                            <i class="bi bi-alexa"></i>
+                            <span style="padding-left: 5px">Resultado de la consulta con inteligencia artificial</span>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                 style="font-size: 12px;"></button>
                         </div>
                         <div class="modal-body">
                             <div class="div-ia">
-                                <p  id="p-ia"></p>
+                                <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="p-ia"></pre>
                             </div>
                         </div>
                     </div>
