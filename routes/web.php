@@ -278,10 +278,11 @@ Route::get('/gpt', function () {
     $data = Http::withHeaders([
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
-                'Authorization' => 'Bearer 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',
+                'Authorization' => 'Bearer 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',
               ])
               ->post("https://api.openai.com/v1/chat/completions", [
-                "model" => "gpt-3.5-turbo",
+                //"model" => "gpt-3.5-turbo",
+                "model" => "gpt-4",
                 'messages' => [
                     [
                        "role" => "user",
@@ -297,7 +298,7 @@ Route::get('/gpt', function () {
                 "presence_penalty" => 0,
             ]);
 
-            return $data->json()['choices'][0]['message']['content'];
+            return $data->json();
 
 
 });
