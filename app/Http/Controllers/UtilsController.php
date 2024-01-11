@@ -28,6 +28,7 @@ use App\Models\Reference;
 use App\Models\Representative;
 use App\Models\Study;
 use App\Models\StudyPatient;
+use App\Models\Token;
 use App\Models\User;
 use App\Models\VitalSign;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -36,6 +37,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -1592,53 +1594,47 @@ class UtilsController extends Controller
 	{
 		try {
 
-            $container = AiContainer::where('symptoms', $request->symtoms)->first();
-            if($container  == null)
-            {
-                $data = Http::withHeaders([
-                    'Content-Type' => 'application/json',
-                    'Accept' => 'application/json',
-                    'Authorization' => 'Bearer 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',
-                  ])
-                  ->post("https://api.openai.com/v1/chat/completions", [
-                    //"model" => "gpt-3.5-turbo",
-                    "model" => "gpt-4",
-                    'messages' => [
-                        [
-                           "role" => "user",
-                           "content" => "Actua como medico y realiza un diagnostico para un paciente ".$request->genere." de ".$request->age." años con los siguientes sintomas: ".$request->symtoms.". Agrega 3 recomendaciones generales."
-                       ]
-                    ],
-                    'temperature' => 1,
-                    "max_tokens" => 1024,
-                    "n" => 1,
-                    "stream" => false,
-                    "top_p" => 1,
-                    "frequency_penalty" => 0,
-                    "presence_penalty" => 0,
-                ]);
+            $token = DB::table('tokens')->select('token')->get();
+            $array_res = $token->toArray();
+            $list_token = Arr::pluck($array_res, 'token');
 
-                $res = $data->json()['choices'][0]['message']['content'];
+            /** Selecion aleatoria */
+            $n = count($list_token);
+            $rand = mt_rand(0, $n - 1);
+            $secret_key = 'Bearer '.$list_token[$rand];
 
-                $new_responce = new AiContainer();
-                $new_responce->symptoms = $request->symtoms;
-                $new_responce->responce_chatGPT = $res = $data->json()['choices'][0]['message']['content'];
-                $new_responce->save();
+            $data = Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+                'Authorization' => $secret_key,
+              ])
+              ->post("https://api.openai.com/v1/chat/completions", [
+                "model" => "gpt-3.5-turbo",
+                'messages' => [
+                    [
+                       "role" => "user",
+                       "content" => "Actua como medico y realiza un diagnostico para un paciente ".$request->genere." de ".$request->age." años con los siguientes sintomas: ".$request->symtoms.". Agrega 3 recomendaciones generales."
+                   ]
+                ],
+                'temperature' => 1,
+                "max_tokens" => 1024,
+                "n" => 1,
+                "stream" => false,
+                "top_p" => 1,
+                "frequency_penalty" => 0,
+                "presence_penalty" => 0,
+            ]);
 
-                return response()->json([
-                    'success' => 'true',
-                    'data'  =>  $res
-                ], 200);
+            $res = $data->json()['choices'][0]['message']['content'];
 
-            }else{
+            return response()->json([
+                'success' => 'true',
+                'data'  =>  $res
+            ], 200);
 
-                return response()->json([
-                    'success' => 'true',
-                    'data'  =>  $container->responce_chatGPT
-                ], 200);
-            }
 
 		} catch (\Throwable $th) {
+
 			$message = $th->getMessage();
 			dd('Error UtilsController.sqlapio_ia()', $message);
 		}
