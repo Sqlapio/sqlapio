@@ -24,7 +24,7 @@ class RegisterUserSalesForces extends Component
                     'last_name' => 'required',
                     'password'  => 'required',
                     'email'     => 'required|unique:users',
-                    'state'     => 'required|unique:users',
+                    'state'     => 'required',
 
                 ];
 
@@ -58,6 +58,7 @@ class RegisterUserSalesForces extends Component
                     $user_general_manager->password = Hash::make($request->password);
                     $user_general_manager->verification_code = Str::random(30);
                     $user_general_manager->role = $request->role;
+                    $user_general_manager->state = $request->state;
                     $user_general_manager->save();
                     
                     $url_token =config('var.URL_REGISTER_USER_FORCE_SALE').Crypt::encryptString($user_general_manager->id);
