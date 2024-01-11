@@ -82,17 +82,39 @@ class Login extends Component
 							$status_register = $user->status_register;
 							$speciality = Specialty::all();
 
-							// Redireccion segun status de registro
-							if ($status_register == '1') {
-								return view('livewire.components.profile', compact('user', 'speciality'));
-							} else {
-
-								if ($user->role == "corporativo") {
-									return Redirect::route('Dashboard-corporate');
-								} else {
-									return Redirect::route('DashboardComponent');
-								}
+							// Redireccion segun status de registro	y rol					
+							switch ($user->role) {
+								case 'corporativo':
+									if ($status_register == 1) {
+										// return view('livewire.components.profile', compact('user', 'speciality'));
+										return Redirect::route('Profile');
+									} else {
+										return Redirect::route('Dashboard-corporate');
+									}
+									break;
+								case 'gerente_general':
+									if ($status_register == 1) {
+										return Redirect::route('profile-general-manager');
+									} else {
+										return Redirect::route('dashboard-general-manager');
+									}
+									break;
+								case 'gerente_zone':
+									if ($status_register == 1) {
+										return Redirect::route('profile-general-zone');
+									} else {
+										return Redirect::route('dashboard-general-zone');
+									}
+									break;
+								default:
+									if ($status_register == 1) {
+										return Redirect::route('Profile');
+									} else {
+										return Redirect::route('DashboardComponent');
+									}
+									break;
 							}
+							/////////END///////////////////
 						} else { // credenciales incorrectas
 							return Redirect::to('/')->withErrors('Autenticación incorrecta');
 						}
