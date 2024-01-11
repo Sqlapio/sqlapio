@@ -12,9 +12,13 @@ class InputFormSale extends Component
      * Create a new component instance.
      */
     public $hash;
-    public function __construct($hash=null)
+    public $user;
+
+    public function __construct($hash=null,$user=null)
     {
         $this->hash = $hash;
+        $this->user = $user;
+
     }
 
     /**

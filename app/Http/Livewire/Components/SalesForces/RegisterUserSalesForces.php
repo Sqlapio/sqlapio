@@ -51,9 +51,6 @@ class RegisterUserSalesForces extends Component
 
                 try {
 
-                    $url_token =($request->role!=="gerente_general")? env('URL_REGISTER_USER_FORCE_SALE').Crypt::encryptString($request->user_id):null;
-
-
                     $user_general_manager = new User();
                     $user_general_manager->name = $request->name;
                     $user_general_manager->last_name = $request->last_name;
@@ -61,9 +58,19 @@ class RegisterUserSalesForces extends Component
                     $user_general_manager->password = Hash::make($request->password);
                     $user_general_manager->verification_code = Str::random(30);
                     $user_general_manager->role = $request->role;
-                    $user_general_manager->token_corporate = $url_token;
                     $user_general_manager->save();
+                    
+                    $url_token =config('var.URL_REGISTER_USER_FORCE_SALE').Crypt::encryptString($user_general_manager->id);
+                    
+                    User::where('id', $user_general_manager->id)->update([
+                        'token_corporate' => $url_token]);
 
+                    if($request->role!=="gerente_general") {
+                                                  
+                        User::where('id', $user_general_manager->id)->update([
+                            'master_corporate_id' => Crypt::decryptString($request->user_id)]);
+                    }
+                 
                     /**
                      * Registro de accion en el log
                      * del sistema
@@ -93,6 +100,13 @@ class RegisterUserSalesForces extends Component
 
     public function render($hash=null)
     {
-        return view('livewire.components.sales-forces.register-user-sales-forces',compact('hash'));
+        $user = null;
+
+        if($hash!==null){
+
+            $user = User::where('id',Crypt::decryptString($hash))->first();
+        }
+        
+        return view('livewire.components.sales-forces.register-user-sales-forces',compact('hash','user'));
     }
 }

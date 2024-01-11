@@ -406,10 +406,15 @@
 
                                     @if ($hash == null)
                                         <input type="hidden" name="role" value="gerente_general">
-                                        
                                     @else
-                                        <input type="hidden" name="role" value="gerente_zone">
-                                        <input type="hidden" name="user_id" value="{{$hash}}">                                        
+                                        @if ($user->role == 'gerente_general')
+                                            <input type="hidden" name="role" value="gerente_zone">
+                                        @elseif($user->role == 'gerente_zone')
+                                            <input type="hidden" name="role" value="visitador_medico">
+                                        @endif
+
+                                        <input type="hidden" name="user_id" value="{{ $hash }}">
+
                                     @endif
 
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">

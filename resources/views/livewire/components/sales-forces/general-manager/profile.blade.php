@@ -1,17 +1,5 @@
 @extends('layouts.app-auth')
 @section('title', 'Perfil')
-<style>
-    .sel {
-        margin-top: -10px !important;
-    }
-
-    .collapseBtn {
-        color: #428bca;
-    }
-</style>
-@push('scripts')
-    <script></script>
-@endpush
 @section('content')
     <div class="container-fluid body" style="padding: 0 3% 3%">
         <div class="accordion" id="accordion">
@@ -29,13 +17,13 @@
                             data-bs-parent="#accordion">
                             <div class="accordion-body">
 
+                                <x-input-form-profile-sale-component/>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 
