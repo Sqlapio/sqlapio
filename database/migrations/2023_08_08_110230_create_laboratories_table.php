@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code_lab')->unique()->nullable(); //SQ-LAB-12345678
             $table->string('user_id')->nullable();
-            $table->string('business_name');
+            $table->string('business_name')->nullable();
             $table->string('email')->unique();
             $table->string('rif')->unique()->nullable();
             $table->string('state')->nullable();

@@ -18,17 +18,17 @@
             <p style="text-align: justify; margin-left: 20px;">
                 <h1 style="text-align: justify; margin-left: 20px;">{{ $mailData['laboratory_name'] }}</h1>
             </p>
-    
+
             <p style="text-align: justify; margin-left: 20px;">
                 Espero se encuentre muy bien.
                 <br>
                 Gracias por ser parte de nuestra familia Sqlapio.com, usted acaba de registrarse como laboratorio en nuestro sistema.
                 <br>
                 <br>
-                Es importate para nosotro que realize la confirmacion de su correo electronico a travez del siguiente link:
+                Es importate para nosotro que realize la confirmación de su correo electrónico a través del siguiente link:
                 <br>
                 <br>
-                http://sqldevelop.sqlapio.net/verify/{{ $mailData['verify_code'] }}
+                {{ env('APP_URL') }}/verify/{{ $mailData['verify_code'] }}
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
@@ -41,13 +41,13 @@
                 <img style="
                     display: block;
                     margin-left: 0px;
-                    width: 100px;
+                    width: 128px;
                     height: auto;"
                 src="{{ asset('img/notification_email/fir_jm.png') }}">
                 Ing. Jhonny Martinez<br>CEO
             </p>
             <p style="text-align: justify; font-style: italic; margin-left: 20px;">
-                Para mayor información puede comunicarse 24/7 con nuestro equipo a traves de sqlapiotechnology@sqlapio.com
+                Para mayor información puede comunicarse 24/7 con nuestro equipo a través de sqlapiotechnology@sqlapio.com
             </p>
         </div>
     <img style="
@@ -57,6 +57,6 @@
             width: 600px;
             height: auto;"
         src="{{ asset('img/notification_email/footer.png') }}">
-    
+
 </body>
 </html>

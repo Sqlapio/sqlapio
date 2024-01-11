@@ -31,18 +31,18 @@
                     <td>{{ $mailData['center_name'] }}</td>
                   </tr>
                   <tr>
-                    <td style='text-align: right; font-weight: bold'>Direccion:</td>
+                    <td style='text-align: right; font-weight: bold'>Dirección:</td>
                     <td>{{ $mailData['center_address'] }}</td>
                   </tr>
                   <tr>
-                    <td style='text-align: right; font-weight: bold'>Telefono:</td>
+                    <td style='text-align: right; font-weight: bold'>Teléfono:</td>
                     <td>{{ $mailData['center_phone'] }}</td>
                   </tr>
               </table>
 
             <p style="text-align: justify; margin-left: 20px;">
                 Para cualquier consulta o asistencia adicional que necesite, puede comunicarse las 24
-                horas del dia con nuestro equipo a traves de sqlapiotechnology@gmail.com
+                horas del día con nuestro equipo a través de sqlapiotechnology@gmail.com
             </p>
             <p style="text-align: justify; margin-left: 20px;">
                 Atentamente,

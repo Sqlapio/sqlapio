@@ -1,6 +1,6 @@
 @extends('layouts.app-auth')
 @section('title', 'Tablero')
-@vite(['resources/js/graphicCountAll.js', 'resources/js/dairy.js','resources/js/graphic_laboratory_coun_study.js','resources/js/graphic_laboratory_coun_exam.js'])
+@vite(['resources/js/graphicCountAll.js', 'resources/js/dairy.js', 'resources/js/graphic_laboratory_coun_study.js', 'resources/js/graphic_laboratory_coun_exam.js'])
 <style>
     .mt-gf {
         margin-top: 3rem !important;
@@ -41,27 +41,27 @@
             get_genere(boy_girl, teen);
             get_general(elderly, adult);
             get_study(count_study),
-            get_examen(count_examen),
-            //validar formulario
-            $('#form-load-img').validate({
-                ignore: [],
-                rules: {
-                    img: {
-                        required: true,
+                get_examen(count_examen),
+                //validar formulario
+                $('#form-load-img').validate({
+                    ignore: [],
+                    rules: {
+                        img: {
+                            required: true,
+                        },
+                        count: {
+                            required: true,
+                        }
                     },
-                    count: {
-                        required: true,
+                    messages: {
+                        img: {
+                            required: 'Debe cargar un Archivo',
+                        },
+                        count: {
+                            required: 'Debe selecionar un resultado',
+                        }
                     }
-                },
-                messages: {
-                    img: {
-                        required: 'Debe cargar un Archivo',
-                    },
-                    count: {
-                        required: 'Debe selecionar un resultado',
-                    }
-                }
-            });
+                });
 
             //envio del formulario
             $("#form-load-img").submit(function(event) {
@@ -123,42 +123,58 @@
         });
 
         function showModal(item, active, info) {
-            count = 0;
+            if (info.length > 0) {
+                count = 0;
             $('#count').val('');
             $('.holder').hide();
             $('#code_ref').val(item.cod_ref);
             $('#img').val('');
             $('#ModalLoadResult').modal('show');
             $('#table-info').find('tbody').empty();
+
             if (active == 0) {
                 urlPost = '{{ route('upload_result_exam') }}';
                 $('.modal-title').text('Examen del Paciente');
                 info.map((elemt, index) => {
-                    let elemData = JSON.stringify(elemt);
+                    let elemData = JSON.stringify(elemt);   
                     let label =
                         `<label><input type="checkbox" id="cod_exam_${index}" onclick='cuontResul(event,${elemData},0,${index});'></label>`
                     if (Number(elemt.status) === 2) {
+                        $('#div-result').hide();
+                        $('#div-btn').hide();
                         label =
-                            `<div  class="pad"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
+                        `<div  class="pad"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
+                    }
+                    if (Number(elemt.status) === 1) {;
+                        $('#div-result').show();
+                        $('#div-btn').show();
                     }
                     let row = `
-                        <tr>
+                    <tr>
                         <td class="text-center">${elemt.cod_exam}</td>
                         <td class="text-center">${elemt.description}</td>     
                         <td class="text-center">${label}</td>                
                         </tr>`;
-                    $('#table-info').find('tbody').append(row);
-                });
+                        $('#table-info').find('tbody').append(row);
+                        
+                    });
             } else {
                 urlPost = '{{ route('upload_result_study') }}';
-                $('.modal-title').text('Información del Estudios');
+                $('.modal-title').text('Información del Estudio');
                 info.map((elemt, index) => {
+                    
                     let elemData = JSON.stringify(elemt);
                     let label =
-                        `<label><input type="checkbox"  id="cod_exam_${index}" onclick='cuontResul(event,${elemData},1,${index});'></label>`
+                    `<label><input type="checkbox"  id="cod_exam_${index}" onclick='cuontResul(event,${elemData},1,${index});'></label>`
                     if (Number(elemt.status) === 2) {
                         label =
                             `<div  class="prueba"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
+                        $('#div-result').hide();
+                        $('#div-btn').hide();
+                    }
+                    if (Number(elemt.status) === 1) {;
+                        $('#div-result').show();
+                        $('#div-btn').show();
                     }
                     let row = `
                         <tr>
@@ -167,11 +183,22 @@
                         <td class="text-center">${label}</label></td>                
                         </tr>`;
                     $('#table-info').find('tbody').append(row);
+                    
                 });
             }
             $('#ref').text(item.cod_ref);
             $('#id').val(item.id);
             $('#ref-pat').text(`${item.get_patient.name} ${item.get_patient.last_name}`);
+            } else {
+                Swal.fire({
+                            icon: 'warning',
+                            title: 'Paciente sin exámenes/estudios solicitados por el médico!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+            }
+            
         }
 
         function cuontResul(e, item, type, key) {
@@ -235,7 +262,7 @@
                             data-bs-placement='right'
                             data-bs-custom-class='custom-tooltip' data-html='true'
                             title='Ver pdf' class='btn refresf btn-iSecond rounded-circle'><i
-                            class='bi bi-file-earmark-pdf'></i></button>
+                            class='bi bi-filetype-pdf'></i></button>
                             </a>`;
 
                 data.push(elem);
@@ -490,112 +517,323 @@
     </script>
 @endpush
 @section('content')
-    <div class="container-fluid">
+    <div>
         {{-- rol medico --}}
         @if (Auth::user()->role == 'medico')
             <div id="spinner" style="display: none" class="spinner-md">
                 <x-load-spinner show="true" />
             </div>
-            <div class="accordion" id="accordion">
-                <div class="container-fluid" style="padding: 3%">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                        <div class="accordion-item">
-                            <span class="accordion-header title" id="headingOne">
-                                <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-calendar2-check"></i> Citas del día
-                                </button>
-                            </span>
-                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                                data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <div class="row"id="table-patients">
+            <div class="container-fluid body" style="padding: 0 3% 3%">
+                <div class="accordion" id="accordion">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                            <div class="accordion-item">
+                                <span class="accordion-header title" id="headingOne">
+                                    <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                        style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                        <i class="bi bi-calendar2-check"></i> Citas del día
+                                    </button>
+                                </span>
+                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                                    data-bs-parent="#accordion">
+                                    <div class="accordion-body">
+                                        <div class="row"id="table-patients">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                                style="margin-top: 20px:">
+
+                                                <table id="table-patient" class="table table-striped table-bordered"
+                                                    style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center" scope="col">Fecha</th>
+                                                            <th class="text-center" scope="col">Hora</th>
+                                                            <th class="text-center" scope="col">Nombre</th>
+                                                            <th class="text-center" scope="col">Cédula</th>
+                                                            <th class="text-center" scope="col">Género</th>
+                                                            <th class="text-center" scope="col">Teléfono</th>
+                                                            <th class="text-center" scope="col">Email</th>
+                                                            <th class="text-center" scope="col">Centro de salud</th>
+                                                            <th class="text-center" scope="col">Estatus</th>
+                                                            <th class="text-center" scope="col">Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($appointments as $item)
+                                                            <tr>
+                                                                <td class="text-center td-pad">
+                                                                    {{ date('d-m-Y', strtotime($item['extendedProps']['data_app'])) }}
+                                                                </td>
+                                                                <td class="text-center td-pad">
+                                                                    {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }}
+                                                                </td>
+                                                                <td class="text-center td-pad text-capitalize">
+                                                                    {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }}
+                                                                </td>
+                                                                <td class="text-center td-pad">
+                                                                    {{ $item['extendedProps']['ci'] }}</td>
+                                                                <td class="text-center td-pad text-capitalize">
+                                                                    {{ $item['extendedProps']['genere'] }}</td>
+                                                                <td class="text-center td-pad">
+                                                                    {{ $item['extendedProps']['phone'] }}</td>
+                                                                <td class="text-center td-pad">
+                                                                    {{ $item['extendedProps']['email'] }}</td>
+                                                                <td class="text-center td-pad">
+                                                                    {{ $item['extendedProps']['center'] }}</td>
+                                                                <td class="text-center td-pad">
+                                                                    <span
+                                                                        class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">{{ $item['extendedProps']['status'] }}</span>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex" style="justify-content: center;">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
+                                                                            style="width: 32px;">
+                                                                            <a
+                                                                                href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
+                                                                                <button type="button"
+                                                                                    class="btn btn-iPrimary rounded-circle"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="bottom"
+                                                                                    title="Consulta médica">
+                                                                                    <i class="bi bi-file-earmark-text"></i>
+                                                                                </button>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
+                                                                            style="margin-left: 10px; width: 32px;">
+                                                                            <button type="button"
+                                                                                class="btn btn-iSecond rounded-circle"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="Cancelar Cita"
+                                                                                onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
+                                                                                <i class="bi bi-calendar-x"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                        {{-- <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
+                                                                            style="margin-left: 10px; width: 32px;">
+                                                                            <button type="button"
+                                                                                class="btn btn-iSecond rounded-circle"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="Finalizar Cita"
+                                                                                onclick="finalizar_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('finalizar_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
+                                                                                <i class="bi bi-clipboard-x"></i>
+                                                                        </div> --}}
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd"
+                            style="margin-top: 20px; margin-bottom: 20px">
+                            <div class="accordion-item">
+                                <span class="accordion-header title" id="headingTwo">
+                                    <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
+                                        style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                        <i class="bi bi-graph-up"></i> Estadísticas
+                                    </button>
+                                </span>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                    data-bs-parent="#accordion">
+                                    <div class="accordion-body">
+                                        <div class="row">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-1">
+                                                <div class="card text-white" style="background-color: rgb(251,220,226)">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
+                                                        <canvas id="countPatientRegister"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-1">
+                                                <div class="card text-white" style="background-color: rgb(219,242,242)">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
+                                                        <canvas id="countMedicalRecordr"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-1">
+                                                <div class="card text-white" style="background-color: rgb(235,224,255)">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
+                                                        <canvas id="countHistoryRegister"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-gf">
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-1">
+                                                <div class="card text-white" style="background-color: rgb(255,255,255)">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
+                                                        <canvas id="countGenere"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-1">
+                                                <div class="card text-white" style="background-color: rgb(255,255,255)">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
+                                                        <canvas id="countGereral"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @elseif (Auth::user()->role == 'laboratorio')
+            {{-- rol laboratorio --}}
+            <div class="container-fluid body" style="padding: 0 3% 3%">
+                <div class="accordion" id="accordion">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                            <div class="accordion-item ">
+                                <span class="accordion-header title" id="headingOne">
+                                    <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                        style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                        <i class="bi bi-graph-up"></i> Estadisticas
+                                    </button>
+                                </span>
+                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                                    data-bs-parent="#accordion">
+                                    <div class="accordion-body">
+                                        <div class="row">
+                                            <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-1">
+                                                <div class="card text-white" style="background-color: rgb(251,220,226)">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
+                                                        <canvas id="countStudies"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-1">
+                                                <div class="card text-white" style="background-color: rgb(219,242,242)">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
+                                                        <canvas id="countExamenes"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- Pacientes con referencias --}}
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 " style="margin-top: 20px;">
+                            <div class="accordion-item ">
+                                <span class="accordion-header title" id="headingTwo">
+                                    <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
+                                        style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                        <i class="bi bi-file-text"></i> Pacientes con referencias
+                                    </button>
+                                </span>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                    data-bs-parent="#accordion">
+                                    <div class="accordion-body">
+                                        <x-search-person />
+                                        <div class="row mt-3" id="content-table-ref" style="display: none">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                                style="margin-top: 20px:">
+                                                <table id="table-ref" class="table table-striped table-bordered"
+                                                    style="width:100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center" scope="col">Fecha</th>
+                                                            <th class="text-center" scope="col">Referencia</th>
+                                                            <th class="text-center" scope="col">Referencia consulta
+                                                                médica
+                                                            </th>
+                                                            <th class="text-center" scope="col">Nombres</th>
+                                                            <th class="text-center" scope="col">Cédula</th>
+                                                            <th class="text-center" scope="col">Género</th>
+                                                            <th class="text-center" scope="col">Teléfono</th>
+                                                            <th class="text-center" scope="col">Examenes</th>
+                                                            <th class="text-center" scope="col">Estudios</th>
+                                                            <th class="text-center" scope="col">Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- examenes atendidos --}}
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                            <div class="accordion-item accordion-dashboard">
+                                <span class="accordion-header title" id="headingThree">
+                                    <button class="accordion-button collapsed bg-1" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseThree"
+                                        style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                        <i class="bi bi-card-list"></i> Examenes cargados
+                                    </button>
+                                </span>
+                                <div id="collapseThree" class="accordion-collapse collapse"
+                                    aria-labelledby="headingThree" data-bs-parent="#accordion">
+                                    <div class="accordion-body">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
                                             style="margin-top: 20px:">
-
-                                            <table id="table-patient" class="table table-striped table-bordered"
+                                            <table id="table-ref-examenes" class="table table-striped table-bordered"
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">Fecha</th>
-                                                        <th class="text-center" scope="col">Hora</th>
+                                                        <th class="text-center" scope="col">Fecha referencia</th>
+                                                        <th class="text-center" scope="col">Referencia</th>
+                                                        <th class="text-center" scope="col">Código Examen</th>
+                                                        <th class="text-center" scope="col">Descripción</th>
+                                                        <th class="text-center" scope="col">Fecha resultado</th>
                                                         <th class="text-center" scope="col">Nombre</th>
                                                         <th class="text-center" scope="col">Cédula</th>
                                                         <th class="text-center" scope="col">Género</th>
-                                                        <th class="text-center" scope="col">Teléfono</th>
-                                                        <th class="text-center" scope="col">Email</th>
-                                                        <th class="text-center" scope="col">Centro de salud</th>
-                                                        <th class="text-center" scope="col">Confirmación</th>
-                                                        <th class="text-center" scope="col">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($appointments as $item)
+                                                    @foreach ($res_exams as $key => $item)
                                                         <tr>
-                                                            <td class="text-center td-pad">
-                                                                {{ date('d-m-Y', strtotime($item['extendedProps']['data_app'])) }}
+                                                            <td class="text-center"> {{ $item['date_ref'] }}</td>
+                                                            <td class="text-center"> {{ $item['cod_ref'] }}</td>
+                                                            <td class="text-center"> {{ $item['cod_exam'] }}</td>
+                                                            <td class="text-center text-capitalize">
+                                                                {{ $item['description'] }}</td>
+                                                            <td class="text-center"> {{ $item['date_upload_res'] }}</td>
+                                                            <td class="text-center text-capitalize">
+                                                                {{ $item['patient_info']['full_name'] }}
                                                             </td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }}
+                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }}
                                                             </td>
-                                                            <td class="text-center td-pad text-capitalize">
-                                                                {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }}
-                                                            </td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item['extendedProps']['ci'] }}</td>
-                                                            <td class="text-center td-pad text-capitalize">
-                                                                {{ $item['extendedProps']['genere'] }}</td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item['extendedProps']['phone'] }}</td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item['extendedProps']['email'] }}</td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item['extendedProps']['center'] }}</td>
-                                                            <td class="text-center td-pad">
-                                                                @if ($item['extendedProps']['confirmation'] != 0)
-                                                                    <span
-                                                                        class="badge rounded-pill bg-success">Confimada</span>
-                                                                @else
-                                                                    <span class="badge rounded-pill bg-secondary">Sin
-                                                                        confirmar</span>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex" style="justify-content: center;">
-                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
-                                                                        style="width: 32px;">
-                                                                        <a
-                                                                            href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
-                                                                            <button type="button"
-                                                                                class="btn btn-iPrimary rounded-circle"
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                title="Consulta médica">
-                                                                                <i class="bi bi-file-earmark-text"></i>
-                                                                            </button>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
-                                                                        style="margin-left: 10px; width: 32px;">
-                                                                        <button type="button"
-                                                                            class="btn btn-iSecond rounded-circle"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom" title="Cancelar Cita"
-                                                                            onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
-                                                                            <i class="bi bi-calendar-x"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
-                                                                        style="margin-left: 10px; width: 32px;">
-                                                                        <button type="button"
-                                                                            class="btn btn-iSecond rounded-circle"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom"
-                                                                            title="Finalizar Cita"
-                                                                            onclick="finalizar_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('finalizar_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
-                                                                            <i class="bi bi-clipboard-x"></i>
-                                                                    </div>
+                                                            <td class="text-center text-capitalize">
+                                                                {{ $item['patient_info']['genere'] }}
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -607,254 +845,62 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd"
-                        style="margin-top: 20px; margin-bottom: 20px">
-                        <div class="accordion-item">
-                            <span class="accordion-header title" id="headingTwo">
-                                <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-graph-up"></i> Estadísticas
-                                </button>
-                            </span>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                                data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <div class="row">
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-1">
-                                            <div class="card text-white" style="background-color: rgb(251,220,226)">
-                                                <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
-                                                    <canvas id="countPatientRegister"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-1">
-                                            <div class="card text-white" style="background-color: rgb(219,242,242)">
-                                                <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
-                                                    <canvas id="countMedicalRecordr"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-1">
-                                            <div class="card text-white" style="background-color: rgb(235,224,255)">
-                                                <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
-                                                    <canvas id="countHistoryRegister"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-gf">
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-1">
-                                            <div class="card text-white" style="background-color: rgb(255,255,255)">
-                                                <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
-                                                    <canvas id="countGenere"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-1">
-                                            <div class="card text-white" style="background-color: rgb(255,255,255)">
-                                                <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
-                                                    <canvas id="countGereral"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @else
-            {{-- rol laboratorio --}}
-            <div class="accordion" id="accordion">
-                <div class="container-fluid" style="padding: 3%">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                        <div class="accordion-item ">
-                            <span class="accordion-header title" id="headingOne">
-                                <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-graph-up"></i> Estadisticas
-                                </button>
-                            </span>
-                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                                data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <div class="row">
-                                        <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-1">
-                                            <div class="card text-white" style="background-color: rgb(251,220,226)">
-                                                <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
-                                                    <canvas id="countStudies"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-1">
-                                            <div class="card text-white" style="background-color: rgb(219,242,242)">
-                                                <div class="c-chart-wrapper mt-3 mx-3" style="height:auto; width:auto">
-                                                    <canvas id="countExamenes"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>                                       
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- Pacientes con referencias --}}
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 " style="margin-top: 20px;">
-                        <div class="accordion-item ">
-                            <span class="accordion-header title" id="headingTwo">
-                                <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-text"></i> Pacientes con referencias
-                                </button>
-                            </span>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                                data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <x-search-person />
-                                    <div class="row mt-3" id="content-table-ref" style="display: none">
+                    {{-- Estudios atendidos --}}
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd"
+                            style="margin-top: 20px; margin-bottom: 20px">
+                            <div class="accordion-item accordion-dashboard">
+                                <span class="accordion-header title" id="headingFour">
+                                    <button class="accordion-button collapsed bg-1" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false"
+                                        aria-controls="collapseFour"
+                                        style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                        <i class="bi bi-card-list"></i> Estudios cargados
+                                    </button>
+                                </span>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                                    data-bs-parent="#accordion">
+                                    <div class="accordion-body">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
                                             style="margin-top: 20px:">
-                                            <table id="table-ref" class="table table-striped table-bordered"
+                                            <table id="table-ref-estudios" class="table table-striped table-bordered"
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">Fecha</th>
+                                                        <th class="text-center" scope="col">Fecha referencia</th>
                                                         <th class="text-center" scope="col">Referencia</th>
-                                                        <th class="text-center" scope="col">Referencia consulta médica
-                                                        </th>
-                                                        <th class="text-center" scope="col">Nombres</th>
+                                                        <th class="text-center" scope="col">Código Estudios</th>
+                                                        <th class="text-center" scope="col">Descripción</th>
+                                                        <th class="text-center" scope="col">Fecha resultado</th>
+                                                        <th class="text-center" scope="col">Nombre</th>
                                                         <th class="text-center" scope="col">Cédula</th>
                                                         <th class="text-center" scope="col">Género</th>
-                                                        <th class="text-center" scope="col">Teléfono</th>
-                                                        <th class="text-center" scope="col">Examenes</th>
-                                                        <th class="text-center" scope="col">Estudios</th>
-                                                        <th class="text-center" scope="col">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    @foreach ($res_studies as $key => $item)
+                                                        <tr>
+                                                            <td class="text-center"> {{ $item['date_ref'] }}</td>
+                                                            <td class="text-center"> {{ $item['cod_ref'] }}</td>
+                                                            <td class="text-center"> {{ $item['cod_study'] }}</td>
+                                                            <td class="text-center text-capitalize">
+                                                                {{ $item['description'] }}</td>
+                                                            <td class="text-center"> {{ $item['date_upload_res'] }}</td>
+                                                            <td class="text-center text-capitalize">
+                                                                {{ $item['patient_info']['full_name'] }}
+                                                            </td>
+                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }}
+                                                            </td>
+                                                            <td class="text-center text-capitalize">
+                                                                {{ $item['patient_info']['genere'] }}
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
+
+
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- examenes atendidos --}}
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                        <div class="accordion-item accordion-dashboard">
-                            <span class="accordion-header title" id="headingThree">
-                                <button class="accordion-button collapsed bg-1" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-card-list"></i> Examenes cargados
-                                </button>
-                            </span>
-                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                                data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                        style="margin-top: 20px:">
-                                        <table id="table-ref-examenes" class="table table-striped table-bordered"
-                                            style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" scope="col">Fecha referencia</th>
-                                                    <th class="text-center" scope="col">Referencia</th>
-                                                    <th class="text-center" scope="col">Código Examen</th>
-                                                    <th class="text-center" scope="col">Descripción</th>
-                                                    <th class="text-center" scope="col">Fecha resultado</th>
-                                                    <th class="text-center" scope="col">Nombre</th>
-                                                    <th class="text-center" scope="col">Cédula</th>
-                                                    <th class="text-center" scope="col">Género</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($res_exams as $key => $item)
-                                                    <tr>
-                                                        <td class="text-center"> {{ $item['date_ref'] }}</td>
-                                                        <td class="text-center"> {{ $item['cod_ref'] }}</td>
-                                                        <td class="text-center"> {{ $item['cod_exam'] }}</td>
-                                                        <td class="text-center text-capitalize">
-                                                            {{ $item['description'] }}</td>
-                                                        <td class="text-center"> {{ $item['date_upload_res'] }}</td>
-                                                        <td class="text-center text-capitalize">
-                                                            {{ $item['patient_info']['full_name'] }}
-                                                        </td>
-                                                        <td class="text-center"> {{ $item['patient_info']['ci'] }}</td>
-                                                        <td class="text-center text-capitalize">
-                                                            {{ $item['patient_info']['genere'] }}
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- Estudios atendidos --}}
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd"
-                        style="margin-top: 20px; margin-bottom: 20px">
-                        <div class="accordion-item accordion-dashboard">
-                            <span class="accordion-header title" id="headingFour">
-                                <button class="accordion-button collapsed bg-1" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-card-list"></i> Estudios cargados
-                                </button>
-                            </span>
-                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-                                data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                        style="margin-top: 20px:">
-                                        <table id="table-ref-estudios" class="table table-striped table-bordered"
-                                            style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" scope="col">Fecha referencia</th>
-                                                    <th class="text-center" scope="col">Referencia</th>
-                                                    <th class="text-center" scope="col">Código Estudios</th>
-                                                    <th class="text-center" scope="col">Descripción</th>
-                                                    <th class="text-center" scope="col">Fecha resultado</th>
-                                                    <th class="text-center" scope="col">Nombre</th>
-                                                    <th class="text-center" scope="col">Cédula</th>
-                                                    <th class="text-center" scope="col">Género</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($res_studies as $key => $item)
-                                                    <tr>
-                                                        <td class="text-center"> {{ $item['date_ref'] }}</td>
-                                                        <td class="text-center"> {{ $item['cod_ref'] }}</td>
-                                                        <td class="text-center"> {{ $item['cod_study'] }}</td>
-                                                        <td class="text-center text-capitalize">
-                                                            {{ $item['description'] }}</td>
-                                                        <td class="text-center"> {{ $item['date_upload_res'] }}</td>
-                                                        <td class="text-center text-capitalize">
-                                                            {{ $item['patient_info']['full_name'] }}
-                                                        </td>
-                                                        <td class="text-center"> {{ $item['patient_info']['ci'] }}</td>
-                                                        <td class="text-center text-capitalize">
-                                                            {{ $item['patient_info']['genere'] }}
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-
-
                                     </div>
                                 </div>
                             </div>
@@ -862,8 +908,55 @@
                     </div>
                 </div>
             </div>
+        @elseif (Auth::user()->role == 'corporativo')
+            <div class="container-fluid body" style="padding: 0 3% 3%">
+                <div class="accordion" id="accordion">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                            <div class="accordion-item ">
+                                <span class="accordion-header title" id="headingOne">
+                                    <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                        style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                        <i class="bi bi-graph-up"></i> Estadisticas
+                                    </button>
+                                </span>
+                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                                    data-bs-parent="#accordion">
+                                    <div class="accordion-body">
+                                        <div class="row">
+                                            <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-1">
+                                                <div class="card text-white" style="background-color: rgb(251,220,226)">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
+                                                        <canvas id="countStudies"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-1">
+                                                <div class="card text-white" style="background-color: rgb(219,242,242)">
+                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                        style="height:auto; width:auto">
+                                                        <canvas id="countExamenes"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
         @endif
     </div>
+
+
     <!-- Modal -->
     <div class="modal fade" id="ModalLoadResult" tabindex="-1" aria-labelledby="ModalLoadResultLabel"
         aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -883,12 +976,12 @@
                             {{ csrf_field() }}
                             <input type="hidden" id="id" name="id" value="">
                             <input type="hidden" id="code_ref" name="code_ref" value="">
+                            <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                                <strong>Referencia: </strong><span id="ref"></span>
+                                <br>
+                                <strong>Paciente: </strong><span class="text-capitalize" id="ref-pat"></span>
+                            </div>
                             <div class="row mt-3">
-                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                    <strong>Referencia: </strong><span id="ref"></span>
-                                    <br>
-                                    <strong>Paciente: </strong><span id="ref-pat"></span>
-                                </div>
                                 <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-3 table-responsive" id="info-show">
                                     <table class="table table-striped table-bordered" id="table-info">
                                         <thead>
@@ -913,14 +1006,16 @@
                             </div>
 
                             <div id="input-array"></div>
-                            <div class="row mt-3" id="div-result">
-                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                    <x-upload-image title="Cargar Resultados" />
+                            <div id="div-btn">
+                                <div class="row mt-3 div-result">
+                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                                        <x-upload-image title="Cargar Resultados" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row text-center">
-                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                    <input class="btn btnPrimary send " value="Guardar" type="submit" />
+                                <div class="row text-center">
+                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                                        <input class="btn btnPrimary send " value="Guardar" type="submit" />
+                                    </div>
                                 </div>
                             </div>
                         </form>

@@ -11,6 +11,7 @@ use App\Models\Laboratory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
@@ -35,150 +36,199 @@ class Register extends Component {
 		 */
         $user = User::where('email', $request->email)->first();
 
-		if($user->role == 'medico')
-		{
-			$rules = [
-				'name'      => 'required',
-				'last_name' => 'required',
-				'email'     => 'required',
-				'password'  => 'required',
-			];
+        if($user != null && $request->doctor_corporate == 'false')
+        {
+            if($user->role == 'medico')
+            {
+                $rules = [
+                    'name'      => 'required',
+                    'last_name' => 'required',
+                    'password'  => 'required',
+                ];
 
-			$msj = [
-				'name'              => 'Campo requerido',
-				'last_name'         => 'Campo requerido',
-				'email'             => 'Campo requerido',
-				'email.unique'      => 'El email ya se encuentra registrado',
-				'password'          => 'Campo requerido',
-				'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
-				'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
-				'password.regex'    => 'Formato de contraseña  incorrecto',
-			];
+                $msj = [
+                    'name'              => 'Campo requerido',
+                    'last_name'         => 'Campo requerido',
+                    'password'          => 'Campo requerido',
+                    'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
+                    'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
+                    'password.regex'    => 'Formato de contraseña  incorrecto',
+                ];
 
-			$validator = Validator::make($request->all(), $rules, $msj);
+                $validator = Validator::make($request->all(), $rules, $msj);
 
-			if ($validator->fails()) {
-				// return response()->json([
-				// 	'success' => 'false',
-				// 	'errors'  => $validator->errors()->all()
-				// ], 400);
-				return Redirect::to('/')->withErrors($validator);
-			}
+                if ($validator->fails()) {
+                    return Redirect::to('/')->withErrors($validator);
+                }
 
-			try {
+                try {
 
-				User::where('email', $request->email)
-				->update([
-					'password' 			=> Hash::make($request->password),
-					'verification_code' => Str::random(30)
-				]);
+                    User::where('email', $request->email)
+                        ->update([
+                            'password'              => Hash::make($request->password),
+                            'verification_code'     => Str::random(30),
+                        ]);
 
-			/**
-			 * Registro de accion en el log
-			 * del sistema
-			 */
-			$action = '3';
-			ActivityLogController::store_log($action);
+                /**
+                 * Registro de accion en el log
+                 * del sistema
+                 */
+                $action = '3';
+                ActivityLogController::store_log($action);
 
-			/**
-			 * Envio de notificacion por correo
-			 */
+                /**
+                 * Envio de notificacion por correo
+                 */
+                $user_update = User::where('email', $request->email)->first();
+                $type = 'verify_email';
+                $mailData = [
+                    'dr_name' => $request->name.' '.$request->last_name,
+                    'dr_email' => $request->email,
+                    'verify_code' => $user_update->verification_code,
+                ];
+
+                UtilsController::notification_mail($mailData, $type);
+
+                return redirect('/')->with('success', 'El registro inicial satisfactorio');
+
+                } catch (\Throwable $th) {
+                    $message = $th->getMessage();
+                    dd('Error Livewire.Components.Register.store()', $message);
+                }
+            }
+
+            if($user->role == 'laboratorio' || $user->role == 'corporativo')
+            {
+
+                $rules = [
+                    'business_name' => 'required',
+                    'password'  	=> 'required',
+                ];
+
+                $msj = [
+                    'business_name'     => 'Campo requerido',
+                    'password'          => 'Campo requerido',
+                ];
+
+                $validator = Validator::make($request->all(), $rules, $msj);
+
+                if ($validator->fails()) {
+                    return response()->json([
+                        'success' => 'false',
+                        'errors'  => $validator->errors()->all()
+                    ], 400);
+                }
+
+                try {
+
+                    User::where('email', $request->email)
+                    ->update([
+                        'password' 			=> Hash::make($request->password),
+                        'verification_code' => Str::random(30)
+                    ]);
+
+                /**
+                 * Registro de accion en el log
+                 * del sistema
+                 */
+                $action = '16';
+                ActivityLogController::store_log($action);
+
+                /**
+                 * Envio de notificacion por correo
+                 */
+                $user_update = User::where('email', $request->email)->first();
+                if($user->role == 'laboratorio')
+                {
+                    $type = 'verify_email_laboratory';
+
+                }else{
+
+                    $type = 'verify_email_corporate';
+                }
+                $mailData = [
+                    'laboratory_name' => $user_update->business_name,
+                    'laboratory_email' => $user_update->email,
+                    'verify_code' => $user_update->verification_code,
+                ];
+                UtilsController::notification_mail($mailData, $type);
+
+                return redirect('/')->with('success', 'El registro inicial fue satisfactorio');
+
+                } catch (\Throwable $th) {
+                    $message = $th->getMessage();
+                    dd('Error Livewire.Components.Register.store()', $message);
+                }
+            }
+
+        }else{
+
+            $rules = [
+                'name'      => 'required',
+                'last_name' => 'required',
+                'email'     => 'required|unique:users',
+                'password'  => 'required',
+            ];
+
+            $msj = [
+                'name'              => 'Campo requerido',
+                'last_name'         => 'Campo requerido',
+                'password'          => 'Campo requerido',
+                'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
+                'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
+                'password.regex'    => 'Formato de contraseña  incorrecto',
+                'unique'            => 'El correo electronico ya se encuentra registrado. Por favor intente con uno distinto.'
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $msj);
+
+            if ($validator->fails()) {
+                return Redirect::back()->withErrors($validator);
+            }
+
+            try {
+
+                $user_corporate = new User();
+                $user_corporate->name = $request->name;
+                $user_corporate->last_name = $request->last_name;
+                $user_corporate->email = $request->email;
+                $user_corporate->password = $request->password;
+                $user_corporate->verification_code = Str::random(30);
+                $user_corporate->role = 'medico';
+                $user_corporate->type_plane = '7';
+                $user_corporate->center_id = $request->center_id;
+                $user_corporate->master_corporate_id = $request->user_corp_id;
+                $user_corporate->save();
+
+            /**
+             * Registro de accion en el log
+             * del sistema
+             */
+            $action = '3';
+            ActivityLogController::store_log($action);
+
+            /**
+             * Envio de notificacion por correo
+             */
             $user_update = User::where('email', $request->email)->first();
-			$type = 'verify_email';
-			$mailData = [
-				'dr_name' => $request->name.' '.$request->last_name,
-				'dr_email' => $request->email,
-				'verify_code' => $user_update->verification_code,
-			];
+            $type = 'verify_email';
+            $mailData = [
+                'dr_name' => $request->name.' '.$request->last_name,
+                'dr_email' => $request->email,
+                'verify_code' => $user_update->verification_code,
+            ];
 
-			UtilsController::notification_mail($mailData, $type);
+            UtilsController::notification_mail($mailData, $type);
 
-			return redirect('/')->with('success', 'El registro inicial satisfactorio');
+            return redirect('/')->with('success', 'El registro inicial satisfactorio');
 
-			} catch (\Throwable $th) {
-				$message = $th->getMessage();
-				dd('Error Livewire.Components.Register.store()', $message);
-			}
-		}
+            } catch (\Throwable $th) {
+                $message = $th->getMessage();
+                dd('Error Livewire.Components.Register.store()', $message);
+            }
+        }
 
-		if($user->role == 'laboratorio')
-		{
 
-			$rules = [
-				'business_name' => 'required',
-				'email'     	=> 'required|unique:users',
-				'password'  	=> 'required',
-			];
-
-			$msj = [
-				'business_name'     => 'Campo requerido',
-				'email'             => 'Campo requerido',
-				'email.unique'      => 'El email ya se encuentra registrado',
-				'password'          => 'Campo requerido',
-				'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
-				'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
-				'password.regex'    => 'Formato de contraseña  incorrecto',
-			];
-
-			$validator = Validator::make($request->all(), $rules, $msj);
-
-			if ($validator->fails()) {
-				return response()->json([
-					'success' => 'false',
-					'errors'  => $validator->errors()->all()
-				], 400);
-			}
-
-			try {
-
-				$user = User::create([
-
-					'business_name' 	=> $request->business_name,
-					'email' 			=> $request->email,
-					'password' 			=> Hash::make($request->password),
-					'role' 				=> $request->rol,
-					'verification_code' => Str::random(30),
-
-				]);
-
-				/**
-				 * Solicitamos el id del laboratorio
-				 * para almacenar en la tabla laboratorios
-				 */
-				$laboratory = User::where('email', $request->email)->first();
-				Laboratory::create([
-
-					'user_id'			=> $laboratory->id,
-					'business_name' 	=> $request->business_name,
-					'email' 			=> $request->email,
-
-				]);
-
-			/**
-			 * Registro de accion en el log
-			 * del sistema
-			 */
-			$action = '16';
-			ActivityLogController::store_log($action);
-
-			/**
-			 * Envio de notificacion por correo
-			 */
-			$type = 'verify_email_laboratory';
-			$mailData = [
-				'laboratory_name' => $user['business_name'],
-				'laboratory_email' => $user['email'],
-				'verify_code' => $user['verification_code'],
-			];
-			UtilsController::notification_mail($mailData, $type);
-
-			return redirect('/')->with('success', 'El registro inicial fue satisfactorio');
-
-			} catch (\Throwable $th) {
-				$message = $th->getMessage();
-				dd('Error Livewire.Components.Register.store()', $message);
-			}
-		}
 
 	}
 
@@ -189,37 +239,82 @@ class Register extends Component {
 
 			if($request->rol == 'medico')
 			{
-				$rules = [
-					'name' 		=> 'required',
-					'last_name'	=> 'required',
-					'ci' 		=> 'required',
-					'birthdate' => 'required',
-					'genere' 	=> 'required',
-					'specialty' => 'required',
-					'age' 		=> 'required',
-					'phone' 	=> 'required',
-					'state' 	=> 'required',
-					'city' 		=> 'required',
-					'address' 	=> 'required',
-					'zip_code' 	=> 'required',
-					'cod_mpps' 	=> 'required',
-				];
+                if(Auth::user()->type_plane == '7')
+                {
+                    /** Reglas de validacion para el medico corporativo */
+                    $rules = [
+                        'name' 		=> 'required',
+                        'last_name'	=> 'required',
+                        'ci' 		=> 'required',
+                        'birthdate' => 'required',
+                        'genere' 	=> 'required',
+                        'specialty' => 'required',
+                        'age' 		=> 'required',
+                        'phone' 	=> 'required',
+                        'state' 	=> 'required',
+                        'city' 		=> 'required',
+                        'address' 	=> 'required',
+                        'zip_code' 	=> 'required',
+                        'cod_mpps' 	=> 'required',
+                        'number_floor' 	            => 'required',
+                        'number_consulting_room' 	=> 'required',
+                        'number_consulting_phone' 	=> 'required',
+                    ];
 
-				$msj = [
-					'name' 		=> 'Campo requerido',
-					'last_name'	=> 'Campo requerido',
-					'ci' 		=> 'Campo requerido',
-					'birthdate' => 'Campo requerido',
-					'genere' 	=> 'Campo requerido',
-					'specialty' => 'Campo requerido',
-					'age' 		=> 'Campo requerido',
-					'phone' 	=> 'Campo requerido',
-					'state' 	=> 'Campo requerido',
-					'city' 		=> 'Campo requerido',
-					'address' 	=> 'Campo requerido',
-					'zip_code' 	=> 'Campo requerido',
-					'cod_mpps' 	=> 'Campo requerido',
-				];
+                    $msj = [
+                        'name' 		=> 'Campo requerido',
+                        'last_name'	=> 'Campo requerido',
+                        'ci' 		=> 'Campo requerido',
+                        'birthdate' => 'Campo requerido',
+                        'genere' 	=> 'Campo requerido',
+                        'specialty' => 'Campo requerido',
+                        'age' 		=> 'Campo requerido',
+                        'phone' 	=> 'Campo requerido',
+                        'state' 	=> 'Campo requerido',
+                        'city' 		=> 'Campo requerido',
+                        'address' 	=> 'Campo requerido',
+                        'zip_code' 	=> 'Campo requerido',
+                        'cod_mpps' 	=> 'Campo requerido',
+                        'number_floor' 	            => 'Campo requerido',
+                        'number_consulting_room' 	=> 'Campo requerido',
+                        'number_consulting_phone' 	=> 'Campo requerido',
+                    ];
+
+                }else{
+
+                    /** Reglas de validacion para el medico libre */
+                    $rules = [
+                        'name' 		=> 'required',
+                        'last_name'	=> 'required',
+                        'ci' 		=> 'required',
+                        'birthdate' => 'required',
+                        'genere' 	=> 'required',
+                        'specialty' => 'required',
+                        'age' 		=> 'required',
+                        'phone' 	=> 'required',
+                        'state' 	=> 'required',
+                        'city' 		=> 'required',
+                        'address' 	=> 'required',
+                        'zip_code' 	=> 'required',
+                        'cod_mpps' 	=> 'required',
+                    ];
+
+                    $msj = [
+                        'name' 		=> 'Campo requerido',
+                        'last_name'	=> 'Campo requerido',
+                        'ci' 		=> 'Campo requerido',
+                        'birthdate' => 'Campo requerido',
+                        'genere' 	=> 'Campo requerido',
+                        'specialty' => 'Campo requerido',
+                        'age' 		=> 'Campo requerido',
+                        'phone' 	=> 'Campo requerido',
+                        'state' 	=> 'Campo requerido',
+                        'city' 		=> 'Campo requerido',
+                        'address' 	=> 'Campo requerido',
+                        'zip_code' 	=> 'Campo requerido',
+                        'cod_mpps' 	=> 'Campo requerido',
+                    ];
+                }
 
 				$validator = Validator::make($request->all(), $rules, $msj);
 
@@ -256,29 +351,31 @@ class Register extends Component {
 				return true;
 			}
 
-			if($request->rol == 'laboratorio')
+			if($request->rol == 'laboratorio' || $request->rol == 'corporativo')
 			{
-				$rules = [
-					'rif' 		=> 'required',
-					'state' 	=> 'required',
-					'city' 		=> 'required',
-					'address' 	=> 'required',
-					'phone' 	=> 'required',
-					'license' 	=> 'required',
-					'type_laboratory' 	=> 'required',
-					'responsible' 		=> 'required',
-				];
 
-				$msj = [
-					'rif' 		=> 'Campo requerido',
-					'state' 	=> 'Campo requerido',
-					'city' 		=> 'Campo requerido',
-					'address' 	=> 'Campo requerido',
-					'phone' 	=> 'Campo requerido',
-					'license' 	=> 'Campo requerido',
-					'type_laboratory' 	=> 'Campo requerido',
-					'responsible' 		=> 'Campo requerido',
-				];
+                    $rules = [
+                        'rif' 		=> 'required',
+                        'state' 	=> 'required',
+                        'city' 		=> 'required',
+                        'address' 	=> 'required',
+                        'phone' 	=> 'required',
+                        'license' 	=> 'required',
+                        'type_laboratory' 	=> 'required',
+                        'responsible' 		=> 'required',
+                    ];
+
+                    $msj = [
+                        'rif' 		=> 'Campo requerido',
+                        'state' 	=> 'Campo requerido',
+                        'city' 		=> 'Campo requerido',
+                        'address' 	=> 'Campo requerido',
+                        'phone' 	=> 'Campo requerido',
+                        'license' 	=> 'Campo requerido',
+                        'type_laboratory' 	=> 'Campo requerido',
+                        'responsible' 		=> 'Campo requerido',
+                    ];
+
 
 				$validator = Validator::make($request->all(), $rules, $msj);
 
@@ -328,29 +425,29 @@ class Register extends Component {
 				$patient= Laboratory::updateOrCreate(['id' => $request->id],
                 [
 
-					'code_lab' 				=> 'SQ-LAB-'.random_int(11111111, 99999999),
-					'user_id' 				=> $laboratory->id,
-					'business_name' 		=> $request->business_name,
-					'email' 				=> $request->email,
-					'rif' 					=> $request->rif,
-					'state' 				=> $request->state,
-					'city' 					=> $request->city,
-					'address' 				=> $request->address,
-					'phone_1' 				=> $request->phone,
-					'license' 				=> $request->license,
-					'type_laboratory' 		=> $request->type_laboratory,
-					'responsible' 			=> $request->responsible,
-					'descripcion' 			=> $request->descripcion,
-					'website' 				=> $request->website,
-					'lab_img' 				=> $nameFile
+					'code_lab' 		  => 'SQ-LAB-'.random_int(11111111, 99999999),
+					'user_id' 		  => $laboratory->id,
+					'business_name'   => $request->business_name,
+					'email' 		  => $request->email,
+					'rif' 			  => $request->rif,
+					'state' 		  => $request->state,
+					'city' 			  => $request->city,
+					'address' 		  => $request->address,
+					'phone_1' 		  => $request->phone,
+					'license' 		  => $request->license,
+					'type_laboratory' => $request->type_laboratory,
+					'responsible' 	  => $request->responsible,
+					'descripcion' 	  => $request->descripcion,
+					'website' 		  => $request->website,
+					'lab_img' 		  => $nameFile
 
 				]);
 
 				$update = DB::table('users')
 					->where('id', $laboratory->id)
 					->update([
-						'status_register' => '2',
-				]);
+						'status_register' => '2',	
+                    ]);
 
 				$action = '17';
 				ActivityLogController::store_log($action);
@@ -365,7 +462,18 @@ class Register extends Component {
 
 	}
 
+    public function register_doctor_corporate($hash)
+    {
+        $corporate = User::where('center_id', Crypt::decryptString($hash))->first();
+        $bellied_plan = null;
+        $show = true;
+        return view('livewire.components.register', compact('show', 'bellied_plan', 'corporate'));
+    }
+
 	public function render($id=null) {
+
+		$bellied_plan = null;
+
 		if($id!=null){
 			$bellied_plan = BilledPlan::where('id', decrypt($id))->first();
 		}

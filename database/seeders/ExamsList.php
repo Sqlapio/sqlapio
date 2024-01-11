@@ -20,17 +20,17 @@ class ExamsList extends Seeder
 
             [   
                 'cod_exam' => 'SQ-EX-'.random_int(11111111, 99999999),
-                'description' => 'Cont de Eosinófilos Sangre Nasal',
+                'description' => 'Conteo de Eosinófilos en Sangre Nasal',
                 'category' => 'Hematología y Coagulación',
             ],
             [   
                 'cod_exam' => 'SQ-EX-'.random_int(11111111, 99999999),
-                'description' => 'Contaje de leucocitos y plaquetas',
+                'description' => 'Conteo de Leucocitos y Plaquetas',
                 'category' => 'Hematología y Coagulación',
             ],
             [   
                 'cod_exam' => 'SQ-EX-'.random_int(11111111, 99999999),
-                'description' => 'Contaje de Reticulocitos',
+                'description' => 'Conteo de Reticulocitos',
                 'category' => 'Hematología y Coagulación',
             ],
             [   
@@ -98,7 +98,7 @@ class ExamsList extends Seeder
 
             [   
                 'cod_exam' => 'SQ-EX-'.random_int(11111111, 99999999),
-                'description' => '170H progesterona',
+                'description' => '17-OH Progesterona',
                 'category' => 'Hormonales',
             ],
             [   
@@ -123,7 +123,7 @@ class ExamsList extends Seeder
             ],
             [   
                 'cod_exam' => 'SQ-EX-'.random_int(11111111, 99999999),
-                'description' => 'FHS',
+                'description' => 'FSH',
                 'category' => 'Hormonales',
             ],
             [   
@@ -296,7 +296,7 @@ class ExamsList extends Seeder
 
             [   
                 'cod_exam' => 'SQ-EX-'.random_int(11111111, 99999999),
-                'description' => 'Nitrógeno Ureico (BUN) Orina 24 h',
+                'description' => 'Nitrógeno Ureico en Orina de 24 horas',
                 'category' => 'Orina',
             ],
             [   
@@ -595,7 +595,7 @@ class ExamsList extends Seeder
             ],
             [   
                 'cod_exam' => 'SQ-EX-'.random_int(11111111, 99999999),
-                'description' => 'C. trachomatis (antigeno)',
+                'description' => 'Chlamydia trachomatis (Antígeno)',
                 'category' => 'Inmunológicos',
             ],
             [   
@@ -793,7 +793,7 @@ class ExamsList extends Seeder
 
             [   
                 'cod_exam' => 'SQ-EX-'.random_int(11111111, 99999999),
-                'description' => 'Ácido úrico sério',
+                'description' => 'Ácido Úrico sérico',
                 'category' => 'Química Clínica',
             ],
             [   
@@ -883,7 +883,7 @@ class ExamsList extends Seeder
             ],
             [   
                 'cod_exam' => 'SQ-EX-'.random_int(11111111, 99999999),
-                'description' => 'Glicemia pre y post prandial',
+                'description' => 'Glicemia Pre y Post Prandial',
                 'category' => 'Química Clínica',
             ],
             [   
@@ -908,7 +908,7 @@ class ExamsList extends Seeder
             ],
             [   
                 'cod_exam' => 'SQ-EX-'.random_int(11111111, 99999999),
-                'description' => 'Sodio Potasio Cloro',
+                'description' => 'Electrolitos (Sodio, Potasio, Cloro)',
                 'category' => 'Química Clínica',
             ],
             [   
@@ -918,12 +918,12 @@ class ExamsList extends Seeder
             ],
             [   
                 'cod_exam' => 'SQ-EX-'.random_int(11111111, 99999999),
-                'description' => 'Tolerancia glucosada de ____ horas',
+                'description' => 'Prueba de Tolerancia a la Glucosa de ____ Horas',
                 'category' => 'Química Clínica',
             ],
             [   
                 'cod_exam' => 'SQ-EX-'.random_int(11111111, 99999999),
-                'description' => 'Transfemina (no leo bien) ___ % saturación',
+                'description' => 'Transferrina ___ % saturación',
                 'category' => 'Química Clínica',
             ],
             [   
@@ -933,7 +933,7 @@ class ExamsList extends Seeder
             ],
             [   
                 'cod_exam' => 'SQ-EX-'.random_int(11111111, 99999999),
-                'description' => 'Transaminasa pirúvica (TGA-ALT)',
+                'description' => 'Transaminasa Pirúvica (TGP-ALT)',
                 'category' => 'Química Clínica',
             ],
             [   
@@ -996,12 +996,12 @@ class ExamsList extends Seeder
 
             [   
                 'cod_exam' => 'SQ-EX-'.random_int(11111111, 99999999),
-                'description' => 'ANTI-ADNds (Crithidia luciliae)',
+                'description' => 'Anticuerpos anti-ADN de doble hebra (Crithidia luciliae)',
                 'category' => 'Inmunofluorescencia',
             ],
             [   
                 'cod_exam' => 'SQ-EX-'.random_int(11111111, 99999999),
-                'description' => 'ANTIC-ANTI NUCLEARES (HEP2)',
+                'description' => 'Anticuerpos Antinucleares (ANA - HEP-2)',
                 'category' => 'Inmunofluorescencia',
             ],
             [   
@@ -1021,7 +1021,7 @@ class ExamsList extends Seeder
             ],
             [   
                 'cod_exam' => 'SQ-EX-'.random_int(11111111, 99999999),
-                'description' => 'IgM anti-coxiella burneti',
+                'description' => 'IgM anti-Coxiella burnetii',
                 'category' => 'Inmunofluorescencia',
             ],
             [   

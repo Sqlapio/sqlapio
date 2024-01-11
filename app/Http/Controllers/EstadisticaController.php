@@ -32,7 +32,7 @@ class EstadisticaController extends Controller
             $message = $th->getMessage();
 			dd('Error EstadisticaController.accumulated_patient()', $message);
         }
-        
+
     }
 
     /**
@@ -52,7 +52,7 @@ class EstadisticaController extends Controller
             $message = $th->getMessage();
 			dd('Error EstadisticaController.accumulated_doctor()', $message);
         }
-        
+
     }
 
     /**
@@ -71,7 +71,7 @@ class EstadisticaController extends Controller
             $message = $th->getMessage();
 			dd('Error EstadisticaController.accumulated_center()', $message);
         }
-        
+
     }
 
     /**
@@ -88,7 +88,7 @@ class EstadisticaController extends Controller
             $message = $th->getMessage();
 			dd('Error EstadisticaController.total_doctors_register()', $message);
         }
-        
+
     }
 
     /**
@@ -105,7 +105,7 @@ class EstadisticaController extends Controller
             $message = $th->getMessage();
 			dd('Error EstadisticaController.total_patient_register()', $message);
         }
-        
+
     }
 
     /**
@@ -115,20 +115,20 @@ class EstadisticaController extends Controller
     {
         try {
 
-            $total_histories = History::count();
+            $total_histories = History::where('user_id', Auth::user()->id)->count();
             return $total_histories;
 
         } catch (\Throwable $th) {
             $message = $th->getMessage();
 			dd('Error EstadisticaController.total_history_register()', $message);
         }
-        
+
     }
 
     /**
      * Total de pacientes
      * asociados al medico
-     * @param id 
+     * @param id
      */
     static function total_patient_doctors()
     {
@@ -141,13 +141,13 @@ class EstadisticaController extends Controller
             $message = $th->getMessage();
 			dd('Error EstadisticaController.total_patient_doctors()', $message);
         }
-        
+
     }
 
     /**
      * Total de consultas medicas
      * asociadas al medico
-     * @param id 
+     * @param id
      */
     static function total_medical_record($id)
     {
@@ -160,7 +160,7 @@ class EstadisticaController extends Controller
             $message = $th->getMessage();
 			dd('Error EstadisticaController.total_medical_record()', $message);
         }
-        
+
     }
 
     /**
@@ -177,7 +177,7 @@ class EstadisticaController extends Controller
             $message = $th->getMessage();
 			dd('Error EstadisticaController.total_patient_minor()', $message);
         }
-        
+
     }
 
     static function total_patient_genero()
@@ -186,7 +186,7 @@ class EstadisticaController extends Controller
             $total_patient_femenino = Patient::where('genere', 'femenino')->count();
             $total_patient_masculino = Patient::where('genere', 'masculino')->count();
             return [
-               'femenino' => $total_patient_femenino , 
+               'femenino' => $total_patient_femenino ,
                'masculino' => $total_patient_masculino
             ];
 
@@ -194,9 +194,9 @@ class EstadisticaController extends Controller
             $message = $th->getMessage();
 			dd('Error EstadisticaController.total_patient_minor()', $message);
         }
-        
+
     }
-    
+
 
 
 }

@@ -15,7 +15,7 @@
 
     }
 
-    .div-seal{
+    .div-seal {
         position: fixed;
         bottom: 1cm;
         left: 0cm;
@@ -139,11 +139,12 @@
                 <tr class="text-header" style="border-radius: 50px!important;">
                     <td style="padding: 10px;">
                         <div>
-                            <strong style="font-size: 15px;">{{ $reference->get_center->description }}</strong>
+                            <strong
+                                style="font-size: 15px;">{{ $reference->get_center->description }}</strong>
                             <p style="margin-top: 0px">
-                                Dirección: {{ $reference->get_center->address }},
+                                Dirección: {{ ($reference->get_user->type_plane == "7")? ' corporativo': $reference->get_center_data->address }},
                                 Local,
-                                {{ $reference->get_center_data->number_floor }}<br>{{ $reference->get_center_data->phone_consulting_room }}
+                                {{($reference->get_user->type_plane = "7")? $reference->get_user->number_floor  : $reference->get_center_data->number_floor }}<br>{{($reference->get_user->type_plane == "7")?  $reference->get_user->number_consulting_phone : $reference->get_center_data->phone_consulting_room }}
                             </p>
                         </div>
                     </td>
@@ -223,12 +224,17 @@
                     <td style="text-align: center;">
                         <div class="text" style="margin-right: -20px">
                             @if ($reference->get_patient->patient_img)
-                                <img class="img-pat" style="border-radius: 20%"
+                                <img class="img-pat" style="border-radius: 20%; object-fit: cover"
                                     src="../public/imgs/{{ $reference->get_patient->patient_img }}" alt="Avatar"
-                                    width="100" height="auto">
+                                    width="100" height="100">
                             @else
-                                <img class="img-pat" src="../public/img/avatar/avatar.png" width="100" height="auto"
-                                    style="border-radius: 20%" alt="Avatar">
+                                @if ($reference->get_patient->genere == 'femenino')
+                                    <img class="img-pat" src="../public/img/avatar/avatar mujer.png" width="100"
+                                        height="100" style="border-radius: 20%; object-fit: cover" alt="Avatar">
+                                @else
+                                    <img class="img-pat" src="../public/img/avatar/avatar hombre.png" width="100"
+                                        height="100" style="border-radius: 20%; object-fit: cover" alt="Avatar">
+                                @endif
                             @endif
                         </div>
                     </td>
@@ -250,7 +256,9 @@
             <tbody>
                 <tr>
                     <td class="table-border">
-                        {{ $reference->exams }}
+                        @foreach ($reference->get_exam as $item)
+                            {{ $item->description . ',' }}
+                        @endforeach
                     </td>
                 </tr>
 
@@ -271,7 +279,9 @@
             <tbody>
                 <tr>
                     <td class="table-border">
-                        {{ $reference->studies }}
+                        @foreach ($reference->get_studie as $item)
+                            {{ $item->description . ',' }}
+                        @endforeach
                     </td>
                 </tr>
 
@@ -280,8 +290,8 @@
     </div>
     <div class="div-seal">
         <img class="img-pat" style="border-radius: 20%; object-fit: cover"
-        src="../public/imgs/seal/{{ $reference->get_user->digital_cello}}"
-        alt="Avatar" width="100" height="100">
+            src="../public/imgs/seal/{{ $reference->get_user->digital_cello }}" alt="Avatar" width="100"
+            height="100">
     </div>
     <script type="text/php">
         if ( isset($pdf) ) {

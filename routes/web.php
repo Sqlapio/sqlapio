@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UtilsController;
+use App\Http\Livewire\Components\AdminPatients;
 use App\Http\Livewire\Components\RecoveryPassword;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Components\Login;
@@ -17,18 +18,23 @@ use App\Http\Livewire\Components\Suscription;
 use App\Http\Livewire\Components\Diary;
 use App\Http\Livewire\Components\ClinicalHistory;
 use App\Http\Livewire\Components\Centers;
+use App\Http\Livewire\Components\Dashboard;
+use App\Http\Livewire\Components\Doctors;
 use App\Http\Livewire\Components\Examen;
 use App\Http\Livewire\Components\Laboratory;
 use App\Http\Livewire\Components\PaymentForm;
 use App\Http\Livewire\Components\PlansVerify;
+use App\Http\Livewire\Components\ProfilePatients\QueryDetalyPatient;
 use App\Http\Livewire\Components\Statistics;
 use App\Http\Livewire\Components\Register;
 use App\Http\Livewire\Components\Study;
 use App\Http\Middleware\VerifyPlans;
+use App\Models\Center;
 use App\Models\Exam;
 use App\Models\Patient;
 use App\Models\Reference;
 use App\Models\User as ModelsUser;
+use Illuminate\Support\Str;
 use App\View\Components\VerifyplansComponent;
 
 /*
@@ -45,6 +51,7 @@ use App\View\Components\VerifyplansComponent;
 Route::get('/', [Login::class, 'render']);
 Route::post('/login', [Login::class, 'login'])->name('login');
 Route::get('/register-user/{id?}', [Register::class, 'render'])->name('Register');
+Route::get('/register-user-corporate/{hash}', [Register::class, 'register_doctor_corporate'])->name('register_doctor_corporate');
 Route::post('/register', [Register::class, 'store'])->name('Register-create');
 Route::get('/recovery-password', [RecoveryPassword::class, 'render'])->name('recovery_password');
 Route::post('/create-password-temporary', [RecoveryPassword::class, 'create_password_temporary'])->name('create_password_temporary');
@@ -74,6 +81,8 @@ Route::get('/paciente/verify/{verification_code}', [UtilsController::class, 'pat
  */
 Route::get('/confirmation/dairy/{code}', [UtilsController::class, 'confirmation_dairy']);
 
+// planes
+Route::post('/pay-plan-renew', [PaymentForm::class, 'pay_plan_renew'])->name("pay-plan-renew")->middleware(['auth', 'VerifySelloDigital', 'verify_email']);
 
 Route::middleware(['auth'])->group(function () {
 
@@ -81,10 +90,10 @@ Route::middleware(['auth'])->group(function () {
         Route::middleware(['VerifySelloDigital', 'verify_email'])->group(function () {
             Route::get('/home', [Home::class, 'render'])->name('home');
             Route::get('/dashboard', [DashboardComponent::class, 'render'])->name('DashboardComponent');
-            Route::get('/patients', [Patients::class, 'render'])->name('Patients');
+            Route::get('/patients', [Patients::class, 'render'])->name('Patients')->middleware(['VerifyPlanExpiredPlan']);
             Route::get('/setting', [setting::class, 'render'])->name('Setting');
-            Route::get('/diary', [Diary::class, 'render'])->name('Diary')->middleware(['VerifyPlans']);
-            Route::post('/create-appointment', [Diary::class, 'store'])->name('CreateAppointment');
+            Route::get('/diary', [Diary::class, 'render'])->name('Diary');
+            Route::post('/create-appointment', [Diary::class, 'store'])->name('CreateAppointment')->middleware(['VerifyPlanExpiredPlan']);
             Route::get('/clinical-history', [ClinicalHistory::class, 'render'])->name('ClinicalHistory');
             Route::get('/centers', [Centers::class, 'render'])->name('Centers');
             Route::post('/register-centers', [Centers::class, 'store'])->name('register-centers');
@@ -96,12 +105,14 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/medical-record/{id}', [MedicalRecord::class, 'render'])->name('MedicalRecord')->middleware(['VerifyPlans']);
                 Route::post('/medical-consultation-create', [MedicalRecord::class, 'store'])->name('MedicalRecordCreate')->middleware(['VerifyPlans']);
                 Route::get('/medical-history', [MedicalHistory::class, 'render'])->name('MedicalHistory');
-                Route::post('/register-patients', [Patients::class, 'store'])->name('register-patients')->middleware(['VerifyPlans']);
-                Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail')->middleware(['VerifyPlans']);
+                Route::post('/register-patients', [Patients::class, 'store'])->name('register-patients');
+                Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail')->middleware(['VerifyPlans', 'VerifyPlanExpiredPlan']);
                 Route::post('/clinical-history-create', [MedicalHistory::class, 'store'])->name('ClinicalHistoryCreate');
                 Route::get('/search-patient/{value}', [Patients::class, 'search'])->name('search-patient');
                 Route::get('/medicard_record_study/{id}', [Study::class, 'render'])->name("mr_study");
                 Route::get('/medicard_record_exam/{id}', [Examen::class, 'render'])->name("mr_exam");
+                Route::post('/medicard_record_ia', [UtilsController::class, 'sqlapio_ia'])->name("medicard_record_ia");
+
             });
         });
 
@@ -116,9 +127,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/create-seal', [Profile::class, 'create_seal'])->name('create_seal');
             Route::get('/auth/setting/profile', [Profile::class, 'render'])->name('Profile');
             Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');
-            // planes
-            Route::post('/pay-plan-renew', [PaymentForm::class, 'pay_plan_renew'])->name("pay-plan-renew");
 
+            Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');
         });
 
 
@@ -143,6 +153,21 @@ Route::middleware(['auth'])->group(function () {
          * deshabilitar centros
          */
         Route::get('/center_disabled/{id}', [Centers::class, 'centers_disabled'])->name('center_disabled');
+
+        //grupos de rutas de corporativo
+        Route::group(array('prefix' => 'corporate'), function () {
+            Route::get('/dashboard_corporate', [Dashboard::class, 'render'])->name('Dashboard-corporate');
+            Route::get('/doctors', [Doctors::class, 'render'])->name("doctors");
+            Route::get('/admin-patients', [AdminPatients::class, 'render'])->name("admin_patients");
+            Route::get('/get_patient_corporate', [UtilsController::class, 'get_patient_corporate'])->name("get_patient_corporate");
+            Route::get('/get_medical_record_corporate', [UtilsController::class, 'get_medical_record_corporate'])->name("get_medical_record_corporate");
+            Route::get('/get_doctor_corporate', [UtilsController::class, 'get_doctor_corporate'])->name("get_doctor_corporate");
+            Route::get('/get_list_exam', [UtilsController::class, 'get_list_exam'])->name("get_list_exam");
+            Route::get('/get_list_study', [UtilsController::class, 'get_list_study'])->name("get_list_study");
+            Route::get('/enabled-doctor/{id}', [UtilsController::class, 'habilitar_doctor_corporate'])->name("enabled-doctor");
+            Route::get('/disabled-doctor/{id}', [UtilsController::class, 'deshabilitar_doctor_corporate'])->name("disabled-doctor");
+
+        });
     });
 
     /**
@@ -163,10 +188,7 @@ Route::middleware(['auth'])->group(function () {
      */
     Route::get('/get_medical_record/{id}', [UtilsController::class, 'get_medical_record_user'])->name('get_medical_record_user');
 
-    /**
-     * Logout
-     */
-    Route::get('/logout', [Login::class, 'logout'])->name('logout');
+
 
     /**
      * @method PDF
@@ -192,22 +214,22 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/search-patients/{value}', [Diary::class, 'search_patients'])->name("search_patients");
 
     /**
-     * @method cancelled 
+     * @method cancelled
      * @param value
      * cancelar cita del paciente
      */
-    
+
     Route::get('/cancelled-appointments/{id}', [Diary::class, 'cancelled'])->name("cancelled_appointments");
     Route::get('/finalizar-appointments/{id}', [UtilsController::class, 'update_status_dairy'])->name("finalizar_appointments");
 
     /**
-     * @method cancelled 
+     * @method cancelled
      * @param value
      * actualizar cita del paciente
      */
     Route::put('/update-appointments', [Diary::class, 'update'])->name("update_appointments");
     /**
-     * @method cancelled 
+     * @method cancelled
      * @param value
      * cancelar cita del paciente
      */
@@ -230,14 +252,53 @@ Route::middleware(['auth'])->group(function () {
         // Referencias atendidas
         Route::get('/references/res', [UtilsController::class, 'responce_references'])->name("references_res");
     });
+
 });
 
-//route
-Route::get('/pp', function () {
-    $res = 'http://sqlapio.test/public/img/notification_email/cita_header.jpg';
-    dd($res);
-});
+
 Route::group(array('prefix' => 'public'), function () {
     Route::get('/payment-form/{type_plan}', [PaymentForm::class, 'render'])->name("payment-form");
     Route::post('/pay-plan', [PaymentForm::class, 'pay_plan'])->name("pay-plan");
+
+    Route::group(array('prefix' => 'patient'), function () {
+        Route::get('/query-detaly-patient', [QueryDetalyPatient::class, 'render'])->name("query-detaly-patient");
+        Route::post('/search-detaly-patient', [QueryDetalyPatient::class, 'search_detaly'])->name("search-detaly-patient");
+
+    });
+
+
+});
+
+/**
+ * Logout
+ */
+Route::get('/logout', [Login::class, 'logout'])->name('logout');
+
+Route::get('/gpt', function () {
+    $data = Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+                'Authorization' => 'Bearer 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',
+              ])
+              ->post("https://api.openai.com/v1/chat/completions", [
+                //"model" => "gpt-3.5-turbo",
+                "model" => "gpt-4",
+                'messages' => [
+                    [
+                       "role" => "user",
+                       "content" => "Actua como medico y realiza un diagnostico para un paciente femenino de 34 años con los siguientes sintomas: Dolor de cabeza, dolor de vientre, nauseas, vomitos y mareos. El paciente presenta 2 meses de retrazo en su periodo mestrual. Agrega 3 recomendaciones generales"
+                   ]
+                ],
+                'temperature' => 1,
+                "max_tokens" => 1024,
+                "n" => 1,
+                "stream" => false,
+                "top_p" => 1,
+                "frequency_penalty" => 0,
+                "presence_penalty" => 0,
+            ]);
+
+            return $data->json();
+
+
 });

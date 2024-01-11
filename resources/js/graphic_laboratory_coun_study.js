@@ -10,7 +10,7 @@ function get_study(countStudy) {
   const data = {
     labels: labels,
     datasets: [{
-      label: ["Nro. estudios"],
+      label: ["Nro. Estudios"],
       data: [countStudy],
       backgroundColor: [
         'rgb(71,82,94)',

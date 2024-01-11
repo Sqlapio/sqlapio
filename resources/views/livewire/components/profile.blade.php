@@ -1,33 +1,6 @@
 @extends('layouts.app-auth')
 @section('title', 'Perfil')
 <style>
-    .logo-bank {
-        width: 40%;
-        height: auto;
-    }
-
-    .logoSq {
-        width: 50% !important;
-        height: auto;
-    }
-
-    @media only screen and (max-width: 576px) {
-        .mt-m3 {
-            margin-top: 100px
-        }
-
-        .logoSq {
-            width: 30%;
-            height: auto;
-        }
-
-        .logo-bank {
-            width: 20px;
-            margin-left: 20px;
-        }
-
-    }
-
     .sel {
         margin-top: -10px !important;
     }
@@ -38,7 +11,13 @@
 </style>
 @push('scripts')
     <script>
+        let link = ''
         $(document).ready(() => {
+
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            tooltipTriggerList.forEach(element => {
+                new bootstrap.Tooltip(element)
+            });
 
             $('#form-profile').validate({
                 rules: {
@@ -90,7 +69,16 @@
                     },
                     specialty: {
                         required: true,
-                    }
+                    },
+                    number_consulting_phone: {
+                        required: true,
+                    },
+                    number_floor: {
+                        required: true,
+                    },
+                    number_consulting_room: {
+                        required: true,
+                    },
                 },
                 messages: {
                     name: {
@@ -159,7 +147,16 @@
                     },
                     specialty: {
                         required: "Especialidad es obligatoria"
-                    }
+                    },
+                    number_consulting_phone: {
+                        required: "Número teléfono del consultorio es obligatorio"
+                    },
+                    number_floor: {
+                        required: "Número del piso del consultorio es obligatorio"
+                    },
+                    number_consulting_room: {
+                        required: "Número del consultorio es obligatorio"
+                    },
                 },
 
 
@@ -167,7 +164,7 @@
             $.validator.addMethod("onlyNumber", function(value, element) {
                 var pattern = /^\d+\.?\d*$/;
                 return pattern.test(value);
-            }, "Campo solo numero");
+            }, "Campo numérico");
 
             $('#form-seal').validate({
                 rules: {
@@ -207,13 +204,13 @@
 
             } else {
 
-                $("#business_name").rules('add', {
+                $("#business_name").attr('readonly', true).rules('add', {
                     required: true,
                     minlength: 3,
                     maxlength: 50,
                 });
 
-                $("#rif").rules('add', {
+                $("#rif").attr('readonly', true).rules('add', {
                     required: true,
                     minlength: 5,
                     maxlength: 17,
@@ -231,7 +228,6 @@
                     url: true,
                 });
 
-
                 $("#type_laboratory").rules('add', {
                     required: true
                 });
@@ -243,9 +239,12 @@
                     img = user.get_laboratorio.lab_img;
                     $('#state').val(user.get_laboratorio.state).change();
                     $('#city').val(user.get_laboratorio.city).change();
+                    $('#address').val(user.get_laboratorio.address).change();
                     $('#type_laboratory').val(user.get_laboratorio.type_laboratory).change();
-                    $('#type_rif').val(user.get_laboratorio.rif[0] + "-").change();
-                    $('#rif').val(user.get_laboratorio.rif);
+                    $('#type_rif').attr('disabled', true).val(user.get_laboratorio.rif[0] + "-").change();
+                    setTimeout(() => {
+                        $('#rif').val(user.get_laboratorio.rif);
+                    }, 10);
                 }
             }
 
@@ -282,14 +281,27 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
-                                window.location.href =
+                                window.location.href = (user.role == "corporativo") ?
+                                    "{{ route('Dashboard-corporate') }}" :
                                     "{{ route('DashboardComponent') }}";
                             });
                         },
                         error: function(error) {
                             $('#send').show();
                             $('#spinner').hide();
-                            console.log(error.responseJSON.errors);
+                            error.responseJSON.errors.map((elm) => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: elm,
+                                    allowOutsideClick: false,
+                                    confirmButtonColor: '#42ABE2',
+                                    confirmButtonText: 'Aceptar'
+                                }).then((result) => {
+                                    $('#btn-save').attr('disabled', false);
+                                    $('#spinner2').hide();
+                                    $(".holder").hide();
+                                });
+                            });
 
                         }
                     });
@@ -460,16 +472,32 @@
             var year = today.getFullYear();
 
             $(".date-bd").attr('max', year + "-" + month + "-" + day);
-        });   
+        });
+
+        const triggerExample = async (token) => {
+            link = `${token}`;
+            try {
+                await navigator.clipboard.writeText(link);
+                $("#icon-copy").css("background", "#04AA6D");
+                setTimeout(function() {
+                    $('#copied').hide();
+                }, 2000);
+                $("#copied").text('Enlace copiado!');
+
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+                $("#copied").text('Error al copiar enlace!');
+            }
+        }
     </script>
 @endpush
 @section('content')
-    <div class="container-fluid" style="padding: 3%">
+    <div class="container-fluid" style="padding: 0 3% 3%">
         <div class="accordion" id="accordion">
 
             {{-- datos del paciente --}}
             <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                     @if ($user->email_verified_at === null)
                         <div class="alert alert-warning" role="alert">
                             Debe verificar su correo!
@@ -625,13 +653,60 @@
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
-                                                        <textarea id="address" rows="3" id="address" name="address"
-                                                            class="form-control @error('address') is-invalid @enderror" value="{!! !empty($user) ? $user->address : '' !!}"></textarea>
+                                                        <textarea id="address" rows="3" name="address" class="form-control @error('address') is-invalid @enderror"
+                                                            value="{!! !empty($user) ? $user->address : '' !!}"></textarea>
                                                         <i class="bi bi-geo st-icon"></i>
                                                     </div>
-
                                                 </diV>
                                             </div>
+
+                                            @if (Auth::user()->type_plane == '7')
+
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="name" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Piso
+                                                            del consultorio</label>
+                                                        <input autocomplete="off" class="form-control mask-alfa-numeric @error('number_floor') is-invalid @enderror"
+                                                            id="number_floor" maxlength="10" name="number_floor" type="text"
+                                                            value="{!! !empty($user != null) ? $user->number_floor : '' !!}">
+                                                        <i class="bi bi-geo" style="top: 30px"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+
+
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="name" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
+                                                            del consultorio</label>
+                                                        <input autocomplete="off"  maxlength="10" class="form-control mask-alfa-numeric @error('number_consulting_room') is-invalid @enderror"
+                                                            id="number_consulting_room" name="number_consulting_room"
+                                                            type="text"
+                                                            value="{!! !empty($user != null) ? $user->number_consulting_room : '' !!}">
+                                                        <i class="bi bi-geo" style="top: 30px"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="name" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
+                                                            teléfonico del consultorio</label>
+                                                        <input autocomplete="off" class="form-control phone @error('number_consulting_phone') is-invalid @enderror"
+                                                            id="number_consulting_phone" name="number_consulting_phone"
+                                                            type="text" 
+                                                            value="{!! !empty($user != null) ? $user->number_consulting_phone : '' !!}">
+                                                        <i class="bi bi-geo" style="top: 30px"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+                                            @endif
 
                                             <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
 
@@ -665,6 +740,27 @@
                                             </div>
                                             <x-upload-image />
                                         @else
+                                            @if (Auth::user()->role == 'corporativo')
+                                                <div class="row">
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <a id="Link-medicos" href="{{ Auth::user()->token_corporate }}"
+                                                            target="_blank" style="text-decoration: none;">
+                                                            <button type="button" class="btn btnPrimary">Registrar
+                                                                médicos</button>
+                                                        </a> 
+                                                        <button type="button" id="icon-copy"
+                                                            class="btn btn-iSecond rounded-circle"
+                                                            data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                            title="Copiar enlace de registro"
+                                                            onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
+                                                            style="margin-left: 5%;">
+                                                            <i class="bi bi-file-earmark-text"></i>
+                                                        </button> <span style="padding-left: 5px" id="copied"></span>
+                                                    </div>
+                                                </div>
+                                            @endif
+
+
                                             {{-- rol laboratorio --}}
                                             <input type="hidden" id="id" name="id"
                                                 value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->id : '' !!}">
@@ -672,12 +768,16 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombre
-                                                            del laboratorio</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
+                                                            social</label>
                                                         <input autocomplete="off" placeholder=""
                                                             class="form-control mask-text  @error('business_name') is-invalid @enderror"
                                                             id="business_name" name="business_name" type="text"
-                                                            value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->business_name : '' !!}">
+                                                            value="{!! !empty($user->get_laboratorio != null)
+                                                                ? ($user->role == 'corporativo'
+                                                                    ? $user->get_center->description
+                                                                    : $user->get_laboratorio->business_name)
+                                                                : '' !!}">
                                                         <i class="bi bi-person-vcard" style="top: 30px"></i>
                                                     </div>
                                                 </diV>
@@ -770,14 +870,14 @@
                                                         <i class="bi bi-geo" style="top: 30px"></i>
                                                     </div>
                                                 </diV>
-                                            </div>
+                                            </div>                                  
 
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tipo
-                                                            de laboratorio</label>
+                                                            de empresa</label>
                                                         <select name="type_laboratory" id="type_laboratory"
                                                             class="form-control">
                                                             <option value="">Seleccione</option>
@@ -785,7 +885,8 @@
                                                             <option value="investigacion">Laboratorio investigación
                                                             </option>
                                                             <option value="microbiológico">Laboratorio microbiológico
-                                                            </option>
+                                                            <option value="centro_clinico">Centro clinico</option>
+                                                            <option value="hospital">Hospital</option>
                                                             <option value="etc">etc</option>
                                                         </select>
                                                         <i class="bi bi-flag" style="top: 30px"></i>
@@ -793,7 +894,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -808,7 +909,7 @@
                                                 </diV>
                                             </div>
 
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -825,21 +926,27 @@
                                                 </diV>
                                             </div>
 
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                            {{-- <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Descripción</label>
-                                                        <input autocomplete="off" placeholder="Descripción"
+                                                        <input autocomplete="off" 
                                                             class="form-control mask-only-text @error('description') is-invalid @enderror"
                                                             id="description" name="description" type="text"
                                                             value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->description : '' !!}">
                                                         <i class="bi bi-geo" style="top: 30px"></i>
                                                     </div>
                                                 </diV>
-                                            </div>
+                                            </div> --}}
+                                            @php
+                                                $title = 'Cargar imagen';
+                                                if (Auth::user()->role == 'corporativo') {
+                                                    $title = 'Cargar logo de empresa';
+                                                }
+                                            @endphp
 
-                                            <x-upload-image />
+                                            <x-upload-image :title="$title" />
                                         @endif
                                         <div class="row mt-3 justify-content-md-end">
                                             <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
@@ -865,7 +972,7 @@
             @if ($user->email_verified_at !== null)
                 {{-- actualizacion de correo Electronico --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 {{Auth::user()->type_plane != '7' ? "mb-3" : "mb-cd mb-3"}}" style="margin-top: 20px;">
                         <div class="accordion-item ">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"
@@ -906,8 +1013,7 @@
                 @if (Auth::user()->role == 'medico')
                     {{-- firma Digital --}}
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd"
-                            style="margin-top: 20px; ">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 {{Auth::user()->role == 'medico' && Auth::user()->type_plane != '7' ? "" : "mb-cd mb-3"}}">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
                                     <button class="accordion-button collapsed bg-8" type="button"
@@ -939,26 +1045,28 @@
                     </div>
                 @endif
             @endif
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                    <div class="accordion-item">
-                        <span class="accordion-header title" id="headingPlanes">
-                            <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapsePlanes" aria-expanded="true" aria-controls="collapsePlanes"
-                                style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                <i class="bi bi-person"></i> Informacion del plan
-                            </button>
-                        </span>
-                        <div id="collapsePlanes" class="accordion-collapse collapse show" aria-labelledby="headingPlanes"
-                            data-bs-parent="#accordion">
-                            <div class="accordion-body">
-                                <x-view-planes/>                               
+            @if (Auth::user()->role == 'medico' && Auth::user()->type_plane != '7')
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd" style="margin-top: 20px;">
+                        <div class="accordion-item">
+                            <span class="accordion-header title" id="headingPlanes">
+                                <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapsePlanes" aria-expanded="true" aria-controls="collapsePlanes"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-info-lg"></i> Información del plan
+                                </button>
+                            </span>
+                            <div id="collapsePlanes" class="accordion-collapse collapse show"
+                                aria-labelledby="headingPlanes" data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    <x-view-planes />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>     
+            @endif
+        </div>
     </div>
 
 @endsection

@@ -8,6 +8,7 @@ use App\Mail\NotificationEmail;
 use App\Mail\NotificationPatient;
 use App\Mail\NotificationReferences;
 use App\Mail\SendMail;
+use App\Models\AiContainer;
 use App\Models\Appointment;
 use App\Models\Center;
 use App\Models\City;
@@ -37,7 +38,9 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 use Log;
 use Svg\CssLength;
 
@@ -159,7 +162,7 @@ class UtilsController extends Controller
 					'last_name' => $request->last_name,
 					'ci' 		=> $request->ci,
 					'birthdate' => $request->birthdate,
-					'genere' => $request->genere,
+					'genere'    => $request->genere,
 					'specialty' => $request->specialty,
 					'age' 		=> $request->age,
 					'phone' 	=> $request->phone,
@@ -168,9 +171,13 @@ class UtilsController extends Controller
 					'address' 	=> $request->address,
 					'zip_code' 	=> $request->zip_code,
 					'cod_mpps' 	=> $request->cod_mpps,
+                    'number_floor' 	=> $request->number_floor,
+                    'number_consulting_room' 	=> $request->number_consulting_room,
+                    'number_consulting_phone' 	=> $request->number_consulting_phone,
 					'user_img' 	=> $nameFile,
 					'status_register' => '2',
 				]);
+
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_registro()', $message);
@@ -266,7 +273,7 @@ class UtilsController extends Controller
 	{
 		try {
 			$appointments = Appointment::where('user_id', $id)
-				->where('status', 1)->get();
+				->WhereBetween('status', [1,2])->get();
 			$data = [];
 			foreach ($appointments as $key => $val) {
 				$data[$key] = [
@@ -295,6 +302,52 @@ class UtilsController extends Controller
 						'img' => $val->get_patients->patient_img,
 						'data_app' => $val->date_start,
 						'time_zone_start' => substr($val->hour_start, 12),
+					],
+				];
+			}
+			return $data;
+			//code...
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_appointments()', $message);
+		}
+	}
+
+    static function get_appointments_dashboard($id)
+	{
+		try {
+			$appointments = Appointment::where('user_id', $id)
+                ->where('date_start', date('Y-m-d'))->get();
+			$data = [];
+			foreach ($appointments as $key => $val) {
+				$data[$key] = [
+					'id' => $val->id,
+					'title' => substr($val->hour_start, 2) . "," . $val->get_patients->name . "," . $val->get_patients->last_name,
+					'start' => date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 0, -9),
+					'end' =>  date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 6, -3),
+					// 'allDay'=> true,
+					'rendering' => 'background',
+					'color' => $val->color,
+					'extendedProps' => [
+						'id' =>  $val->id,
+						'price' => $val->price,
+						'confirmation' => $val->confirmation,
+						'phone' => $val->get_patients->is_minor== "true" ? $val->get_patients->get_reprensetative->re_phone. '  (Rep)' : $val->get_patients->phone,
+						'name' => $val->get_patients->name,
+						'last_name' => $val->get_patients->last_name,
+						'ci' => $val->get_patients->is_minor== "true" ? $val->get_patients->get_reprensetative->re_ci. '  (Rep)' :$val->get_patients->ci,
+						'email' => $val->get_patients->is_minor== "true" ? $val->get_patients->get_reprensetative->re_email. '  (Rep)':$val->get_patients->email,
+						'genere' => $val->get_patients->genere,
+						'age' =>  $val->get_patients->age,
+						'patient_id' =>  $val->get_patients->id,
+						'center_id' =>  $val->center_id,
+						'center' =>  $val->get_center->description,
+						'data' => substr($val->hour_start, 0, -3),
+						'img' => $val->get_patients->patient_img,
+						'data_app' => $val->date_start,
+						'time_zone_start' => substr($val->hour_start, 12),
+						'status' => $val->get_status->description,
+						'status_class' => $val->get_status->class,
 					],
 				];
 			}
@@ -461,7 +514,7 @@ class UtilsController extends Controller
 	{
 		try {
 
-			$centers = Center::all();
+			$centers = Center::where('corporate', 'false')->get();
 			return $centers;
 			//code...
 		} catch (\Throwable $th) {
@@ -572,6 +625,11 @@ class UtilsController extends Controller
 				Mail::to($mailData['laboratory_email'])->send(new NotificationEmail($mailData, $view));
 			}
 
+            if ($type == 'verify_email_corporate') {
+				$view = 'emails.verify_email_corporate';
+				Mail::to($mailData['laboratory_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
 			if ($type == 'reference') {
 				$view = 'emails.references';
 				Mail::to($mailData['patient_email'])->send(new NotificationEmail($mailData, $view));
@@ -584,6 +642,16 @@ class UtilsController extends Controller
 
 			if ($type == 'update_email') {
 				$view = 'emails.update_email';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+            if ($type == 'enable_doc') {
+				$view = 'emails.enable_email';
+				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+            if ($type == 'disable_doc') {
+				$view = 'emails.disable_email';
 				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
 			}
 		} catch (\Throwable $th) {
@@ -616,7 +684,7 @@ class UtilsController extends Controller
 
 	/**
 	 * Funcion que para la verificacion del correo
-	 * 
+	 *
 	 * @param verification_code
 	 */
 	static function patient_verify_email($verification_code)
@@ -637,7 +705,7 @@ class UtilsController extends Controller
 	/**
 	 * Funcion que envia las notificaciones al paciente y al medico
 	 * justo despues que la cita es creada a nivel de sistemas
-	 * 
+	 *
 	 * @param email 		-> direccion de correo del medico
 	 * @param patient_email -> correo del paciente
 	 */
@@ -861,7 +929,7 @@ class UtilsController extends Controller
 			$update = DB::table('appointments')
 				->where('code', $code)
 				->update([
-					'confirmation' => 1,
+					'status' => 2,
 				]);
 
 			return true;
@@ -874,7 +942,7 @@ class UtilsController extends Controller
 	/**
 	 * Funcion que envia las notificaciones al paciente y al medico
 	 * justo despues que la cita es creada a nivel de sistemas
-	 * 
+	 *
 	 * @param email 		-> direccion de correo del medico
 	 * @param patient_email -> correo del paciente
 	 */
@@ -1123,12 +1191,16 @@ class UtilsController extends Controller
 	static function update_patient_counter($user_id)
 	{
 		try {
-			$value = User::where('id', $user_id)->first()->patient_counter;
-			$counter = DB::table('users')
-				->where('id', $user_id)
-				->update([
-					'patient_counter' => $value + 1,
-				]);
+			$value = User::where('id', $user_id)->first();
+            if($value->type_plane != '7')
+            {
+                $counter = DB::table('users')
+                    ->where('id', $user_id)
+                    ->update([
+                        'patient_counter' => $value->patient_counter + 1,
+                    ]);
+            }
+
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_patient_counter()', $message);
@@ -1138,12 +1210,16 @@ class UtilsController extends Controller
 	static function update_mr_counter($user_id)
 	{
 		try {
-			$value = User::where('id', $user_id)->first()->medical_record_counter;
-			$counter = DB::table('users')
-				->where('id', $user_id)
-				->update([
-					'medical_record_counter' => $value + 1,
-				]);
+			$value = User::where('id', $user_id)->first();
+            if($value->type_plane != '7')
+            {
+                $counter = DB::table('users')
+                    ->where('id', $user_id)
+                    ->update([
+                        'medical_record_counter' => $value->medical_record_counter + 1,
+                    ]);
+            }
+
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_mr_counter()', $message);
@@ -1153,12 +1229,15 @@ class UtilsController extends Controller
 	static function update_ref_counter($user_id)
 	{
 		try {
-			$value = User::where('id', $user_id)->first()->ref_counter;
-			$counter = DB::table('users')
-				->where('id', $user_id)
-				->update([
-					'ref_counter' => $value + 1,
-				]);
+			$value = User::where('id', $user_id)->first();
+            if($value->type_plane != '7')
+            {
+                $counter = DB::table('users')
+                    ->where('id', $user_id)
+                    ->update([
+                        'ref_counter' => $value->ref_counter + 1,
+                    ]);
+            }
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_ref_exam_counter()', $message);
@@ -1183,7 +1262,7 @@ class UtilsController extends Controller
 
 		$data = [];
 		if ($row != 'cod_ref') {
-			
+
 			$tablePat =  Patient::where($row, $value);
 
 			$tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($value) {
@@ -1199,7 +1278,7 @@ class UtilsController extends Controller
 			foreach ($patients as $key => $val) {
 
 				$data_exam = ExamPatient::where('patient_id', $val->id)
-				->where('status', 2)				
+				->where('status', 2)
 				->with('get_laboratory')
 				->get();
 
@@ -1212,11 +1291,11 @@ class UtilsController extends Controller
 				];
 			}
 
-			return $data;	
-			
-		} else {		
+			return $data;
 
-			
+		} else {
+
+
 			$tablePat =  Reference::whereHas('get_patient', function ($q) use ($value) {
 				$q->where('ci', $value);
 			});
@@ -1227,7 +1306,7 @@ class UtilsController extends Controller
 				});
 			});
 
-			$reference = $tablePat->union($tableRep)->get();			
+			$reference = $tablePat->union($tableRep)->get();
 
 			foreach($reference as $key => $val){
 					$data[$key] = [
@@ -1237,9 +1316,9 @@ class UtilsController extends Controller
 						'cod_medical_record' => $val->cod_medical_record,
 						'get_exam' => $val->get_exam,
 						'get_studie' => $val->get_studie,
-						'get_patient' => $val->get_patient,	
+						'get_patient' => $val->get_patient,
 					];
-				
+
 			}
 
 			return $data;
@@ -1267,7 +1346,7 @@ class UtilsController extends Controller
 			foreach ($patients as $key => $val) {
 
 				$data_study = StudyPatient::where('patient_id', $val->id)
-				->where('status', 2)				
+				->where('status', 2)
 				->with('get_laboratory')
 				->get();
 
@@ -1347,7 +1426,7 @@ class UtilsController extends Controller
 	 */
 	static function total_studies()
 	{
-		try {		
+		try {
 			$total_studies =[];
 			if(Auth::user()->get_laboratorio!= null){
 				$user_id = Auth::user()->get_laboratorio->id;
@@ -1361,8 +1440,194 @@ class UtilsController extends Controller
 		}
 	}
 
+    static function get_counter()
+	{
+		try {
+
+			$user_patient_counter = Auth::user()->patient_counter;
+            return $user_patient_counter;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.total_studies()', $message);
+		}
+	}
+
+	/**
+	 * Metodos para listar informacion
+	 * del plan corporativo.
+	 *
+	 * Esta informacion sera colocada en tablas
+	 * para ser vista en el dashboard del medico administrador
+	 */
+
+	static function get_patient_corporate()
+	{
+		try {
+
+			$user = Auth::user();
+			$lista_patient = Patient::where('center_id', $user->center_id)->get();
+            return $lista_patient;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_patient_corporate()', $message);
+		}
+	}
+
+	static function get_medical_record_corporate()
+	{
+		try {
+
+			$user = Auth::user();
+			$lista_medical_record = MedicalRecord::where('center_id', $user->center_id)->get();
+            return $lista_medical_record;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_medical_record_corporate()', $message);
+		}
+	}
+
+	static function get_doctor_corporate()
+	{
+		try {
+
+			$user = Auth::user();
+			$lista_doctor = User::where('center_id', $user->center_id)->where('role', 'medico')->get();
+            return $lista_doctor;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_doctor_corporate()', $message);
+		}
+	}
+
+    static function get_list_exam()
+	{
+		try {
+
+			$list_exam = Exam::all();
+            return $list_exam;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_list_exam()', $message);
+		}
+	}
+
+    static function get_list_study()
+	{
+		try {
+
+			$list_study = Study::all();
+            return $list_study;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_list_study()', $message);
+		}
+	}
+
+    static function habilitar_doctor_corporate($id)
+	{
+		try {
+
+            $doctor = User::where('id', $id)
+                ->where('type_plane', '7')
+                ->update([
+                        'tipo_status' => '1'
+                    ]);
+
+			$doctor_update = UtilsController::get_doctor_corporate();
+
+            $info_doctor = User::where('id', $id)->where('type_plane', '7')->first();
+            $type = 'enable_doc';
+            $mailData = [
+                'dr_name' => $info_doctor->name . ' ' . $info_doctor->last_name,
+                'dr_email' => $info_doctor->email,
+                'center' => Center::where('id', $info_doctor->center_id)->first()->description
+            ];
+
+            UtilsController::notification_mail($mailData, $type);
+
+            return $doctor_update;
 
 
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.update_status_doctor_corporate()', $message);
+		}
+	}
+
+    static function deshabilitar_doctor_corporate($id)
+	{
+		try {
+
+            $doctor = User::where('id', $id)
+                ->where('type_plane', '7')
+                ->update([
+                        'tipo_status' => '2'
+                    ]);
+
+			$doctor_update = UtilsController::get_doctor_corporate();
+            $info_doctor = User::where('id', $id)->where('type_plane', '7')->first();
+            $type = 'disable_doc';
+            $mailData = [
+                'dr_name' => $info_doctor->name. ' ' .$info_doctor->last_name,
+                'dr_email' => $info_doctor->email,
+                'center' => Center::where('id', $info_doctor->center_id)->first()->description
+            ];
+
+            UtilsController::notification_mail($mailData, $type);
+
+			return $doctor_update;
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.update_status_doctor_corporate()', $message);
+		}
+	}
+
+    static function sqlapio_ia(Request $request)
+	{
+		try {
+
+            $data = Http::withHeaders([
+				'Content-Type' => 'application/json',
+				'Accept' => 'application/json',
+				'Authorization' => 'Bearer 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',
+				'OpenAI-Organization' => 'org-PiNOPH4ttimplVNzU1KCKIRx'
+			  ])
+			  ->post("https://api.openai.com/v1/chat/completions", [
+				"model" => "gpt-3.5-turbo",
+				'messages' => [
+					[
+					   "role" => "user",
+					   "content" => "Actua como medico y realiza un diagnostico para un paciente ".$request->genere." de ".$request->age." años con los siguientes sintomas: ".$request->symtoms.". Agrega 3 recomendaciones generales."
+				   ]
+				],
+				'temperature' => 1,
+				"max_tokens" => 1024,
+				"n" => 1,
+				"stream" => false,
+				"top_p" => 1,
+				"frequency_penalty" => 0,
+				"presence_penalty" => 0,
+			]);
+
+			$res = $data->json()['choices'][0]['message']['content'];
+
+			return response()->json([
+				'success' => 'true',
+				'data'  =>  $res
+			], 200);
+
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.sqlapio_ia()', $message);
+		}
+	}
 
 
 }

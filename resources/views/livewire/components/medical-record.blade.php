@@ -5,20 +5,39 @@
         list-style-type: none;
     }
 
+    pre {
+        white-space: pre-wrap; 
+        white-space: -moz-pre-wrap;  
+        white-space: -pre-wrap;      
+        white-space: -o-pre-wrap;    
+        word-wrap: break-word;
+        text-align: justify; 
+        
+    }
+    .div-ia{
+        padding: 3%;
+    }
+
+    .p-ia{
+        text-align: justify !important;
+    }
+
     .check-cm {
         padding: 5px 12px !important;
         border-radius: 20px !important;
         font-size: 13px;
     }
 
-    .btn-outline-primary:checked+.btn,
-    :not(.btn-outline-primary)+.btn:active,
-    .btn:first-child:active,
-    .btn.active,
-    .btn.show {
-        color: var(--bs-btn-active-color);
-        background-color: #81d1d0 !important;
-        border-color: #81d1d0 !important;
+    .btn-outline-other {
+        --bs-btn-color: #d19e5b !important;
+        --bs-btn-border-color: #d19e5b !important;
+        --bs-btn-hover-bg: #d19e5b !important;
+        --bs-btn-hover-border-color: #d19e5b !important;
+        --bs-btn-active-bg: #d19e5b !important;
+        --bs-btn-active-border-color: #d19e5b !important;
+        --bs-btn-disabled-color: #d19e5b !important;
+        --bs-btn-disabled-border-color: #d19e5b !important;
+        --bs-btn-active-color: #fff !important;
     }
 
     .btn-outline-primary {
@@ -38,8 +57,8 @@
     .btn.active,
     .btn.show {
         color: var(--bs-btn-active-color);
-        background-color: #459594 !important;
-        border-color: #459594 !important;
+        background-color: #45959400;
+        border-color: #45959400;
     }
 
     .btn-outline-success {
@@ -123,14 +142,21 @@
         let valExams = '';
         let valStudy = '';
         let id = @json($id);
+        let patient = @json($Patient);
         let exams_array = [];
+        let symptom_array = [];
         let studies_array = [];
         let medications_supplements = [];
         let countMedicationAdd = 0;
         let exam_filter = [];
+        let symptom_filter = [];
         let study_filter = [];
+        let valSymptoms = '';
+
+        let user = @json(Auth::user());
 
         $(document).ready(() => {
+            switch_type_plane(user);
 
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             tooltipTriggerList.forEach(element => {
@@ -145,12 +171,12 @@
             let doctor_centers = @json($doctor_centers);
             let validate_histroy = @json($validate_histroy);
             $('#not-exam').hide();
-            $('#not-studie').hide();     
+            $('#not-studie').hide();
 
-            if (doctor_centers.length === 0) {
+            if (user.type_plane !== '7' && doctor_centers.length === 0) {
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Debe asociar  un centro!',
+                    title: 'Debe asociar un centro!',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
                     confirmButtonText: 'Aceptar'
@@ -204,7 +230,7 @@
                         required: "Antecedentes es obligatorio",
                     },
                     razon: {
-                        required: "Razon de la visita es obligatoria",
+                        required: "Razón de la visita es obligatoria",
                     },
 
                     diagnosis: {
@@ -232,10 +258,24 @@
                 return pattern.test(value);
             }, "No se permiten caracteres especiales");
 
+
             //envio del formulario
             $("#form-consulta").submit(function(event) {
                 event.preventDefault();
                 $("#form-consulta").validate();
+                if (countMedicationAdd === 0) {
+                    $("#med").html(
+                        `Debe agregar al menos un tratamiento <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`
+                    );
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Debe agregar al menos un tratamiento',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#42ABE2',
+                        confirmButtonText: 'Aceptar'
+                    });
+                    return false;
+                }
                 if ($("#form-consulta").valid()) {
                     $('#send').hide();
                     $('#spinner').show();
@@ -245,6 +285,7 @@
                     let data = {};
                     formData.map((item) => data[item.name] = item.value);
                     data["exams_array"] = JSON.stringify(exams_array);
+                    data["symptom_array"] = JSON.stringify(symptom_array);
                     data["studies_array"] = JSON.stringify(studies_array);
                     data["medications_supplements"] = JSON.stringify(medications_supplements);
 
@@ -324,105 +365,105 @@
                                 //                     .id);
 
                                 //             let btnExam = `
-                                //             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                //                     <button type="button"
-                                //                         class="refresf btn-idanger rounded-circle"
-                                //                         data-bs-container="body" 
-                                //                         data-bs-toggle="popover"
-                                //                         data-bs-custom-class="custom-popover"
-                                //                         data-bs-placement="bottom" 
-                                //                         data-bs-content="No hay exámenes cargados">
-                                //                         <i class="bi bi-exclamation-lg"></i>
-                                //                     </button>
-                                //             </div>`;
+                            //             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                            //                     <button type="button"
+                            //                         class="refresf btn-idanger rounded-circle"
+                            //                         data-bs-container="body" 
+                            //                         data-bs-toggle="popover"
+                            //                         data-bs-custom-class="custom-popover"
+                            //                         data-bs-placement="bottom" 
+                            //                         data-bs-content="No hay exámenes cargados">
+                            //                         <i class="bi bi-exclamation-lg"></i>
+                            //                     </button>
+                            //             </div>`;
 
                                 //             if (elem.data
                                 //                 .status_exam != null
                                 //             ) {
                                 //                 btnExam = `  
-                                //                         <div
-                                //                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                //                     <a href="${route_mr_exam}">
-                                //                     <button type="button"
-                                //                     class="btn refresf btn-iSecond rounded-circle"
-                                //                     data-bs-toggle="tooltip"
-                                //                     data-bs-placement="bottom"
-                                //                     data-bs-custom-class="custom-tooltip"
-                                //                     data-html="true" title="ver exámenes">
-                                //                     <i class="i bi-card-heading"></i>
-                                //                     </button>
-                                //                     </a>
-                                //                     </div>`
+                            //                         <div
+                            //                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                            //                     <a href="${route_mr_exam}">
+                            //                     <button type="button"
+                            //                     class="btn refresf btn-iSecond rounded-circle"
+                            //                     data-bs-toggle="tooltip"
+                            //                     data-bs-placement="bottom"
+                            //                     data-bs-custom-class="custom-tooltip"
+                            //                     data-html="true" title="ver exámenes">
+                            //                     <i class="i bi-card-heading"></i>
+                            //                     </button>
+                            //                     </a>
+                            //                     </div>`
 
                                 //             }
                                 //             let btnStudy = `<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                //                                 <button type="button"
-                                //                                     class="refresf btn-idanger rounded-circle"
-                                //                                     data-bs-container="body" 
-                                //                                     data-bs-toggle="popover"
-                                //                                     data-bs-custom-class="custom-popover"
-                                //                                     data-bs-placement="bottom" 
-                                //                                     data-bs-content="No hay estudios cargados">
-                                //                                     <i class="bi bi-exclamation-lg"></i>
-                                //                                 </button>
-                                //                             </div>`
+                            //                                 <button type="button"
+                            //                                     class="refresf btn-idanger rounded-circle"
+                            //                                     data-bs-container="body" 
+                            //                                     data-bs-toggle="popover"
+                            //                                     data-bs-custom-class="custom-popover"
+                            //                                     data-bs-placement="bottom" 
+                            //                                     data-bs-content="No hay estudios cargados">
+                            //                                     <i class="bi bi-exclamation-lg"></i>
+                            //                                 </button>
+                            //                             </div>`
 
                                 //             if (elem.data
                                 //                 .status_study !=
                                 //                 null
                                 //             ) {
                                 //                 btnStudy = `  
-                                //                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                //                     <a
-                                //                     href="${route_mr_study}">
-                                //                     <button type="button"
-                                //                     class="btn refresf btn-iSecond rounded-circle"
-                                //                     data-bs-toggle="tooltip"
-                                //                     data-bs-placement="bottom"
-                                //                     data-bs-custom-class="custom-tooltip"
-                                //                     data-html="true" title="ver estudios">
-                                //                     <i class="i bi-card-heading"></i>
-                                //                     </button>
-                                //                     </a>
-                                //                     </div>`
+                            //                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                            //                     <a
+                            //                     href="${route_mr_study}">
+                            //                     <button type="button"
+                            //                     class="btn refresf btn-iSecond rounded-circle"
+                            //                     data-bs-toggle="tooltip"
+                            //                     data-bs-placement="bottom"
+                            //                     data-bs-custom-class="custom-tooltip"
+                            //                     data-html="true" title="ver estudios">
+                            //                     <i class="i bi-card-heading"></i>
+                            //                     </button>
+                            //                     </a>
+                            //                     </div>`
 
                                 //             }
 
 
                                 //             elem.btn = `                                                                    
-                                //                     <div class="d-flex">
-                                //                     ${btnExam}
-                                //                     ${btnStudy}
-                                //                     <div
-                                //                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                //                     <a target="_blank"
-                                //                     href="${route_pdf_medical_prescription}">
-                                //                     <button type="button"
-                                //                     class="btn refresf btn-iSecond rounded-circle"><i
-                                //                     class="bi bi-file-earmark-pdf"
-                                //                     data-bs-toggle="tooltip"
-                                //                     data-bs-placement="bottom"
-                                //                     data-bs-custom-class="custom-tooltip"
-                                //                     data-html="true"
-                                //                     title="Ver recipe"></i>
-                                //                     </button>
-                                //                     </a>
-                                //                     </div>                                               
-                                //                     <div
-                                //                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                //                     <a target="_blank"
-                                //                     href="${route}">
-                                //                     <button type="button"
-                                //                     class="btn refresf btn-iSecond rounded-circle"><i
-                                //                     class="bi bi-file-earmark-pdf"
-                                //                     data-bs-toggle="tooltip"
-                                //                     data-bs-placement="bottom"
-                                //                     data-bs-custom-class="custom-tooltip"
-                                //                     data-html="true" title="ver PDF"></i>
-                                //                     </button>
-                                //                     </a>
-                                //                     </div>
-                                //                     </div>`;
+                            //                     <div class="d-flex">
+                            //                     ${btnExam}
+                            //                     ${btnStudy}
+                            //                     <div
+                            //                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                            //                     <a target="_blank"
+                            //                     href="${route_pdf_medical_prescription}">
+                            //                     <button type="button"
+                            //                     class="btn refresf btn-iSecond rounded-circle"><i
+                            //                     class="bi bi-file-earmark-pdf"
+                            //                     data-bs-toggle="tooltip"
+                            //                     data-bs-placement="bottom"
+                            //                     data-bs-custom-class="custom-tooltip"
+                            //                     data-html="true"
+                            //                     title="Ver recipe"></i>
+                            //                     </button>
+                            //                     </a>
+                            //                     </div>                                               
+                            //                     <div
+                            //                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                            //                     <a target="_blank"
+                            //                     href="${route}">
+                            //                     <button type="button"
+                            //                     class="btn refresf btn-iSecond rounded-circle"><i
+                            //                     class="bi bi-file-earmark-pdf"
+                            //                     data-bs-toggle="tooltip"
+                            //                     data-bs-placement="bottom"
+                            //                     data-bs-custom-class="custom-tooltip"
+                            //                     data-html="true" title="ver PDF"></i>
+                            //                     </button>
+                            //                     </a>
+                            //                     </div>
+                            //                     </div>`;
                                 //             data.push(elem);
                                 //         });
 
@@ -506,31 +547,51 @@
         });
 
         function resetForm() {
-            $("#medical_record_id").val('');
-            $("#form-consulta").trigger("reset");
-            $('#table-medicamento > tbody').empty();
-            $('.send').attr('disabled', false);
-            $('.btn-check').attr('disabled', false);
-            $(".medicine-form").show();
-            // $("#indication").show();
-            // $("#treatmentDuration").show();
-            $("#center_id").attr('disabled', false);
-            $("#background").attr('disabled', false);
-            $("#razon").attr('disabled', false);
-            $("#diagnosis").attr('disabled', false);
-            $("#treatment").attr('disabled', false);
-            $(".addMedacition").show();
-            // $("#exams").attr('disabled', false);
-            // $("#studies").attr('disabled', false);
-            $('#form-consulta').find('input:checkbox').attr('checked', false);   
-             exams_array = [];
-             studies_array = [];
-             $('#exam_filter').hide();        
-             $('#study_filter').hide();        
-             $('#exam').show();        
-             $('#studie').show();
-             $('#not-exam').hide();
-             $('#not-studie').hide();     
+            Swal.fire({
+                icon: 'warning',
+                title: 'Desea realizar esta acción?',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar',
+                showCancelButton: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $("#medical_record_id").val('');
+                    $("#form-consulta").trigger("reset");
+                    $('#table-medicamento > tbody').empty();
+                    $('.send').attr('disabled', false);
+                    $('.btn-check').attr('disabled', false);
+                    $(".medicine-form").show();
+                    $('.send-ai').show();
+
+                    // $("#indication").show();
+                    // $("#treatmentDuration").show();
+                    $("#center_id").attr('disabled', false);
+                    $("#background").attr('disabled', false);
+                    $("#razon").attr('disabled', false);
+                    $("#diagnosis").attr('disabled', false);
+                    $("#treatment").attr('disabled', false);
+                    $(".addMedacition").show();
+                    // $("#exams").attr('disabled', false);
+                    // $("#studies").attr('disabled', false);
+                    $('#form-consulta').find('input:checkbox').attr('checked', false);
+                    exams_array = [];
+                    symptom_array = [];
+                    studies_array = [];
+                    medications_supplements = [];
+                    $('#exam_filter').hide();
+                    $('#study_filter').hide();
+                    let exam_filter = [];
+                    let symptom_filter = [];
+                    let study_filter = [];
+                    $('#exam').show();
+                    $('#studie').show();
+                    $('#not-exam').hide();
+                    $('#not-studie').hide();
+                    valSymptoms = '';
+                }
+            });
+
 
         }
 
@@ -552,6 +613,7 @@
             $(".addMedacition").hide();
             $('.send').attr('disabled', true);
             $('.btn-check').attr('disabled', true);
+            $('.send-ai').hide();
             $('#table-medicamento > tbody').empty();
             $('#exam_filter > ul').empty();
             $('#study_filter > ul').empty();
@@ -568,7 +630,7 @@
                         <td class="text-center">${element.medicine}</td>
                         <td class="text-center">${element.indication}</td>
                         <td class="text-center">${element.treatmentDuration}</td>                  
-                        <td class="text-center"><span onclick="deleteMedication(${countMedicationAdd})" ><i class="bi bi-archive"></i></span></td>                    
+                        <td class="text-center"><span><i class="bi bi-archive"></i></span></td>                    
                         </tr>`;
                 $('#table-medicamento').find('tbody').append(row);
 
@@ -577,7 +639,7 @@
                     $(`#${elem.cod_exam}`).attr('checked', true);
                     const examFilter = exam_filter.push(elem.description);
                 });
-                
+
                 exam_filter.map((element) => {
 
                     var list = `
@@ -593,7 +655,7 @@
                             </label>
                         </li>
                     </ul>`;
-                        $('#exam_filter').append(list);
+                    $('#exam_filter').append(list);
                 })
 
                 if (exam_filter.length == 0) {
@@ -623,17 +685,17 @@
                             </label>
                         </li>
                     </ul>`;
-                        $('#study_filter').append(list);
+                    $('#study_filter').append(list);
                 })
 
-                
+
                 if (study_filter.length == 0) {
                     $('#not-studie').show();
                 } else {
                     $('#not-studie').hide();
                 }
-                
-                
+
+
             });
         }
 
@@ -642,6 +704,30 @@
             $(`#${id} li`).filter(function() {
                 $(this).toggle($(this).text().toLowerCase().indexOf(e.target.value) > -1);
             });
+        }
+
+        function setSymptoms(e, key) {
+            valSymptoms = valSymptoms.replace(',,', '');
+            valSymptoms = valSymptoms.replace(',', '');
+            if ($(`#${e.target.id}`).is(':checked')) {
+                // symptom_array.push({
+                //     code_symptom: $(`#${e.target.id}`).data('code'),
+                //     description: $(`#${e.target.id}`).val(),
+                // });
+                valSymptoms = valSymptoms.replace(',,', '');
+                valSymptoms = (valSymptoms == "") ? e.target.value : `${valSymptoms},${e.target.value}`;
+
+                $("#diagnosis").val(valSymptoms);
+
+            } else {
+                valSymptoms = valSymptoms.replace(`${e.target.value}`, '');
+                valSymptoms = valSymptoms.replace(',,', ',');
+                console.log(valSymptoms[0]);
+                // valSymptoms = (valSymptoms[0]==',')?'':valSymptoms;
+                // valSymptoms = (valSymptoms == ",")? valSymptoms.replace(',', ''):valSymptoms ;
+                $("#diagnosis").val(valSymptoms);
+                // symptom_array.splice(key, 1);
+            }
         }
 
         function setExams(e, key) {
@@ -667,8 +753,10 @@
             }
         }
 
+
         //agregar medicamento
         function addMedacition(e) {
+
             // validaciones para agragar medicacion
             if ($('#medicine').val() === "") {
                 $("#medicine_span").text('Campo obligatorio');
@@ -735,6 +823,8 @@
                 $('#indication').val("");
                 $('#treatmentDuration').val("");
             }
+
+
         }
 
         //borrar medicamento
@@ -757,17 +847,134 @@
                 }
             });
         }
-        </script>
+
+
+        function switch_type_plane(user) {
+
+            switch (Number(user.type_plane)) {
+                case 1:
+                    if (Number(user.ref_counter) == 15) {
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
+                    }
+                    break;
+                case 2:
+                    if (Number(user.ref_counter) == 75) {
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
+                    }
+                    break;
+
+                case 7:
+                    $("#center_id").rules('remove');
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        function showAlertNotExam() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'No hay exámenes cargados',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar'
+            });
+            return false;
+        }
+
+        function showAlertNotStudy() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'No hay estudios cargados',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar'
+            });
+            return false;
+        }
+
+        const handlerIA = () => {
+
+            if ($("#diagnosis").val() !== "") {
+
+                $(".send-ai").hide();                
+                $("#spinner").show();
+
+                $.ajax({
+                    url: '{{ route('medicard_record_ia') }}',
+                    type: 'POST',
+                    dataType: "json",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "symtoms": $("#diagnosis").val(),
+                        "genere": patient.genere,
+                        "age": patient.age
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+
+                        $('#modalIA').modal("show");
+                        $("#p-ia").text(response.data);
+                        console.log(response.data)
+                        // Swal.fire({
+                        //     icon: 'success',
+                        //     title: 'Operiación exitosa!',
+                        //     allowOutsideClick: false,
+                        //     confirmButtonColor: '#42ABE2',
+                        //     confirmButtonText: 'Aceptar'
+                        // }).then((result) => {
+                        // });
+                        $(".send-ai").show();
+                        $("#spinner").hide();
+
+                    },
+                    error: function(error) {
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'A ocurrido en error!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+
+                    $(".send-ai").show();
+                    $("#spinner").hide();
+
+                    }
+                });
+
+            }
+        }
+    </script>
 @endpush
 @section('content')
 
-<div class="container-fluid" style="padding: 3%">
-    {{-- {console.log()} --}}
-    @if ($validate_histroy != null)
+    <div class="container-fluid" style="padding: 0 3% 3%">
+        @if ($validate_histroy != null)
             <div class="accordion" id="accordionExample">
                 {{-- datos del paciente --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
@@ -831,26 +1038,28 @@
                                         <input type="hidden" name="id" id="id" value="{{ $Patient->id }}">
                                         <div id="input-array"></div>
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro
-                                                            de salud</label>
-                                                        <select name="center_id" id="center_id"
-                                                            placeholder="Seleccione"class="form-control"
-                                                            class="form-control combo-textbox-input">
-                                                            <option value="">Seleccione</option>
-                                                            @foreach ($doctor_centers as $item)
-                                                                <option value="{{ $item->center_id }}">
-                                                                    {{ $item->get_center->description }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        <i class="bi bi-hospital st-icon"></i>
-                                                        <span id="type_alergia_span" class="text-danger"></span>
+                                            @if (Auth::user()->type_plane !== '7')
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="phone" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro
+                                                                de salud</label>
+                                                            <select name="center_id" id="center_id"
+                                                                placeholder="Seleccione"class="form-control"
+                                                                class="form-control combo-textbox-input">
+                                                                <option value="">Seleccione</option>
+                                                                @foreach ($doctor_centers as $item)
+                                                                    <option value="{{ $item->center_id }}">
+                                                                        {{ $item->get_center->description }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <i class="bi bi-hospital st-icon"></i>
+                                                            <span id="type_alergia_span" class="text-danger"></span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endif
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                 <div class="form-group">
                                                     <label for="phone" class="form-label"
@@ -862,7 +1071,7 @@
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                 <div class="form-group">
                                                     <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razon
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
                                                         de la visita</label>
                                                     <textarea id="razon" rows="8" name="razon" class="form-control"></textarea>
                                                 </div>
@@ -870,9 +1079,59 @@
 
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                                 <div class="form-group">
+                                                    <label for="search_symptoms"
+                                                        class="form-label"style="font-size: 13px; margin-bottom: 5px;">
+                                                        Buscar Sintomas
+                                                    </label>
+                                                    <input onkeyup="search(event,'symptoms')" type="text"
+                                                        class="form-control" id="floatingInput" placeholder="">
+                                                </div>
+                                                <div class="overflow-auto p-3 bg-light mt-3"
+                                                    style="max-width: 100%; max-height: 245px; min-height: 245px ;position: relative;">
+                                                    <ul id="symptoms_filter" class="symptoms"
+                                                        style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
+                                                    </ul>
+                                                    <ul id="symptoms" class="symptoms"
+                                                        style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
+                                                        @foreach ($symptoms as $key => $item)
+                                                            <li style="margin-bottom: 10px; padding-right: 5px">
+                                                                <input type="checkbox" class="btn-check"
+                                                                    id="{{ $item->cod_symptoms }}"
+                                                                    name="chk{{ $key }}" autocomplete="off"
+                                                                    data-code="{{ $item->cod_symptoms }}"
+                                                                    onclick="setSymptoms(event,{{ $key }})"
+                                                                    value="{{ $item->description }}">
+                                                                <label class="btn btn-outline-other check-cm"
+                                                                    for="{{ $item->cod_symptoms }}">
+                                                                    {{ $item->description }}
+                                                                </label>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                    <div id="spinner" style="display: none">
+                                                        <x-load-spinner show="true" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                                <div class="form-group">
                                                     <label for="phone" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Diagnóstico</label>
                                                     <textarea id="diagnosis" rows="8" name="diagnosis" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div  class="row mt-3 justify-content-md-end send-ai">
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                     style="display: flex; justify-content: flex-end;">
+                                                    <button onclick="handlerIA()" type="button"
+                                                        class="btn btnSave">Consulta con inteligencia
+                                                        artificial</button>
                                                 </div>
                                             </div>
 
@@ -886,9 +1145,13 @@
                                                 </div>
                                                 <div class="overflow-auto p-3 bg-light mt-3"
                                                     style="max-width: 100%; max-height: 245px; min-height: 245px ;position: relative;">
-                                                    <ul id="exam_filter" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap;"> </ul>
-                                                    <span id='not-exam'>No hay exámenes para mostrar de este paciente </span>
-                                                    <ul id="exam" class="exam" style="padding-inline-start: 0; display: flex;
+                                                    <ul id="exam_filter" class="exam"
+                                                        style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
+                                                    </ul>
+                                                    <span id='not-exam'>No hay exámenes para mostrar de este paciente
+                                                    </span>
+                                                    <ul id="exam" class="exam"
+                                                        style="padding-inline-start: 0; display: flex;
                                                     flex-wrap: wrap;">
                                                         @foreach ($exam as $key => $item)
                                                             <li style="margin-bottom: 10px; padding-right: 5px">
@@ -901,12 +1164,12 @@
                                                                 <label class="btn btn-outline-primary check-cm"
                                                                     for="{{ $item->cod_exam }}">
                                                                     {{ $item->description }}
-                                                                </label>                                                             
+                                                                </label>
                                                             </li>
                                                         @endforeach
                                                     </ul>
-                                            
-                                                </div>                                                
+
+                                                </div>
                                             </div>
 
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
@@ -919,10 +1182,14 @@
                                                 </div>
                                                 <div class="overflow-auto p-3 bg-light mt-3 card-study"
                                                     style="max-width: 100%; max-height: 245px;  min-height: 245px; position: relative;">
-                                                    <ul id="study_filter" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap;"></ul>
-                                                    <span id='not-studie'>No hay estudios para mostrar de este paciente </span>
-                                                    <ul id="studie" class="studie" style="display: flex; flex-wrap: wrap;">
-                                                            @foreach ($study as $key => $item)
+                                                    <ul id="study_filter" class="studie"
+                                                        style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
+                                                    </ul>
+                                                    <span id='not-studie'>No hay estudios para mostrar de este paciente
+                                                    </span>
+                                                    <ul id="studie" class="studie"
+                                                        style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
+                                                        @foreach ($study as $key => $item)
                                                             <li style="margin-bottom: 10px; padding-right: 5px">
                                                                 <input type="checkbox" class="btn-check"
                                                                     autocomplete="off" name="chk{{ $key }}"
@@ -933,9 +1200,9 @@
                                                                 <label class="btn btn-outline-success check-cm"
                                                                     for="{{ $item->cod_study }}">{{ $item->description }}</label><br>
                                                             </li>
-                                                            @endforeach
-                                                        </ul>
-                                                </div>                                               
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -947,10 +1214,8 @@
                                                 <hr style="margin-bottom: 0;">
                                                 <div class="row mt-3 medicine-form">
                                                     <div style="display: flex">
-                                                        <span class="text-warning mt-3"
-                                                            style="font-size: 14px;margin-right: 10px;">Debe cargar al
-                                                            menos un tratamiento</span><i style="font-size:18px"
-                                                            class="bi bi-exclamation-triangle st-icon mt-3 text-warning "></i>
+                                                        <span class="text-warning mt-3" id='med'
+                                                            style="font-size: 14px;margin-right: 10px;"></span>
                                                     </div>
                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                         <div class="form-group">
@@ -1169,11 +1434,7 @@
                                                                             class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <button type="button"
                                                                                 class="refresf btn-idanger rounded-circle"
-                                                                                data-bs-container="body"
-                                                                                data-bs-toggle="popover"
-                                                                                data-bs-custom-class="custom-popover"
-                                                                                data-bs-placement="bottom"
-                                                                                data-bs-content="No hay exámenes cargados">
+                                                                                onclick="showAlertNotExam();">
                                                                                 <i class="bi bi-exclamation-lg"></i>
                                                                             </button>
                                                                         </div>
@@ -1198,11 +1459,7 @@
                                                                             class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <button type="button"
                                                                                 class="refresf btn-idanger rounded-circle"
-                                                                                data-bs-container="body"
-                                                                                data-bs-toggle="popover"
-                                                                                data-bs-custom-class="custom-popover"
-                                                                                data-bs-placement="bottom"
-                                                                                data-bs-content="No hay estudios cargados">
+                                                                                onclick="showAlertNotStudy();">
                                                                                 <i class="bi bi-exclamation-lg"></i>
                                                                             </button>
                                                                         </div>
@@ -1213,7 +1470,7 @@
                                                                             href="{{ route('pdf_medical_prescription', $item['id']) }}">
                                                                             <button type="button"
                                                                                 class="btn refresf btn-iSecond rounded-circle"><i
-                                                                                    class="bi bi-file-earmark-pdf"
+                                                                                    class="bi bi-filetype-pdf"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
@@ -1229,7 +1486,7 @@
                                                                             href="{{ route('PDF_medical_record', $item['id']) }}">
                                                                             <button type="button"
                                                                                 class="btn refresf btn-iSecond rounded-circle"><i
-                                                                                    class="bi bi-file-earmark-pdf"
+                                                                                    class="bi bi-filetype-pdf"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
@@ -1252,5 +1509,27 @@
                 </div>
             </div>
         @endif
+
+        <!-- Modal -->
+        <div class="modal fade" id="modalIA" tabindex="-1" aria-labelledby="modalIALabel" aria-hidden="true"
+            id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">          
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header title">
+                            <i class="bi bi-alexa"></i>
+                            <span style="padding-left: 5px">Resultado de la consulta con inteligencia artificial</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                style="font-size: 12px;"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="div-ia">
+                                <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="p-ia"></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

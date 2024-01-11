@@ -1,7 +1,6 @@
 @extends('layouts.app-auth')
 @section('title', 'Agenda')
 <style>
-
     .datepicker-switch {
         background-color: #44525F !important;
     }
@@ -38,20 +37,22 @@
         text-decoration: none !important;
         color: #44525F !important;
     }
-    
+
     .fc .fc-col-header-cell-cushion {
-        color: #42abe2 ;
+        color: #42abe2;
         text-transform: capitalize;
         text-decoration: none !important;
     }
 
-    .fc-direction-ltr .fc-list-day-text, .fc-direction-rtl .fc-list-day-side-text {
+    .fc-direction-ltr .fc-list-day-text,
+    .fc-direction-rtl .fc-list-day-side-text {
         text-decoration: none;
         text-transform: capitalize;
         color: #42abe2;
     }
 
-    .fc-direction-ltr .fc-list-day-side-text, .fc-direction-rtl .fc-list-day-text {
+    .fc-direction-ltr .fc-list-day-side-text,
+    .fc-direction-rtl .fc-list-day-text {
         text-decoration: none;
         text-transform: capitalize;
         color: #42abe2;
@@ -92,7 +93,7 @@
 
     }
 
-    @media (min-width: 391px)  and (max-width: 576px) {
+    @media (min-width: 391px) and (max-width: 576px) {
         .m-xs {
             margin: 0 10px;
         }
@@ -112,16 +113,16 @@
         .modal-d {
             max-width: 165px;
         }
+
         #img-pat {
             margin: 7px 20px 0 0;
         }
     }
-
 </style>
 @push('scripts')
     @vite(['resources/js/dairy.js'])
     <script>
-        $(document).ready(() => {
+        $(document).ready(() => {          
             let route = "{{ route('MedicalRecord', ':id') }}";
             let routeCancelled = "{{ route('cancelled_appointments', ':id') }}";
             let url2 = "{{ route('Diary') }}";
@@ -131,12 +132,8 @@
             let imge_avatar = "{{ URL::asset('/img/avatar/') }}";
             let urlPostCreateAppointment = '{{ route('CreateAppointment') }}';
             getUrl(urlPostCreateAppointment, url2);
-            getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments,imge_avatar);
-        });
-
-        function handlerRadio(item) {
-            searchPatients(item);
-        }
+            getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments, imge_avatar);
+        });       
     </script>
 @endpush
 @section('content')
@@ -147,7 +144,7 @@
                     <div class="card accordion-diary">
                         <div class="card-body" style="position: sticky">
                             {{-- <div class="d-flex"> --}}
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id='calendar'></div>
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id='calendar'></div>
                             {{-- </div> --}}
                         </div>
                     </div>
@@ -156,34 +153,20 @@
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
                 id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
-                
+
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header title">
                                 <i class="bi bi-calendar-week"></i>
-                                <span style="padding-left: 5px">Agendar Cita</span>
+                                <span style="padding-left: 5px" id="title-modal"></span>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                     style="font-size: 12px;"></button>
                             </div>
                             <div class="modal-body">
-                                {{-- <div class="d-flex"> --}}
-                                    <x-select-dos :data="$patient" />
-                                    {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                        id="search-patients-show">
-                                        <div class="floating-label-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Buscar
-                                                    paciente</label>
-                                                <input autocomplete="off" placeholder="" class="form-control"
-                                                    id="searchPatients" name="email" type="email" value="">
-                                                <i onclick="searchPatients('{{ route('search_patients', ':value') }}')"
-                                                    class="bi bi-search st-icon"></i>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                {{-- </div> --}}
+                                
+                                <x-select-dos :data="$patient" />
+                        
                                 <div id="div-pat" style="display: none">
                                     <div class="d-flex mt-2">
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 modal-d">
@@ -192,7 +175,8 @@
                                                     alt="Imagen del paciente">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" style="font-size: 14px;">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3"
+                                            style="font-size: 14px;">
                                             <div>
                                                 <strong>Nombre: </strong><span class="text-capitalize"
                                                     id="name"></span>
@@ -210,7 +194,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="appointment-data">
+                                    <div>
+                                        <hr>
+                                        <h5>Información de la cita</h5>
+                                        <strong>Fecha: </strong><span id="fecha"></span>
+                                        <br>
+                                        <strong>Hora: </strong><span id="hour"></span>
+                                        <br>
+                                        <strong>Centro: </strong><span id="center"></span>
+                                    </div>
+                                </div>
                                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
                                 <form action="" id="form-appointment">
                                     {{ csrf_field() }}
@@ -218,7 +213,7 @@
 
                                     <div class="row">
                                         <input type="hidden" id="patient_id" name="patient_id" value="">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="FC">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="date" class="form-label"
@@ -231,7 +226,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="TH">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -248,7 +243,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="HS">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -321,9 +316,13 @@
                                         </div>
                                     </div> --}}
 
-                                        <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" />
+                                        @if (Auth::user()->type_plane != '7')
+                                            <x-centers_user
+                                                class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" />
+                                        @endif
 
-                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3 text-center">
+                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3 text-center"
+                                            id="check-price">
                                             <div class="form-check form-switch">
                                                 <input onchange="handlerPrice(event);" style="width: 5em"
                                                     class="form-check-input" type="checkbox" role="switch"
@@ -341,8 +340,8 @@
                                                     <label for="searchPatients" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Precio</label>
                                                     <input maxlength="8" type="text"
-                                                        class="form-control mask-input-price" id="price" name="price"
-                                                        id="searchPatients" value="">
+                                                        class="form-control mask-input-price" id="price"
+                                                        name="price" id="searchPatients" value="">
                                                     <i class="bi bi-cash st-icon"></i>
                                                 </div>
                                             </div>
@@ -352,12 +351,16 @@
                                         <x-load-spinner show="true" />
                                     </div>
                                     <div class="row text-center mt-3">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" style="display: flex; justify-content: center; align-items: center;">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                            style="display: flex; justify-content: center; align-items: center;">
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 " id="send">
-                                                <input class="btn btnSave" id="registrer-pac" value="Registrar" disabled type="submit" />
+                                                <input class="btn btnSave" id="registrer-pac" value="Registrar" disabled
+                                                    type="submit" />
                                             </div>
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 m-xs" id="btn-con"></div>
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell"></div>
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 m-xs"
+                                                id="btn-con"></div>
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell">
+                                            </div>
                                         </div>
                                     </div>
                                 </form>

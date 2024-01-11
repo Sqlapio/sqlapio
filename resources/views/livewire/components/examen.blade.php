@@ -53,7 +53,7 @@
                 })
             }
         });
-
+        
 
         function searchPerson() {
             if ($('#search_person').val() != '') {
@@ -98,10 +98,7 @@
                                 if(elem.exam.length===0){
                                     elem.btn  = `<button type="button"
                                                         class="refresf btn-idanger rounded-circle"
-                                                        data-bs-toggle="tooltip"
-                                                        data-bs-placement="bottom"
-                                                        data-bs-custom-class="custom-tooltip"
-                                                        data-html="true" title="No hay examenes cargados">
+                                                        onclick='showAlertNotExam()'>
                                                         <i class="bi bi-exclamation-lg"></i>
                                                     </button>`;
                                 }
@@ -166,7 +163,7 @@
             $("#content-result").show();
             $('#content-data').empty();
             item.exam.map((elem) => {
-                let img = '{{ URL::asset('/img/V2/icon_img.png') }}';
+                let img = '{{ URL::asset('/img/V2/icon_pdf_v1.png') }}';
                 let target = `{{ URL::asset('/imgs/${elem.file}') }}`;
 
                 let url = "{{ route('MedicalRecord', ':id') }}";
@@ -178,9 +175,10 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-                                                <a target="_blank" href="${target}">
-                                                    <img data-bs-toggle="tooltip"  data-bs-placement="bottom" title="Ver documento" style="" src="${img}" width="50 " height="auto"
+                                                <a target="_blank" href="${target}" style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
+                                                    <img data-bs-toggle="tooltip"  data-bs-placement="bottom" title="Ver archivo" style="" src="${img}" width="50 " height="auto"
                                                     alt="Imagen del paciente" class="img-medical">
+                                                    <span style="font-size: 11px;" >Ver archivo</span>
                                                 </a> 
                                             </div>
                                             <div class="col-sm-8 col-md-8 col-lg-9 col-xl-9 col-xxl-9">
@@ -188,7 +186,7 @@
                                                 <br>                               
                                                     <strong class="text-capitalize color-f"> ${item.full_name}</strong>
                                                 <br>
-                                                    <span>Cod. consulta:
+                                                    <span>Ver consulta:
                                                         <a href="${url}" class="cod-co">
                                                             <strong class="text-capitalize" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Consulta"> ${elem.record_code}</strong>
                                                         </a>
@@ -197,7 +195,7 @@
                                                 <br>
                                                     <span style="float:right; font-size: 12px;">${elem.cod_exam}</span>
                                                 <br>
-                                                    <span class="text-capitalize" style="float:right;"> ${elem.description}</span>
+                                                <span class="text-capitalize" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width: 100%; display: flex; justify-content: flex-end;"> ${elem.description}</span>
                                             </div>                             
                                         </div>
                                     </div>
@@ -207,58 +205,72 @@
 
                 $('#content-data').append(div);
 
-                const tooltipTriggerList = document.querySelectorAll(
-                    '[data-bs-toggle="tooltip"]')
-                tooltipTriggerList.forEach(element => {
-                    new bootstrap.Tooltip(element)
-                });
-
+                
             });
+            
+        }
 
+        const tooltipTriggerList = document.querySelectorAll(
+            '[data-bs-toggle="tooltip"]')
+        tooltipTriggerList.forEach(element => {
+            new bootstrap.Tooltip(element)
+        });
+
+        function showAlertNotExam() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'No hay exámenes cargados',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar'
+            });
+            return false;
         }
     </script>
 @endpush
 @section('content')
-    <div class="container-fluid" style="padding: 3%">
-        <div class="accordion" id="accordionExample">
-            {{-- datos del paciente --}}
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" style="margin-top: 20px;">
-                    <div class="accordion-item">
-                        <span class="accordion-header title" id="headingOne">
-                            <button class="accordion-button bg-3" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                                style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                <i class="bi bi-person"></i></i> Examenes cargados
-                            </button>
-                        </span>
-                        <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <x-search-person />
+    <div>
+        <div class="container-fluid" style="padding: 0 3% 3%">
+            <div class="accordion" id="accordionExample">
+                {{-- datos del paciente --}}
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2">
+                        <div class="accordion-item">
+                            <span class="accordion-header title" id="headingOne">
+                                <button class="accordion-button bg-3" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-person"></i></i> Exámenes cargados
+                                </button>
+                            </span>
+                            <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <x-search-person />
 
-                                <div class="row" id="show-info-pat" style="display: none">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                        <h5 class="mb-4">Resultados</h5>
-                                        <table id="table-info-pat" class="table table-striped table-bordered"
-                                            style="width:100%; ">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" scope="col">Nombre</th>
-                                                    <th class="text-center" scope="col">Cédula</th>
-                                                    <th class="text-center" scope="col">Género</th>
-                                                    <th class="text-center"scope="col">Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
+                                    <div class="row" id="show-info-pat" style="display: none">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                            <h5 class="mb-4">Resultados</h5>
+                                            <table id="table-info-pat" class="table table-striped table-bordered"
+                                                style="width:100%; ">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center" scope="col">Nombre</th>
+                                                        <th class="text-center" scope="col">Cédula</th>
+                                                        <th class="text-center" scope="col">Género</th>
+                                                        <th class="text-center"scope="col">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="row mt-3" id="content-result" style="display: none">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <div class="row" id="content-data"></div>
+                                    <div class="row mt-3" id="content-result" style="display: none">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            <div class="row" id="content-data"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

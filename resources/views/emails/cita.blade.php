@@ -19,7 +19,7 @@
             height: auto;" src="{{ asset('img/notification_email/cita_header.jpg') }}">
     <div style="margin: auto; width: 600px; padding: 10px;">
         <p style="text-align: justify; margin-left: 20px;">
-            <h2 style="text-align: justify; margin-left: 20px;">Cita Medica agendada</h2>
+            <h2 style="text-align: justify; margin-left: 20px;">Cita Médica agendada</h2>
             <h2 style="text-align: justify; margin-left: 20px;">Sr(a). {{ $mailData['patient_name'] }}</h2>
         </p>
         <p style="text-align: justify; margin-left: 20px;">
@@ -41,11 +41,11 @@
         <p style="text-align: justify; margin-left: 20px;">
             Gracias por ser parte de nosotro, Sqlapio.com, innovando para el futuro.
         </p>
-        {{-- <p style="text-align: justify; margin-left: 20px;">
+             <p style="text-align: justify; margin-left: 20px;">
             Para confirmar su cita puede hacerlo a traves del siguiente link:
             <br>
             {{ $mailData['link'] }}
-        </p> --}}
+        </p> 
         <p style="text-align: justify; margin-left: 20px;">
             Atentamente,
             <br>
@@ -53,7 +53,7 @@
             <img style="
                     display: block;
                     margin-left: 0px;
-                    width: 100px;
+                    width: 128px;
                     height: auto;" src="{{ asset('img/notification_email/fir_jm.png') }}">
             Ing. Jhonny Martinez<br>CEO
         </p>

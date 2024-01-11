@@ -45,44 +45,47 @@ class Diary extends Component
     public function store(Request $request)
     {
         try {
-
             $rules = [
                 'date_start' => 'required',
                 'hour_start' => 'required',
-                'center_id' => 'required'
             ];
 
             $msj = [
                 'date_start.required' => 'Campo requerido',
                 'hour_start.required' => 'Campo requerido',
-                'center_id.required' => 'Campo requerido',
             ];
 
             $validator = Validator::make($request->all(), $rules, $msj);
 
-            if ($validator->fails()) 
+            if ($validator->fails())
             {
                 return response()->json([
                     'success' => 'false',
                     'errors'  => $validator->errors()->all()
                 ], 400);
             }
-            
-            $date= explode('-',$request->hour_start);
+
+            /** Validacion para cargar el centro correcto cuando el medico
+             * esta asociado al plan corporativo
+             */
+            if (Auth::user()->center_id != null) {
+                $center_id_corporativo = Auth::user()->center_id;
+            }
+
+            $date = explode('-',$request->hour_start);
             $appointment = new Appointment();
             $appointment->code = 'SQ-D-'.random_int(11111111, 99999999);
             $appointment->user_id = Auth::user()->id;
             $appointment->patient_id = $request->patient_id;
             $appointment->date_start = $request->date_start;
             $appointment->hour_start = $date[0].'-'.$date[1]." ".$request->timeIni;
-            $appointment->center_id = $request->center_id;   
+            $appointment->center_id = isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id;
             $appointment->price = $request->price;
             $appointment->color = $date[2];
 
             //Validacion para evitar que la citas se registren en mismo dia a la misma hora
-
             $validate_dairy = Appointment::where('date_start', $request->date_start)
-            ->where('hour_start', $request->hour_start." ".$request->timeIni)
+            ->where('hour_start',  $date[0].'-'.$date[1]." ".$request->timeIni)
             ->where('status',1)
             ->first();
 
@@ -90,12 +93,12 @@ class Diary extends Component
             {
                 return response()->json([
                     'success' => 'false',
-                    'errors'  => 'Ya usted tiene una cita agendada en esa posicion'
+                    'errors'  => 'Ya usted tiene una cita agendada en la fecha seleccionada'
                 ], 400);
 
             }else{
 
-                $appointment->save();  
+                $appointment->save();
 
             }
 
@@ -103,7 +106,7 @@ class Diary extends Component
             ActivityLogController::store_log($action);
 
              /**
-             * Logica para el envio de la notificacion 
+             * Logica para el envio de la notificacion
              * via correo electronico
              */
             $user = Auth::user();
@@ -117,28 +120,47 @@ class Diary extends Component
                 $patient_email = $patient->email;
             }
 
-            $type = 'appointment';
-            $mailData = [
-                'dr_name'       => $user->name. ' ' .$user->last_name,
-                'dr_email'      => $user->email,
-                'patient_name'  => $patient->name. ' ' .$patient->last_name,
-                'cod_patient'   => $patient->patient_code,
-                'patient_email' => $patient_email,
-                'fecha'         => $request->date_start,
-                'horario'       => $date[0].' '.$request->timeIni,
-                'centro'        => $appointment->get_center->description,
-                'link'          => 'http://sqldevelop.sqlapio.net/confirmation/dairy/' . $appointment->code,
-            ];
+            if(isset($center_id_corporativo))
+            {
+                $type = 'appointment';
+                $mailData = [
+                    'dr_name'       => $user->name. ' ' .$user->last_name,
+                    'dr_email'      => $user->email,
+                    'patient_name'  => $patient->name. ' ' .$patient->last_name,
+                    'cod_patient'   => $patient->patient_code,
+                    'patient_email' => $patient_email,
+                    'fecha'         => $request->date_start,
+                    'horario'       => $date[0].' '.$request->timeIni,
+                    'centro'        => $appointment->get_center->description,
+                    'link'          => 'http://sqldevelop.sqlapio.net/confirmation/dairy/' . $appointment->code,
+                ];
 
-            UtilsController::notification_mail($mailData, $type);
+                UtilsController::notification_mail($mailData, $type);
+
+            }else{
+                $type = 'appointment';
+                $mailData = [
+                    'dr_name'       => $user->name. ' ' .$user->last_name,
+                    'dr_email'      => $user->email,
+                    'patient_name'  => $patient->name. ' ' .$patient->last_name,
+                    'cod_patient'   => $patient->patient_code,
+                    'patient_email' => $patient_email,
+                    'fecha'         => $request->date_start,
+                    'horario'       => $date[0].' '.$request->timeIni,
+                    'centro'        => $appointment->get_center->description,
+                    'link'          => 'http://sqldevelop.sqlapio.net/confirmation/dairy/' . $appointment->code,
+                ];
+
+                UtilsController::notification_mail($mailData, $type);
+            }
 
             return true;
-            
+
         } catch (\Throwable $th) {
             $message = $th->getMessage();
 			dd('Error Livewire.Components.Diary.store()', $message);
-        }  
-        
+        }
+
     }
 
     public function cancelled($id)
@@ -146,7 +168,11 @@ class Diary extends Component
         try {
             $cancelled = DB::table('appointments')
                 ->where('id', $id)
-                ->update(['status' => 2]);
+                /**
+                 * Status 2 => FINALIZADA
+                 * Status 3 => CANCELADA
+                 */
+                ->update(['status' => 4]);
 
             $action = '12';
             ActivityLogController::store_log($action);
@@ -157,7 +183,7 @@ class Diary extends Component
             $message = $th->getMessage();
 			dd('Error Livewire.Components.Diary.cancelled()', $message);
         }
-        
+
     }
 
     public function update(Request $request)
@@ -172,30 +198,30 @@ class Diary extends Component
                 if($request)
                 return response()->json([
                     'success' => 'false',
-                    'errors'  => 'Ya usted tiene una cita agendada en esa posicion'
+                    'errors'  => 'Ya usted tiene una cita agendada en la fecha seleccionada'
                 ], 400);
 
             }else{
-                    
+
                 DB::table('appointments')
                 ->where('id', $request->id)
                 ->update([
                             'date_start' => $request->start,
                         ]);
-    
+
                 $action = '14';
                 ActivityLogController::store_log($action);
             }
-          
+
             return true;
 
         } catch (\Throwable $th) {
             $message = $th->getMessage();
 			dd('Error Livewire.Components.Diary.update()', $message);
         }
-        
+
     }
-    
+
     public function render()
     {
         $appointments = UtilsController::get_appointments(Auth::user()->id);
