@@ -8,6 +8,7 @@ use App\Mail\NotificationEmail;
 use App\Mail\NotificationPatient;
 use App\Mail\NotificationReferences;
 use App\Mail\SendMail;
+use App\Models\AiContainer;
 use App\Models\Appointment;
 use App\Models\Center;
 use App\Models\City;
@@ -39,6 +40,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 use Log;
 use Svg\CssLength;
 
@@ -109,6 +111,9 @@ class UtilsController extends Controller
 		}
 		if ($value == '21') {
 			return 'password reset';
+		}
+        if ($value == '22') {
+			return 'initial registration of General Manager';
 		}
 	}
 
@@ -651,6 +656,11 @@ class UtilsController extends Controller
             if ($type == 'disable_doc') {
 				$view = 'emails.disable_email';
 				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+            if ($type == 'verify_email_general_manager') {
+				$view = 'emails.verify_email_general_manager';
+				Mail::to($mailData['gm_email'])->send(new NotificationEmail($mailData, $view));
 			}
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
@@ -1591,31 +1601,30 @@ class UtilsController extends Controller
 	{
 		try {
 
+            $data = Http::withHeaders([
+				'Content-Type' => 'application/json',
+				'Accept' => 'application/json',
+				'Authorization' => 'Bearer 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',
+				'OpenAI-Organization' => 'org-PiNOPH4ttimplVNzU1KCKIRx'
+			  ])
+			  ->post("https://api.openai.com/v1/chat/completions", [
+				"model" => "gpt-3.5-turbo",
+				'messages' => [
+					[
+					   "role" => "user",
+					   "content" => "Actua como medico y realiza un diagnostico para un paciente ".$request->genere." de ".$request->age." años con los siguientes sintomas: ".$request->symtoms.". Agrega 3 recomendaciones generales."
+				   ]
+				],
+				'temperature' => 1,
+				"max_tokens" => 1024,
+				"n" => 1,
+				"stream" => false,
+				"top_p" => 1,
+				"frequency_penalty" => 0,
+				"presence_penalty" => 0,
+			]);
 
-			$data = Http::withHeaders([
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-                'Authorization' => 'Bearer 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',
-              ])
-              ->post("https://api.openai.com/v1/chat/completions", [
-                //"model" => "gpt-3.5-turbo",
-				"model" => "gpt-4",
-                'messages' => [
-                    [
-                       "role" => "user",
-                       "content" => "Actua como medico y realiza un diagnostico para un paciente ".$request->genere." de ".$request->age." años con los siguientes sintomas: ".$request->symtoms.". Agrega 3 recomendaciones generales."
-                   ]
-                ],
-                'temperature' => 1,
-                "max_tokens" => 1024,
-                "n" => 1,
-                "stream" => false,
-                "top_p" => 1,
-                "frequency_penalty" => 0,
-                "presence_penalty" => 0,
-            ]);
-
-            $res = $data->json()['choices'][0]['message']['content'];
+			$res = $data->json()['choices'][0]['message']['content'];
 
 			return response()->json([
 				'success' => 'true',
