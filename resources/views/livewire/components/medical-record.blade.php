@@ -581,10 +581,14 @@
                     medications_supplements = [];
                     $('#exam_filter').hide();
                     $('#study_filter').hide();
+                    let exam_filter = [];
+                    let symptom_filter = [];
+                    let study_filter = [];
                     $('#exam').show();
                     $('#studie').show();
                     $('#not-exam').hide();
                     $('#not-studie').hide();
+                    valSymptoms = '';
                 }
             });
 
@@ -928,17 +932,17 @@
                     },
                     success: function(response) {
 
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Operiación exitosa!',
-                            allowOutsideClick: false,
-                            confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
-                        }).then((result) => {
-                            $('#modalIA').modal("show");
-                            $("#p-ia").text(response.data);
-                            console.log(response.data)
-                        });
+                        $('#modalIA').modal("show");
+                        $("#p-ia").text(response.data);
+                        console.log(response.data)
+                        // Swal.fire({
+                        //     icon: 'success',
+                        //     title: 'Operiación exitosa!',
+                        //     allowOutsideClick: false,
+                        //     confirmButtonColor: '#42ABE2',
+                        //     confirmButtonText: 'Aceptar'
+                        // }).then((result) => {
+                        // });
                         $(".send-ai").show();
                         $("#spinner").hide();
 
