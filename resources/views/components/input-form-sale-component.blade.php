@@ -170,7 +170,7 @@
         tooltipTriggerList.forEach(element => {
             new bootstrap.Tooltip(element)
         });
-
+        let hash = @json($hash);
 
         $('#form-register-force-sale').validate({
             ignore: [],
@@ -260,6 +260,9 @@
             return validate;
         }, "Contraseña no coinciden");
 
+        if (hash !== null) {
+            $("#state").rules('remove');
+        }
     });
 
     function showPass() {
@@ -362,7 +365,34 @@
                                                 alt="">
                                         </div>
                                     </div>
+                                    @if ($hash !== null)
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                            <div class="card mt-3 card-ex">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-8 col-md-8 col-lg-9 col-xl-9 col-xxl-9">
+                                                            <h5>Información del registro</h5>
 
+                                                            @if ($user->role === 'gerente_general')
+                                                                <h5>Gerente General</h5>
+                                                            @elseif($user->role == 'gerente_zone')
+                                                                <h5>Gerente Regional</h5>
+                                                            @else
+                                                                <h5>Visitador Medico</h5>
+                                                            @endif
+                                                            <strong class="text-capitalize color-f">
+                                                                {{ $user->name . ' ' . $user->last_name }}</strong>
+                                                            
+                                                            <br>
+                                                            <strong
+                                                                class="text-capitalize color-f">{{ $user->get_state->description }}</strong>
+                                                            <br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
 
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">
@@ -406,6 +436,24 @@
 
                                     @if ($hash == null)
                                         <input type="hidden" name="role" value="gerente_general">
+
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="state" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 7px">Seleccione el
+                                                        estado</label>
+                                                    <select name="state" id="state" class="form-control">
+                                                        <option value="">Seleccione</option>
+                                                        @foreach ($states as $item)
+                                                            <option value={{ $item->id }}>{{ $item->description }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    <i class="bi bi-flag" style="top: 30px"></i>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @else
                                         @if ($user->role == 'gerente_general')
                                             <input type="hidden" name="role" value="gerente_zone">
@@ -415,25 +463,10 @@
 
                                         <input type="hidden" name="user_id" value="{{ $hash }}">
 
-                                    @endif
+                                        <input type="hidden" name="state" id="state"
+                                            value="{{ $user->state }}">
 
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="state" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 7px">Seleccione el
-                                                    estado</label>
-                                                <select name="state" id="state" class="form-control">
-                                                    <option value="">Seleccione</option>
-                                                    @foreach ($states as $item)
-                                                        <option value={{ $item->id }}>{{ $item->description }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                <i class="bi bi-flag" style="top: 30px"></i>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endif
 
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">

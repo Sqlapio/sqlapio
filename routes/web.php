@@ -291,7 +291,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::group(array('prefix' => 'public'), function () {
-    Route::get('/payment-form/{type_plan}', [PaymentForm::class, 'render'])->name("payment-form");
+    Route::get('/payment-form/{type_plan?}/{token?}', [PaymentForm::class, 'render'])->name("payment-form");
     Route::post('/pay-plan', [PaymentForm::class, 'pay_plan'])->name("pay-plan");
 
     Route::group(array('prefix' => 'patient'), function () {
