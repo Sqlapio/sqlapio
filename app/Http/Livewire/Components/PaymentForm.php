@@ -105,7 +105,7 @@ class PaymentForm extends Component
                     $url_token = null;
                     if($request->type_plan=="7"){
                         $rol = 'corporativo';
-                        $url_token = env('URL_CORPORATE').Crypt::encryptString($request->center_id);
+                        $url_token = config('var.URL_CORPORATE').Crypt::encryptString($request->center_id);
                     }
                     $user = new User();
                     $user->business_name = $request->business_name;
