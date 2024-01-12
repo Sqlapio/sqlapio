@@ -13,6 +13,7 @@ use App\Models\Center;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Mockery\Undefined;
 
 class PaymentForm extends Component
 {
@@ -21,7 +22,6 @@ class PaymentForm extends Component
     public function pay_plan(Request $request)
     {
         try {
-
             /**
              * API PASARELA DE PAGO
              * --------------------
@@ -72,6 +72,7 @@ class PaymentForm extends Component
                     $user->role = $rol;
                     $user->date_start_plan = date('Y-m-d');
                     $user->date_end_plan = $date_today;
+                    $user->master_corporate_id = ($request->visitador_medico_id!==null)?Crypt::decryptString($request->visitador_medico_id) : null;
                     $user->save();
 
                 }
@@ -201,9 +202,16 @@ class PaymentForm extends Component
 
     }
 
-    public function render($type_plan)
+    public function render($type_plan=null,$token=null)
     {
+
+        $active = false;
+
+        if($type_plan=="null" && $token!==null){
+            $active = true;
+        }
+        
         $centers= UtilsController::get_centers();
-        return view('livewire.components.payment-form',compact('type_plan','centers'));
+        return view('livewire.components.payment-form',compact('type_plan','centers','active','token'));
     }
 }
