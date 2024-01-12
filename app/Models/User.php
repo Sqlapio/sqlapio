@@ -165,4 +165,9 @@ class User extends Authenticatable {
 	{
 		return $this->hasOne(User::class, 'id', 'master_corporate_id');
 	}
+
+	public function get_state(): HasOne
+	{
+		return $this->hasOne(State::class, 'id', 'state');
+	}
 }
