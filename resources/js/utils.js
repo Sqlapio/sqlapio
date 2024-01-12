@@ -90,6 +90,25 @@ async function get_data(url) {
     }
   });
 }
+
+async function triggerExample  (token)  {
+  let link = `${token}`;
+  try {
+      await navigator.clipboard.writeText(link);
+      $("#icon-copy").css("background", "#04AA6D");
+      
+      $("#copied").text('Enlace copiado!');
+
+      setTimeout(function() {
+          $('#copied').hide();
+      }, 2000);
+
+  } catch (err) {
+      console.error('Failed to copy: ', err);
+      $("#copied").text('Error al copiar enlace!');
+  }
+}
+window.triggerExample = triggerExample;
 window.get_data = get_data;
 window.calculateAge = calculateAge;
 window.matchCustom = matchCustom;
