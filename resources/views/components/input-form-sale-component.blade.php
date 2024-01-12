@@ -260,7 +260,7 @@
             return validate;
         }, "Contraseña no coinciden");
 
-        if(hash!==null){
+        if (hash !== null) {
             $("#state").rules('remove');
         }
     });
@@ -365,7 +365,34 @@
                                                 alt="">
                                         </div>
                                     </div>
+                                    @if ($hash !== null)
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                            <div class="card mt-3 card-ex">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-8 col-md-8 col-lg-9 col-xl-9 col-xxl-9">
+                                                            <h5>Información del registro</h5>
 
+                                                            @if ($user->role === 'gerente_general')
+                                                                <h5>Gerente General</h5>
+                                                            @elseif($user->role == 'gerente_zone')
+                                                                <h5>Gerente Regional</h5>
+                                                            @else
+                                                                <h5>Visitador Medico</h5>
+                                                            @endif
+                                                            <strong class="text-capitalize color-f">
+                                                                {{ $user->name . ' ' . $user->last_name }}</strong>
+                                                            
+                                                            <br>
+                                                            <strong
+                                                                class="text-capitalize color-f">{{ $user->get_state->description }}</strong>
+                                                            <br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
 
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">
@@ -436,7 +463,8 @@
 
                                         <input type="hidden" name="user_id" value="{{ $hash }}">
 
-                                        <input type="hidden" name="state" id="state" value="{{$user->state}}">
+                                        <input type="hidden" name="state" id="state"
+                                            value="{{ $user->state }}">
 
                                     @endif
 
