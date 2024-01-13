@@ -94,14 +94,14 @@ class Login extends Component
 									break;
 								case 'gerente_general':
 									if ($status_register == 1) {
-										return Redirect::route('profile-general-manager');
+										return Redirect::route('profile-user-force-sale');
 									} else {
 										return Redirect::route('dashboard-general-manager');
 									}
 									break;
 								case 'gerente_zone':
 									if ($status_register == 1) {
-										return Redirect::route('profile-general-zone');
+										return Redirect::route('profile-user-force-sale');
 									} else {
 										return Redirect::route('dashboard-general-zone');
 									}

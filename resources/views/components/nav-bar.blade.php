@@ -783,7 +783,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="nav-item" href="{{ route('profile-general-manager') }}" title="Configuración">
+                                            <a class="nav-item" href="{{ route('profile-user-force-sale') }}" title="Configuración">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
                                                     alt="Configuración">
                                                 <span class="nav-link active" aria-current="page"
@@ -801,7 +801,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="nav-item" href="{{ route('profile-general-zone') }}" title="Configuración">
+                                            <a class="nav-item" href="{{ route('profile-user-force-sale') }}" title="Configuración">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
                                                     alt="Configuración">
                                                 <span class="nav-link active" aria-current="page"

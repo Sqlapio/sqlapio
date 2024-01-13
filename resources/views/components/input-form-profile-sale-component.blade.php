@@ -12,8 +12,14 @@
 
         let user = @json(Auth::user());
 
-        $('#state').val(user.state).change();
+        $('#address').val(user.address);
         $('#genere').val(user.genere).change();
+        if (user.user_img != null) {
+            $(".holder").show();
+            let ulrImge = `{{ URL::asset('/imgs/${user.user_img}') }}`;
+            $(".holder").find('img').attr('src', ulrImge);
+            $("#img").val(user.user_img);
+        }
 
         $('#form-profile-force-sale').validate({
             rules: {
@@ -41,7 +47,7 @@
                 },
                 genere: {
                     required: true,
-                },               
+                },
                 state: {
                     required: true,
                 },
@@ -86,7 +92,7 @@
                 phone: {
                     required: "Teléfono de area es obligatorio",
                 },
-                address:{
+                address: {
                     required: "Dirección es obligatoria",
                 }
             },
@@ -107,7 +113,7 @@
                 $('#spinner').show();
                 var data = $('#form-profile-force-sale').serialize();
                 $.ajax({
-                    url: '{{ route('update-profile') }}',
+                    url: '{{ route('update-profile-force-sale') }}',
                     type: 'POST',
                     data: data,
                     headers: {
@@ -124,7 +130,8 @@
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
                         }).then((result) => {
-                            window.location.href = (user.role == "gerente_general") ?
+                            window.location.href = (user.role ==
+                                    "gerente_general") ?
                                 "{{ route('dashboard-general-manager') }}" :
                                 "{{ route('dashboard-general-zone') }}";
                         });
@@ -141,7 +148,6 @@
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
                                 $('#btn-save').attr('disabled', false);
-                                $('#spinner2').hide();
                                 $(".holder").hide();
                             });
                         });
@@ -160,6 +166,8 @@
     <form id="form-profile-force-sale" method="post" action="">
         {{ csrf_field() }}
         <div class="row Form-edit-user">
+
+
             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                 <div class="form-group">
                     <div class="Icon-inside">
@@ -231,16 +239,10 @@
             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                 <div class="form-group">
                     <div class="Icon-inside">
-                        <label for="state" class="form-label" style="font-size: 13px; margin-bottom: 7px">Seleccione
-                            el
-                            estado</label>
-                        <select name="state" id="state" class="form-control">
-                            <option value="">Seleccione</option>
-                            @foreach ($states as $item)
-                                <option value={{ $item->id }}>{{ $item->description }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <label for="state" class="form-label"
+                            style="font-size: 13px; margin-bottom: 7px">Zona</label>
+                        <input readonly autocomplete="off" placeholder="" class="form-control" id="state"
+                            name="state" type="text" value="{{ Auth::user()->get_state->description }}">
                         <i class="bi bi-flag" style="top: 30px"></i>
                     </div>
                 </div>
@@ -263,12 +265,14 @@
                     <div class="Icon-inside">
                         <label for="phone" class="form-label"
                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
-                        <textarea id="address" rows="3" name="address" class="form-control" value="{!! !empty($user) ? $user->address : '' !!}"></textarea>
+                        <textarea id="address" rows="3" name="address" class="form-control" value="{{ Auth::user()->address }}"></textarea>
                         <i class="bi bi-geo st-icon"></i>
                     </div>
                 </diV>
             </div>
 
+
+            <x-upload-image :title="'Cargar imagen'" />
 
         </div>
         <div class="row mt-3 justify-content-md-end">
