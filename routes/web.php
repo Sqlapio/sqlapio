@@ -31,6 +31,7 @@ use App\Http\Livewire\Components\SalesForces\GeneralManager\Dashboard as General
 use App\Http\Livewire\Components\SalesForces\GeneralManager\Profile as GeneralManagerProfile;
 use App\Http\Livewire\Components\SalesForces\GeneralZone\Dashboard as GeneralZoneDashboard;
 use App\Http\Livewire\Components\SalesForces\GeneralZone\Profile as GeneralZoneProfile;
+use App\Http\Livewire\Components\SalesForces\MedicalVisitor\Deshboard;
 use App\Http\Livewire\Components\SalesForces\ProfileUser;
 use App\Http\Livewire\Components\SalesForces\RegisterUserSalesForces;
 use App\Http\Livewire\Components\Study;
@@ -184,6 +185,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/dashboard/general-zone', [GeneralZoneDashboard::class, 'render'])->name('dashboard-general-zone');
 
             Route::get('/dashboard/general-manager', [GeneralManagerDashboard::class, 'render'])->name('dashboard-general-manager');               
+
+            Route::get('/dashboard/medical-visitor', [Deshboard::class, 'render'])->name('dashboard-medical-visitor');               
 
             Route::group(array('prefix' => 'setting'), function () {
                 Route::get('/profile', [ProfileUser::class, 'render'])->name('profile-user-force-sale');

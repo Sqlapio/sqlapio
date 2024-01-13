@@ -809,6 +809,25 @@
                                             </a>
                                         </li>
                                     @endif
+
+                                    @if (Auth::user()->role == 'visitador_medico')
+                                        <li>
+                                            <a class="nav-item" href="{{ route('dashboard-medical-visitor') }}"
+                                                title="Dashboard">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
+                                                    alt="Dashboard">
+                                                <span class="nav-link active" aria-current="page">Dashboard</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-item" href="{{ route('profile-user-force-sale') }}" title="Configuración">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
+                                                    alt="Configuración">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">Configuración</span>
+                                            </a>
+                                        </li>
+                                    @endif
                                     {{-- end --}}
                                 </ul>
                             </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components\SalesForces;
 
+use App\Http\Controllers\ActivityLogController;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -79,7 +80,11 @@ class ProfileUser extends Component
                 'phone'     => $request->phone,
                 'address'     => $request->address,
                 'user_img' 	=> $nameFile,
+                'status_register' => '2',
             ]);
+
+            $action = '4';
+				ActivityLogController::store_log($action);
 
             return true;
 
@@ -88,7 +93,7 @@ class ProfileUser extends Component
             return response()->json([
                 'success' => 'false',
                 'errors'  => ["Error interno del servidor"]
-            ], 400);        
+            ], 500);        
         }
 
        
@@ -96,6 +101,7 @@ class ProfileUser extends Component
 
     public function render()
     {
+        
         return view('livewire.components.sales-forces.profile-user');
     }
 }

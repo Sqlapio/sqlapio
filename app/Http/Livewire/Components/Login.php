@@ -106,6 +106,13 @@ class Login extends Component
 										return Redirect::route('dashboard-general-zone');
 									}
 									break;
+								case 'visitador_medico':
+									if ($status_register == 1) {
+										return Redirect::route('profile-user-force-sale');
+									} else {
+										return Redirect::route('dashboard-general-zone');
+									}
+									break;
 								default:
 									if ($status_register == 1) {
 										return Redirect::route('Profile');
@@ -121,7 +128,7 @@ class Login extends Component
 					} else { // usuario desahabilitado
 						return Redirect::to('/')->withErrors('El usuario no existe o se encuentra deshabilitado. Por favor valide la información y vuelva a intentarlo');
 					}
-				} else {//no exite usuario
+				} else { //no exite usuario
 					return Redirect::to('/')->withErrors('Autenticación incorrecta');
 				}
 			} catch (\Throwable $th) {
