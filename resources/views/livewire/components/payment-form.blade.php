@@ -344,31 +344,31 @@
                                         </div>
                                     </diV>
 
-                                    <div id="select-plan" style="display: none">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="center_id" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Seleccione
-                                                        tipo de plan</label>
-                                                    <select onchange="handlerSelectPlan(event)"
-                                                        style="width:100% !important " name="center_id" id="center_id"
-                                                        placeholder="Seleccione"
-                                                        class="form-control combo-textbox-input select_dos">
-                                                        <option value="2">PROFESIONAL</option>
-                                                        <option value="3">INLIMITADO</option>
-                                                    </select>
-                                                    {{-- <i class="bi bi-credit-card st-icon"></i> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
                                 {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment']) }}
                                 <div class="row">
                                     <input type="hidden" name="type_plan" id="type_plan">
                                     <input type="hidden" name="visitador_medico_id" id="visitador_medico_id"
                                         value="">
+
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="select-plan"
+                                        style="display: none">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <label for="center_id" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Seleccione
+                                                    tipo de plan</label>
+                                                <select onchange="handlerSelectPlan(event)" style="width:100% !important "
+                                                    name="center_id" id="center_id" placeholder="Seleccione"
+                                                    class="form-control combo-textbox-input select_dos">
+                                                    <option value="2">PROFESIONAL</option>
+                                                    <option value="3">INLIMITADO</option>
+                                                </select>
+                                                {{-- <i class="bi bi-credit-card st-icon"></i> --}}
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="nombre">
                                         <div class="form-group">
