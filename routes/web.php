@@ -181,9 +181,9 @@ Route::middleware(['auth'])->group(function () {
         Route::group(array('prefix' => 'force-sale'), function () {
 
 
-            Route::get('/dashboard/general-manager', [GeneralZoneDashboard::class, 'render'])->name('dashboard-general-zone');
+            Route::get('/dashboard/general-zone', [GeneralZoneDashboard::class, 'render'])->name('dashboard-general-zone');
 
-            Route::get('/dashboard/general-zone', [GeneralManagerDashboard::class, 'render'])->name('dashboard-general-manager');               
+            Route::get('/dashboard/general-manager', [GeneralManagerDashboard::class, 'render'])->name('dashboard-general-manager');               
 
             Route::group(array('prefix' => 'setting'), function () {
                 Route::get('/profile', [ProfileUser::class, 'render'])->name('profile-user-force-sale');

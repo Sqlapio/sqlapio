@@ -11,7 +11,6 @@
     $(document).ready(() => {
 
         let user = @json(Auth::user());
-
         $('#address').val(user.address);
         $('#genere').val(user.genere).change();
         if (user.user_img != null) {

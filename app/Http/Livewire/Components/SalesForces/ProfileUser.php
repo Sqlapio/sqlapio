@@ -23,9 +23,6 @@ class ProfileUser extends Component
                 'genere'     => 'required',
                 'phone'     => 'required',
                 'address'     => 'required',
-                'img'     => 'required',
-
-
             ];
 
             $msj = [
@@ -35,7 +32,6 @@ class ProfileUser extends Component
                 'genere'     => 'Campo requerido',
                 'phone'     => 'Campo requerido',
                 'address'     => 'Campo requerido',
-                'img'     => 'Campo requerido',
             ];
 
 
@@ -80,7 +76,7 @@ class ProfileUser extends Component
                 'last_name'    => $request->last_name,
                 'ci'         => $request->ci,
                 'genere'     => $request->genere,
-                'phone'     => $request->name,
+                'phone'     => $request->phone,
                 'address'     => $request->address,
                 'user_img' 	=> $nameFile,
             ]);

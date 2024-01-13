@@ -791,7 +791,7 @@
                                             </a>
                                         </li>
                                     @endif
-                                    @if (Auth::user()->role == 'gerente_zona')
+                                    @if (Auth::user()->role == 'gerente_zone')
                                         <li>
                                             <a class="nav-item" href="{{ route('dashboard-general-zone') }}"
                                                 title="Dashboard">
