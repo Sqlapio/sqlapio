@@ -154,14 +154,15 @@
         let symptom_filter = [];
         let study_filter = [];
         let valSymptoms = '';
+        let find={};
 
         let user = @json(Auth::user());
 
         $(document).ready(() => {
+
             switch_type_plane(user);
 
-            handlerUl(symptoms,'symptoms');
-
+            handlerUl(symptoms, 'symptoms');
 
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             tooltipTriggerList.forEach(element => {
@@ -597,6 +598,7 @@
                     $('#search_studie').show();
                     $('#search_exam').show();
                     $('#diagnosis_div').show();
+                    $('.btn-search-s').show();                   
                     $('#search_studie_p').hide();
                     $('#search_exam_p').hide();
                     $("#div_spinner").show();
@@ -638,6 +640,7 @@
             $('#search_studie').hide();
             $('#search_exam').hide();
             $('#diagnosis_div').hide();
+            $('.btn-search-s').hide();
             $('#search_studie_p').show();
             $('#search_exam_p').show();
             $("#div_spinner").hide();
@@ -719,35 +722,18 @@
         }
 
         function search(e, id) {
-            
+
             let value = e.target.value.toLowerCase();
 
-            let find = symptoms.find(e => e.description.toLowerCase() == value);
-            
+            let  symptom = symptoms.filter(e => e.description.toLowerCase().includes(value));
 
-            if (find) {
+            if (symptom) {
 
-                $(`#${id}`).empty();
-                let elm = `
-                <li style="margin-bottom: 10px; padding-right: 5px">
-                <input type="checkbox" class="btn-check"
-                id="${find.cod_symptoms}"
-                name="chk${ find.id }"
-                autocomplete="off"
-                data-code="${find.cod_symptoms}"
-                onclick="setSymptoms(event,${find.id})"
-                value="${ find.description }">
-                <label class="btn btn-outline-other check-cm"
-                for="${find.cod_symptoms }">
-                ${ find.description }
-                </label>
-                </li>`;
-
-                $(`#${id}`).append(elm);
+                handlerUl(symptom, id);
 
             } else if (find == undefined) {
 
-                handlerUl(symptoms,id);
+                handlerUl(symptoms, id);
 
             }
 
@@ -755,7 +741,10 @@
 
         function setSymptoms(e, key) {
 
+            let symptom = symptoms.find(el => el.id == key);
+
             if ($(`#${e.target.id}`).is(':checked')) {
+
 
                 valSymptoms = valSymptoms.replace(',,', '');
 
@@ -763,36 +752,47 @@
 
                 $("#diagnosis").val(valSymptoms);
 
-            } else {
+                handlerCheckTrue(symptom);
+
+
+            } else {               
 
                 valSymptoms = valSymptoms.replace(`${e.target.value}`, '');
 
                 valSymptoms = valSymptoms.replace(',,', ',');
 
                 $("#diagnosis").val(valSymptoms);
+
+                handlerCheckDelete(symptom);
             }
 
             valSymptoms.replace(',,', '');
 
         }
 
-        const handlerUl = (data,id) => {
+        const handlerUl = (data, id) => {
 
             let array = [];
 
+            let check = '';
+            
             data.map((e, k) => {
+
                 $(`#${id}`).empty();
+
+                check = (e.check) ? 'checked': '';
+
                 if (k < 6) {
                     let el = `<li style="margin-bottom: 10px; padding-right: 5px">
-                            <input type="checkbox" class="btn-check"
-                            id="${e.cod_symptoms}"
+                            <input type="checkbox" ${check} class="btn-check"
+                            id="${e.id}"
                             name="chk${ e.id }"
                             autocomplete="off"
-                            data-code="${e.cod_symptoms}"
-                            onclick="setSymptoms(event,${e.id})"
+                            data-code="${e.id}"
+                            onclick="setSymptoms(event,${e.id});"
                             value="${ e.description }">
                             <label class="btn btn-outline-other check-cm"
-                            for="${e.cod_symptoms }">
+                            for="${e.id }">
                             ${ e.description }
                             </label>
                             </li>`;
@@ -802,6 +802,25 @@
 
             $(`#${id}`).append(array);
 
+        }
+
+        const handlerCheckTrue = (find) => {           
+            
+            find.check = true;
+
+            let filter = symptoms.filter(e => e.id !== find.id);
+
+            symptoms = [find,...filter];
+        }
+
+
+        const handlerCheckDelete = (find) => {
+
+            delete find.check;
+
+            let filter = symptoms.filter(e => e.id !== find.id);
+
+            symptoms = [...filter,find];
         }
 
         function setExams(e, key) {
@@ -826,7 +845,6 @@
                 studies_array.splice(key, 1);
             }
         }
-
 
         //agregar medicamento
         function addMedacition(e) {
@@ -1162,10 +1180,9 @@
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    id='diagnosis_div'
                                                     style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
                                                     border-radius: 9px; padding: 16px; ">
-                                                    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-3">
+                                                    <div class="btn-search-s col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-3">
                                                         <div class="form-group">
                                                             <label for="search_symptoms"
                                                                 class="form-label"style="font-size: 13px; margin-bottom: 5px;">
@@ -1186,13 +1203,13 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="mt-3"
+                                                    <div id='diagnosis_div' class="mt-3"
                                                         style="max-width: 100%; max-height: 100px; min-height: 100px ;position: relative;">
                                                         <ul id="symptoms_filter" class="symptoms"
                                                             style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
                                                         </ul>
                                                         <ul id="symptoms" class="symptoms"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">                                                          
+                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
                                                         </ul>
                                                     </div>
                                                 </div>
