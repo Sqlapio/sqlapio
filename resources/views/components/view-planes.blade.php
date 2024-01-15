@@ -423,7 +423,7 @@
         <strong>{{ 'Fecha de activación: ' . \Carbon\Carbon::parse(auth()->user()->date_start_plan)->format('d-m-Y') }}</strong>
         <br>
         <strong
-            class="{{ auth()->user()->expired_plan === 1 ? 'text-danger' : '' }} mt-3">{{ 'Fecha de corte: ' . \Carbon\Carbon::parse(auth()->user()->date_end_plan)->format('d-m-Y') }}</strong>
+            class="{{ auth()->user()->expired_plan === 1 ? 'text-danger' : '' }} mt-2">{{ 'Fecha de corte: ' . \Carbon\Carbon::parse(auth()->user()->date_end_plan)->format('d-m-Y') }}</strong>
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
             <div class="row">
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3"
@@ -497,7 +497,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-5 mb-3"
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-1"
             style="display: flex; justify-content: flex-end;">
             <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})" class="btn btnPrimary"
                 id="renew-btn">Renovar</button>
