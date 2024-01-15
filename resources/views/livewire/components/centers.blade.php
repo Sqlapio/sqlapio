@@ -21,6 +21,10 @@
         width: 5%
     }
 
+    form {
+        margin-block-end: 0;
+    }
+
 </style>
 @push('scripts')
     @vite(['resources/js/centers.js'])
@@ -272,7 +276,7 @@
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row">
+                                    <div class="row mt-3">
                                         <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8" style="font-size:10px;">
                                             <button type="button" id="btnShow" class="btn btnPrimary" onclick="showModal()">Asociar centro</button>
                                         </div>
@@ -336,9 +340,9 @@
                                 {{ csrf_field() }}
                                 <div class="row">
                                     @if (Auth::user()->status_register != 1)
-                                        <x-centers_doctors class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"/>
+                                        <x-centers_doctors class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"/>
                                     @endif
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
@@ -347,7 +351,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Piso</label>
@@ -358,7 +362,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Consultorio</label>
@@ -370,7 +374,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono del consultorio</label>
@@ -383,7 +387,7 @@
                                     </div>
                                 </div>
                                 <div class="row text-center">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                         <input class="btn btnSave send mt-3" value="Registrar" type="submit" />
                                     </div>
                                 </div>
