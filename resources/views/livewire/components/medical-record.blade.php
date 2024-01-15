@@ -782,9 +782,9 @@
             }
         }
 
-        function setSymptoms(e, key) {
+        function setSymptoms(e, key,id) {
 
-            let symptom = symptoms.find(el => el.id == key);
+            let symptom = symptoms.find(el => el.id == id);
 
             if ($(`#${e.target.id}`).is(':checked')) {
 
@@ -832,19 +832,19 @@
                 if (id == "symptoms") {
                     code = e.cod_symptoms;
 
-                    callback = `onclick="setSymptoms(event,${e.id})"`;
+                    callback = `onclick="setSymptoms(event,${id}_${e.id},${e.id})"`;
 
                 } else if (id == "studie") {
 
                     code = e.cod_study;
 
-                    callback = `onclick="setStudy(event,${e.id})"`;
+                    callback = `onclick="setStudy(event,${id}_${e.id})"`;
 
                 } else {
 
                     code = e.cod_exam;
 
-                    callback = `onclick="setExams(event,${e.id})"`;
+                    callback = `onclick="setExams(event,${id}_${e.id})"`;
                 }
 
                 if (k < 6) {
@@ -889,19 +889,20 @@
         }
 
         function setExams(e, key) {
-            console.log("setExams");
+
             if ($(`#${e.target.id}`).is(':checked')) {
                 exams_array.push({
                     code_exams: $(`#${e.target.id}`).data('code'),
                     description: $(`#${e.target.id}`).val(),
                 });
+
             } else {
+
                 exams_array.splice(key, 1);
             }
         }
 
         function setStudy(e, key) {
-            console.log("setStudy");
 
             if ($(`#${e.target.id}`).is(':checked')) {
                 studies_array.push({
