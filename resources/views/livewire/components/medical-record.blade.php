@@ -6,19 +6,20 @@
     }
 
     pre {
-        white-space: pre-wrap; 
-        white-space: -moz-pre-wrap;  
-        white-space: -pre-wrap;      
-        white-space: -o-pre-wrap;    
+        white-space: pre-wrap;
+        white-space: -moz-pre-wrap;
+        white-space: -pre-wrap;
+        white-space: -o-pre-wrap;
         word-wrap: break-word;
-        text-align: justify; 
-        
+        text-align: justify;
+
     }
-    .div-ia{
+
+    .div-ia {
         padding: 3%;
     }
 
-    .p-ia{
+    .p-ia {
         text-align: justify !important;
     }
 
@@ -143,6 +144,7 @@
         let valStudy = '';
         let id = @json($id);
         let patient = @json($Patient);
+        let symptoms = @json($symptoms);
         let exams_array = [];
         let symptom_array = [];
         let studies_array = [];
@@ -152,11 +154,15 @@
         let symptom_filter = [];
         let study_filter = [];
         let valSymptoms = '';
+        let find={};
 
         let user = @json(Auth::user());
 
         $(document).ready(() => {
+
             switch_type_plane(user);
+
+            handlerUl(symptoms, 'symptoms');
 
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             tooltipTriggerList.forEach(element => {
@@ -592,6 +598,7 @@
                     $('#search_studie').show();
                     $('#search_exam').show();
                     $('#diagnosis_div').show();
+                    $('.btn-search-s').show();                   
                     $('#search_studie_p').hide();
                     $('#search_exam_p').hide();
                     $("#div_spinner").show();
@@ -633,6 +640,7 @@
             $('#search_studie').hide();
             $('#search_exam').hide();
             $('#diagnosis_div').hide();
+            $('.btn-search-s').hide();
             $('#search_studie_p').show();
             $('#search_exam_p').show();
             $("#div_spinner").hide();
@@ -714,34 +722,105 @@
         }
 
         function search(e, id) {
-            var value = e.target.value.toLowerCase();
-            $(`#${id} li`).filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(e.target.value) > -1);
-            });
+
+            let value = e.target.value.toLowerCase();
+
+            let  symptom = symptoms.filter(e => e.description.toLowerCase().includes(value));
+
+            if (symptom) {
+
+                handlerUl(symptom, id);
+
+            } else if (find == undefined) {
+
+                handlerUl(symptoms, id);
+
+            }
+
         }
 
         function setSymptoms(e, key) {
-            valSymptoms = valSymptoms.replace(',,', '');
-            valSymptoms = valSymptoms.replace(',', '');
+
+            let symptom = symptoms.find(el => el.id == key);
+
             if ($(`#${e.target.id}`).is(':checked')) {
-                // symptom_array.push({
-                //     code_symptom: $(`#${e.target.id}`).data('code'),
-                //     description: $(`#${e.target.id}`).val(),
-                // });
+
+
                 valSymptoms = valSymptoms.replace(',,', '');
+
                 valSymptoms = (valSymptoms == "") ? e.target.value : `${valSymptoms},${e.target.value}`;
 
                 $("#diagnosis").val(valSymptoms);
 
-            } else {
+                handlerCheckTrue(symptom);
+
+
+            } else {               
+
                 valSymptoms = valSymptoms.replace(`${e.target.value}`, '');
+
                 valSymptoms = valSymptoms.replace(',,', ',');
-                console.log(valSymptoms[0]);
-                // valSymptoms = (valSymptoms[0]==',')?'':valSymptoms;
-                // valSymptoms = (valSymptoms == ",")? valSymptoms.replace(',', ''):valSymptoms ;
+
                 $("#diagnosis").val(valSymptoms);
-                // symptom_array.splice(key, 1);
+
+                handlerCheckDelete(symptom);
             }
+
+            valSymptoms.replace(',,', '');
+
+        }
+
+        const handlerUl = (data, id) => {
+
+            let array = [];
+
+            let check = '';
+            
+            data.map((e, k) => {
+
+                $(`#${id}`).empty();
+
+                check = (e.check) ? 'checked': '';
+
+                if (k < 6) {
+                    let el = `<li style="margin-bottom: 10px; padding-right: 5px">
+                            <input type="checkbox" ${check} class="btn-check"
+                            id="${e.id}"
+                            name="chk${ e.id }"
+                            autocomplete="off"
+                            data-code="${e.id}"
+                            onclick="setSymptoms(event,${e.id});"
+                            value="${ e.description }">
+                            <label class="btn btn-outline-other check-cm"
+                            for="${e.id }">
+                            ${ e.description }
+                            </label>
+                            </li>`;
+                    array.push(el)
+                }
+            });
+
+            $(`#${id}`).append(array);
+
+        }
+
+        const handlerCheckTrue = (find) => {           
+            
+            find.check = true;
+
+            let filter = symptoms.filter(e => e.id !== find.id);
+
+            symptoms = [find,...filter];
+        }
+
+
+        const handlerCheckDelete = (find) => {
+
+            delete find.check;
+
+            let filter = symptoms.filter(e => e.id !== find.id);
+
+            symptoms = [...filter,find];
         }
 
         function setExams(e, key) {
@@ -766,7 +845,6 @@
                 studies_array.splice(key, 1);
             }
         }
-
 
         //agregar medicamento
         function addMedacition(e) {
@@ -924,13 +1002,11 @@
             return false;
         }
 
-        
-
         const handlerIA = () => {
 
             if ($("#diagnosis").val() !== "") {
 
-                $(".send-ai").hide();                
+                $(".send-ai").hide();
                 $("#spinner2").show();
 
                 $.ajax({
@@ -950,7 +1026,7 @@
 
                         $('#modalIA').modal("show");
                         $("#p-ia").text(response.data);
-                        
+
                         let response_data = response.data
                         // Swal.fire({
                         //     icon: 'success',
@@ -974,8 +1050,8 @@
                             confirmButtonText: 'Aceptar'
                         });
 
-                    $(".send-ai").show();
-                    $("#spinner2").hide();
+                        $(".send-ai").show();
+                        $("#spinner2").hide();
 
                     }
                 });
@@ -1056,7 +1132,8 @@
                                         <div id="input-array"></div>
                                         <div class="row" style="margin: 16px;">
                                             @if (Auth::user()->type_plane !== '7')
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
                                                 border-radius: 9px; padding: 16px;">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
@@ -1078,8 +1155,10 @@
                                                     </div>
                                                 </div>
                                             @endif
-                                            <div class=' col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3' style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="padding: 0px 5px">
+                                            <div class=' col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3'
+                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
+                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6"
+                                                    style="padding: 0px 5px">
                                                     <div class="form-group">
                                                         <label for="phone" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Antecedentes</label>
@@ -1087,7 +1166,8 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="padding: 0px 5px">
+                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6"
+                                                    style="padding: 0px 5px">
                                                     <div class="form-group">
                                                         <label for="phone" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
@@ -1097,39 +1177,40 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"  style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id='diagnosis_div' style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
                                                     border-radius: 9px; padding: 16px; ">
-                                                    <div class="form-group" >
-                                                        <label for="search_symptoms"
-                                                            class="form-label"style="font-size: 13px; margin-bottom: 5px;">
-                                                            Buscar Sintomas
-                                                        </label>
-                                                        <input onkeyup="search(event,'symptoms')" type="text"
-                                                            class="form-control" id="floatingInput" placeholder="">
+                                                    <div class="btn-search-s col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-3">
+                                                        <div class="form-group">
+                                                            <label for="search_symptoms"
+                                                                class="form-label"style="font-size: 13px; margin-bottom: 5px;">
+                                                                Buscar Sintomas
+                                                            </label>
+                                                            <input onkeyup="search(event,'symptoms')" type="text"
+                                                                class="form-control" id="floatingInput" placeholder="">
+                                                        </div>
                                                     </div>
-                                                    <div class="overflow-auto p-3 bg-light mt-3"
+
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
+                                                border-radius: 9px; padding: 16px;">
+                                                        <div class="form-group">
+                                                            <label for="phone" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Sintomas</label>
+                                                            <textarea id="diagnosis" rows="2" name="diagnosis" class="form-control"></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id='diagnosis_div' class="mt-3"
                                                         style="max-width: 100%; max-height: 100px; min-height: 100px ;position: relative;">
                                                         <ul id="symptoms_filter" class="symptoms"
                                                             style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
                                                         </ul>
-                                                        <ul id="symptoms" class="symptoms" style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
-                                                            @foreach ($symptoms as $key => $item)
-                                                                <li style="margin-bottom: 10px; padding-right: 5px">
-                                                                    <input type="checkbox" class="btn-check"
-                                                                        id="{{ $item->cod_symptoms }}"
-                                                                        name="chk{{ $key }}" autocomplete="off"
-                                                                        data-code="{{ $item->cod_symptoms }}"
-                                                                        onclick="setSymptoms(event,{{ $key }})"
-                                                                        value="{{ $item->description }}">
-                                                                    <label class="btn btn-outline-other check-cm"
-                                                                        for="{{ $item->cod_symptoms }}">
-                                                                        {{ $item->description }}
-                                                                    </label>
-                                                                </li>
-                                                            @endforeach
+                                                        <ul id="symptoms" class="symptoms"
+                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
                                                         </ul>
-
                                                     </div>
                                                 </div>
                                                 <div class="row mt-3" id="div_spinner">
@@ -1139,15 +1220,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
-                                                border-radius: 9px; padding: 16px;">
-                                                    <div class="form-group">
-                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Sintomas</label>
-                                                        <textarea id="diagnosis" rows="2" name="diagnosis" class="form-control"></textarea>
-                                                    </div>
-                                                </div>
 
-                                                <div  class="row mt-3 justify-content-md-end send-ai">
+                                                <div class="row mt-3 justify-content-md-end send-ai">
                                                     <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                         style="display: flex; justify-content: flex-end;">
                                                         <button onclick="handlerIA()" type="button"
@@ -1157,9 +1231,11 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display: flex;">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display: flex;">
 
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="padding: 0px 8px 0px 0px">
+                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6"
+                                                    style="padding: 0px 8px 0px 0px">
                                                     <div class="form-group" id=search_exam>
                                                         <label for="search_patient"
                                                             class="form-label"style="font-size: 13px; margin-bottom: 5px;">Buscar
@@ -1167,7 +1243,9 @@
                                                         <input onkeyup="search(event,'exam')" type="text"
                                                             class="form-control" id="floatingInput" placeholder="">
                                                     </div>
-                                                    <label id='search_exam_p' style="font-size: 13px; margin-bottom: 5px; display:none">Exámenes </label>
+                                                    <label id='search_exam_p'
+                                                        style="font-size: 13px; margin-bottom: 5px; display:none">Exámenes
+                                                    </label>
                                                     <div class="overflow-auto p-3 bg-light mt-3"
                                                         style="max-width: 100%; max-height: 100px; min-height: 100px ;position: relative;">
 
@@ -1198,15 +1276,18 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="padding: 0px 8px 0px 0px">
+                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6"
+                                                    style="padding: 0px 8px 0px 0px">
                                                     <div class="form-group" id=search_studie>
-                                                        <label for="search_patient"
-                                                            class="form-label" style="font-size: 13px; margin-bottom: 5px;">Buscar
+                                                        <label for="search_patient" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px;">Buscar
                                                             Estudio</label>
                                                         <input onkeyup="search(event,'studie')" type="text"
                                                             class="form-control" placeholder="" id="floatingInputt">
                                                     </div>
-                                                    <label id='search_studie_p' style="font-size: 13px; margin-bottom: 5px; display:none">Estudios </label>
+                                                    <label id='search_studie_p'
+                                                        style="font-size: 13px; margin-bottom: 5px; display:none">Estudios
+                                                    </label>
                                                     <div class="overflow-auto p-3 bg-light mt-3 card-study"
                                                         style="max-width: 100%; max-height:100px;  min-height: 100px; position: relative;">
                                                         <ul id="study_filter" class="studie"
@@ -1236,7 +1317,8 @@
 
                                         {{-- Medicacion --}}
                                         <div class="row mt-3" style="margin: 16px;">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"  style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <h5 style="margin-bottom: 17px;">Tratamiento</h5>
                                                 <hr style="margin-bottom: 0;">
                                                 <div class="row medicine-form">
@@ -1539,7 +1621,7 @@
 
         <!-- Modal -->
         <div class="modal fade" id="modalIA" tabindex="-1" aria-labelledby="modalIALabel" aria-hidden="true"
-            id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">          
+            id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -1551,7 +1633,8 @@
                         </div>
                         <div class="modal-body">
                             <div class="div-ia">
-                                <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="p-ia"></pre>
+                                <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+                                    id="p-ia"></pre>
                             </div>
                         </div>
                     </div>
