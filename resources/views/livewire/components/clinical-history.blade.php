@@ -19,10 +19,14 @@
         object-fit: cover;
     }
 
+    .data-medical {
+        font-size: 13px
+    }
+
     @media only screen and (max-width: 390px) {
         .data-medical {
             width: 185px !important;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .mt-cr {
@@ -38,7 +42,7 @@
 
         .data-medical {
             width: 222px !important;
-            font-size: 14px;
+            font-size: 13px;
         }
 
 
@@ -741,35 +745,36 @@
                                     <i class="bi bi-person"></i></i> Datos personales
                                 </button>
                             </span>
-                            <div id="collapseD" class="accordion-collapse collapse" aria-labelledby="headingD"
+                            <div id="collapseD" class="accordion-collapse collapse show" aria-labelledby="headingD"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row">
+                                    <div class="row mt-3">
+                                        <div class="d-flex" style="align-items: center;">
+                                            <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 162px;">
+                                                <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                    width="125" height="125" alt="Imagen del paciente" class="img-medical">
+                                            </div>
 
-                                        <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 162px;">
-                                            <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
-                                                width="150" height="150" alt="Imagen del paciente" class="img-medical">
-                                        </div>
-
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                            <strong>Nombre Completo:</strong><span class="text-capitalize">
-                                                {{ $Patient->last_name . ', ' . $Patient->name }}</span>
-                                            <br>
-                                            <strong>Fecha de Nacimiento:</strong><span>
-                                                {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
-                                            <br>
-                                            <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
-                                            <br>
-                                            <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
-                                            <span>
-                                                {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
-                                            <br>
-                                            <strong>Genero:</strong> <span class="text-capitalize">
-                                                {{ $Patient->genere }}</span>
-                                            <br>
-                                            <strong>Nº Historial:</strong><span>
-                                                {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
-                                            </span>
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
+                                                <strong>Nombre Completo:</strong><span class="text-capitalize">
+                                                    {{ $Patient->last_name . ', ' . $Patient->name }}</span>
+                                                <br>
+                                                <strong>Fecha de Nacimiento:</strong><span>
+                                                    {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
+                                                <br>
+                                                <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
+                                                <br>
+                                                <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
+                                                <span>
+                                                    {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
+                                                <br>
+                                                <strong>Genero:</strong> <span class="text-capitalize">
+                                                    {{ $Patient->genere }}</span>
+                                                <br>
+                                                <strong>Nº Historial:</strong><span>
+                                                    {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -778,7 +783,7 @@
                     </div>
                 </div>
                 {{-- antecedentes falimilares --}}
-                <div class="row mt-3">
+                <div class="row mt-2">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
@@ -853,7 +858,7 @@
                     </div>
                 </div>
                 {{-- Antecedentes personales patológicos --}}
-                <div class="row mt-3">
+                <div class="row mt-2">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingThree">
@@ -926,7 +931,7 @@
                     </div>
                 </div>
                 {{-- historia Antecedentes personales no patológicos --}}
-                <div class="row mt-3">
+                <div class="row mt-2">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingFour">
@@ -1001,7 +1006,7 @@
                     </div>
                 </div>
                 {{-- historia ginecológica --}}
-                <div class="row mt-3">
+                <div class="row mt-2">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingFive">
@@ -1127,7 +1132,7 @@
                     </div>
                 </div>
                 {{-- alergias --}}
-                <div class="row mt-3">
+                <div class="row mt-2">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 ">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingSix">
@@ -1243,7 +1248,7 @@
                     </div>
                 </div>
                 {{-- historia quirúrgica --}}
-                <div class="row mt-3">
+                <div class="row mt-2">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingSeven">
@@ -1356,7 +1361,7 @@
                     </div>
                 </div>
                 {{-- Examen fisico --}}
-                <div class="row mt-3">
+                <div class="row mt-2">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
@@ -1585,7 +1590,7 @@
                     </div>
                 </div>
                 {{-- Medicacion --}}
-                <div class="row mt-3">
+                <div class="row mt-2">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingEight">
@@ -1804,12 +1809,12 @@
             {{-- botton --}}
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                    <div class="row justify-content-md-center mt-3">
+                    <div class="row justify-content-md-center mt-2">
                         <div id="spinner" style="display: none">
                             <x-load-spinner show="true" />
                         </div>
                     </div>
-                    <div class="row mt-3 justify-content-md-end">
+                    <div class="row mt-2 justify-content-md-end">
                         <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" id="send"
                             style="display: flex; justify-content: flex-end;">
                             <input class="btn btnSave" value="Guardar" type="submit" />
