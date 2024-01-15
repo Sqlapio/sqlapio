@@ -126,7 +126,10 @@
                 {{ Form::close() }}
                 <div class="row justify-content-center">
                     <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
-                        <a class="links" href="{{ config('sidebar_item.var') }}">Registrar Usuario</a>
+                        <a class="links" href="https://system.sqlapio.com/public/payment-form/1">Registrate Gratis</a>
+                    </div>
+                    <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
+                        <a class="links" href="{{ config('sidebar_item.var') }}">Adquiere un Plan</a>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <a class="links" href="{{route('recovery_password')}}">Recuperar Contraseña</a>
