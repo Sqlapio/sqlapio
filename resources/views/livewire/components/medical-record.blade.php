@@ -145,6 +145,8 @@
         let id = @json($id);
         let patient = @json($Patient);
         let symptoms = @json($symptoms);
+        let study = @json($study);
+        let exam = @json($exam);
         let exams_array = [];
         let symptom_array = [];
         let studies_array = [];
@@ -154,7 +156,7 @@
         let symptom_filter = [];
         let study_filter = [];
         let valSymptoms = '';
-        let find={};
+        let find = {};
 
         let user = @json(Auth::user());
 
@@ -162,7 +164,13 @@
 
             switch_type_plane(user);
 
-            handlerUl(symptoms, 'symptoms');
+            handlerUl(symptoms, 'symptoms', 'btn btn-outline-other check-cm');
+
+            handlerUl(exam, 'exam', 'btn btn-outline-primary check-cm');
+
+            handlerUl(study, 'studie', 'btn btn-outline-success check-cm');
+
+
 
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             tooltipTriggerList.forEach(element => {
@@ -598,7 +606,7 @@
                     $('#search_studie').show();
                     $('#search_exam').show();
                     $('#diagnosis_div').show();
-                    $('.btn-search-s').show();                   
+                    $('.btn-search-s').show();
                     $('#search_studie_p').hide();
                     $('#search_exam_p').hide();
                     $("#div_spinner").show();
@@ -725,18 +733,53 @@
 
             let value = e.target.value.toLowerCase();
 
-            let  symptom = symptoms.filter(e => e.description.toLowerCase().includes(value));
+            switch (id) {
+                case 'studie':
 
-            if (symptom) {
+                    let data = study.filter(e => e.description.toLowerCase().includes(value));
 
-                handlerUl(symptom, id);
+                    if (data.length > 0) {
 
-            } else if (find == undefined) {
+                        handlerUl(data, id, 'btn btn-outline-success check-cm');
 
-                handlerUl(symptoms, id);
 
+                    } else {
+
+                        handlerUl(data, id, 'btn btn-outline-success check-cm');
+
+                    }
+                    break;
+
+                case 'exam':
+
+                    let data_exam = exam.filter(e => e.description.toLowerCase().includes(value));
+
+                    if (data_exam.length > 0) {
+
+                        handlerUl(data_exam, id, 'btn btn-outline-primary check-cm');
+
+                    } else {
+
+                        handlerUl(exam, id, 'btn btn-outline-primary check-cm');
+
+                    }
+                    break;
+
+                default:
+
+                    let symptom = symptoms.filter(e => e.description.toLowerCase().includes(value));
+
+                    if (symptom.length > 0) {
+
+                        handlerUl(symptom, id, 'btn btn-outline-other check-cm');
+
+
+                    } else {
+
+                        handlerUl(symptoms, id, 'btn btn-outline-other check-cm');
+                    }
+                    break;
             }
-
         }
 
         function setSymptoms(e, key) {
@@ -755,7 +798,7 @@
                 handlerCheckTrue(symptom);
 
 
-            } else {               
+            } else {
 
                 valSymptoms = valSymptoms.replace(`${e.target.value}`, '');
 
@@ -770,29 +813,51 @@
 
         }
 
-        const handlerUl = (data, id) => {
+        const handlerUl = (data, id, clas) => {
 
             let array = [];
 
             let check = '';
-            
+
+            let code = '';
+
+            let callback = '';
+
             data.map((e, k) => {
 
                 $(`#${id}`).empty();
 
-                check = (e.check) ? 'checked': '';
+                check = (e.check) ? 'checked' : '';
+
+                if (id == "symptoms") {
+                    code = e.cod_symptoms;
+
+                    callback = `onclick="setSymptoms(event,${e.id})"`;
+
+                } else if (id == "studie") {
+
+                    code = e.cod_study;
+
+                    callback = `onclick="setStudy(event,${e.id})"`;
+
+                } else {
+
+                    code = e.cod_exam;
+
+                    callback = `onclick="setExams(event,${e.id})"`;
+                }
 
                 if (k < 6) {
                     let el = `<li style="margin-bottom: 10px; padding-right: 5px">
                             <input type="checkbox" ${check} class="btn-check"
-                            id="${e.id}"
-                            name="chk${ e.id }"
+                            id="${id}_${e.id}"
+                            name="chk${id}_${ e.id }"
                             autocomplete="off"
-                            data-code="${e.id}"
-                            onclick="setSymptoms(event,${e.id});"
+                            data-code="${code}"
+                            ${callback}
                             value="${ e.description }">
-                            <label class="btn btn-outline-other check-cm"
-                            for="${e.id }">
+                            <label class="${clas}"
+                            for="${id}_${e.id }">
                             ${ e.description }
                             </label>
                             </li>`;
@@ -804,13 +869,13 @@
 
         }
 
-        const handlerCheckTrue = (find) => {           
-            
+        const handlerCheckTrue = (find) => {
+
             find.check = true;
 
             let filter = symptoms.filter(e => e.id !== find.id);
 
-            symptoms = [find,...filter];
+            symptoms = [find, ...filter];
         }
 
 
@@ -820,10 +885,11 @@
 
             let filter = symptoms.filter(e => e.id !== find.id);
 
-            symptoms = [...filter,find];
+            symptoms = [...filter, find];
         }
 
         function setExams(e, key) {
+            console.log("setExams");
             if ($(`#${e.target.id}`).is(':checked')) {
                 exams_array.push({
                     code_exams: $(`#${e.target.id}`).data('code'),
@@ -835,6 +901,8 @@
         }
 
         function setStudy(e, key) {
+            console.log("setStudy");
+
             if ($(`#${e.target.id}`).is(':checked')) {
                 studies_array.push({
                     code_studies: $(`#${e.target.id}`).data('code'),
@@ -1182,7 +1250,8 @@
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                     style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
                                                     border-radius: 9px; padding: 16px; ">
-                                                    <div class="btn-search-s col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-3">
+                                                    <div
+                                                        class="btn-search-s col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-3">
                                                         <div class="form-group">
                                                             <label for="search_symptoms"
                                                                 class="form-label"style="font-size: 13px; margin-bottom: 5px;">
@@ -1257,22 +1326,7 @@
                                                         <ul id="exam" class="exam"
                                                             style="padding-inline-start: 0; display: flex;
                                                         flex-wrap: wrap;">
-                                                            @foreach ($exam as $key => $item)
-                                                                <li style="margin-bottom: 10px; padding-right: 5px">
-                                                                    <input type="checkbox" class="btn-check"
-                                                                        id="{{ $item->cod_exam }}"
-                                                                        name="chk{{ $key }}" autocomplete="off"
-                                                                        data-code="{{ $item->cod_exam }}"
-                                                                        onclick="setExams(event,{{ $key }})"
-                                                                        value="{{ $item->description }}">
-                                                                    <label class="btn btn-outline-primary check-cm"
-                                                                        for="{{ $item->cod_exam }}">
-                                                                        {{ $item->description }}
-                                                                    </label>
-                                                                </li>
-                                                            @endforeach
                                                         </ul>
-
                                                     </div>
                                                 </div>
 
@@ -1297,18 +1351,6 @@
                                                         </span>
                                                         <ul id="studie" class="studie"
                                                             style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
-                                                            @foreach ($study as $key => $item)
-                                                                <li style="margin-bottom: 10px; padding-right: 5px">
-                                                                    <input type="checkbox" class="btn-check"
-                                                                        autocomplete="off" name="chk{{ $key }}"
-                                                                        id="{{ $item->cod_study }}"
-                                                                        onclick="setStudy(event,{{ $key }})"
-                                                                        data-code="{{ $item->cod_study }}"
-                                                                        value="{{ $item->description }}">
-                                                                    <label class="btn btn-outline-success check-cm"
-                                                                        for="{{ $item->cod_study }}">{{ $item->description }}</label><br>
-                                                                </li>
-                                                            @endforeach
                                                         </ul>
                                                     </div>
                                                 </div>
