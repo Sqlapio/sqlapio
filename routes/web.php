@@ -27,6 +27,13 @@ use App\Http\Livewire\Components\PlansVerify;
 use App\Http\Livewire\Components\ProfilePatients\QueryDetalyPatient;
 use App\Http\Livewire\Components\Statistics;
 use App\Http\Livewire\Components\Register;
+use App\Http\Livewire\Components\SalesForces\GeneralManager\Dashboard as GeneralManagerDashboard;
+use App\Http\Livewire\Components\SalesForces\GeneralManager\Profile as GeneralManagerProfile;
+use App\Http\Livewire\Components\SalesForces\GeneralZone\Dashboard as GeneralZoneDashboard;
+use App\Http\Livewire\Components\SalesForces\GeneralZone\Profile as GeneralZoneProfile;
+use App\Http\Livewire\Components\SalesForces\MedicalVisitor\Deshboard;
+use App\Http\Livewire\Components\SalesForces\ProfileUser;
+use App\Http\Livewire\Components\SalesForces\RegisterUserSalesForces;
 use App\Http\Livewire\Components\Study;
 use App\Http\Middleware\VerifyPlans;
 use App\Models\Center;
@@ -57,6 +64,10 @@ Route::get('/recovery-password', [RecoveryPassword::class, 'render'])->name('rec
 Route::post('/create-password-temporary', [RecoveryPassword::class, 'create_password_temporary'])->name('create_password_temporary');
 Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp_rp');
 Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp_rp');
+
+//fuerzas de ventas
+Route::get('/register-user-force-sale/{hash?}', [RegisterUserSalesForces::class, 'render'])->name('register_user_force_sale');
+Route::post('/register_create_force_sale', [RegisterUserSalesForces::class, 'store'])->name('register_create_force_sale');
 
 //prueba
 Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
@@ -112,7 +123,6 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/medicard_record_study/{id}', [Study::class, 'render'])->name("mr_study");
                 Route::get('/medicard_record_exam/{id}', [Examen::class, 'render'])->name("mr_exam");
                 Route::post('/medicard_record_ia', [UtilsController::class, 'sqlapio_ia'])->name("medicard_record_ia");
-
             });
         });
 
@@ -125,7 +135,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp')->middleware(['VerifySelloDigital', 'verify_email', 'VerifyPlans']);
             Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp')->middleware(['VerifySelloDigital', 'verify_email', 'VerifyPlans']);
             Route::post('/create-seal', [Profile::class, 'create_seal'])->name('create_seal');
-            Route::get('/auth/setting/profile', [Profile::class, 'render'])->name('Profile');
+            Route::get('/profile', [Profile::class, 'render'])->name('Profile');
             Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');
 
             Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');
@@ -166,7 +176,24 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/get_list_study', [UtilsController::class, 'get_list_study'])->name("get_list_study");
             Route::get('/enabled-doctor/{id}', [UtilsController::class, 'habilitar_doctor_corporate'])->name("enabled-doctor");
             Route::get('/disabled-doctor/{id}', [UtilsController::class, 'deshabilitar_doctor_corporate'])->name("disabled-doctor");
+        });
 
+        //grupos de rutas fuerzas de venta
+        Route::group(array('prefix' => 'force-sale'), function () {
+
+
+            Route::get('/dashboard/general-zone', [GeneralZoneDashboard::class, 'render'])->name('dashboard-general-zone');
+
+            Route::get('/dashboard/general-manager', [GeneralManagerDashboard::class, 'render'])->name('dashboard-general-manager');               
+
+            Route::get('/dashboard/medical-visitor', [Deshboard::class, 'render'])->name('dashboard-medical-visitor');               
+
+            Route::group(array('prefix' => 'setting'), function () {
+                Route::get('/profile', [ProfileUser::class, 'render'])->name('profile-user-force-sale');
+                Route::post('/profile-update', [ProfileUser::class, 'updateProfile'])->name('update-profile-force-sale');
+
+            });
+            
         });
     });
 
@@ -252,21 +279,17 @@ Route::middleware(['auth'])->group(function () {
         // Referencias atendidas
         Route::get('/references/res', [UtilsController::class, 'responce_references'])->name("references_res");
     });
-
 });
 
 
 Route::group(array('prefix' => 'public'), function () {
-    Route::get('/payment-form/{type_plan}', [PaymentForm::class, 'render'])->name("payment-form");
+    Route::get('/payment-form/{type_plan?}/{token?}', [PaymentForm::class, 'render'])->name("payment-form");
     Route::post('/pay-plan', [PaymentForm::class, 'pay_plan'])->name("pay-plan");
 
     Route::group(array('prefix' => 'patient'), function () {
         Route::get('/query-detaly-patient', [QueryDetalyPatient::class, 'render'])->name("query-detaly-patient");
         Route::post('/search-detaly-patient', [QueryDetalyPatient::class, 'search_detaly'])->name("search-detaly-patient");
-
     });
-
-
 });
 
 /**
@@ -301,4 +324,5 @@ Route::get('/gpt', function () {
             return $data->json();
 
 
+    return $data->json()['choices'][0]['message']['content'];
 });

@@ -526,7 +526,7 @@
                                     <div class="row Form-edit-user">
                                         @if (Auth::user()->role == 'medico')
                                             {{-- rol medico --}}
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -540,7 +540,7 @@
                                                 </diV>
                                             </div>
 
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="last_name" class="form-label"
@@ -554,7 +554,7 @@
                                                 </diV>
                                             </div>
 
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="ci" class="form-label"
@@ -569,7 +569,7 @@
                                                 </diV>
                                             </div>
 
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <label for="birthdate" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha
@@ -582,7 +582,7 @@
                                             </div>
                                             <input id="age" name="age" type="hidden" value="">
 
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="genere" class="form-label"
@@ -599,7 +599,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="username" class="form-label"
@@ -614,7 +614,7 @@
                                                 </diV>
                                             </div>
 
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -628,7 +628,7 @@
                                                 </diV>
                                             </div>
 
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="specialty" class="form-label"
@@ -648,7 +648,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="phone" class="form-label"
@@ -662,7 +662,7 @@
 
                                             @if (Auth::user()->type_plane == '7')
 
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -677,7 +677,7 @@
                                             </div>
 
 
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -692,7 +692,7 @@
                                                 </diV>
                                             </div>
 
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -708,9 +708,9 @@
                                             </div>
                                             @endif
 
-                                            <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
+                                            <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
 
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="zip_code" class="form-label"
@@ -725,7 +725,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="cod_mpps" class="form-label"
@@ -764,7 +764,7 @@
                                             {{-- rol laboratorio --}}
                                             <input type="hidden" id="id" name="id"
                                                 value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->id : '' !!}">
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -783,7 +783,7 @@
                                                 </diV>
                                             </div>
 
-                                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-3">
+                                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                 <div class="form-group">
                                                     <label for="name" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Tipo
@@ -799,7 +799,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -814,7 +814,7 @@
                                                 </diV>
                                             </div>
 
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -829,7 +829,7 @@
                                                 </diV>
                                             </div>
 
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -844,7 +844,7 @@
                                                 </diV>
                                             </div>
 
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -858,9 +858,9 @@
                                                 </diV>
                                             </div>
 
-                                            <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
+                                            <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
 
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -872,7 +872,7 @@
                                                 </diV>
                                             </div>                                  
 
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -894,7 +894,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -909,7 +909,7 @@
                                                 </diV>
                                             </div>
 
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -948,7 +948,7 @@
 
                                             <x-upload-image :title="$title" />
                                         @endif
-                                        <div class="row mt-3 justify-content-md-end">
+                                        <div class="row mt-2 justify-content-md-end">
                                             <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                 style="display: flex; justify-content: flex-end; align-items: flex-end;">
                                                 <input class="btn btnSave send " value="Guardar" type="submit"
@@ -972,7 +972,7 @@
             @if ($user->email_verified_at !== null)
                 {{-- actualizacion de correo Electronico --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 {{Auth::user()->type_plane != '7' ? "mb-3" : "mb-cd mb-3"}}" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{Auth::user()->type_plane != '7' ? "mb-2" : "mb-cd mb-2"}}">
                         <div class="accordion-item ">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"
@@ -997,7 +997,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mt-3 justify-content-md-end">
+                                    <div class="row mt-2 justify-content-md-end">
                                         <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                             style="display: flex; justify-content: flex-end; align-items: flex-end;">
                                             <input class="btn btnSave send " onclick="handlerEmial()" value="Guardar"
@@ -1013,7 +1013,7 @@
                 @if (Auth::user()->role == 'medico')
                     {{-- firma Digital --}}
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 {{Auth::user()->role == 'medico' && Auth::user()->type_plane != '7' ? "" : "mb-cd mb-3"}}">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 {{Auth::user()->role == 'medico' && Auth::user()->type_plane != '7' ? "" : "mb-cd mb-2"}}">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
                                     <button class="accordion-button collapsed bg-8" type="button"
@@ -1029,7 +1029,7 @@
                                         <form id="form-seal" method="post" action="/">
                                             {{ csrf_field() }}
                                             <x-seal-component />
-                                            <div class="row mt-3 justify-content-md-end">
+                                            <div class="row mt-2 justify-content-md-end">
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                     style="display: flex; justify-content: flex-end; align-items: flex-end;">
                                                     <input class="btn btnSave send" value="Guardar" type="submit"
@@ -1047,7 +1047,7 @@
             @endif
             @if (Auth::user()->role == 'medico' && Auth::user()->type_plane != '7')
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingPlanes">
                                 <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"

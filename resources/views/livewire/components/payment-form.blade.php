@@ -17,6 +17,7 @@
         .form-sq-mv {
             align-content: flex-start !important;
         }
+
         .mt-m3 {
             margin-top: 20px
         }
@@ -38,86 +39,25 @@
     <script>
         let type_plan = @json($type_plan);
         let listPlanes = [1, 2, 3, 4, 5, 6, 7];
+        let active = @json($active);
+        let token = @json($token);
 
         $(document).ready(() => {
 
-            const find = listPlanes.find((e) => e === Number(type_plan));
-            if (find == undefined) {
-                $('#div-content').hide();
-                return false;
-            }
-            $('#type_plan').val(type_plan);
+            if (active) {
+                $('#div-content').show();
+                $('#select-plan').show();
+                $("#free").hide()
+                $("#visitador_medico_id").val(token);
 
-            switch (Number(type_plan)) {
-                case 1:
+            } else {
+                const find = listPlanes.find((e) => e === Number(type_plan));
+                if (find == undefined) {
+                    $('#div-content').hide();
+                    return false;
+                }
 
-                    $("#amount").val('0');
-                    $("#code_card").attr('disabled', true)
-                    $("#number_card").attr('disabled', true)
-                    $("#methodo_payment").attr('disabled', true)
-                    $("#div-payment-metodo").hide();
-                    $("#free").show();
-
-                    break;
-                case 2:
-                    $("#amount").val('$19.99');
-                    $("#free").hide();
-
-                    break;
-                case 3:
-                    $("#amount").val('$39.99');
-                    $("#free").hide();
-
-                    break;
-                case 4:
-                    $("#amount").val('$39.99');
-                    $("#nombre").hide();
-                    $("#apellidos").hide();
-                    $("#cedula").hide();
-                    $("#empresa").show();
-                    $("#tipo_rif").show();
-                    $("#Rif").show();
-                    $("#free").hide();
-
-                    break;
-                case 5:
-                    $("#amount").val('$39.99');
-                    $("#nombre").hide();
-                    $("#apellidos").hide();
-                    $("#cedula").hide();
-                    $("#empresa").show();
-                    $("#tipo_rif").show();
-                    $("#Rif").show();
-                    $("#free").hide();
-                    $("#free").hide();
-
-
-                    break;
-                case 6:
-                    $("#amount").val('$39.99');
-                    $("#nombre").hide();
-                    $("#apellidos").hide();
-                    $("#cedula").hide();
-                    $("#empresa").show();
-                    $("#tipo_rif").show();
-                    $("#Rif").show();
-
-                    break;
-                case 7:
-                    $("#amount").val('$39.99');
-                    $("#nombre").hide();
-                    $("#apellidos").hide();
-                    $("#cedula").hide();
-                    $("#center").show();
-                    $("#tipo_rif").show();
-                    $("#Rif").show();
-                    $("#div-payment-metodo").hide();
-                    $("#free").hide()
-
-                    break;
-
-                default:
-                    break;
+                handlerPlane(type_plan);
             }
 
             $('#form-payment').validate({
@@ -271,6 +211,87 @@
             });
         });
 
+        function handlerPlane(type_plan) {
+
+            $('#type_plan').val(type_plan);
+
+            switch (Number(type_plan)) {
+                case 1:
+
+                    $("#amount").val('0');
+                    $("#code_card").attr('disabled', true)
+                    $("#number_card").attr('disabled', true)
+                    $("#methodo_payment").attr('disabled', true)
+                    $("#div-payment-metodo").hide();
+                    $("#free").show();
+
+                    break;
+                case 2:
+                    $("#amount").val('$19.99');
+                    $("#free").hide();
+
+                    break;
+                case 3:
+                    $("#amount").val('$39.99');
+                    $("#free").hide();
+
+                    break;
+                case 4:
+                    $("#amount").val('$39.99');
+                    $("#nombre").hide();
+                    $("#apellidos").hide();
+                    $("#cedula").hide();
+                    $("#empresa").show();
+                    $("#tipo_rif").show();
+                    $("#Rif").show();
+                    $("#free").hide();
+
+                    break;
+                case 5:
+                    $("#amount").val('$39.99');
+                    $("#nombre").hide();
+                    $("#apellidos").hide();
+                    $("#cedula").hide();
+                    $("#empresa").show();
+                    $("#tipo_rif").show();
+                    $("#Rif").show();
+                    $("#free").hide();
+                    $("#free").hide();
+
+
+                    break;
+                case 6:
+                    $("#amount").val('$39.99');
+                    $("#nombre").hide();
+                    $("#apellidos").hide();
+                    $("#cedula").hide();
+                    $("#empresa").show();
+                    $("#tipo_rif").show();
+                    $("#Rif").show();
+
+                    break;
+                case 7:
+                    $("#amount").val('$39.99');
+                    $("#nombre").hide();
+                    $("#apellidos").hide();
+                    $("#cedula").hide();
+                    $("#center").show();
+                    $("#tipo_rif").show();
+                    $("#Rif").show();
+                    $("#div-payment-metodo").hide();
+                    $("#free").hide()
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        function handlerSelectPlan(e) {
+            handlerPlane(e.target.value);
+        }
+
         function handlerTypeDoc(e) {
             $('#rif').val(e.target.value);
         }
@@ -292,10 +313,14 @@
                                         <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-03.png') }}"
                                             alt="">
                                     </div>
-                                    <div id="free" style="display: none; display: flex; justify-content: center; text-align: center;">
+                                    <div id="free"
+                                        style="display: none; display: flex; justify-content: center; text-align: center;">
                                         <div class="row" style="display: flex; width: 60%; font-size: 14px;">
                                             <ul class="list-group">
-                                                <li class="list-group-item" style="background-color: #6f6f6e; color: white;"><h5>Plan Free</h5></b></li>
+                                                <li class="list-group-item"
+                                                    style="background-color: #6f6f6e; color: white;">
+                                                    <h5>Plan Free</h5></b>
+                                                </li>
                                                 <li class="list-group-item text-capitalize"><i class="bi bi-check"
                                                         style="color: green;"></i> 10 <b>Pacientes</b></li>
                                                 <li class="list-group-item text-capitalize"><i class="bi bi-check"
@@ -313,15 +338,37 @@
                                                         style="text-decoration: line-through;">Consultas en IA</b>
                                                 </li>
                                                 <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i><b>Publicidad</b>
+                                                        style="color: green;"></i><b>Publicidad</b>
                                                 </li>
                                             </ul>
                                         </div>
                                     </diV>
+
+
                                 </div>
                                 {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment']) }}
                                 <div class="row">
                                     <input type="hidden" name="type_plan" id="type_plan">
+                                    <input type="hidden" name="visitador_medico_id" id="visitador_medico_id"
+                                        value="">
+
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="select-plan"
+                                        style="display: none">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <label for="center_id" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Seleccione
+                                                    tipo de plan</label>
+                                                <select onchange="handlerSelectPlan(event)" style="width:100% !important "
+                                                    name="center_id" id="center_id" placeholder="Seleccione"
+                                                    class="form-control combo-textbox-input select_dos">
+                                                    <option value="2">PROFESIONAL</option>
+                                                    <option value="3">INLIMITADO</option>
+                                                </select>
+                                                {{-- <i class="bi bi-credit-card st-icon"></i> --}}
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="nombre">
                                         <div class="form-group">
@@ -352,8 +399,8 @@
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">C.I</label>
-                                                <input autocomplete="off" class="form-control" id="ci" name="ci"
-                                                    type="text" value="">
+                                                <input autocomplete="off" class="form-control" id="ci"
+                                                    name="ci" type="text" value="">
                                                 <i class="bi bi-person-vcard-fill st-icon"></i>
                                             </div>
                                         </diV>
@@ -380,8 +427,7 @@
                                                 <label for="center_id" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro de
                                                     salud</label>
-                                                <select style="width:100% !important " 
-                                                    name="center_id" id="center_id"
+                                                <select style="width:100% !important " name="center_id" id="center_id"
                                                     placeholder="Seleccione"
                                                     class="form-control combo-textbox-input select_dos">
                                                     <option value="">Seleccione...</option>
@@ -436,7 +482,7 @@
                                                     eléctronico</label>
                                                 <input autocomplete="off" class="form-control" id="email"
                                                     name="email" type="text" value="">
-                                                    <i class="bi bi-envelope st-icon" style="top: 30px"></i>
+                                                <i class="bi bi-envelope st-icon" style="top: 30px"></i>
                                             </div>
                                         </diV>
                                     </div>

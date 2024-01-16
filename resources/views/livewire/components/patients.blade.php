@@ -9,8 +9,8 @@
     #img-pat {
         border-radius: 27px;
         border: 2px solid #44525F;
-        height: 150px;
-        margin: 5px 23px;
+        height: 125px;
+        margin: 5px 15px;
         object-fit: cover;
     }
 
@@ -62,7 +62,7 @@
         }
 
         #img-pat {
-            margin: 23px 20px 0 0;
+            margin: 4px 20px 0 0;
         }
 
     }
@@ -73,7 +73,7 @@
         }
 
         #img-pat {
-            margin: 7px 20px 0 0;
+            margin: 4px 20px 0 0;
         }
     }
 </style>
@@ -1091,8 +1091,8 @@
                 </div>
                 {{-- Lista de pacientes con consultas  --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd"
-                        style="margin-top: 20px; margin-bottom: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-cd"
+                        style="margin-bottom: 20px;">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
@@ -1101,12 +1101,11 @@
                                     <i class="bi bi-card-list"></i> Lista de pacientes con consultas
                                 </button>
                             </span>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                            <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row" id="table-patients">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                            style="margin-top: 20px;">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 table-responsive" >
                                             <table id="table-patient" class="table table-striped table-bordered"
                                                 style="width:100%; ">
                                                 <thead>
@@ -1231,15 +1230,14 @@
                         </div> 
                         <div class="modal-body">
                             <div id="div-pat" style="display: none">
-                                <div class="d-flex mt-3">
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 modal-d">
+                                <div class="d-flex" style="align-items: center;">
+                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 modal-d">
                                         <div class="img">
-                                            <img id="img-pat" src="" width="150" height="150"
+                                            <img id="img-pat" src="" width="125" height="125"
                                                 alt="Imagen del paciente">
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3"
-                                        style="font-size: 14px;">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="font-size: 13px;">
                                         <div>
                                             <strong><span class="text-capitalize" id="name-pat"></span></strong>
                                             <br>
@@ -1252,15 +1250,17 @@
                                             <strong>Correo: </strong><span id="email-pat"></span>
                                             <br>
                                             <strong>Telefono: </strong><span id="phone-pat"></span>
+
+                                            
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <form action="" id="form-appointment">
                                 {{ csrf_field() }}
-                                <div class="row mt-3">
+                                <div class="row mt-1">
                                     <input type="hidden" id="patient_id" name="patient_id" value="">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="date" class="form-label"
@@ -1271,7 +1271,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="phone" class="form-label"
@@ -1288,7 +1288,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="phone" class="form-label"
@@ -1302,11 +1302,11 @@
                                     </div>
 
                                     @if (Auth::user()->type_plane !=7)                                        
-                                    <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" />
+                                    <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" />
                                     @endif
 
 
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3 text-center">
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center">
                                         <div class="form-check form-switch">
                                             <input onchange="handlerPrice(event);" style="width: 5em"
                                                 class="form-check-input" type="checkbox" role="switch" id="showPrice"
@@ -1319,7 +1319,7 @@
                                     </div>
 
 
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                         style="display: none" id="div-price">
                                         <div class="form-group">
                                             <div class="Icon-inside">
@@ -1333,10 +1333,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="row text-center mt-3 mb-4">
+                                    <div class="row text-center mt-2 mb-2">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
                                             style="margin-top: -4px" id="send">
-                                            <input class="btn btnSave" id="registrer-pac" value="Registrar"
+                                            <input class="btn btnSave" id="registrer-pac" value="Agendar"
                                                 type="submit" />
 
                                         </div>

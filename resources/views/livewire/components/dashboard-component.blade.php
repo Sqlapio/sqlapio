@@ -3,7 +3,7 @@
 @vite(['resources/js/graphicCountAll.js', 'resources/js/dairy.js', 'resources/js/graphic_laboratory_coun_study.js', 'resources/js/graphic_laboratory_coun_exam.js'])
 <style>
     .mt-gf {
-        margin-top: 3rem !important;
+        margin-top: 1rem !important;
     }
 
     @media screen and (max-width: 576px) {
@@ -539,8 +539,7 @@
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <div class="row"id="table-patients">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                                style="margin-top: 20px:">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 table-responsive">
 
                                                 <table id="table-patient" class="table table-striped table-bordered"
                                                     style="width:100%">
@@ -633,8 +632,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd"
-                            style="margin-top: 20px; margin-bottom: 20px">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2" >
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingTwo">
                                     <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
@@ -647,27 +645,27 @@
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <div class="row">
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-1">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="card text-white" style="background-color: rgb(251,220,226)">
-                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                    <div class="c-chart-wrapper mt-2 mx-3"
                                                         style="height:auto; width:auto">
                                                         <canvas id="countPatientRegister"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-1">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="card text-white" style="background-color: rgb(219,242,242)">
-                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                    <div class="c-chart-wrapper mt-2 mx-3"
                                                         style="height:auto; width:auto">
                                                         <canvas id="countMedicalRecordr"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-1">
+                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="card text-white" style="background-color: rgb(235,224,255)">
-                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                    <div class="c-chart-wrapper mt-2 mx-3"
                                                         style="height:auto; width:auto">
                                                         <canvas id="countHistoryRegister"></canvas>
                                                     </div>
@@ -675,18 +673,18 @@
                                             </div>
                                         </div>
                                         <div class="row mt-gf">
-                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-1">
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                                 <div class="card text-white" style="background-color: rgb(255,255,255)">
-                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                    <div class="c-chart-wrapper mt-2 mx-3"
                                                         style="height:auto; width:auto">
                                                         <canvas id="countGenere"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-1">
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                                 <div class="card text-white" style="background-color: rgb(255,255,255)">
-                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                    <div class="c-chart-wrapper mt-2 mx-3"
                                                         style="height:auto; width:auto">
                                                         <canvas id="countGereral"></canvas>
                                                     </div>
@@ -705,7 +703,7 @@
             <div class="container-fluid body" style="padding: 0 3% 3%">
                 <div class="accordion" id="accordion">
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                             <div class="accordion-item ">
                                 <span class="accordion-header title" id="headingOne">
                                     <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
@@ -718,18 +716,18 @@
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <div class="row">
-                                            <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-1">
+                                            <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-2">
                                                 <div class="card text-white" style="background-color: rgb(251,220,226)">
-                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                    <div class="c-chart-wrapper mt-2 mx-3"
                                                         style="height:auto; width:auto">
                                                         <canvas id="countStudies"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-1">
+                                            <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-2">
                                                 <div class="card text-white" style="background-color: rgb(219,242,242)">
-                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                    <div class="c-chart-wrapper mt-2 mx-3"
                                                         style="height:auto; width:auto">
                                                         <canvas id="countExamenes"></canvas>
                                                     </div>
@@ -743,7 +741,7 @@
                     </div>
                     {{-- Pacientes con referencias --}}
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 " style="margin-top: 20px;">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                             <div class="accordion-item ">
                                 <span class="accordion-header title" id="headingTwo">
                                     <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
@@ -756,9 +754,8 @@
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <x-search-person />
-                                        <div class="row mt-3" id="content-table-ref" style="display: none">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                                style="margin-top: 20px:">
+                                        <div class="row mt-2" id="content-table-ref" style="display: none">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 table-responsive" >
                                                 <table id="table-ref" class="table table-striped table-bordered"
                                                     style="width:100%">
                                                     <thead>
@@ -789,7 +786,7 @@
                     </div>
                     {{-- examenes atendidos --}}
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                             <div class="accordion-item accordion-dashboard">
                                 <span class="accordion-header title" id="headingThree">
                                     <button class="accordion-button collapsed bg-1" type="button"
@@ -802,8 +799,7 @@
                                 <div id="collapseThree" class="accordion-collapse collapse"
                                     aria-labelledby="headingThree" data-bs-parent="#accordion">
                                     <div class="accordion-body">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                            style="margin-top: 20px:">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 table-responsive" >
                                             <table id="table-ref-examenes" class="table table-striped table-bordered"
                                                 style="width:100%">
                                                 <thead>
@@ -847,8 +843,7 @@
                     </div>
                     {{-- Estudios atendidos --}}
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd"
-                            style="margin-top: 20px; margin-bottom: 20px">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2" >
                             <div class="accordion-item accordion-dashboard">
                                 <span class="accordion-header title" id="headingFour">
                                     <button class="accordion-button collapsed bg-1" type="button"
@@ -861,8 +856,7 @@
                                 <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                            style="margin-top: 20px:">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <table id="table-ref-estudios" class="table table-striped table-bordered"
                                                 style="width:100%">
                                                 <thead>
@@ -912,8 +906,8 @@
             <div class="container-fluid body" style="padding: 0 3% 3%">
                 <div class="accordion" id="accordion">
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
-                            <div class="accordion-item ">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                            <div class="accordion-item">
                                 <span class="accordion-header title" id="headingOne">
                                     <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
@@ -927,7 +921,7 @@
                                         <div class="row">
                                             <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-1">
                                                 <div class="card text-white" style="background-color: rgb(251,220,226)">
-                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                    <div class="c-chart-wrapper mt-2 mx-3"
                                                         style="height:auto; width:auto">
                                                         <canvas id="countStudies"></canvas>
                                                     </div>
@@ -936,7 +930,7 @@
 
                                             <div class="col-sm-6 md-6 lg-6 xl-6 xxl-6 mt-1">
                                                 <div class="card text-white" style="background-color: rgb(219,242,242)">
-                                                    <div class="c-chart-wrapper mt-3 mx-3"
+                                                    <div class="c-chart-wrapper mt-2 mx-3"
                                                         style="height:auto; width:auto">
                                                         <canvas id="countExamenes"></canvas>
                                                     </div>
@@ -981,8 +975,8 @@
                                 <br>
                                 <strong>Paciente: </strong><span class="text-capitalize" id="ref-pat"></span>
                             </div>
-                            <div class="row mt-3">
-                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-3 table-responsive" id="info-show">
+                            <div class="row mt-2">
+                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="info-show">
                                     <table class="table table-striped table-bordered" id="table-info">
                                         <thead>
                                             <tr>
@@ -1007,7 +1001,7 @@
 
                             <div id="input-array"></div>
                             <div id="div-btn">
-                                <div class="row mt-3 div-result">
+                                <div class="row mt-2 div-result">
                                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
                                         <x-upload-image title="Cargar Resultados" />
                                     </div>

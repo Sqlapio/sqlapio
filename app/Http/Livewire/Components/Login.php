@@ -77,29 +77,20 @@ class Login extends Component
 							// verificar si vlaido el correo
 							if ($user->email_verified_at === null) {
 								return Redirect::to('/')->withErrors('Debe verificar su correo electronico!');
-							}
+							}							
 
-							$status_register = $user->status_register;
-							$speciality = Specialty::all();
+							// Redireccion segun status de registro	y rol						
+							$url = $this->redirecUser($user);
 
-							// Redireccion segun status de registro
-							if ($status_register == '1') {
-								return view('livewire.components.profile', compact('user', 'speciality'));
-							} else {
-
-								if ($user->role == "corporativo") {
-									return Redirect::route('Dashboard-corporate');
-								} else {
-									return Redirect::route('DashboardComponent');
-								}
-							}
+							return Redirect::route($url);
+							/////////END///////////////////
 						} else { // credenciales incorrectas
 							return Redirect::to('/')->withErrors('Autenticación incorrecta');
 						}
 					} else { // usuario desahabilitado
 						return Redirect::to('/')->withErrors('El usuario no existe o se encuentra deshabilitado. Por favor valide la información y vuelva a intentarlo');
 					}
-				} else {//no exite usuario
+				} else { //no exite usuario
 					return Redirect::to('/')->withErrors('Autenticación incorrecta');
 				}
 			} catch (\Throwable $th) {
@@ -115,6 +106,47 @@ class Login extends Component
 		Session::flush();
 		Auth::logout();
 		return redirect('/');
+	}
+
+	public function redirecUser($user){
+		// Redireccion segun status de registro	y rol					
+		switch ($user->role) {
+			case 'corporativo':
+				if ($user->status_register == 1) {
+					return 'Profile';
+				} else {
+					return 'Dashboard-corporate';
+				}
+				break;
+			case 'gerente_general':
+				if ($user->status_register == 1) {
+					return 'profile-user-force-sale';
+				} else {
+					return 'dashboard-general-manager';
+				}
+				break;
+			case 'gerente_zone':
+				if ($user->status_register == 1) {
+					return 'profile-user-force-sale';
+				} else {
+					return 'dashboard-general-zone';
+				}
+				break;
+			case 'visitador_medico':
+				if ($user->status_register == 1) {
+					return 'profile-user-force-sale';
+				} else {
+					return 'dashboard-medical-visitor';
+				}
+				break;
+			default:
+				if ($user->status_register == 1) {
+					return 'Profile';
+				} else {
+					return 'DashboardComponent';
+				}
+				break;
+		}
 	}
 
 	public function render()

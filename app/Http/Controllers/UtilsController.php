@@ -42,6 +42,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 use Log;
 use Svg\CssLength;
 
@@ -112,6 +113,9 @@ class UtilsController extends Controller
 		}
 		if ($value == '21') {
 			return 'password reset';
+		}
+        if ($value == '22') {
+			return 'initial registration of General Manager';
 		}
 	}
 
@@ -654,6 +658,11 @@ class UtilsController extends Controller
             if ($type == 'disable_doc') {
 				$view = 'emails.disable_email';
 				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
+			}
+
+            if ($type == 'verify_email_general_manager') {
+				$view = 'emails.verify_email_general_manager';
+				Mail::to($mailData['gm_email'])->send(new NotificationEmail($mailData, $view));
 			}
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();

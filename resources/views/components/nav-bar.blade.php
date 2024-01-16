@@ -592,17 +592,21 @@
                                     </button>
                                 </div>
 
-                                <div class="col-xs-6 col-sm-6 col-md-6" style="display: flex; justify-content: flex-end;">
-                                    @if (Auth::user()->get_data_corporate_master) 
-                                        @if (Auth::user()->type_plane == '7' && Auth::user()->get_data_corporate_master->get_laboratorio->lab_img == null && Auth::user()->role == 'medico')
-                                        <img class="avatar-corporativo d-none d-xl-block" src="{{ asset('/img/logo sqlapio-02.png') }}"
-                                        style="margin-top:0; object-fit: scale-down; width: 180px">
+                                <div class="col-xs-6 col-sm-6 col-md-6"
+                                    style="display: flex; justify-content: flex-end;">
+                                    @if (Auth::user()->get_data_corporate_master)
+                                        @if (Auth::user()->type_plane == '7' &&
+                                                Auth::user()->get_data_corporate_master->get_laboratorio->lab_img == null &&
+                                                Auth::user()->role == 'medico')
+                                            <img class="avatar-corporativo d-none d-xl-block"
+                                                src="{{ asset('/img/logo sqlapio-02.png') }}"
+                                                style="margin-top:0; object-fit: scale-down; width: 180px">
                                         @elseif (Auth::user()->role == 'medico' && Auth::user()->type_plane == '7' && Auth::user()->get_data_corporate_master)
                                             <img class="avatar-corporativo d-none d-xl-block"
-                                            src="{{ asset('/imgs/' . Auth::user()->get_data_corporate_master->get_laboratorio->lab_img) }}"
-                                            alt="Chris Wood" style="margin-top:0; object-fit: scale-down;">
+                                                src="{{ asset('/imgs/' . Auth::user()->get_data_corporate_master->get_laboratorio->lab_img) }}"
+                                                alt="Chris Wood" style="margin-top:0; object-fit: scale-down;">
                                         @endif
-                                    @endif 
+                                    @endif
                                     <a class="nav-link icon-p" href="#" style="height: 94px;">
                                         @if (Auth::user()->user_img != null && Auth::user()->role == 'medico')
                                             <span class="strong me-1" style="margin-bottom: 7px;"> Dr.
@@ -610,28 +614,36 @@
                                             <img class="avatar-user mt-text img-fluid rounded-circle me-1"
                                                 src="{{ asset('/imgs/' . Auth::user()->user_img) }}" alt="Chris Wood">
                                         @elseif(Auth::user()->role == 'medico' && Auth::user()->type_plane == '7')
-                                            <span class="strong me-1" style="margin-bottom: 7px;"> Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
-                                            <img class="avatar-user mt-text img-fluid rounded-circle me-1" src="{{ asset('/img/avatar/avatar.png') }}"
-                                                alt="Chris Wood">
+                                            <span class="strong me-1" style="margin-bottom: 7px;"> Dr.
+                                                {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
+                                            <img class="avatar-user mt-text img-fluid rounded-circle me-1"
+                                                src="{{ asset('/img/avatar/avatar.png') }}" alt="Chris Wood">
                                         @elseif(Auth::user()->role == 'corporativo' && Auth::user()->get_laboratorio->lab_img != null)
                                             <img class="avatar-corporativo img-fluid"
-                                                src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}" alt="Chris Wood">
+                                                src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}"
+                                                alt="Chris Wood">
                                         @elseif(Auth::user()->role == 'corporativo')
-                                            <img class="avatar-corporativo" src="{{ asset('/img/logo sqlapio-02.png') }}" alt="Chris Wood" 
-                                            style="margin-top:0; object-fit: scale-down;  width: 180px">
-                                        @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) == null && Auth::user()->role == 'laboratorio')
-                                            <span class="strong me-1" style="margin-bottom: 7px;"> {{ Auth::user()->business_name }} </span>
-                                            <img class="avatar-user mt-text img-fluid rounded-circle me-1" 
-                                                src="{{ asset('/img/avatar/avatar.png') }}" alt="Chris Wood">
-                                        @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) != null && Auth::user()->role == 'laboratorio')
-                                            <span class="strong me-1" style="margin-bottom: 7px;"> {{ Auth::user()->business_name }} </span>
+                                            <img class="avatar-corporativo"
+                                                src="{{ asset('/img/logo sqlapio-02.png') }}" alt="Chris Wood"
+                                                style="margin-top:0; object-fit: scale-down;  width: 180px">
+                                        @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) == null &&
+                                                Auth::user()->role == 'laboratorio')
+                                            <span class="strong me-1" style="margin-bottom: 7px;">
+                                                {{ Auth::user()->business_name }} </span>
                                             <img class="avatar-user mt-text img-fluid rounded-circle me-1"
-                                                src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}" 
+                                                src="{{ asset('/img/avatar/avatar.png') }}" alt="Chris Wood">
+                                        @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) != null &&
+                                                Auth::user()->role == 'laboratorio')
+                                            <span class="strong me-1" style="margin-bottom: 7px;">
+                                                {{ Auth::user()->business_name }} </span>
+                                            <img class="avatar-user mt-text img-fluid rounded-circle me-1"
+                                                src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}"
                                                 alt="Chris Wood">
-                                        @else   
-                                            <span class="strong me-1" style="margin-bottom: 7px;"> Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
-                                            <img class="avatar-user mt-text img-fluid rounded-circle me-1" src="{{ asset('/img/avatar/avatar.png') }}"
-                                                alt="Chris Wood">
+                                        @else
+                                            <span class="strong me-1" style="margin-bottom: 7px;"> Dr.
+                                                {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
+                                            <img class="avatar-user mt-text img-fluid rounded-circle me-1"
+                                                src="{{ asset('/img/avatar/avatar.png') }}" alt="Chris Wood">
                                         @endif
                                     </a>
                                     <button onclick="logout()" data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -669,15 +681,15 @@
                                                     href="#">Agenda</span>
                                             </a>
                                         </li>
-                                        @if (Auth::user()->type_plane != '7')                                            
-                                        <li>
-                                            <a class="nav-item" href="{{ route('Centers') }}" title="Clínica">
-                                                <img class="icon-menu" src="{{ asset('img/V2/Maps.png') }}"
-                                                    alt="Clínica">
-                                                <span class="nav-link active" aria-current="page"
-                                                    href="#">Centros</span>
-                                            </a>
-                                        </li>
+                                        @if (Auth::user()->type_plane != '7')
+                                            <li>
+                                                <a class="nav-item" href="{{ route('Centers') }}" title="Clínica">
+                                                    <img class="icon-menu" src="{{ asset('img/V2/Maps.png') }}"
+                                                        alt="Clínica">
+                                                    <span class="nav-link active" aria-current="page"
+                                                        href="#">Centros</span>
+                                                </a>
+                                            </li>
                                         @endif
                                         <li>
                                             <a class="nav-item" href="{{ route('Examen') }}" title="Exámenes">
@@ -760,6 +772,62 @@
                                             </a>
                                         </li>
                                     @endif
+
+                                    @if (Auth::user()->role == 'gerente_general')
+                                        <li>
+                                            <a class="nav-item" href="{{ route('dashboard-general-manager') }}"
+                                                title="Dashboard">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
+                                                    alt="Dashboard">
+                                                <span class="nav-link active" aria-current="page">Dashboard</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-item" href="{{ route('profile-user-force-sale') }}" title="Configuración">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
+                                                    alt="Configuración">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">Configuración</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    @if (Auth::user()->role == 'gerente_zone')
+                                        <li>
+                                            <a class="nav-item" href="{{ route('dashboard-general-zone') }}"
+                                                title="Dashboard">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
+                                                    alt="Dashboard">
+                                                <span class="nav-link active" aria-current="page">Dashboard</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-item" href="{{ route('profile-user-force-sale') }}" title="Configuración">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
+                                                    alt="Configuración">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">Configuración</span>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    @if (Auth::user()->role == 'visitador_medico')
+                                        <li>
+                                            <a class="nav-item" href="{{ route('dashboard-medical-visitor') }}"
+                                                title="Dashboard">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
+                                                    alt="Dashboard">
+                                                <span class="nav-link active" aria-current="page">Dashboard</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-item" href="{{ route('profile-user-force-sale') }}" title="Configuración">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
+                                                    alt="Configuración">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">Configuración</span>
+                                            </a>
+                                        </li>
+                                    @endif
                                     {{-- end --}}
                                 </ul>
                             </div>
@@ -793,5 +861,4 @@
             new bootstrap.Tooltip(element)
         });
     });
-
 </script>
