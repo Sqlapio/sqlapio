@@ -26,6 +26,8 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
+<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon.ico') }}">
+
 @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 <style>
     @import url('/fuentes/Roboto-Black.ttf');
