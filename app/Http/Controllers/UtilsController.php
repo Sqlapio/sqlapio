@@ -28,6 +28,7 @@ use App\Models\Reference;
 use App\Models\Representative;
 use App\Models\Study;
 use App\Models\StudyPatient;
+use App\Models\Token;
 use App\Models\User;
 use App\Models\VitalSign;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -36,11 +37,11 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Arr;
 use Log;
 use Svg\CssLength;
 
@@ -1601,37 +1602,47 @@ class UtilsController extends Controller
 	{
 		try {
 
+            $token = DB::table('tokens')->select('token')->get();
+            $array_res = $token->toArray();
+            $list_token = Arr::pluck($array_res, 'token');
+
+            /** Selecion aleatoria */
+            $n = count($list_token);
+            $rand = mt_rand(0, $n - 1);
+            $secret_key = 'Bearer '.$list_token[$rand];
+
             $data = Http::withHeaders([
-				'Content-Type' => 'application/json',
-				'Accept' => 'application/json',
-				'Authorization' => 'Bearer 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',
-				'OpenAI-Organization' => 'org-PiNOPH4ttimplVNzU1KCKIRx'
-			  ])
-			  ->post("https://api.openai.com/v1/chat/completions", [
-				"model" => "gpt-3.5-turbo",
-				'messages' => [
-					[
-					   "role" => "user",
-					   "content" => "Actua como medico y realiza un diagnostico para un paciente ".$request->genere." de ".$request->age." años con los siguientes sintomas: ".$request->symtoms.". Agrega 3 recomendaciones generales."
-				   ]
-				],
-				'temperature' => 1,
-				"max_tokens" => 1024,
-				"n" => 1,
-				"stream" => false,
-				"top_p" => 1,
-				"frequency_penalty" => 0,
-				"presence_penalty" => 0,
-			]);
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+                'Authorization' => $secret_key,
+              ])
+              ->post("https://api.openai.com/v1/chat/completions", [
+                "model" => "gpt-3.5-turbo",
+                'messages' => [
+                    [
+                       "role" => "user",
+                       "content" => "Actua como medico y realiza un diagnostico para un paciente ".$request->genere." de ".$request->age." años con los siguientes sintomas: ".$request->symtoms.". Agrega 3 recomendaciones generales."
+                   ]
+                ],
+                'temperature' => 1,
+                "max_tokens" => 1024,
+                "n" => 1,
+                "stream" => false,
+                "top_p" => 1,
+                "frequency_penalty" => 0,
+                "presence_penalty" => 0,
+            ]);
 
-			$res = $data->json()['choices'][0]['message']['content'];
+            $res = $data->json()['choices'][0]['message']['content'];
 
-			return response()->json([
-				'success' => 'true',
-				'data'  =>  $res
-			], 200);
+            return response()->json([
+                'success' => 'true',
+                'data'  =>  $res
+            ], 200);
+
 
 		} catch (\Throwable $th) {
+
 			$message = $th->getMessage();
 			dd('Error UtilsController.sqlapio_ia()', $message);
 		}
