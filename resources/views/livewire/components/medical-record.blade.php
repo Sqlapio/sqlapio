@@ -156,6 +156,8 @@
         let symptom_filter = [];
         let study_filter = [];
         let valSymptoms = '';
+        let valExamenes = '';
+        let valStudios = '';
         let find = {};
 
         let user = @json(Auth::user());
@@ -164,11 +166,11 @@
 
             switch_type_plane(user);
 
-            handlerUl(symptoms, 'symptoms', 'btn btn-outline-other check-cm');
+            handlerUl(symptoms, 'symptoms', 'btn btn-outline-other check-cm', 6);
 
-            handlerUl(exam, 'exam', 'btn btn-outline-primary check-cm');
+            handlerUl(exam, 'exam', 'btn btn-outline-primary check-cm', 3);
 
-            handlerUl(study, 'studie', 'btn btn-outline-success check-cm');
+            handlerUl(study, 'studie', 'btn btn-outline-success check-cm', 3);
 
 
 
@@ -740,12 +742,12 @@
 
                     if (data.length > 0) {
 
-                        handlerUl(data, id, 'btn btn-outline-success check-cm');
+                        handlerUl(data, id, 'btn btn-outline-success check-cm', 3);
 
 
                     } else {
 
-                        handlerUl(data, id, 'btn btn-outline-success check-cm');
+                        handlerUl(study, id, 'btn btn-outline-success check-cm', 3);
 
                     }
                     break;
@@ -756,11 +758,11 @@
 
                     if (data_exam.length > 0) {
 
-                        handlerUl(data_exam, id, 'btn btn-outline-primary check-cm');
+                        handlerUl(data_exam, id, 'btn btn-outline-primary check-cm', 3);
 
                     } else {
 
-                        handlerUl(exam, id, 'btn btn-outline-primary check-cm');
+                        handlerUl(exam, id, 'btn btn-outline-primary check-cm', 3);
 
                     }
                     break;
@@ -771,18 +773,18 @@
 
                     if (symptom.length > 0) {
 
-                        handlerUl(symptom, id, 'btn btn-outline-other check-cm');
+                        handlerUl(symptom, id, 'btn btn-outline-other check-cm', 6);
 
 
                     } else {
 
-                        handlerUl(symptoms, id, 'btn btn-outline-other check-cm');
+                        handlerUl(symptoms, id, 'btn btn-outline-other check-cm', 6);
                     }
                     break;
             }
         }
 
-        function setSymptoms(e, key,id) {
+        function setSymptoms(e, key, id) {
 
             let symptom = symptoms.find(el => el.id == id);
 
@@ -802,18 +804,27 @@
 
                 valSymptoms = valSymptoms.replace(`${e.target.value}`, '');
 
-                valSymptoms = valSymptoms.replace(',,', ',');
+                if (valSymptoms[0] == ',') {
+
+                    valSymptoms = valSymptoms.slice(1);
+                }
+
+
+                if (valSymptoms.substring(valSymptoms.indexOf() + 1) == "," || valSymptoms.substring(valSymptoms.indexOf() +
+                        1) == ",,") {
+
+                    $("#diagnosis").val('');
+
+                }
 
                 $("#diagnosis").val(valSymptoms);
 
                 handlerCheckDelete(symptom);
             }
 
-            valSymptoms.replace(',,', '');
-
         }
 
-        const handlerUl = (data, id, clas) => {
+        const handlerUl = (data, id, clas, number) => {
 
             let array = [];
 
@@ -838,16 +849,16 @@
 
                     code = e.cod_study;
 
-                    callback = `onclick="setStudy(event,${id}_${e.id})"`;
+                    callback = `onclick="setStudy(event,${id}_${e.id},${e.id})"`;
 
                 } else {
 
                     code = e.cod_exam;
 
-                    callback = `onclick="setExams(event,${id}_${e.id})"`;
+                    callback = `onclick="setExams(event,${id}_${e.id},${e.id})"`;
                 }
 
-                if (k < 6) {
+                if (k < number) {
                     let el = `<li style="margin-bottom: 10px; padding-right: 5px">
                             <input type="checkbox" ${check} class="btn-check"
                             id="${id}_${e.id}"
@@ -878,6 +889,24 @@
             symptoms = [find, ...filter];
         }
 
+        const handlerExamenCheckTrue = (val) => {
+
+            val.check = true;
+
+            let filter = exam.filter(e => e.id !== val.id);
+
+            exam = [val, ...filter];
+        }
+
+        const handlerStudiesCheckTrue = (value) => {
+
+            value.check = true;
+
+            let filter = study.filter(e => e.id !== value.id);
+
+            study = [value, ...filter];
+        }
+
 
         const handlerCheckDelete = (find) => {
 
@@ -888,7 +917,28 @@
             symptoms = [...filter, find];
         }
 
-        function setExams(e, key) {
+        const handlerStudiesCheckDelete = (value) => {
+
+            delete value.check;
+
+            let filter = study.filter(e => e.id !== value.id);
+
+            study = [...filter, value];
+        }
+
+        const handlerExamenCheckDelete = (val) => {
+
+            delete val.check;
+
+            let filter = exam.filter(e => e.id !== val.id);
+
+            exam = [...filter, val];
+        }
+
+        function setExams(e, key, id) {
+
+
+            let data = exam.find(el => el.id == id);
 
             if ($(`#${e.target.id}`).is(':checked')) {
                 exams_array.push({
@@ -896,13 +946,42 @@
                     description: $(`#${e.target.id}`).val(),
                 });
 
+                valExamenes = (valExamenes == "") ? e.target.value : `${valExamenes},${e.target.value}`;
+
+                $("#text_area_exman").val(valExamenes);
+
+                handlerExamenCheckTrue(data);
+
             } else {
+
+                valExamenes = valExamenes.replace(`${e.target.value}`, '');
+
+                if (valExamenes[0] == ',') {
+
+                    valExamenes = valExamenes.slice(1);
+                }
+
+
+                if (valExamenes.substring(valExamenes.indexOf() + 1) == "," || valExamenes.substring(valExamenes.indexOf() +
+                        1) == ",,") {
+
+                    $("#text_area_exman").val('');
+
+                }
+
+
+                $("#text_area_exman").val(valExamenes);
+
+                handlerExamenCheckDelete(data);
 
                 exams_array.splice(key, 1);
             }
         }
 
-        function setStudy(e, key) {
+        function setStudy(e, key, id) {
+
+            let data_study = study.find(el => el.id == id);
+
 
             if ($(`#${e.target.id}`).is(':checked')) {
                 studies_array.push({
@@ -910,8 +989,36 @@
                     description: $(`#${e.target.id}`).val(),
 
                 });
+
+                valStudios = (valStudios == "") ? e.target.value : `${valStudios},${e.target.value}`;
+
+                $("#text_area_studies").val(valStudios);
+
+                handlerStudiesCheckTrue(data_study);
             } else {
+
+                valStudios = valStudios.replace(`${e.target.value}`, '');
+
+
+                if (valStudios[0] == ',') {
+
+                    valStudios = valStudios.slice(1);
+                }
+
+
+                if (valStudios.substring(valStudios.indexOf() + 1) == "," || valStudios.substring(valStudios.indexOf() +
+                        1) == ",,") {
+
+                    $("#text_area_studies").val('');
+
+                }
+
+                $("#text_area_studies").val(valStudios);
+
+
                 studies_array.splice(key, 1);
+
+                handlerStudiesCheckDelete(data_study);
             }
         }
 
@@ -1316,7 +1423,16 @@
                                                     <label id='search_exam_p'
                                                         style="font-size: 13px; margin-bottom: 5px; display:none">Exámenes
                                                     </label>
-                                                    <div class="overflow-auto p-3 bg-light mt-3"
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
+                                            border-radius: 9px; padding: 16px;">
+                                                        <div class="form-group">
+                                                            <label for="phone" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Exámenes</label>
+                                                            <textarea id="text_area_exman" rows="2" name="text_area_exman" class="form-control"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="t-3"
                                                         style="max-width: 100%; max-height: 100px; min-height: 100px ;position: relative;">
 
                                                         <ul id="exam_filter" class="exam"
@@ -1343,7 +1459,16 @@
                                                     <label id='search_studie_p'
                                                         style="font-size: 13px; margin-bottom: 5px; display:none">Estudios
                                                     </label>
-                                                    <div class="overflow-auto p-3 bg-light mt-3 card-study"
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
+                                            border-radius: 9px; padding: 16px;">
+                                                        <div class="form-group">
+                                                            <label for="phone" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Estudios</label>
+                                                            <textarea id="text_area_studies" rows="2" name="text_area_studies" class="form-control"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-3 card-study"
                                                         style="max-width: 100%; max-height:100px;  min-height: 100px; position: relative;">
                                                         <ul id="study_filter" class="studie"
                                                             style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
