@@ -26,7 +26,7 @@
     .check-cm {
         padding: 1px 10px !important;
         border-radius: 20px !important;
-        font-size: 13px;
+        font-size: 12px !important;
     }
 
     .btn-outline-other {
@@ -124,17 +124,49 @@
         background: #d4d4d4;
     }
 
+    .data-medical {
+            font-size: 13px;
+    }
+
     @media only screen and (max-width: 390px) {
         .data-medical {
             width: 185px !important;
-            font-size: 14px;
+            font-size: 13px;
+        }
+
+        .mb-style {
+            flex-direction: column;
+        }
+
+        .m-mb {
+           padding: 0px !important;
         }
     }
 
     @media (min-width: 391px) and (max-width: 576px) {
         .data-medical {
             width: 222px !important;
-            font-size: 14px;
+            font-size: 13px;
+        }
+
+        .mb-style {
+            flex-direction: column;
+        }
+
+        .m-mb {
+            padding: 0px !important;
+        }
+    }
+
+    @media (min-width: 577px) and (max-width: 768px) {
+        .mb-style {
+            flex-direction: column;
+        }
+    }
+
+    @media (min-width: 769px) and (max-width: 992px) {
+        .mb-style {
+            flex-direction: column;
         }
     }
 </style>
@@ -166,7 +198,7 @@
 
             switch_type_plane(user);
 
-            handlerUl(symptoms, 'symptoms', 'btn btn-outline-other check-cm', 6);
+            handlerUl(symptoms, 'symptoms', 'btn btn-outline-other check-cm', 7);
 
             handlerUl(exam, 'exam', 'btn btn-outline-primary check-cm', 3);
 
@@ -597,6 +629,7 @@
                     medications_supplements = [];
                     $('#exam_filter').hide();
                     $('#study_filter').hide();
+                    $('#symptoms_filter').hide();
                     let exam_filter = [];
                     let symptom_filter = [];
                     let study_filter = [];
@@ -612,6 +645,9 @@
                     $('#search_studie_p').hide();
                     $('#search_exam_p').hide();
                     $("#div_spinner").show();
+                    $("#exam-text-area").show();
+                    $("#study-text-area").show();
+
 
                 }
             });
@@ -647,6 +683,7 @@
             $('#studie').hide();
             $('#exam_filter').show();
             $('#study_filter').show();
+            $('#symptoms_filter').show();
             $('#search_studie').hide();
             $('#search_exam').hide();
             $('#diagnosis_div').hide();
@@ -654,6 +691,8 @@
             $('#search_studie_p').show();
             $('#search_exam_p').show();
             $("#div_spinner").hide();
+            $("#exam-text-area").hide();
+            $("#study-text-area").hide();
 
             item.data.medications_supplements.map((element, key) => {
                 countMedicationAdd = countMedicationAdd + 1;
@@ -773,12 +812,12 @@
 
                     if (symptom.length > 0) {
 
-                        handlerUl(symptom, id, 'btn btn-outline-other check-cm', 6);
+                        handlerUl(symptom, id, 'btn btn-outline-other check-cm', 7);
 
 
                     } else {
 
-                        handlerUl(symptoms, id, 'btn btn-outline-other check-cm', 6);
+                        handlerUl(symptoms, id, 'btn btn-outline-other check-cm', 7);
                     }
                     break;
             }
@@ -807,10 +846,10 @@
                 if (valSymptoms[0] == ',') {
 
                     valSymptoms = valSymptoms.slice(1);
-                }
+                    }
 
 
-                if (valSymptoms.substring(valSymptoms.indexOf() + 1) == "," || valSymptoms.substring(valSymptoms.indexOf() +
+                    if (valSymptoms.substring(valSymptoms.indexOf() + 1) == "," || valSymptoms.substring(valSymptoms.indexOf() +
                         1) == ",,") {
 
                     $("#diagnosis").val('');
@@ -896,9 +935,9 @@
             let filter = exam.filter(e => e.id !== val.id);
 
             exam = [val, ...filter];
-        }
+            }
 
-        const handlerStudiesCheckTrue = (value) => {
+            const handlerStudiesCheckTrue = (value) => {
 
             value.check = true;
 
@@ -919,108 +958,108 @@
 
         const handlerStudiesCheckDelete = (value) => {
 
-            delete value.check;
+delete value.check;
 
-            let filter = study.filter(e => e.id !== value.id);
+let filter = study.filter(e => e.id !== value.id);
 
-            study = [...filter, value];
-        }
+study = [...filter, value];
+}
 
-        const handlerExamenCheckDelete = (val) => {
+const handlerExamenCheckDelete = (val) => {
 
-            delete val.check;
+delete val.check;
 
-            let filter = exam.filter(e => e.id !== val.id);
+let filter = exam.filter(e => e.id !== val.id);
 
-            exam = [...filter, val];
-        }
+exam = [...filter, val];
+}
 
-        function setExams(e, key, id) {
-
-
-            let data = exam.find(el => el.id == id);
-
-            if ($(`#${e.target.id}`).is(':checked')) {
-                exams_array.push({
-                    code_exams: $(`#${e.target.id}`).data('code'),
-                    description: $(`#${e.target.id}`).val(),
-                });
-
-                valExamenes = (valExamenes == "") ? e.target.value : `${valExamenes},${e.target.value}`;
-
-                $("#text_area_exman").val(valExamenes);
-
-                handlerExamenCheckTrue(data);
-
-            } else {
-
-                valExamenes = valExamenes.replace(`${e.target.value}`, '');
-
-                if (valExamenes[0] == ',') {
-
-                    valExamenes = valExamenes.slice(1);
-                }
+function setExams(e, key, id) {
 
 
-                if (valExamenes.substring(valExamenes.indexOf() + 1) == "," || valExamenes.substring(valExamenes.indexOf() +
-                        1) == ",,") {
+let data = exam.find(el => el.id == id);
 
-                    $("#text_area_exman").val('');
+if ($(`#${e.target.id}`).is(':checked')) {
+    exams_array.push({
+        code_exams: $(`#${e.target.id}`).data('code'),
+        description: $(`#${e.target.id}`).val(),
+    });
 
-                }
+    valExamenes = (valExamenes == "") ? e.target.value : `${valExamenes},${e.target.value}`;
 
+    $("#text_area_exman").val(valExamenes);
 
-                $("#text_area_exman").val(valExamenes);
+    handlerExamenCheckTrue(data);
 
-                handlerExamenCheckDelete(data);
+} else {
 
-                exams_array.splice(key, 1);
-            }
-        }
+    valExamenes = valExamenes.replace(`${e.target.value}`, '');
 
-        function setStudy(e, key, id) {
+    if (valExamenes[0] == ',') {
 
-            let data_study = study.find(el => el.id == id);
-
-
-            if ($(`#${e.target.id}`).is(':checked')) {
-                studies_array.push({
-                    code_studies: $(`#${e.target.id}`).data('code'),
-                    description: $(`#${e.target.id}`).val(),
-
-                });
-
-                valStudios = (valStudios == "") ? e.target.value : `${valStudios},${e.target.value}`;
-
-                $("#text_area_studies").val(valStudios);
-
-                handlerStudiesCheckTrue(data_study);
-            } else {
-
-                valStudios = valStudios.replace(`${e.target.value}`, '');
+        valExamenes = valExamenes.slice(1);
+    }
 
 
-                if (valStudios[0] == ',') {
+    if (valExamenes.substring(valExamenes.indexOf() + 1) == "," || valExamenes.substring(valExamenes.indexOf() +
+            1) == ",,") {
 
-                    valStudios = valStudios.slice(1);
-                }
+        $("#text_area_exman").val('');
 
-
-                if (valStudios.substring(valStudios.indexOf() + 1) == "," || valStudios.substring(valStudios.indexOf() +
-                        1) == ",,") {
-
-                    $("#text_area_studies").val('');
-
-                }
-
-                $("#text_area_studies").val(valStudios);
+    }
 
 
-                studies_array.splice(key, 1);
+    $("#text_area_exman").val(valExamenes);
 
-                handlerStudiesCheckDelete(data_study);
-            }
-        }
+    handlerExamenCheckDelete(data);
+
+    exams_array.splice(key, 1);
+}
+}
+
+function setStudy(e, key, id) {
+
+let data_study = study.find(el => el.id == id);
+
+
+if ($(`#${e.target.id}`).is(':checked')) {
+    studies_array.push({
+        code_studies: $(`#${e.target.id}`).data('code'),
+        description: $(`#${e.target.id}`).val(),
+
+    });
+
+    valStudios = (valStudios == "") ? e.target.value : `${valStudios},${e.target.value}`;
+
+    $("#text_area_studies").val(valStudios);
+
+    handlerStudiesCheckTrue(data_study);
+} else {
+
+    valStudios = valStudios.replace(`${e.target.value}`, '');
+
+
+    if (valStudios[0] == ',') {
+
+        valStudios = valStudios.slice(1);
+    }
+
+
+    if (valStudios.substring(valStudios.indexOf() + 1) == "," || valStudios.substring(valStudios.indexOf() +
+            1) == ",,") {
+
+        $("#text_area_studies").val('');
+
+    }
+
+    $("#text_area_studies").val(valStudios);
+
+
+    studies_array.splice(key, 1);
+
+    handlerStudiesCheckDelete(data_study);
+}
+}
 
         //agregar medicamento
         function addMedacition(e) {
@@ -1249,36 +1288,38 @@
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-person"></i></i> Datos del paciente
+                                    <i class="bi bi-person"></i> Datos del paciente
                                 </button>
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <div class="row">
-                                        <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 162px;">
-                                            <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
-                                                width="150" height="150" alt="Imagen del paciente" class="img-medical">
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                            <strong>Nombre Completo:</strong><span class="text-capitalize">
-                                                {{ $Patient->last_name . ', ' . $Patient->name }}</span>
-                                            <br>
-                                            <strong>Fecha de Nacimiento:</strong><span>
-                                                {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
-                                            <br>
-                                            <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
-                                            <br>
-                                            <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
-                                            <span>
-                                                {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
-                                            <br>
-                                            <strong>Genero:</strong> <span class="text-capitalize">
-                                                {{ $Patient->genere }}</span>
-                                            <br>
-                                            <strong>Nº Historial:</strong><span>
-                                                {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
-                                            </span>
+                                    <div class="row mt-3">
+                                        <div class="d-flex" style="align-items: center;">
+                                            <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 135px;">
+                                                <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                    width="125" height="125" alt="Imagen del paciente" class="img-medical">
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
+                                                <strong>Nombre Completo:</strong><span class="text-capitalize">
+                                                    {{ $Patient->last_name . ', ' . $Patient->name }}</span>
+                                                <br>
+                                                <strong>Fecha de Nacimiento:</strong><span>
+                                                    {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
+                                                <br>
+                                                <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
+                                                <br>
+                                                <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
+                                                <span>
+                                                    {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
+                                                <br>
+                                                <strong>Genero:</strong> <span class="text-capitalize">
+                                                    {{ $Patient->genere }}</span>
+                                                <br>
+                                                <strong>Nº Historial:</strong><span>
+                                                    {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1288,7 +1329,7 @@
                 </div>
                 {{-- consulta médica --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
@@ -1299,14 +1340,14 @@
                             </span>
                             <div id="collapseTwo" class="accordion-collapse2 collapse" aria-labelledby="headingTwo"
                                 data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
+                                <div class="accordion-body m-mb" >
                                     <form id="form-consulta" method="post" action="/">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="medical_record_id" id="medical_record_id"
                                             value="">
                                         <input type="hidden" name="id" id="id" value="{{ $Patient->id }}">
                                         <div id="input-array"></div>
-                                        <div class="row" style="margin: 16px;">
+                                        <div class="row mt-2" style="margin: 0px 16px;">
                                             @if (Auth::user()->type_plane !== '7')
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                     style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
@@ -1331,48 +1372,45 @@
                                                     </div>
                                                 </div>
                                             @endif
-                                            <div class=' col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3'
+                                            <div class=' col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style'
                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6"
+                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6"
                                                     style="padding: 0px 5px">
                                                     <div class="form-group">
                                                         <label for="phone" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Antecedentes</label>
-                                                        <textarea id="background" rows="4" name="background" class="form-control"></textarea>
+                                                        <textarea id="background" rows="3" name="background" class="form-control"></textarea>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6"
+                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6"
                                                     style="padding: 0px 5px">
                                                     <div class="form-group">
                                                         <label for="phone" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
                                                             de la visita</label>
-                                                        <textarea id="razon" rows="4" name="razon" class="form-control"></textarea>
+                                                        <textarea id="razon" rows="3" name="razon" class="form-control"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
-                                                    border-radius: 9px; padding: 16px; ">
-                                                    <div
-                                                        class="btn-search-s col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-3">
-                                                        <div class="form-group">
+                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
+                                                    <div class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                        <div class="form-group" style="display: flex; align-items: center;">
                                                             <label for="search_symptoms"
-                                                                class="form-label"style="font-size: 13px; margin-bottom: 5px;">
+                                                                class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 130px">
                                                                 Buscar Sintomas
                                                             </label>
-                                                            <input onkeyup="search(event,'symptoms')" type="text"
+                                                            <input onkeyup="search(event,'symptoms')" type="text" style="border-radius: 30px;"
                                                                 class="form-control" id="floatingInput" placeholder="">
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
-                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
-                                                border-radius: 9px; padding: 16px;">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                         <div class="form-group">
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Sintomas</label>
@@ -1380,17 +1418,17 @@
                                                         </div>
                                                     </div>
 
-                                                    <div id='diagnosis_div' class="mt-3"
-                                                        style="max-width: 100%; max-height: 100px; min-height: 100px ;position: relative;">
+                                                    <div id='diagnosis_div' class="overflow-auto"
+                                                        style="max-width: 100%; max-height: 40px; min-height: 40px; position: relative;">
                                                         <ul id="symptoms_filter" class="symptoms"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
+                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none">
                                                         </ul>
                                                         <ul id="symptoms" class="symptoms"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
+                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-top: 5px; margin-bottom: 0">
                                                         </ul>
                                                     </div>
                                                 </div>
-                                                <div class="row mt-3" id="div_spinner">
+                                                <div class="row" id="div_spinner">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <div id="spinner2" style="display: none">
                                                             <x-load-spinner show="true" />
@@ -1407,94 +1445,103 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Diagnostico</label>
+                                                    <textarea id="diagnosis" rows="2" name="diagnosis" class="form-control"></textarea>
+                                                </div>
+                                            </div>
 
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style"
                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display: flex;">
 
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6"
+                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6"
                                                     style="padding: 0px 8px 0px 0px">
-                                                    <div class="form-group" id=search_exam>
-                                                        <label for="search_patient"
-                                                            class="form-label"style="font-size: 13px; margin-bottom: 5px;">Buscar
-                                                            Examen</label>
-                                                        <input onkeyup="search(event,'exam')" type="text"
-                                                            class="form-control" id="floatingInput" placeholder="">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                        <div class="form-group" id='search_exam' style="display: flex; align-items: center;" >
+                                                            <label for="search_patient"
+                                                                class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 135px">Buscar
+                                                                Examen</label>
+                                                            <input onkeyup="search(event,'exam')" type="text" style="border-radius: 30px;"
+                                                                class="form-control" id="floatingInput" placeholder="">
+                                                        </div>
+                                                        <label id='search_exam_p'
+                                                            style="font-size: 13px; margin-bottom: 5px; display:none">Exámenes
+                                                        </label>
                                                     </div>
-                                                    <label id='search_exam_p'
-                                                        style="font-size: 13px; margin-bottom: 5px; display:none">Exámenes
-                                                    </label>
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
-                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
-                                            border-radius: 9px; padding: 16px;">
-                                                        <div class="form-group">
+                                                <div id="exam-text-area">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" 
+                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                        <div class="form-group" >
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Exámenes</label>
                                                             <textarea id="text_area_exman" rows="2" name="text_area_exman" class="form-control"></textarea>
                                                         </div>
                                                     </div>
-                                                    <div class="t-3"
-                                                        style="max-width: 100%; max-height: 100px; min-height: 100px ;position: relative;">
+                                                </div>
+                                                    <div class="mt-2 overflow-auto"
+                                                        style="max-width: 100%; max-height: 35px; min-height: 35px; position: relative;">
 
                                                         <ul id="exam_filter" class="exam"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
+                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none">
                                                         </ul>
                                                         <span id='not-exam'>No hay exámenes para mostrar de este paciente
                                                         </span>
-                                                        <ul id="exam" class="exam"
-                                                            style="padding-inline-start: 0; display: flex;
-                                                        flex-wrap: wrap;">
+                                                        <ul id="exam" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
                                                         </ul>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6"
-                                                    style="padding: 0px 8px 0px 0px">
-                                                    <div class="form-group" id=search_studie>
-                                                        <label for="search_patient" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px;">Buscar
-                                                            Estudio</label>
-                                                        <input onkeyup="search(event,'studie')" type="text"
-                                                            class="form-control" placeholder="" id="floatingInputt">
+                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6"
+                                                    style="padding: 0px 0px 0px 8px">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                        <div class="form-group" id="search_studie" style="display: flex; align-items: center;">
+                                                            <label for="search_patient" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; width: 131px">Buscar
+                                                                Estudio</label>
+                                                            <input onkeyup="search(event,'studie')" type="text" style="border-radius: 30px;"
+                                                                class="form-control" placeholder="" id="floatingInputt">
+                                                        </div>
                                                     </div>
-                                                    <label id='search_studie_p'
-                                                        style="font-size: 13px; margin-bottom: 5px; display:none">Estudios
+                                                    <label id='search_studie_p' style="font-size: 13px; margin-bottom: 5px; display:none">Estudios
                                                     </label>
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                                <div id="study-text-area">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="study-text-area"
                                                         style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
-                                            border-radius: 9px; padding: 16px;">
+                                                             border-radius: 9px; padding: 16px;">
                                                         <div class="form-group">
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Estudios</label>
                                                             <textarea id="text_area_studies" rows="2" name="text_area_studies" class="form-control"></textarea>
                                                         </div>
                                                     </div>
-                                                    <div class="mt-3 card-study"
-                                                        style="max-width: 100%; max-height:100px;  min-height: 100px; position: relative;">
+                                                </div>
+                                                    <div class="mt-2 card-study overflow-auto"
+                                                        style="max-width: 100%; max-height:35px;  min-height: 35px;">
                                                         <ul id="study_filter" class="studie"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
+                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none">
                                                         </ul>
                                                         <span id='not-studie'>No hay estudios para mostrar de este paciente
                                                         </span>
-                                                        <ul id="studie" class="studie"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
+                                                        <ul id="studie" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        {{-- Medicacion --}}
-                                        <div class="row mt-3" style="margin: 16px;">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                            {{-- Medicacion --}}
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <h5 style="margin-bottom: 17px;">Tratamiento</h5>
                                                 <hr style="margin-bottom: 0;">
                                                 <div class="row medicine-form">
                                                     <div style="display: flex">
-                                                        <span class="text-warning mt-3" id='med'
+                                                        <span class="text-warning mt-2" id='med'
                                                             style="font-size: 14px;margin-right: 10px;"></span>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -1507,7 +1554,7 @@
                                                             <span id="medicine_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -1520,7 +1567,7 @@
                                                             <span id="indication_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="treatmentDuration" class="form-label"
@@ -1552,12 +1599,14 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div
-                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3 offset-md-5">
+                                                    <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2" style="display: flex; align-items: flex-end; margin-bottom: 3px;">
                                                         <span type="" onclick="addMedacition(event)"
                                                             class="btn btn-outline-secondary addMedacition" id="btn"
-                                                            style="padding: 7px"><i class="bi bi-plus-lg"></i>Añadir
+                                                            style="padding: 7px; font-size: 12px" ><i class="bi bi-plus-lg"></i>Añadir
                                                             Tratamiento</span>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                                        <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i><span style="font-size: 14px; color:#b3b3b3"> Se debe agregar un medicamento a la vez </span>
                                                     </div>
                                                 </div>
                                                 {{-- tabla --}}
@@ -1583,7 +1632,7 @@
                                                             </tbody>
                                                         </table>
                                                         <tfoot>
-                                                            <div class="row mt-3" style="display: none">
+                                                            <div class="row mt-2" style="display: none">
                                                                 <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                     <div class="input-group flex-nowrap">
                                                                         <span class="input-group-text">Total de
@@ -1604,16 +1653,16 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row mt-3">
+                                        <div class="row">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                 <div id="spinner" style="display: none">
                                                     <x-load-spinner show="true" />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row mt-3 justify-content-md-end">
+                                        <div class="row mt-2 justify-content-md-end">
                                             <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                id="send" style="display: flex; justify-content: flex-end;">
+                                                id="send" style="display: flex; justify-content: flex-end; padding-right: 30px;">
                                                 <input class="btn btnSave send" value="Guardar Consulta"
                                                     type="submit" />
                                                 <button style="margin-left: 20px; padding: 8px;" type="button"
@@ -1632,7 +1681,7 @@
                 </div>
                 {{-- tabla --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingThree">
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
@@ -1687,7 +1736,7 @@
                                                                 {{ $item['center'] }}</td>
                                                             <td class="text-center td-pad text-capitalize"
                                                                 onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['full_name_doc'] }}
+                                                                    {{ $item['full_name_doc'] }}
                                                             </td>
                                                             <td class="text-center td-pad">
                                                                 <div class="d-flex">
