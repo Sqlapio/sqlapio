@@ -182,7 +182,6 @@
                                             <div>
                                                 <strong>Nombre: </strong><span class="text-capitalize" id="name"></span>
                                                 <br>
-                                                {{-- <strong>Cédula: </strong><span id="ci"></span> --}}
                                                 <strong>Cédula: </strong><span id="ci"></span>
                                                 <br>
                                                 <strong>Edad: </strong><span id="age"></span> años
