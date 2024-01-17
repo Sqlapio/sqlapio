@@ -1398,7 +1398,7 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                     style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
-                                                    <div class="btn-search-s col-sm-10 col-md-10 col-lg-4 col-xl-4 col-xxl-4">
+                                                    <div class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <div class="form-group" style="display: flex; align-items: center;">
                                                             <label for="search_symptoms"
                                                                 class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 130px">
@@ -1459,7 +1459,7 @@ if ($(`#${e.target.id}`).is(':checked')) {
 
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6"
                                                     style="padding: 0px 8px 0px 0px">
-                                                    <div class="col-sm-10 col-md-10 col-lg-8 col-xl-8 col-xxl-8">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <div class="form-group" id='search_exam' style="display: flex; align-items: center;" >
                                                             <label for="search_patient"
                                                                 class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 135px">Buscar
@@ -1496,7 +1496,7 @@ if ($(`#${e.target.id}`).is(':checked')) {
 
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6"
                                                     style="padding: 0px 0px 0px 8px">
-                                                    <div class="col-sm-10 col-md-10 col-lg-8 col-xl-8 col-xxl-8">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <div class="form-group" id="search_studie" style="display: flex; align-items: center;">
                                                             <label for="search_patient" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; width: 131px">Buscar
