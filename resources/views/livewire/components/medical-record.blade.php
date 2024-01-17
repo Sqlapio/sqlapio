@@ -128,6 +128,14 @@
             font-size: 13px;
     }
 
+    .pr-5 {
+        padding: 0 5px 0 0;
+    }
+
+    .pl-5 {
+        padding: 0 0 0 5px;
+    }
+
     @media only screen and (max-width: 390px) {
         .data-medical {
             width: 185px !important;
@@ -139,7 +147,15 @@
         }
 
         .m-mb {
-           padding: 0px !important;
+           padding: 0 !important;
+        }
+
+        .pr-5 {
+            padding: 0 0 5px !important;
+        }
+
+        .pl-5 {
+            padding: 0 0 0 5px;
         }
     }
 
@@ -154,7 +170,15 @@
         }
 
         .m-mb {
-            padding: 0px !important;
+            padding: 0 !important;
+        }
+
+        .pr-5 {
+            padding: 0 0 5 !important;
+        }
+
+        .pl-5 {
+            padding: 5px 0 0;
         }
     }
 
@@ -162,11 +186,27 @@
         .mb-style {
             flex-direction: column;
         }
+
+        .pr-5 {
+            padding: 0 0 5 !important;
+        }
+
+        .pl-5 {
+            padding: 5px 0 0;
+        }
     }
 
     @media (min-width: 769px) and (max-width: 992px) {
         .mb-style {
             flex-direction: column;
+        }
+
+        .pr-5 {
+            padding: 0 0 5 !important;
+        }
+
+        .pl-5 {
+            padding: 5px 0 0;
         }
     }
 </style>
@@ -198,7 +238,7 @@
 
             switch_type_plane(user);
 
-            handlerUl(symptoms, 'symptoms', 'btn btn-outline-other check-cm', 16);
+            handlerUl(symptoms, 'symptoms', 'btn btn-outline-other check-cm', 12);
 
             handlerUl(exam, 'exam', 'btn btn-outline-primary check-cm', 5);
 
@@ -812,12 +852,12 @@
 
                     if (symptom.length > 0) {
 
-                        handlerUl(symptom, id, 'btn btn-outline-other check-cm', 16);
+                        handlerUl(symptom, id, 'btn btn-outline-other check-cm', 12);
 
 
                     } else {
 
-                        handlerUl(symptoms, id, 'btn btn-outline-other check-cm', 16);
+                        handlerUl(symptoms, id, 'btn btn-outline-other check-cm', 12);
                     }
                     break;
             }
@@ -1349,9 +1389,7 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                         <div id="input-array"></div>
                                         <div class="row mt-2" style="margin: 0px 16px;">
                                             @if (Auth::user()->type_plane !== '7')
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
-                                                border-radius: 9px; padding: 16px;">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -1372,45 +1410,35 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                     </div>
                                                 </div>
                                             @endif
-                                            <div class=' col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style'
-                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
-                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6"
-                                                    style="padding: 0px 5px">
+                                            <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style' style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
+                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
                                                     <div class="form-group">
-                                                        <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Antecedentes</label>
+                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Antecedentes</label>
                                                         <textarea id="background" rows="3" name="background" class="form-control"></textarea>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6"
-                                                    style="padding: 0px 5px">
+                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pl-5">
                                                     <div class="form-group">
-                                                        <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
-                                                            de la visita</label>
+                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón de la visita</label>
                                                         <textarea id="razon" rows="3" name="razon" class="form-control"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
                                                     <div class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <div class="form-group" style="display: flex; align-items: center;">
                                                             <label for="search_symptoms"
                                                                 class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 130px">
                                                                 Buscar Sintomas
                                                             </label>
-                                                            <input onkeyup="search(event,'symptoms')" type="text" style="border-radius: 30px;"
-                                                                class="form-control" id="floatingInput" placeholder="">
+                                                            <input onkeyup="search(event,'symptoms')" type="text" style="border-radius: 30px;" class="form-control" id="floatingInput" placeholder="">
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                         <div class="form-group">
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Sintomas</label>
@@ -1418,8 +1446,7 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                         </div>
                                                     </div>
 
-                                                    <div id='diagnosis_div' class="overflow-auto"
-                                                        style="max-width: 100%; max-height: 40px; min-height: 40px; position: relative;">
+                                                    <div id='diagnosis_div' class="overflow-auto" style="max-width: 100%; max-height: 40px; min-height: 40px; position: relative;">
                                                         <ul id="symptoms_filter" class="symptoms"
                                                             style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none">
                                                         </ul>
@@ -1437,115 +1464,85 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                 </div>
 
                                                 <div class="row mt-3 justify-content-md-end send-ai">
-                                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                        style="display: flex; justify-content: flex-end;">
+                                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
                                                         <button onclick="handlerIA()" type="button"
                                                             class="btn btnSave">Consulta con inteligencia
-                                                            artificial</button>
+                                                            artificial</button>         
                                                     </div>
                                                 </div>
                                             </div>
                                             
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <div class="form-group">
-                                                    <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Diagnostico</label>
+                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Diagnostico</label>
                                                     <textarea id="diagnosis" rows="2" name="diagnosis" class="form-control"></textarea>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style"
-                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display: flex;">
-
-                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6"
-                                                    style="padding: 0px 8px 0px 0px">
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <div class="form-group" id='search_exam' style="display: flex; align-items: center;" >
-                                                            <label for="search_patient"
-                                                                class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 135px">Buscar
-                                                                Examen</label>
-                                                            <input onkeyup="search(event,'exam')" type="text" style="border-radius: 30px;"
-                                                                class="form-control" id="floatingInput" placeholder="">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display: flex;">
+                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
+                                                    <div style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;" >
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" >
+                                                            <div class="form-group" id='search_exam' style="display: flex; align-items: center;" >
+                                                                <label for="search_patient" class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 135px">Buscar Examen</label>
+                                                                <input onkeyup="search(event,'exam')" type="text" style="border-radius: 30px;" class="form-control" id="floatingInput" placeholder="">
+                                                            </div>
+                                                            <label id='search_exam_p' style="font-size: 13px; margin-bottom: 5px; display:none">Exámenes </label>
                                                         </div>
-                                                        <label id='search_exam_p'
-                                                            style="font-size: 13px; margin-bottom: 5px; display:none">Exámenes
+                                                        <div id="exam-text-area">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                                <div class="form-group" >
+                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Exámenes</label>
+                                                                    <textarea id="text_area_exman" rows="2" name="text_area_exman" class="form-control"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-2 overflow-auto" style="max-width: 100%; max-height: 35px; min-height: 35px; position: relative;">
+                                                            <ul id="exam_filter" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none"></ul>
+                                                            <span id='not-exam'>No hay exámenes para mostrar de este paciente </span>
+                                                            <ul id="exam" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pl-5">
+                                                    <div style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                            <div class="form-group" id="search_studie" style="display: flex; align-items: center;">
+                                                                <label for="search_patient" class="form-label" style="font-size: 13px; margin-bottom: 5px; width: 131px">Buscar Estudio</label>
+                                                                <input onkeyup="search(event,'studie')" type="text" style="border-radius: 30px;" class="form-control" placeholder="" id="floatingInputt">
+                                                            </div>
+                                                        </div>
+                                                        <label id='search_studie_p' style="font-size: 13px; margin-bottom: 5px; display:none">Estudios
                                                         </label>
-                                                    </div>
-                                                <div id="exam-text-area">
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" 
-                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                        <div class="form-group" >
-                                                            <label for="phone" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Exámenes</label>
-                                                            <textarea id="text_area_exman" rows="2" name="text_area_exman" class="form-control"></textarea>
+                                                        <div id="study-text-area">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="study-text-area" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                                <div class="form-group">
+                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Estudios</label>
+                                                                    <textarea id="text_area_studies" rows="2" name="text_area_studies" class="form-control"></textarea>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                    <div class="mt-2 overflow-auto"
-                                                        style="max-width: 100%; max-height: 35px; min-height: 35px; position: relative;">
-
-                                                        <ul id="exam_filter" class="exam"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none">
-                                                        </ul>
-                                                        <span id='not-exam'>No hay exámenes para mostrar de este paciente
-                                                        </span>
-                                                        <ul id="exam" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6"
-                                                    style="padding: 0px 0px 0px 8px">
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <div class="form-group" id="search_studie" style="display: flex; align-items: center;">
-                                                            <label for="search_patient" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; width: 131px">Buscar
-                                                                Estudio</label>
-                                                            <input onkeyup="search(event,'studie')" type="text" style="border-radius: 30px;"
-                                                                class="form-control" placeholder="" id="floatingInputt">
+                                                        <div class="mt-2 card-study overflow-auto" style="max-width: 100%; max-height:35px;  min-height: 35px;">
+                                                            <ul id="study_filter" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none"> </ul>
+                                                            <span id='not-studie'>No hay estudios para mostrar de este paciente </span>
+                                                            <ul id="studie" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
                                                         </div>
-                                                    </div>
-                                                    <label id='search_studie_p' style="font-size: 13px; margin-bottom: 5px; display:none">Estudios
-                                                    </label>
-                                                <div id="study-text-area">
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="study-text-area"
-                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
-                                                             border-radius: 9px; padding: 16px;">
-                                                        <div class="form-group">
-                                                            <label for="phone" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Estudios</label>
-                                                            <textarea id="text_area_studies" rows="2" name="text_area_studies" class="form-control"></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                    <div class="mt-2 card-study overflow-auto"
-                                                        style="max-width: 100%; max-height:35px;  min-height: 35px;">
-                                                        <ul id="study_filter" class="studie"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none">
-                                                        </ul>
-                                                        <span id='not-studie'>No hay estudios para mostrar de este paciente
-                                                        </span>
-                                                        <ul id="studie" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
-                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             {{-- Medicacion --}}
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                <h5 style="margin-bottom: 17px;">Tratamiento</h5>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <label style="margin-bottom: 17px;">Tratamiento</label>
                                                 <hr style="margin-bottom: 0;">
                                                 <div class="row medicine-form">
                                                     <div style="display: flex">
-                                                        <span class="text-warning mt-2" id='med'
-                                                            style="font-size: 14px;margin-right: 10px;"></span>
+                                                        <span class="text-warning mt-2" id='med' style="font-size: 14px;margin-right: 10px;"></span>
                                                     </div>
                                                     <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label"
-                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">Medicamento</label>
+                                                                <label for="phone" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">Medicamento</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-only-text" id="medicine"
                                                                     name="medicine" type="text" value="">
@@ -1557,11 +1554,13 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label"
-                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">Indicaciones</label>
+                                                                <label for="phone" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">Indicaciones</label>
                                                                 <input autocomplete="off"
-                                                                    class="form-control mask-only-text" id="indication"
-                                                                    name="indication" type="text" value="">
+                                                                    class="form-control mask-only-text"
+                                                                    id="indication"
+                                                                    name="indication" 
+                                                                    type="text" 
+                                                                    value="">
                                                                 <i class="bi bi-file-medical st-icon"></i>
                                                             </div>
                                                             <span id="indication_span" class="text-danger"></span>
@@ -1570,9 +1569,7 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                     <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="treatmentDuration" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Duración
-                                                                    de tratamiento</label>
+                                                                <label for="treatmentDuration" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Duración de tratamiento</label>
                                                                 <select name="treatmentDuration" id="treatmentDuration"
                                                                     placeholder="Seleccione"class="form-control"
                                                                     class="form-control combo-textbox-input">
@@ -1600,10 +1597,7 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2" style="display: flex; align-items: flex-end; margin-bottom: 3px;">
-                                                        <span type="" onclick="addMedacition(event)"
-                                                            class="btn btn-outline-secondary addMedacition" id="btn"
-                                                            style="padding: 7px; font-size: 12px" ><i class="bi bi-plus-lg"></i>Añadir
-                                                            Tratamiento</span>
+                                                        <span type="" onclick="addMedacition(event)" class="btn btn-outline-secondary addMedacition" id="btn" style="padding: 7px; font-size: 12px" ><i class="bi bi-plus-lg"></i>Añadir Tratamiento</span>
                                                     </div>
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                         <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i><span style="font-size: 14px; color:#b3b3b3"> Se debe agregar un medicamento a la vez </span>
@@ -1617,15 +1611,10 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                             id="table-medicamento">
                                                             <thead>
                                                                 <tr>
-                                                                    <th class="text-center" scope="col">
-                                                                        Medicamento</th>
-                                                                    <th class="text-center" scope="col">
-                                                                        Indicaciones</th>
-                                                                    <th class="text-center" scope="col">
-                                                                        Duración de tratamiento
-                                                                    </th>
-                                                                    <th class="text-center" scope="col">
-                                                                        Eliminar</th>
+                                                                    <th class="text-center" scope="col"> Medicamento </th>
+                                                                    <th class="text-center" scope="col"> Indicaciones </th>
+                                                                    <th class="text-center" scope="col"> Duración de tratamiento </th>
+                                                                    <th class="text-center" scope="col"> Eliminar </th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -1635,11 +1624,11 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                             <div class="row mt-2" style="display: none">
                                                                 <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                     <div class="input-group flex-nowrap">
-                                                                        <span class="input-group-text">Total de
-                                                                            medicamentos
-                                                                        </span>
-                                                                        <input type="text" id="countMedicationAdd"
-                                                                            name="countMedicationAdd" class="form-control"
+                                                                        <span class="input-group-text">Total de medicamentos </span>
+                                                                        <input type="text" 
+                                                                            id="countMedicationAdd"
+                                                                            name="countMedicationAdd"
+                                                                            class="form-control"
                                                                             readonly value="{!! !empty($validateHistory)
                                                                                 ? ($validateHistory->medications_supplements != 'null'
                                                                                     ? count($medications_supplements)
@@ -1661,13 +1650,15 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                             </div>
                                         </div>
                                         <div class="row mt-2 justify-content-md-end">
-                                            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                id="send" style="display: flex; justify-content: flex-end; padding-right: 30px;">
-                                                <input class="btn btnSave send" value="Guardar Consulta"
-                                                    type="submit" />
-                                                <button style="margin-left: 20px; padding: 8px;" type="button"
-                                                    onclick="resetForm();" class="btn btnSecond" data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom" data-html="true"
+                                            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="send" style="display: flex; justify-content: flex-end; padding-right: 30px;">
+                                                <input class="btn btnSave send" value="Guardar Consulta" type="submit" />
+                                                <button style="margin-left: 20px; padding: 8px;" 
+                                                    type="button"
+                                                    onclick="resetForm();" 
+                                                    class="btn btnSecond" 
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom" 
+                                                    data-html="true"
                                                     title="Limpiar Formulario">
                                                     <i class="bi bi-eraser"></i>
                                                 </button>
@@ -1684,25 +1675,25 @@ if ($(`#${e.target.id}`).is(':checked')) {
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingThree">
-                                <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                                <button class="accordion-button collapsed bg-5"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree"
+                                    aria-expanded="false"
+                                    aria-controls="collapseThree"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-file-earmark-text"></i> Ultimas Consultas
                                 </button>
                             </span>
-                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                                data-bs-parent="#accordionExample">
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row" id="table-one">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                            style="margin-top: 20px;">
-                                            <table id="table-medical-record" class="table table-striped table-bordered"
-                                                style="width:100%; ">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px;">
+                                            <table id="table-medical-record" class="table table-striped table-bordered" style="width:100%; ">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">Código de la consulta</th>
-                                                        <th class="text-center" scope="col">Código de la referencia
-                                                        </th>
+                                                        <th class="text-center" scope="col">Código de la referencia </th>
                                                         <th class="text-center" scope="col">Fecha de la consulta</th>
                                                         <th class="text-center" scope="col">Nombre del paciente</th>
                                                         <th class="text-center" scope="col">Género</th>
@@ -1714,37 +1705,18 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                 <tbody>
                                                     @foreach ($medical_record_user as $item)
                                                         <tr>
-                                                            <td class="text-center td-pad"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['data']['record_code'] }}</td>
-                                                            <td class="text-center td-pad"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['data']['cod_ref'] }}</td>
-                                                            <td class="text-center td-pad"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['date'] }}</td>
-                                                            <td class="text-center td-pad text-capitalize"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['name_patient'] }}
-                                                            </td>
-                                                            <td class="text-center td-pad text-capitalize"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['genere'] }}
-                                                            </td>
-                                                            <td class="text-center td-pad"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['center'] }}</td>
-                                                            <td class="text-center td-pad text-capitalize"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                    {{ $item['full_name_doc'] }}
-                                                            </td>
+                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['data']['record_code'] }}</td>
+                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['data']['cod_ref'] }}</td>
+                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['date'] }}</td>
+                                                            <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['name_patient'] }} </td>
+                                                            <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['genere'] }} </td>
+                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['center'] }}</td>
+                                                            <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['full_name_doc'] }} </td>
                                                             <td class="text-center td-pad">
                                                                 <div class="d-flex">
                                                                     @if ($item['data']['status_exam'])
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <a
-                                                                                href="{{ route('mr_exam', $item['patient_id']) }}">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <a href="{{ route('mr_exam', $item['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     class="btn refresf btn-iSecond rounded-circle"
                                                                                     data-bs-toggle="tooltip"
@@ -1756,8 +1728,7 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                                             </a>
                                                                         </div>
                                                                     @else
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <button type="button"
                                                                                 class="refresf btn-idanger rounded-circle"
                                                                                 onclick="showAlertNotExam();">
@@ -1766,10 +1737,8 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                                         </div>
                                                                     @endif
                                                                     @if ($item['data']['status_study'])
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <a
-                                                                                href="{{ route('mr_study', $item['patient_id']) }}">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <a href="{{ route('mr_study', $item['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     class="btn refresf btn-iSecond rounded-circle"
                                                                                     data-bs-toggle="tooltip"
@@ -1781,8 +1750,7 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                                             </a>
                                                                         </div>
                                                                     @else
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <button type="button"
                                                                                 class="refresf btn-idanger rounded-circle"
                                                                                 onclick="showAlertNotStudy();">
@@ -1790,8 +1758,7 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                                             </button>
                                                                         </div>
                                                                     @endif
-                                                                    <div
-                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                         <a target="_blank"
                                                                             href="{{ route('pdf_medical_prescription', $item['id']) }}">
                                                                             <button type="button"
@@ -1805,18 +1772,15 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                                             </button>
                                                                         </a>
                                                                     </div>
-                                                                    <div
-                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-
-                                                                        <a target="_blank"
-                                                                            href="{{ route('PDF_medical_record', $item['id']) }}">
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <a target="_blank" href="{{ route('PDF_medical_record', $item['id']) }}">
                                                                             <button type="button"
                                                                                 class="btn refresf btn-iSecond rounded-circle"><i
-                                                                                    class="bi bi-filetype-pdf"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="bottom"
-                                                                                    data-bs-custom-class="custom-tooltip"
-                                                                                    data-html="true" title="ver PDF"></i>
+                                                                                class="bi bi-filetype-pdf"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                data-bs-custom-class="custom-tooltip"
+                                                                                data-html="true" title="ver PDF"></i>
                                                                             </button>
                                                                         </a>
                                                                     </div>
@@ -1837,21 +1801,18 @@ if ($(`#${e.target.id}`).is(':checked')) {
         @endif
 
         <!-- Modal -->
-        <div class="modal fade" id="modalIA" tabindex="-1" aria-labelledby="modalIALabel" aria-hidden="true"
-            id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal fade" id="modalIA" tabindex="-1" aria-labelledby="modalIALabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header title">
                             <i class="bi bi-alexa"></i>
                             <span style="padding-left: 5px">Resultado de la consulta con inteligencia artificial</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                style="font-size: 12px;"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                         </div>
                         <div class="modal-body">
                             <div class="div-ia">
-                                <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
-                                    id="p-ia"></pre>
+                                <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="p-ia"></pre>
                             </div>
                         </div>
                     </div>
