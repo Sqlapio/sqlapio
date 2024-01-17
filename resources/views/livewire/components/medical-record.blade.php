@@ -26,7 +26,7 @@
     .check-cm {
         padding: 1px 10px !important;
         border-radius: 20px !important;
-        font-size: 12px !important;
+        font-size: 11px !important;
     }
 
     .btn-outline-other {
@@ -198,11 +198,11 @@
 
             switch_type_plane(user);
 
-            handlerUl(symptoms, 'symptoms', 'btn btn-outline-other check-cm', 7);
+            handlerUl(symptoms, 'symptoms', 'btn btn-outline-other check-cm', 16);
 
-            handlerUl(exam, 'exam', 'btn btn-outline-primary check-cm', 3);
+            handlerUl(exam, 'exam', 'btn btn-outline-primary check-cm', 5);
 
-            handlerUl(study, 'studie', 'btn btn-outline-success check-cm', 3);
+            handlerUl(study, 'studie', 'btn btn-outline-success check-cm', 4);
 
 
 
@@ -781,12 +781,12 @@
 
                     if (data.length > 0) {
 
-                        handlerUl(data, id, 'btn btn-outline-success check-cm', 3);
+                        handlerUl(data, id, 'btn btn-outline-success check-cm', 5);
 
 
                     } else {
 
-                        handlerUl(study, id, 'btn btn-outline-success check-cm', 3);
+                        handlerUl(study, id, 'btn btn-outline-success check-cm', 5);
 
                     }
                     break;
@@ -797,11 +797,11 @@
 
                     if (data_exam.length > 0) {
 
-                        handlerUl(data_exam, id, 'btn btn-outline-primary check-cm', 3);
+                        handlerUl(data_exam, id, 'btn btn-outline-primary check-cm', 4);
 
                     } else {
 
-                        handlerUl(exam, id, 'btn btn-outline-primary check-cm', 3);
+                        handlerUl(exam, id, 'btn btn-outline-primary check-cm', 4);
 
                     }
                     break;
@@ -812,12 +812,12 @@
 
                     if (symptom.length > 0) {
 
-                        handlerUl(symptom, id, 'btn btn-outline-other check-cm', 7);
+                        handlerUl(symptom, id, 'btn btn-outline-other check-cm', 16);
 
 
                     } else {
 
-                        handlerUl(symptoms, id, 'btn btn-outline-other check-cm', 7);
+                        handlerUl(symptoms, id, 'btn btn-outline-other check-cm', 16);
                     }
                     break;
             }
