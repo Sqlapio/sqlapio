@@ -136,6 +136,28 @@
         padding: 0 0 0 5px;
     }
 
+    .w-4 {
+        width: 4% !important;
+    }
+
+    .w-35 {
+        width: 35% !important;
+    }
+
+    .w-55 {
+        width: 55% !important;
+    }
+
+    .symptoms_style {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
+    .symptoms_mt-0 {
+        margin-top: 0 !important;
+    }
+
     @media only screen and (max-width: 390px) {
         .data-medical {
             width: 185px !important;
@@ -687,8 +709,9 @@
                     $("#div_spinner").show();
                     $("#exam-text-area").show();
                     $("#study-text-area").show();
-
-
+                    $("#symptoms_card1").removeClass("symptoms_style");
+                    $("#symptoms_card2").removeClass("symptoms_style");
+                    $("#symptoms_card3").removeClass("symptoms_mt-0");
                 }
             });
 
@@ -733,6 +756,9 @@
             $("#div_spinner").hide();
             $("#exam-text-area").hide();
             $("#study-text-area").hide();
+            $("#symptoms_card1").addClass("symptoms_style");
+            $("#symptoms_card2").addClass("symptoms_style");
+            $("#symptoms_card3").addClass("symptoms_mt-0");
 
             item.data.medications_supplements.map((element, key) => {
                 countMedicationAdd = countMedicationAdd + 1;
@@ -741,7 +767,7 @@
                         <td class="text-center">${element.medicine}</td>
                         <td class="text-center">${element.indication}</td>
                         <td class="text-center">${element.treatmentDuration}</td>                  
-                        <td class="text-center"><span><i class="bi bi-archive"></i></span></td>                    
+                        <td class="text-center"><span><i class="bi bi-x-circle-fill"></i></span></td>                    
                         </tr>`;
                 $('#table-medicamento').find('tbody').append(row);
 
@@ -820,14 +846,9 @@
                     let data = study.filter(e => e.description.toLowerCase().includes(value));
 
                     if (data.length > 0) {
-
                         handlerUl(data, id, 'btn btn-outline-success check-cm', 5);
-
-
                     } else {
-
                         handlerUl(study, id, 'btn btn-outline-success check-cm', 5);
-
                     }
                     break;
 
@@ -836,13 +857,9 @@
                     let data_exam = exam.filter(e => e.description.toLowerCase().includes(value));
 
                     if (data_exam.length > 0) {
-
                         handlerUl(data_exam, id, 'btn btn-outline-primary check-cm', 4);
-
                     } else {
-
                         handlerUl(exam, id, 'btn btn-outline-primary check-cm', 4);
-
                     }
                     break;
 
@@ -851,12 +868,8 @@
                     let symptom = symptoms.filter(e => e.description.toLowerCase().includes(value));
 
                     if (symptom.length > 0) {
-
                         handlerUl(symptom, id, 'btn btn-outline-other check-cm', 12);
-
-
                     } else {
-
                         handlerUl(symptoms, id, 'btn btn-outline-other check-cm', 12);
                     }
                     break;
@@ -868,32 +881,19 @@
             let symptom = symptoms.find(el => el.id == id);
 
             if ($(`#${e.target.id}`).is(':checked')) {
-
-
                 valSymptoms = valSymptoms.replace(',,', '');
-
                 valSymptoms = (valSymptoms == "") ? e.target.value : `${valSymptoms},${e.target.value}`;
 
                 $("#diagnosis").val(valSymptoms);
-
                 handlerCheckTrue(symptom);
-
-
             } else {
-
                 valSymptoms = valSymptoms.replace(`${e.target.value}`, '');
-
                 if (valSymptoms[0] == ',') {
-
                     valSymptoms = valSymptoms.slice(1);
-                    }
+                }
 
-
-                    if (valSymptoms.substring(valSymptoms.indexOf() + 1) == "," || valSymptoms.substring(valSymptoms.indexOf() +
-                        1) == ",,") {
-
+                if (valSymptoms.substring(valSymptoms.indexOf() + 1) == "," || valSymptoms.substring(valSymptoms.indexOf() + 1) == ",,") {
                     $("#diagnosis").val('');
-
                 }
 
                 $("#diagnosis").val(valSymptoms);
@@ -906,34 +906,23 @@
         const handlerUl = (data, id, clas, number) => {
 
             let array = [];
-
             let check = '';
-
             let code = '';
-
             let callback = '';
 
             data.map((e, k) => {
-
                 $(`#${id}`).empty();
 
                 check = (e.check) ? 'checked' : '';
-
                 if (id == "symptoms") {
                     code = e.cod_symptoms;
-
                     callback = `onclick="setSymptoms(event,${id}_${e.id},${e.id})"`;
 
                 } else if (id == "studie") {
-
                     code = e.cod_study;
-
                     callback = `onclick="setStudy(event,${id}_${e.id},${e.id})"`;
-
                 } else {
-
                     code = e.cod_exam;
-
                     callback = `onclick="setExams(event,${id}_${e.id},${e.id})"`;
                 }
 
@@ -962,144 +951,105 @@
         const handlerCheckTrue = (find) => {
 
             find.check = true;
-
             let filter = symptoms.filter(e => e.id !== find.id);
-
             symptoms = [find, ...filter];
         }
 
         const handlerExamenCheckTrue = (val) => {
 
             val.check = true;
-
             let filter = exam.filter(e => e.id !== val.id);
-
             exam = [val, ...filter];
-            }
-
-            const handlerStudiesCheckTrue = (value) => {
-
-            value.check = true;
-
-            let filter = study.filter(e => e.id !== value.id);
-
-            study = [value, ...filter];
         }
 
+        const handlerStudiesCheckTrue = (value) => {
+
+            value.check = true;
+            let filter = study.filter(e => e.id !== value.id);
+            study = [value, ...filter];
+        }
 
         const handlerCheckDelete = (find) => {
 
             delete find.check;
-
             let filter = symptoms.filter(e => e.id !== find.id);
-
             symptoms = [...filter, find];
         }
 
         const handlerStudiesCheckDelete = (value) => {
 
-delete value.check;
+            delete value.check;
+            let filter = study.filter(e => e.id !== value.id);
+            study = [...filter, value];
+        }
 
-let filter = study.filter(e => e.id !== value.id);
+        const handlerExamenCheckDelete = (val) => {
 
-study = [...filter, value];
-}
+            delete val.check;
+            let filter = exam.filter(e => e.id !== val.id);
+            exam = [...filter, val];
+        }
 
-const handlerExamenCheckDelete = (val) => {
+        function setExams(e, key, id) {
 
-delete val.check;
+            let data = exam.find(el => el.id == id);
 
-let filter = exam.filter(e => e.id !== val.id);
+            if ($(`#${e.target.id}`).is(':checked')) {
+                exams_array.push({
+                    code_exams: $(`#${e.target.id}`).data('code'),
+                    description: $(`#${e.target.id}`).val(),
+                });
 
-exam = [...filter, val];
-}
+                valExamenes = (valExamenes == "") ? e.target.value : `${valExamenes},${e.target.value}`;
+                $("#text_area_exman").val(valExamenes);
+                handlerExamenCheckTrue(data);
 
-function setExams(e, key, id) {
+            } else {
+                valExamenes = valExamenes.replace(`${e.target.value}`, '');
 
+                if (valExamenes[0] == ',') {
+                    valExamenes = valExamenes.slice(1);
+                }
 
-let data = exam.find(el => el.id == id);
+                if (valExamenes.substring(valExamenes.indexOf() + 1) == "," || valExamenes.substring(valExamenes.indexOf() + 1) == ",,") {
+                    $("#text_area_exman").val('');
+                }
 
-if ($(`#${e.target.id}`).is(':checked')) {
-    exams_array.push({
-        code_exams: $(`#${e.target.id}`).data('code'),
-        description: $(`#${e.target.id}`).val(),
-    });
+                $("#text_area_exman").val(valExamenes);
+                handlerExamenCheckDelete(data);
+                exams_array.splice(key, 1);
+            }
+        }
 
-    valExamenes = (valExamenes == "") ? e.target.value : `${valExamenes},${e.target.value}`;
+        function setStudy(e, key, id) {
 
-    $("#text_area_exman").val(valExamenes);
+                let data_study = study.find(el => el.id == id);
 
-    handlerExamenCheckTrue(data);
+                if ($(`#${e.target.id}`).is(':checked')) {
+                    studies_array.push({
+                        code_studies: $(`#${e.target.id}`).data('code'),
+                        description: $(`#${e.target.id}`).val(),
 
-} else {
+                    });
 
-    valExamenes = valExamenes.replace(`${e.target.value}`, '');
+                    valStudios = (valStudios == "") ? e.target.value : `${valStudios},${e.target.value}`;
+                    $("#text_area_studies").val(valStudios);
+                    handlerStudiesCheckTrue(data_study);
+                } else {
+                    valStudios = valStudios.replace(`${e.target.value}`, '');
 
-    if (valExamenes[0] == ',') {
+                    if (valStudios[0] == ',') {
+                        valStudios = valStudios.slice(1);
+                    }
+                    if (valStudios.substring(valStudios.indexOf() + 1) == "," || valStudios.substring(valStudios.indexOf() + 1) == ",,") {
+                        $("#text_area_studies").val('');
+                    }
 
-        valExamenes = valExamenes.slice(1);
-    }
-
-
-    if (valExamenes.substring(valExamenes.indexOf() + 1) == "," || valExamenes.substring(valExamenes.indexOf() +
-            1) == ",,") {
-
-        $("#text_area_exman").val('');
-
-    }
-
-
-    $("#text_area_exman").val(valExamenes);
-
-    handlerExamenCheckDelete(data);
-
-    exams_array.splice(key, 1);
-}
-}
-
-function setStudy(e, key, id) {
-
-let data_study = study.find(el => el.id == id);
-
-
-if ($(`#${e.target.id}`).is(':checked')) {
-    studies_array.push({
-        code_studies: $(`#${e.target.id}`).data('code'),
-        description: $(`#${e.target.id}`).val(),
-
-    });
-
-    valStudios = (valStudios == "") ? e.target.value : `${valStudios},${e.target.value}`;
-
-    $("#text_area_studies").val(valStudios);
-
-    handlerStudiesCheckTrue(data_study);
-} else {
-
-    valStudios = valStudios.replace(`${e.target.value}`, '');
-
-
-    if (valStudios[0] == ',') {
-
-        valStudios = valStudios.slice(1);
-    }
-
-
-    if (valStudios.substring(valStudios.indexOf() + 1) == "," || valStudios.substring(valStudios.indexOf() +
-            1) == ",,") {
-
-        $("#text_area_studies").val('');
-
-    }
-
-    $("#text_area_studies").val(valStudios);
-
-
-    studies_array.splice(key, 1);
-
-    handlerStudiesCheckDelete(data_study);
-}
-}
+                    $("#text_area_studies").val(valStudios);
+                    studies_array.splice(key, 1);
+                    handlerStudiesCheckDelete(data_study);
+            }   
+        }
 
         //agregar medicamento
         function addMedacition(e) {
@@ -1116,7 +1066,7 @@ if ($(`#${e.target.id}`).is(':checked')) {
                 $("#indication_span").text('');
                 $("#treatmentDuration_span").text('');
 
-                let btn = `<span onclick="deleteMedication(${countMedicationAdd})" ><i class="bi bi-archive"></i></span>`;
+                let btn = `<span onclick="deleteMedication(${countMedicationAdd})" ><i style="cursor: pointer" class="bi bi-x-circle-fill"></i></span>`;
 
                 medications_supplements.push({
                     medicine: $('#medicine').val(),
@@ -1149,12 +1099,12 @@ if ($(`#${e.target.id}`).is(':checked')) {
                             },
                             {
                                 data: 'treatmentDuration',
-                                title: 'Duración de tratamiento',
+                                title: 'Duración',
                                 className: "text-center td-pad",
                             },
                             {
                                 data: 'btn',
-                                title: 'Eliminar',
+                                title: `<i style='font-size: 15px' class="bi bi-trash-fill"></i>`,
                                 className: "text-center td-pad",
                             }
                         ],
@@ -1194,7 +1144,6 @@ if ($(`#${e.target.id}`).is(':checked')) {
                 }
             });
         }
-
 
         function switch_type_plane(user) {
 
@@ -1426,8 +1375,8 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
+                                            <div id='symptoms_card1' class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div id='symptoms_card2' class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
                                                     <div class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <div class="form-group" style="display: flex; align-items: center;">
                                                             <label for="search_symptoms"
@@ -1438,7 +1387,7 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <div id='symptoms_card3' class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; margin-top: 0.5rem">
                                                         <div class="form-group">
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Sintomas</label>
@@ -1498,7 +1447,7 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                             </div>
                                                         </div>
                                                         <div class="mt-2 overflow-auto" style="max-width: 100%; max-height: 35px; min-height: 35px; position: relative;">
-                                                            <ul id="exam_filter" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none"></ul>
+                                                            <ul id="exam_filter" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; ; margin-bottom: 0;"></ul>
                                                             <span id='not-exam'>No hay exámenes para mostrar de este paciente </span>
                                                             <ul id="exam" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
                                                         </div>
@@ -1523,7 +1472,7 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                             </div>
                                                         </div>
                                                         <div class="mt-2 card-study overflow-auto" style="max-width: 100%; max-height:35px;  min-height: 35px;">
-                                                            <ul id="study_filter" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none"> </ul>
+                                                            <ul id="study_filter" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0;"> </ul>
                                                             <span id='not-studie'>No hay estudios para mostrar de este paciente </span>
                                                             <ul id="studie" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
                                                         </div>
@@ -1533,25 +1482,30 @@ if ($(`#${e.target.id}`).is(':checked')) {
 
                                             {{-- Medicacion --}}
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                <label style="margin-bottom: 17px;">Tratamiento</label>
-                                                <hr style="margin-bottom: 0;">
+                                                <label style="font-size: 14px">Tratamiento</label>
+                                                <hr style="margin-bottom: 0; margin-top: 5px">
                                                 <div class="row medicine-form">
                                                     <div style="display: flex">
                                                         <span class="text-warning mt-2" id='med' style="font-size: 14px;margin-right: 10px;"></span>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">Medicamento</label>
                                                                 <input autocomplete="off"
-                                                                    class="form-control mask-only-text" id="medicine"
-                                                                    name="medicine" type="text" value="">
+                                                                    class="form-control mask-only-text" 
+                                                                    id="medicine"
+                                                                    placeholder="Se debe agregar un medicamento a la vez"
+                                                                    name="medicine" 
+                                                                    type="text"
+                                                                    style='font-size: 13px !important' 
+                                                                    value="">
                                                                 <i class="bi bi-capsule st-icon"></i>
                                                             </div>
                                                             <span id="medicine_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                    <div class="col-sm-6 col-md-6 col-lg-5 col-xl-5 col-xxl-5 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">Indicaciones</label>
@@ -1566,10 +1520,10 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                             <span id="indication_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="treatmentDuration" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Duración de tratamiento</label>
+                                                                <label for="treatmentDuration" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Duración</label>
                                                                 <select name="treatmentDuration" id="treatmentDuration"
                                                                     placeholder="Seleccione"class="form-control"
                                                                     class="form-control combo-textbox-input">
@@ -1596,11 +1550,8 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2" style="display: flex; align-items: flex-end; margin-bottom: 3px;">
-                                                        <span type="" onclick="addMedacition(event)" class="btn btn-outline-secondary addMedacition" id="btn" style="padding: 7px; font-size: 12px" ><i class="bi bi-plus-lg"></i>Añadir Tratamiento</span>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                                        <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i><span style="font-size: 14px; color:#b3b3b3"> Se debe agregar un medicamento a la vez </span>
+                                                    <div class="col-sm-6 col-md-6 col-lg-1 col-xl-1 col-xxl-1 mt-2" style="display: flex; align-items: flex-end; margin-bottom: 3px;">
+                                                        <span type="" onclick="addMedacition(event)" class="btn btn-outline-secondary addMedacition" id="btn" style="padding: 7px; font-size: 12px; width:100%" ><i class="bi bi-plus-lg"></i>Añadir</span>
                                                     </div>
                                                 </div>
                                                 {{-- tabla --}}
@@ -1611,10 +1562,10 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                             id="table-medicamento">
                                                             <thead>
                                                                 <tr>
-                                                                    <th class="text-center" scope="col"> Medicamento </th>
-                                                                    <th class="text-center" scope="col"> Indicaciones </th>
-                                                                    <th class="text-center" scope="col"> Duración de tratamiento </th>
-                                                                    <th class="text-center" scope="col"> Eliminar </th>
+                                                                    <th class="text-center w-35" scope="col"> Medicamento </th>
+                                                                    <th data-orderable="false" class="text-center w-55" scope="col"> Indicaciones </th>
+                                                                    <th data-orderable="false" class="text-center" scope="col"> Duración </th>
+                                                                    <th data-orderable="false" class="text-center w-4" scope="col"> <i style='font-size: 15px' class="bi bi-trash-fill"></i> </th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -1699,7 +1650,7 @@ if ($(`#${e.target.id}`).is(':checked')) {
                                                         <th class="text-center" scope="col">Género</th>
                                                         <th class="text-center" scope="col">Centro</th>
                                                         <th class="text-center" scope="col">Médico</th>
-                                                        <th class="text-center" scope="col">Ver</th>
+                                                        <th data-orderable="false" class="text-center" scope="col">Ver</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
