@@ -825,7 +825,7 @@
                                                         <th class="text-center" scope="col">Cédula</th>
                                                         <th class="text-center" scope="col">Fecha de Nacimiento </th>
                                                         <th class="text-center" scope="col">Género</th>
-                                                        <th class="text-center"scope="col">Acciones</th>
+                                                        <th class="text-center"scope="col" data-orderable="false">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1110,7 +1110,7 @@
                                                 style="width:100%; ">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">Imagen</th>
+                                                        <th class="text-center" scope="col" data-orderable="false">Imagen</th>
                                                         <th class="text-center" scope="col">Código paciente</th>
                                                         <th class="text-center" scope="col">Nombre</th>
                                                         <th class="text-center" scope="col">Cédula</th>
@@ -1119,7 +1119,7 @@
                                                         <th class="text-center" scope="col">Teléfono</th>
                                                         <th class="text-center" scope="col">Email</th>
                                                         <th class="text-center" scope="col">Centro de salud</th>
-                                                        <th class="text-center"scope="col">Acciones</th>
+                                                        <th class="text-center"scope="col" data-orderable="false">Acciones</th>
 
                                                     </tr>
                                                 </thead>
