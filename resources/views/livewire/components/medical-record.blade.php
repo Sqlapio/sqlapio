@@ -478,10 +478,10 @@
                             //             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                             //                     <button type="button"
                             //                         class="refresf btn-idanger rounded-circle"
-                            //                         data-bs-container="body" 
+                            //                         data-bs-container="body"
                             //                         data-bs-toggle="popover"
                             //                         data-bs-custom-class="custom-popover"
-                            //                         data-bs-placement="bottom" 
+                            //                         data-bs-placement="bottom"
                             //                         data-bs-content="No hay exámenes cargados">
                             //                         <i class="bi bi-exclamation-lg"></i>
                             //                     </button>
@@ -490,7 +490,7 @@
                                 //             if (elem.data
                                 //                 .status_exam != null
                                 //             ) {
-                                //                 btnExam = `  
+                                //                 btnExam = `
                             //                         <div
                             //                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                             //                     <a href="${route_mr_exam}">
@@ -509,10 +509,10 @@
                                 //             let btnStudy = `<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                             //                                 <button type="button"
                             //                                     class="refresf btn-idanger rounded-circle"
-                            //                                     data-bs-container="body" 
+                            //                                     data-bs-container="body"
                             //                                     data-bs-toggle="popover"
                             //                                     data-bs-custom-class="custom-popover"
-                            //                                     data-bs-placement="bottom" 
+                            //                                     data-bs-placement="bottom"
                             //                                     data-bs-content="No hay estudios cargados">
                             //                                     <i class="bi bi-exclamation-lg"></i>
                             //                                 </button>
@@ -522,7 +522,7 @@
                                 //                 .status_study !=
                                 //                 null
                                 //             ) {
-                                //                 btnStudy = `  
+                                //                 btnStudy = `
                             //                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                             //                     <a
                             //                     href="${route_mr_study}">
@@ -540,7 +540,7 @@
                                 //             }
 
 
-                                //             elem.btn = `                                                                    
+                                //             elem.btn = `
                             //                     <div class="d-flex">
                             //                     ${btnExam}
                             //                     ${btnStudy}
@@ -558,7 +558,7 @@
                             //                     title="Ver recipe"></i>
                             //                     </button>
                             //                     </a>
-                            //                     </div>                                               
+                            //                     </div>
                             //                     <div
                             //                     class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                             //                     <a target="_blank"
@@ -728,7 +728,7 @@
             $("#razon").val(item.data.razon).attr('disabled', true);
             $("#diagnosis").val(item.data.diagnosis).attr('disabled', true);
             $("#treatment").val(item.data.treatment).attr('disabled', true);
-            $("#sintomas").val(item.data.sintomas).attr('disabled', true);            
+            $("#sintomas").val(item.data.sintomas).attr('disabled', true);
             // $("#studies").val(item.data.studies);
             $(".medicine-form").hide();
             // $("#indication").hide();
@@ -766,8 +766,8 @@
                         <tr id="${countMedicationAdd}">
                         <td class="text-center">${element.medicine}</td>
                         <td class="text-center">${element.indication}</td>
-                        <td class="text-center">${element.treatmentDuration}</td>                  
-                        <td class="text-center"><span><i class="bi bi-x-circle-fill"></i></span></td>                    
+                        <td class="text-center">${element.treatmentDuration}</td>
+                        <td class="text-center"><span><i class="bi bi-x-circle-fill"></i></span></td>
                         </tr>`;
                 $('#table-medicamento').find('tbody').append(row);
 
@@ -801,7 +801,7 @@
                     $('#not-exam').hide();
                 }
 
-                //setiar estudios   
+                //setiar estudios
                 item.data.study.map((elem, key) => {
                     $(`#${elem.cod_study}`).attr('checked', true);
                     const examStudy = study_filter.push(elem.description);
@@ -1056,7 +1056,7 @@
                     $("#text_area_studies").val(valStudios);
                     studies_array.splice(key, 1);
                     handlerStudiesCheckDelete(data_study);
-            }   
+            }
         }
 
         //agregar medicamento
@@ -1216,7 +1216,7 @@
 
         const handlerIA = () => {
 
-            if ($("#diagnosis").val() !== "") {
+            if ($("#sintomas").val() !== "") {
 
                 $(".send-ai").hide();
                 $("#spinner2").show();
@@ -1227,7 +1227,7 @@
                     dataType: "json",
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        "symtoms": $("#diagnosis").val(),
+                        "symtoms": $("#sintomas").val(),
                         "genere": patient.genere,
                         "age": patient.age
                     },
@@ -1424,11 +1424,11 @@
                                                     <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
                                                         <button onclick="handlerIA()" type="button"
                                                             class="btn btnSave">Consulta con inteligencia
-                                                            artificial</button>         
+                                                            artificial</button>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <div class="form-group">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Diagnostico</label>
@@ -1501,12 +1501,12 @@
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">Medicamento</label>
                                                                 <input autocomplete="off"
-                                                                    class="form-control mask-only-text" 
+                                                                    class="form-control mask-only-text"
                                                                     id="medicine"
                                                                     placeholder="Se debe agregar un medicamento a la vez"
-                                                                    name="medicine" 
+                                                                    name="medicine"
                                                                     type="text"
-                                                                    style='font-size: 13px !important' 
+                                                                    style='font-size: 13px !important'
                                                                     value="">
                                                                 <i class="bi bi-capsule st-icon"></i>
                                                             </div>
@@ -1520,8 +1520,8 @@
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-only-text"
                                                                     id="indication"
-                                                                    name="indication" 
-                                                                    type="text" 
+                                                                    name="indication"
+                                                                    type="text"
                                                                     value="">
                                                                 <i class="bi bi-file-medical st-icon"></i>
                                                             </div>
@@ -1584,7 +1584,7 @@
                                                                 <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                     <div class="input-group flex-nowrap">
                                                                         <span class="input-group-text">Total de medicamentos </span>
-                                                                        <input type="text" 
+                                                                        <input type="text"
                                                                             id="countMedicationAdd"
                                                                             name="countMedicationAdd"
                                                                             class="form-control"
@@ -1611,12 +1611,12 @@
                                         <div class="row mt-2 justify-content-md-end">
                                             <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="send" style="display: flex; justify-content: flex-end; padding-right: 30px;">
                                                 <input class="btn btnSave send" value="Guardar Consulta" type="submit" />
-                                                <button style="margin-left: 20px; padding: 8px;" 
+                                                <button style="margin-left: 20px; padding: 8px;"
                                                     type="button"
-                                                    onclick="resetForm();" 
-                                                    class="btn btnSecond" 
+                                                    onclick="resetForm();"
+                                                    class="btn btnSecond"
                                                     data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom" 
+                                                    data-bs-placement="bottom"
                                                     data-html="true"
                                                     title="Limpiar Formulario">
                                                     <i class="bi bi-eraser"></i>
