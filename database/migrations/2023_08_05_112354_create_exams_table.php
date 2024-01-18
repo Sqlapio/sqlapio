@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('cod_exam');
             $table->string('description');
             $table->string('category');
-            $table->string('check');
+            $table->string('check')->nullable();
             $table->timestamps();
         });
     }

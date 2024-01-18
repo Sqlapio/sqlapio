@@ -1621,7 +1621,7 @@ class UtilsController extends Controller
                 'messages' => [
                     [
                        "role" => "user",
-                       "content" => "Actua como medico y realiza un diagnostico para un paciente ".$request->genere." de ".$request->age." años con los siguientes sintomas: ".$request->symtoms.". Agrega 3 recomendaciones generales."
+                       "content" => "Actua como medico y realiza un diagnostico para un paciente ".$request->genere." de ".$request->age." años con los siguientes sintomas: ".$request->symtoms.". Agrega 3 recomendaciones generales y recomienda 3 examenes medicos."
                    ]
                 ],
                 'temperature' => 1,
