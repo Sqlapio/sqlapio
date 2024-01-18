@@ -554,7 +554,7 @@
                                                             <th class="text-center" scope="col">Email</th>
                                                             <th class="text-center" scope="col">Centro de salud</th>
                                                             <th class="text-center" scope="col">Estatus</th>
-                                                            <th class="text-center" scope="col">Acciones</th>
+                                                            <th class="text-center" scope="col" data-orderable="false">Acciones</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -771,7 +771,7 @@
                                                             <th class="text-center" scope="col">Teléfono</th>
                                                             <th class="text-center" scope="col">Examenes</th>
                                                             <th class="text-center" scope="col">Estudios</th>
-                                                            <th class="text-center" scope="col">Acciones</th>
+                                                            <th class="text-center" scope="col" data-orderable="false">Acciones</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>

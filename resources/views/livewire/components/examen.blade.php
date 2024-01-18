@@ -259,7 +259,7 @@
                                                         <th class="text-center" scope="col">Nombre</th>
                                                         <th class="text-center" scope="col">Cédula</th>
                                                         <th class="text-center" scope="col">Género</th>
-                                                        <th class="text-center"scope="col">Acciones</th>
+                                                        <th class="text-center"scope="col" data-orderable="false">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
