@@ -26,7 +26,7 @@
     .check-cm {
         padding: 1px 10px !important;
         border-radius: 20px !important;
-        font-size: 13px;
+        font-size: 11px !important;
     }
 
     .btn-outline-other {
@@ -124,17 +124,111 @@
         background: #d4d4d4;
     }
 
+    .data-medical {
+            font-size: 13px;
+    }
+
+    .pr-5 {
+        padding: 0 5px 0 0;
+    }
+
+    .pl-5 {
+        padding: 0 0 0 5px;
+    }
+
+    .w-4 {
+        width: 4% !important;
+    }
+
+    .w-35 {
+        width: 35% !important;
+    }
+
+    .w-55 {
+        width: 55% !important;
+    }
+
+    .symptoms_style {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
+    .symptoms_mt-0 {
+        margin-top: 0 !important;
+    }
+
     @media only screen and (max-width: 390px) {
         .data-medical {
             width: 185px !important;
-            font-size: 14px;
+            font-size: 13px;
+        }
+
+        .mb-style {
+            flex-direction: column;
+        }
+
+        .m-mb {
+           padding: 0 !important;
+        }
+
+        .pr-5 {
+            padding: 0 0 5px !important;
+        }
+
+        .pl-5 {
+            padding: 0 0 0 5px;
         }
     }
 
     @media (min-width: 391px) and (max-width: 576px) {
         .data-medical {
             width: 222px !important;
-            font-size: 14px;
+            font-size: 13px;
+        }
+
+        .mb-style {
+            flex-direction: column;
+        }
+
+        .m-mb {
+            padding: 0 !important;
+        }
+
+        .pr-5 {
+            padding: 0 0 5 !important;
+        }
+
+        .pl-5 {
+            padding: 5px 0 0;
+        }
+    }
+
+    @media (min-width: 577px) and (max-width: 768px) {
+        .mb-style {
+            flex-direction: column;
+        }
+
+        .pr-5 {
+            padding: 0 0 5 !important;
+        }
+
+        .pl-5 {
+            padding: 5px 0 0;
+        }
+    }
+
+    @media (min-width: 769px) and (max-width: 992px) {
+        .mb-style {
+            flex-direction: column;
+        }
+
+        .pr-5 {
+            padding: 0 0 5 !important;
+        }
+
+        .pl-5 {
+            padding: 5px 0 0;
         }
     }
 </style>
@@ -166,11 +260,11 @@
 
             switch_type_plane(user);
 
-            handlerUl(symptoms, 'symptoms', 'btn btn-outline-other check-cm', 6);
+            handlerUl(symptoms, 'symptoms', 'btn btn-outline-other check-cm', 12);
 
-            handlerUl(exam, 'exam', 'btn btn-outline-primary check-cm', 3);
+            handlerUl(exam, 'exam', 'btn btn-outline-primary check-cm', 5);
 
-            handlerUl(study, 'studie', 'btn btn-outline-success check-cm', 3);
+            handlerUl(study, 'studie', 'btn btn-outline-success check-cm', 4);
 
 
 
@@ -597,6 +691,7 @@
                     medications_supplements = [];
                     $('#exam_filter').hide();
                     $('#study_filter').hide();
+                    $('#symptoms_filter').hide();
                     let exam_filter = [];
                     let symptom_filter = [];
                     let study_filter = [];
@@ -612,7 +707,11 @@
                     $('#search_studie_p').hide();
                     $('#search_exam_p').hide();
                     $("#div_spinner").show();
-
+                    $("#exam-text-area").show();
+                    $("#study-text-area").show();
+                    $("#symptoms_card1").removeClass("symptoms_style");
+                    $("#symptoms_card2").removeClass("symptoms_style");
+                    $("#symptoms_card3").removeClass("symptoms_mt-0");
                 }
             });
 
@@ -647,6 +746,7 @@
             $('#studie').hide();
             $('#exam_filter').show();
             $('#study_filter').show();
+            $('#symptoms_filter').show();
             $('#search_studie').hide();
             $('#search_exam').hide();
             $('#diagnosis_div').hide();
@@ -654,6 +754,11 @@
             $('#search_studie_p').show();
             $('#search_exam_p').show();
             $("#div_spinner").hide();
+            $("#exam-text-area").hide();
+            $("#study-text-area").hide();
+            $("#symptoms_card1").addClass("symptoms_style");
+            $("#symptoms_card2").addClass("symptoms_style");
+            $("#symptoms_card3").addClass("symptoms_mt-0");
 
             item.data.medications_supplements.map((element, key) => {
                 countMedicationAdd = countMedicationAdd + 1;
@@ -662,7 +767,7 @@
                         <td class="text-center">${element.medicine}</td>
                         <td class="text-center">${element.indication}</td>
                         <td class="text-center">${element.treatmentDuration}</td>                  
-                        <td class="text-center"><span><i class="bi bi-archive"></i></span></td>                    
+                        <td class="text-center"><span><i class="bi bi-x-circle-fill"></i></span></td>                    
                         </tr>`;
                 $('#table-medicamento').find('tbody').append(row);
 
@@ -741,14 +846,9 @@
                     let data = study.filter(e => e.description.toLowerCase().includes(value));
 
                     if (data.length > 0) {
-
-                        handlerUl(data, id, 'btn btn-outline-success check-cm', 3);
-
-
+                        handlerUl(data, id, 'btn btn-outline-success check-cm', 5);
                     } else {
-
-                        handlerUl(study, id, 'btn btn-outline-success check-cm', 3);
-
+                        handlerUl(study, id, 'btn btn-outline-success check-cm', 5);
                     }
                     break;
 
@@ -757,13 +857,9 @@
                     let data_exam = exam.filter(e => e.description.toLowerCase().includes(value));
 
                     if (data_exam.length > 0) {
-
-                        handlerUl(data_exam, id, 'btn btn-outline-primary check-cm', 3);
-
+                        handlerUl(data_exam, id, 'btn btn-outline-primary check-cm', 4);
                     } else {
-
-                        handlerUl(exam, id, 'btn btn-outline-primary check-cm', 3);
-
+                        handlerUl(exam, id, 'btn btn-outline-primary check-cm', 4);
                     }
                     break;
 
@@ -772,13 +868,9 @@
                     let symptom = symptoms.filter(e => e.description.toLowerCase().includes(value));
 
                     if (symptom.length > 0) {
-
-                        handlerUl(symptom, id, 'btn btn-outline-other check-cm', 6);
-
-
+                        handlerUl(symptom, id, 'btn btn-outline-other check-cm', 12);
                     } else {
-
-                        handlerUl(symptoms, id, 'btn btn-outline-other check-cm', 6);
+                        handlerUl(symptoms, id, 'btn btn-outline-other check-cm', 12);
                     }
                     break;
             }
@@ -789,32 +881,19 @@
             let symptom = symptoms.find(el => el.id == id);
 
             if ($(`#${e.target.id}`).is(':checked')) {
-
-
                 valSymptoms = valSymptoms.replace(',,', '');
-
                 valSymptoms = (valSymptoms == "") ? e.target.value : `${valSymptoms},${e.target.value}`;
 
                 $("#diagnosis").val(valSymptoms);
-
                 handlerCheckTrue(symptom);
-
-
             } else {
-
                 valSymptoms = valSymptoms.replace(`${e.target.value}`, '');
-
                 if (valSymptoms[0] == ',') {
-
                     valSymptoms = valSymptoms.slice(1);
                 }
 
-
-                if (valSymptoms.substring(valSymptoms.indexOf() + 1) == "," || valSymptoms.substring(valSymptoms.indexOf() +
-                        1) == ",,") {
-
+                if (valSymptoms.substring(valSymptoms.indexOf() + 1) == "," || valSymptoms.substring(valSymptoms.indexOf() + 1) == ",,") {
                     $("#diagnosis").val('');
-
                 }
 
                 $("#diagnosis").val(valSymptoms);
@@ -827,34 +906,23 @@
         const handlerUl = (data, id, clas, number) => {
 
             let array = [];
-
             let check = '';
-
             let code = '';
-
             let callback = '';
 
             data.map((e, k) => {
-
                 $(`#${id}`).empty();
 
                 check = (e.check) ? 'checked' : '';
-
                 if (id == "symptoms") {
                     code = e.cod_symptoms;
-
                     callback = `onclick="setSymptoms(event,${id}_${e.id},${e.id})"`;
 
                 } else if (id == "studie") {
-
                     code = e.cod_study;
-
                     callback = `onclick="setStudy(event,${id}_${e.id},${e.id})"`;
-
                 } else {
-
                     code = e.cod_exam;
-
                     callback = `onclick="setExams(event,${id}_${e.id},${e.id})"`;
                 }
 
@@ -883,60 +951,46 @@
         const handlerCheckTrue = (find) => {
 
             find.check = true;
-
             let filter = symptoms.filter(e => e.id !== find.id);
-
             symptoms = [find, ...filter];
         }
 
         const handlerExamenCheckTrue = (val) => {
 
             val.check = true;
-
             let filter = exam.filter(e => e.id !== val.id);
-
             exam = [val, ...filter];
         }
 
         const handlerStudiesCheckTrue = (value) => {
 
             value.check = true;
-
             let filter = study.filter(e => e.id !== value.id);
-
             study = [value, ...filter];
         }
-
 
         const handlerCheckDelete = (find) => {
 
             delete find.check;
-
             let filter = symptoms.filter(e => e.id !== find.id);
-
             symptoms = [...filter, find];
         }
 
         const handlerStudiesCheckDelete = (value) => {
 
             delete value.check;
-
             let filter = study.filter(e => e.id !== value.id);
-
             study = [...filter, value];
         }
 
         const handlerExamenCheckDelete = (val) => {
 
             delete val.check;
-
             let filter = exam.filter(e => e.id !== val.id);
-
             exam = [...filter, val];
         }
 
         function setExams(e, key, id) {
-
 
             let data = exam.find(el => el.id == id);
 
@@ -947,79 +1001,54 @@
                 });
 
                 valExamenes = (valExamenes == "") ? e.target.value : `${valExamenes},${e.target.value}`;
-
                 $("#text_area_exman").val(valExamenes);
-
                 handlerExamenCheckTrue(data);
 
             } else {
-
                 valExamenes = valExamenes.replace(`${e.target.value}`, '');
 
                 if (valExamenes[0] == ',') {
-
                     valExamenes = valExamenes.slice(1);
                 }
 
-
-                if (valExamenes.substring(valExamenes.indexOf() + 1) == "," || valExamenes.substring(valExamenes.indexOf() +
-                        1) == ",,") {
-
+                if (valExamenes.substring(valExamenes.indexOf() + 1) == "," || valExamenes.substring(valExamenes.indexOf() + 1) == ",,") {
                     $("#text_area_exman").val('');
-
                 }
 
-
                 $("#text_area_exman").val(valExamenes);
-
                 handlerExamenCheckDelete(data);
-
                 exams_array.splice(key, 1);
             }
         }
 
         function setStudy(e, key, id) {
 
-            let data_study = study.find(el => el.id == id);
+                let data_study = study.find(el => el.id == id);
 
+                if ($(`#${e.target.id}`).is(':checked')) {
+                    studies_array.push({
+                        code_studies: $(`#${e.target.id}`).data('code'),
+                        description: $(`#${e.target.id}`).val(),
 
-            if ($(`#${e.target.id}`).is(':checked')) {
-                studies_array.push({
-                    code_studies: $(`#${e.target.id}`).data('code'),
-                    description: $(`#${e.target.id}`).val(),
+                    });
 
-                });
+                    valStudios = (valStudios == "") ? e.target.value : `${valStudios},${e.target.value}`;
+                    $("#text_area_studies").val(valStudios);
+                    handlerStudiesCheckTrue(data_study);
+                } else {
+                    valStudios = valStudios.replace(`${e.target.value}`, '');
 
-                valStudios = (valStudios == "") ? e.target.value : `${valStudios},${e.target.value}`;
+                    if (valStudios[0] == ',') {
+                        valStudios = valStudios.slice(1);
+                    }
+                    if (valStudios.substring(valStudios.indexOf() + 1) == "," || valStudios.substring(valStudios.indexOf() + 1) == ",,") {
+                        $("#text_area_studies").val('');
+                    }
 
-                $("#text_area_studies").val(valStudios);
-
-                handlerStudiesCheckTrue(data_study);
-            } else {
-
-                valStudios = valStudios.replace(`${e.target.value}`, '');
-
-
-                if (valStudios[0] == ',') {
-
-                    valStudios = valStudios.slice(1);
-                }
-
-
-                if (valStudios.substring(valStudios.indexOf() + 1) == "," || valStudios.substring(valStudios.indexOf() +
-                        1) == ",,") {
-
-                    $("#text_area_studies").val('');
-
-                }
-
-                $("#text_area_studies").val(valStudios);
-
-
-                studies_array.splice(key, 1);
-
-                handlerStudiesCheckDelete(data_study);
-            }
+                    $("#text_area_studies").val(valStudios);
+                    studies_array.splice(key, 1);
+                    handlerStudiesCheckDelete(data_study);
+            }   
         }
 
         //agregar medicamento
@@ -1037,7 +1066,7 @@
                 $("#indication_span").text('');
                 $("#treatmentDuration_span").text('');
 
-                let btn = `<span onclick="deleteMedication(${countMedicationAdd})" ><i class="bi bi-archive"></i></span>`;
+                let btn = `<span onclick="deleteMedication(${countMedicationAdd})" ><i style="cursor: pointer" class="bi bi-x-circle-fill"></i></span>`;
 
                 medications_supplements.push({
                     medicine: $('#medicine').val(),
@@ -1070,12 +1099,12 @@
                             },
                             {
                                 data: 'treatmentDuration',
-                                title: 'Duración de tratamiento',
+                                title: 'Duración',
                                 className: "text-center td-pad",
                             },
                             {
                                 data: 'btn',
-                                title: 'Eliminar',
+                                title: `<i style='font-size: 15px' class="bi bi-trash-fill"></i>`,
                                 className: "text-center td-pad",
                             }
                         ],
@@ -1115,7 +1144,6 @@
                 }
             });
         }
-
 
         function switch_type_plane(user) {
 
@@ -1249,36 +1277,38 @@
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-person"></i></i> Datos del paciente
+                                    <i class="bi bi-person"></i> Datos del paciente
                                 </button>
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <div class="row">
-                                        <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 162px;">
-                                            <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
-                                                width="150" height="150" alt="Imagen del paciente" class="img-medical">
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                            <strong>Nombre Completo:</strong><span class="text-capitalize">
-                                                {{ $Patient->last_name . ', ' . $Patient->name }}</span>
-                                            <br>
-                                            <strong>Fecha de Nacimiento:</strong><span>
-                                                {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
-                                            <br>
-                                            <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
-                                            <br>
-                                            <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
-                                            <span>
-                                                {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
-                                            <br>
-                                            <strong>Genero:</strong> <span class="text-capitalize">
-                                                {{ $Patient->genere }}</span>
-                                            <br>
-                                            <strong>Nº Historial:</strong><span>
-                                                {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
-                                            </span>
+                                    <div class="row mt-3">
+                                        <div class="d-flex" style="align-items: center;">
+                                            <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 135px;">
+                                                <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                    width="125" height="125" alt="Imagen del paciente" class="img-medical">
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
+                                                <strong>Nombre Completo:</strong><span class="text-capitalize">
+                                                    {{ $Patient->last_name . ', ' . $Patient->name }}</span>
+                                                <br>
+                                                <strong>Fecha de Nacimiento:</strong><span>
+                                                    {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
+                                                <br>
+                                                <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
+                                                <br>
+                                                <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
+                                                <span>
+                                                    {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
+                                                <br>
+                                                <strong>Genero:</strong> <span class="text-capitalize">
+                                                    {{ $Patient->genere }}</span>
+                                                <br>
+                                                <strong>Nº Historial:</strong><span>
+                                                    {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1288,7 +1318,7 @@
                 </div>
                 {{-- consulta médica --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
@@ -1299,18 +1329,16 @@
                             </span>
                             <div id="collapseTwo" class="accordion-collapse2 collapse" aria-labelledby="headingTwo"
                                 data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
+                                <div class="accordion-body m-mb" >
                                     <form id="form-consulta" method="post" action="/">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="medical_record_id" id="medical_record_id"
                                             value="">
                                         <input type="hidden" name="id" id="id" value="{{ $Patient->id }}">
                                         <div id="input-array"></div>
-                                        <div class="row" style="margin: 16px;">
+                                        <div class="row mt-2" style="margin: 0px 16px;">
                                             @if (Auth::user()->type_plane !== '7')
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
-                                                border-radius: 9px; padding: 16px;">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -1331,48 +1359,35 @@
                                                     </div>
                                                 </div>
                                             @endif
-                                            <div class=' col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3'
-                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6"
-                                                    style="padding: 0px 5px">
+                                            <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style' style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
+                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
                                                     <div class="form-group">
-                                                        <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Antecedentes</label>
-                                                        <textarea id="background" rows="4" name="background" class="form-control"></textarea>
+                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Antecedentes</label>
+                                                        <textarea id="background" rows="3" name="background" class="form-control"></textarea>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6"
-                                                    style="padding: 0px 5px">
+                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pl-5">
                                                     <div class="form-group">
-                                                        <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
-                                                            de la visita</label>
-                                                        <textarea id="razon" rows="4" name="razon" class="form-control"></textarea>
+                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón de la visita</label>
+                                                        <textarea id="razon" rows="3" name="razon" class="form-control"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
-                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
-                                                    border-radius: 9px; padding: 16px; ">
-                                                    <div
-                                                        class="btn-search-s col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-3">
-                                                        <div class="form-group">
+                                            <div id='symptoms_card1' class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div id='symptoms_card2' class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
+                                                    <div class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                        <div class="form-group" style="display: flex; align-items: center;">
                                                             <label for="search_symptoms"
-                                                                class="form-label"style="font-size: 13px; margin-bottom: 5px;">
+                                                                class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 130px">
                                                                 Buscar Sintomas
                                                             </label>
-                                                            <input onkeyup="search(event,'symptoms')" type="text"
-                                                                class="form-control" id="floatingInput" placeholder="">
+                                                            <input onkeyup="search(event,'symptoms')" type="text" style="border-radius: 30px;" class="form-control" id="floatingInput" placeholder="">
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
-                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
-                                                border-radius: 9px; padding: 16px;">
+                                                    <div id='symptoms_card3' class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; margin-top: 0.5rem">
                                                         <div class="form-group">
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Sintomas</label>
@@ -1380,17 +1395,16 @@
                                                         </div>
                                                     </div>
 
-                                                    <div id='diagnosis_div' class="mt-3"
-                                                        style="max-width: 100%; max-height: 100px; min-height: 100px ;position: relative;">
+                                                    <div id='diagnosis_div' class="overflow-auto" style="max-width: 100%; max-height: 40px; min-height: 40px; position: relative;">
                                                         <ul id="symptoms_filter" class="symptoms"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
+                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none">
                                                         </ul>
                                                         <ul id="symptoms" class="symptoms"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
+                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-top: 5px; margin-bottom: 0">
                                                         </ul>
                                                     </div>
                                                 </div>
-                                                <div class="row mt-3" id="div_spinner">
+                                                <div class="row" id="div_spinner">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <div id="spinner2" style="display: none">
                                                             <x-load-spinner show="true" />
@@ -1399,133 +1413,117 @@
                                                 </div>
 
                                                 <div class="row mt-3 justify-content-md-end send-ai">
-                                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                        style="display: flex; justify-content: flex-end;">
+                                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
                                                         <button onclick="handlerIA()" type="button"
                                                             class="btn btnSave">Consulta con inteligencia
-                                                            artificial</button>
+                                                            artificial</button>         
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Diagnostico</label>
+                                                    <textarea id="diagnosis" rows="2" name="diagnosis" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display: flex;">
+                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
+                                                    <div style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;" >
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" >
+                                                            <div class="form-group" id='search_exam' style="display: flex; align-items: center;" >
+                                                                <label for="search_patient" class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 135px">Buscar Examen</label>
+                                                                <input onkeyup="search(event,'exam')" type="text" style="border-radius: 30px;" class="form-control" id="floatingInput" placeholder="">
+                                                            </div>
+                                                            <label id='search_exam_p' style="font-size: 13px; margin-bottom: 5px; display:none">Exámenes </label>
+                                                        </div>
+                                                        <div id="exam-text-area">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                                <div class="form-group" >
+                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Exámenes</label>
+                                                                    <textarea id="text_area_exman" rows="2" name="text_area_exman" class="form-control"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-2 overflow-auto" style="max-width: 100%; max-height: 35px; min-height: 35px; position: relative;">
+                                                            <ul id="exam_filter" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; ; margin-bottom: 0;"></ul>
+                                                            <span id='not-exam'>No hay exámenes para mostrar de este paciente </span>
+                                                            <ul id="exam" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pl-5">
+                                                    <div style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                            <div class="form-group" id="search_studie" style="display: flex; align-items: center;">
+                                                                <label for="search_patient" class="form-label" style="font-size: 13px; margin-bottom: 5px; width: 131px">Buscar Estudio</label>
+                                                                <input onkeyup="search(event,'studie')" type="text" style="border-radius: 30px;" class="form-control" placeholder="" id="floatingInputt">
+                                                            </div>
+                                                        </div>
+                                                        <label id='search_studie_p' style="font-size: 13px; margin-bottom: 5px; display:none">Estudios
+                                                        </label>
+                                                        <div id="study-text-area">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="study-text-area" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                                <div class="form-group">
+                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Estudios</label>
+                                                                    <textarea id="text_area_studies" rows="2" name="text_area_studies" class="form-control"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-2 card-study overflow-auto" style="max-width: 100%; max-height:35px;  min-height: 35px;">
+                                                            <ul id="study_filter" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0;"> </ul>
+                                                            <span id='not-studie'>No hay estudios para mostrar de este paciente </span>
+                                                            <ul id="studie" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
-                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display: flex;">
-
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6"
-                                                    style="padding: 0px 8px 0px 0px">
-                                                    <div class="form-group" id=search_exam>
-                                                        <label for="search_patient"
-                                                            class="form-label"style="font-size: 13px; margin-bottom: 5px;">Buscar
-                                                            Examen</label>
-                                                        <input onkeyup="search(event,'exam')" type="text"
-                                                            class="form-control" id="floatingInput" placeholder="">
-                                                    </div>
-                                                    <label id='search_exam_p'
-                                                        style="font-size: 13px; margin-bottom: 5px; display:none">Exámenes
-                                                    </label>
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
-                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
-                                            border-radius: 9px; padding: 16px;">
-                                                        <div class="form-group">
-                                                            <label for="phone" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Exámenes</label>
-                                                            <textarea id="text_area_exman" rows="2" name="text_area_exman" class="form-control"></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="t-3"
-                                                        style="max-width: 100%; max-height: 100px; min-height: 100px ;position: relative;">
-
-                                                        <ul id="exam_filter" class="exam"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
-                                                        </ul>
-                                                        <span id='not-exam'>No hay exámenes para mostrar de este paciente
-                                                        </span>
-                                                        <ul id="exam" class="exam"
-                                                            style="padding-inline-start: 0; display: flex;
-                                                        flex-wrap: wrap;">
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6"
-                                                    style="padding: 0px 8px 0px 0px">
-                                                    <div class="form-group" id=search_studie>
-                                                        <label for="search_patient" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px;">Buscar
-                                                            Estudio</label>
-                                                        <input onkeyup="search(event,'studie')" type="text"
-                                                            class="form-control" placeholder="" id="floatingInputt">
-                                                    </div>
-                                                    <label id='search_studie_p'
-                                                        style="font-size: 13px; margin-bottom: 5px; display:none">Estudios
-                                                    </label>
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
-                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
-                                            border-radius: 9px; padding: 16px;">
-                                                        <div class="form-group">
-                                                            <label for="phone" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Estudios</label>
-                                                            <textarea id="text_area_studies" rows="2" name="text_area_studies" class="form-control"></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mt-3 card-study"
-                                                        style="max-width: 100%; max-height:100px;  min-height: 100px; position: relative;">
-                                                        <ul id="study_filter" class="studie"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
-                                                        </ul>
-                                                        <span id='not-studie'>No hay estudios para mostrar de este paciente
-                                                        </span>
-                                                        <ul id="studie" class="studie"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {{-- Medicacion --}}
-                                        <div class="row mt-3" style="margin: 16px;">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
-                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                <h5 style="margin-bottom: 17px;">Tratamiento</h5>
-                                                <hr style="margin-bottom: 0;">
+                                            {{-- Medicacion --}}
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <label style="font-size: 14px">Tratamiento</label>
+                                                <hr style="margin-bottom: 0; margin-top: 5px">
                                                 <div class="row medicine-form">
                                                     <div style="display: flex">
-                                                        <span class="text-warning mt-3" id='med'
-                                                            style="font-size: 14px;margin-right: 10px;"></span>
+                                                        <span class="text-warning mt-2" id='med' style="font-size: 14px;margin-right: 10px;"></span>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label"
-                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">Medicamento</label>
+                                                                <label for="phone" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">Medicamento</label>
                                                                 <input autocomplete="off"
-                                                                    class="form-control mask-only-text" id="medicine"
-                                                                    name="medicine" type="text" value="">
+                                                                    class="form-control mask-only-text" 
+                                                                    id="medicine"
+                                                                    placeholder="Se debe agregar un medicamento a la vez"
+                                                                    name="medicine" 
+                                                                    type="text"
+                                                                    style='font-size: 13px !important' 
+                                                                    value="">
                                                                 <i class="bi bi-capsule st-icon"></i>
                                                             </div>
                                                             <span id="medicine_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                                    <div class="col-sm-6 col-md-6 col-lg-5 col-xl-5 col-xxl-5 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label"
-                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">Indicaciones</label>
+                                                                <label for="phone" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">Indicaciones</label>
                                                                 <input autocomplete="off"
-                                                                    class="form-control mask-only-text" id="indication"
-                                                                    name="indication" type="text" value="">
+                                                                    class="form-control mask-only-text"
+                                                                    id="indication"
+                                                                    name="indication" 
+                                                                    type="text" 
+                                                                    value="">
                                                                 <i class="bi bi-file-medical st-icon"></i>
                                                             </div>
                                                             <span id="indication_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                                    <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="treatmentDuration" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Duración
-                                                                    de tratamiento</label>
+                                                                <label for="treatmentDuration" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Duración</label>
                                                                 <select name="treatmentDuration" id="treatmentDuration"
                                                                     placeholder="Seleccione"class="form-control"
                                                                     class="form-control combo-textbox-input">
@@ -1552,12 +1550,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div
-                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3 offset-md-5">
-                                                        <span type="" onclick="addMedacition(event)"
-                                                            class="btn btn-outline-secondary addMedacition" id="btn"
-                                                            style="padding: 7px"><i class="bi bi-plus-lg"></i>Añadir
-                                                            Tratamiento</span>
+                                                    <div class="col-sm-6 col-md-6 col-lg-1 col-xl-1 col-xxl-1 mt-2" style="display: flex; align-items: flex-end; margin-bottom: 3px;">
+                                                        <span type="" onclick="addMedacition(event)" class="btn btn-outline-secondary addMedacition" id="btn" style="padding: 7px; font-size: 12px; width:100%" ><i class="bi bi-plus-lg"></i>Añadir</span>
                                                     </div>
                                                 </div>
                                                 {{-- tabla --}}
@@ -1568,29 +1562,24 @@
                                                             id="table-medicamento">
                                                             <thead>
                                                                 <tr>
-                                                                    <th class="text-center" scope="col">
-                                                                        Medicamento</th>
-                                                                    <th class="text-center" scope="col">
-                                                                        Indicaciones</th>
-                                                                    <th class="text-center" scope="col">
-                                                                        Duración de tratamiento
-                                                                    </th>
-                                                                    <th class="text-center" scope="col">
-                                                                        Eliminar</th>
+                                                                    <th class="text-center w-35" scope="col"> Medicamento </th>
+                                                                    <th data-orderable="false" class="text-center w-55" scope="col"> Indicaciones </th>
+                                                                    <th data-orderable="false" class="text-center" scope="col"> Duración </th>
+                                                                    <th data-orderable="false" class="text-center w-4" scope="col"> <i style='font-size: 15px' class="bi bi-trash-fill"></i> </th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                             </tbody>
                                                         </table>
                                                         <tfoot>
-                                                            <div class="row mt-3" style="display: none">
+                                                            <div class="row mt-2" style="display: none">
                                                                 <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                     <div class="input-group flex-nowrap">
-                                                                        <span class="input-group-text">Total de
-                                                                            medicamentos
-                                                                        </span>
-                                                                        <input type="text" id="countMedicationAdd"
-                                                                            name="countMedicationAdd" class="form-control"
+                                                                        <span class="input-group-text">Total de medicamentos </span>
+                                                                        <input type="text" 
+                                                                            id="countMedicationAdd"
+                                                                            name="countMedicationAdd"
+                                                                            class="form-control"
                                                                             readonly value="{!! !empty($validateHistory)
                                                                                 ? ($validateHistory->medications_supplements != 'null'
                                                                                     ? count($medications_supplements)
@@ -1604,21 +1593,23 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row mt-3">
+                                        <div class="row">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                 <div id="spinner" style="display: none">
                                                     <x-load-spinner show="true" />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row mt-3 justify-content-md-end">
-                                            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                id="send" style="display: flex; justify-content: flex-end;">
-                                                <input class="btn btnSave send" value="Guardar Consulta"
-                                                    type="submit" />
-                                                <button style="margin-left: 20px; padding: 8px;" type="button"
-                                                    onclick="resetForm();" class="btn btnSecond" data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom" data-html="true"
+                                        <div class="row mt-2 justify-content-md-end">
+                                            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="send" style="display: flex; justify-content: flex-end; padding-right: 30px;">
+                                                <input class="btn btnSave send" value="Guardar Consulta" type="submit" />
+                                                <button style="margin-left: 20px; padding: 8px;" 
+                                                    type="button"
+                                                    onclick="resetForm();" 
+                                                    class="btn btnSecond" 
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom" 
+                                                    data-html="true"
                                                     title="Limpiar Formulario">
                                                     <i class="bi bi-eraser"></i>
                                                 </button>
@@ -1632,70 +1623,51 @@
                 </div>
                 {{-- tabla --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingThree">
-                                <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                                <button class="accordion-button collapsed bg-5"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree"
+                                    aria-expanded="false"
+                                    aria-controls="collapseThree"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-file-earmark-text"></i> Ultimas Consultas
                                 </button>
                             </span>
-                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                                data-bs-parent="#accordionExample">
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row" id="table-one">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                            style="margin-top: 20px;">
-                                            <table id="table-medical-record" class="table table-striped table-bordered"
-                                                style="width:100%; ">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px;">
+                                            <table id="table-medical-record" class="table table-striped table-bordered" style="width:100%; ">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">Código de la consulta</th>
-                                                        <th class="text-center" scope="col">Código de la referencia
-                                                        </th>
+                                                        <th class="text-center" scope="col">Código de la referencia </th>
                                                         <th class="text-center" scope="col">Fecha de la consulta</th>
                                                         <th class="text-center" scope="col">Nombre del paciente</th>
                                                         <th class="text-center" scope="col">Género</th>
                                                         <th class="text-center" scope="col">Centro</th>
                                                         <th class="text-center" scope="col">Médico</th>
-                                                        <th class="text-center" scope="col">Ver</th>
+                                                        <th data-orderable="false" class="text-center" scope="col">Ver</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($medical_record_user as $item)
                                                         <tr>
-                                                            <td class="text-center td-pad"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['data']['record_code'] }}</td>
-                                                            <td class="text-center td-pad"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['data']['cod_ref'] }}</td>
-                                                            <td class="text-center td-pad"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['date'] }}</td>
-                                                            <td class="text-center td-pad text-capitalize"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['name_patient'] }}
-                                                            </td>
-                                                            <td class="text-center td-pad text-capitalize"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['genere'] }}
-                                                            </td>
-                                                            <td class="text-center td-pad"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['center'] }}</td>
-                                                            <td class="text-center td-pad text-capitalize"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['full_name_doc'] }}
-                                                            </td>
+                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['data']['record_code'] }}</td>
+                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['data']['cod_ref'] }}</td>
+                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['date'] }}</td>
+                                                            <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['name_patient'] }} </td>
+                                                            <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['genere'] }} </td>
+                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['center'] }}</td>
+                                                            <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['full_name_doc'] }} </td>
                                                             <td class="text-center td-pad">
                                                                 <div class="d-flex">
                                                                     @if ($item['data']['status_exam'])
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <a
-                                                                                href="{{ route('mr_exam', $item['patient_id']) }}">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <a href="{{ route('mr_exam', $item['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     class="btn refresf btn-iSecond rounded-circle"
                                                                                     data-bs-toggle="tooltip"
@@ -1707,8 +1679,7 @@
                                                                             </a>
                                                                         </div>
                                                                     @else
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <button type="button"
                                                                                 class="refresf btn-idanger rounded-circle"
                                                                                 onclick="showAlertNotExam();">
@@ -1717,10 +1688,8 @@
                                                                         </div>
                                                                     @endif
                                                                     @if ($item['data']['status_study'])
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <a
-                                                                                href="{{ route('mr_study', $item['patient_id']) }}">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <a href="{{ route('mr_study', $item['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     class="btn refresf btn-iSecond rounded-circle"
                                                                                     data-bs-toggle="tooltip"
@@ -1732,8 +1701,7 @@
                                                                             </a>
                                                                         </div>
                                                                     @else
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <button type="button"
                                                                                 class="refresf btn-idanger rounded-circle"
                                                                                 onclick="showAlertNotStudy();">
@@ -1741,8 +1709,7 @@
                                                                             </button>
                                                                         </div>
                                                                     @endif
-                                                                    <div
-                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                         <a target="_blank"
                                                                             href="{{ route('pdf_medical_prescription', $item['id']) }}">
                                                                             <button type="button"
@@ -1756,18 +1723,15 @@
                                                                             </button>
                                                                         </a>
                                                                     </div>
-                                                                    <div
-                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-
-                                                                        <a target="_blank"
-                                                                            href="{{ route('PDF_medical_record', $item['id']) }}">
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <a target="_blank" href="{{ route('PDF_medical_record', $item['id']) }}">
                                                                             <button type="button"
                                                                                 class="btn refresf btn-iSecond rounded-circle"><i
-                                                                                    class="bi bi-filetype-pdf"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="bottom"
-                                                                                    data-bs-custom-class="custom-tooltip"
-                                                                                    data-html="true" title="ver PDF"></i>
+                                                                                class="bi bi-filetype-pdf"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                data-bs-custom-class="custom-tooltip"
+                                                                                data-html="true" title="ver PDF"></i>
                                                                             </button>
                                                                         </a>
                                                                     </div>
@@ -1788,21 +1752,18 @@
         @endif
 
         <!-- Modal -->
-        <div class="modal fade" id="modalIA" tabindex="-1" aria-labelledby="modalIALabel" aria-hidden="true"
-            id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal fade" id="modalIA" tabindex="-1" aria-labelledby="modalIALabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header title">
                             <i class="bi bi-alexa"></i>
                             <span style="padding-left: 5px">Resultado de la consulta con inteligencia artificial</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                style="font-size: 12px;"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                         </div>
                         <div class="modal-body">
                             <div class="div-ia">
-                                <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
-                                    id="p-ia"></pre>
+                                <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="p-ia"></pre>
                             </div>
                         </div>
                     </div>
