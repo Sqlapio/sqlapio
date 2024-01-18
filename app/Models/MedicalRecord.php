@@ -34,7 +34,7 @@ class MedicalRecord extends Model
         'razon',
         'diagnosis',
         // 'exams',
-        // 'studies',
+        'sintomas',
         'medications_supplements',
         'status_exam',
         'status_study',
