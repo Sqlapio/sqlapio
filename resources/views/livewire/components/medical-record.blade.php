@@ -682,6 +682,7 @@
                     $("#diagnosis").attr('disabled', false);
                     $("#treatment").attr('disabled', false);
                     $(".addMedacition").show();
+                    $("#sintomas").attr('disabled', false);
                     // $("#exams").attr('disabled', false);
                     // $("#studies").attr('disabled', false);
                     $('#form-consulta').find('input:checkbox').attr('checked', false);
