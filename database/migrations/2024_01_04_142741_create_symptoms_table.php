@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('cod_symptoms');
             $table->string('description');
-            $table->string('check');
+            $table->string('check')->nullable();
             $table->timestamps();
         });
     }
