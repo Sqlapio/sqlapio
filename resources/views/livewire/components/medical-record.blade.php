@@ -124,10 +124,67 @@
         background: #d4d4d4;
     }
 
+<<<<<<< Updated upstream
     @media only screen and (max-width: 390px) {
         .data-medical {
             width: 185px !important;
             font-size: 14px;
+=======
+    .data-medical {
+        font-size: 13px;
+    }
+
+    .pr-5 {
+        padding: 0 5px 0 0;
+    }
+
+    .pl-5 {
+        padding: 0 0 0 5px;
+    }
+
+    .w-4 {
+        width: 4% !important;
+    }
+
+    .w-35 {
+        width: 35% !important;
+    }
+
+    .w-55 {
+        width: 55% !important;
+    }
+
+    .symptoms_style {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
+    .symptoms_mt-0 {
+        margin-top: 0 !important;
+    }
+
+    @media only screen and (max-width: 390px) {
+        .data-medical {
+            width: 185px !important;
+            font-size: 13px;
+        }
+
+        .mb-style {
+            flex-direction: column;
+        }
+
+        .m-mb {
+            padding: 0 !important;
+        }
+
+        .pr-5 {
+            padding: 0 0 5px !important;
+        }
+
+        .pl-5 {
+            padding: 0 0 0 5px;
+>>>>>>> Stashed changes
         }
     }
 
@@ -804,15 +861,25 @@
 
                 valSymptoms = valSymptoms.replace(`${e.target.value}`, '');
 
+<<<<<<< Updated upstream
+=======
+                valSymptoms = valSymptoms.replace(',,', '');
+
+>>>>>>> Stashed changes
                 if (valSymptoms[0] == ',') {
 
                     valSymptoms = valSymptoms.slice(1);
                 }
 
+<<<<<<< Updated upstream
 
                 if (valSymptoms.substring(valSymptoms.indexOf() + 1) == "," || valSymptoms.substring(valSymptoms.indexOf() +
                         1) == ",,") {
 
+=======
+                if (valSymptoms.substring(valSymptoms.indexOf() + 1) == "," || valSymptoms.substring(valSymptoms.indexOf() +
+                        1) == ",,") {
+>>>>>>> Stashed changes
                     $("#diagnosis").val('');
 
                 }
@@ -821,7 +888,6 @@
 
                 handlerCheckDelete(symptom);
             }
-
         }
 
         const handlerUl = (data, id, clas, number) => {
@@ -940,6 +1006,7 @@
 
             let data = exam.find(el => el.id == id);
 
+
             if ($(`#${e.target.id}`).is(':checked')) {
                 exams_array.push({
                     code_exams: $(`#${e.target.id}`).data('code'),
@@ -956,15 +1023,23 @@
 
                 valExamenes = valExamenes.replace(`${e.target.value}`, '');
 
+                valExamenes = valExamenes.replace(',,', '');
+
+
                 if (valExamenes[0] == ',') {
 
                     valExamenes = valExamenes.slice(1);
                 }
 
+<<<<<<< Updated upstream
 
                 if (valExamenes.substring(valExamenes.indexOf() + 1) == "," || valExamenes.substring(valExamenes.indexOf() +
                         1) == ",,") {
 
+=======
+                if (valExamenes.substring(valExamenes.indexOf() + 1) == "," || valExamenes.substring(valExamenes.indexOf() +
+                        1) == ",,") {
+>>>>>>> Stashed changes
                     $("#text_area_exman").val('');
 
                 }
@@ -982,6 +1057,7 @@
 
             let data_study = study.find(el => el.id == id);
 
+<<<<<<< Updated upstream
 
             if ($(`#${e.target.id}`).is(':checked')) {
                 studies_array.push({
@@ -1018,6 +1094,33 @@
 
                 studies_array.splice(key, 1);
 
+=======
+            if ($(`#${e.target.id}`).is(':checked')) {
+                studies_array.push({
+                    code_studies: $(`#${e.target.id}`).data('code'),
+                    description: $(`#${e.target.id}`).val(),
+
+                });
+
+                valStudios = (valStudios == "") ? e.target.value : `${valStudios},${e.target.value}`;
+                $("#text_area_studies").val(valStudios);
+                handlerStudiesCheckTrue(data_study);
+            } else {
+                valStudios = valStudios.replace(`${e.target.value}`, '');
+
+                valStudios = valStudios.replace(',,', '');
+
+                if (valStudios[0] == ',') {
+                    valStudios = valStudios.slice(1);
+                }
+                if (valStudios.substring(valStudios.indexOf() + 1) == "," || valStudios.substring(valStudios.indexOf() +
+                    1) == ",,") {
+                    $("#text_area_studies").val('');
+                }
+
+                $("#text_area_studies").val(valStudios);
+                studies_array.splice(key, 1);
+>>>>>>> Stashed changes
                 handlerStudiesCheckDelete(data_study);
             }
         }
@@ -1037,7 +1140,12 @@
                 $("#indication_span").text('');
                 $("#treatmentDuration_span").text('');
 
+<<<<<<< Updated upstream
                 let btn = `<span onclick="deleteMedication(${countMedicationAdd})" ><i class="bi bi-archive"></i></span>`;
+=======
+                let btn =
+                    `<span onclick="deleteMedication(${countMedicationAdd})" ><i style="cursor: pointer" class="bi bi-x-circle-fill"></i></span>`;
+>>>>>>> Stashed changes
 
                 medications_supplements.push({
                     medicine: $('#medicine').val(),
@@ -1255,6 +1363,7 @@
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
+<<<<<<< Updated upstream
                                     <div class="row">
                                         <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 162px;">
                                             <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
@@ -1279,6 +1388,36 @@
                                             <strong>Nº Historial:</strong><span>
                                                 {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
                                             </span>
+=======
+                                    <div class="row mt-3">
+                                        <div class="d-flex" style="align-items: center;">
+                                            <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2"
+                                                style="width: 135px;">
+                                                <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                    width="125" height="125" alt="Imagen del paciente"
+                                                    class="img-medical">
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
+                                                <strong>Nombre Completo:</strong><span class="text-capitalize">
+                                                    {{ $Patient->last_name . ', ' . $Patient->name }}</span>
+                                                <br>
+                                                <strong>Fecha de Nacimiento:</strong><span>
+                                                    {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
+                                                <br>
+                                                <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
+                                                <br>
+                                                <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
+                                                <span>
+                                                    {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
+                                                <br>
+                                                <strong>Genero:</strong> <span class="text-capitalize">
+                                                    {{ $Patient->genere }}</span>
+                                                <br>
+                                                <strong>Nº Historial:</strong><span>
+                                                    {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
+                                                </span>
+                                            </div>
+>>>>>>> Stashed changes
                                         </div>
                                     </div>
                                 </div>
@@ -1299,7 +1438,11 @@
                             </span>
                             <div id="collapseTwo" class="accordion-collapse2 collapse" aria-labelledby="headingTwo"
                                 data-bs-parent="#accordionExample">
+<<<<<<< Updated upstream
                                 <div class="accordion-body">
+=======
+                                <div class="accordion-body m-mb">
+>>>>>>> Stashed changes
                                     <form id="form-consulta" method="post" action="/">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="medical_record_id" id="medical_record_id"
@@ -1309,8 +1452,12 @@
                                         <div class="row" style="margin: 16px;">
                                             @if (Auth::user()->type_plane !== '7')
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+<<<<<<< Updated upstream
                                                     style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
                                                 border-radius: 9px; padding: 16px;">
+=======
+                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+>>>>>>> Stashed changes
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -1331,6 +1478,7 @@
                                                     </div>
                                                 </div>
                                             @endif
+<<<<<<< Updated upstream
                                             <div class=' col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3'
                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
                                                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6"
@@ -1339,6 +1487,15 @@
                                                         <label for="phone" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Antecedentes</label>
                                                         <textarea id="background" rows="4" name="background" class="form-control"></textarea>
+=======
+                                            <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style'
+                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
+                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
+                                                    <div class="form-group">
+                                                        <label for="phone" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Antecedentes</label>
+                                                        <textarea id="background" rows="3" name="background" class="form-control"></textarea>
+>>>>>>> Stashed changes
                                                     </div>
                                                 </div>
 
@@ -1348,11 +1505,16 @@
                                                         <label for="phone" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
                                                             de la visita</label>
+<<<<<<< Updated upstream
                                                         <textarea id="razon" rows="4" name="razon" class="form-control"></textarea>
+=======
+                                                        <textarea id="razon" rows="3" name="razon" class="form-control"></textarea>
+>>>>>>> Stashed changes
                                                     </div>
                                                 </div>
                                             </div>
 
+<<<<<<< Updated upstream
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
@@ -1361,11 +1523,24 @@
                                                     <div
                                                         class="btn-search-s col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-3">
                                                         <div class="form-group">
+=======
+                                            <div id='symptoms_card1'
+                                                class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div id='symptoms_card2'
+                                                    class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
+                                                    <div
+                                                        class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                        <div class="form-group"
+                                                            style="display: flex; align-items: center;">
+>>>>>>> Stashed changes
                                                             <label for="search_symptoms"
                                                                 class="form-label"style="font-size: 13px; margin-bottom: 5px;">
                                                                 Buscar Sintomas
                                                             </label>
                                                             <input onkeyup="search(event,'symptoms')" type="text"
+<<<<<<< Updated upstream
                                                                 class="form-control" id="floatingInput" placeholder="">
                                                         </div>
                                                     </div>
@@ -1373,6 +1548,16 @@
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
                                                         style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55);
                                                 border-radius: 9px; padding: 16px;">
+=======
+                                                                style="border-radius: 30px;" class="form-control"
+                                                                id="floatingInput" placeholder="">
+                                                        </div>
+                                                    </div>
+
+                                                    <div id='symptoms_card3'
+                                                        class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; margin-top: 0.5rem">
+>>>>>>> Stashed changes
                                                         <div class="form-group">
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Sintomas</label>
@@ -1380,8 +1565,13 @@
                                                         </div>
                                                     </div>
 
+<<<<<<< Updated upstream
                                                     <div id='diagnosis_div' class="mt-3"
                                                         style="max-width: 100%; max-height: 100px; min-height: 100px ;position: relative;">
+=======
+                                                    <div id='diagnosis_div' class="overflow-auto"
+                                                        style="max-width: 100%; max-height: 40px; min-height: 40px; position: relative;">
+>>>>>>> Stashed changes
                                                         <ul id="symptoms_filter" class="symptoms"
                                                             style="padding-inline-start: 0; display: flex; flex-wrap: wrap;">
                                                         </ul>
@@ -1407,6 +1597,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+<<<<<<< Updated upstream
 
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display: flex;">
@@ -1430,6 +1621,57 @@
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Exámenes</label>
                                                             <textarea id="text_area_exman" rows="2" name="text_area_exman" class="form-control"></textarea>
+=======
+
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Diagnostico</label>
+                                                    <textarea id="diagnosis" rows="2" name="diagnosis" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style"
+                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display: flex;">
+                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
+                                                    <div
+                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                            <div class="form-group" id='search_exam'
+                                                                style="display: flex; align-items: center;">
+                                                                <label for="search_patient"
+                                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 135px">Buscar
+                                                                    Examen</label>
+                                                                <input onkeyup="search(event,'exam')" type="text"
+                                                                    style="border-radius: 30px;" class="form-control"
+                                                                    id="floatingInput" placeholder="">
+                                                            </div>
+                                                            <label id='search_exam_p'
+                                                                style="font-size: 13px; margin-bottom: 5px; display:none">Exámenes
+                                                            </label>
+                                                        </div>
+                                                        <div id="exam-text-area">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                                <div class="form-group">
+                                                                    <label for="phone" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Exámenes</label>
+                                                                    <textarea id="text_area_exman" rows="2" name="text_area_exman" class="form-control"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-2 overflow-auto"
+                                                            style="max-width: 100%; max-height: 35px; min-height: 35px; position: relative;">
+                                                            <ul id="exam_filter" class="exam"
+                                                                style="padding-inline-start: 0; display: flex; flex-wrap: wrap; ; margin-bottom: 0;">
+                                                            </ul>
+                                                            <span id='not-exam'>No hay exámenes para mostrar de este
+                                                                paciente </span>
+                                                            <ul id="exam" class="exam"
+                                                                style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
+                                                            </ul>
+>>>>>>> Stashed changes
                                                         </div>
                                                     </div>
                                                     <div class="t-3"
@@ -1446,6 +1688,7 @@
                                                         </ul>
                                                     </div>
                                                 </div>
+<<<<<<< Updated upstream
 
                                                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6"
                                                     style="padding: 0px 8px 0px 0px">
@@ -1466,6 +1709,46 @@
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Estudios</label>
                                                             <textarea id="text_area_studies" rows="2" name="text_area_studies" class="form-control"></textarea>
+=======
+                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pl-5">
+                                                    <div
+                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                            <div class="form-group" id="search_studie"
+                                                                style="display: flex; align-items: center;">
+                                                                <label for="search_patient" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; width: 131px">Buscar
+                                                                    Estudio</label>
+                                                                <input onkeyup="search(event,'studie')" type="text"
+                                                                    style="border-radius: 30px;" class="form-control"
+                                                                    placeholder="" id="floatingInputt">
+                                                            </div>
+                                                        </div>
+                                                        <label id='search_studie_p'
+                                                            style="font-size: 13px; margin-bottom: 5px; display:none">Estudios
+                                                        </label>
+                                                        <div id="study-text-area">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                                                id="study-text-area"
+                                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                                <div class="form-group">
+                                                                    <label for="phone" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Estudios</label>
+                                                                    <textarea id="text_area_studies" rows="2" name="text_area_studies" class="form-control"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mt-2 card-study overflow-auto"
+                                                            style="max-width: 100%; max-height:35px;  min-height: 35px;">
+                                                            <ul id="study_filter" class="studie"
+                                                                style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0;">
+                                                            </ul>
+                                                            <span id='not-studie'>No hay estudios para mostrar de este
+                                                                paciente </span>
+                                                            <ul id="studie" class="studie"
+                                                                style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
+                                                            </ul>
+>>>>>>> Stashed changes
                                                         </div>
                                                     </div>
                                                     <div class="mt-3 card-study"
@@ -1483,6 +1766,7 @@
                                             </div>
                                         </div>
 
+<<<<<<< Updated upstream
                                         {{-- Medicacion --}}
                                         <div class="row mt-3" style="margin: 16px;">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
@@ -1492,6 +1776,16 @@
                                                 <div class="row medicine-form">
                                                     <div style="display: flex">
                                                         <span class="text-warning mt-3" id='med'
+=======
+                                            {{-- Medicacion --}}
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <label style="font-size: 14px">Tratamiento</label>
+                                                <hr style="margin-bottom: 0; margin-top: 5px">
+                                                <div class="row medicine-form">
+                                                    <div style="display: flex">
+                                                        <span class="text-warning mt-2" id='med'
+>>>>>>> Stashed changes
                                                             style="font-size: 14px;margin-right: 10px;"></span>
                                                     </div>
                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
@@ -1501,7 +1795,13 @@
                                                                     style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">Medicamento</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-only-text" id="medicine"
+<<<<<<< Updated upstream
                                                                     name="medicine" type="text" value="">
+=======
+                                                                    placeholder="Se debe agregar un medicamento a la vez"
+                                                                    name="medicine" type="text"
+                                                                    style='font-size: 13px !important' value="">
+>>>>>>> Stashed changes
                                                                 <i class="bi bi-capsule st-icon"></i>
                                                             </div>
                                                             <span id="medicine_span" class="text-danger"></span>
@@ -1524,8 +1824,12 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="treatmentDuration" class="form-label"
+<<<<<<< Updated upstream
                                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Duración
                                                                     de tratamiento</label>
+=======
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Duración</label>
+>>>>>>> Stashed changes
                                                                 <select name="treatmentDuration" id="treatmentDuration"
                                                                     placeholder="Seleccione"class="form-control"
                                                                     class="form-control combo-textbox-input">
@@ -1552,12 +1856,21 @@
                                                             </div>
                                                         </div>
                                                     </div>
+<<<<<<< Updated upstream
                                                     <div
                                                         class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3 offset-md-5">
                                                         <span type="" onclick="addMedacition(event)"
                                                             class="btn btn-outline-secondary addMedacition" id="btn"
                                                             style="padding: 7px"><i class="bi bi-plus-lg"></i>Añadir
                                                             Tratamiento</span>
+=======
+                                                    <div class="col-sm-6 col-md-6 col-lg-1 col-xl-1 col-xxl-1 mt-2"
+                                                        style="display: flex; align-items: flex-end; margin-bottom: 3px;">
+                                                        <span type="" onclick="addMedacition(event)"
+                                                            class="btn btn-outline-secondary addMedacition" id="btn"
+                                                            style="padding: 7px; font-size: 12px; width:100%"><i
+                                                                class="bi bi-plus-lg"></i>Añadir</span>
+>>>>>>> Stashed changes
                                                     </div>
                                                 </div>
                                                 {{-- tabla --}}
@@ -1568,6 +1881,7 @@
                                                             id="table-medicamento">
                                                             <thead>
                                                                 <tr>
+<<<<<<< Updated upstream
                                                                     <th class="text-center" scope="col">
                                                                         Medicamento</th>
                                                                     <th class="text-center" scope="col">
@@ -1577,6 +1891,17 @@
                                                                     </th>
                                                                     <th class="text-center" scope="col">
                                                                         Eliminar</th>
+=======
+                                                                    <th class="text-center w-35" scope="col">
+                                                                        Medicamento </th>
+                                                                    <th data-orderable="false" class="text-center w-55"
+                                                                        scope="col"> Indicaciones </th>
+                                                                    <th data-orderable="false" class="text-center"
+                                                                        scope="col"> Duración </th>
+                                                                    <th data-orderable="false" class="text-center w-4"
+                                                                        scope="col"> <i style='font-size: 15px'
+                                                                            class="bi bi-trash-fill"></i> </th>
+>>>>>>> Stashed changes
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -1587,8 +1912,12 @@
                                                                 <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                     <div class="input-group flex-nowrap">
                                                                         <span class="input-group-text">Total de
+<<<<<<< Updated upstream
                                                                             medicamentos
                                                                         </span>
+=======
+                                                                            medicamentos </span>
+>>>>>>> Stashed changes
                                                                         <input type="text" id="countMedicationAdd"
                                                                             name="countMedicationAdd" class="form-control"
                                                                             readonly value="{!! !empty($validateHistory)
@@ -1611,9 +1940,16 @@
                                                 </div>
                                             </div>
                                         </div>
+<<<<<<< Updated upstream
                                         <div class="row mt-3 justify-content-md-end">
                                             <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                 id="send" style="display: flex; justify-content: flex-end;">
+=======
+                                        <div class="row mt-2 justify-content-md-end">
+                                            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                id="send"
+                                                style="display: flex; justify-content: flex-end; padding-right: 30px;">
+>>>>>>> Stashed changes
                                                 <input class="btn btnSave send" value="Guardar Consulta"
                                                     type="submit" />
                                                 <button style="margin-left: 20px; padding: 8px;" type="button"
@@ -1659,7 +1995,12 @@
                                                         <th class="text-center" scope="col">Género</th>
                                                         <th class="text-center" scope="col">Centro</th>
                                                         <th class="text-center" scope="col">Médico</th>
+<<<<<<< Updated upstream
                                                         <th class="text-center" scope="col">Ver</th>
+=======
+                                                        <th data-orderable="false" class="text-center" scope="col">Ver
+                                                        </th>
+>>>>>>> Stashed changes
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1676,19 +2017,30 @@
                                                                 {{ $item['date'] }}</td>
                                                             <td class="text-center td-pad text-capitalize"
                                                                 onclick="showDataEdit({{ json_encode($item) }});">
+<<<<<<< Updated upstream
                                                                 {{ $item['name_patient'] }}
                                                             </td>
                                                             <td class="text-center td-pad text-capitalize"
                                                                 onclick="showDataEdit({{ json_encode($item) }});">
                                                                 {{ $item['genere'] }}
                                                             </td>
+=======
+                                                                {{ $item['name_patient'] }} </td>
+                                                            <td class="text-center td-pad text-capitalize"
+                                                                onclick="showDataEdit({{ json_encode($item) }});">
+                                                                {{ $item['genere'] }} </td>
+>>>>>>> Stashed changes
                                                             <td class="text-center td-pad"
                                                                 onclick="showDataEdit({{ json_encode($item) }});">
                                                                 {{ $item['center'] }}</td>
                                                             <td class="text-center td-pad text-capitalize"
                                                                 onclick="showDataEdit({{ json_encode($item) }});">
+<<<<<<< Updated upstream
                                                                 {{ $item['full_name_doc'] }}
                                                             </td>
+=======
+                                                                {{ $item['full_name_doc'] }} </td>
+>>>>>>> Stashed changes
                                                             <td class="text-center td-pad">
                                                                 <div class="d-flex">
                                                                     @if ($item['data']['status_exam'])
@@ -1758,7 +2110,10 @@
                                                                     </div>
                                                                     <div
                                                                         class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
                                                                         <a target="_blank"
                                                                             href="{{ route('PDF_medical_record', $item['id']) }}">
                                                                             <button type="button"
