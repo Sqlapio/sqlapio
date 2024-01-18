@@ -87,6 +87,7 @@ class MedicalRecord extends Component
                 'background'    => $data->background,
                 'razon'         => $data->razon,
                 'diagnosis'     => $data->diagnosis,
+                'sintomas'     => $data->sintomas,
                 'medications_supplements' => $data->medications_supplements,
             ]);
 

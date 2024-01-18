@@ -466,6 +466,7 @@ class UtilsController extends Controller
 						'status_study' 		=> $val->status_study,
 						'study' 		=> $val->get_study_medical,
 						'exam' 		=> $val->get_exam_medical,
+						'sintomas' 		=> $val->sintomas,
 					],
 				];
 			}
