@@ -325,9 +325,9 @@
                     // exams: {
                     //     required: true,
                     // },
-                    // studies: {
-                    //     required: true,
-                    // },
+                    sintomas: {
+                        required: true,
+                    },
                     center_id: {
                         required: true,
                     },
@@ -352,9 +352,9 @@
                     // exams: {
                     //     required: "Examenes es obligatorio",
                     // },
-                    // studies: {
-                    //     required: "Estudios es obligatorio",
-                    // },
+                    sintomas: {
+                        required: "Sintomas es obligatorio",
+                    },
                     center_id: {
                         required: "Centro es obligatorio",
                     },
@@ -728,7 +728,7 @@
             $("#razon").val(item.data.razon).attr('disabled', true);
             $("#diagnosis").val(item.data.diagnosis).attr('disabled', true);
             $("#treatment").val(item.data.treatment).attr('disabled', true);
-            // $("#exams").val(item.data.exams);
+            $("#sintomas").val(item.data.sintomas).attr('disabled', true);            
             // $("#studies").val(item.data.studies);
             $(".medicine-form").hide();
             // $("#indication").hide();
@@ -884,7 +884,7 @@
                 valSymptoms = valSymptoms.replace(',,', '');
                 valSymptoms = (valSymptoms == "") ? e.target.value : `${valSymptoms},${e.target.value}`;
 
-                $("#diagnosis").val(valSymptoms);
+                $("#sintomas").val(valSymptoms);
                 handlerCheckTrue(symptom);
             } else {
                 valSymptoms = valSymptoms.replace(`${e.target.value}`, '');
@@ -896,10 +896,10 @@
                 }
 
                 if (valSymptoms.substring(valSymptoms.indexOf() + 1) == "," || valSymptoms.substring(valSymptoms.indexOf() + 1) == ",,") {
-                    $("#diagnosis").val('');
+                    $("#sintomas").val('');
                 }
 
-                $("#diagnosis").val(valSymptoms);
+                $("#sintomas").val(valSymptoms);
 
                 handlerCheckDelete(symptom);
             }
@@ -1399,7 +1399,7 @@
                                                         <div class="form-group">
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Sintomas</label>
-                                                            <textarea id="diagnosis" rows="2" name="diagnosis" class="form-control"></textarea>
+                                                            <textarea id="sintomas" rows="2" name="sintomas" class="form-control"></textarea>
                                                         </div>
                                                     </div>
 

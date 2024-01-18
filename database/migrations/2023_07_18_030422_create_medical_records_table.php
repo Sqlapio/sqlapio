@@ -24,7 +24,7 @@ return new class extends Migration
             $table->longText('diagnosis');
             // $table->longText('treatment');
             // $table->longText('exams');
-            // $table->longText('studies');
+            $table->longText('sintomas');
             // medicamentos y suplementos
             $table->json('medications_supplements')->nullable();
             $table->boolean('status_study')->nullable()->defult(false);
