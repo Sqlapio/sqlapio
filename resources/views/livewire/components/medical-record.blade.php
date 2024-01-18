@@ -888,6 +888,9 @@
                 handlerCheckTrue(symptom);
             } else {
                 valSymptoms = valSymptoms.replace(`${e.target.value}`, '');
+
+                valSymptoms = valSymptoms.replace(',,', '');
+
                 if (valSymptoms[0] == ',') {
                     valSymptoms = valSymptoms.slice(1);
                 }
@@ -1007,6 +1010,8 @@
             } else {
                 valExamenes = valExamenes.replace(`${e.target.value}`, '');
 
+                valExamenes = valExamenes.replace(',,', '');
+
                 if (valExamenes[0] == ',') {
                     valExamenes = valExamenes.slice(1);
                 }
@@ -1037,6 +1042,9 @@
                     handlerStudiesCheckTrue(data_study);
                 } else {
                     valStudios = valStudios.replace(`${e.target.value}`, '');
+
+                    valStudios = valStudios.replace(',,', '');
+
 
                     if (valStudios[0] == ',') {
                         valStudios = valStudios.slice(1);
