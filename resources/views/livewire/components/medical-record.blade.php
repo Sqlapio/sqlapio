@@ -158,6 +158,27 @@
         margin-top: 0 !important;
     }
 
+    .shadow-div {
+        box-shadow: 0 0 0 64em rgba(0,0,0,0.75);
+        position: absolute;
+        z-index: 1;
+        
+    }
+
+    /* .section {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/fondo.jpg");
+    }    */
+
+    .s-IA {
+        width: 12% !important;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .s-IA {
+            width: 50% !important;
+        }
+    } 
+
     @media only screen and (max-width: 390px) {
         .data-medical {
             width: 185px !important;
@@ -1416,7 +1437,11 @@
                                                 <div class="row" id="div_spinner">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <div id="spinner2" style="display: none">
-                                                            <x-load-spinner show="true" />
+                                                            <div class="container shadow-div">
+                                                                <div class="row justify-content-center form-sq">
+                                                                    <img class="spinnner s-IA" src="{{ asset('img/GIF-CONSULTAR-IA.gif') }}" alt="">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
