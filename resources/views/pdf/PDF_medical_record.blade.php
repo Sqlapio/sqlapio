@@ -156,7 +156,13 @@
                             <strong>Fecha de la Consulta:</strong>
                             <span>{{ $MedicalRecord->record_date }}</span>
                             <br>
+                            @php
+                                $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
+                                $barcode = $generator->getBarcode($MedicalRecord->get_paciente->patient_code, $generator::TYPE_CODE_128);
+                            @endphp
+                            {{ $barcode }}
                             <strong> Código del paciente:</strong>
+                            <img src="data:image/png;base64,{{ $barcode }}">
                             <span>{{ $MedicalRecord->get_paciente->patient_code }}</span>
                         </div>
                     </td>
