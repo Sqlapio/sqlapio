@@ -207,7 +207,7 @@
                                             <ul class="list-group" style="border-radius: 8px;">
                                                 <li class="list-group-item active aa" aria-current="true">
                                                     <div class="d-flex w-100 justify-content-between">
-                                                        <h5 class="mb-0 text-capitalize">Examen Físico</h5>
+                                                        <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Examen Físico</h5>
                                                     </div>    
                                                 </li>
                                                 <li class="list-group-item">
@@ -341,7 +341,7 @@
                                         <ul class="list-group" style="border-radius: 8px;">
                                             <li class="list-group-item active aa" aria-current="true">
                                                 <div class="d-flex w-100 justify-content-between">
-                                                    <h5 class="mb-0 text-capitalize">Antecedentes ginecologicos (si aplica) </h5>                                   
+                                                    <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Antecedentes ginecologicos (si aplica) </h5>                                   
                                                 </div>
                                             </li>
 
@@ -628,7 +628,7 @@
 
                                 <div class="row mt-3">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <h5>Historia del paciente</h5>
+                                        <h5 style='font-size: 15px;'>Historia del paciente</h5>
 
                                     </div>
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
@@ -675,8 +675,7 @@
                                                         <ul class="list-group" style="border-radius: 8px;">
                                                             <li class="list-group-item active aa" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 class="mb-0 text-capitalize">Antecedentes
-                                                                        Personales y Familiares</h5>
+                                                                    <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Antecedentes Personales y Familiares</h5>
                                                                 </div>
                                                             </li>
                                                             <div class="family_back">
@@ -692,8 +691,7 @@
                                                         <ul class="list-group" style="border-radius: 8px;">
                                                             <li class="list-group-item active aa" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 class="mb-0 text-capitalize">Antecedentes
-                                                                        personales patológicos</h5>
+                                                                    <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Antecedentes personales patológicos</h5>
                                                                 </div>
                                                             </li>
                                                             <div class="pathology_back ">
@@ -708,8 +706,7 @@
                                                         <ul class="list-group" style="border-radius: 8px;">
                                                             <li class="list-group-item active aa" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 class="mb-0 text-capitalize">Antecedentes no
-                                                                        patológicos</h5>
+                                                                    <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Antecedentes no patológicos</h5>
                                                                 </div>
                                                             </li>
                                                             <div class="non_pathology_back ">
@@ -729,7 +726,7 @@
                                                         <ul class="list-group" style="border-radius: 8px;">
                                                             <li class="list-group-item active aa" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 class="mb- text-capitalize">Antecedentes alérgicos</h5>
+                                                                    <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Antecedentes alérgicos</h5>
                                                                 </div>
                                                             </li>
                                                             <div class="list-alergias ">
@@ -749,9 +746,7 @@
                                                         <ul class="list-group" style="border-radius: 8px;">
                                                             <li class="list-group-item active aa" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 class="mb- text-capitalize">Antecedentes
-                                                                        quirúrgicos
-                                                                    </h5>
+                                                                    <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Antecedentes quirúrgicos </h5>
                                                                 </div>
                                                             </li>
                                                             <div class="list-cirugias">
@@ -772,7 +767,7 @@
                                                         <ul class="list-group" style="border-radius: 8px;">
                                                             <li class="list-group-item active aa" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 class="mb- text-capitalize">Medicamentos
+                                                                    <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Medicamentos
                                                                     </h5>
                                                                 </div>
                                                             </li>
