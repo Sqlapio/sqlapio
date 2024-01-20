@@ -92,7 +92,11 @@
         }
 
         .modal-d {
-            max-width: 165px;
+            max-width: 133px;
+        }
+
+        .modal-text {
+            max-width: 190px;
         }
 
     }
@@ -177,8 +181,7 @@
                                                     alt="Imagen del paciente">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6"
-                                            style="font-size: 13px;">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 modal-text" style="font-size: 13px;">
                                             <div>
                                                 <strong>Nombre: </strong><span class="text-capitalize" id="name"></span>
                                                 <br>

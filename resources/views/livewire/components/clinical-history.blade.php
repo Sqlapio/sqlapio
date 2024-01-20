@@ -1731,7 +1731,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">Medicamento</th>
-                                                        <th class="text-center" scope="col">Dosis</th>
+                                                        <th class="text-center" data-orderable="false" scope="col">Dosis</th>
                                                         <th class="text-center" scope="col">Patología</th>
                                                         <th class="text-center" scope="col">Via de administración
                                                         </th>
@@ -1739,7 +1739,7 @@
                                                         </th>
                                                         <th class="text-center" scope="col">Fecha inicio</th>
                                                         <th class="text-center" scope="col">Fecha fin</th>
-                                                        <th class="text-center" scope="col">Eliminar</th>
+                                                        <th class="text-center" data-orderable="false" scope="col">Eliminar</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
