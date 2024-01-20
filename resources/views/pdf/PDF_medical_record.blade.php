@@ -15,6 +15,24 @@
 
     }
 
+    table tr:last-child td:last-child {
+        border-bottom-right-radius:10px;
+    }
+
+    table tr:last-child td:first-child {
+        border-bottom-left-radius:10px;
+    }
+
+    table tr:first-child th:first-child,
+    table tr:first-child td:first-child {
+        border-top-left-radius:10px;
+    }
+
+    table tr:first-child th:last-child,
+    table tr:first-child td:last-child {
+        border-top-right-radius:10px;
+    }
+
     .table-border {
         text-align: left;
         padding: 10px;
@@ -54,11 +72,13 @@
     }
 
     table {
-        border-collapse: collapse;
-        border: 09x;
-        /* letter-spacing: 1px; */
-        font-size: 0.8rem;
+            /* letter-spacing: 1px; */
         width: 100%;
+        font-size: 12px;
+        border: 09x;
+        border-radius: 10px;
+        border-spacing: 0px;
+        border-collapse: separate;
     }
 
     th {
@@ -119,6 +139,7 @@
     .inf-prueba {
         float: left;
         margin-left: 1cm;
+        background-color: #2A8ED7;
     }
 </style>
 
@@ -146,15 +167,20 @@
                                 Local,
                                 {{($MedicalRecord->get_doctor->type_plane = "7")? $MedicalRecord->get_doctor->number_floor  : $MedicalRecord->get_center_data->number_floor }}<br>{{($MedicalRecord->get_doctor->type_plane == "7")?  $MedicalRecord->get_doctor->number_consulting_phone : $MedicalRecord->get_center_data->phone_consulting_room }}
                             </p>
-                        </div>
-                    </td>
-                    <td>
-                        <div style="text-align: justify;padding: 10px; margin-top:20px; margin-left: 25%">
                             <strong> Médico Tratante:</strong>
                             <span>{{ Auth::user()->name . ' ' . Auth::user()->last_name }}</span>
                             <br>
                             <strong>Fecha de la Consulta:</strong>
                             <span>{{ $MedicalRecord->record_date }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="text-align: justify;padding: 10px; margin-top:20px; margin-left: 25%">
+                            {{-- <strong> Médico Tratante:</strong>
+                            <span>{{ Auth::user()->name . ' ' . Auth::user()->last_name }}</span>
+                            <br>
+                            <strong>Fecha de la Consulta:</strong>
+                            <span>{{ $MedicalRecord->record_date }}</span> --}}
                             <br>
                             @php
                                 $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
@@ -249,7 +275,6 @@
         </table>
     </div>
     <br>
-    <br>
     <div>
         <table class="table-info-pat">
             <thead>
@@ -322,7 +347,6 @@
         </table>
     </div>
     <br>
-    <br>
     @if(strlen($MedicalRecord->diagnosis)>2000)
     <div style="page-break-after:always;"></div>
     @endif
@@ -347,7 +371,6 @@
             </tbody>
         </table>
     </div>
-    <br>
     <br>
     <div>
         <table class="table-info-pat">

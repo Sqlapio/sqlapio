@@ -14,8 +14,13 @@
                             
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                 <div class="text-center">
-                                    <img class="img" src="{{ asset('img/confirmation.jpg') }}" style="width: 200px;">
+                                    <img class="img" src="{{ asset('img/logo sqlapio variaciones-03.png') }}" style="width: 200px;">
                                 </div>
+                                <div class="text-center">
+                                    <img class="img" src="{{ asset('img/confimation.jpg') }}" style="width: 200px;">
+                                </div>
+
+                                <h4>Su cita ha sido confirmada</h4>
                             </div>
                         </div>
                     </div>
