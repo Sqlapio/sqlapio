@@ -47,7 +47,7 @@
 
     .div-seal {
         position: fixed;
-        bottom: 1cm;
+        bottom: 3cm;
         left: 0cm;
         right: 0px;
         height: 50px;
@@ -141,6 +141,15 @@
         margin-left: 1cm;
         background-color: #2A8ED7;
     }
+    .barcodeStyle  {
+        width: 50% !important;
+        height: 3%;
+        margin-left: 30%; 
+        margin-bottom: 1% !important;
+    }
+    .code-span{
+        margin-left: 40%;
+    }
 </style>
 
 <body>
@@ -175,21 +184,10 @@
                         </div>
                     </td>
                     <td>
-                        <div style="text-align: justify;padding: 10px; margin-top:20px; margin-left: 25%">
-                            {{-- <strong> Médico Tratante:</strong>
-                            <span>{{ Auth::user()->name . ' ' . Auth::user()->last_name }}</span>
+                        <div style="text-align: justify;padding: 10px; margin-top:-5%; margin-left: 25%">
+                            <img class="barcodeStyle" src="data:image/png;base64,{{ $barcode }}">
                             <br>
-                            <strong>Fecha de la Consulta:</strong>
-                            <span>{{ $MedicalRecord->record_date }}</span> --}}
-                            <br>
-                            @php
-                                $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
-                                $barcode = $generator->getBarcode($MedicalRecord->get_paciente->patient_code, $generator::TYPE_CODE_128);
-                            @endphp
-                            {{ $barcode }}
-                            <strong> Código del paciente:</strong>
-                            <img src="data:image/png;base64,{{ $barcode }}">
-                            <span>{{ $MedicalRecord->get_paciente->patient_code }}</span>
+                            <span class="code-span">{{ $MedicalRecord->get_paciente->patient_code }}</span>
                         </div>
                     </td>
                 </tr>
@@ -221,7 +219,7 @@
         </table>
     </footer>
 
-    <div>
+    <div style="margin-top: -5% !important">
         <table class="table-info-pat">
             <thead>
                 <tr>
@@ -285,7 +283,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr style="padding-top:5%">
                     <td class="table-border">
                         {{ $MedicalRecord->background }}
                     </td>
@@ -347,7 +345,7 @@
         </table>
     </div>
     <br>
-    @if(strlen($MedicalRecord->diagnosis)>2000)
+    @if(strlen($MedicalRecord->diagnosis)>600)
     <div style="page-break-after:always;"></div>
     @endif
     <div>
@@ -395,7 +393,7 @@
     </div>
     <div class="div-seal">
         <img class="img-pat" style="border-radius: 20%; object-fit: cover"
-            src="../public/imgs/seal/{{ Auth::user()->digital_cello }}" alt="Avatar" width="100" height="100">
+            src="../public/imgs/seal/{{ Auth::user()->digital_cello }}" alt="Avatar" width="270" height="150">
     </div>
     <script type="text/php">
         if ( isset($pdf) ) {

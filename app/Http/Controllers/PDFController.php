@@ -62,9 +62,12 @@ class PDFController extends Controller
     public function PDF_medical_prescription($id){
 
         $medical_prescription = MedicalRecord::where('id', $id)->first();
+        $generator = new BarcodeGeneratorPNG();
+        $barcode = base64_encode($generator->getBarcode('SQ-16007868-543', $generator::TYPE_CODE_128));
         $data = [
             'date' => date('m/d/Y'),
             'medical_prescription' => $medical_prescription,
+            'barcode' => $barcode,
         ];
         $pdf = PDF::loadView('pdf.PDF_medical_prescription', $data);
         return $pdf->stream('medical-prescription.pdf');
