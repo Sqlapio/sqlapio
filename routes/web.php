@@ -184,16 +184,16 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('/dashboard/general-zone', [GeneralZoneDashboard::class, 'render'])->name('dashboard-general-zone');
 
-            Route::get('/dashboard/general-manager', [GeneralManagerDashboard::class, 'render'])->name('dashboard-general-manager');               
+            Route::get('/dashboard/general-manager', [GeneralManagerDashboard::class, 'render'])->name('dashboard-general-manager');
 
-            Route::get('/dashboard/medical-visitor', [Deshboard::class, 'render'])->name('dashboard-medical-visitor');               
+            Route::get('/dashboard/medical-visitor', [Deshboard::class, 'render'])->name('dashboard-medical-visitor');
 
             Route::group(array('prefix' => 'setting'), function () {
                 Route::get('/profile', [ProfileUser::class, 'render'])->name('profile-user-force-sale');
                 Route::post('/profile-update', [ProfileUser::class, 'updateProfile'])->name('update-profile-force-sale');
 
             });
-            
+
         });
     });
 
@@ -298,5 +298,6 @@ Route::group(array('prefix' => 'public'), function () {
 Route::get('/logout', [Login::class, 'logout'])->name('logout');
 
 Route::get('/prueba', function () {
-    return view('welcome');
+    $barcode = 'SQ-16007868-265';
+    return view('barcode', compact('barcode'));
 });
