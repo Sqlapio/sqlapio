@@ -171,7 +171,7 @@
 
                 let div = `
                             <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3">
-                                <div class="card mt-3 card-ex">
+                                <div class="card mt-2 card-ex">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
@@ -249,7 +249,7 @@
                                     <x-search-person />
 
                                     <div class="row" id="show-info-pat" style="display: none">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 table-responsive">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <hr>
                                             <h5 class="mb-4">Resultados</h5>
                                             <table id="table-info-pat" class="table table-striped table-bordered"
@@ -268,7 +268,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row mt-3" id="content-result" style="display: none">
+                                    <div class="row mt-2" id="content-result" style="display: none">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <div class="row" id="content-data"></div>
                                         </div>
