@@ -56,6 +56,16 @@ class Center extends Model
         return $this->hasMany(Study::class, 'center_id', 'id');
     }
 
+    /**
+     * Get all of the medical_reports for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function medical_reports(): HasMany
+    {
+        return $this->hasMany(MedicalReport::class, 'center_id', 'id');
+    }
+
 
 
 }

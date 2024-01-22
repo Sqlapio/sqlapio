@@ -303,6 +303,8 @@
         let find = {};
         let response_data = '';
         let user = @json(Auth::user());
+        let doctor_centers = @json($doctor_centers);
+        let validate_histroy = @json($validate_histroy);
 
         $(document).ready(() => {
 
@@ -338,8 +340,8 @@
                     new bootstrap.Popover(popover)
                 })
 
-            let doctor_centers = @json($doctor_centers);
-            let validate_histroy = @json($validate_histroy);
+         
+
             $('#not-exam').hide();
             $('#not-studie').hide();
 
@@ -436,11 +438,17 @@
                 rules: {
                     TextInforme: {
                         required: true,
-                    }
+                    },
+                    center_id: {
+                        required: true,
+                    },
                 },
                 messages: {
                     TextInforme: {
                         required: "Informe medico no puede estar vacio",
+                    },
+                    center_id: {
+                        required: "Centro es obligatorio",
                     }
                 }
             });
@@ -1761,8 +1769,11 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-1 col-xl-1 col-xxl-1 mt-2" style="display: flex; align-items: flex-end; margin-bottom: 3px;">
-                                                        <span type="" onclick="addMedacition(event)" class="btn btn-outline-secondary addMedacition" id="btn" style="padding: 7px; font-size: 12px; width:100%">
+                                                    <div class="col-sm-6 col-md-6 col-lg-1 col-xl-1 col-xxl-1 mt-2"
+                                                        style="display: flex; align-items: flex-end; margin-bottom: 3px;">
+                                                        <span type="" onclick="addMedacition(event)"
+                                                            class="btn btn-outline-secondary addMedacition" id="btn"
+                                                            style="padding: 7px; font-size: 12px; width:100%">
                                                             <i class="bi bi-plus-lg"></i> Añadir
                                                         </span>
                                                     </div>
@@ -1775,10 +1786,15 @@
                                                             id="table-medicamento">
                                                             <thead>
                                                                 <tr>
-                                                                    <th class="text-center w-35" scope="col">  Medicamento </th>
-                                                                    <th data-orderable="false" class="text-center w-55" scope="col"> Indicaciones </th>
-                                                                    <th data-orderable="false" class="text-center" scope="col"> Duración </th>
-                                                                    <th data-orderable="false" class="text-center w-4" scope="col"> <i style='font-size: 15px' class="bi bi-trash-fill"></i> </th>
+                                                                    <th class="text-center w-35" scope="col">
+                                                                        Medicamento </th>
+                                                                    <th data-orderable="false" class="text-center w-55"
+                                                                        scope="col"> Indicaciones </th>
+                                                                    <th data-orderable="false" class="text-center"
+                                                                        scope="col"> Duración </th>
+                                                                    <th data-orderable="false" class="text-center w-4"
+                                                                        scope="col"> <i style='font-size: 15px'
+                                                                            class="bi bi-trash-fill"></i> </th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -1813,25 +1829,20 @@
                                             </div>
                                         </div>
                                         <div class="row mt-2 justify-content-md-end">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 btn-mb" id="send" style="display: flex; justify-content: flex-end; padding-right: 30px;">
-                                                <input class="btn btnSave send" value="Guardar Consulta" type="submit" style="padding: 8px"/>
-                                                <button style="margin-left: 20px; padding: 8px;" 
-                                                    type="button"
-                                                    onclick="InformaMedico();" 
-                                                    class="btn btnSecond IM-mb"
-                                                    data-bs-toggle="tooltip" 
-                                                    data-bs-placement="bottom" 
-                                                    data-html="true"
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 btn-mb"
+                                                id="send"
+                                                style="display: flex; justify-content: flex-end; padding-right: 30px;">
+                                                <input class="btn btnSave send" value="Guardar Consulta" type="submit"
+                                                    style="padding: 8px" />
+                                                <button style="margin-left: 20px; padding: 8px;" type="button"
+                                                    onclick="InformaMedico();" class="btn btnSecond IM-mb"
+                                                    data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
                                                     title="Informe Medico">Generar informe médico
                                                     {{-- <i class="bi bi-eraser"></i> --}}
                                                 </button>
-                                                <button style="margin-left: 20px; padding: 8px;" 
-                                                    type="button"
-                                                    onclick="resetForm();" 
-                                                    class="btn btnSecond LF-mb" 
-                                                    data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom" 
-                                                    data-html="true"
+                                                <button style="margin-left: 20px; padding: 8px;" type="button"
+                                                    onclick="resetForm();" class="btn btnSecond LF-mb"
+                                                    data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
                                                     title="Limpiar Formulario">
                                                     <i class="bi bi-eraser"></i>
                                                 </button>
@@ -2045,17 +2056,48 @@
 
                                 <div class="d-flex" style="align-items: center;">
                                     <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 90px;">
-                                        <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"  width="80" height="80" alt="Imagen del paciente" class="img-medical-modal">
+                                        <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                            width="80" height="80" alt="Imagen del paciente"
+                                            class="img-medical-modal">
                                     </div>
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                        <strong>Nombre:</strong><span class="text-capitalize"> {{ $Patient->last_name . ', ' . $Patient->name }}</span>
+                                        <strong>Nombre:</strong><span class="text-capitalize">
+                                            {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                         <br>
                                         <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
                                         <br>
                                         <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
-                                        <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
+                                        <span>
+                                            {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                     </div>
                                 </div>
+
+                                <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
+                                <input type="hidden" id="patient_id" name="patient_id" value="{{ $Patient->id }}">
+
+                                @if (Auth::user()->type_plane !== '7')
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <label for="phone" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro
+                                                de salud</label>
+                                            <select name="center_id" id="center_id"
+                                                placeholder="Seleccione"class="form-control"
+                                                class="form-control combo-textbox-input">
+                                                <option value="">Seleccione</option>
+                                                @foreach ($doctor_centers as $item)
+                                                    <option value="{{ $item->center_id }}">
+                                                        {{ $item->get_center->description }}</option>
+                                                @endforeach
+                                            </select>
+                                            <i class="bi bi-hospital st-icon"></i>
+                                            <span id="type_alergia_span" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
 
                                 <div class="mt-3">
                                     <textarea id="TextInforme" name="TextInforme"></textarea>
