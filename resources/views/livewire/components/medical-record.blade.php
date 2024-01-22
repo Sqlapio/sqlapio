@@ -295,7 +295,7 @@
         let valExamenes = '';
         let valStudios = '';
         let find = {};
-
+        let response_data = '';
         let user = @json(Auth::user());
 
         $(document).ready(() => {
@@ -1353,7 +1353,7 @@
                         $('#modalIA').modal("show");
                         $("#p-ia").text(response.data);
 
-                        let response_data = response.data
+                        response_data = response.data
                         // Swal.fire({
                         //     icon: 'success',
                         //     title: 'Operiación exitosa!',
@@ -1387,6 +1387,24 @@
 
         const InformaMedico = () => {
             $('#modalInformeMedico').modal("show");
+        }
+
+        const triggerExample = async () => {
+
+            try {
+                await navigator.clipboard.writeText(response_data);
+                $("#icon-copy").css("background", "#04AA6D");
+
+                $("#copied").text('copiado!');
+
+                setTimeout(function() {
+                    $('#copied').hide();
+                }, 2000);
+
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+                $("#copied").text('Error al copiar ');
+            }
         }
     </script>
 @endpush
@@ -1989,6 +2007,11 @@
                         <div class="modal-header title">
                             <i class="bi bi-alexa"></i>
                             <span style="padding-left: 5px">Resultado de la consulta con inteligencia artificial</span>
+                            <button type="button" id="icon-copy" class="btn btn-iSecond rounded-circle"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Copiar diagnostico"
+                                onclick="triggerExample();" style="margin-left: 5%;">
+                                <i class="bi bi-file-earmark-text"></i>
+                            </button> <span style="padding-left: 5px" id="copied"></span>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                 style="font-size: 12px;"></button>
                         </div>
