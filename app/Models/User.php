@@ -153,7 +153,7 @@ class User extends Authenticatable {
 	 */
 	public function get_billed_plans(): HasMany
 	{
-		return $this->hasManyThrough(BilledPlan::class, 'user_id', 'id');
+		return $this->hasMany(BilledPlan::class, 'user_id', 'id');
 	}
 
 	public function get_center(): HasOne
@@ -170,4 +170,14 @@ class User extends Authenticatable {
 	{
 		return $this->hasOne(State::class, 'id', 'state');
 	}
+
+    /**
+     * Get all of the medical_reports for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function medical_reports(): HasMany
+    {
+        return $this->hasMany(MedicalReport::class, 'user_id', 'id');
+    }
 }
