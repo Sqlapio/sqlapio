@@ -12,6 +12,7 @@ use App\Models\DoctorCenter;
 use App\Models\Exam;
 use App\Models\ExamPatient;
 use App\Models\MedicalRecord as ModelsMedicalRecord;
+use App\Models\MedicalReport;
 use App\Models\Patient;
 use App\Models\Reference;
 use App\Models\Representative;
@@ -133,9 +134,44 @@ class MedicalRecord extends Component
         }
     }
 
-    public function informe_medico (Request $request) {
+    public function informe_medico (Request $request)
+    {
 
-        // dd(Request()->all());
+        $rules = [
+            'TextInforme'  => 'required',
+        ];
+
+        $msj = [
+            'TextInforme'  => 'Debe relleñar el text area para poder crear un informe válido',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $msj);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $validator->errors()->all()
+            ], 400);
+        }
+
+        /** Validacion para cargar el centro correcto cuando el medico
+         * esta asociado al plan corporativo
+         */
+        if (Auth::user()->center_id != null) {
+            $center_id_corporativo = Auth::user()->center_id;
+        }
+
+        $medical_report = MedicalReport::updateOrCreate(
+            ['id' => $request->medical_report_id],
+            [
+                'cod_medical_report' => 'SQ-MR-'.random_int(11111111, 99999999),
+                'user_id'       => $request->user_id,
+                'patient_id'    => $request->patient_id,
+                'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
+                'date'          => date('d-m-Y'),
+                'TextInforme'   => $request->TextInforme,
+            ]
+        );
 
         return true;
 
