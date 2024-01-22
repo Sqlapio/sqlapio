@@ -276,7 +276,7 @@
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row mt-3">
+                                    <div class="row mt-2">
                                         <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8" style="font-size:10px;">
                                             <button type="button" id="btnShow" class="btn btnPrimary" onclick="showModal()">Asociar centro</button>
                                         </div>

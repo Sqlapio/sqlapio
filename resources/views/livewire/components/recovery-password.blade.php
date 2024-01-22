@@ -281,7 +281,7 @@
                         <div class="card" id="div-form">
                             <div class="card-body">
                                 <div class="container">
-                                    <div class="row mt-3" style="display: grid; justify-items: center;">
+                                    <div class="row mt-2" style="display: grid; justify-items: center;">
                                         <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-02.png') }}"
                                             alt="">
                                     </div>
@@ -301,7 +301,7 @@
                                         </diV>
                                     </div>
                                     <div class="d-flex justify-content-center">
-                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-3 mb-3"
+                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
                                             style="display: flex; justify-content: space-around;">
                                             <input class="btn btnPrimary" value="Recuperar" type="submit" />
                                             <a href="/"><button type="button"
@@ -348,7 +348,7 @@
                                         </diV>
 
                                         <div class="d-flex justify-content-center">
-                                            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-3 mb-3"
+                                            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
                                                 style="display: flex; justify-content: space-around;">
                                                 <input class="btn btnPrimary" value="Guardar" type="submit" />
                                             </div>

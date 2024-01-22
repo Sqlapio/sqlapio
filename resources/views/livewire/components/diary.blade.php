@@ -267,7 +267,7 @@
                                             class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" />
                                     @endif
 
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3 text-center"
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center"
                                         id="check-price">
                                         <div class="form-check form-switch">
                                             <input onchange="handlerPrice(event);" style="width: 5em"
@@ -296,7 +296,7 @@
                                 <div id="spinner" style="display: none">
                                     <x-load-spinner show="true" />
                                 </div>
-                                <div class="row text-center mt-3">
+                                <div class="row text-center mt-2">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
                                         style="display: flex; justify-content: center; align-items: center;">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 " id="send">
