@@ -8,7 +8,7 @@
     
 @endphp
 
-<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
     <div class="form-group">
         <div class="Icon-inside">
             <select name="specialty" id="specialty" placeholder="Seleccione"

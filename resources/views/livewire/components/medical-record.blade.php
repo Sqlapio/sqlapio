@@ -205,6 +205,22 @@
         .pl-5 {
             padding: 0 0 0 5px;
         }
+
+        .btn-mb {
+            padding-left: 30px;
+            align-content: flex-end;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+
+        .IM-mb {
+            margin-left: 0;
+            margin-top: 7px;
+        }
+
+        .LF-mb {
+            margin-top: 7px;
+        }
     }
 
     @media (min-width: 391px) and (max-width: 576px) {
@@ -1393,7 +1409,7 @@
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <div class="row mt-3">
+                                    <div class="row mt-2">
                                         <div class="d-flex" style="align-items: center;">
                                             <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2"
                                                 style="width: 135px;">
@@ -1546,7 +1562,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="row mt-3 justify-content-md-end send-ai">
+                                                <div class="row mt-2 justify-content-md-end send-ai">
                                                     <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                         style="display: flex; justify-content: flex-end;">
                                                         <button onclick="handlerIA()" type="button"
@@ -1586,7 +1602,7 @@
                                                             </label>
                                                         </div>
                                                         <div id="exam-text-area">
-                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
                                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                 <div class="form-group">
                                                                     <label for="phone" class="form-label"
@@ -1627,7 +1643,7 @@
                                                             style="font-size: 13px; margin-bottom: 5px; display:none">Estudios
                                                         </label>
                                                         <div id="study-text-area">
-                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
                                                                 id="study-text-area"
                                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                 <div class="form-group">
@@ -1780,20 +1796,25 @@
                                             </div>
                                         </div>
                                         <div class="row mt-2 justify-content-md-end">
-                                            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                id="send"
-                                                style="display: flex; justify-content: flex-end; padding-right: 30px;">
-                                                <input class="btn btnSave send" value="Guardar Consulta"
-                                                    type="submit" />
-                                                <button style="margin-left: 20px; padding: 8px;" type="button"
-                                                    onclick="InformaMedico();" class="btn btnSecond"
-                                                    data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
-                                                    title="Informe Medico">Generar informe medico
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 btn-mb" id="send" style="display: flex; justify-content: flex-end; padding-right: 30px;">
+                                                <input class="btn btnSave send" value="Guardar Consulta" type="submit" style="padding: 8px"/>
+                                                <button style="margin-left: 20px; padding: 8px;" 
+                                                    type="button"
+                                                    onclick="InformaMedico();" 
+                                                    class="btn btnSecond IM-mb"
+                                                    data-bs-toggle="tooltip" 
+                                                    data-bs-placement="bottom" 
+                                                    data-html="true"
+                                                    title="Informe Medico">Generar informe médico
                                                     {{-- <i class="bi bi-eraser"></i> --}}
                                                 </button>
-                                                <button style="margin-left: 20px; padding: 8px;" type="button"
-                                                    onclick="resetForm();" class="btn btnSecond" data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom" data-html="true"
+                                                <button style="margin-left: 20px; padding: 8px;" 
+                                                    type="button"
+                                                    onclick="resetForm();" 
+                                                    class="btn btnSecond LF-mb" 
+                                                    data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom" 
+                                                    data-html="true"
                                                     title="Limpiar Formulario">
                                                     <i class="bi bi-eraser"></i>
                                                 </button>
@@ -1994,7 +2015,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                 style="font-size: 12px;"></button>
                         </div>
-                        <div class="modal-body" style="background-color: #37A7E2">
+                        <div class="modal-body">
 
                             <form action="" method="post" id="form-informe-medico">
 
@@ -2027,7 +2048,7 @@
                                     </div>
                                 </div>
 
-                                <div class="mt-3">
+                                <div class="mt-2">
                                     <textarea id="TextInforme" name="TextInforme"></textarea>
                                 </div>
 

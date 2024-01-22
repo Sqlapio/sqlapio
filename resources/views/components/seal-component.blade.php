@@ -37,7 +37,7 @@
     <div class="mt-2">
         {{-- <h5 class="collapseBtn">{{ $title }}</h5> --}}
     </div>
-    <div class="row mt-3">
+    <div class="row mt-2">
         <div class="{{ $class_two }}">
             <div class="mb-3">
                 <label for="seal" class="form-label"

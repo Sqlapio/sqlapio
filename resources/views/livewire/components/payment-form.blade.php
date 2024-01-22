@@ -352,7 +352,7 @@
                                     <input type="hidden" name="visitador_medico_id" id="visitador_medico_id"
                                         value="">
 
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="select-plan"
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="select-plan"
                                         style="display: none">
                                         <div class="form-group">
                                             <div class="Icon-inside">
@@ -370,7 +370,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="nombre">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="nombre">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
@@ -382,7 +382,7 @@
                                             </div>
                                         </diV>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="apellidos">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="apellidos">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
@@ -394,7 +394,7 @@
                                             </div>
                                         </diV>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" id="cedula">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="cedula">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
@@ -406,7 +406,7 @@
                                         </diV>
                                     </div>
 
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="empresa"
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="empresa"
                                         style="display: none">
                                         <div class="form-group">
                                             <div class="Icon-inside">
@@ -420,7 +420,7 @@
                                         </diV>
                                     </div>
 
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="center"
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="center"
                                         style="display: none">
                                         <div class="form-group">
                                             <div class="Icon-inside">
@@ -441,7 +441,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3" id="tipo_rif"
+                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="tipo_rif"
                                         style="display: none">
                                         <div class="form-group">
                                             <label for="name" class="form-label"
@@ -458,7 +458,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3" id="Rif"
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2" id="Rif"
                                         style="display: none">
                                         <div class="form-group">
                                             <div class="Icon-inside">
@@ -474,7 +474,7 @@
                                         </diV>
                                     </div>
 
-                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
@@ -488,7 +488,7 @@
                                     </div>
 
                                     <div class="row" id="div-payment-metodo">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="methodo_payment" class="form-label"
@@ -509,7 +509,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row mt-3" style="padding-right: 0">
+                                        <div class="row mt-2" style="padding-right: 0">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                 style="display: flex; align-items: center;
                                             justify-content: flex-end; text-align: end; padding-right: 0">
@@ -538,7 +538,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3">
+                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
@@ -551,7 +551,7 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
@@ -562,7 +562,7 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
@@ -578,7 +578,7 @@
                                 </div>
 
                                 <div class="d-flex justify-content-center">
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-3 mb-3"
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
                                         style="display: flex; justify-content: center;">
                                         <input class="btn btnSave send " value="Adquiere tu plan" type="submit"
                                             style="margin-left: 20px" />

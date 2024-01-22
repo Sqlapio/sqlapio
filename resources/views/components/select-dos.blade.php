@@ -4,7 +4,7 @@
         }
     </style>
     <div>
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="search-patients-show">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="search-patients-show">
             <div class="form-group">
                 <div class="Icon-inside">
                     <label for="id_select" class="form-label"

@@ -748,7 +748,7 @@
                             <div id="collapseD" class="accordion-collapse collapse show" aria-labelledby="headingD"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row mt-3">
+                                    <div class="row mt-2">
                                         <div class="d-flex" style="align-items: center;">
                                             <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 162px;">
                                                 <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
@@ -834,7 +834,7 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <div class="row mt-3">
+                                    <div class="row mt-2">
                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="display: none">
                                             <div class="input-group flex-nowrap">
                                                 <span class="input-group-text" id="">Total
@@ -908,7 +908,7 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <div class="row mt-3">
+                                    <div class="row mt-2">
                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="display: none">
                                             <div class="input-group flex-nowrap">
                                                 <span class="input-group-text">Total patológicos
@@ -982,7 +982,7 @@
                                             </div>
                                         @endforeach
                                     </div>
-                                    <div class="row mt-3">
+                                    <div class="row mt-2">
                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="display: none">
                                             <div class="input-group flex-nowrap">
                                                 <span class="input-group-text">Total historia no patológica
@@ -1020,7 +1020,7 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row">
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1034,7 +1034,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1048,7 +1048,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1062,7 +1062,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1076,7 +1076,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1090,7 +1090,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1104,7 +1104,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1118,7 +1118,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
@@ -1145,11 +1145,11 @@
                             <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row mt-3" style="align-items: flex-end;">
+                                    <div class="row mt-2" style="align-items: flex-end;">
                                         <hr>
                                         <h5 class="collapseBtn" style="margin-bottom: 17px;">Añadir Alergias</h5>
                                         <hr style="margin-bottom: 0">
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1169,7 +1169,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1220,7 +1220,7 @@
                                                 </tbody>
                                             </table>
                                             <tfoot>
-                                                <div class="row mt-3" style="display: none">
+                                                <div class="row mt-2" style="display: none">
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                         <div class="input-group flex-nowrap">
                                                             <span class="input-group-text" id="">Total
@@ -1261,11 +1261,11 @@
                             <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row mt-3" style="align-items: flex-end;">
+                                    <div class="row mt-2" style="align-items: flex-end;">
                                         <hr>
                                         <h5 class="collapseBtn" style="margin-bottom: 17px;">Añadir cirugía</h5>
                                         <hr style="margin-bottom: 0;">
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1278,7 +1278,7 @@
                                                 <span id="cirugia_span" class="text-danger"></span>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1330,7 +1330,7 @@
                                                 </tbody>
                                             </table>
                                             <tfoot>
-                                                <div class="row mt-3" style="display: none">
+                                                <div class="row mt-2" style="display: none">
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                         <div class="input-group flex-nowrap">
                                                             <span class="input-group-text">Total cirugía
@@ -1347,7 +1347,7 @@
                                                 </div>
                                             </tfoot>
                                         </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
@@ -1380,7 +1380,7 @@
                                         </div>
                                         <input type="hidden" name="history_vital_signs[]" id="history_vital_signs"
                                             value="">
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="weight" class="form-label"
@@ -1395,7 +1395,7 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1415,7 +1415,7 @@
                                                 $data = explode('/', $Patient->get_history->strain);
                                             }
                                         @endphp
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
                                             <label for="strain" class="form-label"
                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Presión
                                                 arterial (Alta 50 - 250 , Baja 30 - 150 mmHg)*</label>
@@ -1431,7 +1431,7 @@
                                                     aria-label="strain" value="{!! !empty($validateHistory) ? $data[1] : '' !!}">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="temperature" class="form-label"
@@ -1446,7 +1446,7 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="breaths" class="form-label"
@@ -1461,7 +1461,7 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="pulse" class="form-label"
@@ -1476,7 +1476,7 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="saturation" class="form-label"
@@ -1491,7 +1491,7 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="condition" class="form-label"
@@ -1514,7 +1514,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Motivo
@@ -1522,7 +1522,7 @@
                                                 <textarea id="reason" name="reason" class="EF form-control">{!! !empty($validateHistory) ? $Patient->get_history->reason : '' !!}</textarea>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Enfermedad
@@ -1566,7 +1566,7 @@
                                             </div>
                                         @endforeach
 
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones*</label>
@@ -1574,7 +1574,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mt-3" style="display: none">
+                                    <div class="row mt-2" style="display: none">
                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                             <div class="input-group flex-nowrap">
                                                 <span class="input-group-text">Total Signos vitales
@@ -1607,7 +1607,7 @@
                                         <hr>
                                         <h5 class="collapseBtn" style="margin-bottom: 17px">Añadir Medicamento</h5>
                                         <hr style="margin-bottom: 0;">
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1619,7 +1619,7 @@
                                                 <span id="medicine_span" class="text-danger"></span>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1631,7 +1631,7 @@
                                                 <span id="dose_span" class="text-danger"></span>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1643,7 +1643,7 @@
                                                 <span id="patologi_span" class="text-danger"></span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1656,7 +1656,7 @@
                                                 <span id="viaAdmin_span" class="text-danger"></span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="treatmentDuration" class="form-label"
@@ -1687,7 +1687,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1701,7 +1701,7 @@
                                                 <span id="dateIniTreatment_span" class="text-danger"></span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label"
@@ -1716,7 +1716,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3 offset-md-5">
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2 offset-md-5">
                                             <span type="" onclick="addMedacition(event)"
                                                 class="btn btn-outline-secondary" id="btn"><i
                                                     class="bi bi-plus-lg"></i>Añadir
@@ -1774,7 +1774,7 @@
                                                 </tbody>
                                             </table>
                                             <tfoot>
-                                                <div class="row mt-3" style="display: none">
+                                                <div class="row mt-2" style="display: none">
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                         <div class="input-group flex-nowrap">
                                                             <span class="input-group-text">Total de medicamentos
@@ -1793,7 +1793,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">
                                             <label for="phone" class="form-label"
                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
