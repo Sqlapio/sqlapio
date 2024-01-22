@@ -302,7 +302,7 @@
             } else {
                 $("#detalle_alergia_span").text('');
 
-                let btn = `<span onclick="deleteAllergie(${countAllergies})" ><i class="bi bi-archive"></i></span>`;
+                let btn = `<span onclick="deleteAllergie(${countAllergies})" ><i class="bi bi-trash-fill"></i></span>`;
 
                 arrayAllergies.push({
                     type_alergia: $('#type_alergia').val(),
@@ -416,7 +416,7 @@
                 $("#dateEndTreatment_span").text('Campo obligatorio');
             } else {
 
-                let btn = `<span onclick="deleteMedication(${countMedicationAdd})" ><i class="bi bi-archive"></i></span>`;
+                let btn = `<span onclick="deleteMedication(${countMedicationAdd})" ><i class="bi bi-trash-fill"></i></span>`;
 
                 arraymedications_supplements.push({
                     medicine: $('#medicine').val(),
@@ -509,7 +509,7 @@
             } else {
                 $("#datecirugia_span").text('');
 
-                let btn = `<span onclick="deleteSurgical(${countSurgical})" ><i class="bi bi-archive"></i></span>`;
+                let btn = `<span onclick="deleteSurgical(${countSurgical})" ><i class="bi bi-trash-fill"></i></span>`;
 
                 arrayhistory_surgical.push({
                     cirugia: $('#cirugia').val(),
