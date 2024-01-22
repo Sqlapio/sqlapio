@@ -545,13 +545,13 @@
                                                     style="width:100%">
                                                     <thead>
                                                         <tr>
-                                                            <th class="text-center" scope="col">Fecha</th>
+                                                            {{-- <th class="text-center" scope="col">Fecha</th> --}}
                                                             <th class="text-center" scope="col">Hora</th>
                                                             <th class="text-center" scope="col">Nombre</th>
                                                             <th class="text-center" scope="col">Cédula</th>
-                                                            <th class="text-center" scope="col">Género</th>
-                                                            <th class="text-center" scope="col">Teléfono</th>
-                                                            <th class="text-center" scope="col">Email</th>
+                                                            {{-- <th class="text-center" scope="col">Género</th> --}}
+                                                            {{-- <th class="text-center" scope="col">Teléfono</th> --}}
+                                                            {{-- <th class="text-center" scope="col">Email</th> --}}
                                                             <th class="text-center" scope="col">Centro de salud</th>
                                                             <th class="text-center" scope="col">Estatus</th>
                                                             <th class="text-center" scope="col" data-orderable="false">Acciones</th>
@@ -560,29 +560,15 @@
                                                     <tbody>
                                                         @foreach ($appointments as $item)
                                                             <tr>
-                                                                <td class="text-center td-pad">
-                                                                    {{ date('d-m-Y', strtotime($item['extendedProps']['data_app'])) }}
-                                                                </td>
-                                                                <td class="text-center td-pad">
-                                                                    {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }}
-                                                                </td>
-                                                                <td class="text-center td-pad text-capitalize">
-                                                                    {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }}
-                                                                </td>
-                                                                <td class="text-center td-pad">
-                                                                    {{ $item['extendedProps']['ci'] }}</td>
-                                                                <td class="text-center td-pad text-capitalize">
-                                                                    {{ $item['extendedProps']['genere'] }}</td>
-                                                                <td class="text-center td-pad">
-                                                                    {{ $item['extendedProps']['phone'] }}</td>
-                                                                <td class="text-center td-pad">
-                                                                    {{ $item['extendedProps']['email'] }}</td>
-                                                                <td class="text-center td-pad">
-                                                                    {{ $item['extendedProps']['center'] }}</td>
-                                                                <td class="text-center td-pad">
-                                                                    <span
-                                                                        class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">{{ $item['extendedProps']['status'] }}</span>
-                                                                </td>
+                                                                {{-- <td class="text-center td-pad"> {{ date('d-m-Y', strtotime($item['extendedProps']['data_app'])) }}  </td> --}}
+                                                                <td class="text-center td-pad">  {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }} </td>
+                                                                <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }} </td>
+                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['ci'] }}</td>
+                                                                {{-- <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['genere'] }}</td>
+                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['phone'] }}</td>
+                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['email'] }}</td>--}}
+                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['center'] }}</td>
+                                                                <td class="text-center td-pad"> <span class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">{{ $item['extendedProps']['status'] }}</span> </td>
                                                                 <td>
                                                                     <div class="d-flex" style="justify-content: center;">
                                                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
