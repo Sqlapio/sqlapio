@@ -273,7 +273,7 @@
                                             <input onchange="handlerPrice(event);" style="width: 5em"
                                                 class="form-check-input" type="checkbox" role="switch"
                                                 id="showPrice" value="">
-                                            <label style="margin-left: -146px;margin-top: 8px; font-size: 15px"
+                                            <label style="margin-left: -146px;margin-top: 8px; font-size: 13px"
                                                 for="showPrice">Precio
                                                 de
                                                 la cita</label>
