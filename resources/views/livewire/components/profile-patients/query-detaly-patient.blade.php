@@ -183,7 +183,7 @@
                                             <img src="${img}" width="150" height="150" alt="Imagen del paciente" class="img-medical">
                                         </div>
 
-                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 data-medical mt-3">
+                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 data-medical mt-2">
                                             <strong>Nombre Completo:</strong><span class="text-capitalize"> ${response[0].full_name}</span>
                                             <br>
                                             <strong>Fecha de Nacimiento:</strong><span> ${response[0].birthdate }</span>
@@ -621,17 +621,17 @@
         <div class="container-fluid body" style="padding: 0 3% 3%">
             <div class="row justify-content-center">
                 <div class="col-sm-12 col-md-12 col-lg-11 col-xl-11 col-xxl-10">
-                    <div class="card mt-3 card-ex">
+                    <div class="card mt-2 card-ex">
                         <div class="card-body">
                             <form id="form-detaly-patient" method="post" action="">
                                 {{ csrf_field() }}
 
-                                <div class="row mt-3">
+                                <div class="row mt-2">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                         <h5 style='font-size: 15px;'>Historia del paciente</h5>
 
                                     </div>
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                         <div class="form-group">
                                             <label for="ci"
                                                 class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Ingrese
@@ -640,7 +640,7 @@
                                                 id="ci" name="ci" placeholder="" value="">
                                         </div>
                                     </div>
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                         <div class="form-group">
                                             <label for="phone" class="form-label"
                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha de
@@ -649,7 +649,7 @@
                                                 type="date" value="">
                                         </div>
                                     </div>
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3"
+                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2"
                                         style="display: flex; align-items: flex-end;">
                                         <input class="btn btnSave send" id="btn-save" value="Consultar" type="submit"
                                             style="margin-left: 10px; margin-bottom: 4px;" />
@@ -670,7 +670,7 @@
 
                                                 <div class="Examen_fisico"></div>
 
-                                                <div class="row p-3 mt-3">
+                                                <div class="row p-3 mt-2">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <ul class="list-group" style="border-radius: 8px;">
                                                             <li class="list-group-item active aa" aria-current="true">
@@ -686,7 +686,7 @@
                                                 </div>
 
 
-                                                <div class="row p-3 mt-3">
+                                                <div class="row p-3 mt-2">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <ul class="list-group" style="border-radius: 8px;">
                                                             <li class="list-group-item active aa" aria-current="true">
@@ -701,7 +701,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="row p-3 mt-3">
+                                                <div class="row p-3 mt-2">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <ul class="list-group" style="border-radius: 8px;">
                                                             <li class="list-group-item active aa" aria-current="true">
@@ -716,12 +716,12 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="gilecologico mt-3">
+                                                <div class="gilecologico mt-2">
 
                                                 </div>
 
 
-                                                <div class="row p-3 mt-3">
+                                                <div class="row p-3 mt-2">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <ul class="list-group" style="border-radius: 8px;">
                                                             <li class="list-group-item active aa" aria-current="true">
@@ -741,7 +741,7 @@
                                                         </ul>
                                                     </div>
                                                 </div>
-                                                <div class="row p-3 mt-3">
+                                                <div class="row p-3 mt-2">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <ul class="list-group" style="border-radius: 8px;">
                                                             <li class="list-group-item active aa" aria-current="true">
@@ -762,7 +762,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="row p-3 mt-3">
+                                                <div class="row p-3 mt-2">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <ul class="list-group" style="border-radius: 8px;">
                                                             <li class="list-group-item active aa" aria-current="true">

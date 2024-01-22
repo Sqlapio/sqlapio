@@ -539,7 +539,7 @@
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <div class="row"id="table-patients">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 table-responsive">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
 
                                                 <table id="table-patient" class="table table-striped table-bordered"
                                                     style="width:100%">
@@ -755,7 +755,7 @@
                                     <div class="accordion-body">
                                         <x-search-person />
                                         <div class="row mt-2" id="content-table-ref" style="display: none">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 table-responsive" >
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive" >
                                                 <table id="table-ref" class="table table-striped table-bordered"
                                                     style="width:100%">
                                                     <thead>
@@ -799,7 +799,7 @@
                                 <div id="collapseThree" class="accordion-collapse collapse"
                                     aria-labelledby="headingThree" data-bs-parent="#accordion">
                                     <div class="accordion-body">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 table-responsive" >
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive" >
                                             <table id="table-ref-examenes" class="table table-striped table-bordered"
                                                 style="width:100%">
                                                 <thead>
