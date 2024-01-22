@@ -84,6 +84,12 @@
         object-fit: cover;
     }
 
+    .img-medical-modal {
+        border-radius: 50%;
+        border: 3px solid #47525e;
+        object-fit: cover;
+    }
+
     .btn-idanger {
         cursor: pointer;
         display: inline-block;
@@ -1755,12 +1761,10 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-1 col-xl-1 col-xxl-1 mt-2"
-                                                        style="display: flex; align-items: flex-end; margin-bottom: 3px;">
-                                                        <span type="" onclick="addMedacition(event)"
-                                                            class="btn btn-outline-secondary addMedacition" id="btn"
-                                                            style="padding: 7px; font-size: 12px; width:100%"><i
-                                                                class="bi bi-plus-lg"></i>Añadir</span>
+                                                    <div class="col-sm-6 col-md-6 col-lg-1 col-xl-1 col-xxl-1 mt-2" style="display: flex; align-items: flex-end; margin-bottom: 3px;">
+                                                        <span type="" onclick="addMedacition(event)" class="btn btn-outline-secondary addMedacition" id="btn" style="padding: 7px; font-size: 12px; width:100%">
+                                                            <i class="bi bi-plus-lg"></i> Añadir
+                                                        </span>
                                                     </div>
                                                 </div>
                                                 {{-- tabla --}}
@@ -1771,15 +1775,10 @@
                                                             id="table-medicamento">
                                                             <thead>
                                                                 <tr>
-                                                                    <th class="text-center w-35" scope="col">
-                                                                        Medicamento </th>
-                                                                    <th data-orderable="false" class="text-center w-55"
-                                                                        scope="col"> Indicaciones </th>
-                                                                    <th data-orderable="false" class="text-center"
-                                                                        scope="col"> Duración </th>
-                                                                    <th data-orderable="false" class="text-center w-4"
-                                                                        scope="col"> <i style='font-size: 15px'
-                                                                            class="bi bi-trash-fill"></i> </th>
+                                                                    <th class="text-center w-35" scope="col">  Medicamento </th>
+                                                                    <th data-orderable="false" class="text-center w-55" scope="col"> Indicaciones </th>
+                                                                    <th data-orderable="false" class="text-center" scope="col"> Duración </th>
+                                                                    <th data-orderable="false" class="text-center w-4" scope="col"> <i style='font-size: 15px' class="bi bi-trash-fill"></i> </th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -2045,33 +2044,20 @@
                                 {{ csrf_field() }}
 
                                 <div class="d-flex" style="align-items: center;">
-                                    <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 135px;">
-                                        <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
-                                            width="125" height="125" alt="Imagen del paciente" class="img-medical">
+                                    <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 90px;">
+                                        <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"  width="80" height="80" alt="Imagen del paciente" class="img-medical-modal">
                                     </div>
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                        <strong>Nombre Completo:</strong><span class="text-capitalize">
-                                            {{ $Patient->last_name . ', ' . $Patient->name }}</span>
-                                        <br>
-                                        <strong>Fecha de Nacimiento:</strong><span>
-                                            {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
+                                        <strong>Nombre:</strong><span class="text-capitalize"> {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                         <br>
                                         <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
                                         <br>
                                         <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
-                                        <span>
-                                            {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
-                                        <br>
-                                        <strong>Genero:</strong> <span class="text-capitalize">
-                                            {{ $Patient->genere }}</span>
-                                        <br>
-                                        <strong>Nº Historial:</strong><span>
-                                            {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
-                                        </span>
+                                        <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                     </div>
                                 </div>
 
-                                <div class="mt-2">
+                                <div class="mt-3">
                                     <textarea id="TextInforme" name="TextInforme"></textarea>
                                 </div>
 
