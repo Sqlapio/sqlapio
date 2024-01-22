@@ -1,6 +1,11 @@
 @extends('layouts.app-auth')
 @section('title', 'Detalle Médico')
+
 <style>
+    .modal.show .modal-dialog .InformeMedicomodal {
+        width: 100% !important;
+    }
+
     ul {
         list-style-type: none;
     }
@@ -279,6 +284,18 @@
 
         $(document).ready(() => {
 
+            $('#TextInforme').tinymce({
+                height: 500,
+                menubar: false,
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                ],
+                toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+            });
+
+
             switch_type_plane(user);
 
             handlerUl(symptoms, 'symptoms', 'btn btn-outline-other check-cm', 12);
@@ -389,6 +406,59 @@
                 return pattern.test(value);
             }, "No se permiten caracteres especiales");
 
+            //envio del formulario informe
+
+
+            $('#form-informe-medico').validate({
+                ignore: [],
+                rules: {
+                    TextInforme: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    TextInforme: {
+                        required: "Informe medico no puede estar vacio",
+                    }
+                }
+            });
+
+            $("#form-informe-medico").submit(function(event) {
+                event.preventDefault();
+                $("#form-informe-medico").validate();
+                if ($("#form-informe-medico").valid()) {
+                    //preparar la data para el envio
+                    let data = $('#form-informe-medico').serialize();
+
+                    ////end
+                    $.ajax({
+                        url: '{{ route('create-informe-medico') }}',
+                        type: 'POST',
+                        dataType: "json",
+                        data: data,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Operación exitosa!',
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                $("#form-informe-medico").trigger("reset");
+                                $('#modalInformeMedico').modal('toggle');
+                            });
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+            // end
 
             //envio del formulario
             $("#form-consulta").submit(function(event) {
@@ -1075,7 +1145,7 @@
                     valStudios = valStudios.slice(1);
                 }
                 if (valStudios.substring(valStudios.indexOf() + 1) == "," || valStudios.substring(valStudios.indexOf() +
-                    1) == ",,") {
+                        1) == ",,") {
                     $("#text_area_studies").val('');
                 }
 
@@ -1298,6 +1368,10 @@
 
             }
         }
+
+        const InformaMedico = () => {
+            $('#modalInformeMedico').modal("show");
+        }
     </script>
 @endpush
 @section('content')
@@ -1503,7 +1577,8 @@
                                                                     class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 135px">Buscar
                                                                     Examen</label>
                                                                 <input onkeyup="search(event,'exam')" type="text"
-                                                                    style="border-radius: 30px;" class="form-control inputSearchExamen"
+                                                                    style="border-radius: 30px;"
+                                                                    class="form-control inputSearchExamen"
                                                                     id="floatingInput" placeholder="">
                                                             </div>
                                                             <label id='search_exam_p'
@@ -1543,8 +1618,9 @@
                                                                     style="font-size: 13px; margin-bottom: 5px; width: 131px">Buscar
                                                                     Estudio</label>
                                                                 <input onkeyup="search(event,'studie')" type="text"
-                                                                    style="border-radius: 30px;" class="form-control inputSearchStudi"
-                                                                    placeholder="" id="floatingInputt">
+                                                                    style="border-radius: 30px;"
+                                                                    class="form-control inputSearchStudi" placeholder=""
+                                                                    id="floatingInputt">
                                                             </div>
                                                         </div>
                                                         <label id='search_studie_p'
@@ -1709,6 +1785,12 @@
                                                 style="display: flex; justify-content: flex-end; padding-right: 30px;">
                                                 <input class="btn btnSave send" value="Guardar Consulta"
                                                     type="submit" />
+                                                <button style="margin-left: 20px; padding: 8px;" type="button"
+                                                    onclick="InformaMedico();" class="btn btnSecond"
+                                                    data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
+                                                    title="Informe Medico">Generar informe medico
+                                                    {{-- <i class="bi bi-eraser"></i> --}}
+                                                </button>
                                                 <button style="margin-left: 20px; padding: 8px;" type="button"
                                                     onclick="resetForm();" class="btn btnSecond" data-bs-toggle="tooltip"
                                                     data-bs-placement="bottom" data-html="true"
@@ -1894,6 +1976,71 @@
                                 <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
                                     id="p-ia"></pre>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Informe medico -->
+        <div class="modal fade" id="modalInformeMedico" tabindex="-1" aria-labelledby="modalInformeMedicoLabel"
+            aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-xl InformeMedicomodal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header title">
+                            <i class="bi bi-alexa"></i>
+                            <span style="padding-left: 5px">Informe medico</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                style="font-size: 12px;"></button>
+                        </div>
+                        <div class="modal-body" style="background-color: #37A7E2">
+
+                            <form action="" method="post" id="form-informe-medico">
+
+                                {{ csrf_field() }}
+
+                                <div class="d-flex" style="align-items: center;">
+                                    <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 135px;">
+                                        <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                            width="125" height="125" alt="Imagen del paciente" class="img-medical">
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
+                                        <strong>Nombre Completo:</strong><span class="text-capitalize">
+                                            {{ $Patient->last_name . ', ' . $Patient->name }}</span>
+                                        <br>
+                                        <strong>Fecha de Nacimiento:</strong><span>
+                                            {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
+                                        <br>
+                                        <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
+                                        <br>
+                                        <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
+                                        <span>
+                                            {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
+                                        <br>
+                                        <strong>Genero:</strong> <span class="text-capitalize">
+                                            {{ $Patient->genere }}</span>
+                                        <br>
+                                        <strong>Nº Historial:</strong><span>
+                                            {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="mt-3">
+                                    <textarea id="TextInforme" name="TextInforme"></textarea>
+                                </div>
+
+                                <div class="row mt-2 justify-content-md-end">
+                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                        id="send"
+                                        style="display: flex; justify-content: flex-end; padding-right: 30px;">
+                                        <input class="btn btnSave send" value="Enviar" type="submit" />
+
+                                    </div>
+                                </div>
+                            </form>
+
                         </div>
                     </div>
                 </div>

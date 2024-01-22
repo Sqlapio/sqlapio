@@ -133,6 +133,14 @@ class MedicalRecord extends Component
         }
     }
 
+    public function informe_medico (Request $request) {
+
+        // dd(Request()->all());
+
+        return true;
+
+    }
+
     public function render($id)
     {
         $user_id = Auth::user()->id;
