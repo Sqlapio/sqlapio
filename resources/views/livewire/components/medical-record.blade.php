@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 @extends('layouts.app-auth')
 @section('title', 'Detalle Médico')
 
@@ -281,6 +283,7 @@
     }
 </style>
 @push('scripts')
+
     <script>
         let valExams = '';
         let valStudy = '';
@@ -306,16 +309,14 @@
         let doctor_centers = @json($doctor_centers);
         let validate_histroy = @json($validate_histroy);
 
-        $(document).ready(() => {
-
-            $('#TextInforme').tinymce({
+        $(document).ready(() => {//    
+            
+            tinymce.init({
+                selector: '#TextInforme',
+                skin: false,
+                content_css: false,
                 height: 500,
-                menubar: false,
-                plugins: [
-                    'advlist autolink lists link image charmap print preview anchor',
-                    'searchreplace visualblocks code fullscreen',
-                    'insertdatetime media table paste code help wordcount'
-                ],
+                menubar: false,              
                 toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
             });
 
@@ -1422,7 +1423,6 @@
 
         const setDatatable = (data) => {
             
-            console.log(data);
             let row=[];
 
             data.map((elem) => {
