@@ -22,6 +22,7 @@ use App\Models\Laboratory;
 use App\Models\Patient;
 use App\Models\State;
 use App\Models\MedicalRecord;
+use App\Models\MedicalReport;
 use App\Models\NonPathologicalBackground;
 use App\Models\PathologicalBackground;
 use App\Models\Reference;
@@ -1648,6 +1649,16 @@ class UtilsController extends Controller
 			dd('Error UtilsController.sqlapio_ia()', $message);
 		}
 	}
-
+	static function get_medical_report($id)
+	{
+		try {
+			$medical_report = MedicalReport::where('patient_id', $id)->with('get_doctor')->get();
+			return $medical_report;
+			//code...
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_medical_record_user()', $message);
+		}
+	}
 
 }
