@@ -48,9 +48,9 @@ class ExamPatient extends Model
         return $this->belongsTo(Patient::class, 'id', 'center_id');
     }
 
-    public function get_patients(): BelongsTo
+    public function get_patients(): HasOne
     {
-        return $this->belongsTo(Patient::class, 'id', 'patient_id');
+        return $this->hasOne(Patient::class, 'id', 'patient_id');
     }
 
     public function  get_laboratory(): HasOne
