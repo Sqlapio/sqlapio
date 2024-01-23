@@ -4,7 +4,9 @@ namespace App\Http\Livewire\Components;
 
 use App\Models\ExamPatient;
 use App\Models\Patient;
+use App\Models\StudyPatient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Examen extends Component
@@ -31,7 +33,20 @@ class Examen extends Component
                 'genero' => $Patient->genere,
                 'exam' => $data_exam,
             ];
+        }else{
+
+            $data_exam = ExamPatient::where('status', 2)
+            ->where('user_id', Auth::user()->id)
+            ->with('get_laboratory');
+
+
+            $data_study = StudyPatient::where('user_id', Auth::user()->id)
+            ->where('status', 2)
+            ->with('get_laboratory');
+
+			$data = $data_exam->union($data_study)->get();
         }
+        
         return view('livewire.components.examen', compact('data', 'id'));
     }
 }

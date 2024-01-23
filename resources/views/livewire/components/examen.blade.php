@@ -39,6 +39,82 @@
         border-radius: 30px !important;
         font-size: 13px
     }
+    /* nuevos estilos  */
+    .div-select {
+        padding-left: 16px !important;
+        padding-right: 7px !important;
+    }
+
+    #img-pat {
+        border-radius: 27px;
+        border: 2px solid #44525F;
+        height: 125px;
+        margin: 5px 15px;
+        object-fit: cover;
+    }
+
+    body {
+        /* font-family: 'Roboto', 'Inter', "Helvetica Neue", Helvetica, 'Source Sans Pro' !important; */
+        letter-spacing: -.022em;
+        color: #1d1d1f;
+    }
+
+    .form-switch {
+        padding-left: 1.5em !important;
+    }
+
+    .avatar {
+        border-radius: 50%;
+        width: 45px !important;
+        height: 45px !important;
+        border: 2px solid #44525f;
+        object-fit: cover;
+    }
+
+    .table-avatar {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .borde {
+        border-radius: 0 !important;
+    }
+
+    .img img {
+        max-height: 220px;
+        text-align: left;
+        margin-right: 70%;
+    }
+
+    #btn-margin {
+        margin-left: -14px !important;
+    }
+
+    .modal-d {
+        max-width: 200px;
+    }
+
+
+    @media screen and (max-width: 390px) {
+        #btn-margin {
+            margin-left: -14px !important;
+        }
+
+        #img-pat {
+            margin: 4px 20px 0 0;
+        }
+
+    }
+
+    @media (min-width: 391px) and (max-width: 576px) {
+        .modal-d {
+            max-width: 165px;
+        }
+
+        #img-pat {
+            margin: 4px 20px 0 0;
+        }
+    }
 </style>
 @push('scripts')
     <script>
@@ -247,6 +323,68 @@
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <x-search-person />
+
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                            <hr>
+                                            <h5 class="mb-4">Resultados</h5>
+                                            <table id="table-info-examen" class="table table-striped table-bordered"
+                                                style="width:100%; ">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center" scope="col">Imagen</th>
+                                                        <th class="text-center" scope="col">Nombre y apellido</th>
+                                                        <th class="text-center" scope="col">Cedula</th>
+                                                        <th class="text-center" scope="col">Descripcion del examen o estudio</th>
+                                                        <th class="text-center"scope="col" data-orderable="false">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($data as $item)
+                                                        <tr>
+                                                            <td class="table-avatar">
+                                                                <img class="avatar"
+                                                                    src=" {{ $item->get_patients->patient_img ? asset('/imgs/' . $item->get_patients->patient_img) : ($item->get_patients->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                                    alt="Imagen del paciente">
+                                                            </td>  
+                                                            <td class="text-center text-capitalize"> {{ $item->get_patients->name." ".$item->get_patients->last_name }}</td>                                                         
+                                                            <td class="text-center">  {{ $item->get_patients->is_minor === 'true' ? $item->get_patients->get_reprensetative->re_ci . '  (Rep)' : $item->get_patients->ci }} </td>
+                                                            <td class="text-center"> {{ $item->description }} </td>
+                                                            <td class="text-center">
+                                                                <div class="d-flex">
+                                                                    <div
+                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <a target="_blank" href="{{ URL::asset('/imgs/'.$item->file) }}" style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
+                                                                            <button type="button"
+                                                                                class="btn btn-iPrimary rounded-circle"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="VEr archivo">
+                                                                                <i class="bi bi-file-earmark-text"></i>
+                                                                            </button>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div
+                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <a href="{{ route('MedicalRecord', $item->get_patients->id) }}" style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">                                                                       
+                                                                            <button type="button"
+                                                                                class="btn btn-iPrimary rounded-circle"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="Cargar Estudio">
+                                                                                <i class="bi bi-file-earmark-text"></i>
+                                                                            </button>
+                                                                        </a>
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
 
                                     <div class="row" id="show-info-pat" style="display: none">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
