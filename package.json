@@ -27,6 +27,7 @@
         "jquery-validation": "^1.19.5",
         "moment": "^2.29.4",
         "sass": "^1.64.2",
-        "sweetalert2": "^11.6.13"
+        "sweetalert2": "^11.6.13",
+        "tinymce": "^6.8.2"
     }
 }
