@@ -161,7 +161,7 @@ class MedicalRecord extends Component
             $center_id_corporativo = Auth::user()->center_id;
         }
 
-        $medical_report = MedicalReport::updateOrCreate(
+       MedicalReport::updateOrCreate(
             ['id' => $request->medical_report_id],
             [
                 'cod_medical_report' => 'SQ-MR-'.random_int(11111111, 99999999),
@@ -169,11 +169,15 @@ class MedicalRecord extends Component
                 'patient_id'    => $request->patient_id,
                 'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
                 'date'          => date('d-m-Y'),
-                'TextInforme'   => $request->TextInforme,
+                'description'   => $request->TextInforme,
             ]
         );
+        
 
-        return true;
+        $medical_report = UtilsController::get_medical_report($request->patient_id);        
+
+
+        return $medical_report ;
 
     }
 
@@ -183,10 +187,11 @@ class MedicalRecord extends Component
         $doctor_centers = DoctorCenter::where('user_id', $user_id)->where('status', 1)->get();
         $Patient = UtilsController::get_one_patient($id);
         $medical_record_user = UtilsController::get_medical_record_user($id);
+        $medical_report = UtilsController::get_medical_report($id);        
         $validate_histroy = $Patient->get_history;
         $exam = Exam::all();
         $study = Study::all();
         $symptoms = Symptom::all();
-        return view('livewire.components.medical-record',compact('Patient', 'doctor_centers','validate_histroy','medical_record_user','id','exam','study','symptoms'));
+        return view('livewire.components.medical-record',compact('Patient', 'doctor_centers','validate_histroy','medical_record_user','id','exam','study','symptoms','medical_report'));
     }
 }

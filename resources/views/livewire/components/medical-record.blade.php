@@ -340,7 +340,7 @@
                     new bootstrap.Popover(popover)
                 })
 
-         
+
 
             $('#not-exam').hide();
             $('#not-studie').hide();
@@ -431,8 +431,6 @@
             }, "No se permiten caracteres especiales");
 
             //envio del formulario informe
-
-
             $('#form-informe-medico').validate({
                 ignore: [],
                 rules: {
@@ -480,6 +478,7 @@
                             }).then((result) => {
                                 $("#form-informe-medico").trigger("reset");
                                 $('#modalInformeMedico').modal('toggle');
+                                setDatatable(response);
                             });
                         },
                         error: function(error) {
@@ -1420,6 +1419,76 @@
                 $("#copied").text('Error al copiar ');
             }
         }
+
+        const setDatatable = (data) => {
+            
+            console.log(data);
+            let row=[];
+
+            data.map((elem) => {
+
+                let route =
+                    "{{ route('pdf_medical_prescription', ':id') }}";
+                route
+                    =
+                    route
+                    .replace(
+                        ':id', elem
+                        .id);
+
+                elem.btn = `                                
+                                                <a target="_blank"
+                                                href="${route}">
+                                                <button type="button"
+                                                class="btn refresf btn-iSecond rounded-circle"><i
+                                                class="bi bi-file-earmark-pdf"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom"
+                                                data-bs-custom-class="custom-tooltip"
+                                                data-html="true" title="ver PDF"></i>
+                                                </button>
+                                                </a>
+                                               `;
+
+                elem.name = `${ elem.get_doctor.name} ${elem.get_doctor.last_name  }`
+                row.push(elem);
+            });          
+            new DataTable(
+                '#table-medical-report', {
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                    },
+                    // reponsive: true,
+                    bDestroy: true,
+                    data: row,
+                    "searching": false,
+                    "bLengthChange": false,
+                    columns: [{
+                            data: 'cod_medical_report',
+                            title: 'Código del informe',
+                            className: "text-center td-pad",
+                        },
+                        {
+                            data: 'name',
+                            title: 'Medico remitente',
+                            className: "text-center td-pad",
+                        },                      
+                        {
+                            data: 'date',
+                            title: 'Fecha',
+                            className: "text-center td-pad",
+                        },                      
+                        {
+                            data: 'btn',
+                            title: 'Ver',
+                            className: "text-center td-pad",
+                        }
+                    ],
+                });
+
+
+
+        }
     </script>
 @endpush
 @section('content')
@@ -1835,12 +1904,6 @@
                                                 <input class="btn btnSave send" value="Guardar Consulta" type="submit"
                                                     style="padding: 8px" />
                                                 <button style="margin-left: 20px; padding: 8px;" type="button"
-                                                    onclick="InformaMedico();" class="btn btnSecond IM-mb"
-                                                    data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
-                                                    title="Informe Medico">Generar informe médico
-                                                    {{-- <i class="bi bi-eraser"></i> --}}
-                                                </button>
-                                                <button style="margin-left: 20px; padding: 8px;" type="button"
                                                     onclick="resetForm();" class="btn btnSecond LF-mb"
                                                     data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
                                                     title="Limpiar Formulario">
@@ -1856,13 +1919,13 @@
                 </div>
                 {{-- tabla --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd mt-2">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingThree">
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> Ultimas Consultas
+                                    <i class="bi bi-file-earmark-text"></i> Ultimas consultas
                                 </button>
                             </span>
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
@@ -2005,6 +2068,75 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- informes medicos --}}
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd mt-2">
+                        <div class="accordion-item">
+                            <span class="accordion-header title" id="headingThree">
+                                <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseInfome" aria-expanded="false" aria-controls="collapseInfome"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-file-earmark-text"></i> Informes medicos
+                                </button>
+                            </span>
+                            <div id="collapseInfome" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="row" id="table-one">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            <button style="font-size: 3rem" type="button" onclick="InformaMedico();"
+                                                class="" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                data-html="true" title="Generar informe medico"><i
+                                                    class="bi bi-plus-circle-dotted"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                            style="margin-top: 20px;">
+                                            <table id="table-medical-report" class="table table-striped table-bordered"
+                                                style="width:100%; ">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center" scope="col">Código del informe</th>
+                                                        <th class="text-center" scope="col">Medico remitente </th>
+                                                        <th class="text-center" scope="col">Fecha</th>
+                                                        <th data-orderable="false" class="text-center" scope="col">Ver
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($medical_report as $item)
+                                                        <tr>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item->cod_medical_report }}</td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item->get_doctor->name.' '.$item->get_doctor->last_name  }}</td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item->date }}</td>
+                                                            <td class="text-center td-pad">
+                                                                <a target="_blank"
+                                                                    href="{{ route('PDF_medical_record', $item['id']) }}">
+                                                                    <button type="button"
+                                                                        class="btn refresf btn-iSecond rounded-circle"><i
+                                                                            class="bi bi-filetype-pdf"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom"
+                                                                            data-bs-custom-class="custom-tooltip"
+                                                                            data-html="true" title="ver PDF"></i>
+                                                                    </button>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         @endif
 
@@ -2074,29 +2206,30 @@
 
                                 <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
                                 <input type="hidden" id="patient_id" name="patient_id" value="{{ $Patient->id }}">
+                                <input type="hidden" id="medical_report_id" name="medical_report_id" value="">
 
                                 @if (Auth::user()->type_plane !== '7')
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
-                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                    <div class="form-group">
-                                        <div class="Icon-inside">
-                                            <label for="phone" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro
-                                                de salud</label>
-                                            <select name="center_id" id="center_id"
-                                                placeholder="Seleccione"class="form-control"
-                                                class="form-control combo-textbox-input">
-                                                <option value="">Seleccione</option>
-                                                @foreach ($doctor_centers as $item)
-                                                    <option value="{{ $item->center_id }}">
-                                                        {{ $item->get_center->description }}</option>
-                                                @endforeach
-                                            </select>
-                                            <i class="bi bi-hospital st-icon"></i>
-                                            <span id="type_alergia_span" class="text-danger"></span>
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <label for="phone" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro
+                                                    de salud</label>
+                                                <select name="center_id" id="center_id"
+                                                    placeholder="Seleccione"class="form-control"
+                                                    class="form-control combo-textbox-input">
+                                                    <option value="">Seleccione</option>
+                                                    @foreach ($doctor_centers as $item)
+                                                        <option value="{{ $item->center_id }}">
+                                                            {{ $item->get_center->description }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <i class="bi bi-hospital st-icon"></i>
+                                                <span id="type_alergia_span" class="text-danger"></span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 @endif
 
                                 <div class="mt-3">
