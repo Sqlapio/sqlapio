@@ -120,17 +120,101 @@
 </style>
 @push('scripts')
     <script>
-        // $(document).ready(function() {
+        let count = 0;
+        let exams_array = [];
+        $(document).ready(function() {
 
-        //     let data = @json($data);
-        //     let id = @json($id);
-        //     if (id != null) {
-        //         showExam(data);
-        //         const bsCollapse = new bootstrap.Collapse('.collapsee', {
-        //             toggle: true
-        //         })
-        //     }
-        // });
+            // let data = @json($data);
+            // let id = @json($id);
+            // if (id != null) {
+            //     showExam(data);
+            //     const bsCollapse = new bootstrap.Collapse('.collapsee', {
+            //         toggle: true
+            //     })
+            // }
+
+            //validar formulario
+            $('#form-load-img-examen').validate({
+                ignore: [],
+                rules: {
+                    img: {
+                        required: true,
+                    },
+                    count: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    img: {
+                        required: 'Debe cargar un Archivo',
+                    },
+                    count: {
+                        required: 'Debe selecionar un resultado',
+                    }
+                }
+            });
+
+            //envio del formulario
+            $("#form-load-img-examen").submit(function(event) {
+                event.preventDefault();
+                $("#form-load-img-examen").validate();
+                if ($("#form-load-img-examen").valid()) {
+                    // $('#send').hide();
+                    // $('#spinner').show();
+                    //preparar la data para el envio
+                    let formData = $('#form-load-img-examen').serializeArray();
+                    let data = {};
+                    formData.map((item) => data[item.name] = item.value);
+                    data["exams_array"] = JSON.stringify(exams_array);
+
+                    ////end
+                    $.ajax({
+                        url: '{{ route('upload_result_exam') }}',
+                        type: 'POST',
+                        dataType: "json",
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "data": JSON.stringify(data),
+                        },
+                        success: function(response) {
+                            $('#send').show();
+                            $('#spinner').hide();
+                            $("#form-load-img-examen").trigger("reset");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Centro registrado exitosamente!',
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                $('#ModalLoadResult').modal('toggle');
+                                $("#content-table-ref").hide();
+                                $('#search_person').val('');
+                                get_data_table()
+                            });
+                        },
+                        error: function(error) {
+                            error.responseJSON.errors.map((elm) => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: elm,
+                                    allowOutsideClick: false,
+                                    confirmButtonColor: '#42ABE2',
+                                    confirmButtonText: 'Click para salir'
+                                }).then((result) => {
+                                    $('#send').show();
+                                    $('#spinner').hide();
+                                });
+                            });
+                        }
+                    });
+                }
+            })
+
+
+
+
+        });
 
         function searchPerson() {
             if ($('#search_person').val() != '') {
@@ -257,7 +341,7 @@
         function setDataTable(row) {
             console.log(row);
             let data = [];
-            row.map((elem) => {
+            row.data.map((elem) => {
                 // let elemData = JSON.stringify(elem);
                 let target = `{{ URL::asset('/imgs/${elem.file}') }}`;
                 elem.btn = `<div class="d-flex">
@@ -293,17 +377,17 @@
 
                 elem.full_name = `${elem.get_patients.name } ${elem.get_patients.last_name }`;
 
-                let imagen = `{{URL::asset('/img/avatar/avatar mujer.png')}}`;
+                let imagen = `{{ URL::asset('/img/avatar/avatar mujer.png') }}`;
 
-                if(elem.get_patients.patient_img!=null){                    
+                if (elem.get_patients.patient_img != null) {
                     imagen = `{{ URL::asset('/imgs/${elem.get_patients.patient_img}') }}`;
-                }else{
-                    if(elem.get_patients.genere=="masculino"){
-                         imagen = `{{URL::asset('/img/avatar/avatar hombre.png')}}`;
+                } else {
+                    if (elem.get_patients.genere == "masculino") {
+                        imagen = `{{ URL::asset('/img/avatar/avatar hombre.png') }}`;
                     }
                 }
 
-                elem.img=`<img class="avatar"
+                elem.img = `<img class="avatar"
                           src="${imagen}"
                           alt="Imagen del paciente">`;
 
@@ -350,6 +434,188 @@
                     }
                 ],
             });
+
+            ///
+            console.log(row.reference);
+            row.reference.map((elem) => {
+                // let elemData = JSON.stringify(elem);
+                let target = `{{ URL::asset('/imgs/${elem.file}') }}`;
+                elem.btn = `<div class="d-flex">
+                            <div
+                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                            <a target="_blank"
+                            href="${target}"
+                            style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
+                            <button type="button"
+                            class="btn btn-iPrimary rounded-circle"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            title="VEr archivo">
+                            <i class="bi bi-file-earmark-text"></i>
+                            </button>
+                            </a>
+                            </div>
+                            <div
+                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                            <a href=""
+                            style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
+                            <button type="button"
+                            class="btn btn-iPrimary rounded-circle"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            title="Cargar Estudio">
+                            <i class="bi bi-file-earmark-text"></i>
+                            </button>
+                            </a>
+                            </div>
+                            </div>`;
+
+
+                elem.full_name = `${elem.get_patient.name } ${elem.get_patient.last_name }`;
+
+                let imagen = `{{ URL::asset('/img/avatar/avatar mujer.png') }}`;
+
+                if (elem.get_patient.patient_img != null) {
+                    imagen = `{{ URL::asset('/imgs/${elem.get_patient.patient_img}') }}`;
+                } else {
+                    if (elem.get_patient.genere == "masculino") {
+                        imagen = `{{ URL::asset('/img/avatar/avatar hombre.png') }}`;
+                    }
+                }
+
+                elem.img = `<img class="avatar"
+                          src="${imagen}"
+                          alt="Imagen del paciente">`;
+
+                elem.ci = (elem.get_patient.is_minor == "true") ? `${elem.get_reprensetative.re_ci} (Rep)` : elem
+                    .get_patient.ci;
+
+                data.push(elem);
+            });
+
+            new DataTable('#table-info-sin-examen', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                },
+                bDestroy: true,
+                data: data,
+                "searching": false,
+                "bLengthChange": false,
+                columns: [{
+
+                        data: 'img',
+                        title: 'Imagen',
+                        className: "text-center text-capitalize",
+                    },
+                    {
+
+                        data: 'full_name',
+                        title: 'Nombre y apellido',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'ci',
+                        title: 'Cedula',
+                        className: "text-center text-capitalize",
+                    },
+                    {
+                        data: 'description',
+                        title: 'Descripcion del examen',
+                        className: "text-center text-capitalize",
+                    },
+                    {
+                        data: 'description',
+                        title: 'Descripcion del examen',
+                        className: "text-center text-capitalize",
+                    },
+                    {
+                        data: 'description',
+                        title: 'Descripcion del examen',
+                        className: "text-center text-capitalize",
+                    },
+                    {
+                        data: 'btn',
+                        title: 'Acciones',
+                        className: "text-center",
+                    }
+                ],
+            });
+        }
+
+        function showModal(item, active) {
+
+            if (item.get_exam.length > 0) {
+                count = 0;
+                $('#count').val('');
+                $('.holder').hide();
+                $('#code_ref').val(item.cod_ref);
+                $('#img').val('');
+                $('#ModalLoadResult').modal('show');
+                $('#table-info').find('tbody').empty();
+                $('.modal-title').text('Examen del Paciente');
+                 ///
+                 $('#ref').text(item.cod_ref);
+                $('#id').val(item.id);
+                $('#ref-pat').text(`${item.get_patient.name} ${item.get_patient.last_name}`);
+
+                item.get_exam.map((elemt, index) => {
+                    let elemData = JSON.stringify(elemt);
+                    let label =
+                        `<label><input type="checkbox" id="cod_exam_${index}" onclick='cuontResul(event,${elemData},${index});'></label>`
+                    if (Number(elemt.status) === 2) {
+                        $('#div-result').hide();
+                        $('#div-btn').hide();
+                        label =
+                            `<div  class="pad"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
+                    }
+                    if (Number(elemt.status) === 1) {
+                        ;
+                        $('#div-result').show();
+                        $('#div-btn').show();
+                    }
+                    let row = `
+                <tr>
+                    <td class="text-center">${elemt.cod_exam}</td>
+                    <td class="text-center">${elemt.description}</td>     
+                    <td class="text-center">${label}</td>                
+                    </tr>`;
+                    $('#table-info').find('tbody').append(row);
+
+                });
+             
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Paciente sin exámenes/estudios solicitados por el médico!',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#42ABE2',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
+
+        }
+
+        function cuontResul(e, item, key) {
+
+            if ($(`#${e.target.id}`).is(':checked')) {
+                exams_array.push({
+                    cod_exam: item.cod_exam
+                });
+
+                count = count + 1;
+
+                $('#count').val(count);
+
+            } else {
+
+                exams_array = exams_array.filter(e => e.cod_exam !== item.cod_exam);
+
+                count = count - 1;
+
+                $('#count').val(count);
+
+                if (count === 0) $('#count').val('');
+            }
         }
     </script>
 @endpush
@@ -377,17 +643,18 @@
                                         <div
                                             class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <hr>
-                                            <h5 class="mb-4">Resultados</h5>
+                                            <h5 class="mb-4">Examenes con resultados</h5>
                                             <table id="table-info-examen" class="table table-striped table-bordered"
                                                 style="width:100%; ">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">Imagen</th>
+                                                        <th class="text-center" scope="col">Foto</th>
                                                         <th class="text-center" scope="col">Nombre y apellido</th>
-                                                        <th class="text-center" scope="col">Cedula</th>
+                                                        <th class="text-center" scope="col">Cédula</th>
                                                         <th class="text-center" scope="col">Descripcion del examen o
                                                             estudio</th>
-                                                        <th class="text-center"scope="col" data-orderable="false">Acciones
+                                                        <th class="text-center"scope="col" data-orderable="false">Ver
+                                                            resultado
                                                         </th>
                                                     </tr>
                                                 </thead>
@@ -422,7 +689,7 @@
                                                                             </button>
                                                                         </a>
                                                                     </div>
-                                                                    <div
+                                                                    {{-- <div
                                                                         class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                         <a href="{{ route('MedicalRecord', $item->get_patients->id) }}"
                                                                             style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
@@ -434,7 +701,7 @@
                                                                                 <i class="bi bi-file-earmark-text"></i>
                                                                             </button>
                                                                         </a>
-                                                                    </div>
+                                                                    </div> --}}
 
                                                                 </div>
                                                             </td>
@@ -445,33 +712,131 @@
                                         </div>
                                     </div>
 
-                                    {{-- <div class="row" id="show-info-pat" style="display: none">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                    <div class="row mt-3">
+                                        <div
+                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <hr>
-                                            <h5 class="mb-4">Resultados</h5>
-                                            <table id="table-info-examen" class="table table-striped table-bordered"
-                                                style="width:100%; ">
+                                            <h5 class="mb-4">Examenes sin resultados</h5>
+                                            <table id="table-info-sin-examen" class="table table-striped table-bordered"
+                                                style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">Nombre</th>
+                                                        <th class="text-center" scope="col">Foto</th>
+                                                        <th class="text-center" scope="col">Fecha</th>
+                                                        <th class="text-center" scope="col">Referencia</th>
+                                                        <th class="text-center" scope="col">Referencia consulta médica
+                                                        </th>
+                                                        <th class="text-center" scope="col">Nombre y apellido</th>
                                                         <th class="text-center" scope="col">Cédula</th>
-                                                        <th class="text-center" scope="col">Género</th>
-                                                        <th class="text-center"scope="col" data-orderable="false">Acciones</th>
+                                                        <th class="text-center" scope="col">Cargar Resultado</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    @foreach ($examen_sin_resul as $item)
+                                                        <tr>
+                                                            <td class="table-avatar">
+                                                                <img class="avatar"
+                                                                    src=" {{ $item->get_patient->patient_img ? asset('/imgs/' . $item->get_patient->patient_img) : ($item->get_patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                                    alt="Imagen del paciente">
+                                                            </td>
+                                                            <td class="text-center"> {{ $item->date }} </td>
+                                                            <td class="text-center"> {{ $item->cod_ref }}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                {{ $item->cod_medical_record }} </td>
+                                                            <td class="text-center">
+                                                                {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }}
+                                                            </td>
+                                                            <td>
+                                                                <button onclick='showModal({{ $item }},0)'
+                                                                    data-bs-toggle='tooltip' data-bs-placement='right'
+                                                                    data-bs-custom-class='custom-tooltip' data-html='true'
+                                                                    title='Ver examenes' type='button'
+                                                                    class='btn btn-iPrimary rounded-circle'>
+                                                                    <i class='bi bi-info-circle-fill'></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-
-                                    <div class="row mt-2" id="content-result" style="display: none">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <div class="row" id="content-data"></div>
-                                        </div>
-                                    </div> --}}
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="ModalLoadResult" tabindex="-1" aria-labelledby="ModalLoadResultLabel"
+            aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div id="spinner" style="display: none">
+                <x-load-spinner show="true" />
+            </div>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header title">
+                            <span style="padding-left: 5px">Carga de resultados</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                style="font-size: 12px;"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="form-load-img-examen" method="post" action="/">
+                                {{ csrf_field() }}
+                                <input type="hidden" id="id" name="id" value="">
+                                <input type="hidden" id="code_ref" name="code_ref" value="">
+                                <input type="hidden" id="doctor_id" name="doctor_id" value="{{Auth::user()->id}}">
+
+                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                                    <strong>Referencia: </strong><span id="ref"></span>
+                                    <br>
+                                    <strong>Paciente: </strong><span class="text-capitalize" id="ref-pat"></span>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="info-show">
+                                        <table class="table table-striped table-bordered" id="table-info">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center" scope="col">Código</th>
+                                                    <th class="text-center" scope="col">Descripción</th>
+                                                    <th class="text-center" scope="col">Cargar Resultado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-sm-7 md-7 lg-7 xl-7 xxl-7" style="display: none">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text">Total resultados
+                                            </span>
+                                            <input type="text" id="count" name="count" class="form-control"
+                                                readonly value="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="input-array"></div>
+                                <div id="div-btn">
+                                    <div class="row mt-2 div-result">
+                                        <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                                            <x-upload-image title="Cargar Resultados" />
+                                        </div>
+                                    </div>
+                                    <div class="row text-center">
+                                        <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                                            <input class="btn btnPrimary send " value="Guardar" type="submit" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

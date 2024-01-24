@@ -1312,7 +1312,23 @@ class UtilsController extends Controller
 
 			$data = $tablePat->union($tableRep)->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
 
-			return $data;
+			///
+			$Reference_pat =  Reference::whereHas('get_patient', function ($q) use ($value) {
+				$q->where('ci', $value);
+			});
+
+			$Reference_reo =  Reference::whereHas('get_patient', function ($q) use ($value) {
+				$q->whereHas('get_reprensetative', function ($q) use ($value) {
+					$q->where('re_ci', $value);
+				});
+			});
+
+			$reference = $Reference_pat->union($Reference_reo)
+			->whereHas('get_exam', function ($q){
+                $q->where('status',  1);
+			})->with(['get_patient', 'get_exam','get_reprensetative'])->get();
+
+			return ["data"=>$data,"reference"=>$reference];
 		} else {
 
 			$tablePat =  Reference::whereHas('get_patient', function ($q) use ($value) {
