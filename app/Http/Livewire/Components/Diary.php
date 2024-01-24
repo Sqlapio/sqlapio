@@ -123,7 +123,7 @@ class Diary extends Component
 
             $data_center = DoctorCenter::where('user_id', $user->id)->where('center_id', $appointment->get_center->id)->first();
             $dir = str_replace(' ', '%20', $appointment->get_center->description);
-            $ubication = 'https://maps.google.com/maps?q='.$dir.'&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
+            $ubication = 'https://maps.google.com/maps?q='.$dir.',%20'.$appointment->get_center->state.'&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
             if(isset($center_id_corporativo))
             {
                 $type = 'appointment';
