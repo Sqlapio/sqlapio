@@ -43,6 +43,7 @@ use App\Models\Reference;
 use App\Models\User as ModelsUser;
 use Illuminate\Support\Str;
 use App\View\Components\VerifyplansComponent;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -299,6 +300,10 @@ Route::group(array('prefix' => 'public'), function () {
 Route::get('/logout', [Login::class, 'logout'])->name('logout');
 
 Route::get('/prueba', function () {
-    $barcode = 'SQ-16007868-265';
+    $users = DB::table('users')
+            ->offset(5) // Starting position of records
+            ->limit(2) // Number of records to retrieve
+            ->get();
+            dd($users);
     return view('barcode', compact('barcode'));
 });

@@ -37,7 +37,7 @@
                     Fecha: {{ $mailData['reference_date'] }}
                     <br>
                     Exámenes solicitados:
-                    <br>                       
+                    <br>
                         @foreach ($mailData['patient_exam'] as $item)
                                 {{ $item->description}}<br>
                         @endforeach
@@ -48,7 +48,7 @@
 
                             @foreach ($mailData['patient_study'] as $item)
                             {{ $item->description}}<br>
-                            @endforeach                   
+                            @endforeach
                   </th>
                 </tr>
               </table>
@@ -68,7 +68,7 @@
                 Ing. Jhonny Martinez<br>CEO
             </p>
             <p style="text-align: justify; font-style: italic; margin-left: 20px;">
-                Para mayor información puede comunicarse 24/7 con nuestro equipo a través de sqlapiotechnology@sqlapio.com
+                Para mayor información puede comunicarse 24/7 con nuestro equipo a través de soporte@sqlapio.com
             </p>
         </div>
     <img style="
@@ -78,6 +78,6 @@
             width: 600px;
             height: auto;"
         src="{{ asset('img/notification_email/footer.png') }}">
-    
+
 </body>
 </html>
