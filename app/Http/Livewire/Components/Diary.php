@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Components;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\UtilsController;
 use App\Models\Appointment;
+use App\Models\DoctorCenter;
 use App\Models\Patient;
 use App\Models\Representative;
 use Illuminate\Http\Request;
@@ -120,6 +121,9 @@ class Diary extends Component
                 $patient_email = $patient->email;
             }
 
+            $data_center = DoctorCenter::where('user_id', $user->id)->where('center_id', $appointment->get_center->id)->first();
+            $dir = str_replace(' ', '%20', $appointment->get_center->description);
+            $ubication = 'https://maps.google.com/maps?q='.$dir.',%20'.$appointment->get_center->state.'&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
             if(isset($center_id_corporativo))
             {
                 $type = 'appointment';
@@ -132,7 +136,11 @@ class Diary extends Component
                     'fecha'         => $request->date_start,
                     'horario'       => $date[0].' '.$request->timeIni,
                     'centro'        => $appointment->get_center->description,
-                    'link'          => 'http://sqldevelop.sqlapio.net/confirmation/dairy/' . $appointment->code,
+                    'piso'          => $data_center->number_floor,
+                    'consultorio'   => $data_center->number_consulting_room,
+                    'telefono'      => $data_center->phone_consulting_room,
+                    'ubication' => $ubication,
+                    'link'          => 'https://system.sqlapio.com/confirmation/dairy/' . $appointment->code,
                 ];
 
                 UtilsController::notification_mail($mailData, $type);
@@ -148,7 +156,11 @@ class Diary extends Component
                     'fecha'         => $request->date_start,
                     'horario'       => $date[0].' '.$request->timeIni,
                     'centro'        => $appointment->get_center->description,
-                    'link'          => 'http://sqldevelop.sqlapio.net/confirmation/dairy/' . $appointment->code,
+                    'piso'          => $data_center->number_floor,
+                    'consultorio'   => $data_center->number_consulting_room,
+                    'telefono'      => $data_center->phone_consulting_room,
+                    'ubication' => $ubication,
+                    'link'          => 'https://system.sqlapio.com/confirmation/dairy/' . $appointment->code,
                 ];
 
                 UtilsController::notification_mail($mailData, $type);
