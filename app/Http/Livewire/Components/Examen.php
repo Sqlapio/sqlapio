@@ -35,16 +35,9 @@ class Examen extends Component
             ];
         }else{
 
-            $data_exam = ExamPatient::where('status', 2)
+            $data = ExamPatient::where('status', 2)
             ->where('user_id', Auth::user()->id)
-            ->with('get_laboratory');
-
-
-            $data_study = StudyPatient::where('user_id', Auth::user()->id)
-            ->where('status', 2)
-            ->with('get_laboratory');
-
-			$data = $data_exam->union($data_study)->get();
+            ->with('get_laboratory')->get();
         }
         
         return view('livewire.components.examen', compact('data', 'id'));
