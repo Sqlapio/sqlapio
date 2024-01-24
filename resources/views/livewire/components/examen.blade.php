@@ -120,18 +120,17 @@
 </style>
 @push('scripts')
     <script>
-        $(document).ready(function() {
+        // $(document).ready(function() {
 
-            let data = @json($data);
-            let id = @json($id);
-            if (id != null) {
-                showExam(data);
-                const bsCollapse = new bootstrap.Collapse('.collapsee', {
-                    toggle: true
-                })
-            }
-        });
-
+        //     let data = @json($data);
+        //     let id = @json($id);
+        //     if (id != null) {
+        //         showExam(data);
+        //         const bsCollapse = new bootstrap.Collapse('.collapsee', {
+        //             toggle: true
+        //         })
+        //     }
+        // });
 
         function searchPerson() {
             if ($('#search_person').val() != '') {

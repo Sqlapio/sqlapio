@@ -1310,7 +1310,7 @@ class UtilsController extends Controller
 					})->with('store');
 				});
 
-			$data = $tablePat->union($tableRep)->with(['get_laboratory','get_patients','get_reprensetative'])->get();
+			$data = $tablePat->union($tableRep)->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
 
 			return $data;
 		} else {
@@ -1349,34 +1349,50 @@ class UtilsController extends Controller
 		$data = [];
 		if ($row != 'cod_ref') {
 
-			$tablePat =  Patient::where($row, $value);
+			// $tablePat =  Patient::where($row, $value);
 
-			$tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($value) {
-				$q->where('re_ci', $value);
-			});
+			// $tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($value) {
+			// 	$q->where('re_ci', $value);
+			// });
 
-			$patients = $tablePat->union($tableRep)->get();
+			// $patients = $tablePat->union($tableRep)->get();
 
-			/**
-			 * Realizamos la busqueda en la tabla
-			 * de examenes del paciente
-			 */
-			foreach ($patients as $key => $val) {
+			// /**
+			//  * Realizamos la busqueda en la tabla
+			//  * de examenes del paciente
+			//  */
+			// foreach ($patients as $key => $val) {
 
-				$data_study = StudyPatient::where('patient_id', $val->id)
-					->where('status', 2)
-					->with('get_laboratory')
-					->get();
+			// 	$data_study = StudyPatient::where('patient_id', $val->id)
+			// 		->where('status', 2)
+			// 		->with('get_laboratory')
+			// 		->get();
 
-				$data[$key] = [
-					'patient_id' =>  $val->id,
-					'full_name' => $val->name . ' ' . $val->last_name,
-					'ci' => ($val->is_minor == "false") ? $val->ci : $val->get_reprensetative->re_ci,
-					'genero' => $val->genere,
-					'study' => $data_study,
-				];
-			}
+			// 	$data[$key] = [
+			// 		'patient_id' =>  $val->id,
+			// 		'full_name' => $val->name . ' ' . $val->last_name,
+			// 		'ci' => ($val->is_minor == "false") ? $val->ci : $val->get_reprensetative->re_ci,
+			// 		'genero' => $val->genere,
+			// 		'study' => $data_study,
+			// 	];
+			// }
 
+			// return $data;
+
+			$tablePat =  StudyPatient::where('status', 2)
+				->whereHas('get_patient', function ($q) use ($value) {
+					$q->where('ci', $value);
+				});
+
+			$tableRep =  StudyPatient::where('status', 2)
+				->whereHas('get_patient', function ($q) use ($value) {
+					$q->whereHas('get_reprensetative', function ($q) use ($value) {
+						$q->where('re_ci', $value);
+					})->with('store');
+				});
+
+			$data = $tablePat->union($tableRep)->with(['get_laboratory', 'get_patient', 'get_reprensetative'])->get();
+			
 			return $data;
 		}
 	}
