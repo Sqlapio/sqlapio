@@ -24,7 +24,8 @@
         margin-right: 9px;
     }
 
-    .btn-idanger:hover, .btnSecond:active {
+    .btn-idanger:hover,
+    .btnSecond:active {
         background: #ff7b0d;
         color: #fff;
     }
@@ -39,6 +40,7 @@
         border-radius: 30px !important;
         font-size: 13px
     }
+
     /* nuevos estilos  */
     .div-select {
         padding-left: 16px !important;
@@ -118,18 +120,17 @@
 </style>
 @push('scripts')
     <script>
-        $(document).ready(function() {
+        // $(document).ready(function() {
 
-            let data = @json($data);
-            let id = @json($id);
-            if (id != null) {
-                showExam(data);
-                const bsCollapse = new bootstrap.Collapse('.collapsee', {
-                    toggle: true
-                })
-            }
-        });
-        
+        //     let data = @json($data);
+        //     let id = @json($id);
+        //     if (id != null) {
+        //         showExam(data);
+        //         const bsCollapse = new bootstrap.Collapse('.collapsee', {
+        //             toggle: true
+        //         })
+        //     }
+        // });
 
         function searchPerson() {
             if ($('#search_person').val() != '') {
@@ -161,59 +162,9 @@
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
                         }).then((result) => {
-                            $("#content-result").hide();
-                            $('#show-info-pat').show();
-
-                            let data = [];
-                            response.map((elem) => {
-                                let elemData = JSON.stringify(elem);
-
-                                elem.btn = `<button onclick='showExam(${elemData})'
-                                                type="button" class="btn-2 btnSecond">Ver estudios</button>
-                                                </div>`;
-                                if(elem.exam.length===0){
-                                    elem.btn  = `<button type="button"
-                                                        class="refresf btn-idanger rounded-circle"
-                                                        onclick='showAlertNotExam()'>
-                                                        <i class="bi bi-exclamation-lg"></i>
-                                                    </button>`;
-                                }
-                                data.push(elem);
-                            });
-
-                            new DataTable('#table-info-pat', {
-                                language: {
-                                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
-                                },
-                                bDestroy: true,
-                                data: data,
-                                "searching": false,
-                                "bLengthChange": false,
-                                columns: [{
-
-                                        data: 'full_name',
-                                        title: 'Nombre',
-                                        className: "text-center text-capitalize",
-                                    },
-                                    {
-
-                                        data: 'ci',
-                                        title: 'Cédula paciente',
-                                        className: "text-center",
-                                    },
-                                    {
-                                        data: 'genero',
-                                        title: 'Género',
-                                        className: "text-center text-capitalize",
-                                    },
-                                    {
-                                        data: 'btn',
-                                        title: 'Acciones',
-                                        className: "text-center",
-                                    }
-                                ],
-                            });
-
+                            // $("#content-result").hide();
+                            // $('#show-info-pat').show();
+                            setDataTable(response);
                         });
 
                     },
@@ -281,9 +232,9 @@
 
                 $('#content-data').append(div);
 
-                
+
             });
-            
+
         }
 
         const tooltipTriggerList = document.querySelectorAll(
@@ -301,6 +252,104 @@
                 confirmButtonText: 'Aceptar'
             });
             return false;
+        }
+
+        function setDataTable(row) {
+            console.log(row);
+            let data = [];
+            row.map((elem) => {
+                // let elemData = JSON.stringify(elem);
+                let target = `{{ URL::asset('/imgs/${elem.file}') }}`;
+                elem.btn = `<div class="d-flex">
+                            <div
+                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                            <a target="_blank"
+                            href="${target}"
+                            style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
+                            <button type="button"
+                            class="btn btn-iPrimary rounded-circle"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            title="VEr archivo">
+                            <i class="bi bi-file-earmark-text"></i>
+                            </button>
+                            </a>
+                            </div>
+                            <div
+                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                            <a href=""
+                            style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
+                            <button type="button"
+                            class="btn btn-iPrimary rounded-circle"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            title="Cargar Estudio">
+                            <i class="bi bi-file-earmark-text"></i>
+                            </button>
+                            </a>
+                            </div>
+                            </div>`;
+
+
+                elem.full_name = `${elem.get_patients.name } ${elem.get_patients.last_name }`;
+
+                let imagen = `{{URL::asset('/img/avatar/avatar mujer.png')}}`;
+
+                if(elem.get_patients.patient_img!=null){                    
+                    imagen = `{{ URL::asset('/imgs/${elem.get_patients.patient_img}') }}`;
+                }else{
+                    if(elem.get_patients.genere=="masculino"){
+                         imagen = `{{URL::asset('/img/avatar/avatar hombre.png')}}`;
+                    }
+                }
+
+                elem.img=`<img class="avatar"
+                          src="${imagen}"
+                          alt="Imagen del paciente">`;
+
+                elem.ci = (elem.get_patients.is_minor == "true") ? `${elem.get_reprensetative.re_ci} (Rep)` : elem
+                    .get_patients.ci;
+
+                data.push(elem);
+            });
+
+            new DataTable('#table-info-examen', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                },
+                bDestroy: true,
+                data: data,
+                "searching": false,
+                "bLengthChange": false,
+                columns: [{
+
+                        data: 'img',
+                        title: 'Imagen',
+                        className: "text-center text-capitalize",
+                    },
+                    {
+
+                        data: 'full_name',
+                        title: 'Nombre y apellido',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'ci',
+                        title: 'Cedula',
+                        className: "text-center text-capitalize",
+                    },
+                    {
+                        data: 'description',
+                        title: 'Descripcion del examen',
+                        className: "text-center text-capitalize",
+                    },
+                    {
+                        data: 'btn',
+                        title: 'Acciones',
+                        className: "text-center",
+                    }
+                ],
+            });
         }
     </script>
 @endpush
@@ -325,7 +374,8 @@
                                     <x-search-person />
 
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                        <div
+                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <hr>
                                             <h5 class="mb-4">Resultados</h5>
                                             <table id="table-info-examen" class="table table-striped table-bordered"
@@ -335,8 +385,10 @@
                                                         <th class="text-center" scope="col">Imagen</th>
                                                         <th class="text-center" scope="col">Nombre y apellido</th>
                                                         <th class="text-center" scope="col">Cedula</th>
-                                                        <th class="text-center" scope="col">Descripcion del examen o estudio</th>
-                                                        <th class="text-center"scope="col" data-orderable="false">Acciones</th>
+                                                        <th class="text-center" scope="col">Descripcion del examen o
+                                                            estudio</th>
+                                                        <th class="text-center"scope="col" data-orderable="false">Acciones
+                                                        </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -346,15 +398,21 @@
                                                                 <img class="avatar"
                                                                     src=" {{ $item->get_patients->patient_img ? asset('/imgs/' . $item->get_patients->patient_img) : ($item->get_patients->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
                                                                     alt="Imagen del paciente">
-                                                            </td>  
-                                                            <td class="text-center text-capitalize"> {{ $item->get_patients->name." ".$item->get_patients->last_name }}</td>                                                         
-                                                            <td class="text-center">  {{ $item->get_patients->is_minor === 'true' ? $item->get_patients->get_reprensetative->re_ci . '  (Rep)' : $item->get_patients->ci }} </td>
+                                                            </td>
+                                                            <td class="text-center text-capitalize">
+                                                                {{ $item->get_patients->name . ' ' . $item->get_patients->last_name }}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                {{ $item->get_patients->is_minor === 'true' ? $item->get_patients->get_reprensetative->re_ci . '  (Rep)' : $item->get_patients->ci }}
+                                                            </td>
                                                             <td class="text-center"> {{ $item->description }} </td>
                                                             <td class="text-center">
                                                                 <div class="d-flex">
                                                                     <div
                                                                         class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a target="_blank" href="{{ URL::asset('/imgs/'.$item->file) }}" style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
+                                                                        <a target="_blank"
+                                                                            href="{{ URL::asset('/imgs/' . $item->file) }}"
+                                                                            style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
                                                                             <button type="button"
                                                                                 class="btn btn-iPrimary rounded-circle"
                                                                                 data-bs-toggle="tooltip"
@@ -366,7 +424,8 @@
                                                                     </div>
                                                                     <div
                                                                         class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a href="{{ route('MedicalRecord', $item->get_patients->id) }}" style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">                                                                       
+                                                                        <a href="{{ route('MedicalRecord', $item->get_patients->id) }}"
+                                                                            style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
                                                                             <button type="button"
                                                                                 class="btn btn-iPrimary rounded-circle"
                                                                                 data-bs-toggle="tooltip"
@@ -376,7 +435,7 @@
                                                                             </button>
                                                                         </a>
                                                                     </div>
-                                                                    
+
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -386,11 +445,11 @@
                                         </div>
                                     </div>
 
-                                    <div class="row" id="show-info-pat" style="display: none">
+                                    {{-- <div class="row" id="show-info-pat" style="display: none">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <hr>
                                             <h5 class="mb-4">Resultados</h5>
-                                            <table id="table-info-pat" class="table table-striped table-bordered"
+                                            <table id="table-info-examen" class="table table-striped table-bordered"
                                                 style="width:100%; ">
                                                 <thead>
                                                     <tr>
@@ -410,7 +469,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <div class="row" id="content-data"></div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

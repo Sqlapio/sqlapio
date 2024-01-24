@@ -53,6 +53,11 @@ class ExamPatient extends Model
         return $this->hasOne(Patient::class, 'id', 'patient_id');
     }
 
+    public function get_reprensetative(): HasOne
+    {
+        return $this->hasOne(Representative::class, 'patient_id', 'patient_id');
+    }
+
     public function  get_laboratory(): HasOne
     {
         return $this->hasOne(Laboratory::class, 'id', 'laboratory_id');
