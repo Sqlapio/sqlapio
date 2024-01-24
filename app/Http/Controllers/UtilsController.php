@@ -114,7 +114,7 @@ class UtilsController extends Controller
 		if ($value == '21') {
 			return 'password reset';
 		}
-        if ($value == '22') {
+		if ($value == '22') {
 			return 'initial registration of General Manager';
 		}
 	}
@@ -176,13 +176,12 @@ class UtilsController extends Controller
 					'address' 	=> $request->address,
 					'zip_code' 	=> $request->zip_code,
 					'cod_mpps' 	=> $request->cod_mpps,
-                    'number_floor' 	=> $request->number_floor,
-                    'number_consulting_room' 	=> $request->number_consulting_room,
-                    'number_consulting_phone' 	=> $request->number_consulting_phone,
+					'number_floor' 	=> $request->number_floor,
+					'number_consulting_room' 	=> $request->number_consulting_room,
+					'number_consulting_phone' 	=> $request->number_consulting_phone,
 					'user_img' 	=> $nameFile,
 					'status_register' => '2',
 				]);
-
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_registro()', $message);
@@ -278,7 +277,7 @@ class UtilsController extends Controller
 	{
 		try {
 			$appointments = Appointment::where('user_id', $id)
-				->WhereBetween('status', [1,2])->get();
+				->WhereBetween('status', [1, 2])->get();
 			$data = [];
 			foreach ($appointments as $key => $val) {
 				$data[$key] = [
@@ -293,11 +292,11 @@ class UtilsController extends Controller
 						'id' =>  $val->id,
 						'price' => $val->price,
 						'confirmation' => $val->confirmation,
-						'phone' => $val->get_patients->is_minor== "true" ? $val->get_patients->get_reprensetative->re_phone. '  (Rep)' : $val->get_patients->phone,
+						'phone' => $val->get_patients->is_minor == "true" ? $val->get_patients->get_reprensetative->re_phone . '  (Rep)' : $val->get_patients->phone,
 						'name' => $val->get_patients->name,
 						'last_name' => $val->get_patients->last_name,
-						'ci' => $val->get_patients->is_minor== "true" ? $val->get_patients->get_reprensetative->re_ci. '  (Rep)' :$val->get_patients->ci,
-						'email' => $val->get_patients->is_minor== "true" ? $val->get_patients->get_reprensetative->re_email. '  (Rep)':$val->get_patients->email,
+						'ci' => $val->get_patients->is_minor == "true" ? $val->get_patients->get_reprensetative->re_ci . '  (Rep)' : $val->get_patients->ci,
+						'email' => $val->get_patients->is_minor == "true" ? $val->get_patients->get_reprensetative->re_email . '  (Rep)' : $val->get_patients->email,
 						'genere' => $val->get_patients->genere,
 						'age' =>  $val->get_patients->age,
 						'patient_id' =>  $val->get_patients->id,
@@ -318,11 +317,11 @@ class UtilsController extends Controller
 		}
 	}
 
-    static function get_appointments_dashboard($id)
+	static function get_appointments_dashboard($id)
 	{
 		try {
 			$appointments = Appointment::where('user_id', $id)
-                ->where('date_start', date('Y-m-d'))->get();
+				->where('date_start', date('Y-m-d'))->get();
 			$data = [];
 			foreach ($appointments as $key => $val) {
 				$data[$key] = [
@@ -337,11 +336,11 @@ class UtilsController extends Controller
 						'id' =>  $val->id,
 						'price' => $val->price,
 						'confirmation' => $val->confirmation,
-						'phone' => $val->get_patients->is_minor== "true" ? $val->get_patients->get_reprensetative->re_phone. '  (Rep)' : $val->get_patients->phone,
+						'phone' => $val->get_patients->is_minor == "true" ? $val->get_patients->get_reprensetative->re_phone . '  (Rep)' : $val->get_patients->phone,
 						'name' => $val->get_patients->name,
 						'last_name' => $val->get_patients->last_name,
-						'ci' => $val->get_patients->is_minor== "true" ? $val->get_patients->get_reprensetative->re_ci. '  (Rep)' :$val->get_patients->ci,
-						'email' => $val->get_patients->is_minor== "true" ? $val->get_patients->get_reprensetative->re_email. '  (Rep)':$val->get_patients->email,
+						'ci' => $val->get_patients->is_minor == "true" ? $val->get_patients->get_reprensetative->re_ci . '  (Rep)' : $val->get_patients->ci,
+						'email' => $val->get_patients->is_minor == "true" ? $val->get_patients->get_reprensetative->re_email . '  (Rep)' : $val->get_patients->email,
 						'genere' => $val->get_patients->genere,
 						'age' =>  $val->get_patients->age,
 						'patient_id' =>  $val->get_patients->id,
@@ -462,7 +461,7 @@ class UtilsController extends Controller
 						'diagnosis' 	=>  $val->diagnosis,
 						'exams' 		=>  $val->exams,
 						'studies' 		=>  $val->studies,
-						'medications_supplements' 		=>  json_decode($val->medications_supplements) ,
+						'medications_supplements' 		=>  json_decode($val->medications_supplements),
 						'status_exam' 		=>  $val->status_exam,
 						'status_study' 		=> $val->status_study,
 						'study' 		=> $val->get_study_medical,
@@ -631,7 +630,7 @@ class UtilsController extends Controller
 				Mail::to($mailData['laboratory_email'])->send(new NotificationEmail($mailData, $view));
 			}
 
-            if ($type == 'verify_email_corporate') {
+			if ($type == 'verify_email_corporate') {
 				$view = 'emails.verify_email_corporate';
 				Mail::to($mailData['laboratory_email'])->send(new NotificationEmail($mailData, $view));
 			}
@@ -651,17 +650,17 @@ class UtilsController extends Controller
 				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
 			}
 
-            if ($type == 'enable_doc') {
+			if ($type == 'enable_doc') {
 				$view = 'emails.enable_email';
 				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
 			}
 
-            if ($type == 'disable_doc') {
+			if ($type == 'disable_doc') {
 				$view = 'emails.disable_email';
 				Mail::to($mailData['dr_email'])->send(new NotificationEmail($mailData, $view));
 			}
 
-            if ($type == 'verify_email_general_manager') {
+			if ($type == 'verify_email_general_manager') {
 				$view = 'emails.verify_email_general_manager';
 				Mail::to($mailData['gm_email'])->send(new NotificationEmail($mailData, $view));
 			}
@@ -1094,10 +1093,10 @@ class UtilsController extends Controller
 
 			$medical_record_code = Reference::where('cod_ref', $data->code_ref)->first()->cod_medical_record;
 			$update = DB::table('medical_records')
-					->where('record_code', $medical_record_code)
-					->update([
-						'status_exam' => true,
-					]);
+				->where('record_code', $medical_record_code)
+				->update([
+					'status_exam' => true,
+				]);
 
 
 			return true;
@@ -1163,10 +1162,10 @@ class UtilsController extends Controller
 
 			$medical_record_code = Reference::where('cod_ref', $data->code_ref)->first()->cod_medical_record;
 			$update = DB::table('medical_records')
-					->where('record_code', $medical_record_code)
-					->update([
-						'status_study' => true,
-					]);
+				->where('record_code', $medical_record_code)
+				->update([
+					'status_study' => true,
+				]);
 
 			return true;
 			//code...
@@ -1203,15 +1202,13 @@ class UtilsController extends Controller
 	{
 		try {
 			$value = User::where('id', $user_id)->first();
-            if($value->type_plane != '7')
-            {
-                $counter = DB::table('users')
-                    ->where('id', $user_id)
-                    ->update([
-                        'patient_counter' => $value->patient_counter + 1,
-                    ]);
-            }
-
+			if ($value->type_plane != '7') {
+				$counter = DB::table('users')
+					->where('id', $user_id)
+					->update([
+						'patient_counter' => $value->patient_counter + 1,
+					]);
+			}
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_patient_counter()', $message);
@@ -1222,15 +1219,13 @@ class UtilsController extends Controller
 	{
 		try {
 			$value = User::where('id', $user_id)->first();
-            if($value->type_plane != '7')
-            {
-                $counter = DB::table('users')
-                    ->where('id', $user_id)
-                    ->update([
-                        'medical_record_counter' => $value->medical_record_counter + 1,
-                    ]);
-            }
-
+			if ($value->type_plane != '7') {
+				$counter = DB::table('users')
+					->where('id', $user_id)
+					->update([
+						'medical_record_counter' => $value->medical_record_counter + 1,
+					]);
+			}
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_mr_counter()', $message);
@@ -1241,14 +1236,13 @@ class UtilsController extends Controller
 	{
 		try {
 			$value = User::where('id', $user_id)->first();
-            if($value->type_plane != '7')
-            {
-                $counter = DB::table('users')
-                    ->where('id', $user_id)
-                    ->update([
-                        'ref_counter' => $value->ref_counter + 1,
-                    ]);
-            }
+			if ($value->type_plane != '7') {
+				$counter = DB::table('users')
+					->where('id', $user_id)
+					->update([
+						'ref_counter' => $value->ref_counter + 1,
+					]);
+			}
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_ref_exam_counter()', $message);
@@ -1274,38 +1268,52 @@ class UtilsController extends Controller
 		$data = [];
 		if ($row != 'cod_ref') {
 
-			$tablePat =  Patient::where($row, $value);
+			// $tablePat =  Patient::where($row, $value);
 
-			$tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($value) {
-				$q->where('re_ci', $value);
-			});
+			// $tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($value) {
+			// 	$q->where('re_ci', $value);
+			// });
 
-			$patients = $tablePat->union($tableRep)->get();
+			// $patients = $tablePat->union($tableRep)->get();
 
-			/**
-			 * Realizamos la busqueda en la tabla
-			 * de examenes del paciente
-			 */
-			foreach ($patients as $key => $val) {
+			// /**
+			//  * Realizamos la busqueda en la tabla
+			//  * de examenes del paciente
+			//  */
+			// foreach ($patients as $key => $val) {
 
-				$data_exam = ExamPatient::where('patient_id', $val->id)
-				->where('status', 2)
-				->with('get_laboratory')
-				->get();
+			// 	$data_exam = ExamPatient::where('patient_id', $val->id)
+			// 		->where('status', 2)
+			// 		->with('get_laboratory')
+			// 		->get();
 
-				$data[$key] = [
-					'patient_id' =>  $val->id,
-					'full_name' => $val->name . ' ' . $val->last_name,
-					'ci' => ($val->is_minor == "false") ? $val->ci : $val->get_reprensetative->re_ci,
-					'genero' => $val->genere,
-					'exam' => $data_exam,
-				];
-			}
+			// 	$data[$key] = [
+			// 		'patient_id' =>  $val->id,
+			// 		'full_name' => $val->name . ' ' . $val->last_name,
+			// 		'ci' => ($val->is_minor == "false") ? $val->ci : $val->get_reprensetative->re_ci,
+			// 		'genero' => $val->genere,
+			// 		'exam' => $data_exam,
+			// 	];
+			// }
+
+			// return $data;
+
+			$tablePat =  ExamPatient::where('status', 2)
+				->whereHas('get_patients', function ($q) use ($value) {
+					$q->where('ci', $value);
+				});
+
+			$tableRep =  ExamPatient::where('status', 2)
+				->whereHas('get_patients', function ($q) use ($value) {
+					$q->whereHas('get_reprensetative', function ($q) use ($value) {
+						$q->where('re_ci', $value);
+					})->with('store');
+				});
+
+			$data = $tablePat->union($tableRep)->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
 
 			return $data;
-
 		} else {
-
 
 			$tablePat =  Reference::whereHas('get_patient', function ($q) use ($value) {
 				$q->where('ci', $value);
@@ -1319,17 +1327,16 @@ class UtilsController extends Controller
 
 			$reference = $tablePat->union($tableRep)->get();
 
-			foreach($reference as $key => $val){
-					$data[$key] = [
-						'id' => $val->id,
-						'cod_ref' => $val->cod_ref,
-						'date' => $val->date,
-						'cod_medical_record' => $val->cod_medical_record,
-						'get_exam' => $val->get_exam,
-						'get_studie' => $val->get_studie,
-						'get_patient' => $val->get_patient,
-					];
-
+			foreach ($reference as $key => $val) {
+				$data[$key] = [
+					'id' => $val->id,
+					'cod_ref' => $val->cod_ref,
+					'date' => $val->date,
+					'cod_medical_record' => $val->cod_medical_record,
+					'get_exam' => $val->get_exam,
+					'get_studie' => $val->get_studie,
+					'get_patient' => $val->get_patient,
+				];
 			}
 
 			return $data;
@@ -1342,34 +1349,50 @@ class UtilsController extends Controller
 		$data = [];
 		if ($row != 'cod_ref') {
 
-			$tablePat =  Patient::where($row, $value);
+			// $tablePat =  Patient::where($row, $value);
 
-			$tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($value) {
-				$q->where('re_ci', $value);
-			});
+			// $tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($value) {
+			// 	$q->where('re_ci', $value);
+			// });
 
-			$patients = $tablePat->union($tableRep)->get();
+			// $patients = $tablePat->union($tableRep)->get();
 
-			/**
-			 * Realizamos la busqueda en la tabla
-			 * de examenes del paciente
-			 */
-			foreach ($patients as $key => $val) {
+			// /**
+			//  * Realizamos la busqueda en la tabla
+			//  * de examenes del paciente
+			//  */
+			// foreach ($patients as $key => $val) {
 
-				$data_study = StudyPatient::where('patient_id', $val->id)
-				->where('status', 2)
-				->with('get_laboratory')
-				->get();
+			// 	$data_study = StudyPatient::where('patient_id', $val->id)
+			// 		->where('status', 2)
+			// 		->with('get_laboratory')
+			// 		->get();
 
-				$data[$key] = [
-					'patient_id' =>  $val->id,
-					'full_name' => $val->name . ' ' . $val->last_name,
-					'ci' => ($val->is_minor == "false") ? $val->ci : $val->get_reprensetative->re_ci,
-					'genero' => $val->genere,
-					'study' => $data_study,
-				];
-			}
+			// 	$data[$key] = [
+			// 		'patient_id' =>  $val->id,
+			// 		'full_name' => $val->name . ' ' . $val->last_name,
+			// 		'ci' => ($val->is_minor == "false") ? $val->ci : $val->get_reprensetative->re_ci,
+			// 		'genero' => $val->genere,
+			// 		'study' => $data_study,
+			// 	];
+			// }
 
+			// return $data;
+
+			$tablePat =  StudyPatient::where('status', 2)
+				->whereHas('get_patient', function ($q) use ($value) {
+					$q->where('ci', $value);
+				});
+
+			$tableRep =  StudyPatient::where('status', 2)
+				->whereHas('get_patient', function ($q) use ($value) {
+					$q->whereHas('get_reprensetative', function ($q) use ($value) {
+						$q->where('re_ci', $value);
+					})->with('store');
+				});
+
+			$data = $tablePat->union($tableRep)->with(['get_laboratory', 'get_patient', 'get_reprensetative'])->get();
+			
 			return $data;
 		}
 	}
@@ -1389,15 +1412,13 @@ class UtilsController extends Controller
 		try {
 			$user_id = Auth::user()->id;
 			$appointments = Appointment::where('user_id', $user_id)->where('id', $id)
-			->update([
-				'status' 		=> 3,
-			]);
-
+				->update([
+					'status' 		=> 3,
+				]);
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_status_dairy()', $message);
 		}
-
 	}
 
 	/*
@@ -1418,13 +1439,12 @@ class UtilsController extends Controller
 	static function total_exams()
 	{
 		try {
-			$total_exams =[];
-			if(Auth::user()->get_laboratorio!= null){
+			$total_exams = [];
+			if (Auth::user()->get_laboratorio != null) {
 				$user_id = Auth::user()->get_laboratorio->id;
 				$total_exams =  ExamPatient::where('laboratory_id', $user_id)->count();
 			}
 			return $total_exams;
-
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.total_exams()', $message);
@@ -1438,26 +1458,24 @@ class UtilsController extends Controller
 	static function total_studies()
 	{
 		try {
-			$total_studies =[];
-			if(Auth::user()->get_laboratorio!= null){
+			$total_studies = [];
+			if (Auth::user()->get_laboratorio != null) {
 				$user_id = Auth::user()->get_laboratorio->id;
 				$total_studies =  StudyPatient::where('laboratory_id', $user_id)->count();
 			}
 			return $total_studies;
-
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.total_studies()', $message);
 		}
 	}
 
-    static function get_counter()
+	static function get_counter()
 	{
 		try {
 
 			$user_patient_counter = Auth::user()->patient_counter;
-            return $user_patient_counter;
-
+			return $user_patient_counter;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.total_studies()', $message);
@@ -1478,8 +1496,7 @@ class UtilsController extends Controller
 
 			$user = Auth::user();
 			$lista_patient = Patient::where('center_id', $user->center_id)->get();
-            return $lista_patient;
-
+			return $lista_patient;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_patient_corporate()', $message);
@@ -1492,8 +1509,7 @@ class UtilsController extends Controller
 
 			$user = Auth::user();
 			$lista_medical_record = MedicalRecord::where('center_id', $user->center_id)->get();
-            return $lista_medical_record;
-
+			return $lista_medical_record;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_medical_record_corporate()', $message);
@@ -1506,143 +1522,135 @@ class UtilsController extends Controller
 
 			$user = Auth::user();
 			$lista_doctor = User::where('center_id', $user->center_id)->where('role', 'medico')->get();
-            return $lista_doctor;
-
+			return $lista_doctor;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_doctor_corporate()', $message);
 		}
 	}
 
-    static function get_list_exam()
+	static function get_list_exam()
 	{
 		try {
 
 			$list_exam = Exam::all();
-            return $list_exam;
-
+			return $list_exam;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_list_exam()', $message);
 		}
 	}
 
-    static function get_list_study()
+	static function get_list_study()
 	{
 		try {
 
 			$list_study = Study::all();
-            return $list_study;
-
+			return $list_study;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_list_study()', $message);
 		}
 	}
 
-    static function habilitar_doctor_corporate($id)
+	static function habilitar_doctor_corporate($id)
 	{
 		try {
 
-            $doctor = User::where('id', $id)
-                ->where('type_plane', '7')
-                ->update([
-                        'tipo_status' => '1'
-                    ]);
+			$doctor = User::where('id', $id)
+				->where('type_plane', '7')
+				->update([
+					'tipo_status' => '1'
+				]);
 
 			$doctor_update = UtilsController::get_doctor_corporate();
 
-            $info_doctor = User::where('id', $id)->where('type_plane', '7')->first();
-            $type = 'enable_doc';
-            $mailData = [
-                'dr_name' => $info_doctor->name . ' ' . $info_doctor->last_name,
-                'dr_email' => $info_doctor->email,
-                'center' => Center::where('id', $info_doctor->center_id)->first()->description
-            ];
+			$info_doctor = User::where('id', $id)->where('type_plane', '7')->first();
+			$type = 'enable_doc';
+			$mailData = [
+				'dr_name' => $info_doctor->name . ' ' . $info_doctor->last_name,
+				'dr_email' => $info_doctor->email,
+				'center' => Center::where('id', $info_doctor->center_id)->first()->description
+			];
 
-            UtilsController::notification_mail($mailData, $type);
-
-            return $doctor_update;
-
-
-		} catch (\Throwable $th) {
-			$message = $th->getMessage();
-			dd('Error UtilsController.update_status_doctor_corporate()', $message);
-		}
-	}
-
-    static function deshabilitar_doctor_corporate($id)
-	{
-		try {
-
-            $doctor = User::where('id', $id)
-                ->where('type_plane', '7')
-                ->update([
-                        'tipo_status' => '2'
-                    ]);
-
-			$doctor_update = UtilsController::get_doctor_corporate();
-            $info_doctor = User::where('id', $id)->where('type_plane', '7')->first();
-            $type = 'disable_doc';
-            $mailData = [
-                'dr_name' => $info_doctor->name. ' ' .$info_doctor->last_name,
-                'dr_email' => $info_doctor->email,
-                'center' => Center::where('id', $info_doctor->center_id)->first()->description
-            ];
-
-            UtilsController::notification_mail($mailData, $type);
+			UtilsController::notification_mail($mailData, $type);
 
 			return $doctor_update;
-
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_status_doctor_corporate()', $message);
 		}
 	}
 
-    static function sqlapio_ia(Request $request)
+	static function deshabilitar_doctor_corporate($id)
 	{
 		try {
 
-            $token = DB::table('tokens')->select('token')->get();
-            $array_res = $token->toArray();
-            $list_token = Arr::pluck($array_res, 'token');
+			$doctor = User::where('id', $id)
+				->where('type_plane', '7')
+				->update([
+					'tipo_status' => '2'
+				]);
 
-            /** Selecion aleatoria */
-            $n = count($list_token);
-            $rand = mt_rand(0, $n - 1);
-            $secret_key = 'Bearer '.$list_token[$rand];
+			$doctor_update = UtilsController::get_doctor_corporate();
+			$info_doctor = User::where('id', $id)->where('type_plane', '7')->first();
+			$type = 'disable_doc';
+			$mailData = [
+				'dr_name' => $info_doctor->name . ' ' . $info_doctor->last_name,
+				'dr_email' => $info_doctor->email,
+				'center' => Center::where('id', $info_doctor->center_id)->first()->description
+			];
 
-            $data = Http::withHeaders([
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-                'Authorization' => $secret_key,
-              ])
-              ->post("https://api.openai.com/v1/chat/completions", [
-                "model" => "gpt-3.5-turbo",
-                'messages' => [
-                    [
-                       "role" => "user",
-                       "content" => "Actua como medico y realiza un diagnostico para un paciente ".$request->genere." de ".$request->age." años con los siguientes sintomas: ".$request->symtoms.". Agrega 3 recomendaciones generales y recomienda 3 examenes medicos."
-                   ]
-                ],
-                'temperature' => 1,
-                "max_tokens" => 1024,
-                "n" => 1,
-                "stream" => false,
-                "top_p" => 1,
-                "frequency_penalty" => 0,
-                "presence_penalty" => 0,
-            ]);
+			UtilsController::notification_mail($mailData, $type);
 
-            $res = $data->json()['choices'][0]['message']['content'];
+			return $doctor_update;
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.update_status_doctor_corporate()', $message);
+		}
+	}
 
-            return response()->json([
-                'success' => 'true',
-                'data'  =>  $res
-            ], 200);
+	static function sqlapio_ia(Request $request)
+	{
+		try {
 
+			$token = DB::table('tokens')->select('token')->get();
+			$array_res = $token->toArray();
+			$list_token = Arr::pluck($array_res, 'token');
 
+			/** Selecion aleatoria */
+			$n = count($list_token);
+			$rand = mt_rand(0, $n - 1);
+			$secret_key = 'Bearer ' . $list_token[$rand];
+
+			$data = Http::withHeaders([
+				'Content-Type' => 'application/json',
+				'Accept' => 'application/json',
+				'Authorization' => $secret_key,
+			])
+				->post("https://api.openai.com/v1/chat/completions", [
+					"model" => "gpt-3.5-turbo",
+					'messages' => [
+						[
+							"role" => "user",
+							"content" => "Actua como medico y realiza un diagnostico para un paciente " . $request->genere . " de " . $request->age . " años con los siguientes sintomas: " . $request->symtoms . ". Agrega 3 recomendaciones generales y recomienda 3 examenes medicos."
+						]
+					],
+					'temperature' => 1,
+					"max_tokens" => 1024,
+					"n" => 1,
+					"stream" => false,
+					"top_p" => 1,
+					"frequency_penalty" => 0,
+					"presence_penalty" => 0,
+				]);
+
+			$res = $data->json()['choices'][0]['message']['content'];
+
+			return response()->json([
+				'success' => 'true',
+				'data'  =>  $res
+			], 200);
 		} catch (\Throwable $th) {
 
 			$message = $th->getMessage();
@@ -1660,5 +1668,4 @@ class UtilsController extends Controller
 			dd('Error UtilsController.get_medical_record_user()', $message);
 		}
 	}
-
 }
