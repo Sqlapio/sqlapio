@@ -24,7 +24,7 @@
         <p style="text-align: justify; margin-left: 20px;">
             Usted a solicitado la actualización de su contraseña<br>
             Por favor introduzca el siguiente código de validación:<br>
-            <strong><h1 style="text-align: justify; margin-left: 20px;">{{ $mailData['code'] }}</h1></strong> 
+            <strong><h1 style="text-align: justify; margin-left: 20px;">{{ $mailData['code'] }}</h1></strong>
         </p>
         <p style="text-align: justify; margin-left: 20px;">
             Gracias por ser parte de nosotro, Sqlapio.com, innovando para el futuro.
@@ -41,7 +41,7 @@
             Ing. Jhonny Martinez<br>CEO
         </p>
         <p style="text-align: justify; font-style: italic; margin-left: 20px;">
-            Para mayor información puede comunicarse 24/7 con nuestro equipo a través de sqlapiotechnology@sqlapio.com
+            Para mayor información puede comunicarse 24/7 con nuestro equipo a través de soporte@sqlapio.com
         </p>
     </div>
     <img style="
