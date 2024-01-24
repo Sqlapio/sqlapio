@@ -61,4 +61,8 @@ class StudyPatient extends Model
     {
         return $this->hasOne(Reference::class, 'id', 'ref_id');
     }
+    public function get_reprensetative(): HasOne
+    {
+        return $this->hasOne(Representative::class, 'patient_id', 'patient_id');
+    }
 }
