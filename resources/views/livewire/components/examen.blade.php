@@ -215,6 +215,7 @@
 
         function searchPerson() {
             if ($('#search_person').val() != '') {
+                $('#spinner2').show();
                 let route = '{{ route('search_person', [':value', ':row']) }}';
                 route = route.replace(':value', $('#search_person').val());
                 route = route.replace(':row', 'ci');
@@ -245,6 +246,7 @@
                         }).then((result) => {
                             // $("#content-result").hide();
                             // $('#show-info-pat').show();
+                            $('#spinner2').hide();
                             setDataTable(response);
                             setdataDos(response.reference);
                         });
@@ -259,7 +261,7 @@
                             confirmButtonText: 'Aceptar'
                         }).then((result) => {
                             $('#send').show();
-                            $('#spinner').hide();
+                            $('#spinner2').hide();
                             $(".holder").hide();
                         });
                     }
@@ -586,6 +588,9 @@
     </script>
 @endpush
 @section('content')
+    <div id="spinner2" style="display: none">
+        <x-load-spinner show="true" />
+    </div>
     <div>
         <div class="container-fluid" style="padding: 0 3% 3%">
             <div class="accordion" id="accordionExample">
@@ -684,11 +689,11 @@
                                                                             <button onclick='showModal({{ $item }})'
                                                                                 data-bs-toggle='tooltip' data-bs-placement='right'
                                                                                 data-bs-custom-class='custom-tooltip' data-html='true'
-                                                                                title='Cargar examen' type='button'
-                                                                                class='btn'
+                                                                                title='Ver estudios' type='button'
+                                                                                class='btn btn-iPrimary rounded-circle'
                                                                                 style="margin-right: 0">
-                                                                                <i class='bi bi-info-circle-fill'></i>
-                                                                            </button>
+                                                                            <i class='bi bi-info-circle-fill'></i>
+                                                                        </button>
                                                                         </a>
                                                                     </div>
                                                                 </div>
