@@ -399,9 +399,9 @@
                 // let elemData = JSON.stringify(elem);
                 let target = `{{ URL::asset('/imgs/${elem.file}') }}`;
                 elem.btn = `
-                <div class="d-flex">
+                <div class="d-flex" style="justify-content: center;">
                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                        <a target="_blank" href="${target}" style="color: #47525e; text-decoration: none; display: flex;">
+                        <a target="_blank" href="${target}" style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
                             <button type="button"
                                 class="btn btn-iPrimary rounded-circle"
                                 data-bs-toggle="tooltip"
@@ -452,7 +452,7 @@
                         data: 'date',
                         title: 'Fecha',
                         className: "text-center",       
-                    }
+                    },
                     {
 
                         data: 'full_name',
@@ -734,7 +734,7 @@
                                                         <td class="table-avatar">
                                                             <img class="avatar" src=" {{ $item->get_patient->patient_img ? asset('/imgs/' . $item->get_patient->patient_img) : ($item->get_patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}" alt="Imagen del paciente">
                                                         </td>
-                                                        <td class="text-center"> {{ $item->date }} </td>
+                                                        <td class="text-center"> {{ $item->date}} </td>
                                                         <td class="text-center"> {{ $item->cod_ref }} </td>
                                                         <td class="text-center"> {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }} </td>
                                                         <td class="text-center"> {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }} </td>
