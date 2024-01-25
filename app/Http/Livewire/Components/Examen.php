@@ -26,9 +26,10 @@ class Examen extends Component
             ->where('patient_id', $id)
             ->with('get_laboratory')->get(); 
 
-            $examen_sin_resul = ExamPatient::where('status', 1)
-            ->where('patient_id', $id)
-            ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
+            $examen_sin_resul =  Reference::where('patient_id',  $id)
+            ->whereHas('get_exam', function ($q){
+                $q->where('status',  1);
+			})->with(['get_patient', 'get_exam','get_reprensetative'])->get();
 
         }else{
 
@@ -39,10 +40,10 @@ class Examen extends Component
             $examen_sin_resul =  Reference::where('user_id',  Auth::user()->id)
             ->whereHas('get_exam', function ($q){
                 $q->where('status',  1);
-			})->with(['get_patient', 'get_exam'])->get();
+			})->with(['get_patient', 'get_exam','get_reprensetative'])->get();
 
         }
-        
+
         return view('livewire.components.examen', compact('data','examen_sin_resul','id'));
     }
 }
