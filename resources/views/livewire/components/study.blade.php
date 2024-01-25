@@ -67,8 +67,8 @@
 
     .avatar {
         border-radius: 50%;
-        width: 45px !important;
-        height: 45px !important;
+        width: 40px !important;
+        height: 40px !important;
         border: 2px solid #44525f;
         object-fit: cover;
     }
@@ -158,7 +158,7 @@
                 $("#form-load-img-estudios").validate();
                 if ($("#form-load-img-estudios").valid()) {
                     // $('#send').hide();
-                    // $('#spinner').show();
+                    $('#spinner').show();
                     //preparar la data para el envio
                     let formData = $('#form-load-img-estudios').serializeArray();
                     let data = {};
@@ -340,35 +340,34 @@
 
                 let div = `
                 <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3">
-                <div class="card mt-2 card-ex">
-                <div class="card-body">
-                <div class="row">
-                <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
-                <a target="_blank" href="${target}" style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
-                <img data-bs-toggle="tooltip"  data-bs-placement="bottom" title="Ver archivo" style="" src="${img}" width="50 " height="auto"
-                alt="Imagen del paciente" class="img-medical">
-                <span style="font-size: 11px;">Ver archivo</span>
-                </a> 
-                </div>
-                <div class="col-sm-8 col-md-8 col-lg-9 col-xl-9 col-xxl-9">
-                <strong class="text-capitalize color-f"> ${elem.get_laboratory.business_name}</strong>
-                <br>                               
-                <strong class="text-capitalize color-f"> ${item.full_name}</strong>
-                <br>
-                <span>Ver consulta:
-                <a href="${url}" class="cod-co">
-                <strong class="text-capitalize" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Consulta"> ${elem.record_code}</strong>
-                </a>
-                </span>
-                <br>
-                <br>
-                <span style="float:right; font-size: 12px;">${elem.cod_study}</span>
-                <br>
-                <span class="text-capitalize" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width: 100%; display: flex; justify-content: flex-end;"> ${elem.description}</span>
-                </div>                             
-                </div>
-                </div>
-                </div>
+                    <div class="card mt-2 card-ex">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3">
+                                    <a target="_blank" href="${target}" style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
+                                        <img data-bs-toggle="tooltip"  data-bs-placement="bottom" title="Ver archivo" style="" src="${img}" width="50 " height="auto" alt="Imagen del paciente" class="img-medical">
+                                        <span style="font-size: 11px;">Ver archivo</span>
+                                    </a> 
+                                </div>
+                                <div class="col-sm-8 col-md-8 col-lg-9 col-xl-9 col-xxl-9">
+                                    <strong class="text-capitalize color-f"> ${elem.get_laboratory.business_name}</strong>
+                                    <br>                               
+                                    <strong class="text-capitalize color-f"> ${item.full_name}</strong>
+                                    <br>
+                                    <span>Ver consulta:
+                                    <a href="${url}" class="cod-co">
+                                    <strong class="text-capitalize" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Consulta"> ${elem.record_code}</strong>
+                                    </a>
+                                    </span>
+                                    <br>
+                                    <br>
+                                    <span style="float:right; font-size: 12px;">${elem.cod_study}</span>
+                                    <br>
+                                    <span class="text-capitalize" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width: 100%; display: flex; justify-content: flex-end;"> ${elem.description}</span>
+                                </div>                             
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 `;
 
@@ -398,21 +397,19 @@
             row.data.map((elem) => {
                 // let elemData = JSON.stringify(elem);
                 let target = `{{ URL::asset('/imgs/${elem.file}') }}`;
-                elem.btn = `<div class="d-flex">
-                <div
-                class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                <a target="_blank"
-                href="${target}"
-                style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
-                <button type="button"
-                class="btn btn-iPrimary rounded-circle"
-                data-bs-toggle="tooltip"
-                data-bs-placement="bottom"
-                title="VEr archivo">
-                <i class="bi bi-file-earmark-text"></i>
-                </button>
-                </a>
-                </div>                          
+                elem.btn = `
+                <div class="d-flex">
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                        <a target="_blank" href="${target}" style="color: #47525e; text-decoration: none; display: flex;">
+                            <button type="button"
+                                class="btn btn-iPrimary rounded-circle"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="bottom"
+                                title="Ver archivo">
+                                <i class="bi bi-file-earmark-text"></i>
+                            </button>
+                        </a>
+                    </div>                          
                 </div>`;
 
 
@@ -428,9 +425,7 @@
                     }
                 }
 
-                elem.img = `<img class="avatar"
-                src="${imagen}"
-                alt="Imagen del paciente">`;
+                elem.img = `<img class="avatar" src="${imagen}" alt="Imagen del paciente">`;
 
                 elem.ci = (elem.get_patient.is_minor == "true") ? `${elem.get_reprensetative.re_ci} (Rep)` : elem
                     .get_patient.ci;
@@ -450,7 +445,7 @@
 
                         data: 'img',
                         title: 'Foto',
-                        className: "text-center text-capitalize",
+                        className: "text-center text-capitalize w-image",
                     },
                     {
 
@@ -487,12 +482,14 @@
 
                 let eData = JSON.stringify(e);
 
-                e.btn = `<button onclick='showModal(${ eData })'
-                data-bs-toggle='tooltip' data-bs-placement='right'
-                data-bs-custom-class='custom-tooltip' data-html='true'
-                title='Ver estudios' type='button'
-                class='btn btn-iPrimary rounded-circle'>
-                <i class='bi bi-info-circle-fill'></i>
+                e.btn = `
+                <button onclick='showModal(${ eData })'
+                    data-bs-toggle='tooltip' data-bs-placement='right'
+                    data-bs-custom-class='custom-tooltip' data-html='true'
+                    title='Ver estudios' type='button'
+                    class='btn btn-iPrimary rounded-circle'
+                    style="margin-rigth: 0">
+                    <i class='bi bi-info-circle-fill'></i>
                 </button>`;
 
 
@@ -508,9 +505,7 @@
                     }
                 }
 
-                e.img = `<img class="avatar"
-                src="${imagen}"
-                alt="Imagen del paciente">`;
+                e.img = `<img class="avatar" src="${imagen}" alt="Imagen del paciente">`;
 
                 e.ci = (e.get_patient.is_minor == "true") ? `${e.get_reprensetative.re_ci} (Rep)` : e
                     .get_patient.ci;
@@ -530,7 +525,7 @@
 
                         data: 'img',
                         title: 'Foto',
-                        className: "text-center text-capitalize",
+                        className: "text-center text-capitalize w-image",
                     },
                     {
 
@@ -544,11 +539,11 @@
                         title: 'Referencia',
                         className: "text-center",
                     },
-                    {
-                        data: 'cod_medical_record',
-                        title: 'Referencia consulta médica',
-                        className: "text-center text-capitalize",
-                    },
+                    // {
+                    //     data: 'cod_medical_record',
+                    //     title: 'Referencia consulta médica',
+                    //     className: "text-center text-capitalize",
+                    // },
                     {
                         data: 'full_name',
                         title: 'Nombre y apellido',
@@ -659,71 +654,47 @@
                                 <i class="bi bi-person"></i></i> Estudios cargados
                             </button>
                         </span>
-                        <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample">
+                        <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <x-search-person />
-
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                         <hr>
                                         <h5 class="mb-4">Estudios con resultados</h5>
-                                        <table id="table-info-estudios" class="table table-striped table-bordered"
-                                            style="width:100%; ">
+                                        <table id="table-info-estudios" class="table table-striped table-bordered" style="width:100%; ">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center" scope="col">Foto</th>
+                                                    <th class="text-center w-image" scope="col" data-orderable="false">Foto</th>
+                                                    <th class="text-center" scope="col">Fecha</th>
                                                     <th class="text-center" scope="col">Nombre y apellido</th>
                                                     <th class="text-center" scope="col">Cédula</th>
                                                     <th class="text-center" scope="col">Descripcion del estudio</th>
-                                                    <th class="text-center"scope="col" data-orderable="false">Ver
-                                                        resultado
-                                                    </th>
+                                                    <th class="text-center" scope="col" data-orderable="false">Resultado </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($data as $item)
                                                     <tr>
                                                         <td class="table-avatar">
-                                                            <img class="avatar"
-                                                                src=" {{ $item->get_patient->patient_img ? asset('/imgs/' . $item->get_patient->patient_img) : ($item->get_patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
-                                                                alt="Imagen del paciente">
+                                                            <img class="avatar" src=" {{ $item->get_patient->patient_img ? asset('/imgs/' . $item->get_patient->patient_img) : ($item->get_patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}" alt="Imagen del paciente">
                                                         </td>
-                                                        <td class="text-center text-capitalize">
-                                                            {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }}
-                                                        </td>
-                                                        <td class="text-center">
-                                                            {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }}
-                                                        </td>
+                                                        <td class="text-center"> {{ $item->date }} </td>
+                                                        <td class="text-center text-capitalize"> {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }} </td>
+                                                        <td class="text-center"> {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }} </td>
                                                         <td class="text-center"> {{ $item->description }} </td>
                                                         <td class="text-center">
-                                                            <div class="d-flex">
+                                                            <div class="d-flex" style="justify-content: center;">
                                                                 <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                    <a target="_blank"
-                                                                        href="{{ URL::asset('/imgs/' . $item->file) }}"
-                                                                        style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
+                                                                    <a target="_blank" href="{{ URL::asset('/imgs/' . $item->file) }}" style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
                                                                         <button type="button"
                                                                             class="btn btn-iPrimary rounded-circle"
                                                                             data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom" title="VEr archivo">
+                                                                            data-bs-placement="bottom" title="Ver archivo"
+                                                                            style="margin-right: 0">
                                                                             <i class="bi bi-file-earmark-text"></i>
                                                                         </button>
                                                                     </a>
                                                                 </div>
-                                                                {{-- <div
-                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a href="{{ route('MedicalRecord', $item->get_patient->id) }}"
-                                                                            style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
-                                                                            <button type="button"
-                                                                                class="btn btn-iPrimary rounded-circle"
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                title="Cargar Estudio">
-                                                                                <i class="bi bi-file-earmark-text"></i>
-                                                                            </button>
-                                                                        </a>
-                                                                    </div> --}}
-
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -737,47 +708,42 @@
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                         <hr>
                                         <h5 class="mb-4">Estudios sin resultados</h5>
-                                        <table id="table-info-sin-estudios" class="table table-striped table-bordered"
-                                            style="width:100%">
+                                        <table id="table-info-sin-estudios" class="table table-striped table-bordered" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center" scope="col">Foto</th>
+                                                    <th class="text-center w-image" scope="col" data-orderable="false">Foto</th>
                                                     <th class="text-center" scope="col">Fecha</th>
                                                     <th class="text-center" scope="col">Referencia</th>
-                                                    <th class="text-center" scope="col">Referencia consulta médica
-                                                    </th>
                                                     <th class="text-center" scope="col">Nombre y apellido</th>
                                                     <th class="text-center" scope="col">Cédula</th>
-                                                    <th class="text-center" scope="col">Cargar Resultado</th>
+                                                    <th class="text-center" scope="col" data-orderable="false">Cargar Resultado</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($estudios_sin_resul as $item)
                                                     <tr>
                                                         <td class="table-avatar">
-                                                            <img class="avatar"
-                                                                src=" {{ $item->get_patient->patient_img ? asset('/imgs/' . $item->get_patient->patient_img) : ($item->get_patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
-                                                                alt="Imagen del paciente">
+                                                            <img class="avatar" src=" {{ $item->get_patient->patient_img ? asset('/imgs/' . $item->get_patient->patient_img) : ($item->get_patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}" alt="Imagen del paciente">
                                                         </td>
                                                         <td class="text-center"> {{ $item->date }} </td>
-                                                        <td class="text-center"> {{ $item->cod_ref }}
-                                                        </td>
+                                                        <td class="text-center"> {{ $item->cod_ref }} </td>
+                                                        <td class="text-center"> {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }} </td>
+                                                        <td class="text-center"> {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }} </td>
                                                         <td class="text-center">
-                                                            {{ $item->cod_medical_record }} </td>
-                                                        <td class="text-center">
-                                                            {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }}
-                                                        </td>
-                                                        <td class="text-center">
-                                                            {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }}
-                                                        </td>
-                                                        <td>
-                                                            <button onclick='showModal({{ $item }})'
-                                                                data-bs-toggle='tooltip' data-bs-placement='right'
-                                                                data-bs-custom-class='custom-tooltip' data-html='true'
-                                                                title='Ver estudios' type='button'
-                                                                class='btn btn-iPrimary rounded-circle'>
-                                                                <i class='bi bi-info-circle-fill'></i>
-                                                            </button>
+                                                            <div class="d-flex" style="justify-content: center;">
+                                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                    <a target="_blank" href="{{ URL::asset('/imgs/' . $item->file) }}" style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
+                                                                        <button onclick='showModal({{ $item }})'
+                                                                            data-bs-toggle='tooltip' data-bs-placement='right'
+                                                                            data-bs-custom-class='custom-tooltip' data-html='true'
+                                                                            title='Ver estudios' type='button'
+                                                                            class='btn btn-iPrimary rounded-circle'
+                                                                            style="margin-right: 0">
+                                                                            <i class='bi bi-info-circle-fill'></i>
+                                                                        </button>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -825,7 +791,7 @@
                                                 <tr>
                                                     <th class="text-center" scope="col">Código</th>
                                                     <th class="text-center" scope="col">Descripción</th>
-                                                    <th class="text-center" scope="col">Cargar Resultado</th>
+                                                    <th class="text-center" scope="col" data-orderable="false">Cargar Resultado</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
