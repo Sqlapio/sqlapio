@@ -56,7 +56,7 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Route::get('/', [Login::class, 'render']);
+Route::get('/', [Login::class, 'render'])->name("Login_home");
 Route::post('/login', [Login::class, 'login'])->name('login');
 Route::get('/register-user/{id?}', [Register::class, 'render'])->name('Register');
 Route::get('/register-user-corporate/{hash}', [Register::class, 'register_doctor_corporate'])->name('register_doctor_corporate');
@@ -96,7 +96,7 @@ Route::get('/confirmation/dairy/{code}', [UtilsController::class, 'confirmation_
 // planes
 Route::post('/pay-plan-renew', [PaymentForm::class, 'pay_plan_renew'])->name("pay-plan-renew")->middleware(['auth', 'VerifySelloDigital', 'verify_email']);
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','AuthCheck'])->group(function () {
 
     Route::group(array('prefix' => 'auth'), function () {
         Route::middleware(['VerifySelloDigital', 'verify_email'])->group(function () {

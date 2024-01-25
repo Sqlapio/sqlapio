@@ -18,7 +18,24 @@
 </style>
 @push('scripts')
     <script>
+        
+        let error = @json($error);
+
+        console.log(error);
         $().ready(function() {
+
+            if(error!=null){
+                Swal.fire({
+                    icon: 'warning',
+                    title:  error ,
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#42ABE2',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    window.location.href = '{{route('Login_home')}}';
+
+                });  
+            }
             let success = $("#success-input").val();
             if (success) {
                 Swal.fire({
