@@ -296,26 +296,26 @@ button {
     color: #666;
 }
 
-    .btn-primary.disabled, .btn-primary[disabled], fieldset[disabled] .btn-primary, .btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary:hover, .btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled] .btn-primary:focus, .btn-primary.disabled:active, .btn-primary[disabled]:active, fieldset[disabled] .btn-primary:active, .btn-primary.disabled.active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary.active {
-        background: #bbf2bb;
-        border-color: #bbf2bb;
-        color: #666;
-    }
+.btn-primary.disabled, .btn-primary[disabled], fieldset[disabled] .btn-primary, .btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary:hover, .btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled] .btn-primary:focus, .btn-primary.disabled:active, .btn-primary[disabled]:active, fieldset[disabled] .btn-primary:active, .btn-primary.disabled.active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary.active {
+    background: #bbf2bb;
+    border-color: #bbf2bb;
+    color: #666;
+}
 
 
 
-    .btn-danger.btn-xs {
-        padding: 1px 5px;
-    }
+.btn-danger.btn-xs {
+    padding: 1px 5px;
+}
 
-    .btn-danger.btn-sm {
-        font-size: 12px;
-    }
+.btn-danger.btn-sm {
+    font-size: 12px;
+}
 
-    .btn-danger:hover {
-        opacity: 0.8;
-        background: #d9534f;
-    }
+.btn-danger:hover {
+    opacity: 0.8;
+    background: #d9534f;
+}
 
 
 
@@ -1527,7 +1527,8 @@ div.ui-jqgrid {
 #table-patients table, #table-alergias_wrapper table, #table-medical-record-one table, #table-show-info-pat_wrapper table, #table-medical-record_wrapper table,
 #table-cirugia_wrapper table, #table-medicamento_wrapper table, #DataTables_Table_0_wrapper table, #table-ref-examenes_wrapper table, #table-info_wrapper table
 #table-ref-estudios_wrapper table, #table-ref_wrapper table, #table-ref-estudios_wrapper table, #info-show table, #table-info-pat_wrapper table,
-#div-patients-corp table, #table-one table, #table-ref-examenes table, #table-ref-estudios table {
+#div-patients-corp table, #table-one table, #table-ref-examenes table, #table-ref-estudios table, #table-info-examen_wrapper table, #table-info-sin-examen_wrapper table,
+#table-info-estudios_wrapper table, #table-info-sin-estudios_wrapper table{
     font-size: 12px;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 10px;
@@ -1540,10 +1541,10 @@ div.ui-jqgrid {
 
 #table-centers_length, #table-patient_length, #DataTables_Table_0_length, #table-alergias_length, #table-cirugia_length, #table-medicamento_length, 
 #table-show-info-pat_length, #table-medical-record_length, #table-ref-examenes_length, #table-ref-estudios_length, #table-ref_length , 
-#table-info_length, #table-info-pat_length,
+#table-info_length, #table-info-pat_length, #table-info-examen_info, #table-info-estudios_info,
 #table-centers_filter, #table-patient_filter, #DataTables_Table_0_filter, #table-alergias_filter, #table-cirugia_filter, #table-medicamento_filter, 
 #table-show-info-pat_filter, #table-medical-record_filter, #table-ref-examenes_filter, #table-ref-estudios_filter, #table-ref_filter,
-#table-info_filter, #table-info-pat_filter {
+#table-info_filter, #table-info-pat_filter, #table-info-sin-estudios_info {
     font-size: 12px;
     padding-bottom: 25px;
 }
@@ -1553,7 +1554,8 @@ div.ui-jqgrid {
 #table-show-info-pat_info, #table-medical-record_info, #table-ref-examenes_info, #table-ref-estudios_info, #table-ref_info, #table-info_info , #table-info-pat_info,
 #table-centers_paginate, #table-patient_paginate, #DataTables_Table_0_paginate, #table-alergias_paginate, #table-cirugia_paginate, #table-ref_paginate,
 #table-medicamento_paginate, #table-show-info-pat_paginate, #table-medical-record_paginate, #table-ref-examenes_paginate, #table-ref-estudios_paginate,
-#table-info_paginate, #table-info-pat_paginate, #table-patients-corp_paginate, #table-patients-corp_info {
+#table-info_paginate, #table-info-pat_paginate, #table-patients-corp_paginate, #table-patients-corp_info, #table-info-examen_paginate, #table-info-sin-examen_paginate,
+#table-info-estudios_paginate, #table-info-sin-estudios_paginate, #table-info-sin-examen_info {
     font-size: 12px;
     padding-top: 25px;
 }
@@ -1687,6 +1689,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .bg-8 {
     background-color: #748b4e !important;
+}
+
+.w-image {
+    width: 5% !important;
 }
 
 input::-webkit-outer-spin-button,
