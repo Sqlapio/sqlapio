@@ -30,16 +30,17 @@ class Study extends Component
       ->where('patient_id', $id)
       ->with(['get_laboratory', 'get_patient', 'get_reprensetative'])->get();
 
+      $estudios_sin_resul =  Reference::where('patient_id',  $id)            
+			->with(['get_patient','get_estudio_stutus_uno','get_reprensetative'])->get();
+
     }else{
 
         $data = StudyPatient::where('status', 2)
         ->where('user_id', Auth::user()->id)
-        ->with('get_laboratory')->get();           
+        ->with('get_laboratory')->get();       
 
-        $estudios_sin_resul =  Reference::where('user_id',  Auth::user()->id)
-        ->whereHas('get_studie', function ($q){
-        $q->where('status',  1);
-        })->with(['get_patient', 'get_studie'])->get();
+        $estudios_sin_resul =  Reference::where('user_id',  Auth::user()->id)            
+        ->with(['get_patient','get_estudio_stutus_uno','get_reprensetative'])->get();
     }
     
     return view('livewire.components.study', compact('data','estudios_sin_resul','id'));

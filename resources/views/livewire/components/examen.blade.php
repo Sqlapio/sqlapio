@@ -182,15 +182,15 @@
                             $("#form-load-img-examen").trigger("reset");
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Centro registrado exitosamente!',
+                                title: 'Operacion exitosa!',
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
-                                $('#ModalLoadResult').modal('toggle');
-                                $("#content-table-ref").hide();
-                                $('#search_person').val('');
-                                get_data_table()
+
+                                let url ="{{ route('Examen') }}";
+                                window.location.href = url;
+
                             });
                         },
                         error: function(error) {
@@ -313,8 +313,6 @@
                             `;
 
                 $('#content-data').append(div);
-
-
             });
 
         }
@@ -517,7 +515,7 @@
 
         function showModal(item) {
 
-            if (item.get_exam.length > 0) {
+            if (item.get_examne_stutus_uno.length > 0) {
                 count = 0;
                 $('#count').val('');
                 $('.holder').hide();
@@ -531,7 +529,7 @@
                 $('#id').val(item.id);
                 $('#ref-pat').text(`${item.get_patient.name} ${item.get_patient.last_name}`);
 
-                item.get_exam.map((elemt, index) => {
+                item.get_examne_stutus_uno.map((elemt, index) => {
                     let elemData = JSON.stringify(elemt);
                     let label =
                         `<label><input type="checkbox" id="cod_exam_${index}" onclick='cuontResul(event,${elemData},${index});'></label>`

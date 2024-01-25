@@ -1299,37 +1299,8 @@ class UtilsController extends Controller
 	{
 
 		$data = [];
+
 		if ($row != 'cod_ref') {
-
-			// $tablePat =  Patient::where($row, $value);
-
-			// $tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($value) {
-			// 	$q->where('re_ci', $value);
-			// });
-
-			// $patients = $tablePat->union($tableRep)->get();
-
-			// /**
-			//  * Realizamos la busqueda en la tabla
-			//  * de examenes del paciente
-			//  */
-			// foreach ($patients as $key => $val) {
-
-			// 	$data_exam = ExamPatient::where('patient_id', $val->id)
-			// 		->where('status', 2)
-			// 		->with('get_laboratory')
-			// 		->get();
-
-			// 	$data[$key] = [
-			// 		'patient_id' =>  $val->id,
-			// 		'full_name' => $val->name . ' ' . $val->last_name,
-			// 		'ci' => ($val->is_minor == "false") ? $val->ci : $val->get_reprensetative->re_ci,
-			// 		'genero' => $val->genere,
-			// 		'exam' => $data_exam,
-			// 	];
-			// }
-
-			// return $data;
 
 			$tablePat =  ExamPatient::where('status', 2)
 				->whereHas('get_patients', function ($q) use ($value) {
@@ -1345,24 +1316,22 @@ class UtilsController extends Controller
 
 			$data = $tablePat->union($tableRep)->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
 
-			///
-			$Reference_pat =  Reference::whereHas('get_exam', function ($q) use ($value) {
-				$q->where('status',  1);
-			})->whereHas('get_patient', function ($q) use ($value) {
+			///buscar las referencias sin resultados cargados
+
+			$Reference_pat =  Reference::whereHas('get_patient', function ($q) use ($value) {
 				$q->where('ci', $value);
 			});
 
-			$Reference_reo =  Reference::whereHas('get_exam', function ($q) use ($value) {
-				$q->where('status',  1);
-			})->whereHas('get_patient', function ($q) use ($value) {
+			$Reference_reo =  Reference::whereHas('get_patient', function ($q) use ($value) {
 				$q->whereHas('get_reprensetative', function ($q) use ($value) {
 					$q->where('re_ci', $value);
 				});
 			});
 
-			$reference = $Reference_pat->union($Reference_reo)->with(['get_patient', 'get_exam', 'get_reprensetative'])->get();
+			$reference = $Reference_pat->union($Reference_reo)->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])->get();
 
 			return ["data" => $data, "reference" => $reference];
+
 		} else {
 
 			$tablePat =  Reference::whereHas('get_patient', function ($q) use ($value) {
@@ -1397,37 +1366,7 @@ class UtilsController extends Controller
 	{
 
 		$data = [];
-		if ($row != 'cod_ref') {
-
-			// $tablePat =  Patient::where($row, $value);
-
-			// $tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($value) {
-			// 	$q->where('re_ci', $value);
-			// });
-
-			// $patients = $tablePat->union($tableRep)->get();
-
-			// /**
-			//  * Realizamos la busqueda en la tabla
-			//  * de examenes del paciente
-			//  */
-			// foreach ($patients as $key => $val) {
-
-			// 	$data_study = StudyPatient::where('patient_id', $val->id)
-			// 		->where('status', 2)
-			// 		->with('get_laboratory')
-			// 		->get();
-
-			// 	$data[$key] = [
-			// 		'patient_id' =>  $val->id,
-			// 		'full_name' => $val->name . ' ' . $val->last_name,
-			// 		'ci' => ($val->is_minor == "false") ? $val->ci : $val->get_reprensetative->re_ci,
-			// 		'genero' => $val->genere,
-			// 		'study' => $data_study,
-			// 	];
-			// }
-
-			// return $data;
+		if ($row != 'cod_ref') {			
 
 			$tablePat =  StudyPatient::where('status', 2)
 				->whereHas('get_patient', function ($q) use ($value) {
@@ -1443,22 +1382,19 @@ class UtilsController extends Controller
 
 			$data = $tablePat->union($tableRep)->with(['get_laboratory', 'get_patient', 'get_reprensetative'])->get();
 
-			///
-			$Reference_pat =  Reference::whereHas('get_studie', function ($q) use ($value) {
-				$q->where('status',  1);
-			})->whereHas('get_patient', function ($q) use ($value) {
+			//buscar las referencias sin resultados cargados
+
+			$Reference_pat =  Reference::whereHas('get_patient', function ($q) use ($value) {
 				$q->where('ci', $value);
 			});
 
-			$Reference_reo =  Reference::whereHas('get_studie', function ($q) use ($value) {
-				$q->where('status',  1);
-			})->whereHas('get_patient', function ($q) use ($value) {
+			$Reference_reo =  Reference::whereHas('get_patient', function ($q) use ($value) {
 				$q->whereHas('get_reprensetative', function ($q) use ($value) {
 					$q->where('re_ci', $value);
 				});
 			});
 
-			$reference = $Reference_pat->union($Reference_reo)->with(['get_patient', 'get_studie', 'get_reprensetative'])->get();
+			$reference = $Reference_pat->union($Reference_reo)->with(['get_patient', 'get_estudio_stutus_uno', 'get_reprensetative'])->get();
 
 			return ["data" => $data, "reference" => $reference];
 		}
