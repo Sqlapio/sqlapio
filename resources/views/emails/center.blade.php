@@ -18,9 +18,9 @@
             <p style="text-align: justify; margin-left: 20px;">
                 <h2 style="text-align: justify; margin-left: 20px;">Dr(a). {{ $mailData['dr_name'] }}</h2>
             </p>
-    
+
             <p style="text-align: justify; margin-left: 20px;">
-                Centro asociado de forma exitosa. 
+                Centro asociado de forma exitosa.
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
@@ -53,7 +53,7 @@
                 Ing. Jhonny Martinez<br>CEO
             </p>
             <p style="text-align: justify; font-style: italic; margin-left: 20px;">
-                Para mayor información puede comunicarse 24/7 con nuestro equipo a través de sqlapiotechnology@sqlapio.com
+                Para mayor información puede comunicarse 24/7 con nuestro equipo a través de soporte@sqlapio.com
             </p>
         </div>
     <img style="
@@ -62,6 +62,6 @@
             margin-right: auto;
             width: 600px;
         src="{{ asset('img/notification_email/footer.png') }}">
-    
+
 </body>
 </html>

@@ -1078,8 +1078,23 @@ class UtilsController extends Controller
 
 			$data_exams = json_decode($data->exams_array);
 
-			for ($i = 0; $i < count($data_exams); $i++) {
-				$update = DB::table('exam_patients')
+			for ($i = 0; $i < count($data_exams); $i++)
+            {
+                if(isset($data->doctor_id))
+                {
+                    $update = DB::table('exam_patients')
+					->where('cod_ref', $data->code_ref)
+					->where('cod_exam', $data_exams[$i]->cod_exam)
+					->update([
+						'upload_user_id' => $data->doctor_id,
+						'file' => $nameFile,
+						'status' => 2,
+						'date_result' => date('d-m-Y'),
+					]);
+
+                }else{
+
+                    $update = DB::table('exam_patients')
 					->where('cod_ref', $data->code_ref)
 					->where('cod_exam', $data_exams[$i]->cod_exam)
 					->update([
@@ -1089,6 +1104,8 @@ class UtilsController extends Controller
 						'status' => 2,
 						'date_result' => date('d-m-Y'),
 					]);
+                }
+
 			}
 
 			$medical_record_code = Reference::where('cod_ref', $data->code_ref)->first()->cod_medical_record;
@@ -1147,17 +1164,33 @@ class UtilsController extends Controller
 
 			$data_studies = json_decode($data->studies_array);
 
-			for ($i = 0; $i < count($data_studies); $i++) {
-				$update = DB::table('study_patients')
+			for ($i = 0; $i < count($data_studies); $i++)
+            {
+                if(isset($data->doctor_id))
+                {
+                    $update = DB::table('study_patients')
 					->where('cod_ref', $data->code_ref)
 					->where('cod_study', $data_studies[$i]->cod_study)
 					->update([
-						'laboratory_id' => $laboratory->id,
-						'cod_lab' => $laboratory->code_lab,
+						'upload_user_id' => $data->doctor_id,
 						'file' => $nameFile,
 						'status' => 2,
 						'date_result' => date('d-m-Y'),
 					]);
+
+                }else{
+
+                    $update = DB::table('study_patients')
+                        ->where('cod_ref', $data->code_ref)
+                        ->where('cod_study', $data_studies[$i]->cod_study)
+                        ->update([
+                            'laboratory_id' => $laboratory->id,
+                            'cod_lab' => $laboratory->code_lab,
+                            'file' => $nameFile,
+                            'status' => 2,
+                            'date_result' => date('d-m-Y'),
+                        ]);
+                }
 			}
 
 			$medical_record_code = Reference::where('cod_ref', $data->code_ref)->first()->cod_medical_record;

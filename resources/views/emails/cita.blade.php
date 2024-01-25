@@ -7,7 +7,6 @@
         th {
             border: 1px solid black;
         }
-
     </style>
 </head>
 <body>
@@ -36,8 +35,13 @@
                 Hora: {{ $mailData['horario'] }}
                 <br>
                 Centro: {{ $mailData['centro'] }}
+                <br>
+                Piso: {{ $mailData['piso'] }} - Consultorio: {{ $mailData['consultorio'] }}
+                <br>
+                Telefono: {{ $mailData['telefono'] }}
             </h3>
         </p>
+
         <p style="text-align: justify; margin-left: 20px;">
             Gracias por ser parte de nosotro, Sqlapio.com, innovando para el futuro.
         </p>
@@ -45,7 +49,27 @@
             Para confirmar su cita puede hacerlo a traves del siguiente link:
             <br>
             {{ $mailData['link'] }}
-        </p> 
+        </p>
+        <a href="{{ $mailData['ubication'] }}" style="text-decoration: none">
+            <button style="
+                background-image: linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%);
+                border-radius: .5rem;
+                box-sizing: border-box;
+                color: #FFFFFF;
+                display: flex;
+                font-size: 16px;
+                justify-content: center;
+                margin-left: 20px;
+                padding: 1rem 1.75rem;
+                text-decoration: none;
+                width: 26%;
+                border: 0;
+                cursor: pointer;
+                user-select: none;
+                -webkit-user-select: none;
+                touch-action: manipulation;" role="button">Ver ubicación
+            </button>
+        </a>
         <p style="text-align: justify; margin-left: 20px;">
             Atentamente,
             <br>
@@ -58,7 +82,7 @@
             Ing. Jhonny Martinez<br>CEO
         </p>
         <p style="text-align: justify; font-style: italic; margin-left: 20px;">
-            Para mayor información puede comunicarse 24/7 con nuestro equipo a traves de sqlapiotechnology@sqlapio.com
+            Para mayor información puede comunicarse 24/7 con nuestro equipo a traves de soporte@sqlapio.com
         </p>
     </div>
     <img style="
