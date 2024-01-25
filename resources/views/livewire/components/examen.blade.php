@@ -249,6 +249,7 @@
                             // $("#content-result").hide();
                             // $('#show-info-pat').show();
                             setDataTable(response);
+                            setdataDos(response.reference);
                         });
 
                     },
@@ -339,8 +340,9 @@
         }
 
         function setDataTable(row) {
-            console.log(row);
+
             let data = [];
+
             row.data.map((elem) => {
                 // let elemData = JSON.stringify(elem);
                 let target = `{{ URL::asset('/imgs/${elem.file}') }}`;
@@ -358,20 +360,7 @@
                             <i class="bi bi-file-earmark-text"></i>
                             </button>
                             </a>
-                            </div>
-                            <div
-                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                            <a href=""
-                            style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
-                            <button type="button"
-                            class="btn btn-iPrimary rounded-circle"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="bottom"
-                            title="Cargar Estudio">
-                            <i class="bi bi-file-earmark-text"></i>
-                            </button>
-                            </a>
-                            </div>
+                            </div>                          
                             </div>`;
 
 
@@ -435,62 +424,50 @@
                 ],
             });
 
-            ///
-            console.log(row.reference);
-            row.reference.map((elem) => {
-                // let elemData = JSON.stringify(elem);
-                let target = `{{ URL::asset('/imgs/${elem.file}') }}`;
-                elem.btn = `<div class="d-flex">
-                            <div
-                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                            <a target="_blank"
-                            href="${target}"
-                            style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
-                            <button type="button"
-                            class="btn btn-iPrimary rounded-circle"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="bottom"
-                            title="VEr archivo">
-                            <i class="bi bi-file-earmark-text"></i>
-                            </button>
-                            </a>
-                            </div>
-                            <div
-                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                            <a href=""
-                            style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
-                            <button type="button"
-                            class="btn btn-iPrimary rounded-circle"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="bottom"
-                            title="Cargar Estudio">
-                            <i class="bi bi-file-earmark-text"></i>
-                            </button>
-                            </a>
-                            </div>
-                            </div>`;
+
+        }
+
+        function setdataDos(data) {
+
+            let dataRef = [];
+
+            data.map((e) => {
+
+                console.log(e);
+
+                let target = `{{ URL::asset('/imgs/${e.file}') }}`;
+
+                let eData = JSON.stringify(e);
+
+                e.btn = `<button onclick='showModal(${ eData })'
+                data-bs-toggle='tooltip' data-bs-placement='right'
+                data-bs-custom-class='custom-tooltip' data-html='true'
+                title='Ver examenes' type='button'
+                class='btn btn-iPrimary rounded-circle'>
+                <i class='bi bi-info-circle-fill'></i>
+                </button>`;
 
 
-                elem.full_name = `${elem.get_patient.name } ${elem.get_patient.last_name }`;
+                e.full_name = `${e.get_patient.name } ${e.get_patient.last_name }`;
 
                 let imagen = `{{ URL::asset('/img/avatar/avatar mujer.png') }}`;
 
-                if (elem.get_patient.patient_img != null) {
-                    imagen = `{{ URL::asset('/imgs/${elem.get_patient.patient_img}') }}`;
+                if (e.get_patient.patient_img != null) {
+                    imagen = `{{ URL::asset('/imgs/${e.get_patient.patient_img}') }}`;
                 } else {
-                    if (elem.get_patient.genere == "masculino") {
+                    if (e.get_patient.genere == "masculino") {
                         imagen = `{{ URL::asset('/img/avatar/avatar hombre.png') }}`;
                     }
                 }
 
-                elem.img = `<img class="avatar"
-                          src="${imagen}"
-                          alt="Imagen del paciente">`;
+                e.img = `<img class="avatar"
+          src="${imagen}"
+          alt="Imagen del paciente">`;
 
-                elem.ci = (elem.get_patient.is_minor == "true") ? `${elem.get_reprensetative.re_ci} (Rep)` : elem
+                e.ci = (e.get_patient.is_minor == "true") ? `${e.get_reprensetative.re_ci} (Rep)` : e
                     .get_patient.ci;
 
-                data.push(elem);
+                dataRef.push(e);
             });
 
             new DataTable('#table-info-sin-examen', {
@@ -498,51 +475,52 @@
                     url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
                 },
                 bDestroy: true,
-                data: data,
+                data: dataRef,
                 "searching": false,
                 "bLengthChange": false,
                 columns: [{
 
                         data: 'img',
-                        title: 'Imagen',
+                        title: 'Foto',
                         className: "text-center text-capitalize",
                     },
                     {
 
-                        data: 'full_name',
-                        title: 'Nombre y apellido',
+                        data: 'date',
+                        title: 'Fecha',
                         className: "text-center",
                     },
                     {
+
+                        data: 'cod_ref',
+                        title: 'Referencia',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'cod_medical_record',
+                        title: 'Referencia consulta médica',
+                        className: "text-center text-capitalize",
+                    },
+                    {
+                        data: 'full_name',
+                        title: 'Nombre y apellido',
+                        className: "text-center text-capitalize",
+                    },
+                    {
                         data: 'ci',
-                        title: 'Cedula',
-                        className: "text-center text-capitalize",
-                    },
-                    {
-                        data: 'description',
-                        title: 'Descripcion del examen',
-                        className: "text-center text-capitalize",
-                    },
-                    {
-                        data: 'description',
-                        title: 'Descripcion del examen',
-                        className: "text-center text-capitalize",
-                    },
-                    {
-                        data: 'description',
-                        title: 'Descripcion del examen',
+                        title: 'Cédula',
                         className: "text-center text-capitalize",
                     },
                     {
                         data: 'btn',
-                        title: 'Acciones',
+                        title: 'Cargar Resultado',
                         className: "text-center",
                     }
                 ],
             });
         }
 
-        function showModal(item, active) {
+        function showModal(item) {
 
             if (item.get_exam.length > 0) {
                 count = 0;
@@ -553,8 +531,8 @@
                 $('#ModalLoadResult').modal('show');
                 $('#table-info').find('tbody').empty();
                 $('.modal-title').text('Examen del Paciente');
-                 ///
-                 $('#ref').text(item.cod_ref);
+                ///
+                $('#ref').text(item.cod_ref);
                 $('#id').val(item.id);
                 $('#ref-pat').text(`${item.get_patient.name} ${item.get_patient.last_name}`);
 
@@ -582,7 +560,7 @@
                     $('#table-info').find('tbody').append(row);
 
                 });
-             
+
             } else {
                 Swal.fire({
                     icon: 'warning',
@@ -751,7 +729,7 @@
                                                                 {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }}
                                                             </td>
                                                             <td>
-                                                                <button onclick='showModal({{ $item }},0)'
+                                                                <button onclick='showModal({{ $item }})'
                                                                     data-bs-toggle='tooltip' data-bs-placement='right'
                                                                     data-bs-custom-class='custom-tooltip' data-html='true'
                                                                     title='Ver examenes' type='button'
@@ -792,7 +770,7 @@
                                 {{ csrf_field() }}
                                 <input type="hidden" id="id" name="id" value="">
                                 <input type="hidden" id="code_ref" name="code_ref" value="">
-                                <input type="hidden" id="doctor_id" name="doctor_id" value="{{Auth::user()->id}}">
+                                <input type="hidden" id="doctor_id" name="doctor_id" value="{{ Auth::user()->id }}">
 
                                 <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
                                     <strong>Referencia: </strong><span id="ref"></span>
