@@ -31,6 +31,7 @@ class ExamPatient extends Model
         'center_id',
         'patient_id',
         'medical_record_id',
+        'cod_medical_record',
         'date',
         'status',
         'cod_lab',
@@ -61,5 +62,10 @@ class ExamPatient extends Model
     public function  get_laboratory(): HasOne
     {
         return $this->hasOne(Laboratory::class, 'id', 'laboratory_id');
+    }
+
+    public function  get_reference(): HasOne
+    {
+        return $this->hasOne(Reference::class, 'id', 'ref_id');
     }
 }
