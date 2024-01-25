@@ -249,7 +249,7 @@
                         }).then((result) => {
 
                             setDataTable(response);
-
+                            setdataDos(response.reference);
 
                             // $("#content-result").hide();
                             // $('#show-info-pat').show();
@@ -435,8 +435,8 @@
                 src="${imagen}"
                 alt="Imagen del paciente">`;
 
-                elem.ci = (elem.get_patients.is_minor == "true") ? `${elem.get_reprensetative.re_ci} (Rep)` : elem
-                    .get_patients.ci;
+                elem.ci = (elem.get_patient.is_minor == "true") ? `${elem.get_reprensetative.re_ci} (Rep)` : elem
+                    .get_patient.ci;
 
                 data.push(elem);
             });
