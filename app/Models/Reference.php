@@ -70,4 +70,9 @@ class Reference extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+
+    public function get_reprensetative(): HasOne
+    {
+        return $this->hasOne(Representative::class, 'patient_id', 'patient_id');
+    }
 }
