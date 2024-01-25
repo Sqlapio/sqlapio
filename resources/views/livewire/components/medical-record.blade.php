@@ -153,6 +153,14 @@
         width: 4% !important;
     }
 
+    .w-7 {
+        width: 7% !important;
+    }
+
+    .w-8 {
+        width: 8% !important;
+    }
+
     .w-35 {
         width: 35% !important;
     }
@@ -1512,8 +1520,7 @@
                                 <div class="accordion-body">
                                     <div class="row mt-2">
                                         <div class="d-flex" style="align-items: center;">
-                                            <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2"
-                                                style="width: 135px;">
+                                            <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 135px;">
                                                 <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
                                                     width="125" height="125" alt="Imagen del paciente"
                                                     class="img-medical">
@@ -1609,14 +1616,11 @@
                                                 </div>
                                             </div>
 
-                                            <div id='symptoms_card1'
-                                                class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                            <div id='symptoms_card1' class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <div id='symptoms_card2'
                                                     class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                     style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
-                                                    <div
-                                                        class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                    <div class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <div class="form-group"
                                                             style="display: flex; align-items: center;">
                                                             <label for="search_symptoms"
@@ -1627,6 +1631,14 @@
                                                                 style="border-radius: 30px;" class="form-control"
                                                                 id="floatingInput" placeholder="">
                                                         </div>
+                                                    </div>
+                                                    <div id='diagnosis_div' class="overflow-auto mt-2" style="max-width: 100%; max-height: 40px; min-height: 40px; position: relative;">
+                                                        <ul id="symptoms_filter" class="symptoms"
+                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none">
+                                                        </ul>
+                                                        <ul id="symptoms" class="symptoms"
+                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-top: 5px; margin-bottom: 0">
+                                                        </ul>
                                                     </div>
 
                                                     <div id='symptoms_card3'
@@ -1639,15 +1651,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div id='diagnosis_div' class="overflow-auto"
-                                                        style="max-width: 100%; max-height: 40px; min-height: 40px; position: relative;">
-                                                        <ul id="symptoms_filter" class="symptoms"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none">
-                                                        </ul>
-                                                        <ul id="symptoms" class="symptoms"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-top: 5px; margin-bottom: 0">
-                                                        </ul>
-                                                    </div>
+                                                    
                                                 </div>
                                                 <div class="row" id="div_spinner">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
@@ -1928,59 +1932,38 @@
                                     <i class="bi bi-file-earmark-text"></i> Ultimas consultas
                                 </button>
                             </span>
-                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                                data-bs-parent="#accordionExample">
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row" id="table-one">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                            style="margin-top: 20px;">
-                                            <table id="table-medical-record" class="table table-striped table-bordered"
-                                                style="width:100%; ">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px;">
+                                            <table id="table-medical-record" class="table table-striped table-bordered" style="width:100%; ">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">Código de la consulta</th>
-                                                        <th class="text-center" scope="col">Código de la referencia
-                                                        </th>
-                                                        <th class="text-center" scope="col">Fecha de la consulta</th>
-                                                        <th class="text-center" scope="col">Nombre del paciente</th>
-                                                        <th class="text-center" scope="col">Género</th>
-                                                        <th class="text-center" scope="col">Centro</th>
-                                                        <th class="text-center" scope="col">Médico</th>
-                                                        <th data-orderable="false" class="text-center" scope="col">Ver
-                                                        </th>
+                                                        <th class="text-center w-8" scope="col">ID consulta</th>
+                                                        <th class="text-center w-7" scope="col">Fecha</th>
+                                                        <th class="text-center" scope="col">Médico tratante</th>
+                                                        <th class="text-center" scope="col">Centro de salud</th>
+                                                        <th data-orderable="false" class="text-center" scope="col">Acciones </th>
+                                                        {{-- <th class="text-center" scope="col">Código de la referencia </th> --}}
+                                                        {{-- <th class="text-center" scope="col">Nombre del paciente</th> --}}
+                                                        {{-- <th class="text-center" scope="col">Género</th> --}}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($medical_record_user as $item)
                                                         <tr>
-                                                            <td class="text-center td-pad"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['data']['record_code'] }}</td>
-                                                            <td class="text-center td-pad"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['data']['cod_ref'] }}</td>
-                                                            <td class="text-center td-pad"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['date'] }}</td>
-                                                            <td class="text-center td-pad text-capitalize"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['name_patient'] }} </td>
-                                                            <td class="text-center td-pad text-capitalize"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['genere'] }} </td>
-                                                            <td class="text-center td-pad"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['center'] }}</td>
-                                                            <td class="text-center td-pad text-capitalize"
-                                                                onclick="showDataEdit({{ json_encode($item) }});">
-                                                                {{ $item['full_name_doc'] }} </td>
+                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['data']['record_code'] }}</td>
+                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['date'] }}</td>
+                                                            <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});">Dr. {{ $item['full_name_doc'] }} </td>
+                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['center'] }}</td>
+                                                            {{-- <td class="text-center td-pad"  onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['data']['cod_ref'] }}</td> --}}
+                                                            {{-- <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['name_patient'] }} </td> --}}
+                                                            {{-- <td class="text-center td-pad text-capitalize"  onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['genere'] }} </td> --}}
                                                             <td class="text-center td-pad">
                                                                 <div class="d-flex">
                                                                     @if ($item['data']['status_exam'])
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <a
-                                                                                href="{{ route('mr_exam', $item['patient_id']) }}">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <a href="{{ route('mr_exam', $item['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     class="btn refresf btn-iSecond rounded-circle"
                                                                                     data-bs-toggle="tooltip"
@@ -1992,8 +1975,7 @@
                                                                             </a>
                                                                         </div>
                                                                     @else
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <button type="button"
                                                                                 class="refresf btn-idanger rounded-circle"
                                                                                 onclick="showAlertNotExam();">
@@ -2002,10 +1984,8 @@
                                                                         </div>
                                                                     @endif
                                                                     @if ($item['data']['status_study'])
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <a
-                                                                                href="{{ route('mr_study', $item['patient_id']) }}">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <a href="{{ route('mr_study', $item['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     class="btn refresf btn-iSecond rounded-circle"
                                                                                     data-bs-toggle="tooltip"
@@ -2080,8 +2060,7 @@
                                     <i class="bi bi-file-earmark-text"></i> Informes medicos
                                 </button>
                             </span>
-                            <div id="collapseInfome" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                                data-bs-parent="#accordionExample">
+                            <div id="collapseInfome" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row" id="table-one">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
@@ -2091,28 +2070,22 @@
                                                     class="bi bi-plus-circle-dotted"></i>
                                             </button>
                                         </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                            style="margin-top: 20px;">
-                                            <table id="table-medical-report" class="table table-striped table-bordered"
-                                                style="width:100%; ">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px;">
+                                            <table id="table-medical-report" class="table table-striped table-bordered" style="width:100%; ">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">Código del informe</th>
                                                         <th class="text-center" scope="col">Medico remitente </th>
                                                         <th class="text-center" scope="col">Fecha</th>
-                                                        <th data-orderable="false" class="text-center" scope="col">Ver
-                                                        </th>
+                                                        <th data-orderable="false" class="text-center" scope="col">Ver </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($medical_report as $item)
                                                         <tr>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item->cod_medical_report }}</td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item->get_doctor->name.' '.$item->get_doctor->last_name  }}</td>
-                                                            <td class="text-center td-pad">
-                                                                {{ $item->date }}</td>
+                                                            <td class="text-center td-pad"> {{ $item->cod_medical_report }}</td>
+                                                            <td class="text-center td-pad">  {{ $item->get_doctor->name.' '.$item->get_doctor->last_name  }}</td>
+                                                            <td class="text-center td-pad"> {{ $item->date }}</td>
                                                             <td class="text-center td-pad">
                                                                 <a target="_blank"
                                                                     href="{{ route('PDF_medical_record', $item['id']) }}">

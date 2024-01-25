@@ -26,6 +26,7 @@
         background: #9dc8e2;
         color: #fff;
         height: 117px;
+        font-size: 15px
     }
 
     .wizard>.content>.body {
@@ -66,6 +67,15 @@
         }
     }
 
+    /* @media (min-width: 577px) and (max-width: 885px) {
+
+        .wizard>.steps a,
+        .wizard>.steps a:hover,
+        .wizard>.steps a:active {
+            height: 87px;
+        }
+    } */
+
     @media screen and (max-width: 576px) {
 
         .wizard>.steps>ul>li {
@@ -76,10 +86,16 @@
         .wizard>.steps a:hover,
         .wizard>.steps a:active {
             height: 8%;
+            padding: 9px 28px 13px !important;
         }
 
         .pmv-0 {
             padding: 0 !important;
+        }
+
+        .data-medical {
+            width: 222px !important;
+            font-size: 13px;
         }
 
     }
@@ -179,11 +195,11 @@
 
                                     }
                                     let e = ` 
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" style="width: 162px; margin-top: 13px;" >
-                                            <img src="${img}" width="150" height="150" alt="Imagen del paciente" class="img-medical">
+                                        <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 135px;" >
+                                            <img src="${img}" width="125" height="125" alt="Imagen del paciente" class="img-medical">
                                         </div>
 
-                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 data-medical mt-2">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
                                             <strong>Nombre Completo:</strong><span class="text-capitalize"> ${response[0].full_name}</span>
                                             <br>
                                             <strong>Fecha de Nacimiento:</strong><span> ${response[0].birthdate }</span>
@@ -659,7 +675,7 @@
                             <div class="row mt-5" id="div-content" style="display: none">
                                 <hr>
                                 <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8">
-                                    <div class="row justify-content-center" id="info-pat"></div>
+                                    <div class="d-flex" style="align-items: center;" id="info-pat"></div>
                                 </div>
 
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-4">

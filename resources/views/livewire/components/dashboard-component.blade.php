@@ -535,7 +535,7 @@
                                         <i class="bi bi-calendar2-check"></i> Citas del día
                                     </button>
                                 </span>
-                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <div class="row"id="table-patients">
@@ -571,10 +571,8 @@
                                                                 <td class="text-center td-pad"> <span class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">{{ $item['extendedProps']['status'] }}</span> </td>
                                                                 <td>
                                                                     <div class="d-flex" style="justify-content: center;">
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
-                                                                            style="width: 32px;">
-                                                                            <a
-                                                                                href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="width: 32px;">
+                                                                            <a href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     class="btn btn-iPrimary rounded-circle"
                                                                                     data-bs-toggle="tooltip"
@@ -584,8 +582,7 @@
                                                                                 </button>
                                                                             </a>
                                                                         </div>
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
-                                                                            style="margin-left: 10px; width: 32px;">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="margin-left: 10px; width: 32px;">
                                                                             <button type="button"
                                                                                 class="btn btn-iSecond rounded-circle"
                                                                                 data-bs-toggle="tooltip"
@@ -748,9 +745,7 @@
                                                         <tr>
                                                             <th class="text-center" scope="col">Fecha</th>
                                                             <th class="text-center" scope="col">Referencia</th>
-                                                            <th class="text-center" scope="col">Referencia consulta
-                                                                médica
-                                                            </th>
+                                                            <th class="text-center" scope="col">Referencia consulta médica </th>
                                                             <th class="text-center" scope="col">Nombres</th>
                                                             <th class="text-center" scope="col">Cédula</th>
                                                             <th class="text-center" scope="col">Género</th>
@@ -806,17 +801,11 @@
                                                             <td class="text-center"> {{ $item['date_ref'] }}</td>
                                                             <td class="text-center"> {{ $item['cod_ref'] }}</td>
                                                             <td class="text-center"> {{ $item['cod_exam'] }}</td>
-                                                            <td class="text-center text-capitalize">
-                                                                {{ $item['description'] }}</td>
+                                                            <td class="text-center text-capitalize"> {{ $item['description'] }}</td>
                                                             <td class="text-center"> {{ $item['date_upload_res'] }}</td>
-                                                            <td class="text-center text-capitalize">
-                                                                {{ $item['patient_info']['full_name'] }}
-                                                            </td>
-                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }}
-                                                            </td>
-                                                            <td class="text-center text-capitalize">
-                                                                {{ $item['patient_info']['genere'] }}
-                                                            </td>
+                                                            <td class="text-center text-capitalize"> {{ $item['patient_info']['full_name'] }} </td>
+                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }} </td>
+                                                            <td class="text-center text-capitalize"> {{ $item['patient_info']['genere'] }} </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
