@@ -216,6 +216,7 @@
         function searchPerson() {
 
             if ($('#search_person').val() != '') {
+                $('#spinner2').show();
                 let route = '{{ route('search_studio', [':value', ':row']) }}';
                 route = route.replace(':value', $('#search_person').val());
                 route = route.replace(':row', 'ci');
@@ -244,7 +245,7 @@
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
                         }).then((result) => {
-
+                            $('#spinner2').hide();
                             setDataTable(response);
                             setdataDos(response.reference);
 
@@ -448,6 +449,11 @@
                         className: "text-center text-capitalize w-image",
                     },
                     {
+                        data: 'date',
+                        title: 'Fecha',
+                        className: "text-center",       
+                    }
+                    {
 
                         data: 'full_name',
                         title: 'Nombre y apellido',
@@ -465,7 +471,7 @@
                     },
                     {
                         data: 'btn',
-                        title: 'Acciones',
+                        title: 'Resultado',
                         className: "text-center",
                     }
                 ],
@@ -488,7 +494,7 @@
                     data-bs-custom-class='custom-tooltip' data-html='true'
                     title='Ver estudios' type='button'
                     class='btn btn-iPrimary rounded-circle'
-                    style="margin-rigth: 0">
+                    style="margin-right: 0">
                     <i class='bi bi-info-circle-fill'></i>
                 </button>`;
 
@@ -641,6 +647,9 @@
     </script>
 @endpush
 @section('content')
+    <div id="spinner2" style="display: none">
+        <x-load-spinner show="true" />
+    </div>
     <div class="container-fluid" style="padding: 0 3% 3%">
         <div class="accordion" id="accordionExample">
             {{-- datos del paciente --}}
