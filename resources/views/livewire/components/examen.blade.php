@@ -209,11 +209,8 @@
                         }
                     });
                 }
-            })
-
-
-
-
+            });
+            
         });
 
         function searchPerson() {
@@ -627,8 +624,7 @@
                                                         <th class="text-center" scope="col">Foto</th>
                                                         <th class="text-center" scope="col">Nombre y apellido</th>
                                                         <th class="text-center" scope="col">Cédula</th>
-                                                        <th class="text-center" scope="col">Descripcion del examen o
-                                                            estudio</th>
+                                                        <th class="text-center" scope="col">Descripcion del examen</th>
                                                         <th class="text-center"scope="col" data-orderable="false">Ver
                                                             resultado
                                                         </th>

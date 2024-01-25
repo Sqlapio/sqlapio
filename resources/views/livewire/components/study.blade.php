@@ -120,20 +120,95 @@
 </style>
 @push('scripts')
     <script>
-        // $(document).ready(function() {
+        let studies_array = [];
+        let count = 0;
+        $(document).ready(function() {            
+            // let data = @json($data);
+            // let id = @json($id);
+            // if (id != null) {
+            //     setDataTable(data);
+            //     const bsCollapse = new bootstrap.Collapse('.collapsee', {
+            //         toggle: true
+            //     })
+            // }
+            //validar formulario
+            $('#form-load-img-estudios').validate({
+                ignore: [],
+                rules: {
+                    img: {
+                        required: true,
+                    },
+                    count: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    img: {
+                        required: 'Debe cargar un Archivo',
+                    },
+                    count: {
+                        required: 'Debe selecionar un resultado',
+                    }
+                }
+            });
 
-        //     let data = @json($data);
-        //     let id = @json($id);
-        //     if (id != null) {
-        //         setDataTable(data);
-        //         const bsCollapse = new bootstrap.Collapse('.collapsee', {
-        //             toggle: true
-        //         })
-        //     }
+            //envio del formulario
+            $("#form-load-img-estudios").submit(function(event) {
+                event.preventDefault();
+                $("#form-load-img-estudios").validate();
+                if ($("#form-load-img-estudios").valid()) {
+                    // $('#send').hide();
+                    // $('#spinner').show();
+                    //preparar la data para el envio
+                    let formData = $('#form-load-img-estudios').serializeArray();
+                    let data = {};
+                    formData.map((item) => data[item.name] = item.value);
+                    data["studies_array"] = JSON.stringify(studies_array);
 
-
-
-        // });
+                    ////end
+                    $.ajax({
+                        url: '{{ route('upload_result_study') }}',
+                        type: 'POST',
+                        dataType: "json",
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "data": JSON.stringify(data),
+                        },
+                        success: function(response) {
+                            $('#send').show();
+                            $('#spinner').hide();
+                            $("#form-load-img-estudios").trigger("reset");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Centro registrado exitosamente!',
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                $('#ModalLoadResult').modal('toggle');
+                                $("#content-table-ref").hide();
+                                $('#search_person').val('');
+                                get_data_table()
+                            });
+                        },
+                        error: function(error) {
+                            error.responseJSON.errors.map((elm) => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: elm,
+                                    allowOutsideClick: false,
+                                    confirmButtonColor: '#42ABE2',
+                                    confirmButtonText: 'Click para salir'
+                                }).then((result) => {
+                                    $('#send').show();
+                                    $('#spinner').hide();
+                                });
+                            });
+                        }
+                    });
+                }
+            });
+        });
 
         var popoverTriggerList = Array.prototype.slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
         var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
@@ -344,14 +419,14 @@
                 </div>`;
 
 
-                elem.full_name = `${elem.get_patients.name } ${elem.get_patients.last_name }`;
+                elem.full_name = `${elem.get_patient.name } ${elem.get_patient.last_name }`;
 
                 let imagen = `{{ URL::asset('/img/avatar/avatar mujer.png') }}`;
 
-                if (elem.get_patients.patient_img != null) {
-                    imagen = `{{ URL::asset('/imgs/${elem.get_patients.patient_img}') }}`;
+                if (elem.get_patient.patient_img != null) {
+                    imagen = `{{ URL::asset('/imgs/${elem.get_patient.patient_img}') }}`;
                 } else {
-                    if (elem.get_patients.genere == "masculino") {
+                    if (elem.get_patient.genere == "masculino") {
                         imagen = `{{ URL::asset('/img/avatar/avatar hombre.png') }}`;
                     }
                 }
@@ -393,7 +468,7 @@
                     },
                     {
                         data: 'description',
-                        title: 'Descripcion del examen',
+                        title: 'Descripcion del estudio',
                         className: "text-center text-capitalize",
                     },
                     {
@@ -418,7 +493,7 @@
                 e.btn = `<button onclick='showModal(${ eData })'
                 data-bs-toggle='tooltip' data-bs-placement='right'
                 data-bs-custom-class='custom-tooltip' data-html='true'
-                title='Ver examenes' type='button'
+                title='Ver estudios' type='button'
                 class='btn btn-iPrimary rounded-circle'>
                 <i class='bi bi-info-circle-fill'></i>
                 </button>`;
@@ -498,7 +573,7 @@
 
         function showModal(item) {
 
-            if (item.get_exam.length > 0) {
+            if (item.get_studie.length > 0) {
                 count = 0;
                 $('#count').val('');
                 $('.holder').hide();
@@ -512,10 +587,10 @@
                 $('#id').val(item.id);
                 $('#ref-pat').text(`${item.get_patient.name} ${item.get_patient.last_name}`);
 
-                item.get_exam.map((elemt, index) => {
+                item.get_studie.map((elemt, index) => {
                     let elemData = JSON.stringify(elemt);
                     let label =
-                        `<label><input type="checkbox" id="cod_exam_${index}" onclick='cuontResul(event,${elemData},${index});'></label>`
+                        `<label><input type="checkbox" id="cod_study_${index}" onclick='cuontResul(event,${elemData},${index});'></label>`
                     if (Number(elemt.status) === 2) {
                         $('#div-result').hide();
                         $('#div-btn').hide();
@@ -529,7 +604,7 @@
                     }
                     let row = `
                 <tr>
-                <td class="text-center">${elemt.cod_exam}</td>
+                <td class="text-center">${elemt.cod_study}</td>
                 <td class="text-center">${elemt.description}</td>     
                 <td class="text-center">${label}</td>                
                 </tr>`;
@@ -552,8 +627,8 @@
         function cuontResul(e, item, key) {
 
             if ($(`#${e.target.id}`).is(':checked')) {
-                exams_array.push({
-                    cod_exam: item.cod_exam
+                studies_array.push({
+                    cod_study: item.cod_study
                 });
 
                 count = count + 1;
@@ -562,7 +637,7 @@
 
             } else {
 
-                exams_array = exams_array.filter(e => e.cod_exam !== item.cod_exam);
+                studies_array = studies_array.filter(e => e.cod_study !== item.cod_study);
 
                 count = count - 1;
 
@@ -603,8 +678,7 @@
                                                     <th class="text-center" scope="col">Foto</th>
                                                     <th class="text-center" scope="col">Nombre y apellido</th>
                                                     <th class="text-center" scope="col">Cédula</th>
-                                                    <th class="text-center" scope="col">Descripcion del examen o
-                                                        estudio</th>
+                                                    <th class="text-center" scope="col">Descripcion del estudio</th>
                                                     <th class="text-center"scope="col" data-orderable="false">Ver
                                                         resultado
                                                     </th>
@@ -615,14 +689,14 @@
                                                     <tr>
                                                         <td class="table-avatar">
                                                             <img class="avatar"
-                                                                src=" {{ $item->get_patients->patient_img ? asset('/imgs/' . $item->get_patients->patient_img) : ($item->get_patients->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                                src=" {{ $item->get_patient->patient_img ? asset('/imgs/' . $item->get_patient->patient_img) : ($item->get_patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
                                                                 alt="Imagen del paciente">
                                                         </td>
                                                         <td class="text-center text-capitalize">
-                                                            {{ $item->get_patients->name . ' ' . $item->get_patients->last_name }}
+                                                            {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }}
                                                         </td>
                                                         <td class="text-center">
-                                                            {{ $item->get_patients->is_minor === 'true' ? $item->get_patients->get_reprensetative->re_ci . '  (Rep)' : $item->get_patients->ci }}
+                                                            {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }}
                                                         </td>
                                                         <td class="text-center"> {{ $item->description }} </td>
                                                         <td class="text-center">
@@ -641,7 +715,7 @@
                                                                 </div>
                                                                 {{-- <div
                                                                         class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a href="{{ route('MedicalRecord', $item->get_patients->id) }}"
+                                                                        <a href="{{ route('MedicalRecord', $item->get_patient->id) }}"
                                                                             style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
                                                                             <button type="button"
                                                                                 class="btn btn-iPrimary rounded-circle"
@@ -681,7 +755,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($examen_sin_resul as $item)
+                                                @foreach ($estudios_sin_resul as $item)
                                                     <tr>
                                                         <td class="table-avatar">
                                                             <img class="avatar"
@@ -703,7 +777,7 @@
                                                             <button onclick='showModal({{ $item }})'
                                                                 data-bs-toggle='tooltip' data-bs-placement='right'
                                                                 data-bs-custom-class='custom-tooltip' data-html='true'
-                                                                title='Ver examenes' type='button'
+                                                                title='Ver estudios' type='button'
                                                                 class='btn btn-iPrimary rounded-circle'>
                                                                 <i class='bi bi-info-circle-fill'></i>
                                                             </button>
