@@ -9,8 +9,8 @@
     #img-pat {
         border-radius: 27px;
         border: 2px solid #44525F;
-        height: 150px;
-        margin: 5px 23px;
+        height: 125px;
+        margin: 5px 15px;
         object-fit: cover;
     }
 
@@ -62,7 +62,7 @@
         }
 
         #img-pat {
-            margin: 23px 20px 0 0;
+            margin: 4px 20px 0 0;
         }
 
     }
@@ -73,7 +73,7 @@
         }
 
         #img-pat {
-            margin: 7px 20px 0 0;
+            margin: 4px 20px 0 0;
         }
     }
 </style>
@@ -83,13 +83,60 @@
         let pathologiesArray = [];
         let patients = @json($patients);
         let centers = @json($centers);
+        let user = @json($user);
+
         let urlPostCreateAppointment = '{{ route('CreateAppointment') }}';
         let urlDiary = "{{ route('Diary') }}";
         let status = "";
         let url = "{{ route('MedicalRecord', ':id') }}";
         let urlhist = "{{ route('ClinicalHistoryDetail', ':id') }}";
+        let path = "{{ route('verify-plans') }}";
 
         $(document).ready(() => {
+
+            switch (Number(user.type_plane)) {
+                case 1:
+                    if (Number(user.patient_counter) == 5) {
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
+                    }
+                    if (Number(user.patient_counter) >= 10) {
+                        $('#content-patient').hide();
+                        $('#paciente-registrado').hide();
+                        $('#paciente-warnig').show();
+                        return false;
+                    }
+
+                    break;
+                case 2:
+                    if (Number(user.patient_counter) == 35) {
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
+                    }
+                    if (Number(user.patient_counter) >= 40) {
+                        $('#content-patient').hide();
+                        $('#paciente-registrado').hide();
+                        $('#paciente-warnig').show();
+                        return false;
+                    }
+                    break;
+                default:
+                    break;
+            }
 
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             tooltipTriggerList.forEach(element => {
@@ -97,7 +144,7 @@
             });
 
             getUrl(urlPostCreateAppointment, urlDiary);
-            if (centers.length === 0) {
+            if (user.type_plane!='7' && centers.length === 0) {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Debe asociar  un centro!',
@@ -111,6 +158,7 @@
 
             $('#form-patients').validate({
                 rules: {
+                    ignore: [],
                     name: {
                         required: true,
                         minlength: 3,
@@ -267,15 +315,16 @@
             $.validator.addMethod("onlyNumber", function(value, element) {
                 var pattern = /^\d+\.?\d*$/;
                 return pattern.test(value);
-            }, "Campo solo numero");
+            }, "Campo numérico");
 
             //envio del formulario
             $("#form-patients").submit(function(event) {
                 event.preventDefault();
                 $("#form-patients").validate();
                 if ($("#form-patients").valid()) {
+                    $('#btn-save').attr('disabled', true);
                     $('#send').hide();
-                    $('#spinner').show();
+                    $('#spinner2').show();
                     var data = $('#form-patients').serialize();
                     $.ajax({
                         url: "{{ route('register-patients') }}",
@@ -286,7 +335,7 @@
                         },
                         success: function(response) {
                             $('#send').show();
-                            $('#spinner').hide();
+                            $('#spinner2').hide();
                             // $("#form-patients").trigger("reset");
                             $(".holder").hide();
                             Swal.fire({
@@ -296,12 +345,14 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
-                                url = url.replace(':id', response.id);
+                                url = url.replace(':id', response[0].id);
                                 $("#bnt-cons").show();
                                 $("#bnt-cons").find('a').remove();
                                 $("#bnt-cons").append(
                                     `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`
-                                    );
+                                );
+
+                                switch_type_plane(user.type_plane, response[1]);
                             });
                         },
                         error: function(error) {
@@ -313,8 +364,8 @@
                                     confirmButtonColor: '#42ABE2',
                                     confirmButtonText: 'Aceptar'
                                 }).then((result) => {
-                                    $('#send').show();
-                                    $('#spinner').hide();
+                                    $('#btn-save').attr('disabled', false);
+                                    $('#spinner2').hide();
                                     $(".holder").hide();
                                 });
                             });
@@ -326,50 +377,29 @@
 
         function handlerAge(e) {
             if (Number($("#age").val()) >= 18) {
-                $("#email").rules('add', {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 50,
-                    email: true
-                });
-                $("#profession").rules('add', {
-                    required: true
-                });
                 $("#ci").rules('add', {
                     required: true,
                     minlength: 5,
                     maxlength: 8,
                     onlyNumber: true
                 });
-                $("#phone").rules('add', {
-                    required: true
-                });
-                //
                 $('#data-rep').hide();
                 $('#is_minor').val(false);
                 $("#profesion-div").show();
                 $("#ci-div").show();
                 $("#email-div").show();
+                $("#div-phone").show();
 
             } else {
-                // validar si el nino tienes menos de 8 anos
-                if (Number($("#age").val()) <= 8) {
-                    $("#profesion-div").hide();
-                    $("#ci-div").hide();
-                    $("#email-div").hide();
-                    $("#profession").rules('remove');
-                    $("#phone").rules('remove');
+                $("#profesion-div").hide();
+                $("#ci-div").hide();
+                $("#email-div").hide();
+                $("#div-phone").hide();
 
-                } else {
-                    $("#profesion-div").show();
+                // validar si el nino tiene menos de 8 anos
+                if (Number($("#age").val()) > 8) {
                     $("#ci-div").show();
-                    $("#email-div").show();
-                    //remover valdaciones
-                    $("#email").rules('remove');
-                    $("#profession").rules('remove');
                     $("#ci").rules('remove');
-                    $("#phone").rules('remove');
-
                 }
 
                 $('#data-rep').show();
@@ -419,6 +449,8 @@
             $("#form-patients").trigger("reset");
             $('#is_minor').val(false);
             $('#id').val('');
+            $('#btn-save').attr('disabled', false);
+
         }
 
         function handlerPatExit(e) {
@@ -619,36 +651,95 @@
             }
         }
 
-        $(function(){
+        $(function() {
             var dtToday = new Date();
             var month = dtToday.getMonth() + 1;
             var day = dtToday.getDate();
             var year = dtToday.getFullYear();
-            if(month < 10)
+            if (month < 10)
                 month = '0' + month.toString();
-            if(day < 10)
+            if (day < 10)
                 day = '0' + day.toString();
-            var minDate= year + '-' + month + '-' + day;
+            var minDate = year + '-' + month + '-' + day;
             $('.date-diary').attr('min', minDate);
         })
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             var today = new Date();
-            var day=today.getDate()>9?today.getDate():"0"+today.getDate(); // format should be "DD" not "D" e.g 09
-            var month=(today.getMonth()+1)>9?(today.getMonth()+1):"0"+(today.getMonth()+1);
-            var year=today.getFullYear();
+            var day = today.getDate() > 9 ? today.getDate() : "0" + today.getDate();
+            var month = (today.getMonth() + 1) > 9 ? (today.getMonth() + 1) : "0" + (today.getMonth() + 1);
+            var year = today.getFullYear();
 
             $(".date-bd").attr('max', year + "-" + month + "-" + day);
         });
 
+        function switch_type_plane(type_plane, count_pat) {
+
+            switch (Number(type_plane)) {
+                case 1:
+                    if (Number(count_pat) == 5) {
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
+                    }
+                    if (Number(count_pat) >= 10) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '¡Ha consumido el total de pacientes registrados!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            window.location.href = path;
+                        });
+                    }
+                    break;
+                case 2:
+                    if (Number(count_pat) == 35) {
+
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        });
+                        return false;
+                    }
+                    if (Number(count_pat) >= 40) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '¡Ha consumido el total de pacientes registrados!',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            window.location.href = path;
+                        });
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
     </script>
 @endpush
 @section('content')
     <div>
-        <div class="container-fluid body" style="padding: 3%">
+        <div id="spinner2" style="display: none">
+            <x-load-spinner show="true" />
+        </div>
+        <div class="container-fluid body" style="padding: 0 3% 3%">
             <div class="accordion" id="accordion">
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-top: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
@@ -660,7 +751,25 @@
                             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row mt-3">
+                                    <div class="row mt-3 justify-content-center" id="paciente-warnig" style="display: none">
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">                                            
+                                            <div class="row justify-content-center">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">                                            
+                                                    <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">¡Ha consumido el total de pacientes registrados! </h5>
+                                                </div>
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">                                            
+                                                    <img width="150" height="auto"
+                                                    src="{{ asset('/img/icon-warning.png') }}" alt="avatar">
+                                                </div>
+                                            </div>      
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex;
+                                        justify-content: flex-end;">                                            
+                                            <a style="margin-top: 10px;" href="{{ route('verify-plans') }}"
+                                            class="btn btnSecond">Detalles del plan</a>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3" id="paciente-registrado">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <div class="form-check form-switch">
                                                 <label style="margin-top: 6px;" for="">Paciente registrado</label>
@@ -704,9 +813,10 @@
                                         </div>
                                     </div>
                                     <div class="row" id="show-info-pat" style="display: none">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <h5 class="mb-4">Lista de paciente registrado bajo este documento de identidad
-                                            </h5>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive">
+                                            <hr>
+                                            <h5 style="margin-bottom: 17px;">Hijos de paciente registrado</h5>
+                                            <hr>
                                             <table id="table-show-info-pat" class="table table-striped table-bordered"
                                                 style="width:100%; ">
                                                 <thead>
@@ -715,7 +825,7 @@
                                                         <th class="text-center" scope="col">Cédula</th>
                                                         <th class="text-center" scope="col">Fecha de Nacimiento </th>
                                                         <th class="text-center" scope="col">Género</th>
-                                                        <th class="text-center"scope="col">Acciones</th>
+                                                        <th class="text-center"scope="col" data-orderable="false">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -769,8 +879,8 @@
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha
                                                             de
                                                             Nacimiento</label>
-                                                        <input class="form-control date-bd" id="birthdate" name="birthdate"
-                                                            type="date" value=""
+                                                        <input class="form-control date-bd" id="birthdate"
+                                                            name="birthdate" type="date" value=""
                                                             onchange="calculateAge(event,'age'), handlerAge(event)">
                                                     </div>
                                                 </diV>
@@ -808,7 +918,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                                <div id="div-phone"
+                                                    class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -839,7 +950,6 @@
                                                     </div>
                                                 </div>
                                                 <x-professions />
-                                                <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
                                                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
@@ -850,6 +960,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
+                                                
                                                 <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
@@ -864,8 +976,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <x-centers_user
-                                                    class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
+                                                @if (Auth::user()->type_plane !== '7')                                                    
+                                                <x-centers_user  class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
+                                                @endif
                                                 <x-upload-image />
                                                 {{-- data del representante --}}
                                                 <div class="row mt-3" id="data-rep" style="display: none">
@@ -956,8 +1069,8 @@
                                                         style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
                                                     <div id="bnt-hist"
                                                         style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
-                                                    <input class="btn btnSave send" value="Guardar" type="submit"
-                                                        style="margin-left: 10px; margin-bottom: 10px" />
+                                                    <input class="btn btnSave send" id="btn-save" value="Guardar"
+                                                        type="submit" style="margin-left: 10px; margin-bottom: 10px" />
                                                     <button style="margin-left: 10px; padding: 8px; margin-bottom: 10px"
                                                         type="button" onclick="refreshForm();" class="btn btnSecond"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -978,8 +1091,8 @@
                 </div>
                 {{-- Lista de pacientes con consultas  --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd"
-                        style="margin-top: 20px; margin-bottom: 20px;">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-cd"
+                        style="margin-bottom: 20px;">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
@@ -988,17 +1101,16 @@
                                     <i class="bi bi-card-list"></i> Lista de pacientes con consultas
                                 </button>
                             </span>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                            <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row" id="table-patients">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                            style="margin-top: 20px;">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 table-responsive" >
                                             <table id="table-patient" class="table table-striped table-bordered"
                                                 style="width:100%; ">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">Imagen</th>
+                                                        <th class="text-center" scope="col" data-orderable="false">Imagen</th>
                                                         <th class="text-center" scope="col">Código paciente</th>
                                                         <th class="text-center" scope="col">Nombre</th>
                                                         <th class="text-center" scope="col">Cédula</th>
@@ -1007,7 +1119,7 @@
                                                         <th class="text-center" scope="col">Teléfono</th>
                                                         <th class="text-center" scope="col">Email</th>
                                                         <th class="text-center" scope="col">Centro de salud</th>
-                                                        <th class="text-center"scope="col">Acciones</th>
+                                                        <th class="text-center"scope="col" data-orderable="false">Acciones</th>
 
                                                     </tr>
                                                 </thead>
@@ -1115,18 +1227,17 @@
                             <span style="padding-left: 5px">Agendar Cita</span>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                 style="font-size: 12px;"></button>
-                        </div>
+                        </div> 
                         <div class="modal-body">
                             <div id="div-pat" style="display: none">
-                                <div class="d-flex mt-3">
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 modal-d">
+                                <div class="d-flex" style="align-items: center;">
+                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 modal-d">
                                         <div class="img">
-                                            <img id="img-pat" src="" width="150" height="150"
+                                            <img id="img-pat" src="" width="125" height="125"
                                                 alt="Imagen del paciente">
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3"
-                                        style="font-size: 14px;">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="font-size: 13px;">
                                         <div>
                                             <strong><span class="text-capitalize" id="name-pat"></span></strong>
                                             <br>
@@ -1139,15 +1250,17 @@
                                             <strong>Correo: </strong><span id="email-pat"></span>
                                             <br>
                                             <strong>Telefono: </strong><span id="phone-pat"></span>
+
+                                            
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <form action="" id="form-appointment">
                                 {{ csrf_field() }}
-                                <div class="row mt-3">
+                                <div class="row mt-1">
                                     <input type="hidden" id="patient_id" name="patient_id" value="">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="date" class="form-label"
@@ -1158,7 +1271,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="phone" class="form-label"
@@ -1175,7 +1288,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="phone" class="form-label"
@@ -1188,9 +1301,12 @@
                                         </div>
                                     </div>
 
-                                    <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" />
+                                    @if (Auth::user()->type_plane !=7)                                        
+                                    <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" />
+                                    @endif
 
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-3 text-center">
+
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center">
                                         <div class="form-check form-switch">
                                             <input onchange="handlerPrice(event);" style="width: 5em"
                                                 class="form-check-input" type="checkbox" role="switch" id="showPrice"
@@ -1203,7 +1319,7 @@
                                     </div>
 
 
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                         style="display: none" id="div-price">
                                         <div class="form-group">
                                             <div class="Icon-inside">
@@ -1217,10 +1333,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="row text-center mt-3 mb-4">
+                                    <div class="row text-center mt-2 mb-2">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
                                             style="margin-top: -4px" id="send">
-                                            <input class="btn btnSave" id="registrer-pac" value="Registrar"
+                                            <input class="btn btnSave" id="registrer-pac" value="Agendar"
                                                 type="submit" />
 
                                         </div>

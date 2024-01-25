@@ -19,17 +19,15 @@
             height: auto;" src="{{ asset('img/notification_email/cita_header.jpg') }}">
     <div style="margin: auto; width: 600px; padding: 10px;">
         <p style="text-align: justify; margin-left: 20px;">
-            <h2 style="text-align: justify; margin-left: 20px;">Reseteo de password</h2>
             <h2 style="text-align: justify; margin-left: 20px;">Sr(a). {{ $mailData['dr_name'] }}</h2>
         </p>
         <p style="text-align: justify; margin-left: 20px;">
-            Usted a solicitado la actualizacion de su contraseña<br>
-            Por favor introdusca el siguiente codigo de validacion:<br>
-            <strong><h1 style="text-align: justify; margin-left: 20px;">{{ $mailData['code'] }}</h1></strong> 
+            Usted a solicitado la actualización de su contraseña<br>
+            Por favor introduzca el siguiente código de validación:<br>
+            <strong><h1 style="text-align: justify; margin-left: 20px;">{{ $mailData['code'] }}</h1></strong>
         </p>
         <p style="text-align: justify; margin-left: 20px;">
-            Para cualquier consulta o asistencia adicional que necesite, puede comunicarse las 24
-            horas del dia con nuestro equipo a traves de sqlapiotechnology@gmail.com
+            Gracias por ser parte de nosotro, Sqlapio.com, innovando para el futuro.
         </p>
         <p style="text-align: justify; margin-left: 20px;">
             Atentamente,
@@ -38,14 +36,12 @@
             <img style="
                     display: block;
                     margin-left: 0px;
-                    width: 100px;
+                    width: 128px;
                     height: auto;" src="{{ asset('img/notification_email/fir_jm.png') }}">
             Ing. Jhonny Martinez<br>CEO
         </p>
         <p style="text-align: justify; font-style: italic; margin-left: 20px;">
-            La información contenida en este mensaje y sus anexos tiene carácter confidencial, y está dirigida únicamente al destinatario de la misma.
-            Si usted ha recibido este mensaje por error, por favor notifique inmediatamente al remitente por este mismo medio y borre el mensaje de su sistema. La información por correo electrónico, no garantiza que la misma sea segura o esté libre de error, por consiguiente, se recomienda
-            su verificación.
+            Para mayor información puede comunicarse 24/7 con nuestro equipo a través de soporte@sqlapio.com
         </p>
     </div>
     <img style="

@@ -20,29 +20,34 @@ class Reference extends Component
 
         /**
          * Logica para guardar los examenes y estudios
-         * solicitados por el medico y generar la 
+         * solicitados por el medico y generar la
          * referencia
          */
-        
+
         $user = Auth::user();
+
+        /** Validacion para cargar el centro correcto cuando el medico
+             * esta asociado al plan corporativo
+             */
+            if ($user->center_id != null) {
+                $center_id_corporativo = $user->center_id;
+            }
 
         $reference = new ModelsReference();
         $reference->cod_ref = 'SQ-REF-' . random_int(11111111, 99999999);
         $reference->user_id = $user->id;
         $reference->patient_id = $data->id;
-        $reference->center_id = $data->center_id;
+        $reference->center_id = isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id;
         $reference->cod_medical_record = $medical_record_code;
         $reference->date = date('d-m-Y');
-        $reference->exams = $data->exams;
-        $reference->studies = $data->studies;
         $reference->medical_record_id = $medical_record->id;
         $reference->save();
 
         /**
          * Logica para aumentar el contador
-         * de almacenamiento para el numero 
+         * de almacenamiento para el numero
          * de referencia cargadas por el medico.
-         * 
+         *
          * Esta logica se aplica al tema de los planes
          */
         UtilsController::update_ref_counter($user->id);
@@ -63,45 +68,28 @@ class Reference extends Component
             $patient_email = $patient->email;
         }
 
-        $array_exam = explode(',' , $data->exams);
-        $array_study = explode(',' , $data->studies);
-
-        $mailData = [
-            'dr_name' => $user->name . ' ' . $user->last_name,
-            'center' => Center::where('id', $reference->center_id)->first()->description,
-            'patient_name' => $patient->name . ' ' . $patient->last_name,
-            'medical_record_code' => $reference->cod_medical_record,
-            'reference_code' => $reference->cod_ref,
-            'reference_date' => $reference->date,
-            'patient_email' => $patient_email,
-            'patient_exam' => $array_exam,
-            'patient_study' => $array_study,
-        ];
-
-        UtilsController::notification_mail($mailData, $type);
-
         /**
          * Envio de notificacion al whatsaap del paciente
          * indicando en codigo de referencia de los examenes
          * y/o estudio solicitados por el medico
          */
 
-        $center = Center::where('id', $data->center_id)->first()->description;
-        $patient = Patient::where('id', $data->id)->first();
-        $body = 'Sr(a). '
-                .$patient->name.' '.$patient->last_name.
-                ' acaba de recibir un consulta medica con el Dr(a). '
-                .$user->name.' '.$user->last_name.' en el centro de salud: '
-                .$center. '. El medico indico realizar ciertos Examenes y/o Estudios, el numero de Referencia es: '
-                .$reference->cod_ref;
+        // $center = Center::where('id', $data->center_id)->first()->description;
+        // $patient = Patient::where('id', $data->id)->first();
+        // $body = 'Sr(a). '
+        //         .$patient->name.' '.$patient->last_name.
+        //         ' acaba de recibir un consulta medica con el Dr(a). '
+        //         .$user->name.' '.$user->last_name.' en el centro de salud: '
+        //         .$center. '. El medico indico realizar ciertos Examenes y/o Estudios, el numero de Referencia es: '
+        //         .$reference->cod_ref;
 
-        if($patient->is_minor == 'true'){
-            $patient_phone = preg_replace('/[\(\)\-\" "]+/', '', $patient->get_reprensetative->re_phone);
-        }else{
-            $patient_phone = preg_replace('/[\(\)\-\" "]+/', '', $patient->phone);
-        }
+        // if($patient->is_minor == 'true'){
+        //     $patient_phone = preg_replace('/[\(\)\-\" "]+/', '', $patient->get_reprensetative->re_phone);
+        // }else{
+        //     $patient_phone = preg_replace('/[\(\)\-\" "]+/', '', $patient->phone);
+        // }
 
-        ApiServicesController::sms_reference_info($patient_phone, $body);
+        // ApiServicesController::sms_reference_info($patient_phone, $body);
 
         /**
          * Funcion para recomendar el laboratorio
@@ -127,8 +115,9 @@ class Reference extends Component
                 $exams_patient->description = UtilsController::get_description_exam($data_exams[$i]->code_exams);
                 $exams_patient->ref_id = $reference->id;
                 $exams_patient->user_id = $user->id;
-                $exams_patient->center_id = $data->center_id;
+                $exams_patient->center_id = isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id;
                 $exams_patient->patient_id = $data->id;
+                $exams_patient->medical_record_id = $medical_record->id;
                 $exams_patient->date = date('d-m-Y');
                 $exams_patient->save();
             }
@@ -151,12 +140,49 @@ class Reference extends Component
                 $studies_patient->description = UtilsController::get_description_study($data_studies[$i]->code_studies);
                 $studies_patient->ref_id = $reference->id;
                 $studies_patient->user_id = $user->id;
-                $studies_patient->center_id = $data->center_id;
+                $studies_patient->center_id = isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id;
                 $studies_patient->patient_id = $data->id;
+                $studies_patient->medical_record_id = $medical_record->id;
                 $studies_patient->date = date('d-m-Y');
                 $studies_patient->save();
             }
         }
+
+
+        if(isset($center_id_corporativo))
+        {
+            $mailData = [
+                'dr_name' => $user->name . ' ' . $user->last_name,
+                'center' => Center::where('id', $center_id_corporativo)->first()->description,
+                'patient_name' => $patient->name . ' ' . $patient->last_name,
+                'medical_record_code' => $reference->cod_medical_record,
+                'reference_code' => $reference->cod_ref,
+                'reference_date' => $reference->date,
+                'patient_email' => $patient_email,
+                'patient_exam' =>  $data_exams,
+                'patient_study' =>  $data_studies ,
+            ];
+
+            UtilsController::notification_mail($mailData, $type);
+
+        }else{
+
+            $mailData = [
+                'dr_name' => $user->name . ' ' . $user->last_name,
+                'center' => Center::where('id', $reference->center_id)->first()->description,
+                'patient_name' => $patient->name . ' ' . $patient->last_name,
+                'medical_record_code' => $reference->cod_medical_record,
+                'reference_code' => $reference->cod_ref,
+                'reference_date' => $reference->date,
+                'patient_email' => $patient_email,
+                'patient_exam' =>  $data_exams,
+                'patient_study' =>  $data_studies ,
+            ];
+
+            UtilsController::notification_mail($mailData, $type);
+        }
+
+
     }
 
     public function render()

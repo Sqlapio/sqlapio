@@ -15,6 +15,24 @@
 
     }
 
+    table tr:last-child td:last-child {
+        border-bottom-right-radius:10px;
+    }
+
+    table tr:last-child td:first-child {
+        border-bottom-left-radius:10px;
+    }
+
+    table tr:first-child th:first-child,
+    table tr:first-child td:first-child {
+        border-top-left-radius:10px;
+    }
+
+    table tr:first-child th:last-child,
+    table tr:first-child td:last-child {
+        border-top-right-radius:10px;
+    }
+
     .table-border {
         text-align: left;
         padding: 10px;
@@ -27,9 +45,9 @@
         page-break-after: right
     }
 
-    .div-seal{
+    .div-seal {
         position: fixed;
-        bottom: 1cm;
+        bottom: 3cm;
         left: 0cm;
         right: 0px;
         height: 50px;
@@ -54,11 +72,13 @@
     }
 
     table {
-        border-collapse: collapse;
-        border: 09x;
-        /* letter-spacing: 1px; */
-        font-size: 0.8rem;
+            /* letter-spacing: 1px; */
         width: 100%;
+        font-size: 12px;
+        border: 09x;
+        border-radius: 10px;
+        border-spacing: 0px;
+        border-collapse: separate;
     }
 
     th {
@@ -119,6 +139,16 @@
     .inf-prueba {
         float: left;
         margin-left: 1cm;
+        background-color: #2A8ED7;
+    }
+    .barcodeStyle  {
+        width: 50% !important;
+        height: 3%;
+        margin-left: 30%; 
+        margin-bottom: 1% !important;
+    }
+    .code-span{
+        margin-left: 40%;
     }
 </style>
 
@@ -139,24 +169,25 @@
                 <tr class="text-header" style="border-radius: 50px!important;">
                     <td style="padding: 10px;">
                         <div>
-                            <strong style="font-size: 15px;">{{ $MedicalRecord->get_center->description }}</strong>
+                            <strong
+                                style="font-size: 15px;">{{ $MedicalRecord->get_center->description }}</strong>
                             <p style="margin-top: 0px">
-                                Dirección: {{ $MedicalRecord->get_center_data->address }},
+                                Dirección: {{ ($MedicalRecord->get_doctor->type_plane == "7")? ' corporativo': $MedicalRecord->get_center_data->address }},
                                 Local,
-                                {{ $MedicalRecord->get_center_data->number_floor }}<br>{{ $MedicalRecord->get_center_data->phone_consulting_room }}
+                                {{($MedicalRecord->get_doctor->type_plane = "7")? $MedicalRecord->get_doctor->number_floor  : $MedicalRecord->get_center_data->number_floor }}<br>{{($MedicalRecord->get_doctor->type_plane == "7")?  $MedicalRecord->get_doctor->number_consulting_phone : $MedicalRecord->get_center_data->phone_consulting_room }}
                             </p>
-                        </div>
-                    </td>
-                    <td>
-                        <div style="text-align: justify;padding: 10px; margin-top:20px; margin-left: 25%">
                             <strong> Médico Tratante:</strong>
                             <span>{{ Auth::user()->name . ' ' . Auth::user()->last_name }}</span>
                             <br>
                             <strong>Fecha de la Consulta:</strong>
                             <span>{{ $MedicalRecord->record_date }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="text-align: justify;padding: 10px; margin-top:-5%; margin-left: 25%">
+                            <img class="barcodeStyle" src="data:image/png;base64,{{ $barcode }}">
                             <br>
-                            <strong> Código del paciente:</strong>
-                            <span>{{ $MedicalRecord->get_paciente->patient_code }}</span>
+                            <span class="code-span">{{ $MedicalRecord->get_paciente->patient_code }}</span>
                         </div>
                     </td>
                 </tr>
@@ -188,7 +219,7 @@
         </table>
     </footer>
 
-    <div>
+    <div style="margin-top: -5% !important">
         <table class="table-info-pat">
             <thead>
                 <tr>
@@ -203,7 +234,8 @@
                 <tr>
                     <td style="text-align: center;">
                         <div class="text  info-pat">
-                            <strong>Nombre Completo: </strong><span>{{ $MedicalRecord->get_paciente->name . ' ' . $MedicalRecord->get_paciente->last_name }}</span>
+                            <strong>Nombre Completo:
+                            </strong><span>{{ $MedicalRecord->get_paciente->name . ' ' . $MedicalRecord->get_paciente->last_name }}</span>
                             <br>
                             <strong>C.I:</strong> <span>{{ $MedicalRecord->get_paciente->ci }}</span>
                             <br>
@@ -226,9 +258,13 @@
                                     src="../public/imgs/{{ $MedicalRecord->get_paciente->patient_img }}" alt="Avatar"
                                     width="100" height="100">
                             @else
-                                <img class="img-pat" src="../public/img/avatar/avatar.png"
-                                    width="100" height="100" style="border-radius: 20%; object-fit: cover"
-                                    alt="Avatar">
+                                @if ($MedicalRecord->get_paciente->genere == 'femenino')
+                                    <img class="img-pat" src="../public/img/avatar/avatar mujer.png" width="100"
+                                        height="100" style="border-radius: 20%; object-fit: cover" alt="Avatar">
+                                @else
+                                    <img class="img-pat" src="../public/img/avatar/avatar hombre.png" width="100"
+                                        height="100" style="border-radius: 20%; object-fit: cover" alt="Avatar">
+                                @endif
                             @endif
                         </div>
                     </td>
@@ -236,7 +272,6 @@
             </tbody>
         </table>
     </div>
-    <br>
     <br>
     <div>
         <table class="table-info-pat">
@@ -248,7 +283,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr style="padding-top:5%">
                     <td class="table-border">
                         {{ $MedicalRecord->background }}
                     </td>
@@ -260,7 +295,9 @@
         </table>
     </div>
     <br>
-    <br>
+    @if(strlen($MedicalRecord->background)>2000)
+        <div style="page-break-after:always;"></div>
+    @endif
     <div>
         <table class="table-info-pat">
             <thead>
@@ -283,7 +320,9 @@
         </table>
     </div>
     <br>
-    <br>
+    @if(strlen($MedicalRecord->razon)>1000)
+    <div style="page-break-after:always;"></div>
+    @endif
     <div>
         <table class="table-info-pat">
             <thead>
@@ -306,7 +345,9 @@
         </table>
     </div>
     <br>
-    <br>
+    @if(strlen($MedicalRecord->diagnosis)>600)
+    <div style="page-break-after:always;"></div>
+    @endif
     <div>
         <table class="table-info-pat">
             <thead>
@@ -319,14 +360,15 @@
             <tbody>
                 <tr>
                     <td class="table-border">
-                        {{ $MedicalRecord->exams }}
+                        @foreach ($MedicalRecord->get_exam_medical as $item)
+                            {{ $item->description . ',' }}
+                        @endforeach
                     </td>
                 </tr>
 
             </tbody>
         </table>
     </div>
-    <br>
     <br>
     <div>
         <table class="table-info-pat">
@@ -340,7 +382,9 @@
             <tbody>
                 <tr>
                     <td class="table-border">
-                        {{ $MedicalRecord->studies }}
+                        @foreach ($MedicalRecord->get_study_medical as $item)
+                            {{ $item->description . ',' }}
+                        @endforeach
                     </td>
                 </tr>
 
@@ -349,8 +393,7 @@
     </div>
     <div class="div-seal">
         <img class="img-pat" style="border-radius: 20%; object-fit: cover"
-        src="../public/imgs/seal/{{ Auth::user()->digital_cello }}"
-        alt="Avatar" width="100" height="100">
+            src="../public/imgs/seal/{{ Auth::user()->digital_cello }}" alt="Avatar" width="270" height="150">
     </div>
     <script type="text/php">
         if ( isset($pdf) ) {

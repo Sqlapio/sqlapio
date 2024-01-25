@@ -30,6 +30,7 @@ class StudyPatient extends Model
         'user_id',
         'center_id',
         'patient_id',
+        'medical_record_id',
         'date',
         'status',
         'cod_lab',
@@ -59,5 +60,9 @@ class StudyPatient extends Model
     public function  get_reference(): HasOne
     {
         return $this->hasOne(Reference::class, 'id', 'ref_id');
+    }
+    public function get_reprensetative(): HasOne
+    {
+        return $this->hasOne(Representative::class, 'patient_id', 'patient_id');
     }
 }

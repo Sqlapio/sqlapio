@@ -185,5 +185,6 @@ return [
             "text" => "Encuesta de satisfacion",
             "router" => "Profile"
         ],
-    ]
+    ],
+    "var" => 'http://web.sqlapio.net/pricing.html'
 ];

@@ -19,10 +19,11 @@ class MedicalHistory extends Component
      */
     public function store(Request $request)
     {
-        try { 
+        try {
+            $user_id = Auth::user()->id;
             $data = json_decode($request->data);
             $patient = Patient::where('id',$data->id)->first();
-            
+
             $patient_ci = $patient->ci;
 
                 if($patient_ci == null){
@@ -31,11 +32,12 @@ class MedicalHistory extends Component
                     $cod_patient = $patient_ci;
                 }
 
-    
+
             History::updateOrCreate(['patient_id' => $data->id],
             [
                 'cod_history'       => 'SQ-H-'.random_int(11111111, 99999999),
                 'patient_id'        => $data->id,
+                'user_id'           => $user_id,
                 'cod_patient'       => $cod_patient,
                 'history_date'      => date('d-m-Y'),
                 'weight'            => $data->weight,
@@ -61,6 +63,7 @@ class MedicalHistory extends Component
                 'esfera_cardiopulmonar' => (isset($data->esfera_cardiopulmonar) ? $data->esfera_cardiopulmonar : null),
                 'esfera_abdominal'      => (isset($data->esfera_abdominal) ? $data->esfera_abdominal : null),
                 'extremidades'          => (isset($data->extremidades) ? $data->extremidades : null),
+                'trombosis_embolas'          => (isset($data->trombosis_embolas) ? $data->trombosis_embolas : null),
 
                 //Antecedentes Personales y Familiares
                 'cancer'                    => (isset($data->cancer) ? $data->cancer : null),
@@ -117,7 +120,7 @@ class MedicalHistory extends Component
                 'medications_supplements'   => $data->arraymedications_supplements,
                 //observaciones
                 'observations_ginecologica'   => $data->observations_ginecologica,
-                'observations_medication'   => $data->observations_medication,   
+                'observations_medication'   => $data->observations_medication,
                 'observations_not_pathological'=>  $data->observations_not_pathological,
                 'observations_diagnosis'    => $data->observations_diagnosis,
                 'observations_back_family'  => $data->observations_back_family,
@@ -125,8 +128,8 @@ class MedicalHistory extends Component
             ]);
 
             $action = '6';
-            ActivityLogController::store_log($action);          
-    
+            ActivityLogController::store_log($action);
+
             return true;
 
         } catch (\Throwable $th) {
@@ -134,7 +137,7 @@ class MedicalHistory extends Component
 			dd('Error Livewire.Components.MedicalHistory.store()', $message);
         }
     }
-    
+
     public function render()
     {
         return view('livewire.components.medical-history');

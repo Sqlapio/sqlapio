@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('center_id');
             $table->string('cod_medical_record'); //codigo de la consulta
             $table->string('date');
-            $table->longText('exams')->nullable();
-            $table->longText('studies')->nullable();
+            // $table->longText('exams')->nullable();
+            // $table->longText('studies')->nullable();
             $table->integer('status_ref')->default(1); //1- abierta  2- cerrada
             $table->string('laboratory_id')->nullable();
             $table->string('cod_lab')->nullable();

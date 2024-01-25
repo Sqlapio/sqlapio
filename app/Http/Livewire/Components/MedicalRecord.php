@@ -7,14 +7,17 @@ use Livewire\Component;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\UtilsController;
 use App\Http\Livewire\Components\Reference as ComponentsReference;
+use App\Models\Appointment;
 use App\Models\DoctorCenter;
 use App\Models\Exam;
 use App\Models\ExamPatient;
 use App\Models\MedicalRecord as ModelsMedicalRecord;
+use App\Models\MedicalReport;
 use App\Models\Patient;
 use App\Models\Reference;
 use App\Models\Representative;
 use App\Models\Study;
+use App\Models\Symptom;
 use App\Models\StudyPatient;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,32 +30,31 @@ class MedicalRecord extends Component
     public function store(Request $request){
 
         try {
-            
+
             $data = json_decode($request->data);
             $user = Auth::user()->id;
+
 
             /**
              * Paciente mayor de edad
              */
             $patient = Patient::where('id', $data->id)->first();
             $is_minor = $patient->is_minor;
-            $ci = $patient->ci;           
-            
+            $ci = $patient->ci;
+
             /**
              * Paciente menor de edad
              */
             if($is_minor === "true"){
                 $patient_minor = Representative::where('patient_id', $data->id)->first();
                 $patient_email = $patient_minor->email_re;
-                $ci = $patient_minor->re_ci;             
+                $ci = $patient_minor->re_ci;
             }
 
             $rules = [
                 'background'  => 'required',
                 'razon'       => 'required',
                 'diagnosis'   => 'required',
-                'exams'       => 'required',
-                'studies'     => 'required',
                 'medications_supplements' => 'required',
             ];
 
@@ -60,61 +62,67 @@ class MedicalRecord extends Component
                 'background'  => 'Campo requerido',
                 'razon'       => 'Campo requerido',
                 'diagnosis'   => 'Campo requerido',
-                'exams'       => 'Campo requerido',
-                'studies'     => 'Campo requerido',
                 'medications_supplements' => 'Campo requerido',
             ];
 
-            // $validator = Validator::make($request->data, $rules, $msj);
+            /** Validacion para cargar el centro correcto cuando el medico
+             * esta asociado al plan corporativo
+             */
+            if (Auth::user()->center_id != null) {
+                $center_id_corporativo = Auth::user()->center_id;
+            }
 
-            // if ($validator->fails()) {
-            //     return response()->json([
-            //         'success' => 'false',
-            //         'errors'  => $validator->errors()->all()
-            //     ], 400);
-            // }
-            
             $medical_record = ModelsMedicalRecord::updateOrCreate(['id' => $data->medical_record_id],
             [
                 /**
                  * @method store()
-                 * 
+                 *
                  * Este metodo recibe como llaves principales el id del medico, id del paciente y el
                  * id del centro.
                  */
                 'user_id'       => $user,
                 'patient_id'    => $data->id,
-                'center_id'     => $data->center_id,
+                'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id,
                 'record_code'   => 'SQ-C-'.random_int(11111111, 99999999),
                 'record_date'   => date('d-m-Y'),
                 'background'    => $data->background,
                 'razon'         => $data->razon,
                 'diagnosis'     => $data->diagnosis,
-                'exams'         => $data->exams,
-                'studies'       => $data->studies,
-                'medications_supplements'       => $data->medications_supplements,
+                'sintomas'     => $data->sintomas,
+                'medications_supplements' => $data->medications_supplements,
             ]);
+
+            /**
+             * Logica para Finalizar la cita en la agenda y mostrar el
+             * status de finsalizada en la tabla del dashboard
+             */
+            Appointment::where('patient_id', $data->id)
+                ->where('user_id', $user)
+                ->where('date_start', date('Y-m-d'))
+                ->update([
+                    'status' => 3,   /** FINALIZADA EN LA AGENDA */
+                ]);
 
             $action = '11';
             ActivityLogController::store_log($action);
 
             /**
              * Logica para aumentar el contador
-             * de almacenamiento para el numero 
+             * de almacenamiento para el numero
              * de consultas cargadas por el medico.
-             * 
+             *
              * Esta logica se aplica al tema de los planes
              */
             UtilsController::update_mr_counter($user);
 
             /**
              * Logica para guardar los examenes y estudios
-             * solicitados por el medico y generar la 
+             * solicitados por el medico y generar la
              * referencia
              */
             $medical_record_code = $medical_record['record_code'];
             ComponentsReference::store($data, $medical_record_code,$medical_record);
-             
+
             $action = '15';
             ActivityLogController::store_log($action);
 
@@ -126,15 +134,64 @@ class MedicalRecord extends Component
         }
     }
 
+    public function informe_medico (Request $request)
+    {
+
+        $rules = [
+            'TextInforme'  => 'required',
+        ];
+
+        $msj = [
+            'TextInforme'  => 'Debe relleñar el text area para poder crear un informe válido',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $msj);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $validator->errors()->all()
+            ], 400);
+        }
+
+        /** Validacion para cargar el centro correcto cuando el medico
+         * esta asociado al plan corporativo
+         */
+        if (Auth::user()->center_id != null) {
+            $center_id_corporativo = Auth::user()->center_id;
+        }
+
+       MedicalReport::updateOrCreate(
+            ['id' => $request->medical_report_id],
+            [
+                'cod_medical_report' => 'SQ-MR-'.random_int(11111111, 99999999),
+                'user_id'       => $request->user_id,
+                'patient_id'    => $request->patient_id,
+                'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
+                'date'          => date('d-m-Y'),
+                'description'   => $request->TextInforme,
+            ]
+        );
+        
+
+        $medical_report = UtilsController::get_medical_report($request->patient_id);        
+
+
+        return $medical_report ;
+
+    }
+
     public function render($id)
     {
         $user_id = Auth::user()->id;
         $doctor_centers = DoctorCenter::where('user_id', $user_id)->where('status', 1)->get();
         $Patient = UtilsController::get_one_patient($id);
         $medical_record_user = UtilsController::get_medical_record_user($id);
+        $medical_report = UtilsController::get_medical_report($id);        
         $validate_histroy = $Patient->get_history;
-        $exam = Exam::all();    
-        $study = Study::all();      
-        return view('livewire.components.medical-record',compact('Patient', 'doctor_centers','validate_histroy','medical_record_user','id','exam','study'));
+        $exam = Exam::all();
+        $study = Study::all();
+        $symptoms = Symptom::all();
+        return view('livewire.components.medical-record',compact('Patient', 'doctor_centers','validate_histroy','medical_record_user','id','exam','study','symptoms','medical_report'));
     }
 }

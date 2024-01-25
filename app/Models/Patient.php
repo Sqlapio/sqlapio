@@ -62,7 +62,7 @@ class Patient extends Model
     {
         return $this->hasMany(Interview::class, 'patient_id', 'id');
     }
-    
+
     public function get_appointments(): HasMany
     {
         return $this->hasMany(Appointment::class, 'patient_id', 'id');
@@ -85,16 +85,26 @@ class Patient extends Model
 
     public function get_exams(): HasMany
     {
-        return $this->hasMany(Exam::class, 'patient_id', 'id');
+        return $this->hasMany(ExamPatient::class, 'patient_id', 'id');
     }
 
     public function get_studies(): HasMany
     {
-        return $this->hasMany(Study::class, 'patient_id', 'id');
+        return $this->hasMany(StudyPatient::class, 'patient_id', 'id');
     }
 
     public function get_referencia(): HasMany
     {
         return $this->hasMany(Reference::class, 'patient_id', 'id');
+    }
+
+    /**
+     * Get all of the medical_reports for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function medical_reports(): HasMany
+    {
+        return $this->hasMany(MedicalReport::class, 'patient_id', 'id');
     }
 }

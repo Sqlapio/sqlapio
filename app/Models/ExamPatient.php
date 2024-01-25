@@ -30,6 +30,8 @@ class ExamPatient extends Model
         'user_id',
         'center_id',
         'patient_id',
+        'medical_record_id',
+        'cod_medical_record',
         'date',
         'status',
         'cod_lab',
@@ -47,13 +49,23 @@ class ExamPatient extends Model
         return $this->belongsTo(Patient::class, 'id', 'center_id');
     }
 
-    public function get_patients(): BelongsTo
+    public function get_patients(): HasOne
     {
-        return $this->belongsTo(Patient::class, 'id', 'patient_id');
+        return $this->hasOne(Patient::class, 'id', 'patient_id');
+    }
+
+    public function get_reprensetative(): HasOne
+    {
+        return $this->hasOne(Representative::class, 'patient_id', 'patient_id');
     }
 
     public function  get_laboratory(): HasOne
     {
         return $this->hasOne(Laboratory::class, 'id', 'laboratory_id');
+    }
+
+    public function  get_reference(): HasOne
+    {
+        return $this->hasOne(Reference::class, 'id', 'ref_id');
     }
 }

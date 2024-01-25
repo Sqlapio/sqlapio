@@ -5,10 +5,10 @@
         ->where('status', 1)
         ->get();
 @endphp
-<div class="{{ $class }}">
+<div class="{{ $class }}" id="CM">
     <div class="form-group">
         <div class="Icon-inside">
-            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Seleccione el Centro</label>
+            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro de Salud</label>
             <select  name="center_id" id="center_id" placeholder="Seleccione"
                 class="form-control @error('center_id') is-invalid @enderror" class="form-control combo-textbox-input">
                 <option value=''>Seleccione</option>

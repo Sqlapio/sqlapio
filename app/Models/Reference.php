@@ -29,8 +29,8 @@ class Reference extends Model
         'center_id',
         'cod_medical_record', //codigo de la consulta
         'date',
-        'exams',
-        'studies',
+        // 'exams',
+        // 'studies',
         'status_ref', //1- abierta  2- cerrada
         'laboratory_id',
         'cod_lab',
@@ -69,5 +69,30 @@ class Reference extends Model
     public function  get_user(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function get_reprensetative(): HasOne
+    {
+        return $this->hasOne(Representative::class, 'patient_id', 'patient_id');
+    }
+
+    public function get_examne_stutus_uno(): HasMany
+    {
+        return $this->hasMany(ExamPatient::class, 'ref_id', 'id')->where('status',1);
+    }
+
+    public function get_examne_stutus_dos(): HasMany
+    {
+        return $this->hasMany(ExamPatient::class, 'ref_id', 'id')->where('status',2);
+    }
+
+    public function get_estudio_stutus_uno(): HasMany
+    {
+        return $this->hasMany(StudyPatient::class, 'ref_id', 'id')->where('status',1);
+    }
+
+    public function get_estudio_stutus_dos(): HasMany
+    {
+        return $this->hasMany(StudyPatient::class, 'ref_id', 'id')->where('status',2);
     }
 }

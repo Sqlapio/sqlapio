@@ -18,7 +18,24 @@
 </style>
 @push('scripts')
     <script>
+        
+        let error = @json($error);
+
+        console.log(error);
         $().ready(function() {
+
+            if(error!=null){
+                Swal.fire({
+                    icon: 'warning',
+                    title:  error ,
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#42ABE2',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    window.location.href = '{{route('Login_home')}}';
+
+                });  
+            }
             let success = $("#success-input").val();
             if (success) {
                 Swal.fire({
@@ -126,7 +143,10 @@
                 {{ Form::close() }}
                 <div class="row justify-content-center">
                     <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
-                        <a class="links" href="{{ route('Register') }}">Registrar Usuario</a>
+                        <a class="links" href="https://system.sqlapio.com/public/payment-form/1">Registrate Gratis</a>
+                    </div>
+                    <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
+                        <a class="links" href="{{ config('sidebar_item.var') }}">Adquiere un Plan</a>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <a class="links" href="{{route('recovery_password')}}">Recuperar Contraseña</a>

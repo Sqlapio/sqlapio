@@ -18,7 +18,7 @@
             <p style="text-align: justify; margin-left: 20px;">
                 <h2 style="text-align: justify; margin-left: 20px;">Dr(a). {{ $mailData['dr_name'] }}</h2>
             </p>
-    
+
             <p style="text-align: justify; margin-left: 20px;">
                 Datos de paciente:
             </p>
@@ -27,11 +27,11 @@
                 <h3 style="text-align: justify; margin-left: 20px;">
                     Sr.(a): {{ $mailData['patient_name'] }}
                     <br>
-                    Codigo del paciente: {{ $mailData['patient_code'] }}
+                    Código del paciente: {{ $mailData['patient_code'] }}
                     <br>
-                    Telefono: {{ $mailData['patient_phone'] }}
+                    Teléfono: {{ $mailData['patient_phone'] }}
                     <br>
-                    Correo Electronico: {{ $mailData['patient_email'] }}   
+                    Correo Electrónico: {{ $mailData['patient_email'] }}
                 </h3>
             </p>
 
@@ -45,13 +45,13 @@
                 <img style="
                     display: block;
                     margin-left: 0px;
-                    width: 100px;
+                    width: 128px;
                     height: auto;"
                 src="{{ asset('img/notification_email/fir_jm.png') }}">
                 Ing. Jhonny Martinez<br>CEO
             </p>
             <p style="text-align: justify; font-style: italic; margin-left: 20px;">
-                Para mayor información puede comunicarse 24/7 con nuestro equipo a traves de sqlapiotechnology@sqlapio.com
+                Para mayor información puede comunicarse 24/7 con nuestro equipo a través de soporte@sqlapio.com
             </p>
         </div>
     <img style="
@@ -61,6 +61,6 @@
             width: 600px;
             height: auto;"
         src="{{ asset('img/notification_email/footer.png') }}">
-    
+
 </body>
 </html>

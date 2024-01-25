@@ -74,7 +74,10 @@ class User extends Authenticatable {
 		'ref_counter',
 		'cod_update_email',
 		'cod_update_pass',
-
+        'date_end_plan',
+        'expired_plan',
+		'center_id',
+		'master_corporate_id',
 	];
 
 	/**
@@ -143,4 +146,38 @@ class User extends Authenticatable {
         return $this->hasMany(Study::class, 'user_id', 'id');
     }
 
+	/**
+	 * Get all of the get_plans for the User
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function get_billed_plans(): HasMany
+	{
+		return $this->hasMany(BilledPlan::class, 'user_id', 'id');
+	}
+
+	public function get_center(): HasOne
+	{
+		return $this->hasOne(Center::class, 'id', 'center_id');
+	}
+
+	public function get_data_corporate_master(): HasOne
+	{
+		return $this->hasOne(User::class, 'id', 'master_corporate_id');
+	}
+
+	public function get_state(): HasOne
+	{
+		return $this->hasOne(State::class, 'id', 'state');
+	}
+
+    /**
+     * Get all of the medical_reports for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function medical_reports(): HasMany
+    {
+        return $this->hasMany(MedicalReport::class, 'user_id', 'id');
+    }
 }
