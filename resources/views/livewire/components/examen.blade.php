@@ -397,7 +397,7 @@
                 columns: [{
 
                         data: 'img',
-                        title: 'Imagen',
+                        title: 'Foto',
                         className: "text-center text-capitalize",
                     },
                     {
@@ -432,8 +432,6 @@
             let dataRef = [];
 
             data.map((e) => {
-
-                console.log(e);
 
                 let target = `{{ URL::asset('/imgs/${e.file}') }}`;
 
