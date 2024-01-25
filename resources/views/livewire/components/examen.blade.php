@@ -343,14 +343,15 @@
             row.data.map((elem) => {
                 // let elemData = JSON.stringify(elem);
                 let target = `{{ URL::asset('/imgs/${elem.file}') }}`;
-                elem.btn = `<div class="d-flex">
+                elem.btn = `<div class="d-flex" style="justify-content: center;">
                                 <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                    <a target="_blank" href="${target}" style="color: #47525e; text-decoration: none; display: flex;">
+                                    <a target="_blank" href="${target}" style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
                                     <button type="button"
                                         class="btn btn-iPrimary rounded-circle"
                                         data-bs-toggle="tooltip"
                                         data-bs-placement="bottom"
-                                        title="Ver archivo">
+                                        title="Ver archivo"
+                                        style="margin-rigth: 0">
                                         <i class="bi bi-file-earmark-text"></i>
                                     </button>
                                     </a>
@@ -391,6 +392,11 @@
                         data: 'img',
                         title: 'Foto',
                         className: "text-center text-capitalize w-image",
+                    },
+                    {
+                        data: 'date',
+                        title: 'Fecha',
+                        className: "text-center",
                     },
                     {
 
@@ -682,10 +688,20 @@
                                                             <td class="text-center"> {{ $item->cod_ref }}  </td>
                                                             <td class="text-center text-capitalize"> {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }} </td>
                                                             <td class="text-center"> {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }} </td>
+                                                            {{-- <td>
+                                                                <button onclick='showModal({{ $item }})'
+                                                                    data-bs-toggle='tooltip' data-bs-placement='right'
+                                                                    data-bs-custom-class='custom-tooltip' data-html='true'
+                                                                    title='Ver examenes' type='button'
+                                                                    class='btn btn-iPrimary rounded-circle'>
+                                                                    <i class='bi bi-info-circle-fill'></i>
+                                                                </button>
+                                                            </td> --}}
+                                                            
                                                             <td>
                                                                 <div class="d-flex" style="justify-content: center;">
                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a target="_blank" href="{{ URL::asset('/imgs/' . $item->file) }}" style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
+                                                                        <a style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
                                                                             <button onclick='showModal({{ $item }})'
                                                                                 data-bs-toggle='tooltip' data-bs-placement='right'
                                                                                 data-bs-custom-class='custom-tooltip' data-html='true'
