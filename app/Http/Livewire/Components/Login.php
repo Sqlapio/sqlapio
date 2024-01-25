@@ -151,9 +151,8 @@ class Login extends Component
 
 	public function render()
 	{
-
-		// dd();
+		$error =null;
 		$this->show = true;
-		return view('livewire.components.login', ['show' => $this->show]);
+		return view('livewire.components.login',compact('error'));
 	}
 }
