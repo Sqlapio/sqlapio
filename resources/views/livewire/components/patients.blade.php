@@ -207,6 +207,31 @@
                     zip_code: {
                         required: true,
                     },
+                    re_name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    re_last_name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    re_email: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                        email: true
+                    },
+                    re_ci: {
+                        required: true,
+                        minlength: 5,
+                        maxlength: 8,
+                        onlyNumber: true
+                    },
+                    re_phone: {
+                        required: true,
+                    },
                     phone: {
                         required: true,
                     },
@@ -258,132 +283,6 @@
                     zip_code: {
                         required: "Código postal es obligatorio",
                     },
-                    profession: {
-                        required: "Profesión es obligatoria",
-                    },
-                    phone: {
-                        required: "Teléfono es obligatorio",
-                    },
-                    center_id: {
-                        required: "Centro es obligatorio",
-                    }
-
-                }
-            });
-
-            $('#form-patients-minor').validate({
-                rules: {
-                    ignore: [],
-                    name: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50,
-                    },
-                    last_name: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50,
-                    },
-                    ci: {
-                        // required: true,
-                        minlength: 5,
-                        maxlength: 8,
-                        onlyNumber: true
-                    },
-                    genere: {
-                        required: true,
-                    },
-                    birthdate: {
-                        required: true,
-                    },
-                    // state: {
-                    //     required: true,
-                    // },
-                    // city: {
-                    //     required: true,
-                    // },
-                    address: {
-                        required: true,
-                    },
-                    zip_code: {
-                        required: true,
-                    },
-                    re_name: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50,
-                    },
-                    re_last_name: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50,
-                    },
-                    re_email: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50,
-                        email: true
-                    },
-                    re_ci: {
-                        required: true,
-                        minlength: 5,
-                        maxlength: 8,
-                        onlyNumber: true
-                    },
-                    re_phone: {
-                        required: true,
-                    },
-                    // phone: {
-                    //     required: true,
-                    // },
-                    // profession: {
-                    //     required: true,
-                    // },
-                    center_id: {
-                        required: true,
-                    }
-                },
-                messages: {
-                    name: {
-                        required: "Nombres es obligatorio",
-                        minlength: "Nombres debe ser mayor a 3 caracteres",
-                        maxlength: "Nombres debe ser menor a 50 caracteres",
-                    },
-                    last_name: {
-                        required: "Apellidos es obligatorio",
-                        minlength: "Apellidos debe ser mayor a 6 caracteres",
-                        maxlength: "Apellidos debe ser menor a 8 caracteres",
-                    },
-
-                    // email: {
-                    //     required: "Correo Electrónico es obligatorio",
-                    //     minlength: "Correo Electrónico debe ser mayor a 6 caracteres",
-                    //     maxlength: "Correo Electrónico debe ser menor a 8 caracteres",
-                    //     email: "Correo Electrónico incorrecto"
-                    // },
-                    ci: {
-                        // required: "Cédula de identidad es obligatoria",
-                        minlength: "Cédula de identidad  debe ser mayor a 5 caracteres",
-                        maxlength: "Cédula de identidad  debe ser menor a 8 caracteres",
-                    },
-                    genere: {
-                        required: "Género es obligatorio",
-                    },
-                    birthdate: {
-                        required: "Fecha de nacimiento es obligatorio",
-                    },
-                    // state: {
-                    //     required: "Estado es obligatoria",
-                    // },
-                    // city: {
-                    //     required: "Ciudad es obligatoria",
-                    // },
-                    address: {
-                        required: "Dirección es obligatoria",
-                    },
-                    zip_code: {
-                        required: "Código postal es obligatorio",
-                    },
                     re_name: {
                         required: "Nombre del representante es obligatorio",
                         minlength: "Nombre del representante debe ser mayor a 3 caracteres",
@@ -408,12 +307,12 @@
                     re_phone: {
                         required: "Teléfono del representante es obligatorio",
                     },
-                    // profession: {
-                    //     required: "Profesión es obligatoria",
-                    // },
-                    // phone: {
-                    //     required: "Teléfono es obligatorio",
-                    // },
+                    profession: {
+                        required: "Profesión es obligatoria",
+                    },
+                    phone: {
+                        required: "Teléfono es obligatorio",
+                    },
                     center_id: {
                         required: "Centro es obligatorio",
                     }
@@ -482,114 +381,40 @@
                     });
                 }
             });
-
-            //envio del formulario menor de edad
-            $("#form-patients-minor").submit(function(event) {
-                console.log(event)
-                event.preventDefault();
-                $("#form-patients-minor").validate();
-                if ($("#form-patients-minor").valid()) {
-                    $('#btn-save').attr('disabled', true);
-                    $('#send').hide();
-                    $('#spinner2').show();
-                    var data = $('#form-patients-minor').serialize();
-                    $.ajax({
-                        url: "{{ route('register-patients') }}",
-                        type: 'POST',
-                        data: data,
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(response) {
-                            $('#send').show();
-                            $('#spinner2').hide();
-                            // $("#form-patients").trigger("reset");
-                            $(".holder").hide();
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Paciente registrado exitosamente!',
-                                allowOutsideClick: false,
-                                confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
-                            }).then((result) => {
-                                url = url.replace(':id', response[0].id);
-                                $("#bnt-cons").show();
-                                $("#bnt-cons").find('a').remove();
-                                $("#bnt-cons").append(
-                                    `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`
-                                );
-
-                                switch_type_plane(user.type_plane, response[1]);
-                            });
-                        },
-                        error: function(error) {
-                            error.responseJSON.errors.map((elm) => {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: elm,
-                                    allowOutsideClick: false,
-                                    confirmButtonColor: '#42ABE2',
-                                    confirmButtonText: 'Aceptar'
-                                }).then((result) => {
-                                    $('#btn-save').attr('disabled', false);
-                                    $('#spinner2').hide();
-                                    $(".holder").hide();
-                                });
-                            });
-                        }
-                    });
-                }
-            });
         });
 
         function handlerAge(e) {
-            console.log(e)
-            if ($(`#${e.target.id}`).is(':checked')) {
-                console.log('menor de edad')
-                $('#form-minor').show();
-                $('#form-adult').hide();
-                $('#is_minor').val(true);
-                // $('#content-search-pat').show();
+            if (Number($("#age").val()) >= 18) {
+                $("#ci").rules('add', {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 8,
+                    onlyNumber: true
+                });
+                $('#data-rep').hide();
+                $('#is_minor').val(false);
+                $("#profesion-div").show();
+                $("#ci-div").show();
+                $("#email-div").show();
+                $("#div-phone").show();
 
             } else {
-                console.log('mayor de edad')
-                
-                // $('#content-search-pat').hide();
-                $('#form-minor').hide();
-                $('#form-adult').show();
-                $('#is_minor').val(false);
+                $("#profesion-div").hide();
+                $("#ci-div").hide();
+                $("#email-div").hide();
+                $("#div-phone").hide();
 
+                // validar si el nino tiene menos de 8 anos
+                if (Number($("#age").val()) > 8) {
+                    $("#ci-div").show();
+                    $("#ci").rules('remove');
+                }
+
+                $('#data-rep').show();
+                $('#is_minor').val(true);
             }
-            // if (Number($("#age").val()) >= 18) {
-            //     $("#ci").rules('add', {
-            //         required: true,
-            //         minlength: 5,
-            //         maxlength: 8,
-            //         onlyNumber: true
-            //     });
-            //     $('#data-rep').hide();
-            //     $('#is_minor').val(false);
-            //     $("#profesion-div").show();
-            //     $("#ci-div").show();
-            //     $("#email-div").show();
-            //     $("#div-phone").show();
-
-            // } else {
-            //     $("#profesion-div").hide();
-            //     $("#ci-div").hide();
-            //     $("#email-div").hide();
-            //     $("#div-phone").hide();
-
-            //     // validar si el nino tiene menos de 8 anos
-            //     if (Number($("#age").val()) > 8) {
-            //         $("#ci-div").show();
-            //         $("#ci").rules('remove');
-            //     }
-
-            //     $('#data-rep').show();
-            //     $('#is_minor').val(true);
-            // }
         }
+
         //seteiar data en el formalario para su edicion
         function editPatien(item, active = true) {
             if (active) {
@@ -701,7 +526,7 @@
                                         {
 
                                             data: 'get_reprensetative.re_ci',
-                                            title: 'Cédula representante',
+                                            title: 'Cédula paciente',
                                             className: "text-center",
                                         },
 
@@ -711,8 +536,8 @@
                                             className: "text-center",
                                         },
                                         {
-                                            data: 'age',
-                                            title: 'Edad',
+                                            data: 'genere',
+                                            title: 'Género',
                                             className: "text-center text-capitalize",
                                         },
                                         {
@@ -925,7 +750,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                         <div class="accordion-item">
-                            <span class="accordion-header title" id="headingOne">
+                             <span class="accordion-header title" id="headingOne">
                                 <button class="accordion-button bg-5"
                                     type="button" 
                                     data-bs-toggle="collapse"
@@ -938,75 +763,60 @@
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row mt-2 justify-content-center" id="paciente-warnig" style="display: none">
+                                    <div class="row mt-3 justify-content-center" id="paciente-warnig" style="display: none">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">                                            
                                             <div class="row justify-content-center">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">                                            
                                                     <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">¡Ha consumido el total de pacientes registrados! </h5>
                                                 </div>
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">                                            
-                                                    <img width="150" height="auto" src="{{ asset('/img/icon-warning.png') }}" alt="avatar">
+                                                    <img width="150" height="auto"
+                                                    src="{{ asset('/img/icon-warning.png') }}" alt="avatar">
                                                 </div>
                                             </div>      
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">                                            
-                                            <a style="margin-top: 10px;" href="{{ route('verify-plans') }}"  class="btn btnSecond">
-                                                Detalles del plan
-                                            </a>
+                                            <a style="margin-top: 10px;" href="{{ route('verify-plans') }}"
+                                            class="btn btnSecond">Detalles del plan</a>
                                         </div>
                                     </div>
-                                    <div class="row mt-2" id="paciente-registrado">
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                    <div class="row mt-3" id="paciente-registrado">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <div class="form-check form-switch">
-                                                <label style="margin-top: 6px; font-size: 15px" for="">Menor de edad</label>
-                                                <input onclick="handlerAge(event)" style="width: 5em"
-                                                    class="form-check-input" type="checkbox" role="switch"
-                                                    id="flexSwitchCheckChecked" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                            <div class="form-check form-switch">
-                                                <label style="margin-top: 6px; font-size: 15px" for="">Paciente registrado</label>
-                                                <input onclick="handlerPatExit(event)" style="width: 5em"
-                                                    class="form-check-input" type="checkbox" role="switch"
-                                                    id="flexSwitchCheckChecked" value="">
+                                                <label style="margin-top: 6px;" for="">Paciente registrado</label>
+                                                <input onclick="handlerPatExit(event)" style="width: 5em" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mt-2" id="content-search-pat" style="display: none">
-                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mb-3 mt-2" style="width: 318px;">
+                                    <div class="row mt-3" id="content-search-pat" style="display: none">
+                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mb-3 mt-3"
+                                            style="width: 318px;">
                                             <div class="form-check form-check-inline">
                                                 <input onchange="habdlerPatSearch(event)" class="form-check-input"
                                                     type="radio" name="inlineRadioOptions" id="inlineRadio1"
                                                     value="0">
-                                                <label style="margin-top: 9px; font-size: 14px" class="form-check-label" for="inlineRadio1">
-                                                    Mayor de edad
-                                                </label>
+                                                <label style="margin-top: 9px; font-size: 15px" class="form-check-label"
+                                                    for="inlineRadio1">Mayor de edad</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input onchange="habdlerPatSearch(event)" class="form-check-input"
                                                     type="radio" name="inlineRadioOptions" id="inlineRadio2"
                                                     value="1">
-                                                <label style="margin-top: 9px; font-size: 14px" class="form-check-label"  for="inlineRadio2">
-                                                    Menor de edad
-                                                </label>
+                                                <label style="margin-top: 9px; font-size: 15px" class="form-check-label"
+                                                    for="inlineRadio2">Menor de edad</label>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
-                                                <label for="search_patient" class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">
-                                                    Ingrese número de identificación
-                                                </label>
+                                                <label for="search_patient" class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">Ingrese número de identificación</label>
                                                 <input disabled maxlength="10" type="text"
-                                                    class="form-control mask-only-number" 
-                                                    id="search_patient"
+                                                    class="form-control mask-only-number" id="search_patient"
                                                     name="search_patient" placeholder="" value="">
                                             </div>
                                         </div>
-                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-2">
-                                            <button style="margin-top: 2px;" onclick="searchPat()" class="btn btnSecond">
-                                                Buscar
-                                            </button>
+                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-3">
+                                            <button style="margin-top: 2px;" onclick="searchPat()"
+                                                class="btn btnSecond">Buscar</button>
                                         </div>
                                     </div>
                                     <div class="row" id="show-info-pat" style="display: none">
@@ -1021,8 +831,8 @@
                                                         <th class="text-center" scope="col">Nombre</th>
                                                         <th class="text-center" scope="col">Cédula</th>
                                                         <th class="text-center" scope="col">Fecha de Nacimiento </th>
-                                                        <th class="text-center" scope="col">Edad</th>
-                                                        <th class="text-center" scope="col" data-orderable="false">Acciones</th>
+                                                        <th class="text-center" scope="col">Género</th>
+                                                        <th class="text-center"scope="col" data-orderable="false">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1033,7 +843,7 @@
                                     <div id="content-patient">
                                         <form id="form-patients" method="post" action="/">
                                             {{ csrf_field() }}
-                                            <div id="form-adult" class="row" style="align-items: flex-end;">
+                                            <div class="row" style="align-items: flex-end;">
                                                 <input type="hidden" name="is_minor" id="is_minor" value="false">
                                                 <input type="hidden" name="id" id="id" value="">
                                                 @if ($errors->any())
@@ -1043,7 +853,7 @@
                                                                 {{ $message }}</span><br />
                                                         @endforeach
                                                     </div>
-                                                @endif 
+                                                @endif
                                                 <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 ">
                                                     <x-upload-image />
                                                 </div>
@@ -1082,12 +892,9 @@
                                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                     Fecha de Nacimiento
                                                                 </label>
-                                                                <input class="form-control date-bd"
-                                                                    id="birthdate"
-                                                                    name="birthdate"
-                                                                    type="date"
-                                                                    value=""
-                                                                    onchange="calculateAge(event,'age')">
+                                                                <input class="form-control date-bd" id="birthdate"
+                                                                    name="birthdate" type="date" value=""
+                                                                    onchange="calculateAge(event,'age'), handlerAge(event)">
                                                             </div>
                                                         </diV>
                                                     </div>
@@ -1110,8 +917,7 @@
                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="ci-div">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
-                                                                    <label for="phone" class="form-label" type="number"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                    <label for="phone" class="form-label" type="number" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                         Cédula de indentidad
                                                                     </label>
                                                                     <input autocomplete="off"
@@ -1122,15 +928,24 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div id="div-phone" class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono</label>
+                                                                    <input autocomplete="off" placeholder=""
+                                                                        class="form-control phone @error('phone') is-invalid @enderror"
+                                                                        id="phone" name="phone" type="text"
+                                                                        value="">
+                                                                    <i class="bi bi-telephone-forward st-icon"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <input id="age" name="age" type="hidden" value="">
                                                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                Dirección
-                                                            </label>
+                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
                                                             <textarea id="address" name="address" class="form-control" rows="1"></textarea>
                                                             <i class="bi bi-geo st-icon"></i>
                                                         </div>
@@ -1139,9 +954,7 @@
                                                 <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" id="email-div">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                Correo Electrónico
-                                                            </label>
+                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo  Electrónico</label>
                                                             @php
                                                                 $email = Auth::user()->email;
                                                             @endphp
@@ -1154,175 +967,16 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div id="div-phone" class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                Teléfono
-                                                            </label>
-                                                            <input autocomplete="off" placeholder=""
-                                                                class="form-control phone @error('phone') is-invalid @enderror"
-                                                                id="phone" name="phone" type="text"
-                                                                value="">
-                                                            <i class="bi bi-telephone-forward st-icon"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <x-professions />
-                                                {{-- <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" /> --}}
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                Código postal
-                                                            </label>
-                                                            <input autocomplete="off"
-                                                                class="form-control mask-only-text @error('zip_code') is-invalid @enderror"
-                                                                id="zip_code" name="zip_code" type="text"
-                                                                value="">
-                                                            <i class="bi bi-geo st-icon"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                @if (Auth::user()->type_plane !== '7')                                                    
-                                                <x-centers_user class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
-                                                @endif
-                                                {{-- end --}}
-                                                <div class="row mt-2 justify-content-md-end">
-                                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                        style="display: flex; justify-content: flex-end; align-items: flex-end; flex-wrap: wrap;">
-                                                        <div id="bnt-dairy" style="display: none;margin-left: 10px; ; margin-bottom: 10px"> </div>
-                                                        <div id="bnt-cons" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
-                                                        <div id="bnt-hist" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
-                                                        <input class="btn btnSave send" id="btn-save" value="Guardar" type="submit" style="margin-left: 10px; margin-bottom: 10px" />
-                                                        <button style="margin-left: 10px; padding: 8px; margin-bottom: 10px"
-                                                            type="button" 
-                                                            onclick="refreshForm();" 
-                                                            class="btn btnSecond"
-                                                            data-bs-toggle="tooltip" 
-                                                            data-bs-placement="bottom"
-                                                            data-html="true" 
-                                                            title="Limpiar Formulario">
-                                                            <i class="bi bi-eraser"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;"> </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <form id="form-patients-minor" method="post" action="/">
-                                            {{ csrf_field() }}
-
-                                            <div  id="form-minor" class="row" style="align-items: flex-end; display: none">
-                                                <input type="hidden" name="is_minor" id="is_minor" value="false">
-                                                <input type="hidden" name="id" id="id" value="">
-                                                @if ($errors->any())
-                                                    <div class="alert alert-danger">
-                                                        @foreach ($errors->all() as $message)
-                                                            <span class="text-danger error-span">
-                                                                {{ $message }}</span><br />
-                                                        @endforeach
-                                                    </div>
-                                                @endif 
-                                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 ">
-                                                    <x-upload-image />
-                                                </div>
-                                                <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
-                                                    <div class="row">
-                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                                            <div class="form-group">
-                                                                <div class="Icon-inside">
-                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                        Nombres
-                                                                    </label>
-                                                                    <input autocomplete="off"
-                                                                        class="form-control mask-text @error('name') is-invalid @enderror"
-                                                                        id="name" name="name" type="text"
-                                                                        value="">
-                                                                    <i class="bi bi-person-circle st-icon"></i>
-                                                                </div>
-                                                            </diV>
-                                                        </div>
-                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                                            <div class="form-group">
-                                                                <div class="Icon-inside">
-                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                        Apellidos
-                                                                    </label>
-                                                                    <input autocomplete="off"
-                                                                        class="form-control mask-text @error('last_name') is-invalid @enderror"
-                                                                        id="last_name" name="last_name"  type="text"
-                                                                        value="">
-                                                                    <i class="bi bi-person-circle st-icon"></i>
-                                                                </div>
-                                                            </diV>
-                                                        </div>
-                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                                            <div class="form-group">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                    Fecha de Nacimiento
-                                                                </label>
-                                                                <input class="form-control date-bd"
-                                                                    id="birthdate"
-                                                                    name="birthdate"
-                                                                    type="date"
-                                                                    value=""
-                                                                    onchange="calculateAge(event,'age')">
-                                                            </div>
-                                                        </diV>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                                            <div class="form-group">
-                                                                <div class="Icon-inside">
-                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                        Género
-                                                                    </label>
-                                                                    <select name="genere" id="genere" placeholder="Seleccione"class="form-control @error('genere') is-invalid @enderror" class="form-control combo-textbox-input">
-                                                                        <option value="">Seleccione</option>
-                                                                        <option value="femenino"> Femenino</option>
-                                                                        <option value="masculino">Masculino</option>
-                                                                    </select>
-                                                                    <i class="bi bi-gender-ambiguous st-icon"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="ci-div">
-                                                            <div class="form-group">
-                                                                <div class="Icon-inside">
-                                                                    <label for="phone" class="form-label" type="number"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                        Cédula de indentidad
-                                                                    </label>
-                                                                    <input autocomplete="off"
-                                                                        class="form-control @error('ci') is-invalid @enderror"
-                                                                        id="ci" name="ci" type="text"
-                                                                        value="">
-                                                                    <i class="bi bi-person-vcard st-icon"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
+                                                
                                                 <input id="age" name="age" type="hidden" value="">
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                Dirección
-                                                            </label>
-                                                            <textarea id="address" name="address" class="form-control" rows="1"></textarea>
-                                                            <i class="bi bi-geo st-icon"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <x-professions />
+                                                
+                                                {{-- <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" /> --}}
+                                                
                                                 <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                Código postal
-                                                            </label>
+                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Código postal</label>
                                                             <input autocomplete="off"
                                                                 class="form-control mask-only-text @error('zip_code') is-invalid @enderror"
                                                                 id="zip_code" name="zip_code" type="text"
@@ -1334,23 +988,19 @@
                                                 @if (Auth::user()->type_plane !== '7')                                                    
                                                 <x-centers_user  class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
                                                 @endif
-                                                
+                                                {{-- <x-upload-image /> --}}
                                                 {{-- data del representante --}}
-                                                <div class="row mt-2" id="data-rep">
+                                                <div class="row mt-3" id="data-rep" style="display: none">
                                                     <hr>
                                                     <h5>Datos del representante</h5>
                                                     <hr>
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                    Nombre del representante
-                                                                </label>
+                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombre del representante</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-text @error('re_name') is-invalid @enderror"
-                                                                    id="re_name" 
-                                                                    name="re_name"
-                                                                    type="text"
+                                                                    id="re_name" name="re_name" type="text"
                                                                     value="">
                                                                 <i class="bi bi-person-circle st-icon"></i>
                                                             </div>
@@ -1362,9 +1012,7 @@
                                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos del representante</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-text @error('re_last_name') is-invalid @enderror"
-                                                                    id="re_last_name"
-                                                                    name="re_last_name" 
-                                                                    type="text"
+                                                                    id="re_last_name" name="re_last_name" type="text"
                                                                     value="">
                                                                 <i class="bi bi-person-circle st-icon"></i>
                                                             </div>
@@ -1373,13 +1021,8 @@
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                    Cédula del representante
-                                                                </label>
-                                                                <input autocomplete="off"
-                                                                    class="form-control @error('re_ci') is-invalid @enderror"
-                                                                    id="re_ci" name="re_ci" type="text"
-                                                                    value="">
+                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Cédula del representante</label>
+                                                                <input autocomplete="off" class="form-control @error('re_ci') is-invalid @enderror" id="re_ci" name="re_ci" type="text" value="">
                                                                 <i class="bi bi-person-vcard st-icon"></i>
                                                             </div>
                                                         </diV>
@@ -1387,9 +1030,7 @@
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                    Teléfono del representante
-                                                                </label>
+                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono del representante</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control phone @error('re_phone') is-invalid @enderror"
                                                                     id="re_phone" name="re_phone" type="text"
@@ -1398,17 +1039,14 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                    Correo del representante
-                                                                </label>
+                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo del representante</label>
                                                                 <input autocomplete="off"
                                                                     onchange='handlerEmail(event,@json($email))'
                                                                     class="form-control @error('re_email') is-invalid @enderror"
-                                                                    id="re_email" name="re_email"
-                                                                    type="text"
+                                                                    id="re_email" name="re_email" type="text"
                                                                     value="">
                                                                 <i class="bi bi-envelope-at st-icon"></i>
                                                             </div>
@@ -1416,26 +1054,22 @@
                                                     </div>
                                                 </div>
                                                 {{-- end --}}
-                                                <div class="row mt-2 justify-content-md-end">
-                                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                        style="display: flex; justify-content: flex-end; align-items: flex-end; flex-wrap: wrap;">
-                                                        <div id="bnt-dairy" style="display: none;margin-left: 10px; ; margin-bottom: 10px"> </div>
-                                                        <div id="bnt-cons" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
-                                                        <div id="bnt-hist" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
-                                                        <input class="btn btnSave send" id="btn-save" value="Guardar" type="submit" style="margin-left: 10px; margin-bottom: 10px" />
-                                                        <button style="margin-left: 10px; padding: 8px; margin-bottom: 10px"
-                                                            type="button" 
-                                                            onclick="refreshForm();" 
-                                                            class="btn btnSecond"
-                                                            data-bs-toggle="tooltip" 
-                                                            data-bs-placement="bottom"
-                                                            data-html="true" 
-                                                            title="Limpiar Formulario">
-                                                            <i class="bi bi-eraser"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;"> </div>
+                                            </div>
+                                            <div class="row mt-3 justify-content-md-end">
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                    style="display: flex; justify-content: flex-end; align-items: flex-end; flex-wrap: wrap;">
+                                                    <div id="bnt-dairy" style="display: none;margin-left: 10px; ; margin-bottom: 10px"> </div>
+                                                    <div id="bnt-cons" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
+                                                    <div id="bnt-hist" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
+                                                    <input class="btn btnSave send" id="btn-save" value="Guardar" type="submit" style="margin-left: 10px; margin-bottom: 10px" />
+                                                    <button style="margin-left: 10px; padding: 8px; margin-bottom: 10px"
+                                                        type="button" onclick="refreshForm();" class="btn btnSecond"
+                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                        data-html="true" title="Limpiar Formulario">
+                                                        <i class="bi bi-eraser"></i>
+                                                    </button>
                                                 </div>
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">  </div>
                                             </div>
                                         </form>
                                     </div>
@@ -1455,8 +1089,7 @@
                                     <i class="bi bi-card-list"></i> Registro de consultas
                                 </button>
                             </span>
-                            <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo"
-                                data-bs-parent="#accordion">
+                            <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row" id="table-patients">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive" >
@@ -1647,7 +1280,7 @@
                                             <input onchange="handlerPrice(event);" style="width: 5em"
                                                 class="form-check-input" type="checkbox" role="switch" id="showPrice"
                                                 value="">
-                                            <label style="margin-left: -146px;margin-top: 8px; font-size: 13px"
+                                            <label style="margin-left: -146px;margin-top: 8px; font-size: 15px"
                                                 for="showPrice">Precio
                                                 de
                                                 la cita</label>
