@@ -741,7 +741,7 @@
                                                         <td class="text-center">
                                                             <div class="d-flex" style="justify-content: center;">
                                                                 <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                    <a target="_blank" href="{{ URL::asset('/imgs/' . $item->file) }}" style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
+                                                                    <a style="text-decoration: none; display: flex; justify-content: center;">
                                                                         <button onclick='showModal({{ $item }})'
                                                                             data-bs-toggle='tooltip' data-bs-placement='right'
                                                                             data-bs-custom-class='custom-tooltip' data-html='true'

@@ -6,6 +6,10 @@
         margin-top: 1rem !important;
     }
 
+    .w-10 {
+        width: 10%
+    }
+
     @media screen and (max-width: 576px) {
         .mt-gf {
             margin-top: 0 !important;
@@ -150,10 +154,10 @@
                         $('#div-btn').show();
                     }
                     let row = `
-                    <tr>
-                        <td class="text-center">${elemt.cod_exam}</td>
-                        <td class="text-center">${elemt.description}</td>     
-                        <td class="text-center">${label}</td>                
+                        <tr>
+                            <td class="text-center">${elemt.cod_exam}</td>
+                            <td class="text-center">${elemt.description}</td>     
+                            <td class="text-center">${label}</td>                
                         </tr>`;
                         $('#table-info').find('tbody').append(row);
                         
@@ -178,9 +182,9 @@
                     }
                     let row = `
                         <tr>
-                        <td class="text-center">${elemt.cod_study}</td>
-                        <td class="text-center">${elemt.description}</td>     
-                        <td class="text-center">${label}</label></td>                
+                            <td class="text-center">${elemt.cod_study}</td>
+                            <td class="text-center">${elemt.description}</td>     
+                            <td class="text-center">${label}</label></td>                
                         </tr>`;
                     $('#table-info').find('tbody').append(row);
                     
@@ -191,12 +195,12 @@
             $('#ref-pat').text(`${item.get_patient.name} ${item.get_patient.last_name}`);
             } else {
                 Swal.fire({
-                            icon: 'warning',
-                            title: 'Paciente sin exámenes/estudios solicitados por el médico!',
-                            allowOutsideClick: false,
-                            confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
-                        });
+                    icon: 'warning',
+                    title: 'Paciente sin exámenes/estudios solicitados por el médico!',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#42ABE2',
+                    confirmButtonText: 'Aceptar'
+                });
             }
             
         }
@@ -242,28 +246,29 @@
                 let get_studie = JSON.stringify(elem.get_studie);
                 let elemetData = JSON.stringify(elem);
                 elem.btn =
-                    `<button  onclick='showModal(${ elemetData },0,${ get_exam })'                         
-                                    data-bs-toggle='tooltip' data-bs-placement='right'
-                                    data-bs-custom-class='custom-tooltip' data-html='true'
-                                    title='Ver examenes' type='button' class='btn btn-iPrimary rounded-circle'>
-                                    <i class='bi bi-info-circle-fill'></i>
-                                    </button>`;
+                    `<button onclick='showModal(${ elemetData },0,${ get_exam })'                         
+                        data-bs-toggle='tooltip' data-bs-placement='right'
+                        data-bs-custom-class='custom-tooltip' data-html='true'
+                        title='Ver examenes' type='button' class='btn btn-iPrimary rounded-circle'>
+                        <i class='bi bi-info-circle-fill'></i>
+                    </button>`;
                 elem.btn1 =
                     `<button onclick='showModal(${ elemetData },1,${ get_studie } )' 
-                                data-bs-toggle='tooltip' data-bs-placement='right'
-                                data-bs-custom-class='custom-tooltip' data-html='true'
-                                title='Ver estudios' type='button' class='btn btn-iPrimary rounded-circle'>
-                                <i class='bi bi-info-circle-fill'></i>
-                        </button>`;
+                        data-bs-toggle='tooltip' data-bs-placement='right'
+                        data-bs-custom-class='custom-tooltip' data-html='true'
+                        title='Ver estudios' type='button' class='btn btn-iPrimary rounded-circle'>
+                        <i class='bi bi-info-circle-fill'></i>
+                    </button>`;
 
                 elem.btn2 =
-                    ` <a target='_blank' href='${route}'>
-                            <button type='button' data-bs-toggle='tooltip'
+                    `<a target='_blank' href='${route}'>
+                        <button type='button' data-bs-toggle='tooltip'
                             data-bs-placement='right'
                             data-bs-custom-class='custom-tooltip' data-html='true'
-                            title='Ver pdf' class='btn refresf btn-iSecond rounded-circle'><i
-                            class='bi bi-filetype-pdf'></i></button>
-                            </a>`;
+                            title='Ver pdf' class='btn refresf btn-iSecond rounded-circle'>
+                            <i class='bi bi-filetype-pdf'></i>
+                        </button>
+                    </a>`;
 
                 data.push(elem);
 
@@ -281,7 +286,7 @@
                 columns: [{
                         data: 'date',
                         title: 'Fecha',
-                        className: "text-center",
+                        className: "text-center w-10",
                     },
                     {
                         data: 'cod_ref',
@@ -301,7 +306,7 @@
                     {
                         data: 'get_patient.ci',
                         title: 'Cédula',
-                        className: "text-center",
+                        className: "text-center w-10",
                     },
                     {
                         data: 'get_patient.genere',
@@ -415,7 +420,7 @@
                         columns: [{
                                 data: 'date_ref',
                                 title: 'Fecha referencia',
-                                className: "text-center",
+                                className: "text-center w-10",
                             },
                             {
                                 data: 'cod_ref',
@@ -445,7 +450,7 @@
                             {
                                 data: 'patient_info.ci',
                                 title: 'Cédula',
-                                className: "text-center",
+                                className: "text-center w-10",
                             },
                             {
                                 data: 'patient_info.genere',
@@ -467,7 +472,7 @@
                         columns: [{
                                 data: 'date_ref',
                                 title: 'Fecha referencia',
-                                className: "text-center",
+                                className: "text-center w-10",
                             },
                             {
                                 data: 'cod_ref',
@@ -497,7 +502,7 @@
                             {
                                 data: 'patient_info.ci',
                                 title: 'Cédula',
-                                className: "text-center",
+                                className: "text-center w-10",
                             },
                             {
                                 data: 'patient_info.genere',
@@ -546,15 +551,15 @@
                                                     <thead>
                                                         <tr>
                                                             {{-- <th class="text-center" scope="col">Fecha</th> --}}
-                                                            <th class="text-center" scope="col">Hora</th>
+                                                            <th class="text-center w-10" scope="col">Hora</th>
                                                             <th class="text-center" scope="col">Nombre</th>
-                                                            <th class="text-center" scope="col">Cédula</th>
+                                                            <th class="text-center w-10" scope="col">Cédula</th>
                                                             {{-- <th class="text-center" scope="col">Género</th> --}}
                                                             {{-- <th class="text-center" scope="col">Teléfono</th> --}}
                                                             {{-- <th class="text-center" scope="col">Email</th> --}}
                                                             <th class="text-center" scope="col">Centro de salud</th>
-                                                            <th class="text-center" scope="col">Estatus</th>
-                                                            <th class="text-center" scope="col" data-orderable="false">Acciones</th>
+                                                            <th class="text-center w-10" scope="col">Estatus</th>
+                                                            <th class="text-center w-10" scope="col" data-orderable="false">Acciones</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -743,11 +748,11 @@
                                                     style="width:100%">
                                                     <thead>
                                                         <tr>
-                                                            <th class="text-center" scope="col">Fecha</th>
+                                                            <th class="text-center w-10" scope="col">Fecha</th>
                                                             <th class="text-center" scope="col">Referencia</th>
                                                             <th class="text-center" scope="col">Referencia consulta médica </th>
                                                             <th class="text-center" scope="col">Nombres</th>
-                                                            <th class="text-center" scope="col">Cédula</th>
+                                                            <th class="text-center w-10" scope="col">Cédula</th>
                                                             <th class="text-center" scope="col">Género</th>
                                                             <th class="text-center" scope="col">Teléfono</th>
                                                             <th class="text-center" scope="col">Examenes</th>
@@ -785,13 +790,13 @@
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">Fecha referencia</th>
+                                                        <th class="text-center w-10" scope="col">Fecha referencia</th>
                                                         <th class="text-center" scope="col">Referencia</th>
                                                         <th class="text-center" scope="col">Código Examen</th>
                                                         <th class="text-center" scope="col">Descripción</th>
                                                         <th class="text-center" scope="col">Fecha resultado</th>
                                                         <th class="text-center" scope="col">Nombre</th>
-                                                        <th class="text-center" scope="col">Cédula</th>
+                                                        <th class="text-center w-10" scope="col">Cédula</th>
                                                         <th class="text-center" scope="col">Género</th>
                                                     </tr>
                                                 </thead>
@@ -836,13 +841,13 @@
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">Fecha referencia</th>
+                                                        <th class="text-center w-10" scope="col">Fecha referencia</th>
                                                         <th class="text-center" scope="col">Referencia</th>
                                                         <th class="text-center" scope="col">Código Estudios</th>
                                                         <th class="text-center" scope="col">Descripción</th>
                                                         <th class="text-center" scope="col">Fecha resultado</th>
                                                         <th class="text-center" scope="col">Nombre</th>
-                                                        <th class="text-center" scope="col">Cédula</th>
+                                                        <th class="text-center w-10" scope="col">Cédula</th>
                                                         <th class="text-center" scope="col">Género</th>
                                                     </tr>
                                                 </thead>

@@ -90,7 +90,7 @@ class Patients extends Component
                     're_name.max'     => 'Cantidad invalida de caracteres. Debe ser menor de 50 caracteres',
                     'last_name'       => 'Campo requerido',
                     're_last_name'    => 'Campo requerido',
-                    're_ci'           => 'Campo requerido',
+                    // 're_ci'           => 'Campo requerido',
                     're_ci.min'       => 'Su cedula debe ser mayor a 5 caracteres',
                     're_ci.max'       => 'Su cedula invalida.',
                     're_email'        => 'Campo requerido',
@@ -100,8 +100,8 @@ class Patients extends Component
                     'age'             => 'Campo requerido',
                     'age.min'         => 'Su edad debe ser un numero valido',
                     'age.max'         => 'Su edad es incorrecta',
-                    'estate'          => 'Campo requerido',
-                    'city'            => 'Campo requerido',
+                    // 'estate'          => 'Campo requerido',
+                    // 'city'            => 'Campo requerido',
                     'address'         => 'Campo requerido',
                     'zip_code'        => 'Campo requerido',
                     'img.image'     => 'El archvio debe ser en formato png, jpg, jpeg',
@@ -110,7 +110,6 @@ class Patients extends Component
                 ];
 
                 $validator = Validator::make($request->all(), $rules, $msj);
-
                 if ($validator->fails()) {
                     return response()->json([
                         'success' => 'false',
@@ -138,8 +137,8 @@ class Patients extends Component
                     'birthdate'     => $request->birthdate,
                     'is_minor'      => 'true',
                     'age'           => $request->age,
-                    'state'         => $request->state,
-                    'city'          => $request->city,
+                    // 'state'         => $request->state,
+                    // 'city'          => $request->city,
                     'address'       => $request->address,
                     'zip_code'      => $request->zip_code,
                     'user_id'       => $user_id,
@@ -272,7 +271,7 @@ class Patients extends Component
                         'last_name'     => 'required|min:3|max:50',
                         'ci'            => "required|min:5|max:8|unique:patients,ci,$request->id",
                         'email'         => "required|email|unique:patients,email,$request->id",
-                        'phone'         => 'required',
+                        // 'phone'         => 'required',
                         'profession'    => 'required',
                         'genere'        => 'required',
                         'birthdate'     => 'required',
@@ -311,6 +310,7 @@ class Patients extends Component
                 ];
 
                 $validator = Validator::make($request->all(), $rules, $msj);
+                
 
                 if ($validator->fails()) {
                     return response()->json([
