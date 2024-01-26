@@ -492,6 +492,9 @@
     </script>
 @endpush
 @section('content')
+    <div id="spinner" style="display: none" class="spinner-md">
+        <x-load-spinner show="true" />
+    </div>
     <div class="container-fluid" style="padding: 0 3% 3%">
         <div class="accordion" id="accordion">
 
@@ -511,14 +514,16 @@
 
                     <div class="accordion-item">
                         <span class="accordion-header title" id="headingOne">
-                            <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                            <button class="accordion-button bg-8" type="button" 
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" 
+                                aria-expanded="true" 
+                                aria-controls="collapseOne"
                                 style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                 <i class="bi bi-person"></i> Datos personales
                             </button>
                         </span>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                            data-bs-parent="#accordion">
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
                             <div class="accordion-body">
                                 <form id="form-profile" method="post" action="/">
                                     {{ csrf_field() }}
@@ -526,196 +531,180 @@
                                     <div class="row Form-edit-user">
                                         @if (Auth::user()->role == 'medico')
                                             {{-- rol medico --}}
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
-                                                        <input autocomplete="off" placeholder=""
-                                                            class="form-control mask-text @error('name') is-invalid @enderror"
-                                                            id="name" name="name" type="text"
-                                                            value="{!! !empty($user) ? $user->name : '' !!}">
-                                                        <i class="bi bi-person-circle" style="top: 30px"></i>
+                                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 ">
+                                                <x-upload-image />
+                                            </div>
+                                            <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="name" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
+                                                                <input autocomplete="off" placeholder=""
+                                                                    class="form-control mask-text @error('name') is-invalid @enderror"
+                                                                    id="name" name="name" type="text"
+                                                                    value="{!! !empty($user) ? $user->name : '' !!}">
+                                                                <i class="bi bi-person-circle" style="top: 30px"></i>
+                                                            </div>
+                                                        </diV>
                                                     </div>
-                                                </diV>
-                                            </div>
-
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="last_name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
-                                                        <input autocomplete="off" placeholder=""
-                                                            class="form-control mask-text @error('last_name') is-invalid @enderror"
-                                                            id="last_name" name="last_name" type="text"
-                                                            value="{!! !empty($user) ? $user->last_name : '' !!}">
-                                                        <i class="bi bi-person-circle" style="top: 30px"></i>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="last_name" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
+                                                                <input autocomplete="off" placeholder=""
+                                                                    class="form-control mask-text @error('last_name') is-invalid @enderror"
+                                                                    id="last_name" name="last_name" type="text"
+                                                                    value="{!! !empty($user) ? $user->last_name : '' !!}">
+                                                                <i class="bi bi-person-circle" style="top: 30px"></i>
+                                                            </div>
+                                                        </diV>
                                                     </div>
-                                                </diV>
-                                            </div>
-
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="ci" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Cédula
-                                                            de identidad</label>
-                                                        <input autocomplete="off" placeholder="" type="number"
-                                                            class="form-control @error('ci') is-invalid @enderror"
-                                                            id="ci" name="ci" type="text"
-                                                            value="{!! !empty($user) ? $user->ci : '' !!}">
-                                                        <i class="bi bi-person-vcard" style="top: 30px"></i>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="ci" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Cédula
+                                                                    de identidad</label>
+                                                                <input autocomplete="off" placeholder="" type="number"
+                                                                    class="form-control @error('ci') is-invalid @enderror"
+                                                                    id="ci" name="ci" type="text"
+                                                                    value="{!! !empty($user) ? $user->ci : '' !!}">
+                                                                <i class="bi bi-person-vcard" style="top: 30px"></i>
+                                                            </div>
+                                                        </diV>
                                                     </div>
-                                                </diV>
-                                            </div>
-
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                                <div class="form-group">
-                                                    <label for="birthdate" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha
-                                                        de Nacimiento</label>
-                                                    <input autocomplete="off" placeholder=""
-                                                        class="form-control date-bd @error('birthdate') is-invalid @enderror"
-                                                        id="birthdate" name="birthdate" type="date" value=""
-                                                        onchange="calculateAge(event,'age')">
-                                                </div>
-                                            </div>
-                                            <input id="age" name="age" type="hidden" value="">
-
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="genere" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Género</label>
-                                                        <select name="genere" id="genere"
-                                                            placeholder="Seleccione"class="form-control @error('genere') is-invalid @enderror"
-                                                            class="form-control combo-textbox-input">
-                                                            <option value="">Seleccione</option>
-                                                            <option value="femenino"> Femenino</option>
-                                                            <option value="masculino">Masculino</option>
-                                                        </select>
-                                                        <i class="bi bi-gender-ambiguous st-icon"></i>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                        <div class="form-group">
+                                                            <label for="birthdate" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha
+                                                                de Nacimiento</label>
+                                                            <input autocomplete="off" placeholder=""
+                                                                class="form-control date-bd @error('birthdate') is-invalid @enderror"
+                                                                id="birthdate" name="birthdate" type="date" value=""
+                                                                onchange="calculateAge(event,'age')">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="username" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
-                                                            electrónico</label>
-                                                        <input autocomplete="off" placeholder=""
-                                                            class="form-control @error('username') is-invalid @enderror"
-                                                            id="username" name="username" type="text" readonly
-                                                            value="{!! !empty($user) ? $user->email : '' !!}">
-                                                        <i class="bi bi-envelope-at" style="top: 30px"></i>
-                                                    </div>
-                                                </diV>
-                                            </div>
-
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono</label>
-                                                        <input autocomplete="off" placeholder=""
-                                                            class="form-control phone @error('phone') is-invalid @enderror"
-                                                            id="phone" name="phone" type="text"
-                                                            value="{!! !empty($user) ? $user->phone : '' !!}">
-                                                        <i class="bi bi-telephone-forward" style="top: 30px"></i>
-                                                    </div>
-                                                </diV>
-                                            </div>
-
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="specialty" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Especialidad</label>
-                                                        <select name="specialty" id="specialty"
-                                                            placeholder="Seleccione"class="form-control @error('specialty') is-invalid @enderror"
-                                                            class="form-control combo-textbox-input">
-                                                            <option value="">Seleccione</option>
-                                                            @foreach ($speciality as $item)
-                                                                <option value="{{ $item->description }}">
-                                                                    {{ $item->description }}</option>
-                                                            @endforeach
-
-                                                        </select>
-                                                        <i class="bi bi-layers st-icon"></i>
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="genere" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Género</label>
+                                                                <select name="genere" id="genere"
+                                                                    placeholder="Seleccione"class="form-control @error('genere') is-invalid @enderror"
+                                                                    class="form-control combo-textbox-input">
+                                                                    <option value="">Seleccione</option>
+                                                                    <option value="femenino"> Femenino</option>
+                                                                    <option value="masculino">Masculino</option>
+                                                                </select>
+                                                                <i class="bi bi-gender-ambiguous st-icon"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div> 
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="username" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
+                                                                    electrónico</label>
+                                                                <input autocomplete="off" placeholder=""
+                                                                    class="form-control @error('username') is-invalid @enderror"
+                                                                    id="username" name="username" type="text" readonly
+                                                                    value="{!! !empty($user) ? $user->email : '' !!}">
+                                                                <i class="bi bi-envelope-at" style="top: 30px"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div> 
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="phone" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono</label>
+                                                                <input autocomplete="off" placeholder=""
+                                                                    class="form-control phone @error('phone') is-invalid @enderror"
+                                                                    id="phone" name="phone" type="text"
+                                                                    value="{!! !empty($user) ? $user->phone : '' !!}">
+                                                                <i class="bi bi-telephone-forward" style="top: 30px"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div> 
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="specialty" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Especialidad</label>
+                                                                <select name="specialty" id="specialty"
+                                                                    placeholder="Seleccione"class="form-control @error('specialty') is-invalid @enderror"
+                                                                    class="form-control combo-textbox-input">
+                                                                    <option value="">Seleccione</option>
+                                                                    @foreach ($speciality as $item)
+                                                                        <option value="{{ $item->description }}">
+                                                                            {{ $item->description }}</option>
+                                                                    @endforeach
+        
+                                                                </select>
+                                                                <i class="bi bi-layers st-icon"></i>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            {{-- <input id="age" name="age" type="hidden" value=""> --}}
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
-                                                        <textarea id="address" rows="3" name="address" class="form-control @error('address') is-invalid @enderror"
-                                                            value="{!! !empty($user) ? $user->address : '' !!}"></textarea>
+                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
+                                                        <textarea id="address" rows="1" name="address" class="form-control @error('address') is-invalid @enderror" value="{!! !empty($user) ? $user->address : '' !!}"></textarea>
                                                         <i class="bi bi-geo st-icon"></i>
                                                     </div>
                                                 </diV>
                                             </div>
-
                                             @if (Auth::user()->type_plane == '7')
-
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Piso
-                                                            del consultorio</label>
-                                                        <input autocomplete="off" class="form-control mask-alfa-numeric @error('number_floor') is-invalid @enderror"
-                                                            id="number_floor" maxlength="10" name="number_floor" type="text"
-                                                            value="{!! !empty($user != null) ? $user->number_floor : '' !!}">
-                                                        <i class="bi bi-geo" style="top: 30px"></i>
-                                                    </div>
-                                                </diV>
-                                            </div>
-
-
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
-                                                            del consultorio</label>
-                                                        <input autocomplete="off"  maxlength="10" class="form-control mask-alfa-numeric @error('number_consulting_room') is-invalid @enderror"
-                                                            id="number_consulting_room" name="number_consulting_room"
-                                                            type="text"
-                                                            value="{!! !empty($user != null) ? $user->number_consulting_room : '' !!}">
-                                                        <i class="bi bi-geo" style="top: 30px"></i>
-                                                    </div>
-                                                </diV>
-                                            </div>
-
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
-                                                            teléfonico del consultorio</label>
-                                                        <input autocomplete="off" class="form-control phone @error('number_consulting_phone') is-invalid @enderror"
-                                                            id="number_consulting_phone" name="number_consulting_phone"
-                                                            type="text" 
-                                                            value="{!! !empty($user != null) ? $user->number_consulting_phone : '' !!}">
-                                                        <i class="bi bi-geo" style="top: 30px"></i>
-                                                    </div>
-                                                </diV>
-                                            </div>
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Piso del consultorio</label>
+                                                            <input autocomplete="off" class="form-control mask-alfa-numeric @error('number_floor') is-invalid @enderror"
+                                                                id="number_floor" maxlength="10" name="number_floor" type="text"
+                                                                value="{!! !empty($user != null) ? $user->number_floor : '' !!}">
+                                                            <i class="bi bi-geo" style="top: 30px"></i>
+                                                        </div>
+                                                    </diV>
+                                                </div>
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número del consultorio</label>
+                                                            <input autocomplete="off"  maxlength="10" class="form-control mask-alfa-numeric @error('number_consulting_room') is-invalid @enderror"
+                                                                id="number_consulting_room" name="number_consulting_room"
+                                                                type="text"
+                                                                value="{!! !empty($user != null) ? $user->number_consulting_room : '' !!}">
+                                                            <i class="bi bi-geo" style="top: 30px"></i>
+                                                        </div>
+                                                    </diV>
+                                                </div>
+                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número teléfonico del consultorio</label>
+                                                            <input autocomplete="off" class="form-control phone @error('number_consulting_phone') is-invalid @enderror"
+                                                                id="number_consulting_phone" name="number_consulting_phone"
+                                                                type="text" 
+                                                                value="{!! !empty($user != null) ? $user->number_consulting_phone : '' !!}">
+                                                            <i class="bi bi-geo" style="top: 30px"></i>
+                                                        </div>
+                                                    </diV>
+                                                </div>
                                             @endif
-
                                             <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
-
                                             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="zip_code" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Código
-                                                            Postal</label>
+                                                        <label for="zip_code" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Código Postal</label>
                                                         <input autocomplete="off" placeholder=""
                                                             class="form-control mask-only-text @error('zip_code') is-invalid @enderror"
                                                             id="zip_code" name="zip_code" type="text"
@@ -724,12 +713,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="cod_mpps" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">MPPS</label>
+                                                        <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">MPPS</label>
                                                         <input autocomplete="off" placeholder="MPPS"
                                                             class="form-control mask-only-number @error('cod_mpps') is-invalid @enderror"
                                                             id="cod_mpps" name="cod_mpps" type="text"
@@ -738,15 +725,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <x-upload-image />
                                         @else
                                             @if (Auth::user()->role == 'corporativo')
                                                 <div class="row">
                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                                        <a id="Link-medicos" href="{{ Auth::user()->token_corporate }}"
-                                                            target="_blank" style="text-decoration: none;">
-                                                            <button type="button" class="btn btnPrimary">Registrar
-                                                                médicos</button>
+                                                        <a id="Link-medicos" href="{{ Auth::user()->token_corporate }}"target="_blank" style="text-decoration: none;">
+                                                            <button type="button" class="btn btnPrimary">Registrar médicos</button>
                                                         </a> 
                                                         <button type="button" id="icon-copy"
                                                             class="btn btn-iSecond rounded-circle"
@@ -760,118 +744,109 @@
                                                 </div>
                                             @endif
 
-
-                                            {{-- rol laboratorio --}}
-                                            <input type="hidden" id="id" name="id"
-                                                value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->id : '' !!}">
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
-                                                            social</label>
-                                                        <input autocomplete="off" placeholder=""
-                                                            class="form-control mask-text  @error('business_name') is-invalid @enderror"
-                                                            id="business_name" name="business_name" type="text"
-                                                            value="{!! !empty($user->get_laboratorio != null)
-                                                                ? ($user->role == 'corporativo'
-                                                                    ? $user->get_center->description
-                                                                    : $user->get_laboratorio->business_name)
-                                                                : '' !!}">
-                                                        <i class="bi bi-person-vcard" style="top: 30px"></i>
-                                                    </div>
-                                                </diV>
+                                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 ">
+                                                @php
+                                                    $title = 'Cargar imagen';
+                                                    if (Auth::user()->role == 'corporativo') {
+                                                        $title = 'Cargar logo de empresa';
+                                                    }
+                                                @endphp
+                                                <x-upload-image :title="$title" />
                                             </div>
-
-                                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
-                                                <div class="form-group">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Tipo
-                                                        de documento</label>
-                                                    <select onchange="handlerTypeDoc(event)" name="type_rif"
-                                                        id="type_rif" class="form-control">
-                                                        <option value="">Seleccione</option>
-                                                        <option value="F-">Firma personal</option>
-                                                        <option value="J-">Jurídico</option>
-                                                        <option value="C-">Comuna</option>
-                                                        <option value="G-">Gubernamental</option>
-                                                    </select>
+                                            {{-- rol laboratorio --}}
+                                            <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
+                                                <div class="row">
+                                                    <input type="hidden" id="id" name="id" value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->id : '' !!}">
+                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón social</label>
+                                                                <input autocomplete="off" placeholder=""
+                                                                    class="form-control mask-text  @error('business_name') is-invalid @enderror"
+                                                                    id="business_name" name="business_name" type="text"
+                                                                    value="{!! !empty($user->get_laboratorio != null)
+                                                                        ? ($user->role == 'corporativo'
+                                                                            ? $user->get_center->description
+                                                                            : $user->get_laboratorio->business_name)
+                                                                        : '' !!}">
+                                                                <i class="bi bi-person-vcard" style="top: 30px"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                        <div class="form-group">
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Tipo de documento</label>
+                                                            <select onchange="handlerTypeDoc(event)" name="type_rif" id="type_rif" class="form-control">
+                                                                <option value="">Seleccione</option>
+                                                                <option value="F-">Firma personal</option>
+                                                                <option value="J-">Jurídico</option>
+                                                                <option value="C-">Comuna</option>
+                                                                <option value="G-">Gubernamental</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número de Identificación o RIF</label>
+                                                                <input autocomplete="off" placeholder=""
+                                                                    class="form-control mask-rif @error('rif') is-invalid @enderror"
+                                                                    id="rif" name="rif" type="text" maxlength="17"
+                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->rif : '' !!}">
+                                                                <i class="bi bi-person-vcard" style="top: 30px"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo electrónico</label>
+                                                                <input autocomplete="off" placeholder=""
+                                                                    class="form-control @error('email') is-invalid @enderror"
+                                                                    id="email" name="email" type="text" readonly
+                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->email : '' !!}">
+                                                                <i class="bi bi-envelope-at" style="top: 30px"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número de Licencia salud</label>
+                                                                <input autocomplete="off" placeholder=""
+                                                                    class="form-control mask-only-text @error('license') is-invalid @enderror"
+                                                                    id="license" name="license" type="text"
+                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->license : '' !!}">
+                                                                <i class="bi bi-hash" style="top: 30px"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono</label>
+                                                                <input autocomplete="off" placeholder=""
+                                                                    class="form-control phone @error('phone') is-invalid @enderror"
+                                                                    id="phone" name="phone" type="text"
+                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->phone_1 : '' !!}">
+                                                                <i class="bi bi-telephone-forward" style="top: 30px"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
                                                 </div>
                                             </div>
-
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
-                                                            de Identificación o RIF</label>
-                                                        <input autocomplete="off" placeholder=""
-                                                            class="form-control mask-rif @error('rif') is-invalid @enderror"
-                                                            id="rif" name="rif" type="text" maxlength="17"
-                                                            value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->rif : '' !!}">
-                                                        <i class="bi bi-person-vcard" style="top: 30px"></i>
-                                                    </div>
-                                                </diV>
-                                            </div>
-
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
-                                                            electrónico</label>
-                                                        <input autocomplete="off" placeholder=""
-                                                            class="form-control @error('email') is-invalid @enderror"
-                                                            id="email" name="email" type="text" readonly
-                                                            value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->email : '' !!}">
-                                                        <i class="bi bi-envelope-at" style="top: 30px"></i>
-                                                    </div>
-                                                </diV>
-                                            </div>
-
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
-                                                            de Licencia salud</label>
-                                                        <input autocomplete="off" placeholder=""
-                                                            class="form-control mask-only-text @error('license') is-invalid @enderror"
-                                                            id="license" name="license" type="text"
-                                                            value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->license : '' !!}">
-                                                        <i class="bi bi-hash" style="top: 30px"></i>
-                                                    </div>
-                                                </diV>
-                                            </div>
-
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono</label>
-                                                        <input autocomplete="off" placeholder=""
-                                                            class="form-control phone @error('phone') is-invalid @enderror"
-                                                            id="phone" name="phone" type="text"
-                                                            value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->phone_1 : '' !!}">
-                                                        <i class="bi bi-telephone-forward" style="top: 30px"></i>
-                                                    </div>
-                                                </diV>
-                                            </div>
-
-                                            <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
-
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
-                                                        <textarea id="address" rows="2" id="address" name="address"
-                                                            class="form-control @error('address') is-invalid @enderror" value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->address : '' !!}"></textarea>
+                                                        <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
+                                                        <textarea id="address" rows="1" id="address" name="address" class="form-control @error('address') is-invalid @enderror" value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->address : '' !!}"></textarea>
                                                         <i class="bi bi-geo" style="top: 30px"></i>
                                                     </div>
                                                 </diV>
-                                            </div>                                  
-
+                                            </div>
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
@@ -892,8 +867,7 @@
                                                         <i class="bi bi-flag" style="top: 30px"></i>
                                                     </div>
                                                 </div>
-                                            </div>
-
+                                            </div> 
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
@@ -907,8 +881,7 @@
                                                         <i class="bi bi-geo" style="top: 30px"></i>
                                                     </div>
                                                 </diV>
-                                            </div>
-
+                                            </div> 
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
@@ -939,20 +912,13 @@
                                                     </div>
                                                 </diV>
                                             </div> --}}
-                                            @php
-                                                $title = 'Cargar imagen';
-                                                if (Auth::user()->role == 'corporativo') {
-                                                    $title = 'Cargar logo de empresa';
-                                                }
-                                            @endphp
+                                            
 
-                                            <x-upload-image :title="$title" />
+                                            
                                         @endif
                                         <div class="row mt-2 justify-content-md-end">
-                                            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                                <input class="btn btnSave send " value="Guardar" type="submit"
-                                                    style="margin-left: 20px" />
+                                            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                                <input class="btn btnSave send" value="Guardar" type="submit" style="margin-left: 20px" />
                                                 {{-- <button type="button" class="btn btnSecond btn6"
                                                     style="margin-left: 20px">Cancelar</button> --}}
                                             </div>
@@ -975,33 +941,29 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{Auth::user()->type_plane != '7' ? "mb-2" : "mb-cd mb-2"}}">
                         <div class="accordion-item ">
                             <span class="accordion-header title" id="headingTwo">
-                                <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+                                <button class="accordion-button collapsed bg-8" 
+                                    type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" 
+                                    aria-expanded="false" 
+                                    aria-controls="collapseTwo"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-envelope-at st-icon"></i> Actualización de Correo Electrónico
                                 </button>
                             </span>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                                data-bs-parent="#accordion">
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" id="email-div">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nuevo
-                                                    Correo
-                                                    Electrónico</label>
-                                                <input autocomplete="off" class="form-control alpha-no-spaces"
-                                                    id="act-email" name="act-email" type="text" value="">
+                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nuevo Correo Electrónico</label>
+                                                <input autocomplete="off" class="form-control alpha-no-spaces" id="act-email" name="act-email" type="text" value="">
                                                 <i class="bi bi-envelope-at st-icon"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mt-2 justify-content-md-end">
-                                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                            style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                            <input class="btn btnSave send " onclick="handlerEmial()" value="Guardar"
-                                                type="submit" style="margin-left: 20px" />
+                                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                            <input class="btn btnSave send " onclick="handlerEmial()" value="Guardar" type="submit" style="margin-left: 20px" />
                                         </div>
                                     </div>
                                 </div>
@@ -1017,27 +979,25 @@
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
                                     <button class="accordion-button collapsed bg-8" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
+                                        data-bs-toggle="collapse" 
+                                        data-bs-target="#collapseThree" 
+                                        aria-expanded="false"
                                         aria-controls="collapseThree"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                         <i class="bi bi-file-earmark-text"></i> Sello Digital
                                     </button>
                                 </span>
-                                <div id="collapseThree" class="accordion-collapse collapse"
-                                    aria-labelledby="headingThree" data-bs-parent="#accordion">
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <form id="form-seal" method="post" action="/">
                                             {{ csrf_field() }}
                                             <x-seal-component />
                                             <div class="row mt-2 justify-content-md-end">
-                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                                    <input class="btn btnSave send" value="Guardar" type="submit"
-                                                        style="margin-left: 20px" />
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                                    <input class="btn btnSave send" value="Guardar" type="submit" style="margin-left: 20px" />
                                                 </div>
                                             </div>
                                         </form>
-
                                     </div>
                                 </div>
                             </div>
@@ -1050,14 +1010,16 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingPlanes">
-                                <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapsePlanes" aria-expanded="true" aria-controls="collapsePlanes"
+                                <button class="accordion-button bg-8" 
+                                    type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapsePlanes" 
+                                    aria-expanded="true" 
+                                    aria-controls="collapsePlanes"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-info-lg"></i> Información del plan
                                 </button>
                             </span>
-                            <div id="collapsePlanes" class="accordion-collapse collapse show"
-                                aria-labelledby="headingPlanes" data-bs-parent="#accordion">
+                            <div id="collapsePlanes" class="accordion-collapse collapse show" aria-labelledby="headingPlanes" data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <x-view-planes />
                                 </div>
