@@ -249,7 +249,7 @@
                     `<button onclick='showModal(${ elemetData },0,${ get_exam })'                         
                         data-bs-toggle='tooltip' data-bs-placement='right'
                         data-bs-custom-class='custom-tooltip' data-html='true'
-                        title='Ver examenes' type='button' class='btn btn-iPrimary rounded-circle'>
+                        title='Ver exámenes' type='button' class='btn btn-iPrimary rounded-circle'>
                         <i class='bi bi-info-circle-fill'></i>
                     </button>`;
                 elem.btn1 =
@@ -320,7 +320,7 @@
                     },
                     {
                         data: 'btn',
-                        title: 'Examenes',
+                        title: 'Exámenes',
                         className: "text-center",
                     },
                     {
@@ -755,7 +755,7 @@
                                                             <th class="text-center w-10" scope="col">Cédula</th>
                                                             <th class="text-center" scope="col">Género</th>
                                                             <th class="text-center" scope="col">Teléfono</th>
-                                                            <th class="text-center" scope="col">Examenes</th>
+                                                            <th class="text-center" scope="col">Exámenes</th>
                                                             <th class="text-center" scope="col">Estudios</th>
                                                             <th class="text-center" scope="col" data-orderable="false">Acciones</th>
                                                         </tr>
@@ -779,7 +779,7 @@
                                         data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
                                         aria-controls="collapseThree"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-card-list"></i> Examenes cargados
+                                        <i class="bi bi-card-list"></i> Exámenes cargados
                                     </button>
                                 </span>
                                 <div id="collapseThree" class="accordion-collapse collapse"
