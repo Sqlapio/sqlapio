@@ -613,7 +613,7 @@
             } else {
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Paciente sin exámenes/estudios solicitados por el médico!',
+                    title: 'Paciente sin estudios solicitados por el médico!',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
                     confirmButtonText: 'Aceptar'
@@ -678,7 +678,7 @@
                                                     <th class="text-center" scope="col">Nombre y apellido</th>
                                                     <th class="text-center" scope="col">Cédula</th>
                                                     <th class="text-center" scope="col">Descripcion del estudio</th>
-                                                    <th class="text-center" scope="col" data-orderable="false">Resultado </th>
+                                                    <th class="text-center" scope="col" data-orderable="false">Resultado</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -745,7 +745,7 @@
                                                                         <button onclick='showModal({{ $item }})'
                                                                             data-bs-toggle='tooltip' data-bs-placement='right'
                                                                             data-bs-custom-class='custom-tooltip' data-html='true'
-                                                                            title='Ver estudios' type='button'
+                                                                            title='Cargar estudios' type='button'
                                                                             class='btn btn-iPrimary rounded-circle'
                                                                             style="margin-right: 0">
                                                                             <i class='bi bi-info-circle-fill'></i>
@@ -768,8 +768,7 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="ModalLoadResult" tabindex="-1" aria-labelledby="ModalLoadResultLabel"
-            aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal fade" id="ModalLoadResult" tabindex="-1" aria-labelledby="ModalLoadResultLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
             <div id="spinner" style="display: none">
                 <x-load-spinner show="true" />
             </div>
