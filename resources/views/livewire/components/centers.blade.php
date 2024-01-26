@@ -18,7 +18,11 @@
     }
 
     .w-5 {
-        width: 5%
+        width: 5% !important;
+    }
+
+    .w-8 {
+        width: 8% !important;
     }
 
     form {
@@ -186,11 +190,8 @@
                         }
                         elem.btn =
                             ` <div class="form-check form-switch">
-                                <input onchange="handlerCenter(event);" style="width: 5em"
-                                class="form-check-input" type="checkbox" role="switch"
-                                id="flexSwitchCheckChecked" value="${elem.id}"
-                                ${checked}>
-                                </div>`;
+                                <input onchange="handlerCenter(event);" style="width: 5em" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="${elem.id}" ${checked}>
+                            </div>`;
 
                         data.push(elem);
                     });
@@ -205,29 +206,29 @@
                         "bLengthChange": false,
                         columns: [{
                                 data: 'center',
-                                title: 'Nombre de centro',
+                                title: 'Centro de Salud',
                                 className: "text-center",
                             },
                             {
                                 data: 'address',
                                 title: 'Dirección',
-                                className: "text-center",
+                                className: "text-center w-50",
                             },
                             {
                                 data: 'number_floor',
-                                title: 'Número de piso',
-                                className: "text-center",
+                                title: 'Piso',
+                                className: "text-center w-5",
                             },
                             {
                                 data: 'number_consulting_room',
-                                title: 'Número de consultorio',
-                                className: "text-center",
+                                title: 'Consultorio',
+                                className: "text-center w-5",
                             },
 
                             {
                                 data: 'phone_consulting_room',
-                                title: 'Teléfono del consultorio',
-                                className: "text-center",
+                                title: 'Teléfono consultorio',
+                                className: "text-center w-8",
                             },
                             {
                                 data: 'btn',
@@ -286,12 +287,12 @@
                                         <table id="table-centers" class="table table-striped table-bordered" style="width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center">Nombre de centro</th>
-                                                    <th class="text-center">Dirección</th>
-                                                    <th class="text-center">Piso</th>
-                                                    <th class="text-center">Número de consultorio</th>
-                                                    <th class="text-center">Teléfono del consultorio</th>
-                                                    <th class="text-center">Estatus</th>
+                                                    <th class="text-center">Centro de Salud</th>
+                                                    <th class="text-center w-50" data-orderable="false">Dirección</th>
+                                                    <th class="text-center w-5" data-orderable="false">Piso</th>
+                                                    <th class="text-center w-5" data-orderable="false">Consultorio</th>
+                                                    <th class="text-center w-8" data-orderable="false">Teléfono consultorio</th>
+                                                    <th class="text-center w-5" data-orderable="false">Estatus</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -302,13 +303,11 @@
                                                         <td class="text-center">{{ $item['number_floor'] }}</td>
                                                         <td class="text-center">{{ $item['number_consulting_room'] }}</td>
                                                         <td class="text-center">{{ $item['phone_consulting_room'] }}</td>
-                                                        <td class="text-center table-check w-5">
+                                                        <td class="text-center table-check ">
                                                             <div class="form-check form-switch ">
-                                                                <input onchange="handlerCenter(event);" style="width: 5em"
-                                                                    class="form-check-input" type="checkbox" role="switch"
-                                                                    id="flexSwitchCheckChecked" value="{{ $item['id'] }}"
-                                                                    {{ $item['status'] != '1' ? '' : 'checked' }}>
+                                                                <input onchange="handlerCenter(event);" style="width: 5em" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="{{ $item['id'] }}" {{ $item['status'] != '1' ? '' : 'checked' }}>
                                                             </div>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
