@@ -705,7 +705,7 @@
                                                                             <button onclick='showModal({{ $item }})'
                                                                                 data-bs-toggle='tooltip' data-bs-placement='right'
                                                                                 data-bs-custom-class='custom-tooltip' data-html='true'
-                                                                                title='Ver estudios' type='button'
+                                                                                title='Cargar examen' type='button'
                                                                                 class='btn btn-iPrimary rounded-circle'
                                                                                 style="margin-right: 0">
                                                                             <i class='bi bi-info-circle-fill'></i>
