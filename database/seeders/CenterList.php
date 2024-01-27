@@ -14,7 +14,7 @@ class CenterList extends Seeder
      */
     public function run(): void
     {
-        
+
         $data = [
             [
                 'description' => 'Centro Medico Amazonas, C.A',
