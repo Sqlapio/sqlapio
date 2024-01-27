@@ -459,6 +459,8 @@
             $('#is_minor').val(false);
             $('#id').val('');
             $('#btn-save').attr('disabled', false);
+            $("#div-otros").hide();
+            $("#profesion-div").show();
 
         }
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\UtilsController;
 use App\Models\Center;
 use App\Models\DoctorCenter;
 use App\Models\Patient;
+use App\Models\Profession;
 use App\Models\Representative;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -310,7 +311,7 @@ class Patients extends Component
                 ];
 
                 $validator = Validator::make($request->all(), $rules, $msj);
-                
+
 
                 if ($validator->fails()) {
                     return response()->json([
@@ -327,6 +328,15 @@ class Patients extends Component
                     $center_id_corporativo = Auth::user()->center_id;
                 }
 
+                /** Logica para cargar una nueva profesion */
+                if(isset($request->profession_new))
+                {
+                    $profession_new = Profession::create(['description'=>$request->profession_new]);
+                    $profession = $profession_new;
+                }else{
+                    $profession = $request->profession;
+                }
+
                 $patient=  Patient::updateOrCreate(['id' => $request->id],
                 [
 
@@ -336,7 +346,7 @@ class Patients extends Component
                     'ci'            => $request->ci,
                     'email'         => $request->email,
                     'phone'         => $request->phone,
-                    'profession'    => $request->profession,
+                    'profession'    => $profession,
                     'genere'        => $request->genere,
                     'birthdate'     => $request->birthdate,
                     'age'           => $request->age,
