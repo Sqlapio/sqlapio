@@ -81,10 +81,10 @@
                                                 <tr>
                                                     <th class="text-center">Nombre y Apellido</th>
                                                     <th class="text-center">Número de Cédula</th>
-                                                    <th class="text-center">Correo</th>
+                                                    <th class="text-center">Correo electrónico</th>
                                                     <th class="text-center">Cargo</th>
                                                     <th class="text-center">Numero teléfonico</th>
-                                                    <th class="text-center">Habilitar/Deshabilitar</th>
+                                                    <th class="text-center" data-orderable="false">Habilitar/Deshabilitar</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

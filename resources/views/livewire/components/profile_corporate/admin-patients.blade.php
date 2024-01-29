@@ -141,25 +141,20 @@
                             <div class="accordion-body">
                                 {{-- Lista de pacientes con consultas  --}}
                                 <div class="row" id="table-patients">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                        style="margin-top: 20px;">
-                                        <table id="table-patient" class="table table-striped table-bordered"
-                                            style="width:100%; ">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px;">
+                                        <table id="table-patient" class="table table-striped table-bordered" style="width:100%; ">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center" scope="col">Imagen</th>
-                                                    <th class="text-center" scope="col">Código
-                                                        paciente</th>
-                                                    <th class="text-center" scope="col">Nombre</th>
-                                                    <th class="text-center" scope="col">Cédula</th>
-                                                    <th class="text-center" scope="col">Fecha de
-                                                        Nacimiento </th>
-                                                    <th class="text-center" scope="col">Género</th>
-                                                    <th class="text-center" scope="col">Teléfono</th>
-                                                    <th class="text-center" scope="col">Email</th>
-                                                    <th class="text-center" scope="col">Centro de
-                                                        salud</th>
-                                                    <th class="text-center"scope="col">Detalle</th>
+                                                    <th class="text-center w-image" scope="col">Foto</th>
+                                                    <th class="text-center w-10" scope="col">Código paciente</th>
+                                                    <th class="text-center" scope="col">Nombre y Apellido</th>
+                                                    <th class="text-center w-10" scope="col">Cédula</th>
+                                                    <th class="text-center w-10" scope="col">Fecha de Nacimiento </th>
+                                                    {{-- <th class="text-center" scope="col">Género</th> --}}
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">Teléfono</th>
+                                                    {{-- <th class="text-center" scope="col">Email</th> --}}
+                                                    <th class="text-center" scope="col">Centro de salud</th>
+                                                    <th class="text-center w-5" scope="col" data-orderable="false">Acciones</th>
 
                                                 </tr>
                                             </thead>
@@ -172,25 +167,13 @@
                                                                 alt="Imagen del paciente">
                                                         </td>
                                                         <td class="text-center">{{ $item->patient_code }}</td>
-                                                        <td class="text-center text-capitalize">
-                                                            {{ $item->name }}
-                                                            {{ $item->last_name }}</td>
-                                                        <td class="text-center">
-                                                            {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_ci . '  (Rep)' : $item->ci }}
-                                                        </td>
-                                                        <td class="text-center">
-                                                            {{ date('d-m-Y', strtotime($item->birthdate)) }}
-                                                        </td>
-                                                        <td class="text-center text-capitalize">
-                                                            {{ $item->genere }}</td>
-                                                        <td class="text-center">
-                                                            {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_phone . '  (Rep)' : $item->phone }}
-                                                        </td>
-                                                        <td class="text-center">
-                                                            {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_email . '  (Rep)' : $item->email }}
-                                                        </td>
-                                                        <td class="text-center">
-                                                            {{ $item->center_id }}</td>
+                                                        <td class="text-center text-capitalize"> {{ $item->name }} {{ $item->last_name }}</td>
+                                                        <td class="text-center"> {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_ci . '  (Rep)' : $item->ci }} </td>
+                                                        <td class="text-center"> {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>
+                                                        {{-- <td class="text-center text-capitalize"> {{ $item->genere }}</td> --}}
+                                                        <td class="text-center"> {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_phone . '  (Rep)' : $item->phone }} </td>
+                                                        {{-- <td class="text-center">  {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_email . '  (Rep)' : $item->email }} </td> --}}
+                                                        <td class="text-center"> {{ $item->center_id }}</td>
                                                         <td class="text-center">
                                                             <div class="d-flex" style="justify-content: center;">
                                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
