@@ -7,7 +7,11 @@
     }
 
     .w-10 {
-        width: 10%
+        width: 10% !important;
+    }
+
+    .w-5 {
+        width: 5% !important;
     }
 
     @media screen and (max-width: 576px) {
@@ -249,14 +253,16 @@
                     `<button onclick='showModal(${ elemetData },0,${ get_exam })'                         
                         data-bs-toggle='tooltip' data-bs-placement='right'
                         data-bs-custom-class='custom-tooltip' data-html='true'
-                        title='Ver exámenes' type='button' class='btn btn-iPrimary rounded-circle'>
+                        title='Ver exámenes' type='button' class='btn btn-iPrimary rounded-circle'
+                        style="margin-right: 0px">
                         <i class='bi bi-info-circle-fill'></i>
                     </button>`;
                 elem.btn1 =
                     `<button onclick='showModal(${ elemetData },1,${ get_studie } )' 
                         data-bs-toggle='tooltip' data-bs-placement='right'
                         data-bs-custom-class='custom-tooltip' data-html='true'
-                        title='Ver estudios' type='button' class='btn btn-iPrimary rounded-circle'>
+                        title='Ver estudios' type='button' class='btn btn-iPrimary rounded-circle'
+                        style="margin-right: 0px">
                         <i class='bi bi-info-circle-fill'></i>
                     </button>`;
 
@@ -265,7 +271,8 @@
                         <button type='button' data-bs-toggle='tooltip'
                             data-bs-placement='right'
                             data-bs-custom-class='custom-tooltip' data-html='true'
-                            title='Ver pdf' class='btn refresf btn-iSecond rounded-circle'>
+                            title='Ver pdf' class='btn refresf btn-iSecond rounded-circle'
+                            style="margin-right: 0px">
                             <i class='bi bi-filetype-pdf'></i>
                         </button>
                     </a>`;
@@ -285,22 +292,22 @@
                 "bLengthChange": false,
                 columns: [{
                         data: 'date',
-                        title: 'Fecha',
+                        title: 'Fecha Solicitud',
                         className: "text-center w-10",
                     },
                     {
                         data: 'cod_ref',
                         title: 'Referencia',
-                        className: "text-center",
+                        className: "text-center w-10",
                     },
-                    {
-                        data: 'cod_medical_record',
-                        title: 'Referencia consulta medica',
-                        className: "text-center",
-                    },
+                    // {
+                    //     data: 'cod_medical_record',
+                    //     title: 'Referencia consulta medica',
+                    //     className: "text-center",
+                    // },
                     {
                         data: 'get_patient.name',
-                        title: 'Nombre',
+                        title: 'Nombre y Apellido',
                         className: "text-center text-capitalize",
                     },
                     {
@@ -308,30 +315,30 @@
                         title: 'Cédula',
                         className: "text-center w-10",
                     },
-                    {
-                        data: 'get_patient.genere',
-                        title: 'Género',
-                        className: "text-center text-capitalize",
-                    },
+                    // {
+                    //     data: 'get_patient.genere',
+                    //     title: 'Género',
+                    //     className: "text-center text-capitalize",
+                    // },
                     {
                         data: 'get_patient.phone',
                         title: 'Teléfono',
-                        className: "text-center",
+                        className: "text-center w-10",
                     },
                     {
                         data: 'btn',
                         title: 'Exámenes',
-                        className: "text-center",
+                        className: "text-center w-5",
                     },
                     {
                         data: 'btn1',
                         title: 'Estudios',
-                        className: "text-center",
+                        className: "text-center w-5",
                     },
                     {
                         data: 'btn2',
                         title: 'Acciones',
-                        className: "text-center",
+                        className: "text-center w-5",
                     },
                 ],
             });
@@ -349,7 +356,7 @@
 
         function searchPerson() {
             if ($('#search_person').val() != '') {
-
+                $('#spinner2').show();
                 let route = '{{ route('search_person', [':value', ':row']) }}';
                 route = route.replace(':value', $('#search_person').val());
                 route = route.replace(':row', 'cod_ref');
@@ -368,6 +375,7 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             })
+                            $('#spinner2').hide();
                             $("#content-table-ref").hide();
                             return false;
                         }
@@ -378,6 +386,7 @@
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
                         }).then((result) => {
+                            $('#spinner2').hide();
                             $("#content-table-ref").show();
                             refreshTable(response);
                         });
@@ -391,7 +400,7 @@
                             confirmButtonText: 'Aceptar'
                         }).then((result) => {
                             $('#send').show();
-                            $('#spinner').hide();
+                            $('#spinner2').hide();
                             $(".holder").hide();
                         });
                     }
@@ -419,32 +428,12 @@
                         "bLengthChange": false,
                         columns: [{
                                 data: 'date_ref',
-                                title: 'Fecha referencia',
+                                title: 'Fecha Solicitud',
                                 className: "text-center w-10",
                             },
                             {
-                                data: 'cod_ref',
-                                title: 'Referencia',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'cod_exam',
-                                title: 'código Examen',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'description',
-                                title: 'Descripción',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'date_upload_res',
-                                title: 'Fecha resultado',
-                                className: "text-center",
-                            },
-                            {
                                 data: 'patient_info.full_name',
-                                title: 'Nombres',
+                                title: 'Nombre y Apellido',
                                 className: "text-center",
                             },
                             {
@@ -453,10 +442,30 @@
                                 className: "text-center w-10",
                             },
                             {
-                                data: 'patient_info.genere',
-                                title: 'Género',
+                                data: 'cod_ref',
+                                title: 'Referencia',
+                                className: "text-center w-10",
+                            },
+                            // {
+                            //     data: 'cod_exam',
+                            //     title: 'código Examen',
+                            //     className: "text-center",
+                            // },
+                            {
+                                data: 'description',
+                                title: 'Descripción',
                                 className: "text-center",
-                            }
+                            },
+                            {
+                                data: 'date_upload_res',
+                                title: 'Fecha resultado',
+                                className: "text-center w-10",
+                            },
+                            // {
+                            //     data: 'patient_info.genere',
+                            //     title: 'Género',
+                            //     className: "text-center",
+                            // }
                         ],
                     });
                     ///refrezcar table estudios
@@ -471,32 +480,12 @@
                         "bLengthChange": false,
                         columns: [{
                                 data: 'date_ref',
-                                title: 'Fecha referencia',
+                                title: 'Fecha Solicitud',
                                 className: "text-center w-10",
                             },
                             {
-                                data: 'cod_ref',
-                                title: 'Referencia',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'cod_study',
-                                title: 'código Examen',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'description',
-                                title: 'Descripción',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'date_upload_res',
-                                title: 'Fecha resultado',
-                                className: "text-center",
-                            },
-                            {
                                 data: 'patient_info.full_name',
-                                title: 'Nombres',
+                                title: 'Nombre y Apellido',
                                 className: "text-center",
                             },
                             {
@@ -505,10 +494,30 @@
                                 className: "text-center w-10",
                             },
                             {
-                                data: 'patient_info.genere',
-                                title: 'Género',
+                                data: 'cod_ref',
+                                title: 'Referencia',
+                                className: "text-center w-10",
+                            },
+                            // {
+                            //     data: 'cod_study',
+                            //     title: 'código Examen',
+                            //     className: "text-center",
+                            // },
+                            {
+                                data: 'description',
+                                title: 'Descripción',
                                 className: "text-center",
-                            }
+                            },
+                            {
+                                data: 'date_upload_res',
+                                title: 'Fecha Resultado',
+                                className: "text-center w-10",
+                            },
+                            // {
+                            //     data: 'patient_info.genere',
+                            //     title: 'Género',
+                            //     className: "text-center",
+                            // }
                         ],
                     });
 
@@ -688,6 +697,9 @@
             </div>
         @elseif (Auth::user()->role == 'laboratorio')
             {{-- rol laboratorio --}}
+            <div id="spinner2" style="display: none" class="spinner-md">
+                <x-load-spinner show="true" />
+            </div>
             <div class="container-fluid body" style="padding: 0 3% 3%">
                 <div class="accordion" id="accordion">
                     <div class="row">
@@ -748,16 +760,16 @@
                                                     style="width:100%">
                                                     <thead>
                                                         <tr>
-                                                            <th class="text-center w-10" scope="col">Fecha</th>
-                                                            <th class="text-center" scope="col">Referencia</th>
-                                                            <th class="text-center" scope="col">Referencia consulta médica </th>
+                                                            <th class="text-center w-10" scope="col">Fecha Solicitud</th>
+                                                            <th class="text-center w-10" scope="col">Referencia</th>
+                                                            {{-- <th class="text-center" scope="col">Referencia consulta médica </th> --}}
                                                             <th class="text-center" scope="col">Nombres</th>
                                                             <th class="text-center w-10" scope="col">Cédula</th>
-                                                            <th class="text-center" scope="col">Género</th>
-                                                            <th class="text-center" scope="col">Teléfono</th>
-                                                            <th class="text-center" scope="col">Exámenes</th>
-                                                            <th class="text-center" scope="col">Estudios</th>
-                                                            <th class="text-center" scope="col" data-orderable="false">Acciones</th>
+                                                            {{-- <th class="text-center" scope="col">Género</th> --}}
+                                                            <th class="text-center w-10" scope="col">Teléfono</th>
+                                                            <th class="text-center w-5" scope="col" data-orderable="false">Exámenes</th>
+                                                            <th class="text-center w-5" scope="col" data-orderable="false">Estudios</th>
+                                                            <th class="text-center w-5" scope="col" data-orderable="false">Acciones</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -790,32 +802,32 @@
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-10" scope="col">Fecha referencia</th>
-                                                        <th class="text-center" scope="col">Referencia</th>
-                                                        <th class="text-center" scope="col">Código Examen</th>
-                                                        <th class="text-center" scope="col">Descripción</th>
-                                                        <th class="text-center" scope="col">Fecha resultado</th>
-                                                        <th class="text-center" scope="col">Nombre</th>
+                                                        <th class="text-center w-10" scope="col">Fecha Solicitud</th>
+                                                        <th class="text-center" scope="col">Nombre y Apellido</th>
                                                         <th class="text-center w-10" scope="col">Cédula</th>
-                                                        <th class="text-center" scope="col">Género</th>
+                                                        <th class="text-center w-10" scope="col">Referencia</th>
+                                                        {{-- <th class="text-center" scope="col">Código Examen</th> --}}
+                                                        <th class="text-center" scope="col">Descripción</th>
+                                                        <th class="text-center w-10" scope="col">Fecha resultado</th>
+                                                        {{-- <th class="text-center" scope="col">Género</th> --}}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($res_exams as $key => $item)
                                                         <tr>
                                                             <td class="text-center"> {{ $item['date_ref'] }}</td>
-                                                            <td class="text-center"> {{ $item['cod_ref'] }}</td>
-                                                            <td class="text-center"> {{ $item['cod_exam'] }}</td>
-                                                            <td class="text-center text-capitalize"> {{ $item['description'] }}</td>
-                                                            <td class="text-center"> {{ $item['date_upload_res'] }}</td>
                                                             <td class="text-center text-capitalize"> {{ $item['patient_info']['full_name'] }} </td>
                                                             <td class="text-center"> {{ $item['patient_info']['ci'] }} </td>
-                                                            <td class="text-center text-capitalize"> {{ $item['patient_info']['genere'] }} </td>
+                                                            <td class="text-center"> {{ $item['cod_ref'] }}</td>
+                                                            {{-- <td class="text-center"> {{ $item['cod_exam'] }}</td> --}}
+                                                            <td class="text-center text-capitalize"> {{ $item['description'] }}</td>
+                                                            <td class="text-center"> {{ $item['date_upload_res'] }}</td>
+                                                            {{-- <td class="text-center text-capitalize"> {{ $item['patient_info']['genere'] }} </td> --}}
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
                                             </table>
-                                        </div>
+                                        </div> 
                                     </div>
                                 </div>
                             </div>
@@ -841,33 +853,27 @@
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-10" scope="col">Fecha referencia</th>
-                                                        <th class="text-center" scope="col">Referencia</th>
-                                                        <th class="text-center" scope="col">Código Estudios</th>
-                                                        <th class="text-center" scope="col">Descripción</th>
-                                                        <th class="text-center" scope="col">Fecha resultado</th>
-                                                        <th class="text-center" scope="col">Nombre</th>
+                                                        <th class="text-center w-10" scope="col">Fecha Solicitud</th>
+                                                        <th class="text-center" scope="col">Nombre y Apellido</th>
                                                         <th class="text-center w-10" scope="col">Cédula</th>
-                                                        <th class="text-center" scope="col">Género</th>
+                                                        <th class="text-center w-10" scope="col">Referencia</th>
+                                                        {{-- <th class="text-center" scope="col">Código Estudios</th> --}}
+                                                        <th class="text-center" scope="col">Descripción</th>
+                                                        <th class="text-center w-10" scope="col">Fecha Resultado</th>
+                                                        {{-- <th class="text-center" scope="col">Género</th> --}}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($res_studies as $key => $item)
                                                         <tr>
                                                             <td class="text-center"> {{ $item['date_ref'] }}</td>
+                                                            <td class="text-center text-capitalize"> {{ $item['patient_info']['full_name'] }} </td>
+                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }} </td>
                                                             <td class="text-center"> {{ $item['cod_ref'] }}</td>
-                                                            <td class="text-center"> {{ $item['cod_study'] }}</td>
-                                                            <td class="text-center text-capitalize">
-                                                                {{ $item['description'] }}</td>
+                                                            {{-- <td class="text-center"> {{ $item['cod_study'] }}</td> --}}
+                                                            <td class="text-center text-capitalize"> {{ $item['description'] }}</td>
                                                             <td class="text-center"> {{ $item['date_upload_res'] }}</td>
-                                                            <td class="text-center text-capitalize">
-                                                                {{ $item['patient_info']['full_name'] }}
-                                                            </td>
-                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }}
-                                                            </td>
-                                                            <td class="text-center text-capitalize">
-                                                                {{ $item['patient_info']['genere'] }}
-                                                            </td>
+                                                            {{-- <td class="text-center text-capitalize"> {{ $item['patient_info']['genere'] }} </td> --}}
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -962,7 +968,7 @@
                                             <tr>
                                                 <th class="text-center" scope="col">Código</th>
                                                 <th class="text-center" scope="col">Descripción</th>
-                                                <th class="text-center" scope="col">Cargar Resultado</th>
+                                                <th class="text-center" scope="col" data-orderable="false">Cargar Resultado</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
