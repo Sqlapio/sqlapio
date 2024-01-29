@@ -121,8 +121,6 @@
                     
                     
                 let imagen = `{{ URL::asset('/img/avatar/avatar.png') }}`;
-
-                console.log(elem)
                 
                 if (elem.user_img) {
                     imagen = `{{ URL::asset('/imgs/${elem.user_img}') }}`;

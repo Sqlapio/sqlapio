@@ -108,11 +108,11 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; padding-right: 22px;">
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="btnEn" id="btnEn1" autocomplete="off" checked>
-                    <label class="btn btn-outline-primary" for="btnEn1" style="padding: 8px">EN</label>
-                    
-                    <input type="radio" class="btn-check" name="btnEs" id="btnEs2" autocomplete="off">
+                    <input type="radio" class="btn-check" name="btnradio" id="btnEs2" autocomplete="off">
                     <label class="btn btn-outline-primary" for="btnEs2" style="padding: 8px">ES</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnEn1" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary" for="btnEn1" style="padding: 8px">EN</label>
                 </div>
             </div>
             <div class="row form-sq" style="position: relative">
