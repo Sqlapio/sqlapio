@@ -227,7 +227,7 @@
 
                             {
                                 data: 'phone_consulting_room',
-                                title: 'Teléfono consultorio',
+                                title: 'Teléfono',
                                 className: "text-center w-8",
                             },
                             {
@@ -291,7 +291,7 @@
                                                     <th class="text-center w-50" data-orderable="false">Dirección</th>
                                                     <th class="text-center w-5" data-orderable="false">Piso</th>
                                                     <th class="text-center w-5" data-orderable="false">Consultorio</th>
-                                                    <th class="text-center w-8" data-orderable="false">Teléfono consultorio</th>
+                                                    <th class="text-center w-8" data-orderable="false">Teléfono</th>
                                                     <th class="text-center w-5" data-orderable="false">Estatus</th>
                                                 </tr>
                                             </thead>
@@ -376,7 +376,7 @@
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono del consultorio</label>
+                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono</label>
                                                 <input autocomplete="off"
                                                     class="form-control phone" id="phone_consulting_room"
                                                     name="phone_consulting_room" type="text" value="">
@@ -387,7 +387,7 @@
                                 </div>
                                 <div class="row text-center">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <input class="btn btnSave send mt-3" value="Registrar" type="submit" />
+                                        <input class="btn btnSave send mt-3" value="Asociar" type="submit" />
                                     </div>
                                 </div>
                             </form>

@@ -60,15 +60,16 @@
     <div class="row mt-2" style="display: flex; flex-direction: column; align-items: center;">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="text-align: center">
             <div class="holder" style="display: none">
-                <img width="85" height="85" id="imgPreview" src="#" alt="pic" style="border-radius: 9%; object-fit: cover;" />
+                <img width="80" height="80" id="imgPreview" src="#" alt="pic" style="border-radius: 9%; object-fit: cover;" />
             </div>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="text-align: center">
-            <div>
+            <div style="padding-top: 6px;">
                 {{-- <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 8px; margin-top: 4px">{{ $title }}</label> --}}
                 {{-- <input type="file" class="form-control" id="file" name="file" accept=".jpg, .jpeg, .png"> --}}
-                <label for="name" class="form-label" style="font-size: 11px; margin-bottom: 8px; margin-top: 4px">Ingrese una imagen de max 256kb</label>
                 <label for="file" class="custom-file-upload"> {{ $title }} </label>
+                <br>
+                <label for="name" class="form-label" style="font-size: 11px; margin-top: 4px">Ingrese una imagen de max 256kb</label>
                 <input id="file" type="file" name="file" accept=".jpg, .jpeg, .png"/>
                 <input type="hidden" name="img" id="img" >
 
