@@ -192,9 +192,9 @@
                                                 <br>
                                                 <strong>Genero: </strong><span class="text-capitalize" id="genere"></span>
                                                 <br>
-                                                <strong>Correo: </strong><span id="email"></span>
+                                                <strong>Correo electrónico: </strong><span id="email"></span>
                                                 <br>
-                                                <strong>Telefono: </strong><span id="phone"></span>
+                                                <strong>Teléfono: </strong><span id="phone"></span>
                                             </div>
                                         </div>
                                     </div>

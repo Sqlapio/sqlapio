@@ -608,9 +608,7 @@
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="username" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
-                                                                    electrónico</label>
+                                                                <label for="username" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo electrónico</label>
                                                                 <input autocomplete="off" placeholder=""
                                                                     class="form-control @error('username') is-invalid @enderror"
                                                                     id="username" name="username" type="text" readonly
@@ -653,7 +651,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{-- <input id="age" name="age" type="hidden" value=""> --}}
+                                            <input id="age" name="age" type="hidden" value="">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
@@ -701,7 +699,7 @@
                                                 </div>
                                             @endif
                                             <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="zip_code" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Código Postal</label>
@@ -726,23 +724,7 @@
                                                 </div>
                                             </div>
                                         @else
-                                            @if (Auth::user()->role == 'corporativo')
-                                                <div class="row">
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                                        <a id="Link-medicos" href="{{ Auth::user()->token_corporate }}"target="_blank" style="text-decoration: none;">
-                                                            <button type="button" class="btn btnPrimary">Registrar médicos</button>
-                                                        </a> 
-                                                        <button type="button" id="icon-copy"
-                                                            class="btn btn-iSecond rounded-circle"
-                                                            data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                            title="Copiar enlace de registro"
-                                                            onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
-                                                            style="margin-left: 5%;">
-                                                            <i class="bi bi-file-earmark-text"></i>
-                                                        </button> <span style="padding-left: 5px" id="copied"></span>
-                                                    </div>
-                                                </div>
-                                            @endif
+                                           
 
                                             <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 ">
                                                 @php
@@ -838,15 +820,7 @@
                                                     <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
-                                                        <textarea id="address" rows="1" id="address" name="address" class="form-control @error('address') is-invalid @enderror" value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->address : '' !!}"></textarea>
-                                                        <i class="bi bi-geo" style="top: 30px"></i>
-                                                    </div>
-                                                </diV>
-                                            </div>
+                                            
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
@@ -891,6 +865,7 @@
                                                         <input autocomplete="off" placeholder=""
                                                             class="form-control @error('website') is-invalid @enderror"
                                                             id="website" name="website" type="text"
+                                                            style=""
                                                             value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->website : '' !!}">
                                                         <i class="bi bi-globe2" style="top: 30px"></i>
                                                     </div>
@@ -898,7 +873,15 @@
                                                         class="collapseBtn">https://www.sitioweb.com</small>
                                                 </diV>
                                             </div>
-
+                                            <div class="{{Auth::user()->role == 'corporativo' ? 'col-sm-9 col-md-9 col-lg-9 col-xl-9 col-xxl-9' : 'col-sm-11 col-md-11 col-lg-11 col-xl-11 col-xxl-11'}}">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
+                                                        <textarea id="address" rows="1" id="address" name="address" class="form-control @error('address') is-invalid @enderror" value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->address : '' !!}"></textarea>
+                                                        <i class="bi bi-geo" style="top: 30px"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
                                             {{-- <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
@@ -916,18 +899,32 @@
 
                                             
                                         @endif
-                                        <div class="row mt-2 justify-content-md-end">
-                                            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                                <input class="btn btnSave send" value="Guardar" type="submit" style="margin-left: 20px" />
+                                            
+                                            <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1" style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                                <input class="btn btnSave send" value="Guardar" type="submit" style="margin-bottom: 1px; width: 100%" />
                                                 {{-- <button type="button" class="btn btnSecond btn6"
                                                     style="margin-left: 20px">Cancelar</button> --}}
                                             </div>
-                                            <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                            @if (Auth::user()->role == 'corporativo')
+                                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2" style="display: flex; justify-content: space-around; align-items: flex-end; margin-bottom: 1px;">
+                                                    <a id="Link-medicos" href="{{ Auth::user()->token_corporate }}"target="_blank" style="text-decoration: none;">
+                                                        <button type="button" class="btn btnPrimary" style="padding: 7px 20px">Registrar médicos</button> 
+                                                    </a> 
+                                                    <button type="button" id="icon-copy"
+                                                        class="btn btn-iSecond rounded-circle"
+                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                        title="Copiar enlace de registro"
+                                                        onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
+                                                        style="margin-left: 5%;">
+                                                        <i class="bi bi-file-earmark-text"></i>
+                                                    </button> <span style="padding-left: 5px" id="copied"></span>
+                                                </div>
+                                            @endif
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                 <div id="spinner" style="display: none">
                                                     <x-load-spinner />
                                                 </div>
                                             </div>
-                                        </div>
                                     </div>
                                 </form>
                             </div>

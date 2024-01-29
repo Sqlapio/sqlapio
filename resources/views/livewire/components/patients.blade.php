@@ -529,13 +529,13 @@
 
                                             data: 'get_reprensetative.re_ci',
                                             title: 'Cédula paciente',
-                                            className: "text-center",
+                                            className: "text-center w-10",
                                         },
 
                                         {
                                             data: 'birthdate',
                                             title: 'Fecha de Nacimiento ',
-                                            className: "text-center",
+                                            className: "text-center w-10",
                                         },
                                         {
                                             data: 'genere',
@@ -831,10 +831,10 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">Nombre</th>
-                                                        <th class="text-center" scope="col">Cédula</th>
-                                                        <th class="text-center" scope="col">Fecha de Nacimiento </th>
+                                                        <th class="text-center w-10" scope="col">Cédula</th>
+                                                        <th class="text-center w-10" scope="col">Fecha de Nacimiento </th>
                                                         <th class="text-center" scope="col">Género</th>
-                                                        <th class="text-center"scope="col" data-orderable="false">Acciones</th>
+                                                        <th class="text-center" scope="col" data-orderable="false">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -956,7 +956,7 @@
                                                 <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" id="email-div">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo  Electrónico</label>
+                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo Electrónico</label>
                                                             @php
                                                                 $email = Auth::user()->email;
                                                             @endphp
@@ -999,7 +999,7 @@
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombre del representante</label>
+                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombre</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-text @error('re_name') is-invalid @enderror"
                                                                     id="re_name" name="re_name" type="text"
@@ -1011,7 +1011,7 @@
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos del representante</label>
+                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-text @error('re_last_name') is-invalid @enderror"
                                                                     id="re_last_name" name="re_last_name" type="text"
@@ -1023,7 +1023,7 @@
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Cédula del representante</label>
+                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Cédula</label>
                                                                 <input autocomplete="off" class="form-control @error('re_ci') is-invalid @enderror" id="re_ci" name="re_ci" type="text" value="">
                                                                 <i class="bi bi-person-vcard st-icon"></i>
                                                             </div>
@@ -1032,7 +1032,7 @@
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono del representante</label>
+                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control phone @error('re_phone') is-invalid @enderror"
                                                                     id="re_phone" name="re_phone" type="text"
@@ -1044,7 +1044,7 @@
                                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo del representante</label>
+                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo electrónico</label>
                                                                 <input autocomplete="off"
                                                                     onchange='handlerEmail(event,@json($email))'
                                                                     class="form-control @error('re_email') is-invalid @enderror"
@@ -1115,9 +1115,7 @@
                                                     @foreach ($patients as $item)
                                                         <tr>
                                                             <td class="table-avatar">
-                                                                <img class="avatar"
-                                                                    src=" {{ $item->get_paciente->patient_img ? asset('/imgs/' . $item->get_paciente->patient_img) : ($item->get_paciente->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
-                                                                    alt="Imagen del paciente">
+                                                                <img class="avatar" src=" {{ $item->get_paciente->patient_img ? asset('/imgs/' . $item->get_paciente->patient_img) : ($item->get_paciente->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}" alt="Imagen del paciente">
                                                             </td>
                                                             <td class="text-center">
                                                                 <button
@@ -1218,9 +1216,9 @@
                                             <br>
                                             <strong>Genero: </strong><span class="text-capitalize" id="genere-pat"></span>
                                             <br>
-                                            <strong>Correo: </strong><span id="email-pat"></span>
+                                            <strong>Correo electrónico: </strong><span id="email-pat"></span>
                                             <br>
-                                            <strong>Telefono: </strong><span id="phone-pat"></span>
+                                            <strong>Teléfono: </strong><span id="phone-pat"></span>
 
                                             
                                         </div>

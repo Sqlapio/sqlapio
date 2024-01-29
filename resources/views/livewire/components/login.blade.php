@@ -106,6 +106,15 @@
             <div id="spinner" style="display: none">
                 <x-load-spinner />
             </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; padding-right: 22px;">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnEn" id="btnEn1" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary" for="btnEn1" style="padding: 8px">EN</label>
+                    
+                    <input type="radio" class="btn-check" name="btnEs" id="btnEs2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnEs2" style="padding: 8px">ES</label>
+                </div>
+            </div>
             <div class="row form-sq" style="position: relative">
                 <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 loginDric">
                     <div class="">
