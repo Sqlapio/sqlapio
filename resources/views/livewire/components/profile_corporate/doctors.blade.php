@@ -24,8 +24,17 @@
         width: 50px;
     }
 
-    .w-5 {
-        width: 5%
+    .avatar {
+        border-radius: 50%;
+        width: 40px !important;
+        height: 40px !important;
+        border: 2px solid #44525f;
+        object-fit: cover;
+    }
+
+    .table-avatar {
+        text-align: center;
+        vertical-align: middle;
     }
 
 </style>
@@ -100,6 +109,7 @@
                     checked = '';
                     classC = "form-check-input ci"
                 }
+
                 elem.btn =
                     `<div class="form-check form-switch" style="display: flex; justify-content: center;">
                         <input onchange="handlerDoctor(event);" style="width: 5em"
@@ -108,9 +118,21 @@
                         ${checked}>
                     </div>`;
 
-                data.push(elem);
+                    
+                    
+                let imagen = `{{ URL::asset('/img/avatar/avatar.png') }}`;
 
+                console.log(elem)
+                
+                if (elem.user_img) {
+                    imagen = `{{ URL::asset('/imgs/${elem.user_img}') }}`;
+                }
+                    
+                elem.img = `<img class="avatar" src="${imagen}" alt="Imagen del paciente">`;
+                    
                 elem.name = `${elem.name} ${elem.last_name}`
+                    
+                data.push(elem);
             });
             new DataTable('#table-patients-corp', {
                 language: {
@@ -121,31 +143,37 @@
                 data: data,
                 "searching": false,
                 "bLengthChange": false,
-                columns: [{
+                columns: [
+                    {
+                        data: 'img',
+                        title: 'Foto',
+                        className: "text-center w-image",
+                    },
+                    {
                         data: 'name',
                         title: 'Nombre y Apellido',
                         className: "text-center text-capitalize",
                     },
                     {
                         data: 'ci',
-                        title: 'Número de Cédula',
-                        className: "text-center",
+                        title: 'Cédula',
+                        className: "text-center w-10",
                     },
                     {
                         data: 'email',
-                        title: 'Correo',
+                        title: 'Correo electrónico',
                         className: "text-center",
                     },
                     {
                         data: 'specialty',
                         title: 'Especialidad',
-                        className: "text-center",
+                        className: "text-center w-10",
                     },
 
                     {
                         data: 'phone',
-                        title: 'Teléfono del consultorio',
-                        className: "text-center",
+                        title: 'Teléfono',
+                        className: "text-center w-10",
                     },
                     {
                         data: 'btn',
@@ -180,21 +208,24 @@
                             <div class="accordion-body">
 
                                 <div class="table-responsive" id="div-patients-corp" style="margin-top: 20px; width: 100%;">
-                                    <table id="table-patients-corp" class="table table-striped table-bordered"
-                                        style="width: 100%;">
+                                    <table id="table-patients-corp" class="table table-striped table-bordered" style="width: 100%;">
                                         <thead>
                                             <tr>
+                                                <th class="text-center w-image" scope="col" data-orderable="false">Foto</th>
                                                 <th class="text-center">Nombre y Apellido</th>
-                                                <th class="text-center">Número de Cédula</th>
-                                                <th class="text-center">Correo</th>
-                                                <th class="text-center">Especialidad</th>
-                                                <th class="text-center">Teléfono del consultorio</th>
-                                                <th class="text-center">Habilitar/Deshabilitar</th>
+                                                <th class="text-center w-10">Cédula</th>
+                                                <th class="text-center" data-orderable="false">Correo electrónico</th>
+                                                <th class="text-center w-10">Especialidad</th>
+                                                <th class="text-center w-10" data-orderable="false">Teléfono</th>
+                                                <th class="text-center w-5" data-orderable="false">Habilitar/Deshabilitar</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($dortors as $key => $item)
                                                 <tr>
+                                                    <td class="table-avatar">
+                                                        <img class="avatar" src=" {{ $item->user_img ? asset('/imgs/' .$item->user_img) : asset('/img/avatar/avatar.png') }}" alt="Imagen del paciente">
+                                                    </td>
                                                     <td class="text-center text-capitalize">{{ $item->name . ' ' . $item->last_name }}</td>
                                                     <td class="text-center">{{ $item->ci }}</td>
                                                     <td class="text-center">{{ $item->email }}</td>

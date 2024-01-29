@@ -208,8 +208,7 @@ button {
     font-weight: 400;
     letter-spacing: -.01em;
     min-width: 23px;
-    padding-left: 11px;
-    padding-right: 11px;
+    padding: 7px;
     border-radius: 12px;
 }
 
@@ -1693,6 +1692,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .w-image {
     width: 5% !important;
+}
+
+.w-5 {
+    width: 5% !important;
+}
+
+.w-10 {
+    width: 10% !important;
 }
 
 input::-webkit-outer-spin-button,
