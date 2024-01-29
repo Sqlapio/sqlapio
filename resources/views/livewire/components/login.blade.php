@@ -18,7 +18,7 @@
 </style>
 @push('scripts')
     <script>
-        
+
         let error = @json($error);
 
         console.log(error);
@@ -34,7 +34,7 @@
                 }).then((result) => {
                     window.location.href = '{{route('Login_home')}}';
 
-                });  
+                });
             }
             let success = $("#success-input").val();
             if (success) {
@@ -126,33 +126,34 @@
                     @endif
                     <div class="form-group margin-global">
                         <div class="Icon-inside">
-                            <input class="form-control" id="username" placeholder="Usuario" name="username" type="text" value="">
+                            <input class="form-control" id="username" placeholder="@lang('messages.login.usuario')" name="username" type="text" value="">
                             <i class="bi bi-person-fill"></i>
                         </div>
                     </diV>
                     <div class="form-group margin-global">
                         <div class="Icon-inside">
-                            <input placeholder="Contraseña" class="form-control" id="password" name="password" type="password" value="">
+                            <input placeholder="@lang('messages.login.contraseña')" class="form-control" id="password" name="password" type="password" value="">
                             <i onclick="showPass();" class="bi bi-eye-fill"></i>
                         </div>
                     </div>
-                    
-                    <button type="" class="btn btnPrimary"><span class="">Entrar</span></button>
-                    
+
+                    <button type="" class="btn btnPrimary"><span class="">@lang('messages.login.entrar')</span></button>
+
                 </div>
                 {{ Form::close() }}
                 <div class="row justify-content-center">
+                    {{ App::currentLocale() }}
                     <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
-                        <a class="links" href="https://system.sqlapio.com/public/payment-form/1">Registrate Gratis</a>
+                        <a class="links" href="https://system.sqlapio.com/public/payment-form/1">@lang('messages.login.registrate_gratis')</a>
                     </div>
                     <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
-                        <a class="links" href="{{ config('sidebar_item.var') }}">Adquiere un Plan</a>
+                        <a class="links" href="{{ config('sidebar_item.var') }}">@lang('messages.login.adquiere_plan')</a>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                        <a class="links" href="{{route('recovery_password')}}">Recuperar Contraseña</a>
+                        <a class="links" href="{{route('recovery_password')}}">@lang('messages.login.recuperar_clave')</a>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
