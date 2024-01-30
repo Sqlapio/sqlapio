@@ -303,6 +303,7 @@ Route::group(array('prefix' => 'public'), function () {
  * Logout
  */
 Route::get('/logout', [Login::class, 'logout'])->name('logout');
+Route::get('/res_exam', [Examen::class, 'res_exam'])->name('res_exam');
 
 Route::get('/prueba', function () {
     $users = DB::table('users')

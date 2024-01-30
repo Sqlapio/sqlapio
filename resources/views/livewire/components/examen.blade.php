@@ -124,14 +124,35 @@
         let exams_array = [];
         $(document).ready(function() {
 
-            // let data = @json($data);
-            // let id = @json($id);
-            // if (id != null) {
-            //     showExam(data);
-            //     const bsCollapse = new bootstrap.Collapse('.collapsee', {
-            //         toggle: true
-            //     })
-            // }
+          
+            $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            }
+        });
+
+            new DataTable('.table-pag', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                },
+                reponsive: true,
+                ajax: {
+                    url: "{{ route('res_exam') }}",
+                    type: "GET",
+                    data: {
+                            "_token": "{{ csrf_token() }}",
+                            "data": '',
+                        },
+                    data: function(data) {
+                        console.log(data);
+                    }
+                },
+                searching: false,
+                bLengthChange: false,
+                deferLoading: 57,
+                processing: true,
+                serverSide: true,
+            });
 
             //validar formulario
             $('#form-load-img-examen').validate({
@@ -188,7 +209,7 @@
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
 
-                                let url ="{{ route('Examen') }}";
+                                let url = "{{ route('Examen') }}";
                                 window.location.href = url;
 
                             });
@@ -210,7 +231,7 @@
                     });
                 }
             });
-            
+
         });
 
         function searchPerson() {
@@ -611,45 +632,57 @@
                                     <i class="bi bi-person"></i></i> Exámenes cargados
                                 </button>
                             </span>
-                            <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne"
+                                data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <x-search-person />
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                        <div
+                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <hr>
                                             <h5 class="mb-4">Exámenes con resultados</h5>
-                                            <table id="table-info-examen" class="table table-striped table-bordered"
+                                            <table id="table-info-examen" class="table-pag table-striped table-bordered"
                                                 style="width:100%; ">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-image" scope="col" data-orderable="false">Foto</th>
+                                                        <th class="text-center w-image" scope="col"
+                                                            data-orderable="false">Foto</th>
                                                         <th class="text-center" scope="col">Fecha</th>
                                                         <th class="text-center" scope="col">Nombre y apellido</th>
                                                         <th class="text-center" scope="col">Cédula</th>
                                                         <th class="text-center" scope="col">Descripcion del examen</th>
-                                                        <th class="text-center"scope="col" data-orderable="false">Resultado</th>
+                                                        <th class="text-center"scope="col" data-orderable="false">Resultado
+                                                        </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($data as $item)
                                                         <tr>
                                                             <td class="table-avatar">
-                                                                <img class="avatar" src=" {{ $item->get_patients->patient_img ? asset('/imgs/' . $item->get_patients->patient_img) : ($item->get_patients->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}" alt="Imagen del paciente">
+                                                                <img class="avatar"
+                                                                    src=" {{ $item->get_patients->patient_img ? asset('/imgs/' . $item->get_patients->patient_img) : ($item->get_patients->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                                    alt="Imagen del paciente">
                                                             </td>
                                                             <td class="text-center"> {{ $item->date }} </td>
-                                                            <td class="text-center text-capitalize">  {{ $item->get_patients->name . ' ' . $item->get_patients->last_name }}  </td>
-                                                            <td class="text-center">{{ $item->get_patients->is_minor === 'true' ? $item->get_patients->get_reprensetative->re_ci . '  (Rep)' : $item->get_patients->ci }} </td>
+                                                            <td class="text-center text-capitalize">
+                                                                {{ $item->get_patients->name . ' ' . $item->get_patients->last_name }}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                {{ $item->get_patients->is_minor === 'true' ? $item->get_patients->get_reprensetative->re_ci . '  (Rep)' : $item->get_patients->ci }}
+                                                            </td>
                                                             <td class="text-center"> {{ $item->description }} </td>
                                                             <td class="text-center">
                                                                 <div class="d-flex" style="justify-content: center;">
-                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a target="_blank"  href="{{ URL::asset('/imgs/' . $item->file) }}" style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
+                                                                    <div
+                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <a target="_blank"
+                                                                            href="{{ URL::asset('/imgs/' . $item->file) }}"
+                                                                            style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
                                                                             <button type="button"
                                                                                 class="btn btn-iPrimary rounded-circle"
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
-                                                                                title="Ver archivo"
-                                                                                style="margin-right: 0">
+                                                                                title="Ver archivo" style="margin-right: 0">
                                                                                 <i class="bi bi-file-earmark-text"></i>
                                                                             </button>
                                                                         </a>
@@ -664,30 +697,40 @@
                                     </div>
 
                                     <div class="row mt-3">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                        <div
+                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <hr>
                                             <h5 class="mb-4">Exámenes sin resultados</h5>
-                                            <table id="table-info-sin-examen" class="table table-striped table-bordered" style="width:100%">
+                                            <table id="table-info-sin-examen" class="table table-striped table-bordered"
+                                                style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-image" scope="col" data-orderable="false">Foto</th>
+                                                        <th class="text-center w-image" scope="col"
+                                                            data-orderable="false">Foto</th>
                                                         <th class="text-center" scope="col">Fecha</th>
                                                         <th class="text-center" scope="col">Referencia</th>
                                                         <th class="text-center" scope="col">Nombre y apellido</th>
                                                         <th class="text-center" scope="col">Cédula</th>
-                                                        <th class="text-center" scope="col" data-orderable="false">Cargar Resultado</th>
+                                                        <th class="text-center" scope="col" data-orderable="false">Cargar
+                                                            Resultado</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($examen_sin_resul as $item)
                                                         <tr>
                                                             <td class="table-avatar">
-                                                                <img class="avatar" src=" {{ $item->get_patient->patient_img ? asset('/imgs/' . $item->get_patient->patient_img) : ($item->get_patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}" alt="Imagen del paciente">
+                                                                <img class="avatar"
+                                                                    src=" {{ $item->get_patient->patient_img ? asset('/imgs/' . $item->get_patient->patient_img) : ($item->get_patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                                    alt="Imagen del paciente">
                                                             </td>
                                                             <td class="text-center"> {{ $item->date }} </td>
-                                                            <td class="text-center"> {{ $item->cod_ref }}  </td>
-                                                            <td class="text-center text-capitalize"> {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }} </td>
-                                                            <td class="text-center"> {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }} </td>
+                                                            <td class="text-center"> {{ $item->cod_ref }} </td>
+                                                            <td class="text-center text-capitalize">
+                                                                {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }}
+                                                            </td>
                                                             {{-- <td>
                                                                 <button onclick='showModal({{ $item }})'
                                                                     data-bs-toggle='tooltip' data-bs-placement='right'
@@ -697,23 +740,28 @@
                                                                     <i class='bi bi-info-circle-fill'></i>
                                                                 </button>
                                                             </td> --}}
-                                                            
+
                                                             <td>
                                                                 <div class="d-flex" style="justify-content: center;">
-                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
-                                                                            <button onclick='showModal({{ $item }})'
-                                                                                data-bs-toggle='tooltip' data-bs-placement='right'
-                                                                                data-bs-custom-class='custom-tooltip' data-html='true'
-                                                                                title='Cargar examen' type='button'
+                                                                    <div
+                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <a
+                                                                            style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
+                                                                            <button
+                                                                                onclick='showModal({{ $item }})'
+                                                                                data-bs-toggle='tooltip'
+                                                                                data-bs-placement='right'
+                                                                                data-bs-custom-class='custom-tooltip'
+                                                                                data-html='true' title='Cargar examen'
+                                                                                type='button'
                                                                                 class='btn btn-iPrimary rounded-circle'
                                                                                 style="margin-right: 0">
-                                                                            <i class='bi bi-info-circle-fill'></i>
-                                                                        </button>
+                                                                                <i class='bi bi-info-circle-fill'></i>
+                                                                            </button>
                                                                         </a>
                                                                     </div>
                                                                 </div>
-                                                                
+
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -730,7 +778,9 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="ModalLoadResult" tabindex="-1" aria-labelledby="ModalLoadResultLabel"  aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" style='padding-right: 0;'>
+        <div class="modal fade" id="ModalLoadResult" tabindex="-1" aria-labelledby="ModalLoadResultLabel"
+            aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+            style='padding-right: 0;'>
             <div id="spinner" style="display: none">
                 <x-load-spinner show="true" />
             </div>
@@ -739,7 +789,8 @@
                     <div class="modal-content">
                         <div class="modal-header title">
                             <span style="padding-left: 5px">Carga de resultados</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                style="font-size: 12px;"></button>
                         </div>
                         <div class="modal-body">
                             <form id="form-load-img-examen" method="post" action="/">
@@ -760,7 +811,8 @@
                                                 <tr>
                                                     <th class="text-center" scope="col">Código</th>
                                                     <th class="text-center" scope="col">Descripción</th>
-                                                    <th class="text-center" scope="col" data-orderable="false">Cargar Resultado</th>
+                                                    <th class="text-center" scope="col" data-orderable="false">Cargar
+                                                        Resultado</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
