@@ -35,5 +35,19 @@ class MedicalReport extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+    public function  get_paciente(): HasOne
+    {
+        return $this->hasOne(Patient::class, 'id', 'patient_id');
+    }
+
+    public function  get_center(): HasOne
+    {
+        return $this->hasOne(Center::class, 'id', 'center_id');
+    }
+
+    public function  get_center_data(): HasOne
+    {
+        return $this->hasOne(DoctorCenter::class, 'center_id', 'center_id');
+    }
 
 }
