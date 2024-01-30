@@ -2088,7 +2088,7 @@
                                                             <td class="text-center td-pad"> {{ $item->date }}</td>
                                                             <td class="text-center td-pad">
                                                                 <a target="_blank"
-                                                                    href="{{ route('PDF_medical_record', $item['id']) }}">
+                                                                    href="{{ route('PDF_informe_medico', $item['id']) }}">
                                                                     <button type="button"
                                                                         class="btn refresf btn-iSecond rounded-circle"><i
                                                                             class="bi bi-filetype-pdf"

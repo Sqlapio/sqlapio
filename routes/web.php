@@ -233,7 +233,12 @@ Route::middleware(['auth','AuthCheck'])->group(function () {
      */
     Route::get('/pdf/history/{id}', [PDFController::class, 'PDF_history'])->name('PDF_history');
     Route::get('/pdf/medical_prescription/{id}', [PDFController::class, 'PDF_medical_prescription'])->name('pdf_medical_prescription');
-
+    /**
+     * @method PDF
+     * @param id
+     * Genera el pdf para las consultas de los pacientes
+     */
+    Route::get('/pdf/informe_medico/{id}', [PDFController::class, 'PDF_informe_medico'])->name('PDF_informe_medico');
 
     /**
      * @method search
