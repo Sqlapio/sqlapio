@@ -210,7 +210,7 @@
                     });
                 }
             });
-            
+
         });
 
         function searchPerson() {
@@ -290,11 +290,11 @@
                                                     <img data-bs-toggle="tooltip"  data-bs-placement="bottom" title="Ver archivo" style="" src="${img}" width="50 " height="auto"
                                                     alt="Imagen del paciente" class="img-medical">
                                                     <span style="font-size: 11px;" >Ver archivo</span>
-                                                </a> 
+                                                </a>
                                             </div>
                                             <div class="col-sm-8 col-md-8 col-lg-9 col-xl-9 col-xxl-9">
                                                     <strong class="text-capitalize color-f"> ${elem.get_laboratory.business_name}</strong>
-                                                <br>                               
+                                                <br>
                                                     <strong class="text-capitalize color-f"> ${item.full_name}</strong>
                                                 <br>
                                                     <span>Ver consulta:
@@ -307,7 +307,7 @@
                                                     <span style="float:right; font-size: 12px;">${elem.cod_exam}</span>
                                                 <br>
                                                 <span class="text-capitalize" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width: 100%; display: flex; justify-content: flex-end;"> ${elem.description}</span>
-                                            </div>                             
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -355,7 +355,7 @@
                                         <i class="bi bi-file-earmark-text"></i>
                                     </button>
                                     </a>
-                                </div>                          
+                                </div>
                             </div>`;
 
 
@@ -550,8 +550,8 @@
                     let row = `
                 <tr>
                     <td class="text-center">${elemt.cod_exam}</td>
-                    <td class="text-center">${elemt.description}</td>     
-                    <td class="text-center">${label}</td>                
+                    <td class="text-center">${elemt.description}</td>
+                    <td class="text-center">${label}</td>
                     </tr>`;
                     $('#table-info').find('tbody').append(row);
 
@@ -608,7 +608,7 @@
                                 <button class="accordion-button bg-3" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-person"></i></i> Exámenes cargados
+                                    <i class="bi bi-person"></i></i> @lang('messages.acordion.examenes_cargados')
                                 </button>
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -617,17 +617,17 @@
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <hr>
-                                            <h5 class="mb-4">Exámenes con resultados</h5>
+                                            <h5 class="mb-4">@lang('messages.subtitulos.examenes_res')</h5>
                                             <table id="table-info-examen" class="table table-striped table-bordered"
                                                 style="width:100%; ">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-image" scope="col" data-orderable="false">Foto</th>
-                                                        <th class="text-center" scope="col">Fecha</th>
-                                                        <th class="text-center" scope="col">Nombre y apellido</th>
-                                                        <th class="text-center" scope="col">Cédula</th>
-                                                        <th class="text-center" scope="col">Descripcion del examen</th>
-                                                        <th class="text-center"scope="col" data-orderable="false">Resultado</th>
+                                                        <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.cedula')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
+                                                        <th class="text-center"scope="col" data-orderable="false">@lang('messages.tabla.resultado')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -666,16 +666,16 @@
                                     <div class="row mt-3">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <hr>
-                                            <h5 class="mb-4">Exámenes sin resultados</h5>
+                                            <h5 class="mb-4">@lang('messages.subtitulos.examenes_sin_res')</h5>
                                             <table id="table-info-sin-examen" class="table table-striped table-bordered" style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-image" scope="col" data-orderable="false">Foto</th>
-                                                        <th class="text-center" scope="col">Fecha</th>
-                                                        <th class="text-center" scope="col">Referencia</th>
-                                                        <th class="text-center" scope="col">Nombre y apellido</th>
-                                                        <th class="text-center" scope="col">Cédula</th>
-                                                        <th class="text-center" scope="col" data-orderable="false">Cargar Resultado</th>
+                                                        <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.fecha_resultado')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.referencia')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.cedula')</th>
+                                                        <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.cargar_res')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -697,7 +697,7 @@
                                                                     <i class='bi bi-info-circle-fill'></i>
                                                                 </button>
                                                             </td> --}}
-                                                            
+
                                                             <td>
                                                                 <div class="d-flex" style="justify-content: center;">
                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
@@ -713,7 +713,7 @@
                                                                         </a>
                                                                     </div>
                                                                 </div>
-                                                                
+
                                                             </td>
                                                         </tr>
                                                     @endforeach

@@ -69,6 +69,7 @@ return [
         'pacientes'      => 'Pacientes',
         'agenda'         => 'Agenda',
         'centros'        => 'Centros',
+        'medicos'        => 'Médicos',
         'examen'         => 'Exámen',
         'estudios'       => 'Estudios',
         'configuracion'  => 'Configuración',
@@ -85,8 +86,6 @@ return [
         'actualizacion_correo'  => 'Actualización de Correo Electrónico',
         'sello_digital'         => 'Sello Digital',
         'informacion_plan'      => 'Información de plan',
-        'sello_digital'         => 'Sello Digital',
-        'Datos personales'      => 'Datos Personal',
         'antecedentes_per'      => 'Antecedentes Personales y Familiares',
         'antecedentes_per_pa'   => 'Antecedentes Personales Patológicos',
         'antecedentes_gine'     => 'Antecedentes Ginecologicos (si aplica)',
@@ -163,12 +162,17 @@ return [
         'fecha_resultado'   => 'Fecha Resultado',
         'fecha_solicitud'   => 'Fecha Solicitud',
         'referencia'        => 'Referencia',
+        'resultado'        => 'Resultado',
         'cargar_res'        => 'Cargar Resultado',
         'descripcion'       => 'Descripción',
         'id_consulta'       => 'ID Consulta',
         'medico_tratante'   => 'Médico Tratante',
         'medico_remitente'   => 'Médico Remitente',
 
+    ],
+    'placeholder' => [
+        'seleccione' => 'seleccione',
+        'buscar_paciente' => 'Buscar paciente',
     ],
 
 ];
