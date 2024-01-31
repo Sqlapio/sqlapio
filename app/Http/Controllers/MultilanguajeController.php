@@ -7,9 +7,9 @@ use GuzzleHttp\Client;
 
 class MultilanguajeController extends Controller
 {
-    public function lang(Request $request, $lang)
+    public function lang($lang)
     {
         session()->put('locale', $lang);
-        return redirect()->back();
+        return true;
     }
 }
