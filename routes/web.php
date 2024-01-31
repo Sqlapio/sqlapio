@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MultilanguajeController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UtilsController;
 use App\Http\Livewire\Components\AdminPatients;
@@ -303,6 +304,11 @@ Route::group(array('prefix' => 'public'), function () {
  * Logout
  */
 Route::get('/logout', [Login::class, 'logout'])->name('logout');
+
+/**
+ * Languaje
+ */
+Route::get('/lang/{lang}', [MultilanguajeController::class, 'lang'])->name('lang');
 
 Route::get('/prueba', function () {
     $users = DB::table('users')

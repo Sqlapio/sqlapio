@@ -21,13 +21,13 @@ return new class extends Migration
             $table->string('email_verified_at')->nullable();
             $table->string('profession')->nullable();
             $table->string('birthdate')->nullable();
-            $table->string('age');
-            $table->string('genere');
+            $table->string('age')->nullable();
+            $table->string('genere')->nullable();
             $table->string('phone')->nullable();
-            $table->string('state');
-            $table->string('city');
-            $table->string('address');
-            $table->string('zip_code');
+            $table->string('state')->nullable();
+            $table->string('city')->nullable();
+            $table->string('address')->nullable();
+            $table->string('zip_code')->nullable();
             /**
              * Si el paciente es menor de edad
              */
