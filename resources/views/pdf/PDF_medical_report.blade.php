@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Consulta medica</title>
+    <title>Informe Médico</title>
 </head>
 <style>
     body {
@@ -165,8 +165,7 @@
             </thead>
             <tbody>
                 <tr class="text-header">
-                    <td colspan="2" style="text-align: center;padding-top: 10px;font-size: 25px;"> <strong> Consulta
-                            Médica</strong></td>
+                    <td colspan="2" style="text-align: center;padding-top: 10px;font-size: 25px;"> <strong>Informe Médico</strong></td>
                 </tr>
                 <tr class="text-header" style="border-radius: 50px!important;">
                     <td style="padding: 10px;">
@@ -280,7 +279,7 @@
             <thead>
                 <tr>
                     <th class="table-border">
-                        Informe medico:
+                        Informe Médico:
                     </th>
                 </tr>
             </thead>

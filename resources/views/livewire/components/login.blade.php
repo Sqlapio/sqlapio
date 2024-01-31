@@ -14,27 +14,24 @@
     .links:hover {
         color: #42abe2;
     }
-
 </style>
 @push('scripts')
     <script>
-        
         let error = @json($error);
 
-        console.log(error);
         $().ready(function() {
 
-            if(error!=null){
+            if (error != null) {
                 Swal.fire({
                     icon: 'warning',
-                    title:  error ,
+                    title: error,
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
-                    window.location.href = '{{route('Login_home')}}';
+                    window.location.href = '{{ route('Login_home') }}';
 
-                });  
+                });
             }
             let success = $("#success-input").val();
             if (success) {
@@ -62,7 +59,7 @@
                     password: {
                         required: true,
                         minlength: 6,
-                       // maxlength: 8,
+                        // maxlength: 8,
                     },
                 },
                 messages: {
@@ -98,6 +95,24 @@
                 input[0].type = "password";
             }
         }
+
+        const handleLen = (e) => {
+            let url = "{{ route('lang', ':lang') }}";
+            url = url.replace(':lang', e.target.value, );
+            $.ajax({
+                url: url,
+                type: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    window.location = "{{ route('Login_home') }}"
+                },
+                error: function(error) {
+
+                }
+            });
+        }
     </script>
 @endpush
 @section('content')
@@ -106,12 +121,15 @@
             <div id="spinner" style="display: none">
                 <x-load-spinner />
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; padding-right: 22px;">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                style="display: flex; justify-content: flex-end; padding-right: 22px;">
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="btnradio" id="btnEs2" autocomplete="off">
+                    <input onclick="handleLen(event);" type="radio" value="es" class="btn-check" name="btnradio"
+                        id="btnEs2" autocomplete="off">
                     <label class="btn btn-outline-primary" for="btnEs2" style="padding: 8px">ES</label>
 
-                    <input type="radio" class="btn-check" name="btnradio" id="btnEn1" autocomplete="off" checked>
+                    <input onclick="handleLen(event);" type="radio" value="en" class="btn-check" name="btnradio"
+                        id="btnEn1" autocomplete="off" checked>
                     <label class="btn btn-outline-primary" for="btnEn1" style="padding: 8px">EN</label>
                 </div>
             </div>
@@ -135,33 +153,35 @@
                     @endif
                     <div class="form-group margin-global">
                         <div class="Icon-inside">
-                            <input class="form-control" id="username" placeholder="Usuario" name="username" type="text" value="">
+                            <input class="form-control" id="username" placeholder="@lang('messages.login.usuario')" name="username"
+                                type="text" value="">
                             <i class="bi bi-person-fill"></i>
                         </div>
                     </diV>
                     <div class="form-group margin-global">
                         <div class="Icon-inside">
-                            <input placeholder="Contraseña" class="form-control" id="password" name="password" type="password" value="">
+                            <input placeholder="@lang('messages.login.contraseña')" class="form-control" id="password" name="password"
+                                type="password" value="">
                             <i onclick="showPass();" class="bi bi-eye-fill"></i>
                         </div>
                     </div>
-                    
-                    <button type="" class="btn btnPrimary"><span class="">Entrar</span></button>
-                    
+
+                    <button type="" class="btn btnPrimary"><span class="">@lang('messages.login.entrar')</span></button>
+
                 </div>
                 {{ Form::close() }}
                 <div class="row justify-content-center">
                     <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
-                        <a class="links" href="https://system.sqlapio.com/public/payment-form/1">Registrate Gratis</a>
+                        <a class="links" href="https://system.sqlapio.com/public/payment-form/1">@lang('messages.login.registrate_gratis')</a>
                     </div>
                     <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
-                        <a class="links" href="{{ config('sidebar_item.var') }}">Adquiere un Plan</a>
+                        <a class="links" href="{{ config('sidebar_item.var') }}">@lang('messages.login.adquiere_plan')</a>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                        <a class="links" href="{{route('recovery_password')}}">Recuperar Contraseña</a>
+                        <a class="links" href="{{ route('recovery_password') }}">@lang('messages.login.recuperar_clave')</a>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>

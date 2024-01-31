@@ -323,6 +323,7 @@
                 selector: '#TextInforme',
                 skin: false,
                 content_css: false,
+                valid_elements: "p,a[href|target=_blank],div[style]",         
                 height: 500,
                 menubar: false,              
                 toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
