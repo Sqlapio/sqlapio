@@ -144,7 +144,7 @@
 
                                 }
                             });
-                            //end               
+                            //end
                         }
                     });
                 }
@@ -229,7 +229,7 @@
 
                         }
                     });
-                    //end    
+                    //end
 
                 }
             });
@@ -275,7 +275,7 @@
                         <img class="img" src="{{ asset('img/recuperar.png') }}" style="width: 355px;">
                     </div>
                 </div>
-            
+
                 <div class="row justify-content-center">
                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
                         <div class="card" id="div-form">
@@ -292,8 +292,7 @@
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
-                                                    Electrónico</label>
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
                                                 <input autocomplete="off" class="form-control" id="email" name="email"
                                                     type="text" value="">
                                                 <i class="bi bi-envelope st-icon"></i>
@@ -303,9 +302,9 @@
                                     <div class="d-flex justify-content-center">
                                         <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
                                             style="display: flex; justify-content: space-around;">
-                                            <input class="btn btnPrimary" value="Recuperar" type="submit" />
+                                            <input class="btn btnPrimary" value="@lang('messages.botton.recuperar')" type="submit" />
                                             <a href="/"><button type="button"
-                                                    class="btn btnSecond btn2">Cancelar</button></a>
+                                                    class="btn btnSecond btn2">@lang('messages.botton.cancelar')</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -317,13 +316,13 @@
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Contraseña</label>
-                                                <input placeholder="Contraseña" autocomplete="off" 
-                                                    {{-- data-bs-toggle="tooltip" data-bs-placement="right" 
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.login.contraseña')</label>
+                                                <input placeholder="@lang('messages.login.contraseña')" autocomplete="off"
+                                                    {{-- data-bs-toggle="tooltip" data-bs-placement="right"
                                                     data-bs-custom-class="custom-tooltip" data-html="true"
                                                     title="La contraseña debe contener:
                                                             Al menos una letra mayúscula.
-                                                            Al menos una letra minúscula. 
+                                                            Al menos una letra minúscula.
                                                             Al menos un número.
                                                             Mínimo 6 carácteres.
                                                             Máximo 8 carácteres" --}}
@@ -337,9 +336,8 @@
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Confirmar
-                                                    Contraseña</label>
-                                                <input autocomplete="off" placeholder="Confirmar Contraseña"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.login.confirmar')</label>
+                                                <input autocomplete="off" placeholder="@lang('messages.login.confirmar')"
                                                     class="form-control @error('password_confrimation') is-invalid @enderror"
                                                     id="password_confrimation" name="password_confrimation" type="password"
                                                     value="">

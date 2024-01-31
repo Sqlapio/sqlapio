@@ -662,7 +662,7 @@
                                                 title="Dashboard">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
                                                     alt="Dashboard">
-                                                <span class="nav-link active" aria-current="page">Dashboard</span>
+                                                <span class="nav-link active" aria-current="page">@lang('messages.menu.dashboard')</span>
                                             </a>
                                         </li>
                                         <li>
@@ -670,7 +670,7 @@
                                                 <img class="icon-menu" src="{{ asset('img/V2/Contacts.png') }}"
                                                     alt="Pacientes">
                                                 <span class="nav-link active" aria-current="page"
-                                                    href="#">Pacientes</span>
+                                                    href="#">@lang('messages.menu.pacientes')</span>
                                             </a>
                                         </li>
                                         <li>
@@ -678,7 +678,7 @@
                                                 <img class="icon-menu" src="{{ asset('img/V2/Calendar.png') }}"
                                                     alt="Agenda">
                                                 <span class="nav-link active" aria-current="page"
-                                                    href="#">Agenda</span>
+                                                    href="#">@lang('messages.menu.agenda')</span>
                                             </a>
                                         </li>
                                         @if (Auth::user()->type_plane != '7')
@@ -687,7 +687,7 @@
                                                     <img class="icon-menu" src="{{ asset('img/V2/Maps.png') }}"
                                                         alt="Clínica">
                                                     <span class="nav-link active" aria-current="page"
-                                                        href="#">Centros</span>
+                                                        href="#">@lang('messages.menu.centros')</span>
                                                 </a>
                                             </li>
                                         @endif
@@ -696,7 +696,7 @@
                                                 <img class="icon-menu" src="{{ asset('img/V2/Reminders.png') }}"
                                                     alt="Exámenes">
                                                 <span class="nav-link active" aria-current="page"
-                                                    href="#">Exámenes</span>
+                                                    href="#">@lang('messages.menu.examen')</span>
                                             </a>
                                         </li>
                                         <li>
@@ -704,7 +704,7 @@
                                                 <img class="icon-menu" src="{{ asset('img/V2/Books.png') }}"
                                                     alt="Estudios">
                                                 <span class="nav-link active" aria-current="page"
-                                                    href="#">Estudios</span>
+                                                    href="#">@lang('messages.menu.estudios')</span>
                                             </a>
                                         </li>
                                         <li>
@@ -712,7 +712,7 @@
                                                 <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
                                                     alt="Configuración">
                                                 <span class="nav-link active" aria-current="page"
-                                                    href="#">Configuración</span>
+                                                    href="#">@lang('messages.menu.configuracion')</span>
                                             </a>
                                         </li>
                                     @endif
@@ -723,7 +723,7 @@
                                                 title="Dashboard">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
                                                     alt="Dashboard">
-                                                <span class="nav-link active" aria-current="page">Dashboard</span>
+                                                <span class="nav-link active" aria-current="page">@lang('messages.menu.dashboard')</span>
                                             </a>
                                         </li>
                                         <li>
@@ -731,7 +731,7 @@
                                                 <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
                                                     alt="Configuración">
                                                 <span class="nav-link active" aria-current="page"
-                                                    href="#">Configuración</span>
+                                                    href="#">@lang('messages.menu.configuracion')</span>
                                             </a>
                                         </li>
                                     @endif
@@ -742,7 +742,7 @@
                                                 title="Dashboard">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
                                                     alt="Dashboard">
-                                                <span class="nav-link active" aria-current="page">Dashboard</span>
+                                                <span class="nav-link active" aria-current="page">@lang('messages.menu.dashboard')</span>
                                             </a>
                                         </li>
                                         <li>
@@ -750,7 +750,7 @@
                                                 <img class="icon-menu" src="{{ asset('img/V2/Contacts.png') }}"
                                                     alt="Configuración">
                                                 <span class="nav-link active" aria-current="page"
-                                                    href="#">Médicos</span>
+                                                    href="#">@lang('messages.menu.medicos')</span>
                                             </a>
                                         </li>
                                         <li>
@@ -759,7 +759,7 @@
                                                 <img class="icon-menu" src="{{ asset('img/V2/Contacts.png') }}"
                                                     alt="Pacientes">
                                                 <span class="nav-link active" aria-current="page"
-                                                    href="#">Pacientes</span>
+                                                    href="#">@lang('messages.menu.pacientes')</span>
                                             </a>
                                         </li>
 
@@ -768,7 +768,7 @@
                                                 <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
                                                     alt="Configuración">
                                                 <span class="nav-link active" aria-current="page"
-                                                    href="#">Configuración</span>
+                                                    href="#">@lang('messages.menu.configuracion')</span>
                                             </a>
                                         </li>
                                     @endif
@@ -779,7 +779,7 @@
                                                 title="Dashboard">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
                                                     alt="Dashboard">
-                                                <span class="nav-link active" aria-current="page">Dashboard</span>
+                                                <span class="nav-link active" aria-current="page">@lang('messages.menu.dashboard')</span>
                                             </a>
                                         </li>
                                         <li>
@@ -787,17 +787,18 @@
                                                 <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
                                                     alt="Configuración">
                                                 <span class="nav-link active" aria-current="page"
-                                                    href="#">Configuración</span>
+                                                    href="#">@lang('messages.menu.configuracion')</span>
                                             </a>
                                         </li>
                                     @endif
+
                                     @if (Auth::user()->role == 'gerente_zone')
                                         <li>
                                             <a class="nav-item" href="{{ route('dashboard-general-zone') }}"
                                                 title="Dashboard">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
                                                     alt="Dashboard">
-                                                <span class="nav-link active" aria-current="page">Dashboard</span>
+                                                <span class="nav-link active" aria-current="page">@lang('messages.menu.dashboard')</span>
                                             </a>
                                         </li>
                                         <li>
@@ -805,7 +806,7 @@
                                                 <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
                                                     alt="Configuración">
                                                 <span class="nav-link active" aria-current="page"
-                                                    href="#">Configuración</span>
+                                                    href="#">@lang('messages.menu.configuracion')</span>
                                             </a>
                                         </li>
                                     @endif
@@ -816,7 +817,7 @@
                                                 title="Dashboard">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
                                                     alt="Dashboard">
-                                                <span class="nav-link active" aria-current="page">Dashboard</span>
+                                                <span class="nav-link active" aria-current="page">@lang('messages.menu.dashboard')</span>
                                             </a>
                                         </li>
                                         <li>
@@ -824,7 +825,7 @@
                                                 <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
                                                     alt="Configuración">
                                                 <span class="nav-link active" aria-current="page"
-                                                    href="#">Configuración</span>
+                                                    href="#">@lang('messages.menu.configuracion')</span>
                                             </a>
                                         </li>
                                     @endif

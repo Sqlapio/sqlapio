@@ -144,7 +144,7 @@
                 urlPost = '{{ route('upload_result_exam') }}';
                 $('.modal-title').text('Examen del Paciente');
                 info.map((elemt, index) => {
-                    let elemData = JSON.stringify(elemt);   
+                    let elemData = JSON.stringify(elemt);
                     let label =
                         `<label><input type="checkbox" id="cod_exam_${index}" onclick='cuontResul(event,${elemData},0,${index});'></label>`
                     if (Number(elemt.status) === 2) {
@@ -160,17 +160,17 @@
                     let row = `
                         <tr>
                             <td class="text-center">${elemt.cod_exam}</td>
-                            <td class="text-center">${elemt.description}</td>     
-                            <td class="text-center">${label}</td>                
+                            <td class="text-center">${elemt.description}</td>
+                            <td class="text-center">${label}</td>
                         </tr>`;
                         $('#table-info').find('tbody').append(row);
-                        
+
                     });
             } else {
                 urlPost = '{{ route('upload_result_study') }}';
                 $('.modal-title').text('Información del Estudio');
                 info.map((elemt, index) => {
-                    
+
                     let elemData = JSON.stringify(elemt);
                     let label =
                     `<label><input type="checkbox"  id="cod_exam_${index}" onclick='cuontResul(event,${elemData},1,${index});'></label>`
@@ -187,11 +187,11 @@
                     let row = `
                         <tr>
                             <td class="text-center">${elemt.cod_study}</td>
-                            <td class="text-center">${elemt.description}</td>     
-                            <td class="text-center">${label}</label></td>                
+                            <td class="text-center">${elemt.description}</td>
+                            <td class="text-center">${label}</label></td>
                         </tr>`;
                     $('#table-info').find('tbody').append(row);
-                    
+
                 });
             }
             $('#ref').text(item.cod_ref);
@@ -206,7 +206,7 @@
                     confirmButtonText: 'Aceptar'
                 });
             }
-            
+
         }
 
         function cuontResul(e, item, type, key) {
@@ -250,7 +250,7 @@
                 let get_studie = JSON.stringify(elem.get_studie);
                 let elemetData = JSON.stringify(elem);
                 elem.btn =
-                    `<button onclick='showModal(${ elemetData },0,${ get_exam })'                         
+                    `<button onclick='showModal(${ elemetData },0,${ get_exam })'
                         data-bs-toggle='tooltip' data-bs-placement='right'
                         data-bs-custom-class='custom-tooltip' data-html='true'
                         title='Ver exámenes' type='button' class='btn btn-iPrimary rounded-circle'
@@ -258,7 +258,7 @@
                         <i class='bi bi-info-circle-fill'></i>
                     </button>`;
                 elem.btn1 =
-                    `<button onclick='showModal(${ elemetData },1,${ get_studie } )' 
+                    `<button onclick='showModal(${ elemetData },1,${ get_studie } )'
                         data-bs-toggle='tooltip' data-bs-placement='right'
                         data-bs-custom-class='custom-tooltip' data-html='true'
                         title='Ver estudios' type='button' class='btn btn-iPrimary rounded-circle'
@@ -546,7 +546,7 @@
                                     <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-calendar2-check"></i> Citas del día
+                                        <i class="bi bi-calendar2-check"></i>@lang('messages.acordion.citas')
                                     </button>
                                 </span>
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
@@ -635,7 +635,7 @@
                                     <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-graph-up"></i> Estadísticas
+                                        <i class="bi bi-graph-up"></i>@lang('messages.acordion.estadisticas')
                                     </button>
                                 </span>
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
@@ -709,7 +709,7 @@
                                     <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-graph-up"></i> Estadisticas
+                                        <i class="bi bi-graph-up"></i> @lang('messages.acordion.estadisticas')
                                     </button>
                                 </span>
                                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
@@ -747,7 +747,7 @@
                                     <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-file-text"></i> Pacientes con referencias
+                                        <i class="bi bi-file-text"></i> @lang('messages.acordion.paciente_referencia')
                                     </button>
                                 </span>
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
@@ -791,7 +791,7 @@
                                         data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
                                         aria-controls="collapseThree"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-card-list"></i> Exámenes cargados
+                                        <i class="bi bi-card-list"></i> @lang('messages.acordion.examenes_cargados')
                                     </button>
                                 </span>
                                 <div id="collapseThree" class="accordion-collapse collapse"
@@ -827,7 +827,7 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
-                                        </div> 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -842,7 +842,7 @@
                                         data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false"
                                         aria-controls="collapseFour"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-card-list"></i> Estudios cargados
+                                        <i class="bi bi-card-list"></i> @lang('messages.acordion.estudios_cargados')
                                     </button>
                                 </span>
                                 <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
@@ -898,7 +898,7 @@
                                     <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-graph-up"></i> Estadisticas
+                                        <i class="bi bi-graph-up"></i> @lang('messages.acordion.estadisticas')
                                     </button>
                                 </span>
                                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
