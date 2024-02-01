@@ -47,13 +47,17 @@ class Examen extends Component
         $pageLength = $request->length;
         $skip       = ($pageNumber - 1) * $pageLength;
 
+        Log::info("pageNumber" . "---------->" . $pageNumber);
+        Log::info("pageLength" . "---------->" . $pageLength);
+        Log::info("skip" . "---------->" . $skip);
+
         $count =  ExamPatient::where('user_id',  Auth::user()->id)
         ->where('status',1)->get();
 
         $data =  Reference::where('user_id',  Auth::user()->id)
-            ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
             ->skip($skip)         // punto de partida
             ->take($pageLength)   // limite de resgistro  
+            ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
             ->get();
             
         $res = [

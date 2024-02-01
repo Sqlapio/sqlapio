@@ -168,8 +168,11 @@
                     url: "{{ route('res_exam_sin_resul') }}",
                     type: "GET",
                     data: { "_token": "{{ csrf_token() }}"},
-                    success: function(resp) {
-                        setdataDos(resp.data);
+                    success: function(e) {
+
+                        console.log(e);
+
+                        setdataDos(e.data);
                     }
                 }
             });
@@ -478,8 +481,6 @@
                     }
                 ],
             });
-
-
         }
 
         function setdataDos(data) {
@@ -541,7 +542,8 @@
                     type: "GET",
                     data: {"_token": "{{ csrf_token() }}"},
                     success: function(e) {
-                        countTableDos = resp.count;
+                        console.log(e);
+                        countTableDos = e.count;
 
                         setdataDos(e.data);
                     }
