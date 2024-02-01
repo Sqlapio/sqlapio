@@ -124,11 +124,15 @@
         let exams_array = [];
         let data = @json($data);
         let countTable = 0;
+        let examen_sin_resul = @json($examen_sin_resul);
+        let countTableDos = 0;
 
 
         $(document).ready(function() {
 
             countTable = data.count;
+
+            countTableDos = examen_sin_resul.count
 
             new DataTable('.table-pag', {
                 language: {
@@ -143,12 +147,29 @@
                 ajax: {
                     url: "{{ route('res_exam') }}",
                     type: "GET",
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "data": '',
-                    },
+                    data: {"_token": "{{ csrf_token() }}"},
                     success: function(resp) {
                         setDataTable(resp.data);
+                    }
+                }
+            });
+
+            new DataTable('.table-pag-dos', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                },
+                reponsive: true,
+                searching: false,
+                bLengthChange: false,
+                deferLoading: countTableDos,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('res_exam_sin_resul') }}",
+                    type: "GET",
+                    data: { "_token": "{{ csrf_token() }}"},
+                    success: function(resp) {
+                        setdataDos(resp.data);
                     }
                 }
             });
@@ -507,9 +528,23 @@
                     url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
                 },
                 bDestroy: true,
+                reponsive: true,
+                searching: false,
+                bLengthChange: false,
+                deferLoading: countTableDos,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('res_exam_sin_resul') }}",
+                    type: "GET",
+                    data: {"_token": "{{ csrf_token() }}"},
+                    success: function(e) {
+                        countTableDos = resp.count;
+
+                        setdataDos(e.data);
+                    }
+                },
                 data: dataRef,
-                "searching": false,
-                "bLengthChange": false,
                 columns: [{
 
                         data: 'img',
@@ -716,7 +751,7 @@
                                             class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <hr>
                                             <h5 class="mb-4">Exámenes sin resultados</h5>
-                                            <table id="table-info-sin-examen" class="table table-striped table-bordered"
+                                            <table id="table-info-sin-examen" class="table-pag-dos table-striped table-bordered"
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
@@ -731,14 +766,14 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($examen_sin_resul as $item)
+                                                    @foreach ($examen_sin_resul['data'] as $item)
                                                         <tr>
                                                             <td class="table-avatar">
                                                                 <img class="avatar"
                                                                     src=" {{ $item->get_patient->patient_img ? asset('/imgs/' . $item->get_patient->patient_img) : ($item->get_patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
                                                                     alt="Imagen del paciente">
                                                             </td>
-                                                            <td class="text-center"> {{ $item->date }} </td>
+                                                            <td class="text-center"> {{ $item->date."-->".$item->id }} </td>
                                                             <td class="text-center"> {{ $item->cod_ref }} </td>
                                                             <td class="text-center text-capitalize">
                                                                 {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }}

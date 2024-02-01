@@ -15,26 +15,47 @@ class Examen extends Component
 {
     public function res_exam(Request $request)
     {
-        // dd(Request()->all());
 
         // Page Length
         $pageNumber = ($request->start / $request->length) + 1;
         $pageLength = $request->length;
-        $skip       = ($pageNumber - 1) * $pageLength;
-
-        Log::info("pageNumber" . "---------->" . $pageNumber);
-        Log::info("pageLength" . "---------->" . $pageLength);
-        Log::info("skip" . "---------->" . $skip);
+        $skip       = ($pageNumber - 1) * $pageLength;       
 
         $count = ExamPatient::where('status', 2)
             ->where('user_id', Auth::user()->id)->get();
 
         $data = ExamPatient::where('status', 2)
-            ->where('user_id', Auth::user()->id)       
+            ->where('user_id', Auth::user()->id)
             ->skip($skip)         // punto de partida
             ->take($pageLength)   // limite de resgistro   
             ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
 
+        $res = [
+            "data" => $data,
+            "count" => count($count),
+            "limit" => $pageLength,
+            "offset" => $pageNumber,
+        ];
+
+        return $res;
+    }
+
+    public function res_exam_sin_resul(Request $request)
+    {
+        // Page Length
+        $pageNumber = ($request->start / $request->length) + 1;
+        $pageLength = $request->length;
+        $skip       = ($pageNumber - 1) * $pageLength;
+
+        $count =  ExamPatient::where('user_id',  Auth::user()->id)
+        ->where('status',1)->get();
+
+        $data =  Reference::where('user_id',  Auth::user()->id)
+            ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
+            ->skip($skip)         // punto de partida
+            ->take($pageLength)   // limite de resgistro  
+            ->get();
+            
         $res = [
             "data" => $data,
             "count" => count($count),
@@ -60,7 +81,7 @@ class Examen extends Component
         } else {
 
             $count = ExamPatient::where('status', 2)
-            ->where('user_id', Auth::user()->id)->get();
+                ->where('user_id', Auth::user()->id)->get();
 
             $res = ExamPatient::where('status', 2)
                 ->where('user_id', Auth::user()->id)
@@ -72,12 +93,27 @@ class Examen extends Component
             $data = [
                 "data" => $res,
                 "count" => count($count),
-                "limit" => 10,
-                "offset" => 1,
+                "limit" => 0,
+                "offset" => 10,
             ];
+            //////
+            
+            $countDos =  ExamPatient::where('user_id',  Auth::user()->id)
+            ->where('status',1)->get();
 
-            $examen_sin_resul =  Reference::where('user_id',  Auth::user()->id)
-                ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])->get();
+            $sin_resul =  Reference::where('user_id',  Auth::user()->id)
+                 ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
+                ->skip(0) // punto de partida
+                ->take(10) // limite de resgistro  
+                ->get();
+                
+            $examen_sin_resul = [
+                "data" => $sin_resul,
+                "count" => count($countDos),
+                "limit" => 0,
+                "offset" => 10,
+            ];
+            ///end
         }
         return view('livewire.components.examen', compact('data', 'examen_sin_resul', 'id'));
     }
