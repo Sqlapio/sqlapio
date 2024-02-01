@@ -13,7 +13,7 @@ use Livewire\Component;
 
 class Examen extends Component
 {
-    public function res_exam(Request $request,$patient_id)
+    public function res_exam(Request $request)
     {
         // dd(Request()->all());
 
@@ -26,15 +26,23 @@ class Examen extends Component
         Log::info("pageLength"."---------->".$pageLength);
         Log::info("skip"."---------->".$skip);
 
-        $data = ExamPatient::where('status', 2)
-        ->where('user_id', Auth::user()->id)
-        ->skip($request->start)
-        ->take($request->length)
-        // ->limit($pageLength)
-        // ->offset($pageNumber)
-        ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();      
+        $count = ExamPatient::where('status', 2)
+        ->where('user_id', Auth::user()->id)->get();   
 
-        return $data;
+        $data = ExamPatient::where('status', 2)
+        ->where('user_id', Auth::user()->id)      
+        ->limit($pageLength)
+        ->offset($pageNumber)
+        ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get(); 
+
+        $res = [
+            "data" => $data,
+            "count" => count( $count),
+            "limit" => $pageLength,
+            "offset" => $pageNumber,
+        ];
+        
+        return $res ;
     }
 
 
@@ -58,7 +66,6 @@ class Examen extends Component
             $examen_sin_resul =  Reference::where('user_id',  Auth::user()->id)
                 ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])->get();
         }
-
         return view('livewire.components.examen', compact('data', 'examen_sin_resul', 'id'));
     }
 }

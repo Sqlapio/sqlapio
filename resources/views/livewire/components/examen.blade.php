@@ -122,8 +122,13 @@
     <script>
         let count = 0;
         let exams_array = [];
+        let data = @json($data);
+        let countTable = 0;
+
 
         $(document).ready(function() {
+
+            countTable = data.length;
 
             new DataTable('.table-pag', {
                 language: {
@@ -132,7 +137,7 @@
                 reponsive: true,
                 searching: false,
                 bLengthChange: false,
-                deferLoading: 57,
+                deferLoading: countTable,
                 processing: true,
                 serverSide: true,
                 ajax: {
@@ -143,7 +148,7 @@
                         "data": '',
                     },
                     success: function(resp) {
-                        setDataTable(resp);
+                        setDataTable(resp.data);
                     }
                 }
             });
@@ -397,9 +402,25 @@
                     url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
                 },
                 bDestroy: true,
+                reponsive: true,
+                searching: false,
+                bLengthChange: false,
+                deferLoading: countTable,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('res_exam') }}",
+                    type: "GET",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "data": '',
+                    },
+                    success: function(resp) {
+                        countTable = resp.count;
+                        setDataTable(resp.data);
+                    }
+                },
                 data: data,
-                "searching": false,
-                "bLengthChange": false,
                 columns: [{
 
                         data: 'img',
