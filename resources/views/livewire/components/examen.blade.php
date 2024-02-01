@@ -128,7 +128,7 @@
 
         $(document).ready(function() {
 
-            countTable = data.length;
+            countTable = data.count;
 
             new DataTable('.table-pag', {
                 language: {
@@ -393,6 +393,8 @@
 
                 elem.ci = (elem.get_patients.is_minor == "true") ? `${elem.get_reprensetative.re_ci} (Rep)` : elem
                     .get_patients.ci;
+
+                elem.description =  `${elem.description}----->${elem.id}`
 
                 data.push(elem);
             });
@@ -669,7 +671,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($data as $item)
+                                                    @foreach ($data['data'] as $item)
                                                         <tr>
                                                             <td class="table-avatar">
                                                                 <img class="avatar"
@@ -683,7 +685,7 @@
                                                             <td class="text-center">
                                                                 {{ $item->get_patients->is_minor === 'true' ? $item->get_patients->get_reprensetative->re_ci . '  (Rep)' : $item->get_patients->ci }}
                                                             </td>
-                                                            <td class="text-center"> {{ $item->description }} </td>
+                                                            <td class="text-center"> {{ $item->description."--->".$item->id }} </td>
                                                             <td class="text-center">
                                                                 <div class="d-flex" style="justify-content: center;">
                                                                     <div

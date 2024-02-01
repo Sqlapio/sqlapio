@@ -22,27 +22,27 @@ class Examen extends Component
         $pageLength = $request->length;
         $skip       = ($pageNumber - 1) * $pageLength;
 
-        Log::info("pageNumber"."---------->".$pageNumber);
-        Log::info("pageLength"."---------->".$pageLength);
-        Log::info("skip"."---------->".$skip);
+        Log::info("pageNumber" . "---------->" . $pageNumber);
+        Log::info("pageLength" . "---------->" . $pageLength);
+        Log::info("skip" . "---------->" . $skip);
 
         $count = ExamPatient::where('status', 2)
-        ->where('user_id', Auth::user()->id)->get();   
+            ->where('user_id', Auth::user()->id)->get();
 
         $data = ExamPatient::where('status', 2)
-        ->where('user_id', Auth::user()->id)      
-        ->limit($pageLength)
-        ->offset($pageNumber)
-        ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get(); 
+            ->where('user_id', Auth::user()->id)       
+            ->skip($skip)         // punto de partida
+            ->take($pageLength)   // limite de resgistro   
+            ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
 
         $res = [
             "data" => $data,
-            "count" => count( $count),
+            "count" => count($count),
             "limit" => $pageLength,
             "offset" => $pageNumber,
         ];
-        
-        return $res ;
+
+        return $res;
     }
 
 
@@ -59,9 +59,22 @@ class Examen extends Component
                 ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])->get();
         } else {
 
-            $data = ExamPatient::where('status', 2)
+            $count = ExamPatient::where('status', 2)
+            ->where('user_id', Auth::user()->id)->get();
+
+            $res = ExamPatient::where('status', 2)
                 ->where('user_id', Auth::user()->id)
-                ->with('get_laboratory')->get();
+                ->with('get_laboratory')
+                ->skip(0) // punto de partida
+                ->take(10) // limite de resgistro  
+                ->get();
+
+            $data = [
+                "data" => $res,
+                "count" => count($count),
+                "limit" => 10,
+                "offset" => 1,
+            ];
 
             $examen_sin_resul =  Reference::where('user_id',  Auth::user()->id)
                 ->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])->get();
