@@ -583,7 +583,8 @@
                                                                 de Nacimiento</label>
                                                             <input autocomplete="off" placeholder=""
                                                                 class="form-control date-bd @error('birthdate') is-invalid @enderror"
-                                                                id="birthdate" name="birthdate" type="date" value=""
+                                                                id="birthdate" name="birthdate" type="date" value="" 
+                                                                style="padding: 0.375rem 5px 0.375rem 0.75rem;"
                                                                 onchange="calculateAge(event,'age')">
                                                         </div>
                                                     </div>

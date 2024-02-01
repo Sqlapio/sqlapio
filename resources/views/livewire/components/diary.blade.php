@@ -264,7 +264,7 @@
 
                                     @if (Auth::user()->type_plane != '7')
                                         <x-centers_user
-                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" />
+                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="CM"/>
                                     @endif
 
                                     <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center"
