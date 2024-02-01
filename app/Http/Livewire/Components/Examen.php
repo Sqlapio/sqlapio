@@ -8,51 +8,33 @@ use App\Models\Reference;
 use App\Models\StudyPatient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class Examen extends Component
 {
-    public function res_exam(Request $request)
+    public function res_exam(Request $request,$patient_id)
     {
+        // dd(Request()->all());
 
         // Page Length
         $pageNumber = ($request->start / $request->length) + 1;
         $pageLength = $request->length;
         $skip       = ($pageNumber - 1) * $pageLength;
-        dd($pageNumber,$pageLength,$skip );
 
-        // Page Order
-        // $orderColumnIndex = $request->order[0]['column'] ?? '0';
-        // $orderBy = $request->order[0]['dir'] ?? 'desc';
+        Log::info("pageNumber"."---------->".$pageNumber);
+        Log::info("pageLength"."---------->".$pageLength);
+        Log::info("skip"."---------->".$skip);
 
-        // // get data from products table
-        // $query = DB::table('products')->select('*');
+        $data = ExamPatient::where('status', 2)
+        ->where('user_id', Auth::user()->id)
+        ->skip($request->start)
+        ->take($request->length)
+        // ->limit($pageLength)
+        // ->offset($pageNumber)
+        ->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();      
 
-        // // Search
-        // $search = $request->search;
-        // $query = $query->where(function ($query) use ($search) {
-        //     $query->orWhere('name', 'like', "%" . $search . "%");
-        //     $query->orWhere('description', 'like', "%" . $search . "%");
-        //     $query->orWhere('amount', 'like', "%" . $search . "%");
-        // });
-
-        // $orderByName = 'name';
-        // switch ($orderColumnIndex) {
-        //     case '0':
-        //         $orderByName = 'name';
-        //         break;
-        //     case '1':
-        //         $orderByName = 'description';
-        //         break;
-        //     case '2':
-        //         $orderByName = 'amount';
-        //         break;
-        // }
-        // $query = $query->orderBy($orderByName, $orderBy);
-        // $recordsFiltered = $recordsTotal = $query->count();
-        // $users = $query->skip($skip)->take($pageLength)->get();
-
-        return true;
+        return $data;
     }
 
 

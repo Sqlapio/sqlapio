@@ -122,36 +122,30 @@
     <script>
         let count = 0;
         let exams_array = [];
-        $(document).ready(function() {
 
-          
-            $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-            }
-        });
+        $(document).ready(function() {
 
             new DataTable('.table-pag', {
                 language: {
                     url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
                 },
                 reponsive: true,
-                ajax: {
-                    url: "{{ route('res_exam') }}",
-                    type: "GET",
-                    data: {
-                            "_token": "{{ csrf_token() }}",
-                            "data": '',
-                        },
-                    data: function(data) {
-                        console.log(data);
-                    }
-                },
                 searching: false,
                 bLengthChange: false,
                 deferLoading: 57,
                 processing: true,
                 serverSide: true,
+                ajax: {
+                    url: "{{ route('res_exam') }}",
+                    type: "GET",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "data": '',
+                    },
+                    success: function(resp) {
+                        setDataTable(resp);
+                    }
+                }
             });
 
             //validar formulario
@@ -264,11 +258,9 @@
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
-                        }).then((result) => {
-                            // $("#content-result").hide();
-                            // $('#show-info-pat').show();
+                        }).then((result) => {                          
                             $('#spinner2').hide();
-                            setDataTable(response);
+                            setDataTable(response.data);
                             setdataDos(response.reference);
                         });
 
@@ -361,7 +353,7 @@
 
             let data = [];
 
-            row.data.map((elem) => {
+            row.map((elem) => {
                 // let elemData = JSON.stringify(elem);
                 let target = `{{ URL::asset('/imgs/${elem.file}') }}`;
                 elem.btn = `<div class="d-flex" style="justify-content: center;">
