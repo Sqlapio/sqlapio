@@ -1561,7 +1561,7 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> Consulta médica
+                                    <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.consulta_medica')
                                 </button>
                             </span>
                             <div id="collapseTwo" class="accordion-collapse2 collapse" aria-labelledby="headingTwo"
@@ -1580,12 +1580,11 @@
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro
-                                                                de salud</label>
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.centro_salud')</label>
                                                             <select name="center_id" id="center_id"
                                                                 placeholder="Seleccione"class="form-control"
                                                                 class="form-control combo-textbox-input">
-                                                                <option value="">Seleccione</option>
+                                                                <option value="">@lang('messages.label.seleccione')</option>
                                                                 @foreach ($doctor_centers as $item)
                                                                     <option value="{{ $item->center_id }}">
                                                                         {{ $item->get_center->description }}</option>
@@ -1602,7 +1601,7 @@
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
                                                     <div class="form-group">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Antecedentes</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.antecedentes')</label>
                                                         <textarea id="background" rows="3" name="background" class="form-control"></textarea>
                                                     </div>
                                                 </div>
@@ -1610,8 +1609,7 @@
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pl-5">
                                                     <div class="form-group">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
-                                                            de la visita</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon')</label>
                                                         <textarea id="razon" rows="3" name="razon" class="form-control"></textarea>
                                                     </div>
                                                 </div>
@@ -1626,7 +1624,7 @@
                                                             style="display: flex; align-items: center;">
                                                             <label for="search_symptoms"
                                                                 class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 130px">
-                                                                Buscar Sintomas
+                                                                @lang('messages.form.buscar_sintoma')
                                                             </label>
                                                             <input onkeyup="search(event,'symptoms')" type="text"
                                                                 style="border-radius: 30px;" class="form-control"
@@ -1647,7 +1645,7 @@
                                                         style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; margin-top: 0.5rem">
                                                         <div class="form-group">
                                                             <label for="phone" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Sintomas</label>
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.sintomas')</label>
                                                             <textarea id="sintomas" rows="2" name="sintomas" class="form-control"></textarea>
                                                         </div>
                                                     </div>
@@ -1672,8 +1670,7 @@
                                                     <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                         style="display: flex; justify-content: flex-end;">
                                                         <button onclick="handlerIA()" type="button"
-                                                            class="btn btnSave">Consulta con inteligencia
-                                                            artificial</button>
+                                                            class="btn btnSave">@lang('messages.botton.consulta_ai')</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1930,7 +1927,7 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> Ultimas consultas
+                                    <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.ultimas_consultas')
                                 </button>
                             </span>
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
@@ -2058,7 +2055,7 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseInfome" aria-expanded="false" aria-controls="collapseInfome"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> Informes medicos
+                                    <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.informes_medico')
                                 </button>
                             </span>
                             <div id="collapseInfome" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">

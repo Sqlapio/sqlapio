@@ -39,7 +39,7 @@ return [
         'profesion'         => 'Profession',
         'codigo_postal'     => 'Postal Code',
         'centro_salud'      => 'Health Center',
-        'antecedentes'      => 'Antecedentes',
+        'antecedentes'      => 'Background',
         'razon'             => 'Reason for Visit',
         'buscar_sintoma'    => 'Search Symptoms',
         'sintomas'          => 'Sintomas',
