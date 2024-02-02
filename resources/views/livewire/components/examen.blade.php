@@ -147,7 +147,9 @@
                 ajax: {
                     url: "{{ route('res_exam') }}",
                     type: "GET",
-                    data: {"_token": "{{ csrf_token() }}"},
+                    data: {
+                        "_token": "{{ csrf_token() }}"
+                    },
                     success: function(resp) {
                         setDataTable(resp.data);
                     }
@@ -167,7 +169,9 @@
                 ajax: {
                     url: "{{ route('res_exam_sin_resul') }}",
                     type: "GET",
-                    data: { "_token": "{{ csrf_token() }}"},
+                    data: {
+                        "_token": "{{ csrf_token() }}"
+                    },
                     success: function(e) {
 
                         console.log(e);
@@ -287,10 +291,16 @@
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
-                        }).then((result) => {                          
+                        }).then((result) => {
                             $('#spinner2').hide();
-                            setDataTable(response.data);
-                            setdataDos(response.reference);
+
+                            let countTable = response.data.count;
+
+                            setDataTable(response.data.data);
+
+                            let countTableDos = response.reference.count;
+
+                            setdataDos(response.reference.data);
                         });
 
                     },
@@ -418,7 +428,7 @@
                 elem.ci = (elem.get_patients.is_minor == "true") ? `${elem.get_reprensetative.re_ci} (Rep)` : elem
                     .get_patients.ci;
 
-                elem.description =  `${elem.description}----->${elem.id}`
+                elem.description = `${elem.description}----->${elem.id}`
 
                 data.push(elem);
             });
@@ -489,41 +499,44 @@
 
             data.map((e) => {
 
-                let target = `{{ URL::asset('/imgs/${e.file}') }}`;
+                if (e.get_examne_stutus_uno.length > 0) {
 
-                let eData = JSON.stringify(e);
+                    let target = `{{ URL::asset('/imgs/${e.file}') }}`;
 
-                e.btn = `
-                <button onclick='showModal(${ eData })'
-                    data-bs-toggle='tooltip' data-bs-placement='right'
-                    data-bs-custom-class='custom-tooltip' data-html='true'
-                    title='Ver exámenes' type='button'
-                    class='btn btn-iPrimary rounded-circle'
-                    style="margin-rigth: 0">
-                    <i class='bi bi-info-circle-fill'></i>
-                </button>`;
+                    let eData = JSON.stringify(e);
+
+                    e.btn = `<button onclick='showModal(${ eData })'
+                            data-bs-toggle='tooltip' data-bs-placement='right'
+                            data-bs-custom-class='custom-tooltip' data-html='true'
+                            title='Ver exámenes' type='button'
+                            class='btn btn-iPrimary rounded-circle'
+                            style="margin-rigth: 0">
+                            <i class='bi bi-info-circle-fill'></i>
+                            </button>`;
 
 
-                e.full_name = `${e.get_patient.name } ${e.get_patient.last_name }`;
+                    e.full_name = `${e.get_patient.name } ${e.get_patient.last_name }`;
 
-                let imagen = `{{ URL::asset('/img/avatar/avatar mujer.png') }}`;
+                    let imagen = `{{ URL::asset('/img/avatar/avatar mujer.png') }}`;
 
-                if (e.get_patient.patient_img != null) {
-                    imagen = `{{ URL::asset('/imgs/${e.get_patient.patient_img}') }}`;
-                } else {
-                    if (e.get_patient.genere == "masculino") {
-                        imagen = `{{ URL::asset('/img/avatar/avatar hombre.png') }}`;
+                    if (e.get_patient.patient_img != null) {
+                        imagen = `{{ URL::asset('/imgs/${e.get_patient.patient_img}') }}`;
+                    } else {
+                        if (e.get_patient.genere == "masculino") {
+                            imagen = `{{ URL::asset('/img/avatar/avatar hombre.png') }}`;
+                        }
                     }
-                }
 
-                e.img = `<img class="avatar" src="${imagen}" alt="Imagen del paciente">`;
+                    e.img = `<img class="avatar" src="${imagen}" alt="Imagen del paciente">`;
 
-                e.ci = (e.get_patient.is_minor == "true") ? `${e.get_reprensetative.re_ci} (Rep)` : e
-                    .get_patient.ci;
- 
+                    e.ci = (e.get_patient.is_minor == "true") ? `${e.get_reprensetative.re_ci} (Rep)` : e
+                        .get_patient.ci;
+
                     e.date = `${e.date}--->${e.id}`
 
-                dataRef.push(e);
+                    dataRef.push(e);
+
+                }
             });
 
             new DataTable('#table-info-sin-examen', {
@@ -540,11 +553,12 @@
                 ajax: {
                     url: "{{ route('res_exam_sin_resul') }}",
                     type: "GET",
-                    data: {"_token": "{{ csrf_token() }}"},
+                    data: {
+                        "_token": "{{ csrf_token() }}"
+                    },
                     success: function(e) {
-                        console.log(e);
-                        countTableDos = e.count;
 
+                        countTableDos = e.count;
                         setdataDos(e.data);
                     }
                 },
@@ -593,54 +607,43 @@
 
         function showModal(item) {
 
-            if (item.get_examne_stutus_uno.length > 0) {
-                count = 0;
-                $('#count').val('');
-                $('.holder').hide();
-                $('#code_ref').val(item.cod_ref);
-                $('#img').val('');
-                $('#ModalLoadResult').modal('show');
-                $('#table-info').find('tbody').empty();
-                $('.modal-title').text('Examen del Paciente');
-                ///
-                $('#ref').text(item.cod_ref);
-                $('#id').val(item.id);
-                $('#ref-pat').text(`${item.get_patient.name} ${item.get_patient.last_name}`);
+            count = 0;
+            $('#count').val('');
+            $('.holder').hide();
+            $('#code_ref').val(item.cod_ref);
+            $('#img').val('');
+            $('#ModalLoadResult').modal('show');
+            $('#table-info').find('tbody').empty();
+            $('.modal-title').text('Examen del Paciente');
+            ///
+            $('#ref').text(item.cod_ref);
+            $('#id').val(item.id);
+            $('#ref-pat').text(`${item.get_patient.name} ${item.get_patient.last_name}`);
 
-                item.get_examne_stutus_uno.map((elemt, index) => {
-                    let elemData = JSON.stringify(elemt);
-                    let label =
-                        `<label><input type="checkbox" id="cod_exam_${index}" onclick='cuontResul(event,${elemData},${index});'></label>`
-                    if (Number(elemt.status) === 2) {
-                        $('#div-result').hide();
-                        $('#div-btn').hide();
-                        label =
-                            `<div  class="pad"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
-                    }
-                    if (Number(elemt.status) === 1) {
-                        ;
-                        $('#div-result').show();
-                        $('#div-btn').show();
-                    }
-                    let row = `
+            item.get_examne_stutus_uno.map((elemt, index) => {
+                let elemData = JSON.stringify(elemt);
+                let label =
+                    `<label><input type="checkbox" id="cod_exam_${index}" onclick='cuontResul(event,${elemData},${index});'></label>`
+                if (Number(elemt.status) === 2) {
+                    $('#div-result').hide();
+                    $('#div-btn').hide();
+                    label =
+                        `<div  class="pad"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
+                }
+                if (Number(elemt.status) === 1) {
+                    ;
+                    $('#div-result').show();
+                    $('#div-btn').show();
+                }
+                let row = `
                 <tr>
                     <td class="text-center">${elemt.cod_exam}</td>
                     <td class="text-center">${elemt.description}</td>     
                     <td class="text-center">${label}</td>                
                     </tr>`;
-                    $('#table-info').find('tbody').append(row);
+                $('#table-info').find('tbody').append(row);
 
-                });
-
-            } else {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Paciente sin exámenes solicitados por el médico!',
-                    allowOutsideClick: false,
-                    confirmButtonColor: '#42ABE2',
-                    confirmButtonText: 'Aceptar'
-                });
-            }
+            });
 
         }
 
@@ -724,7 +727,8 @@
                                                             <td class="text-center">
                                                                 {{ $item->get_patients->is_minor === 'true' ? $item->get_patients->get_reprensetative->re_ci . '  (Rep)' : $item->get_patients->ci }}
                                                             </td>
-                                                            <td class="text-center"> {{ $item->description."--->".$item->id }} </td>
+                                                            <td class="text-center">
+                                                                {{ $item->description . '--->' . $item->id }} </td>
                                                             <td class="text-center">
                                                                 <div class="d-flex" style="justify-content: center;">
                                                                     <div
@@ -755,8 +759,8 @@
                                             class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <hr>
                                             <h5 class="mb-4">Exámenes sin resultados</h5>
-                                            <table id="table-info-sin-examen" class="table-pag-dos table-striped table-bordered"
-                                                style="width:100%">
+                                            <table id="table-info-sin-examen"
+                                                class="table-pag-dos table-striped table-bordered" style="width:100%">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center w-image" scope="col"
@@ -771,53 +775,48 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($examen_sin_resul['data'] as $item)
-                                                        <tr>
-                                                            <td class="table-avatar">
-                                                                <img class="avatar"
-                                                                    src=" {{ $item->get_patient->patient_img ? asset('/imgs/' . $item->get_patient->patient_img) : ($item->get_patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
-                                                                    alt="Imagen del paciente">
-                                                            </td>
-                                                            <td class="text-center"> {{ $item->date."-->".$item->id }} </td>
-                                                            <td class="text-center"> {{ $item->cod_ref }} </td>
-                                                            <td class="text-center text-capitalize">
-                                                                {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }}
-                                                            </td>
-                                                            <td class="text-center">
-                                                                {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }}
-                                                            </td>
-                                                            {{-- <td>
-                                                                <button onclick='showModal({{ $item }})'
-                                                                    data-bs-toggle='tooltip' data-bs-placement='right'
-                                                                    data-bs-custom-class='custom-tooltip' data-html='true'
-                                                                    title='Ver examenes' type='button'
-                                                                    class='btn btn-iPrimary rounded-circle'>
-                                                                    <i class='bi bi-info-circle-fill'></i>
-                                                                </button>
-                                                            </td> --}}
+                                                        @if (count($item->get_examne_stutus_uno) > 1)
+                                                            <tr>
+                                                                <td class="table-avatar">
+                                                                    <img class="avatar"
+                                                                        src=" {{ $item->get_patient->patient_img ? asset('/imgs/' . $item->get_patient->patient_img) : ($item->get_patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                                        alt="Imagen del paciente">
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{ $item->date . '-->' . $item->id }}
+                                                                </td>
+                                                                <td class="text-center"> {{ $item->cod_ref }} </td>
+                                                                <td class="text-center text-capitalize">
+                                                                    {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }}
+                                                                </td>
 
-                                                            <td>
-                                                                <div class="d-flex" style="justify-content: center;">
-                                                                    <div
-                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a
-                                                                            style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
-                                                                            <button
-                                                                                onclick='showModal({{ $item }})'
-                                                                                data-bs-toggle='tooltip'
-                                                                                data-bs-placement='right'
-                                                                                data-bs-custom-class='custom-tooltip'
-                                                                                data-html='true' title='Cargar examen'
-                                                                                type='button'
-                                                                                class='btn btn-iPrimary rounded-circle'
-                                                                                style="margin-right: 0">
-                                                                                <i class='bi bi-info-circle-fill'></i>
-                                                                            </button>
-                                                                        </a>
+                                                                <td>
+                                                                    <div class="d-flex" style="justify-content: center;">
+                                                                        <div
+                                                                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                            <a
+                                                                                style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
+                                                                                <button
+                                                                                    onclick='showModal({{ $item }})'
+                                                                                    data-bs-toggle='tooltip'
+                                                                                    data-bs-placement='right'
+                                                                                    data-bs-custom-class='custom-tooltip'
+                                                                                    data-html='true' title='Cargar examen'
+                                                                                    type='button'
+                                                                                    class='btn btn-iPrimary rounded-circle'
+                                                                                    style="margin-right: 0">
+                                                                                    <i class='bi bi-info-circle-fill'></i>
+                                                                                </button>
+                                                                            </a>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
 
-                                                            </td>
-                                                        </tr>
+                                                                </td>
+                                                            </tr>
+                                                        @endif
                                                     @endforeach
                                                 </tbody>
                                             </table>

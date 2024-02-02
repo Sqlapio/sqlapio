@@ -1314,7 +1314,20 @@ class UtilsController extends Controller
 					});
 				});
 
-			$data = $tablePat->union($tableRep)->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
+			$data = $tablePat->union($tableRep)			
+			->with(['get_laboratory', 'get_patients', 'get_reprensetative'])
+			->skip(0)     // punto de partida
+            ->take(10)   // limite de resgistro
+			->get();
+
+			$count = $data = $tablePat->union($tableRep)->get();	
+
+			$data = [
+				"data" => $data,
+				"count" => count($count),
+				"skip" => 0,
+				"limit" => 10,
+			];
 
 			///buscar las referencias sin resultados cargados
 
@@ -1328,7 +1341,22 @@ class UtilsController extends Controller
 				});
 			});
 
-			$reference = $Reference_pat->union($Reference_reo)->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])->get();
+
+
+			$reference = $Reference_pat->union($Reference_reo)
+			->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
+			->skip(0)     // punto de partida
+            ->take(10)   // limite de resgistro
+			->get();
+
+			$countDos = $Reference_pat->union($Reference_reo)->get();
+			
+			$reference = [
+				"data" => $reference,
+				"count" => count($countDos),
+				"skip" => 0,
+				"limit" => 10,
+			];
 
 			return ["data" => $data, "reference" => $reference];
 
