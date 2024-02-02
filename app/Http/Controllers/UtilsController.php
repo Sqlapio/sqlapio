@@ -1078,34 +1078,30 @@ class UtilsController extends Controller
 
 			$data_exams = json_decode($data->exams_array);
 
-			for ($i = 0; $i < count($data_exams); $i++)
-            {
-                if(isset($data->doctor_id))
-                {
-                    $update = DB::table('exam_patients')
-					->where('cod_ref', $data->code_ref)
-					->where('cod_exam', $data_exams[$i]->cod_exam)
-					->update([
-						'upload_user_id' => $data->doctor_id,
-						'file' => $nameFile,
-						'status' => 2,
-						'date_result' => date('d-m-Y'),
-					]);
+			for ($i = 0; $i < count($data_exams); $i++) {
+				if (isset($data->doctor_id)) {
+					$update = DB::table('exam_patients')
+						->where('cod_ref', $data->code_ref)
+						->where('cod_exam', $data_exams[$i]->cod_exam)
+						->update([
+							'upload_user_id' => $data->doctor_id,
+							'file' => $nameFile,
+							'status' => 2,
+							'date_result' => date('d-m-Y'),
+						]);
+				} else {
 
-                }else{
-
-                    $update = DB::table('exam_patients')
-					->where('cod_ref', $data->code_ref)
-					->where('cod_exam', $data_exams[$i]->cod_exam)
-					->update([
-						'laboratory_id' => $laboratory->id,
-						'cod_lab' => $laboratory->code_lab,
-						'file' => $nameFile,
-						'status' => 2,
-						'date_result' => date('d-m-Y'),
-					]);
-                }
-
+					$update = DB::table('exam_patients')
+						->where('cod_ref', $data->code_ref)
+						->where('cod_exam', $data_exams[$i]->cod_exam)
+						->update([
+							'laboratory_id' => $laboratory->id,
+							'cod_lab' => $laboratory->code_lab,
+							'file' => $nameFile,
+							'status' => 2,
+							'date_result' => date('d-m-Y'),
+						]);
+				}
 			}
 
 			$medical_record_code = Reference::where('cod_ref', $data->code_ref)->first()->cod_medical_record;
@@ -1164,33 +1160,30 @@ class UtilsController extends Controller
 
 			$data_studies = json_decode($data->studies_array);
 
-			for ($i = 0; $i < count($data_studies); $i++)
-            {
-                if(isset($data->doctor_id))
-                {
-                    $update = DB::table('study_patients')
-					->where('cod_ref', $data->code_ref)
-					->where('cod_study', $data_studies[$i]->cod_study)
-					->update([
-						'upload_user_id' => $data->doctor_id,
-						'file' => $nameFile,
-						'status' => 2,
-						'date_result' => date('d-m-Y'),
-					]);
+			for ($i = 0; $i < count($data_studies); $i++) {
+				if (isset($data->doctor_id)) {
+					$update = DB::table('study_patients')
+						->where('cod_ref', $data->code_ref)
+						->where('cod_study', $data_studies[$i]->cod_study)
+						->update([
+							'upload_user_id' => $data->doctor_id,
+							'file' => $nameFile,
+							'status' => 2,
+							'date_result' => date('d-m-Y'),
+						]);
+				} else {
 
-                }else{
-
-                    $update = DB::table('study_patients')
-                        ->where('cod_ref', $data->code_ref)
-                        ->where('cod_study', $data_studies[$i]->cod_study)
-                        ->update([
-                            'laboratory_id' => $laboratory->id,
-                            'cod_lab' => $laboratory->code_lab,
-                            'file' => $nameFile,
-                            'status' => 2,
-                            'date_result' => date('d-m-Y'),
-                        ]);
-                }
+					$update = DB::table('study_patients')
+						->where('cod_ref', $data->code_ref)
+						->where('cod_study', $data_studies[$i]->cod_study)
+						->update([
+							'laboratory_id' => $laboratory->id,
+							'cod_lab' => $laboratory->code_lab,
+							'file' => $nameFile,
+							'status' => 2,
+							'date_result' => date('d-m-Y'),
+						]);
+				}
 			}
 
 			$medical_record_code = Reference::where('cod_ref', $data->code_ref)->first()->cod_medical_record;
@@ -1314,7 +1307,20 @@ class UtilsController extends Controller
 					});
 				});
 
-			$data = $tablePat->union($tableRep)->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
+			$data = $tablePat->union($tableRep)
+				->with(['get_laboratory', 'get_patients', 'get_reprensetative'])
+				->skip(0)     // punto de partida
+				->take(10)   // limite de resgistro
+				->get();
+
+			$count = $data = $tablePat->union($tableRep)->get();
+
+			$data = [
+				"data" => $data,
+				"count" => count($count),
+				"skip" => 0,
+				"limit" => 10,
+			];
 
 			///buscar las referencias sin resultados cargados
 
@@ -1328,10 +1334,24 @@ class UtilsController extends Controller
 				});
 			});
 
-			$reference = $Reference_pat->union($Reference_reo)->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])->get();
+
+
+			$reference = $Reference_pat->union($Reference_reo)
+				->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
+				->skip(0)     // punto de partida
+				->take(10)   // limite de resgistro
+				->get();
+
+			$countDos = $Reference_pat->union($Reference_reo)->get();
+
+			$reference = [
+				"data" => $reference,
+				"count" => count($countDos),
+				"skip" => 0,
+				"limit" => 10,
+			];
 
 			return ["data" => $data, "reference" => $reference];
-
 		} else {
 
 			$tablePat =  Reference::whereHas('get_patient', function ($q) use ($value) {
@@ -1366,7 +1386,7 @@ class UtilsController extends Controller
 	{
 
 		$data = [];
-		if ($row != 'cod_ref') {			
+		if ($row != 'cod_ref') {
 
 			$tablePat =  StudyPatient::where('status', 2)
 				->whereHas('get_patient', function ($q) use ($value) {
@@ -1380,7 +1400,20 @@ class UtilsController extends Controller
 					});
 				});
 
-			$data = $tablePat->union($tableRep)->with(['get_laboratory', 'get_patient', 'get_reprensetative'])->get();
+			$data = $tablePat->union($tableRep)
+				->with(['get_laboratory', 'get_patient', 'get_reprensetative'])
+				->skip(0)     // punto de partida
+				->take(10)   // limite de resgistro
+				->get();
+
+			$count = $data = $tablePat->union($tableRep)->get();
+
+			$data = [
+				"data" => $data,
+				"count" => count($count),
+				"skip" => 0,
+				"limit" => 10,
+			];
 
 			//buscar las referencias sin resultados cargados
 
@@ -1394,7 +1427,20 @@ class UtilsController extends Controller
 				});
 			});
 
-			$reference = $Reference_pat->union($Reference_reo)->with(['get_patient', 'get_estudio_stutus_uno', 'get_reprensetative'])->get();
+			$reference = $Reference_pat->union($Reference_reo)
+				->with(['get_patient', 'get_estudio_stutus_uno', 'get_reprensetative'])
+				->skip(0)     // punto de partida
+				->take(10)   // limite de resgistro
+				->get();
+
+			$countDos = $Reference_pat->union($Reference_reo)->get();
+
+			$reference = [
+				"data" => $reference,
+				"count" => count($countDos),
+				"skip" => 0,
+				"limit" => 10,
+			];
 
 			return ["data" => $data, "reference" => $reference];
 		}
