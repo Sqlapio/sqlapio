@@ -287,12 +287,12 @@
                                         <table id="table-centers" class="table table-striped table-bordered" style="width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center">Centro de Salud</th>
-                                                    <th class="text-center w-50" data-orderable="false">Dirección</th>
-                                                    <th class="text-center w-5" data-orderable="false">Piso</th>
-                                                    <th class="text-center w-5" data-orderable="false">Consultorio</th>
-                                                    <th class="text-center w-8" data-orderable="false">Teléfono</th>
-                                                    <th class="text-center w-5" data-orderable="false">Estatus</th>
+                                                    <th class="text-center">@lang('messages.tabla.centro_salud')</th>
+                                                    <th class="text-center w-50" data-orderable="false">@lang('messages.tabla.direccion')</th>
+                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.piso')</th>
+                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.consultorio')</th>
+                                                    <th class="text-center w-8" data-orderable="false">@lang('messages.tabla.telefono')</th>
+                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.estatus')</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

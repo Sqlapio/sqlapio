@@ -69,7 +69,7 @@
                 {{-- <input type="file" class="form-control" id="file" name="file" accept=".jpg, .jpeg, .png"> --}}
                 <label for="file" class="custom-file-upload"> {{ $title }} </label>
                 <br>
-                <label for="name" class="form-label" style="font-size: 11px; margin-top: 4px">Ingrese una imagen de max 256kb</label>
+                <label for="name" class="form-label" style="font-size: 11px; margin-top: 4px">@lang('messages.label.info_2')</label>
                 <input id="file" type="file" name="file" accept=".jpg, .jpeg, .png"/>
                 <input type="hidden" name="img" id="img" >
 

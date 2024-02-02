@@ -25,6 +25,7 @@ return [
         'añadir'           => '+Add',
         'cargar_sello'     => 'Load stamp',
         'asociar'          => 'Associate',
+        'agendar_cita'     => 'Schedule Appointment',
     ],
     'form' => [
         'nombre'            => 'First Name',
@@ -115,8 +116,12 @@ return [
     ],
     'modal' => [
         'titulo' => [
-            'agendar_cita'   => 'Schedule Appointment',
-            'asociar_centro' => 'Associate Center',
+            'agendar_cita'     => 'Schedule Appointment',
+            'asociar_centro'   => 'Associate Center',
+            'carga_resultados' => 'Upload Result',
+            'referencia'       => 'Reference',
+            'paciente'         => 'Patient',
+
         ],
         'form' => [
             'buscar'               => 'Search Patient',
@@ -130,6 +135,11 @@ return [
             'piso'                 => 'Flat',
             'consultorio'          => 'Consulting room',
             'telefono_consultorio' => 'Phone',
+        ],
+        'tabla' => [
+            'codigo'               => 'Code',
+            'descripcion'          => 'Description',
+            'carga_resultado'      => 'Upload Result',
         ],
     ],
     'subtitulos' => [
@@ -161,9 +171,32 @@ return [
         'id_consulta'      => 'ID Consultation',
         'medico_tratante'  => 'Treating Physician',
         'medico_remitente' => 'Referring Doctor',
+        'examenes'         => 'Exam',
+        'estudios'         => 'Study',
     ],
     'placeholder' => [
-        'seleccione' => 'select',
+        'seleccione'      => 'select',
         'buscar_paciente' => 'Search patient',
+    ],
+
+    'label' => [
+        'info_1'              => '¡Has consumed the total number of registered patients!',
+        'detalle_plan'        => 'Plan details',
+        'paciente_registrado' => 'Registered patient',
+        'mayor'               => 'Adult',
+        'menor'               => 'Younger',
+        'hijos_registrados'   => 'Children of registered patient',
+        'info_2'              => 'Enter an image of max 256kb',
+        'femenino'            => 'Female',
+        'masculino'           => 'Male',
+        'otros'               => 'Others',
+        'nueva_profesion'     => 'New profession',
+        'datos_representante' => 'Representative data',
+        'datos_paciente'      => 'Patient data',
+        'am'                  => 'AM',
+        'pm'                  => 'PM',
+        'detalle_plan'        => 'Plan details',
+        'centro_salud'        => 'Health Center',
+        'seleccione'          => 'Select',
     ],
 ];

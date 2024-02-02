@@ -8,10 +8,10 @@
 <div class="{{ $class }}" id="CM">
     <div class="form-group">
         <div class="Icon-inside">
-            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro de Salud</label>
+            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.centro_salud')</label>
             <select  name="center_id" id="center_id" placeholder="Seleccione"
                 class="form-control @error('center_id') is-invalid @enderror" class="form-control combo-textbox-input">
-                <option value=''>Seleccione</option>
+                <option value=''>@lang('messages.label.seleccione')</option>
                 @foreach ($centers as $item)
                     <option value={{ $item->get_center->id }}>{{ $item->get_center->description }}
                     </option>

@@ -26,6 +26,7 @@ return [
         'añadir'           => '+ Añadir',
         'cargar_sello'     => 'Cargar Sello',
         'asociar'          => 'Asociar',
+        'agendar_cita'     => 'Agendar Cita',
     ],
     'form' => [
         'nombre'            => 'Nombre',
@@ -122,8 +123,11 @@ return [
     ],
     'modal' => [
         'titulo' => [
-            'agendar_cita'   => 'Agendar Cita',
-            'asociar_centro' => 'Asociar Centro',
+            'agendar_cita'      => 'Agendar Cita',
+            'asociar_centro'    => 'Asociar Centro',
+            'carga_resultados'  => 'Carga de Resultados',
+            'referencia'        => 'Referencia',
+            'paciente'          => 'Paciente',
         ],
         'form' => [
             'buscar'               => 'Buscar Paciente',
@@ -137,6 +141,11 @@ return [
             'piso'                 => 'Piso',
             'consultorio'          => 'Consultorio',
             'telefono_consultorio' => 'Teléfono del Consultorio',
+        ],
+        'tabla' => [
+            'codigo'               => 'Código',
+            'descripcion'          => 'Descripción',
+            'carga_resultado'      => 'Carga de Resultados',
         ],
     ],
     'subtitulos' => [
@@ -162,17 +171,38 @@ return [
         'fecha_resultado'   => 'Fecha Resultado',
         'fecha_solicitud'   => 'Fecha Solicitud',
         'referencia'        => 'Referencia',
-        'resultado'        => 'Resultado',
+        'resultado'         => 'Resultado',
         'cargar_res'        => 'Cargar Resultado',
         'descripcion'       => 'Descripción',
         'id_consulta'       => 'ID Consulta',
         'medico_tratante'   => 'Médico Tratante',
-        'medico_remitente'   => 'Médico Remitente',
+        'examenes'          => 'Exámenes',
+        'estudios'          => 'Estudios',
 
     ],
     'placeholder' => [
         'seleccione' => 'seleccione',
         'buscar_paciente' => 'Buscar paciente',
+    ],
+
+    'label' => [
+        'info_1' => '¡Ha consumido el total de pacientes registrados!',
+        'detalle_plan' => 'Detalles del plan',
+        'paciente_registrado' => 'Paciente registrado',
+        'mayor' => 'Mayor de edad',
+        'menor' => 'Menor de edad',
+        'hijos_registrados' => 'Hijos de paciente registrado',
+        'info_2' => 'Ingrese una imagen de max 256kb',
+        'femenino' => 'Femenino',
+        'masculino' => 'Masculino',
+        'otros' => 'Otros',
+        'nueva_profesion' => 'Nueva profesión',
+        'datos_representante' => 'Datos del representante',
+        'datos_paciente'      => 'Datos del paciente',
+        'pm' => 'PM',
+        'detalle_plan' => 'Detalles del plan',
+        'centro_salud'      => 'Centro de Salud',
+        'seleccione'      => 'Seleccione',
     ],
 
 ];

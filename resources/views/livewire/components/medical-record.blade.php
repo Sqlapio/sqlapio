@@ -317,15 +317,15 @@
         let doctor_centers = @json($doctor_centers);
         let validate_histroy = @json($validate_histroy);
 
-        $(document).ready(() => {//    
-            
+        $(document).ready(() => {//
+
             tinymce.init({
                 selector: '#TextInforme',
                 skin: false,
                 content_css: false,
-                valid_elements: "p,a[href|target=_blank],div[style]",         
+                valid_elements: "p,a[href|target=_blank],div[style]",
                 height: 500,
-                menubar: false,              
+                menubar: false,
                 toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
             });
 
@@ -1431,7 +1431,7 @@
         }
 
         const setDatatable = (data) => {
-            
+
             let row=[];
 
             data.map((elem) => {
@@ -1445,7 +1445,7 @@
                         ':id', elem
                         .id);
 
-                elem.btn = `                                
+                elem.btn = `
                                                 <a target="_blank"
                                                 href="${route}">
                                                 <button type="button"
@@ -1461,7 +1461,7 @@
 
                 elem.name = `${ elem.get_doctor.name} ${elem.get_doctor.last_name  }`
                 row.push(elem);
-            });          
+            });
             new DataTable(
                 '#table-medical-report', {
                     language: {
@@ -1481,12 +1481,12 @@
                             data: 'name',
                             title: 'Medico remitente',
                             className: "text-center td-pad",
-                        },                      
+                        },
                         {
                             data: 'date',
                             title: 'Fecha',
                             className: "text-center td-pad",
-                        },                      
+                        },
                         {
                             data: 'btn',
                             title: 'Ver',
@@ -1513,7 +1513,7 @@
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-person"></i> Datos del paciente
+                                    <i class="bi bi-person"></i> @lang('messages.acordion.datos_paciente')
                                 </button>
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
@@ -1527,22 +1527,22 @@
                                                     class="img-medical">
                                             </div>
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                                <strong>Nombre Completo:</strong><span class="text-capitalize">
+                                                <strong>@lang('messages.ficha_paciente.nombre'):</strong><span class="text-capitalize">
                                                     {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                                 <br>
-                                                <strong>Fecha de Nacimiento:</strong><span>
+                                                <strong>@lang('messages.ficha_paciente.fecha_nacimiento'):</strong><span>
                                                     {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
                                                 <br>
-                                                <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
+                                                <strong>@lang('messages.ficha_paciente.edad'):</strong><span> {{ $Patient->age }} años</span>
                                                 <br>
                                                 <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
                                                 <span>
                                                     {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                                 <br>
-                                                <strong>Genero:</strong> <span class="text-capitalize">
+                                                <strong>@lang('messages.ficha_paciente.genero'):</strong> <span class="text-capitalize">
                                                     {{ $Patient->genere }}</span>
                                                 <br>
-                                                <strong>Nº Historial:</strong><span>
+                                                <strong>@lang('messages.ficha_paciente.nro_historias'):</strong><span>
                                                     {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
                                                 </span>
                                             </div>
@@ -1652,7 +1652,7 @@
                                                         </div>
                                                     </div>
 
-                                                    
+
                                                 </div>
                                                 <div class="row" id="div_spinner">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
