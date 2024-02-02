@@ -83,6 +83,16 @@
         #img-pat {
             margin: 4px 20px 0 0;
         }
+
+        
+        .w-10 {
+            width: 10%;
+        }
+
+        .w-17 {
+            width: 17%;
+        }
+    }
     }
 </style>
 @push('scripts')
@@ -405,10 +415,10 @@
                 $("#div-phone").hide();
 
                 // validar si el nino tiene menos de 8 anos
-                if (Number($("#age").val()) > 8) {
-                    $("#ci-div").show();
-                    $("#ci").rules('remove');
-                }
+                // if (Number($("#age").val()) > 8) {
+                //     $("#ci-div").show();
+                //     $("#ci").rules('remove');
+                // }
 
                 $('#data-rep').show();
                 $('#is_minor').val(true);
@@ -492,6 +502,8 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
+                        $('#spinner2').hide();
+                        $('#search_patient').val('');
                         Swal.fire({
                             icon: 'success',
                             title: 'Operación exitosa!',
@@ -569,7 +581,7 @@
                             confirmButtonText: 'Aceptar'
                         }).then((result) => {
                             $('#send').show();
-                            $('#spinner').hide();
+                            $('#spinner2').hide();
                             $(".holder").hide();
                         });
                     }
@@ -784,8 +796,8 @@
                                     </div>
                                     <div class="row mt-3" id="paciente-registrado">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <div class="form-check form-switch">
-                                                <label style="margin-top: 6px;" for="">Paciente registrado</label>
+                                            <div class="form-check form-switch" style="padding-right: 10px">
+                                                <label style="margin-top: 9px; font-size: 15px" for="">Paciente registrado</label>
                                                 <input onclick="handlerPatExit(event)" style="width: 5em" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="">
                                             </div>
                                         </div>
@@ -843,7 +855,7 @@
                                         </div>
                                     </div>
                                     <div id="content-patient">
-                                        <form id="form-patients" method="post" action="/">
+                                        <form id="form-patients" method="post" action="/" style="margin-bottom: 0px">
                                             {{ csrf_field() }}
                                             <div class="row" style="align-items: flex-end;">
                                                 <input type="hidden" name="is_minor" id="is_minor" value="false">
@@ -895,10 +907,10 @@
                                                                     Fecha de Nacimiento
                                                                 </label>
                                                                 <input class="form-control date-bd" id="birthdate"
-                                                                    name="birthdate" type="date" value=""
+                                                                    name="birthdate" type="date" value="" style="padding: 0.375rem 5px 0.375rem 0.75rem;"
                                                                     onchange="calculateAge(event,'age'), handlerAge(event)">
                                                             </div>
-                                                        </diV>
+                                                        </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
@@ -944,7 +956,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
@@ -992,7 +1004,7 @@
                                                 @endif
                                                 {{-- <x-upload-image /> --}}
                                                 {{-- data del representante --}}
-                                                <div class="row mt-3" id="data-rep" style="display: none">
+                                                <div class="row mt-3" id="data-rep" style="display: none; padding-right: 0px;">
                                                     <hr>
                                                     <h5>Datos del representante</h5>
                                                     <hr>
@@ -1020,7 +1032,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Cédula</label>
@@ -1029,7 +1041,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono</label>
@@ -1041,10 +1053,10 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                                    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2" style="padding-right: 0;">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo electrónico</label>
+                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo Electrónico</label>
                                                                 <input autocomplete="off"
                                                                     onchange='handlerEmail(event,@json($email))'
                                                                     class="form-control @error('re_email') is-invalid @enderror"
@@ -1064,7 +1076,7 @@
                                                     <div id="bnt-cons" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
                                                     <div id="bnt-hist" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
                                                     <input class="btn btnSave send" id="btn-save" value="Guardar" type="submit" style="margin-left: 10px; margin-bottom: 10px" />
-                                                    <button style="margin-left: 10px; padding: 8px; margin-bottom: 10px"
+                                                    <button style="margin-left: 10px; padding: 11px; margin-bottom: 10px"
                                                         type="button" onclick="refreshForm();" class="btn btnSecond"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         data-html="true" title="Limpiar Formulario">

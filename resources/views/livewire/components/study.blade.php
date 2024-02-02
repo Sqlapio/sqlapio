@@ -151,7 +151,7 @@
                         "_token": "{{ csrf_token() }}"
                     },
                     success: function(resp) {
-                        
+
                         setDataTable(resp.data);
                     }
                 }
@@ -344,11 +344,11 @@
                                     <a target="_blank" href="${target}" style="color: #47525e; text-decoration: none; display: flex; flex-direction: column;">
                                         <img data-bs-toggle="tooltip"  data-bs-placement="bottom" title="Ver archivo" style="" src="${img}" width="50 " height="auto" alt="Imagen del paciente" class="img-medical">
                                         <span style="font-size: 11px;">Ver archivo</span>
-                                    </a> 
+                                    </a>
                                 </div>
                                 <div class="col-sm-8 col-md-8 col-lg-9 col-xl-9 col-xxl-9">
                                     <strong class="text-capitalize color-f"> ${elem.get_laboratory.business_name}</strong>
-                                    <br>                               
+                                    <br>
                                     <strong class="text-capitalize color-f"> ${item.full_name}</strong>
                                     <br>
                                     <span>Ver consulta:
@@ -361,7 +361,7 @@
                                     <span style="float:right; font-size: 12px;">${elem.cod_study}</span>
                                     <br>
                                     <span class="text-capitalize" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width: 100%; display: flex; justify-content: flex-end;"> ${elem.description}</span>
-                                </div>                             
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -406,7 +406,7 @@
                                 <i class="bi bi-file-earmark-text"></i>
                             </button>
                         </a>
-                    </div>                          
+                    </div>
                 </div>`;
 
 
@@ -427,7 +427,7 @@
                 elem.ci = (elem.get_patient.is_minor == "true") ? `${elem.get_reprensetative.re_ci} (Rep)` : elem
                     .get_patient.ci;
 
-                    elem.description = `${elem.description}----->${elem.id}`
+                elem.description = `${elem.description}----->${elem.id}`
 
                 data.push(elem);
             });
@@ -530,7 +530,7 @@
 
                     e.ci = (e.get_patient.is_minor == "true") ? `${e.get_reprensetative.re_ci} (Rep)` : e
                         .get_patient.ci;
-                        
+
                     e.date = `${e.date}--->${e.id}`
 
                     dataRef.push(e);
@@ -579,7 +579,7 @@
                         data: 'cod_ref',
                         title: 'Referencia',
                         className: "text-center",
-                    },                  
+                    },
                     {
                         data: 'full_name',
                         title: 'Nombre y apellido',
@@ -632,8 +632,8 @@
                 let row = `
                 <tr>
                 <td class="text-center">${elemt.cod_study}</td>
-                <td class="text-center">${elemt.description}</td>     
-                <td class="text-center">${label}</td>                
+                <td class="text-center">${elemt.description}</td>
+                <td class="text-center">${label}</td>
                 </tr>`;
                 $('#table-info').find('tbody').append(row);
 
@@ -681,7 +681,7 @@
                             <button class="accordion-button bg-7" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                 style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                <i class="bi bi-person"></i></i> Estudios cargados
+                                <i class="bi bi-person"></i></i> @lang('messages.acordion.estudios_cargados')
                             </button>
                         </span>
                         <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne"
@@ -691,19 +691,19 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                         <hr>
-                                        <h5 class="mb-4">Estudios con resultados</h5>
+                                        <h5 class="mb-4">@lang('messages.subtitulos.estudios_res')</h5>
                                         <table id="table-info-estudios" class="table-pag table-striped table-bordered"
                                             style="width:100%; ">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center w-image" scope="col" data-orderable="false">
-                                                        Foto</th>
-                                                    <th class="text-center" scope="col">Fecha</th>
-                                                    <th class="text-center" scope="col">Nombre y apellido</th>
-                                                    <th class="text-center" scope="col">Cédula</th>
-                                                    <th class="text-center" scope="col">Descripcion del estudio</th>
-                                                    <th class="text-center" scope="col" data-orderable="false">Resultado
-                                                    </th>
+                                                        @lang('messages.tabla.foto')</th>
+                                                    <th class="text-center" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
+                                                    <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                    <th class="text-center" scope="col">@lang('messages.tabla.cedula')</th>
+                                                    <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
+                                                    <th class="text-center"scope="col" data-orderable="false">
+                                                        @lang('messages.tabla.resultado')</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -749,19 +749,19 @@
                                 <div class="row mt-3">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                         <hr>
-                                        <h5 class="mb-4">Estudios sin resultados</h5>
+                                        <h5 class="mb-4">@lang('messages.subtitulos.estudios_sin_res')</h5>
                                         <table id="table-info-sin-estudios"
                                             class="table-pag-dos table-striped table-bordered" style="width:100%">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center w-image" scope="col" data-orderable="false">
-                                                        Foto</th>
-                                                    <th class="text-center" scope="col">Fecha</th>
-                                                    <th class="text-center" scope="col">Referencia</th>
-                                                    <th class="text-center" scope="col">Nombre y apellido</th>
-                                                    <th class="text-center" scope="col">Cédula</th>
-                                                    <th class="text-center" scope="col" data-orderable="false">Cargar
-                                                        Resultado</th>
+                                                        @lang('messages.tabla.foto')</th>
+                                                    <th class="text-center" scope="col">@lang('messages.tabla.fecha_resultado')</th>
+                                                    <th class="text-center" scope="col">@lang('messages.tabla.referencia')</th>
+                                                    <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                    <th class="text-center" scope="col">@lang('messages.tabla.cedula')</th>
+                                                    <th class="text-center" scope="col" data-orderable="false">
+                                                        @lang('messages.tabla.cargar_res')</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

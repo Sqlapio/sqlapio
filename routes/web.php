@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MultilanguajeController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UtilsController;
 use App\Http\Livewire\Components\AdminPatients;
@@ -308,6 +309,11 @@ Route::get('/res_exam_sin_resul', [Examen::class, 'res_exam_sin_resul'])->name('
 Route::get('/res_study', [Study::class, 'res_study'])->name('res_study');
 Route::get('/res_study_sin_resul', [Study::class, 'res_study_sin_resul'])->name('res_study_sin_resul');
 
+
+/**
+ * Languaje
+ */
+Route::get('/lang/{lang}', [MultilanguajeController::class, 'lang'])->name('lang');
 
 Route::get('/prueba', function () {
     $users = DB::table('users')
