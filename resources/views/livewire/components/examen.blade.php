@@ -173,9 +173,7 @@
                         "_token": "{{ csrf_token() }}"
                     },
                     success: function(e) {
-
-                        console.log(e);
-
+                        
                         setdataDos(e.data);
                     }
                 }
@@ -580,12 +578,7 @@
                         data: 'cod_ref',
                         title: 'Referencia',
                         className: "text-center",
-                    },
-                    // {
-                    //     data: 'cod_medical_record',
-                    //     title: 'Referencia consulta médica',
-                    //     className: "text-center text-capitalize",
-                    // },
+                    },               
                     {
                         data: 'full_name',
                         title: 'Nombre y apellido',
