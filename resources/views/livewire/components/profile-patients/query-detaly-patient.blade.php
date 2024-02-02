@@ -662,6 +662,7 @@
                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha de
                                                 Nacimiento</label>
                                             <input class="form-control date-bd" id="birthdate" name="birthdate"
+                                                style="padding: 0.375rem 5px 0.375rem 0.75rem;"
                                                 type="date" value="">
                                         </div>
                                     </div>
