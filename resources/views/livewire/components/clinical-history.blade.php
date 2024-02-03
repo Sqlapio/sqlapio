@@ -185,38 +185,38 @@
             //envio del formulario
             $("#form-mecal-histroy").submit(function(event) {
                 event.preventDefault();
-                $("#form-mecal-histroy").validate();    
+                $("#form-mecal-histroy").validate();
                 if ($('#countBackFamily').val() === "") {
                     $("#APF").html(`Debe seleccionar al menos un antecedente personal y familiar <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`);
                     $("#collapseTwo").collapse('show')
-                } else { 
+                } else {
                     $("#APF").text('');
                     $("#collapseTwo").removeClass("show")
                 }
                 if ($('#countDiagnosis').val() === "") {
                     $("#APP").html(`Debe seleccionar al menos un antecedente personal patológico <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`);
                     $('#collapseThree').collapse('show')
-                } else { 
+                } else {
                     $("#APP").text('');
                     $("#collapseThree").removeClass("show")
                 }
                 if ($('#countNotPathological').val() === "") {
                     $("#ANP").html(`Debe seleccionar al menos un antecedente personal no patológico <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`);
                     $('#collapseFour').collapse('show')
-                } else { 
+                } else {
                     $("#ANP").text('');
                     $("#collapseFour").removeClass("show")
                 }
-                if ($('#weight').val() === "" || $('#strain').val() === "" || 
-                $('#strain_two').val() === "" || $('#temperature').val() === "" || 
-                $('#breaths').val() === "" || $('#pulse').val() === "" || 
-                $('#saturation').val() === "" || $('#condition').val() === "" || 
+                if ($('#weight').val() === "" || $('#strain').val() === "" ||
+                $('#strain_two').val() === "" || $('#temperature').val() === "" ||
+                $('#breaths').val() === "" || $('#pulse').val() === "" ||
+                $('#saturation').val() === "" || $('#condition').val() === "" ||
                 $('#reason').val() === "" || $('#current_illness').val() === "" ||
                 $('#countVitalSigns').val() === "" || $('#countVitalSigns').val() === "" ) {
                     $("#EF").html(`Debe completar los datos <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`);
                     $("#VS").html(`Debe seleccionar al menos una opción <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`);
                     $('#collapseOne').collapse('show')
-                } else { 
+                } else {
                     $("#EF").text('');
                     $("#collapseOne").removeClass("show")
                 }
@@ -723,7 +723,7 @@
             }
         }
 
-        
+
     </script>
 @endpush
 @section('content')
@@ -742,10 +742,10 @@
                                 <button class="accordion-button bg-5"
                                     type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseD"
-                                    aria-expanded="true" 
+                                    aria-expanded="true"
                                     aria-controls="collapseD"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-person"></i></i> Datos personales
+                                    <i class="bi bi-person"></i></i>@lang('messages.label.datos_paciente')
                                 </button>
                             </span>
                             <div id="collapseD" class="accordion-collapse collapse show" aria-labelledby="headingD" data-bs-parent="#accordion">
@@ -756,17 +756,17 @@
                                                 <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}" width="125" height="125" alt="Imagen del paciente" class="img-medical">
                                             </div>
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                                <strong>Nombre Completo:</strong><span class="text-capitalize">  {{ $Patient->last_name . ', ' . $Patient->name }}</span>
+                                                <strong>@lang('messages.ficha_paciente.nombre'):</strong><span class="text-capitalize">  {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                                 <br>
-                                                <strong>Fecha de Nacimiento:</strong><span> {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
+                                                <strong>@lang('messages.ficha_paciente.fecha_nacimiento'):</strong><span> {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
                                                 <br>
-                                                <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
+                                                <strong>@lang('messages.ficha_paciente.edad'):</strong><span> {{ $Patient->age }} @lang('messages.ficha_paciente.anios')</span>
                                                 <br>
                                                 <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong> <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                                 <br>
-                                                <strong>Genero:</strong> <span class="text-capitalize"> {{ $Patient->genere }}</span>
+                                                <strong>@lang('messages.ficha_paciente.genero'):</strong> <span class="text-capitalize"> {{ $Patient->genere }}</span>
                                                 <br>
-                                                <strong>Nº Historial:</strong><span>  {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }} </span>
+                                                <strong>@lang('messages.ficha_paciente.nro_historias'):</strong><span>  {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }} </span>
                                             </div>
                                         </div>
                                     </div>
@@ -784,10 +784,10 @@
                                     type="button"
                                     data-bs-toggle="collapse"
                                     data-bs-target="#collapseTwo"
-                                    aria-expanded="true" 
+                                    aria-expanded="true"
                                     aria-controls="collapseTwo"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-clipboard2-pulse"></i> Antecedentes Personales y Familiares
+                                    <i class="bi bi-clipboard2-pulse"></i> @lang('messages.acordion.antecedentes_per')
                                 </button>
                             </span>
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
@@ -809,7 +809,7 @@
                                                     }
                                                 }
                                             @endphp
-                                            
+
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                                                 <div class="floating-label-group">
                                                     <div class="form-check" style="display: flex; ">
@@ -840,7 +840,7 @@
 
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
+                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
                                                 <textarea id="observations_back_family" name="observations_back_family" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_back_family : '' !!}</textarea>
                                             </div>
                                         </div>
@@ -856,13 +856,13 @@
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingThree">
                                 <button class="accordion-button collapsed bg-5"
-                                    type="button" 
+                                    type="button"
                                     data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree" 
-                                    aria-expanded="true" 
+                                    data-bs-target="#collapseThree"
+                                    aria-expanded="true"
                                     aria-controls="collapseThree"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-clipboard2-pulse"></i> Antecedentes personales patológicos
+                                    <i class="bi bi-clipboard2-pulse"></i> @lang('messages.acordion.antecedentes_per_pa')
                                 </button>
                             </span>
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">
@@ -915,7 +915,7 @@
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
+                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
                                                 <textarea id="observations_diagnosis" name="observations_diagnosis" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_diagnosis : '' !!}</textarea>
                                             </div>
                                         </div>
@@ -930,14 +930,14 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingFour">
-                                <button class="accordion-button collapsed bg-5" 
+                                <button class="accordion-button collapsed bg-5"
                                     type="button"
                                     data-bs-toggle="collapse"
                                     data-bs-target="#collapseFour"
                                     aria-expanded="true"
                                     aria-controls="collapseFour"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-clipboard2-pulse"></i> Antecedentes no patológicos
+                                    <i class="bi bi-clipboard2-pulse"></i> @lang('messages.acordion.antecedentes_per_no_pa')
                                 </button>
                             </span>
                             <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordion">
@@ -990,7 +990,7 @@
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
+                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
                                                 <textarea id="observations_not_pathological" name="observations_not_pathological" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_not_pathological : '' !!}</textarea>
                                             </div>
                                         </div>
@@ -1008,7 +1008,7 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-clipboard2-pulse"></i> Antecedentes ginecologicos (si aplica) 
+                                    <i class="bi bi-clipboard2-pulse"></i> @lang('messages.acordion.antecedentes_gine')
                                 </button>
                             </span>
                             <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordion">
@@ -1018,7 +1018,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Edad de primera menstruación
+                                                        @lang('messages.form.edad_mestruacion')
                                                     </label>
                                                     <input autocomplete="off"
                                                         class="form-control  mask-only-number @error('edad_primera_menstruation') is-invalid @enderror"
@@ -1032,7 +1032,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Fecha último periodo
+                                                        @lang('messages.form.fecha_periodo')
                                                     </label>
                                                     <input autocomplete="off"
                                                         class="form-control datePickert @error('fecha_ultima_regla') is-invalid @enderror"
@@ -1046,7 +1046,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Número de embarazos
+                                                        @lang('messages.form.nro_embarazos')
                                                     </label>
                                                     <input autocomplete="off"
                                                         class="form-control mask-only-number @error('numero_embarazos') is-invalid @enderror"
@@ -1060,7 +1060,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Número de partos
+                                                        @lang('messages.form.nro_partos')
                                                     </label>
                                                     <input autocomplete="off"
                                                         class="form-control mask-only-number @error('numero_partos') is-invalid @enderror"
@@ -1074,7 +1074,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Número de cesáreas
+                                                        @lang('messages.form.nro_cesareas')
                                                     </label>
                                                     <input autocomplete="off"
                                                         class="form-control mask-only-number @error('cesareas') is-invalid @enderror"
@@ -1088,7 +1088,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Número de abortos
+                                                        @lang('messages.form.nro_abortos')
                                                     </label>
                                                     <input autocomplete="off"
                                                         class="form-control mask-only-number @error('numero_abortos') is-invalid @enderror"
@@ -1102,7 +1102,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Utiliza algún método anticonceptivo, ¿Cual?
+                                                        @lang('messages.form.anticonceptivo')
                                                     </label>
                                                     <input autocomplete="off"
                                                         class="form-control mask-only-text @error('pregunta') is-invalid @enderror"
@@ -1114,7 +1114,7 @@
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
+                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
                                                 <textarea id="observations_ginecologica" name="observations_ginecologica" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_ginecologica : '' !!}</textarea>
                                             </div>
                                         </div>
@@ -1132,29 +1132,29 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-clipboard2-pulse"></i> Antecedentes alérgicos
+                                    <i class="bi bi-clipboard2-pulse"></i> @lang('messages.acordion.antecedentes_alerg')
                                 </button>
                             </span>
                             <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row mt-2" style="align-items: flex-end;">
-                                        <h6 class="collapseBtn" style="margin-bottom: 10px;">Añadir Alergias</h6>
+                                        <h6 class="collapseBtn" style="margin-bottom: 10px;">@lang('messages.label.añadir_alergia')</h6>
                                         <hr style="margin-bottom: 0">
                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Tipo de alergia
+                                                        @lang('messages.form.tipo_alergia')
                                                     </label>
                                                     <select name="type_alergia" id="type_alergia"
                                                         placeholder="Seleccione"class="form-control"
                                                         class="form-control combo-textbox-input">
-                                                        <option value="">Seleccione</option>
-                                                        <option value="Medicinas"> Medicinas</option>
-                                                        <option value="Alimentos">Alimentos</option>
-                                                        <option value="Latex">Latex</option>
-                                                        <option value="Otros">Otros</option>
+                                                        <option value="">@lang('messages.label.seleccione')</option>
+                                                        <option value="@lang('messages.select.Medicinas')">@lang('messages.select.Medicinas')</option>
+                                                        <option value="@lang('messages.select.Alimentos')">@lang('messages.select.Alimentos')</option>
+                                                        <option value="@lang('messages.select.Latex')">@lang('messages.select.Latex')</option>
+                                                        <option value="@lang('messages.select.Otros')">@lang('messages.select.Otros')</option>
                                                     </select>
                                                     <i class="bi bi-file-medical st-icon"></i>
                                                     <span id="type_alergia_span " class="text-danger"></span>
@@ -1165,7 +1165,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Detalle
+                                                        @lang('messages.form.detalle')
                                                     </label>
                                                     <input autocomplete="off" class="form-control mask-only-text"
                                                         id="detalle_alergia" name="detalle_alergia" type="text"
@@ -1176,7 +1176,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-cr">
-                                            <span type="" onclick="handlerAllergies(event)" class="btn btn-outline-secondary" id="btn"><i class="bi bi-plus-lg"></i>Añadir Alergias</span>
+                                            <span type="" onclick="handlerAllergies(event)" class="btn btn-outline-secondary" id="btn">@lang('messages.botton.añadir_alergia')</span>
                                         </div>
                                         {{-- Tabla --}}
                                         <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5 table-responsive"
@@ -1184,9 +1184,9 @@
                                             <table class="table table-striped table-bordered" id="table-alergias">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">Tipo de alergias</th>
-                                                        <th class="text-center" scope="col">Detalle</th>
-                                                        <th class="text-center" scope="col" data-orderable="false">Eliminar</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.tipo_alergias')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.detalle')</th>
+                                                        <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.eliminar')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1222,7 +1222,7 @@
 
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
+                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
                                                 <textarea id="observations_allergies" name="observations_allergies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_allergies : '' !!}</textarea>
                                             </div>
                                         </div>
@@ -1240,19 +1240,19 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseSeven" aria-expanded="true" aria-controls="collapseSeven"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-clipboard2-pulse"></i> Antecedentes quirúrgicos
+                                    <i class="bi bi-clipboard2-pulse"></i> @lang('messages.acordion.antecedentes_qx')
                                 </button>
                             </span>
                             <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row mt-2" style="align-items: flex-end;">
-                                        <h6 class="collapseBtn" style="margin-bottom: 10px;">Añadir cirugía</h6>
+                                        <h6 class="collapseBtn" style="margin-bottom: 10px;">@lang('messages.botton.añadir_cirugia')</h6>
                                         <hr style="margin-bottom: 0;">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Tipo de cirugía
+                                                        @lang('messages.form.tipo_cirugia')
                                                     </label>
                                                     <input autocomplete="off" class="form-control mask-only-text" id="cirugia" name="cirugia" type="text" value="">
                                                     <i class="bi bi-file-earmark-medical st-icon"></i>
@@ -1264,7 +1264,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Fecha
+                                                        @lang('messages.form.fecha')
                                                     </label>
                                                     <input autocomplete="off" class="form-control datePickert"
                                                         id="datecirugia" readonly name="datecirugia" type="text"
@@ -1276,7 +1276,7 @@
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-cr">
                                             <span type="" onclick="handlerSurgical(event)" class="btn btn-outline-secondary" id="btn">
-                                                <i class="bi bi-plus-lg"></i>Añadir cirugía
+                                                @lang('messages.botton.añadir_cirugia')
                                             </span>
                                         </div>
                                         {{-- tabla --}}
@@ -1285,9 +1285,9 @@
                                             <table class="table table-striped table-bordered" id="table-cirugia">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">Cirugía</th>
-                                                        <th class="text-center" scope="col">Fecha</th>
-                                                        <th class="text-center" scope="col" data-orderable="false">Eliminar</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.cirugia')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.fecha')</th>
+                                                        <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.eliminar')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1328,7 +1328,7 @@
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
+                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
                                                 <textarea id="observations_ginecologica" name="observations_ginecologica" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_ginecologica : '' !!}</textarea>
                                             </div>
                                         </div>
@@ -1346,7 +1346,7 @@
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-activity"></i> Examen Físico
+                                    <i class="bi bi-activity"></i> @lang('messages.acordion.examen_fisico')
                                 </button>
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
@@ -1361,7 +1361,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="weight" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Peso (0 - 300 kg)*
+                                                        @lang('messages.form.peso')
                                                     </label>
                                                     <input autocomplete="off"
                                                         class="EF mask-input form-control @error('weight') is-invalid @enderror"
@@ -1376,7 +1376,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Altura (0 - 250 Cm)*
+                                                        @lang('messages.form.altura')
                                                     </label>
                                                     <input autocomplete="off"
                                                         class="EF mask-input-height form-control @error('height') is-invalid @enderror"
@@ -1394,7 +1394,7 @@
                                         @endphp
                                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
                                             <label for="strain" class="form-label"  style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                Presión arterial (Alta 50 - 250 , Baja 30 - 150 mmHg)*
+                                                @lang('messages.form.presion_arterial')
                                             </label>
                                             <div class="input-group">
                                                 <input type="text" name="strain" id="strain"
@@ -1412,7 +1412,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="temperature" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Tempetura (34 - 42 °C)*
+                                                        @lang('messages.form.temperatura')
                                                     </label>
                                                     <input autocomplete="off"
                                                         class="EF mask-only-temperature form-control @error('temperature') is-invalid @enderror"
@@ -1427,7 +1427,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="breaths" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Respiraciones (12 - 30 por minuto)*
+                                                        @lang('messages.form.respiraciones')
                                                     </label>
                                                     <input autocomplete="off"
                                                         class="EF mask-only-breaths form-control @error('breaths') is-invalid @enderror"
@@ -1442,7 +1442,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="pulse" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Pulso (40 - 200 Latidos por minuto)*
+                                                        @lang('messages.form.pulso')
                                                     </label>
                                                     <input autocomplete="off"
                                                         class="EF mask-only-number form-control @error('pulse') is-invalid @enderror"
@@ -1457,7 +1457,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="saturation" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Saturación (70 - 100 %)*
+                                                        @lang('messages.form.saturacion')
                                                     </label>
                                                     <input autocomplete="off"
                                                         class="EF mask-input-por form-control @error('saturation') is-invalid @enderror"
@@ -1471,11 +1471,11 @@
                                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="condition" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Condición general*</label>
+                                                    <label for="condition" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.condicion')</label>
                                                     <select name="condition" id="condition"
                                                         placeholder="Seleccione"class="form-control"
                                                         class="EF form-control combo-textbox-input">
-                                                        <option value="">Seleccione</option>
+                                                        <option value="">@lang('messages.label.seleccione')</option>
                                                         @foreach ($get_condition as $item)
                                                             <option value="{{ $item->description }}"
                                                                 {!! !empty($validateHistory) ? ($item->description === $validateHistory->condition ? 'selected' : '') : '' !!}>
@@ -1492,7 +1492,7 @@
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                    Motivo de la consulta*
+                                                    @lang('messages.form.motivo')
                                                 </label>
                                                 <textarea id="reason" name="reason" class="EF form-control">{!! !empty($validateHistory) ? $Patient->get_history->reason : '' !!}</textarea>
                                             </div>
@@ -1500,11 +1500,11 @@
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                    Enfermedad Actual
+                                                    @lang('messages.form.enfermedad')
                                                 </label>
                                                 <textarea id="current_illness" name="current_illness" class="EF form-control">{!! !empty($validateHistory) ? $Patient->get_history->current_illness : '' !!}</textarea>
                                             </div>
-                                        </div>                                      
+                                        </div>
                                         @php
                                             $count_vital_signs = 0;
                                         @endphp
@@ -1543,7 +1543,7 @@
 
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones*</label>
+                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
                                                 <textarea id="applied_studies" name="applied_studies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->applied_studies : '' !!}</textarea>
                                             </div>
                                         </div>
@@ -1569,20 +1569,20 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseEight" aria-expanded="true" aria-controls="collapseEight"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-capsule"></i> Medicamentos
+                                    <i class="bi bi-capsule"></i> @lang('messages.acordion.medicamentos')
                                 </button>
                             </span>
                             <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row mt-2" style="align-items: flex-end;">
-                                        <h6 class="collapseBtn" style="margin-bottom: 10px">Añadir Medicamento</h6>
+                                        <h6 class="collapseBtn" style="margin-bottom: 10px">@lang('messages.label.añadir_medicamentos')</h6>
                                         <hr style="margin-bottom: 0;">
                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Medicamento
+                                                        @lang('messages.form.medicamento')
                                                     </label>
                                                     <input autocomplete="off" class="form-control mask-only-text"
                                                         id="medicine" name="medicine" type="text" value="">
@@ -1595,7 +1595,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Dosis
+                                                        @lang('messages.form.dosis')
                                                     </label>
                                                     <input autocomplete="off" class="form-control mask-only-text"
                                                         id="dose" name="dose" type="text" value="">
@@ -1608,7 +1608,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Patología
+                                                        @lang('messages.form.patologia')
                                                     </label>
                                                     <input autocomplete="off" class="form-control mask-only-text"
                                                         id="patologi" name="patologi" type="text" value="">
@@ -1621,7 +1621,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Vía de administración
+                                                        @lang('messages.form.via_administracion')
                                                     </label>
                                                     <input autocomplete="off" class="form-control mask-only-text"
                                                         id="viaAdmin" name="viaAdmin" type="text" value="">
@@ -1634,27 +1634,28 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="treatmentDuration" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Duración de tratamiento
+                                                        @lang('messages.form.duracion')
                                                     </label>
                                                     <select name="treatmentDuration" id="treatmentDuration"
                                                         placeholder="Seleccione"class="form-control"
                                                         class="form-control combo-textbox-input">
-                                                        <option value="">Seleccione</option>
-                                                        <option value="1 Día">1 Día</option>
-                                                        <option value="2 Días">2 Días</option>
-                                                        <option value="3 Días">3 Días</option>
-                                                        <option value="4 Días">4 Días</option>
-                                                        <option value="5 Días">5 Días</option>
-                                                        <option value="6 Días">6 Días</option>
-                                                        <option value="7 Días">7 Días</option>
-                                                        <option value="1 Semana">1 Semana</option>
-                                                        <option value="2 Semanas">2 Semanas</option>
-                                                        <option value="3 Semanas">3 Semanas</option>
-                                                        <option value="4 Semanas">4 Semanas</option>
-                                                        <option value="1 Mes">1 Mes</option>
-                                                        <option value="2 Mes">2 Meses</option>
-                                                        <option value="3 Mes">3 Meses</option>
-                                                        <option value="1 Año">1 Año</option>
+                                                        <option value="">@lang('messages.label.seleccione')</option>
+                                                        <option value="@lang('messages.select.1_dia')">@lang('messages.select.1_dia')</option>
+                                                        <option value="@lang('messages.select.2_dia')">@lang('messages.select.2_dia')</option>
+                                                        <option value="@lang('messages.select.3_dia')">@lang('messages.select.3_dia')</option>
+                                                        <option value="@lang('messages.select.4_dia')">@lang('messages.select.4_dia')</option>
+                                                        <option value="@lang('messages.select.5_dia')">@lang('messages.select.5_dia')</option>
+                                                        <option value="@lang('messages.select.6_dia')">@lang('messages.select.6_dia')</option>
+                                                        <option value="@lang('messages.select.7_dia')">@lang('messages.select.7_dia')</option>
+                                                        <option value="@lang('messages.select.1_semana')">@lang('messages.select.1_semana')</option>
+                                                        <option value="@lang('messages.select.2_semana')">@lang('messages.select.2_semana')</option>
+                                                        <option value="@lang('messages.select.3_semana')">@lang('messages.select.3_semana')</option>
+                                                        <option value="@lang('messages.select.4_semana')">@lang('messages.select.4_semana')</option>
+                                                        <option value="@lang('messages.select.1_mes')">@lang('messages.select.1_mes')</option>
+                                                        <option value="@lang('messages.select.2_mes')">@lang('messages.select.2_mes')</option>
+                                                        <option value="@lang('messages.select.3_mes')">@lang('messages.select.3_mes')</option>
+                                                        <option value="@lang('messages.select.1_anio')">@lang('messages.select.1_anio')</option>
+
                                                     </select>
                                                     <i class="bi bi-calendar-range st-icon"></i>
                                                     <span id="treatmentDuration_span" class="text-danger"></span>
@@ -1665,7 +1666,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Fecha inicio
+                                                        @lang('messages.form.fecha_ini')
                                                     </label>
                                                     <input autocomplete="off" class="form-control datePickert"
                                                         id="dateIniTreatment" readonly name="dateIniTreatment"
@@ -1679,7 +1680,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Fecha fin
+                                                        @lang('messages.form.fecha_fin')
                                                     </label>
                                                     <input autocomplete="off" class="form-control datePickert"
                                                         id="dateEndTreatment" readonly name="dateEndTreatment"
@@ -1692,9 +1693,7 @@
 
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2 offset-md-5">
                                             <span type="" onclick="addMedacition(event)"
-                                                class="btn btn-outline-secondary" id="btn"><i
-                                                    class="bi bi-plus-lg"></i>Añadir
-                                                medicamento</span>
+                                                class="btn btn-outline-secondary" id="btn">@lang('messages.botton.añadir_medicamentos')</span>
                                         </div>
                                     </div>
                                     {{-- tabla --}}
@@ -1704,14 +1703,14 @@
                                             <table class="table table-striped table-bordered" id="table-medicamento">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">Medicamento</th>
-                                                        <th class="text-center" data-orderable="false" scope="col">Dosis</th>
-                                                        <th class="text-center" scope="col">Patología</th>
-                                                        <th class="text-center" scope="col">Via de administración </th>
-                                                        <th class="text-center" scope="col">Duración de tratamiento </th>
-                                                        <th class="text-center" scope="col">Fecha inicio</th>
-                                                        <th class="text-center" scope="col">Fecha fin</th>
-                                                        <th class="text-center" data-orderable="false" scope="col">Eliminar</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.medicamento')</th>
+                                                        <th class="text-center" data-orderable="false" scope="col">@lang('messages.tabla.dosis')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.patologia')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.via_administracion')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.duracion')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.fecha_ini')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.fecha_fin')</th>
+                                                        <th class="text-center" data-orderable="false" scope="col">@lang('messages.tabla.eliminar')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1758,7 +1757,7 @@
 
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">
-                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
+                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
                                             <textarea id="observations_medication" name="observations_medication" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_medication : '' !!}</textarea>
                                         </div>
                                     </div>
@@ -1778,7 +1777,7 @@
                     </div>
                     <div class="row mt-2 justify-content-md-end">
                         <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd" id="send" style="display: flex; justify-content: flex-end;">
-                            <input class="btn btnSave" value="Guardar" type="submit" />
+                            <input class="btn btnSave" value="@lang('messages.botton.guardar')" type="submit" />
                         </div>
                     </div>
                 </div>

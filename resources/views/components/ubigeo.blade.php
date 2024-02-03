@@ -16,7 +16,7 @@
                     <option value={{ $item->id }}>{{ $item->description }}</option>
                 @endforeach
             </select>
-            <i class="bi bi-flag" style="top: 30px"></i>
+            <i class="bi bi-flag st-icon"></i>
         </div>
     </div>
 </div>
@@ -28,7 +28,7 @@
             <select name="city" id="city" class="form-control">
                 <option value="">Seleccione</option>
             </select>
-            <i class="bi bi-flag" style="top: 30px"></i>
+            <i class="bi bi-flag st-icon"></i>
         </div>
     </div>
 </div>

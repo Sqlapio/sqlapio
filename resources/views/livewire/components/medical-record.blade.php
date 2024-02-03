@@ -317,15 +317,15 @@
         let doctor_centers = @json($doctor_centers);
         let validate_histroy = @json($validate_histroy);
 
-        $(document).ready(() => {//    
-            
+        $(document).ready(() => {//
+
             tinymce.init({
                 selector: '#TextInforme',
                 skin: false,
                 content_css: false,
-                valid_elements: "p,a[href|target=_blank],div[style]",         
+                valid_elements: "p,a[href|target=_blank],div[style]",
                 height: 500,
-                menubar: false,              
+                menubar: false,
                 toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
             });
 
@@ -1431,7 +1431,7 @@
         }
 
         const setDatatable = (data) => {
-            
+
             let row=[];
 
             data.map((elem) => {
@@ -1445,7 +1445,7 @@
                         ':id', elem
                         .id);
 
-                elem.btn = `                                
+                elem.btn = `
                                                 <a target="_blank"
                                                 href="${route}">
                                                 <button type="button"
@@ -1461,7 +1461,7 @@
 
                 elem.name = `${ elem.get_doctor.name} ${elem.get_doctor.last_name  }`
                 row.push(elem);
-            });          
+            });
             new DataTable(
                 '#table-medical-report', {
                     language: {
@@ -1481,12 +1481,12 @@
                             data: 'name',
                             title: 'Medico remitente',
                             className: "text-center td-pad",
-                        },                      
+                        },
                         {
                             data: 'date',
                             title: 'Fecha',
                             className: "text-center td-pad",
-                        },                      
+                        },
                         {
                             data: 'btn',
                             title: 'Ver',
@@ -1513,7 +1513,7 @@
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-person"></i> Datos del paciente
+                                    <i class="bi bi-person"></i> @lang('messages.acordion.datos_paciente')
                                 </button>
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
@@ -1527,22 +1527,22 @@
                                                     class="img-medical">
                                             </div>
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                                <strong>Nombre Completo:</strong><span class="text-capitalize">
+                                                <strong>@lang('messages.ficha_paciente.nombre'):</strong><span class="text-capitalize">
                                                     {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                                 <br>
-                                                <strong>Fecha de Nacimiento:</strong><span>
+                                                <strong>@lang('messages.ficha_paciente.fecha_nacimiento'):</strong><span>
                                                     {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
                                                 <br>
-                                                <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
+                                                <strong>@lang('messages.ficha_paciente.edad'):</strong><span> {{ $Patient->age }} años</span>
                                                 <br>
                                                 <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
                                                 <span>
                                                     {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                                 <br>
-                                                <strong>Genero:</strong> <span class="text-capitalize">
+                                                <strong>@lang('messages.ficha_paciente.genero'):</strong> <span class="text-capitalize">
                                                     {{ $Patient->genere }}</span>
                                                 <br>
-                                                <strong>Nº Historial:</strong><span>
+                                                <strong>@lang('messages.ficha_paciente.nro_historias'):</strong><span>
                                                     {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
                                                 </span>
                                             </div>
@@ -1561,7 +1561,7 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> Consulta médica
+                                    <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.consulta_medica')
                                 </button>
                             </span>
                             <div id="collapseTwo" class="accordion-collapse2 collapse" aria-labelledby="headingTwo"
@@ -1580,12 +1580,11 @@
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro
-                                                                de salud</label>
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.centro_salud')</label>
                                                             <select name="center_id" id="center_id"
                                                                 placeholder="Seleccione"class="form-control"
                                                                 class="form-control combo-textbox-input">
-                                                                <option value="">Seleccione</option>
+                                                                <option value="">@lang('messages.label.seleccione')</option>
                                                                 @foreach ($doctor_centers as $item)
                                                                     <option value="{{ $item->center_id }}">
                                                                         {{ $item->get_center->description }}</option>
@@ -1602,7 +1601,7 @@
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
                                                     <div class="form-group">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Antecedentes</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.antecedentes')</label>
                                                         <textarea id="background" rows="3" name="background" class="form-control"></textarea>
                                                     </div>
                                                 </div>
@@ -1610,8 +1609,7 @@
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pl-5">
                                                     <div class="form-group">
                                                         <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
-                                                            de la visita</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon')</label>
                                                         <textarea id="razon" rows="3" name="razon" class="form-control"></textarea>
                                                     </div>
                                                 </div>
@@ -1626,7 +1624,7 @@
                                                             style="display: flex; align-items: center;">
                                                             <label for="search_symptoms"
                                                                 class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 130px">
-                                                                Buscar Sintomas
+                                                                @lang('messages.form.buscar_sintoma')
                                                             </label>
                                                             <input onkeyup="search(event,'symptoms')" type="text"
                                                                 style="border-radius: 30px;" class="form-control"
@@ -1647,12 +1645,12 @@
                                                         style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; margin-top: 0.5rem">
                                                         <div class="form-group">
                                                             <label for="phone" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Sintomas</label>
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.sintomas')</label>
                                                             <textarea id="sintomas" rows="2" name="sintomas" class="form-control"></textarea>
                                                         </div>
                                                     </div>
 
-                                                    
+
                                                 </div>
                                                 <div class="row" id="div_spinner">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
@@ -1672,8 +1670,7 @@
                                                     <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                         style="display: flex; justify-content: flex-end;">
                                                         <button onclick="handlerIA()" type="button"
-                                                            class="btn btnSave">Consulta con inteligencia
-                                                            artificial</button>
+                                                            class="btn btnSave">@lang('messages.botton.consulta_ai')</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1682,7 +1679,7 @@
                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <div class="form-group">
                                                     <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Diagnostico</label>
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.diagnostico')</label>
                                                     <textarea id="diagnosis" rows="2" name="diagnosis" class="form-control"></textarea>
                                                 </div>
                                             </div>
@@ -1696,15 +1693,14 @@
                                                             <div class="form-group" id='search_exam'
                                                                 style="display: flex; align-items: center;">
                                                                 <label for="search_patient"
-                                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 135px">Buscar
-                                                                    Examen</label>
+                                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 135px">@lang('messages.form.buscar_examen')</label>
                                                                 <input onkeyup="search(event,'exam')" type="text"
                                                                     style="border-radius: 30px;"
                                                                     class="form-control inputSearchExamen"
                                                                     id="floatingInput" placeholder="">
                                                             </div>
                                                             <label id='search_exam_p'
-                                                                style="font-size: 13px; margin-bottom: 5px; display:none">Exámenes
+                                                                style="font-size: 13px; margin-bottom: 5px; display:none">@lang('messages.form.examenes')
                                                             </label>
                                                         </div>
                                                         <div id="exam-text-area">
@@ -1712,7 +1708,7 @@
                                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                 <div class="form-group">
                                                                     <label for="phone" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Exámenes</label>
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.examenes')</label>
                                                                     <textarea id="text_area_exman" rows="2" name="text_area_exman" class="form-control"></textarea>
                                                                 </div>
                                                             </div>
@@ -1722,8 +1718,7 @@
                                                             <ul id="exam_filter" class="exam"
                                                                 style="padding-inline-start: 0; display: flex; flex-wrap: wrap; ; margin-bottom: 0;">
                                                             </ul>
-                                                            <span id='not-exam'>No hay exámenes para mostrar de este
-                                                                paciente </span>
+                                                            <span id='not-exam'>@lang('messages.label.info_3')</span>
                                                             <ul id="exam" class="exam"
                                                                 style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
                                                             </ul>
@@ -1737,8 +1732,7 @@
                                                             <div class="form-group" id="search_studie"
                                                                 style="display: flex; align-items: center;">
                                                                 <label for="search_patient" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; width: 131px">Buscar
-                                                                    Estudio</label>
+                                                                    style="font-size: 13px; margin-bottom: 5px; width: 131px">@lang('messages.form.buscar_estudio')</label>
                                                                 <input onkeyup="search(event,'studie')" type="text"
                                                                     style="border-radius: 30px;"
                                                                     class="form-control inputSearchStudi" placeholder=""
@@ -1746,7 +1740,7 @@
                                                             </div>
                                                         </div>
                                                         <label id='search_studie_p'
-                                                            style="font-size: 13px; margin-bottom: 5px; display:none">Estudios
+                                                            style="font-size: 13px; margin-bottom: 5px; display:none">@lang('messages.form.estudios')
                                                         </label>
                                                         <div id="study-text-area">
                                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
@@ -1754,7 +1748,7 @@
                                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                 <div class="form-group">
                                                                     <label for="phone" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Estudios</label>
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.estudios')</label>
                                                                     <textarea id="text_area_studies" rows="2" name="text_area_studies" class="form-control"></textarea>
                                                                 </div>
                                                             </div>
@@ -1764,8 +1758,7 @@
                                                             <ul id="study_filter" class="studie"
                                                                 style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0;">
                                                             </ul>
-                                                            <span id='not-studie'>No hay estudios para mostrar de este
-                                                                paciente </span>
+                                                            <span id='not-studie'>@lang('messages.label.info_4')</span>
                                                             <ul id="studie" class="studie"
                                                                 style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
                                                             </ul>
@@ -1788,10 +1781,10 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
-                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">Medicamento</label>
+                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.medicamento')</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-only-text" id="medicine"
-                                                                    placeholder="Se debe agregar un medicamento a la vez"
+                                                                    placeholder="@lang('messages.placeholder.info_1')"
                                                                     name="medicine" type="text"
                                                                     style='font-size: 13px !important' value="">
                                                                 <i class="bi bi-capsule st-icon"></i>
@@ -1803,7 +1796,7 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
-                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">Indicaciones</label>
+                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.indicaciones')</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-only-text" id="indication"
                                                                     name="indication" type="text" value="">
@@ -1816,26 +1809,26 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="treatmentDuration" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Duración</label>
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.duracion')</label>
                                                                 <select name="treatmentDuration" id="treatmentDuration"
                                                                     placeholder="Seleccione"class="form-control"
                                                                     class="form-control combo-textbox-input">
-                                                                    <option value="">Seleccione</option>
-                                                                    <option value="1 Día">1 Día</option>
-                                                                    <option value="2 Días">2 Días</option>
-                                                                    <option value="3 Días">3 Días</option>
-                                                                    <option value="4 Días">4 Días</option>
-                                                                    <option value="5 Días">5 Días</option>
-                                                                    <option value="6 Días">6 Días</option>
-                                                                    <option value="7 Días">7 Días</option>
-                                                                    <option value="1 Semana">1 Semana</option>
-                                                                    <option value="2 Semanas">2 Semanas</option>
-                                                                    <option value="3 Semanas">3 Semanas</option>
-                                                                    <option value="4 Semanas">4 Semanas</option>
-                                                                    <option value="1 Mes">1 Mes</option>
-                                                                    <option value="2 Mes">2 Meses</option>
-                                                                    <option value="3 Mes">3 Meses</option>
-                                                                    <option value="1 Año">1 Año</option>
+                                                                    <option value="">@lang('messages.label.seleccione')</option>
+                                                                    <option value="@lang('messages.select.1_dia')">@lang('messages.select.1_dia')</option>
+                                                                    <option value="@lang('messages.select.2_dia')">@lang('messages.select.2_dia')</option>
+                                                                    <option value="@lang('messages.select.3_dia')">@lang('messages.select.3_dia')</option>
+                                                                    <option value="@lang('messages.select.4_dia')">@lang('messages.select.4_dia')</option>
+                                                                    <option value="@lang('messages.select.5_dia')">@lang('messages.select.5_dia')</option>
+                                                                    <option value="@lang('messages.select.6_dia')">@lang('messages.select.6_dia')</option>
+                                                                    <option value="@lang('messages.select.7_dia')">@lang('messages.select.7_dia')</option>
+                                                                    <option value="@lang('messages.select.1_semana')">@lang('messages.select.1_semana')</option>
+                                                                    <option value="@lang('messages.select.2_semana')">@lang('messages.select.2_semana')</option>
+                                                                    <option value="@lang('messages.select.3_semana')">@lang('messages.select.3_semana')</option>
+                                                                    <option value="@lang('messages.select.4_semana')">@lang('messages.select.4_semana')</option>
+                                                                    <option value="@lang('messages.select.1_mes')">@lang('messages.select.1_mes')</option>
+                                                                    <option value="@lang('messages.select.2_mes')">@lang('messages.select.2_mes')</option>
+                                                                    <option value="@lang('messages.select.3_mes')">@lang('messages.select.3_mes')</option>
+                                                                    <option value="@lang('messages.select.1_anio')">@lang('messages.select.1_anio')</option>
                                                                 </select>
                                                                 <i class="bi bi-calendar-range st-icon"></i>
                                                                 <span id="treatmentDuration_span"
@@ -1848,7 +1841,7 @@
                                                         <span type="" onclick="addMedacition(event)"
                                                             class="btn btn-outline-secondary addMedacition" id="btn"
                                                             style="padding: 7px; font-size: 12px; width:100%">
-                                                            <i class="bi bi-plus-lg"></i> Añadir
+                                                            <i class="bi bi-plus-lg"></i> @lang('messages.botton.añadir')
                                                         </span>
                                                     </div>
                                                 </div>
@@ -1861,11 +1854,11 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th class="text-center w-35" scope="col">
-                                                                        Medicamento </th>
+                                                                        @lang('messages.tabla.medicamento') </th>
                                                                     <th data-orderable="false" class="text-center w-55"
-                                                                        scope="col"> Indicaciones </th>
+                                                                        scope="col"> @lang('messages.tabla.indicaciones') </th>
                                                                     <th data-orderable="false" class="text-center"
-                                                                        scope="col"> Duración </th>
+                                                                        scope="col"> @lang('messages.tabla.duracion') </th>
                                                                     <th data-orderable="false" class="text-center w-4"
                                                                         scope="col"> <i style='font-size: 15px'
                                                                             class="bi bi-trash-fill"></i> </th>
@@ -1878,8 +1871,7 @@
                                                             <div class="row mt-2" style="display: none">
                                                                 <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                     <div class="input-group flex-nowrap">
-                                                                        <span class="input-group-text">Total de
-                                                                            medicamentos </span>
+                                                                        <span class="input-group-text">@lang('messages.label.info_5')</span>
                                                                         <input type="text" id="countMedicationAdd"
                                                                             name="countMedicationAdd" class="form-control"
                                                                             readonly value="{!! !empty($validateHistory)
@@ -1906,7 +1898,7 @@
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 btn-mb"
                                                 id="send"
                                                 style="display: flex; justify-content: flex-end; padding-right: 30px;">
-                                                <input class="btn btnSave send" value="Guardar Consulta" type="submit"
+                                                <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit"
                                                     style="padding: 8px" />
                                                 <button style="margin-left: 20px; padding: 8px;" type="button"
                                                     onclick="resetForm();" class="btn btnSecond LF-mb"
@@ -1930,7 +1922,7 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> Ultimas consultas
+                                    <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.ultimas_consultas')
                                 </button>
                             </span>
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
@@ -1940,11 +1932,11 @@
                                             <table id="table-medical-record" class="table table-striped table-bordered" style="width:100%; ">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-8" scope="col">ID consulta</th>
-                                                        <th class="text-center w-7" scope="col">Fecha</th>
-                                                        <th class="text-center" scope="col">Médico tratante</th>
-                                                        <th class="text-center" scope="col">Centro de salud</th>
-                                                        <th data-orderable="false" class="text-center" scope="col">Acciones </th>
+                                                        <th class="text-center w-8" scope="col">@lang('messages.tabla.id_consulta')</th>
+                                                        <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.medico_tratante')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.centro_salud')</th>
+                                                        <th data-orderable="false" class="text-center" scope="col">@lang('messages.tabla.acciones') </th>
                                                         {{-- <th class="text-center" scope="col">Código de la referencia </th> --}}
                                                         {{-- <th class="text-center" scope="col">Nombre del paciente</th> --}}
                                                         {{-- <th class="text-center" scope="col">Género</th> --}}
@@ -1970,7 +1962,7 @@
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
-                                                                                    data-html="true" title="ver exámenes">
+                                                                                    data-html="true" title="@lang('messages.tooltips.ver_examenes')">
                                                                                     <i class="i bi-card-heading"></i>
                                                                                 </button>
                                                                             </a>
@@ -1992,7 +1984,7 @@
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
-                                                                                    data-html="true" title="ver estudios">
+                                                                                    data-html="true" title="@lang('messages.tooltips.ver_estudios')">
                                                                                     <i class="i bi-card-heading"></i>
                                                                                 </button>
                                                                             </a>
@@ -2018,7 +2010,7 @@
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
                                                                                     data-html="true"
-                                                                                    title="Ver recipe"></i>
+                                                                                    title="@lang('messages.tooltips.ver_recipe')"></i>
                                                                             </button>
                                                                         </a>
                                                                     </div>
@@ -2032,7 +2024,7 @@
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
-                                                                                    data-html="true" title="ver PDF"></i>
+                                                                                    data-html="true" title="@lang('messages.tooltips.ver_pdf')"></i>
                                                                             </button>
                                                                         </a>
                                                                     </div>
@@ -2058,7 +2050,7 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseInfome" aria-expanded="false" aria-controls="collapseInfome"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> Informes medicos
+                                    <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.informes_medico')
                                 </button>
                             </span>
                             <div id="collapseInfome" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
@@ -2067,7 +2059,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                             <button style="font-size: 3rem" type="button" onclick="InformaMedico();"
                                                 class="" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                data-html="true" title="Generar informe medico"><i
+                                                data-html="true" title="@lang('messages.tooltips.generar_informe')"><i
                                                     class="bi bi-plus-circle-dotted"></i>
                                             </button>
                                         </div>
@@ -2075,10 +2067,10 @@
                                             <table id="table-medical-report" class="table table-striped table-bordered" style="width:100%; ">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">Código del informe</th>
-                                                        <th class="text-center" scope="col">Medico remitente </th>
-                                                        <th class="text-center" scope="col">Fecha</th>
-                                                        <th data-orderable="false" class="text-center" scope="col">Ver </th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.codigo')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.medico_tratante')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.fecha')</th>
+                                                        <th data-orderable="false" class="text-center" scope="col">@lang('messages.tabla.acciones')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

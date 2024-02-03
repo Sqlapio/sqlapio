@@ -707,7 +707,7 @@
                                                         class="form-control mask-rif" id="rif_pay" name="rif_pay"
                                                         type="text" maxlength="17"
                                                         value="{!! !empty(Auth::user()->get_laboratorio != null) ? Auth::user()->get_laboratorio->rif : '' !!}">
-                                                    <i class="bi bi-person-vcard" style="top: 30px"></i>
+                                                    <i class="bi bi-person-vcard st-icon"></i>
                                                 </div>
                                             </diV>
                                         </div>
