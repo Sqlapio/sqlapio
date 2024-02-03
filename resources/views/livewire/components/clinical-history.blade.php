@@ -1184,9 +1184,9 @@
                                             <table class="table table-striped table-bordered" id="table-alergias">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">Tipo de alergias</th>
-                                                        <th class="text-center" scope="col">Detalle</th>
-                                                        <th class="text-center" scope="col" data-orderable="false">Eliminar</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.tipo_alergias')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.detalle')</th>
+                                                        <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.eliminar')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1222,7 +1222,7 @@
 
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Observaciones</label>
+                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
                                                 <textarea id="observations_allergies" name="observations_allergies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_allergies : '' !!}</textarea>
                                             </div>
                                         </div>
@@ -1246,13 +1246,13 @@
                             <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row mt-2" style="align-items: flex-end;">
-                                        <h6 class="collapseBtn" style="margin-bottom: 10px;">Añadir cirugía</h6>
+                                        <h6 class="collapseBtn" style="margin-bottom: 10px;">@lang('messages.botton.añadir_cirugia')</h6>
                                         <hr style="margin-bottom: 0;">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Tipo de cirugía
+                                                        @lang('messages.form.tipo_cirugia')
                                                     </label>
                                                     <input autocomplete="off" class="form-control mask-only-text" id="cirugia" name="cirugia" type="text" value="">
                                                     <i class="bi bi-file-earmark-medical st-icon"></i>
@@ -1264,7 +1264,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        Fecha
+                                                        @lang('messages.form.fecha')
                                                     </label>
                                                     <input autocomplete="off" class="form-control datePickert"
                                                         id="datecirugia" readonly name="datecirugia" type="text"
@@ -1276,7 +1276,7 @@
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-cr">
                                             <span type="" onclick="handlerSurgical(event)" class="btn btn-outline-secondary" id="btn">
-                                                <i class="bi bi-plus-lg"></i>Añadir cirugía
+                                                @lang('messages.label.añadir_cirugia')
                                             </span>
                                         </div>
                                         {{-- tabla --}}
@@ -1285,9 +1285,9 @@
                                             <table class="table table-striped table-bordered" id="table-cirugia">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">Cirugía</th>
-                                                        <th class="text-center" scope="col">Fecha</th>
-                                                        <th class="text-center" scope="col" data-orderable="false">Eliminar</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.cirugia')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.fecha')</th>
+                                                        <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.eliminar')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

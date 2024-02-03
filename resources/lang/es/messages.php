@@ -28,6 +28,7 @@ return [
         'asociar'          => 'Asociar',
         'agendar_cita'     => 'Agendar Cita',
         'añadir_alergia'     => '+ Añadir Alergias',
+        'añadir_cirugia'     => '+ Añadir Cirugía',
     ],
     'form' => [
         'nombre'            => 'Nombre',
@@ -91,6 +92,10 @@ return [
         'duracion_tratamiento'   => 'Duración del Tratamiento',
         'fecha_ini'              => 'Fecha de Inicio',
         'fecha_fin'              => 'Fecha de Culminación',
+        'tipo_cirugia'           => 'Tipo de Cirugía',
+        'fecha'                  => 'Fecha',
+
+
 
     ],
     'menu' => [
@@ -204,7 +209,7 @@ return [
         'telefono'          => 'Teléfono',
         'fecha_resultado'   => 'Fecha Resultado',
         'fecha_solicitud'   => 'Fecha Solicitud',
-        'fecha'  => 'Fecha',
+        'fecha'             => 'Fecha',
         'referencia'        => 'Referencia',
         'resultado'         => 'Resultado',
         'cargar_res'        => 'Cargar Resultado',
@@ -224,6 +229,7 @@ return [
         'duracion_tratamiento'   => 'Duración del Tratamiento',
         'fecha_ini'              => 'Fecha de Inicio',
         'fecha_fin'              => 'Fecha de Culminación',
+        'cirugia'                => 'Cirugía',
 
     ],
     'placeholder' => [
