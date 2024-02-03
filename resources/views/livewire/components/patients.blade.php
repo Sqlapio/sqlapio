@@ -787,76 +787,6 @@
                                                     <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">@lang('messages.label.info_1') </h5>
                                                 </div>
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">
-<<<<<<< HEAD
-                                                    <img width="150" height="auto"
-                                                    src="{{ asset('/img/icon-warning.png') }}" alt="avatar">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
-                                            <a style="margin-top: 10px;" href="{{ route('verify-plans') }}"
-                                            class="btn btnSecond">@lang('messages.label.detalle_plan')</a>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3" id="paciente-registrado">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <div class="form-check form-switch" style="padding-right: 10px">
-                                                <label style="margin-top: 9px; font-size: 15px" for="">@lang('messages.label.paciente_registrado')</label>
-                                                <input onclick="handlerPatExit(event)" style="width: 5em" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3" id="content-search-pat" style="display: none">
-                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mb-3 mt-3"
-                                            style="width: 318px;">
-                                            <div class="form-check form-check-inline">
-                                                <input onchange="habdlerPatSearch(event)" class="form-check-input"
-                                                    type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                                                    value="0">
-                                                <label style="margin-top: 9px; font-size: 15px" class="form-check-label"
-                                                    for="inlineRadio1">@lang('messages.label.mayor')</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input onchange="habdlerPatSearch(event)" class="form-check-input"
-                                                    type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                                    value="1">
-                                                <label style="margin-top: 9px; font-size: 15px" class="form-check-label"
-                                                    for="inlineRadio2">@lang('messages.label.menor')</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
-                                            <div class="form-group">
-                                                <label for="search_patient" class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">@lang('messages.form.cedula_identidad')</label>
-                                                <input disabled maxlength="10" type="text"
-                                                    class="form-control mask-only-number" id="search_patient"
-                                                    name="search_patient" placeholder="" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-3">
-                                            <button style="margin-top: 2px;" onclick="searchPat()"
-                                                class="btn btnSecond">@lang('messages.botton.buscar')</button>
-                                        </div>
-                                    </div>
-                                    <div class="row" id="show-info-pat" style="display: none">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive">
-                                            <hr>
-                                            <h5 style="margin-bottom: 17px;">@lang('messages.label.hijos_registrados')</h5>
-                                            <hr>
-                                            <table id="table-show-info-pat" class="table table-striped table-bordered"
-                                                style="width:100%; ">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_nacimiento')</th>
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.genero')</th>
-                                                        <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                </tbody>
-                                            </table>
-=======
                                                     <img width="150" height="auto" src="{{ asset('/img/icon-warning.png') }}" alt="avatar">
                                                 </div>
                                             </div>
@@ -865,7 +795,6 @@
                                             <a style="margin-top: 10px;" href="{{ route('verify-plans') }}" class="btn btnSecond">
                                                 @lang('messages.label.detalle_plan')
                                             </a>
->>>>>>> 2359272 (corrigiendo errores)
                                         </div>
                                     </div>
                                     <div id="content-patient">
@@ -953,16 +882,8 @@
                                                         <div id="div-phone" class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
-<<<<<<< HEAD
-                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
-                                                                    <input autocomplete="off" placeholder=""
-                                                                        class="form-control phone @error('phone') is-invalid @enderror"
-                                                                        id="phone" name="phone" type="text"
-                                                                        value="">
-=======
                                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
                                                                     <input autocomplete="off" placeholder="" class="form-control phone @error('phone') is-invalid @enderror" id="phone" name="phone" type="text" value="">
->>>>>>> 2359272 (corrigiendo errores)
                                                                     <i class="bi bi-telephone-forward st-icon"></i>
                                                                 </div>
                                                             </div>
@@ -1000,14 +921,7 @@
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.codigo_postal')</label>
-<<<<<<< HEAD
-                                                            <input autocomplete="off"
-                                                                class="form-control mask-only-text @error('zip_code') is-invalid @enderror"
-                                                                id="zip_code" name="zip_code" type="text"
-                                                                value="">
-=======
                                                             <input autocomplete="off" class="form-control mask-only-text @error('zip_code') is-invalid @enderror" id="zip_code" name="zip_code" type="text" value="">
->>>>>>> 2359272 (corrigiendo errores)
                                                             <i class="bi bi-geo st-icon"></i>
                                                         </div>
                                                     </div>
@@ -1025,14 +939,7 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
-<<<<<<< HEAD
-                                                                <input autocomplete="off"
-                                                                    class="form-control mask-text @error('re_name') is-invalid @enderror"
-                                                                    id="re_name" name="re_name" type="text"
-                                                                    value="">
-=======
                                                                 <input autocomplete="off" class="form-control mask-text @error('re_name') is-invalid @enderror" id="re_name" name="re_name" type="text" value="">
->>>>>>> 2359272 (corrigiendo errores)
                                                                 <i class="bi bi-person-circle st-icon"></i>
                                                             </div>
                                                         </diV>
@@ -1041,14 +948,7 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
-<<<<<<< HEAD
-                                                                <input autocomplete="off"
-                                                                    class="form-control mask-text @error('re_last_name') is-invalid @enderror"
-                                                                    id="re_last_name" name="re_last_name" type="text"
-                                                                    value="">
-=======
                                                                 <input autocomplete="off" class="form-control mask-text @error('re_last_name') is-invalid @enderror" id="re_last_name" name="re_last_name" type="text" value="">
->>>>>>> 2359272 (corrigiendo errores)
                                                                 <i class="bi bi-person-circle st-icon"></i>
                                                             </div>
                                                         </diV>
@@ -1066,14 +966,7 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
-<<<<<<< HEAD
-                                                                <input autocomplete="off"
-                                                                    class="form-control phone @error('re_phone') is-invalid @enderror"
-                                                                    id="re_phone" name="re_phone" type="text"
-                                                                    value="">
-=======
                                                                 <input autocomplete="off" class="form-control phone @error('re_phone') is-invalid @enderror" id="re_phone" name="re_phone" type="text" value="">
->>>>>>> 2359272 (corrigiendo errores)
                                                                 <i class="bi bi-telephone-forward st-icon"></i>
                                                             </div>
                                                         </diV>
@@ -1082,15 +975,7 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
-<<<<<<< HEAD
-                                                                <input autocomplete="off"
-                                                                    onchange='handlerEmail(event,@json($email))'
-                                                                    class="form-control @error('re_email') is-invalid @enderror"
-                                                                    id="re_email" name="re_email" type="text"
-                                                                    value="">
-=======
                                                                 <input autocomplete="off" onchange='handlerEmail(event,@json($email))' class="form-control @error('re_email') is-invalid @enderror" id="re_email" name="re_email" type="text" value="">
->>>>>>> 2359272 (corrigiendo errores)
                                                                 <i class="bi bi-envelope-at st-icon"></i>
                                                             </div>
                                                         </diV>
@@ -1321,11 +1206,7 @@
                                         <div>
                                             <strong><span class="text-capitalize" id="name-pat"></span></strong>
                                             <br>
-<<<<<<< HEAD
-                                            <strong>@lang('messages.ficha_paciente.ci'): </strong><span id="ci-pat"></span>
-=======
                                             <strong>@lang('messages.ficha_paciente.ci') </strong><span id="ci-pat"></span>
->>>>>>> 2359272 (corrigiendo errores)
                                             <br>
                                             <strong>@lang('messages.ficha_paciente.edad'): </strong><span id="age-pat"></span>
                                             <br>
@@ -1334,11 +1215,8 @@
                                             <strong>@lang('messages.ficha_paciente.correo'): </strong><span id="email-pat"></span>
                                             <br>
                                             <strong>@lang('messages.ficha_paciente.telefono'): </strong><span id="phone-pat"></span>
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 2359272 (corrigiendo errores)
                                         </div>
                                     </div>
                                 </div>
@@ -1350,17 +1228,10 @@
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-<<<<<<< HEAD
-                                                <label for="date" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.fecha')</label>
-                                                <input class="form-control date-diary" id="date_start" name="date_start"
-                                                    type="date" value="">
-=======
                                                 <label for="date" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                     @lang('messages.modal.form.fecha')
                                                 </label>
                                                 <input class="form-control date-diary" id="date_start" name="date_start" type="date" value="">
->>>>>>> 2359272 (corrigiendo errores)
                                             </div>
                                         </div>
                                     </div>
@@ -1368,12 +1239,7 @@
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-<<<<<<< HEAD
-                                                <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.tiempo_horario')</label>
-=======
                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.tiempo_horario')</label>
->>>>>>> 2359272 (corrigiendo errores)
                                                 <select id="timeIni" name="timeIni" onchange="handlerTime(event)"
                                                     class="form-control valid">
                                                     <option value="">@lang('messages.placeholder.seleccione')</option>
@@ -1388,17 +1254,10 @@
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-<<<<<<< HEAD
-                                                <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.horarios_cita')</label>
-                                                <select id="hour_start" name="hour_start"
-                                                    class="form-control valid"></select>
-=======
                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                     @lang('messages.modal.form.horarios_cita')
                                                 </label>
                                                 <select id="hour_start" name="hour_start" class="form-control valid"></select>
->>>>>>> 2359272 (corrigiendo errores)
                                                 <i class="bi bi-stopwatch st-icon"></i>
                                             </div>
                                         </div>
@@ -1410,18 +1269,10 @@
 
                                     <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center">
                                         <div class="form-check form-switch">
-<<<<<<< HEAD
-                                            <input onchange="handlerPrice(event);" style="width: 5em"
-                                                class="form-check-input" type="checkbox" role="switch" id="showPrice"
-                                                value="">
-                                            <label style="margin-left: -146px;margin-top: 8px; font-size: 15px"
-                                                for="showPrice">@lang('messages.modal.form.precio')</label>
-=======
                                             <input onchange="handlerPrice(event);" style="width: 5em" class="form-check-input" type="checkbox" role="switch" id="showPrice" value="">
                                             <label style="margin-left: -146px;margin-top: 8px; font-size: 15px" for="showPrice">
                                                 @lang('messages.modal.form.precio')
                                             </label>
->>>>>>> 2359272 (corrigiendo errores)
                                         </div>
                                     </div>
 
@@ -1429,18 +1280,10 @@
                                         style="display: none" id="div-price">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-<<<<<<< HEAD
-                                                <label for="searchPatients" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.precio')</label>
-                                                <input maxlength="8" type="text"
-                                                    class="form-control mask-input-price" id="price" name="price"
-                                                    id="searchPatients" value="">
-=======
                                                 <label for="searchPatients" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                     @lang('messages.modal.form.precio')
                                                 </label>
                                                 <input maxlength="8" type="text" class="form-control mask-input-price" id="price" name="price" id="searchPatients" value="">
->>>>>>> 2359272 (corrigiendo errores)
                                                 <i class="bi bi-cash st-icon"></i>
                                             </div>
                                         </div>
@@ -1449,13 +1292,7 @@
                                     <div class="row text-center mt-2 mb-2">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
                                             style="margin-top: -4px" id="send">
-<<<<<<< HEAD
-                                            <input class="btn btnSave" id="registrer-pac" value="@lang('messages.modal.form.precio')"
-                                                type="submit" />
-
-=======
                                             <input class="btn btnSave" id="registrer-pac" value="@lang('messages.botton.agendar_cita')" type="submit" />
->>>>>>> 2359272 (corrigiendo errores)
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-con"></div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell"></div>
