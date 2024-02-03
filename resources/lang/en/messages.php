@@ -28,6 +28,7 @@ return [
         'agendar_cita'     => 'Schedule Appointment',
         'añadir_alergia'     => '+ Add Allergies',
         'añadir_cirugia'     => '+ Add Surgery',
+        'añadir_medicamento' => '+ Add Medicines',
     ],
     'form' => [
         'nombre'            => 'First Name',
