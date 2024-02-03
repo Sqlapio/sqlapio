@@ -44,7 +44,7 @@ body {
 }
 
 .st-icon{
-    top: 30px !important;
+    top: 28px !important;
 }
 
 .title {
@@ -186,8 +186,9 @@ button {
     font-weight: 400;
     letter-spacing: -.01em;
     min-width: 23px;
-    padding-left: 11px;
-    padding-right: 11px;
+    // padding-left: 11px;
+    // padding-right: 11px;
+    padding: 7px;
     border-radius: 12px;
 }
 
@@ -208,7 +209,7 @@ button {
     font-weight: 400;
     letter-spacing: -.01em;
     min-width: 23px;
-    padding: 7px;
+    padding: 6px;
     border-radius: 12px;
 }
 
@@ -225,7 +226,7 @@ button {
     white-space: nowrap;
     background: #42abe2;
     color: #fff;
-    font-size: 12px;
+    font-size: 18px;
     font-weight: 400;
     letter-spacing: -.01em;
     padding: 9px;
@@ -245,7 +246,7 @@ button {
     white-space: nowrap;
     background: #44525f;
     color: #fff;
-    font-size: 12px;
+    font-size: 18px;
     font-weight: 400;
     letter-spacing: -.01em;
     padding: 9px;
