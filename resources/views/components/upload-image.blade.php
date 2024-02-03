@@ -24,8 +24,8 @@
 <script>
     $(document).ready(() => {
         let img;
-        let img2 = '{{ URL::asset('/img/V2/combinado.png') }}';
-        $("#imgPreview").attr("src", img2);
+        // let img2 = '{{ URL::asset('/img/V2/combinado.png') }}';
+        // $("#imgPreview").attr("src", img2);
         $("#file").change(function() {
             const file = this.files[0];
 
@@ -53,16 +53,6 @@
             }
         });
     });
-
-
-    let img_url = `{{ URL::asset('/img/avatar/avatar mujer.png') }}`;
-            if (item.patient_img === null) {
-                if (item.genere == "masculino") {
-                    img_url = `{{ URL::asset('/img/avatar/avatar hombre.png') }}`;
-                }
-            } else {
-                img_url = `{{ URL::asset('/imgs/') }}/${item.patient_img}`;
-            }
 </script>
 
 <div>
@@ -73,7 +63,6 @@
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="text-align: center">
             <div class="holder">
                 <img width="95" height="95" id="imgPreview" src="#" alt="pic" style="border-radius: 9%; object-fit: cover;" />
-                {{-- <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}" width="125" height="125" alt="Imagen del paciente" class="img-medical"> --}}
 
             </div>
         </div>
