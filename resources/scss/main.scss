@@ -228,9 +228,7 @@ button {
     font-size: 12px;
     font-weight: 400;
     letter-spacing: -.01em;
-    // padding-left: 11px;
-    // padding-right: 11px;
-    padding: 7px;
+    padding: 9px;
     margin-right: 9px;
 }
 
@@ -250,9 +248,7 @@ button {
     font-size: 12px;
     font-weight: 400;
     letter-spacing: -.01em;
-    // padding-left: 11px;
-    // padding-right: 11px;
-    padding: 7px;
+    padding: 9px;
     margin-right: 9px;
 }
 
@@ -273,9 +269,8 @@ button {
     font-weight: 400;
     letter-spacing: -.01em;
     min-width: 23px;
-     // padding-left: 11px;
-    // padding-right: 11px;
-    padding: 7px;
+    padding-left: 11px;
+    padding-right: 11px;
     border-radius: 12px;
 }
 
@@ -358,9 +353,8 @@ button {
 
 .btn-info {
     border-radius: 12px;
-    padding: 7px;
-    // padding-left: 11px; 
-    // padding-right: 11px;
+    padding-left: 11px;
+    padding-right: 11px;
     border-radius: 12px;
     line-height: 1.6em;
 }
@@ -448,8 +442,7 @@ ul.nav-aside li.active, ul.nav-aside li:not(.list-heading):hover {
 /* FORMULARIOS */
 
 .form-control {
-    font-size: 14px !important;
-    padding: 0.375rem 30px 0.375rem 0.75rem;
+    font-size: 1rem !important;
 }
 
 .pTitleForm{
