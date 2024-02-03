@@ -560,15 +560,15 @@
                                                     <thead>
                                                         <tr>
                                                             {{-- <th class="text-center" scope="col">Fecha</th> --}}
-                                                            <th class="text-center w-10" scope="col">Hora</th>
-                                                            <th class="text-center" scope="col">Nombre</th>
-                                                            <th class="text-center w-10" scope="col">Cédula</th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.hora')</th>
+                                                            <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                             {{-- <th class="text-center" scope="col">Género</th> --}}
                                                             {{-- <th class="text-center" scope="col">Teléfono</th> --}}
                                                             {{-- <th class="text-center" scope="col">Email</th> --}}
-                                                            <th class="text-center" scope="col">Centro de salud</th>
-                                                            <th class="text-center w-10" scope="col">Estatus</th>
-                                                            <th class="text-center w-10" scope="col" data-orderable="false">Acciones</th>
+                                                            <th class="text-center" scope="col">@lang('messages.tabla.centro_salud')</th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.estatus')</th>
+                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -760,16 +760,16 @@
                                                     style="width:100%">
                                                     <thead>
                                                         <tr>
-                                                            <th class="text-center w-10" scope="col">Fecha Solicitud</th>
-                                                            <th class="text-center w-10" scope="col">Referencia</th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.referencia')</th>
                                                             {{-- <th class="text-center" scope="col">Referencia consulta médica </th> --}}
-                                                            <th class="text-center" scope="col">Nombres</th>
-                                                            <th class="text-center w-10" scope="col">Cédula</th>
+                                                            <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                             {{-- <th class="text-center" scope="col">Género</th> --}}
-                                                            <th class="text-center w-10" scope="col">Teléfono</th>
-                                                            <th class="text-center w-5" scope="col" data-orderable="false">Exámenes</th>
-                                                            <th class="text-center w-5" scope="col" data-orderable="false">Estudios</th>
-                                                            <th class="text-center w-5" scope="col" data-orderable="false">Acciones</th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.telefono')</th>
+                                                            <th class="text-center w-5" scope="col" data-orderable="false">@lang('messages.tabla.examenes')</th>
+                                                            <th class="text-center w-5" scope="col" data-orderable="false">@lang('messages.tabla.estudios')</th>
+                                                            <th class="text-center w-5" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -802,13 +802,13 @@
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-10" scope="col">Fecha Solicitud</th>
-                                                        <th class="text-center" scope="col">Nombre y Apellido</th>
-                                                        <th class="text-center w-10" scope="col">Cédula</th>
-                                                        <th class="text-center w-10" scope="col">Referencia</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.referencia')</th>
                                                         {{-- <th class="text-center" scope="col">Código Examen</th> --}}
-                                                        <th class="text-center" scope="col">Descripción</th>
-                                                        <th class="text-center w-10" scope="col">Fecha resultado</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_resultado')</th>
                                                         {{-- <th class="text-center" scope="col">Género</th> --}}
                                                     </tr>
                                                 </thead>
@@ -853,13 +853,13 @@
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-10" scope="col">Fecha Solicitud</th>
-                                                        <th class="text-center" scope="col">Nombre y Apellido</th>
-                                                        <th class="text-center w-10" scope="col">Cédula</th>
-                                                        <th class="text-center w-10" scope="col">Referencia</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.referencia')</th>
                                                         {{-- <th class="text-center" scope="col">Código Estudios</th> --}}
-                                                        <th class="text-center" scope="col">Descripción</th>
-                                                        <th class="text-center w-10" scope="col">Fecha Resultado</th>
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_resultado')</th>
                                                         {{-- <th class="text-center" scope="col">Género</th> --}}
                                                     </tr>
                                                 </thead>
@@ -947,7 +947,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header title">
-                        <span style="padding-left: 5px">Carga de resultados</span>
+                        <span style="padding-left: 5px">@lang('messages.modal.titulo.carga_resultados')</span>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                             style="font-size: 12px;"></button>
                     </div>
@@ -957,18 +957,18 @@
                             <input type="hidden" id="id" name="id" value="">
                             <input type="hidden" id="code_ref" name="code_ref" value="">
                             <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                <strong>Referencia: </strong><span id="ref"></span>
+                                <strong>@lang('messages.modal.titulo.referencia'): </strong><span id="ref"></span>
                                 <br>
-                                <strong>Paciente: </strong><span class="text-capitalize" id="ref-pat"></span>
+                                <strong>@lang('messages.modal.titulo.paciente'): </strong><span class="text-capitalize" id="ref-pat"></span>
                             </div>
                             <div class="row mt-2">
                                 <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="info-show">
                                     <table class="table table-striped table-bordered" id="table-info">
                                         <thead>
                                             <tr>
-                                                <th class="text-center" scope="col">Código</th>
-                                                <th class="text-center" scope="col">Descripción</th>
-                                                <th class="text-center" scope="col" data-orderable="false">Cargar Resultado</th>
+                                                <th class="text-center" scope="col">@lang('messages.modal.tabla.codigo')</th>
+                                                <th class="text-center" scope="col">@lang('messages.modal.tabla.descripcion')</th>
+                                                <th class="text-center" scope="col" data-orderable="false">@lang('messages.modal.tabla.carga_resultado')</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -989,12 +989,12 @@
                             <div id="div-btn">
                                 <div class="row mt-2 div-result">
                                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                        <x-upload-image title="Cargar Resultados" />
+                                        <x-upload-image title="@lang('messages.modal.tabla.carga_resultado')" />
                                     </div>
                                 </div>
                                 <div class="row text-center">
                                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                        <input class="btn btnPrimary send " value="Guardar" type="submit" />
+                                        <input class="btn btnPrimary send " value="@lang('messages.botton.guardar')" type="submit" />
                                     </div>
                                 </div>
                             </div>
