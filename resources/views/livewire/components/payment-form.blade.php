@@ -469,7 +469,7 @@
                                                     class="form-control mask-rif @error('rif') is-invalid @enderror"
                                                     id="rif" name="rif" type="text" maxlength="17"
                                                     value="">
-                                                <i class="bi bi-person-vcard" style="top: 30px"></i>
+                                                <i class="bi bi-person-vcard st-icon"></i>
                                             </div>
                                         </diV>
                                     </div>
@@ -482,7 +482,7 @@
                                                     eléctronico</label>
                                                 <input autocomplete="off" class="form-control" id="email"
                                                     name="email" type="text" value="">
-                                                <i class="bi bi-envelope st-icon" style="top: 30px"></i>
+                                                <i class="bi bi-envelope st-icon"></i>
                                             </div>
                                         </diV>
                                     </div>
