@@ -87,6 +87,15 @@
                     number_consulting_room: {
                         required: true,
                     },
+                    contrie: {
+                        required: true,
+                    },
+                    state_contrie: {
+                        required: true,
+                    },
+                    city_contrie: {
+                        required: true,
+                    },
                 },
                 messages: {
                     name: {
@@ -165,6 +174,15 @@
                     number_consulting_room: {
                         required: "Número del consultorio es obligatorio"
                     },
+                    contrie: {
+                        required: "País es obligatoria",
+                    },
+                    state_contrie: {
+                        required: "Estado es obligatoria",
+                    },
+                    city_contrie: {
+                        required: "Ciudad es obligatoria",
+                    },
                 },
 
 
@@ -196,8 +214,9 @@
                 seal_img = user.digital_cello;
 
                 $('#birthdate').val(user.birthdate).change();
-                $('#state').val(user.state).change();
-                $('#city').val(user.city).change();
+                $('#contrie').val(user.contrie).change();
+                $('#state_contrie').val(user.state).change();
+                $('#city_contrie').val(user.city).change();
                 $('#address').val(user.address).change();
                 $('#genere').val(user.genere).change();
                 $('#specialty').val(user.specialty).change();
@@ -707,7 +726,8 @@
                                                     </diV>
                                                 </div>
                                             @endif
-                                            <x-ubigeo class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
+                                            <x-ubigeo_contries class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" />
+
                                             <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
