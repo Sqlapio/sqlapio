@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StateCountry extends Model
+class Contries extends Model
 {
     use HasFactory;
 
      /**
      * Define table
      */
-    protected $table = 'states_contries';
+    protected $table = 'countries';
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +21,6 @@ class StateCountry extends Model
      */
     protected $fillable = [
         'name',
-        'country_id',
+        'enable',
     ];
 }

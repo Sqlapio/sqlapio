@@ -197,7 +197,11 @@ $(document).ready(() => {
       },
       center_id: {
         required: true,
+      },
+      id_select:{
+        required: true,
       }
+      
     },
     messages: {
       center_id: {
@@ -224,6 +228,9 @@ $(document).ready(() => {
       },
       timeFin: {
         required: "Campo es obligatorio",
+      },
+      id_select: {
+        required: "Debe Seleccionar un paciente",
       }
     }
   });

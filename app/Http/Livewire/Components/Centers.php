@@ -6,6 +6,8 @@ use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\UtilsController;
 use App\Models\Center;
 use App\Models\DoctorCenter;
+use App\Models\State;
+use App\Models\StateCountry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -48,8 +50,7 @@ class Centers extends Component
 
             $center = DoctorCenter::where('user_id', $user->id)->where('center_id', $request->center_id)->first();
 
-            if ($center != null) 
-            {
+            if ($center != null) {
                 return response()->json([
                     'error' => 'true',
                     'mjs'  => 'El centro ya se encuentra asociado a su usuario. Favor intente con uno diferente'
@@ -75,8 +76,7 @@ class Centers extends Component
 
                 $email_verified_at = Auth::user()->email_verified_at;
 
-                if ($email_verified_at != null) 
-                {
+                if ($email_verified_at != null) {
                     /**
                      * Notificacion al Doctor
                      */
@@ -96,8 +96,7 @@ class Centers extends Component
                 }
 
                 return true;
-            }   
-
+            }
         } catch (\Throwable $th) {
             $message = $th->getMessage();
             dd('Error Livewire.Components.Centers.store()', $message);
@@ -109,9 +108,8 @@ class Centers extends Component
         try {
 
             $centers_disabled = DB::table('doctor_centers')
-              ->where('id', $id)
-              ->update(['status' => 2]);
-
+                ->where('id', $id)
+                ->update(['status' => 2]);
         } catch (\Throwable $th) {
             $message = $th->getMessage();
             dd('Error Livewire.Components.centers.centers_disabled()', $message);
@@ -123,21 +121,70 @@ class Centers extends Component
         try {
 
             $centers_enabled = DB::table('doctor_centers')
-              ->where('id', $id)
-              ->update(['status' => 1]);
-
+                ->where('id', $id)
+                ->update(['status' => 1]);
         } catch (\Throwable $th) {
             $message = $th->getMessage();
             dd('Error Livewire.Components.centers.centers_enabled()', $message);
         }
     }
 
+    public function regiter_center(Request $request)
+    {
+        try {
+
+            $rules = [
+                'contrie' => 'required',
+                'address' => 'required',
+                'state_contrie' => 'required',
+                'city_contrie' => 'required',
+                'full_name' => 'required',
+            ];
+
+            $msj = [
+                'contrie.required' => 'Campo requerido',
+                'address.required' => 'Campo requerido',
+                'state_contrie.required' => 'Campo requerido',
+                'city_contrie.required' => 'Campo requerido',
+                'full_name.required' => 'Campo requerido',
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $msj);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => 'false',
+                    'errors'  => $validator->errors()->all()
+                ], 400);
+            }
+
+            $state = StateCountry::where('id', $request->state_contrie)->first();
+            
+            $new_centers = new Center();
+            $new_centers->address = $request->address;
+            $new_centers->description = $request->full_name;
+            $new_centers->state = $state->name;
+            $new_centers->state_id = $request->state_contrie;
+            $new_centers->country = $request->contrie;
+            $new_centers->user_id = Auth::user()->id;
+            $new_centers->city_contrie = $request->city_contrie;
+            $new_centers->save();
+
+            return true;
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th
+            ], 500);
+        }
+    }
     public function render()
     {
         $user_id = Auth::user()->id;
         $user_state = Auth::user()->state;
         $doctor_centers = UtilsController::get_doctor_centers();
-        $centers = UtilsController::get_centers($user_state);              
-        return view('livewire.components.centers', compact('doctor_centers','centers'));
+        $centers = UtilsController::get_centers($user_state);
+        return view('livewire.components.centers', compact('doctor_centers', 'centers'));
     }
 }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StateCountry extends Model
+class StatesContries extends Model
 {
     use HasFactory;
 
@@ -20,7 +20,7 @@ class StateCountry extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'contrie_id',
         'name',
-        'country_id',
     ];
 }
