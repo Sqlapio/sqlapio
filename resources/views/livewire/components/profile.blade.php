@@ -8,6 +8,14 @@
     .collapseBtn {
         color: #428bca;
     }
+
+    @media only screen and (max-width: 768px) {
+        .mb-btn {
+            margin-top: 18px !important;
+            margin-left: 12px;
+        }
+
+    }
 </style>
 @push('scripts')
     <script>
@@ -531,12 +539,12 @@
                                     <div class="row Form-edit-user">
                                         @if (Auth::user()->role == 'medico')
                                             {{-- rol medico --}}
-                                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 ">
+                                            <div class="col-sm-3 col-md-2 col-lg-2 col-xl-2 col-xxl-2 ">
                                                 <x-upload-image />
                                             </div>
-                                            <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
+                                            <div class="col-sm-9 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
                                                 <div class="row">
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label"
@@ -545,11 +553,11 @@
                                                                     class="form-control mask-text @error('name') is-invalid @enderror"
                                                                     id="name" name="name" type="text"
                                                                     value="{!! !empty($user) ? $user->name : '' !!}">
-                                                                <i class="bi bi-person-circle" style="top: 30px"></i>
+                                                                <i class="bi bi-person-circle st-icon"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="last_name" class="form-label"
@@ -558,11 +566,11 @@
                                                                     class="form-control mask-text @error('last_name') is-invalid @enderror"
                                                                     id="last_name" name="last_name" type="text"
                                                                     value="{!! !empty($user) ? $user->last_name : '' !!}">
-                                                                <i class="bi bi-person-circle" style="top: 30px"></i>
+                                                                <i class="bi bi-person-circle st-icon"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="ci" class="form-label"
@@ -572,11 +580,11 @@
                                                                     class="form-control @error('ci') is-invalid @enderror"
                                                                     id="ci" name="ci" type="text"
                                                                     value="{!! !empty($user) ? $user->ci : '' !!}">
-                                                                <i class="bi bi-person-vcard" style="top: 30px"></i>
+                                                                <i class="bi bi-person-vcard st-icon"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <label for="birthdate" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha
@@ -590,7 +598,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="genere" class="form-label"
@@ -606,7 +614,7 @@
                                                             </div>
                                                         </div>
                                                     </div> 
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="username" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo electrónico</label>
@@ -614,11 +622,11 @@
                                                                     class="form-control @error('username') is-invalid @enderror"
                                                                     id="username" name="username" type="text" readonly
                                                                     value="{!! !empty($user) ? $user->email : '' !!}">
-                                                                <i class="bi bi-envelope-at" style="top: 30px"></i>
+                                                                <i class="bi bi-envelope-at st-icon"></i>
                                                             </div>
                                                         </diV>
                                                     </div> 
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -627,11 +635,11 @@
                                                                     class="form-control phone @error('phone') is-invalid @enderror"
                                                                     id="phone" name="phone" type="text"
                                                                     value="{!! !empty($user) ? $user->phone : '' !!}">
-                                                                <i class="bi bi-telephone-forward" style="top: 30px"></i>
+                                                                <i class="bi bi-telephone-forward st-icon"></i>
                                                             </div>
                                                         </diV>
                                                     </div> 
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="specialty" class="form-label"
@@ -663,18 +671,18 @@
                                                 </diV>
                                             </div>
                                             @if (Auth::user()->type_plane == '7')
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Piso del consultorio</label>
                                                             <input autocomplete="off" class="form-control mask-alfa-numeric @error('number_floor') is-invalid @enderror"
                                                                 id="number_floor" maxlength="10" name="number_floor" type="text"
                                                                 value="{!! !empty($user != null) ? $user->number_floor : '' !!}">
-                                                            <i class="bi bi-geo" style="top: 30px"></i>
+                                                            <i class="bi bi-geo st-icon"></i>
                                                         </div>
                                                     </diV>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número del consultorio</label>
@@ -682,11 +690,11 @@
                                                                 id="number_consulting_room" name="number_consulting_room"
                                                                 type="text"
                                                                 value="{!! !empty($user != null) ? $user->number_consulting_room : '' !!}">
-                                                            <i class="bi bi-geo" style="top: 30px"></i>
+                                                            <i class="bi bi-geo st-icon"></i>
                                                         </div>
                                                     </diV>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número teléfonico del consultorio</label>
@@ -694,13 +702,13 @@
                                                                 id="number_consulting_phone" name="number_consulting_phone"
                                                                 type="text" 
                                                                 value="{!! !empty($user != null) ? $user->number_consulting_phone : '' !!}">
-                                                            <i class="bi bi-geo" style="top: 30px"></i>
+                                                            <i class="bi bi-geo st-icon"></i>
                                                         </div>
                                                     </diV>
                                                 </div>
                                             @endif
-                                            <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
-                                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                            <x-ubigeo class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
+                                            <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="zip_code" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Código Postal</label>
@@ -708,11 +716,11 @@
                                                             class="form-control mask-only-text @error('zip_code') is-invalid @enderror"
                                                             id="zip_code" name="zip_code" type="text"
                                                             value="{!! !empty($user) ? $user->zip_code : '' !!}">
-                                                        <i class="bi bi-geo" style="top: 30px"></i>
+                                                        <i class="bi bi-geo st-icon"></i>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">MPPS</label>
@@ -720,7 +728,7 @@
                                                             class="form-control mask-only-number @error('cod_mpps') is-invalid @enderror"
                                                             id="cod_mpps" name="cod_mpps" type="text"
                                                             value="{!! !empty($user) ? $user->cod_mpps : '' !!}">
-                                                        <i class="bi bi-geo" style="top: 30px"></i>
+                                                        <i class="bi bi-geo st-icon"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -752,7 +760,7 @@
                                                                             ? $user->get_center->description
                                                                             : $user->get_laboratorio->business_name)
                                                                         : '' !!}">
-                                                                <i class="bi bi-person-vcard" style="top: 30px"></i>
+                                                                <i class="bi bi-person-vcard st-icon"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
@@ -776,7 +784,7 @@
                                                                     class="form-control mask-rif @error('rif') is-invalid @enderror"
                                                                     id="rif" name="rif" type="text" maxlength="17"
                                                                     value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->rif : '' !!}">
-                                                                <i class="bi bi-person-vcard" style="top: 30px"></i>
+                                                                <i class="bi bi-person-vcard st-icon"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
@@ -788,7 +796,7 @@
                                                                     class="form-control @error('email') is-invalid @enderror"
                                                                     id="email" name="email" type="text" readonly
                                                                     value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->email : '' !!}">
-                                                                <i class="bi bi-envelope-at" style="top: 30px"></i>
+                                                                <i class="bi bi-envelope-at st-icon"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
@@ -802,7 +810,7 @@
                                                                     class="form-control mask-only-text @error('license') is-invalid @enderror"
                                                                     id="license" name="license" type="text"
                                                                     value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->license : '' !!}">
-                                                                <i class="bi bi-hash" style="top: 30px"></i>
+                                                                <i class="bi bi-hash st-icon"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
@@ -814,7 +822,7 @@
                                                                     class="form-control phone @error('phone') is-invalid @enderror"
                                                                     id="phone" name="phone" type="text"
                                                                     value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->phone_1 : '' !!}">
-                                                                <i class="bi bi-telephone-forward" style="top: 30px"></i>
+                                                                <i class="bi bi-telephone-forward st-icon"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
@@ -839,7 +847,7 @@
                                                             <option value="hospital">Hospital</option>
                                                             <option value="etc">etc</option>
                                                         </select>
-                                                        <i class="bi bi-flag" style="top: 30px"></i>
+                                                        <i class="bi bi-flag st-icon"></i>
                                                     </div>
                                                 </div>
                                             </div> 
@@ -853,7 +861,7 @@
                                                             class="form-control mask-only-text @error('responsible') is-invalid @enderror"
                                                             id="responsible" name="responsible" type="text"
                                                             value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->responsible : '' !!}">
-                                                        <i class="bi bi-geo" style="top: 30px"></i>
+                                                        <i class="bi bi-geo st-icon"></i>
                                                     </div>
                                                 </diV>
                                             </div> 
@@ -868,7 +876,7 @@
                                                             id="website" name="website" type="text"
                                                             style=""
                                                             value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->website : '' !!}">
-                                                        <i class="bi bi-globe2" style="top: 30px"></i>
+                                                        <i class="bi bi-globe2 st-icon"></i>
                                                     </div>
                                                     <small style="font-size: 12px"
                                                         class="collapseBtn">https://www.sitioweb.com</small>
@@ -879,7 +887,7 @@
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
                                                         <textarea id="address" rows="1" id="address" name="address" class="form-control @error('address') is-invalid @enderror" value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->address : '' !!}"></textarea>
-                                                        <i class="bi bi-geo" style="top: 30px"></i>
+                                                        <i class="bi bi-geo st-icon"></i>
                                                     </div>
                                                 </diV>
                                             </div>
@@ -892,7 +900,7 @@
                                                             class="form-control mask-only-text @error('description') is-invalid @enderror"
                                                             id="description" name="description" type="text"
                                                             value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->description : '' !!}">
-                                                        <i class="bi bi-geo" style="top: 30px"></i>
+                                                        <i class="bi bi-geo st-icon"></i>
                                                     </div>
                                                 </diV>
                                             </div> --}}
@@ -901,8 +909,8 @@
                                             
                                         @endif
                                             
-                                            <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1" style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                                <input class="btn btnSave send" value="Guardar" type="submit" style="margin-bottom: 1px; width: 100%" />
+                                            <div class="col-sm-2 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mb-btn" style="display: flex; justify-content: flex-end; align-items: flex-end; padding-left: 0">
+                                                <input class="btn btnSave send" value="Guardar" type="submit" style="margin-bottom: 1px; width: 100%;"/>
                                                 {{-- <button type="button" class="btn btnSecond btn6"
                                                     style="margin-left: 20px">Cancelar</button> --}}
                                             </div>
@@ -982,7 +990,7 @@
                                         aria-expanded="false"
                                         aria-controls="collapseThree"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-file-earmark-text"></i> Sello Digital
+                                        <i class="bi bi-file-earmark-text"></i> Firma Digital
                                     </button>
                                 </span>
                                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">

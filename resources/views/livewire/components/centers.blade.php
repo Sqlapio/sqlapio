@@ -11,18 +11,25 @@
     }
 
     .table-check {
+        width: 50px;
+        height: 50px;
         text-align: center;
         vertical-align: middle;
-        height: 50px;
-        width: 50px;
     }
 
     .w-5 {
         width: 5% !important;
     }
 
-    .w-8 {
-        width: 8% !important;
+    .w-30 {
+        width: 30% !important;
+    }
+    .w-45 {
+        width: 45% !important;
+    }
+
+    .w-10 {
+        width: 10% !important;
     }
 
     form {
@@ -227,7 +234,7 @@
                             {
                                 data: 'phone_consulting_room',
                                 title: 'Teléfono',
-                                className: "text-center w-8",
+                                className: "text-center w-10",
                             },
                             {
                                 data: 'btn',
@@ -292,17 +299,12 @@
                                             style="width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center">@lang('messages.tabla.centro_salud')</th>
-                                                    <th class="text-center w-50" data-orderable="false">@lang('messages.tabla.direccion')
-                                                    </th>
-                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.piso')
-                                                    </th>
-                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.consultorio')
-                                                    </th>
-                                                    <th class="text-center w-8" data-orderable="false">@lang('messages.tabla.telefono')
-                                                    </th>
-                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.estatus')
-                                                    </th>
+                                                    <th class="text-center w-30">@lang('messages.tabla.centro_salud')</th>
+                                                    <th class="text-center w-45" data-orderable="false">@lang('messages.tabla.direccion')</th>
+                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.piso')</th>
+                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.consultorio')</th>
+                                                    <th class="text-center w-10" data-orderable="false">@lang('messages.tabla.telefono')</th>
+                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.estatus')</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -397,8 +399,12 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
 
-
+                                        <div class="row text-center">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                <input class="btn btnSave send mt-3" value="@lang('messages.botton.asociar')" type="submit" />
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -436,43 +442,34 @@
                                                 <label for="name" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.direccion')</label>
                                                 <textarea id="address" rows="2" name="address" class="form-control"></textarea>
-                                                <i class="bi bi-geo" style="top: 30px"></i>
+                                                <i class="bi bi-geo st-icon"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.piso')</label>
-                                                <input autocomplete="off" class="mask-alfa-numeric form-control"
-                                                    id="number_floor" name="number_floor" type="text" value=""
-                                                    maxlength="2">
-                                                <i class="bi bi-hash" style="top: 30px"></i>
+                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.piso')</label>
+                                                <input autocomplete="off" class="mask-alfa-numeric form-control" id="number_floor" name="number_floor" type="text" value="" maxlength="2">
+                                                <i class="bi bi-hash st-icon"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 12px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.consultorio')</label>
-                                                <input autocomplete="off" class="form-control mask-alfa-numeric"
-                                                    id="number_consulting_room" name="number_consulting_room"
-                                                    type="text" value="" maxlength="5">
-                                                <i class="bi bi-hash" style="top: 30px"></i>
+                                                <label for="name" class="form-label" style="font-size: 12px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.consultorio')</label>
+                                                <input autocomplete="off" class="form-control mask-alfa-numeric" id="number_consulting_room" name="number_consulting_room" type="text" value="" maxlength="5">
+                                                <i class="bi bi-hash st-icon"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.telefono_consultorio')</label>
-                                                <input autocomplete="off" class="form-control phone"
-                                                    id="phone_consulting_room" name="phone_consulting_room"
-                                                    type="text" value="">
-                                                <i class="bi bi-telephone-forward" style="top: 30px"></i>
+                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.telefono_consultorio')</label>
+                                                <input autocomplete="off" class="form-control phone" id="phone_consulting_room" name="phone_consulting_room" type="text" value="">
+                                                <i class="bi bi-telephone-forward st-icon"></i>
                                             </div>
                                         </div>
                                     </div>
