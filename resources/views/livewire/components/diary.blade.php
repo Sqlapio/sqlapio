@@ -171,7 +171,6 @@
                                 style="font-size: 12px;"></button>
                         </div> 
                         <div class="modal-body">
-                            <x-select-dos :data="$patient" />
                             <div class="row mt-2">
                                 <div id="div-pat" style="display: none">
                                     <div class="d-flex" style="align-items: center;">
@@ -216,6 +215,7 @@
                             <form action="" id="form-appointment">
                                 {{ csrf_field() }}
 
+                                <x-select-dos :data="$patient" />
 
                                 <div class="row mt-1">
                                     <input type="hidden" id="patient_id" name="patient_id" value="">

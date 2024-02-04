@@ -12,7 +12,7 @@ class StateCountry extends Model
      /**
      * Define table
      */
-    protected $table = 'state_countries';
+    protected $table = 'states_contries';
 
     /**
      * The attributes that are mass assignable.

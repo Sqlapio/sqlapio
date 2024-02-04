@@ -110,6 +110,7 @@ Route::middleware(['auth','AuthCheck'])->group(function () {
             Route::get('/clinical-history', [ClinicalHistory::class, 'render'])->name('ClinicalHistory');
             Route::get('/centers', [Centers::class, 'render'])->name('Centers');
             Route::post('/register-centers', [Centers::class, 'store'])->name('register-centers');
+            Route::post('/register-new-centers', [Centers::class, 'regiter_center'])->name('register-new-centers');
             Route::get('/statistics', [Statistics::class, 'render'])->name('Statistics');
             Route::get('/study', [Study::class, 'render'])->name('Study');
             Route::get('/examen', [Examen::class, 'render'])->name('Examen');
