@@ -426,7 +426,7 @@
                 elem.ci = (elem.get_patients.is_minor == "true") ? `${elem.get_reprensetative.re_ci} (Rep)` : elem
                     .get_patients.ci;
 
-                elem.description = `${elem.description}----->${elem.id}`
+                elem.description = `${elem.description}`
 
                 data.push(elem);
             });
@@ -530,7 +530,7 @@
                     e.ci = (e.get_patient.is_minor == "true") ? `${e.get_reprensetative.re_ci} (Rep)` : e
                         .get_patient.ci;
 
-                    e.date = `${e.date}--->${e.id}`
+                    e.date = `${e.date}`
 
                     dataRef.push(e);
 
@@ -721,7 +721,7 @@
                                                                 {{ $item->get_patients->is_minor === 'true' ? $item->get_patients->get_reprensetative->re_ci . '  (Rep)' : $item->get_patients->ci }}
                                                             </td>
                                                             <td class="text-center">
-                                                                {{ $item->description . '--->' . $item->id }} </td>
+                                                                {{ $item->description }} </td>
                                                             <td class="text-center">
                                                                 <div class="d-flex" style="justify-content: center;">
                                                                     <div

@@ -95,6 +95,10 @@ return [
         'fecha_fin'              => 'Fecha de Culminación',
         'tipo_cirugia'           => 'Tipo de Cirugía',
         'fecha'                  => 'Fecha',
+        'selecion_estado'        => 'Estado',
+        'selecion_ciudad'        => 'Ciudad',
+        'selecion_pais'          => 'País',
+        'nombre_centro'          => 'Nombre del Centro',
 
 
 
@@ -135,6 +139,8 @@ return [
         'ultimas_consultas'     => 'Ultimas Consultas',
         'informes_medico'       => 'Informes Médicos',
         'paciente_referencia'   => 'Pacientes con Referencias',
+        'paciente_registrado'   => 'Pacientes Registrados',
+        'nuevo_centro'   => 'Pacientes Registrados',
 
     ],
     'tooltips' => [
@@ -264,6 +270,8 @@ return [
         'observaciones'      => 'Observaciones',
         'añadir_alergia'      => 'Añadir Alergias',
         'añadir_medicamentos' => 'Añadir Medicamentos',
+        'cargar_img' => 'Cargar Imagen',
+        'limpiar' => 'Limpiar Formulario',
     ],
 
     'select' => [

@@ -8,10 +8,10 @@
 <div class="{{ $class }}">
     <div class="form-group">
         <div class="Icon-inside">
-            <label for="state" class="form-label" style="font-size: 13px; margin-bottom: 7px">Seleccione el estado</label>
+            <label for="state" class="form-label" style="font-size: 13px; margin-bottom: 7px">@lang('messages.form.selecion_estado')</label>
             <select name="state" id="state" class="form-control"
                 onchange="handlerState(event,{{ $cities }})">
-                <option value="">Seleccione</option>
+                <option value="">@lang('messages.placeholder.seleccione')</option>
                 @foreach ($states as $item)
                     <option value={{ $item->id }}>{{ $item->description }}</option>
                 @endforeach
@@ -24,9 +24,9 @@
 <div class="{{ $class }}">
     <div class="form-group">
         <div class="Icon-inside">
-            <label for="city" class="form-label" style="font-size: 13px; margin-bottom: 7px">Seleccione la ciudad</label>
+            <label for="city" class="form-label" style="font-size: 13px; margin-bottom: 7px">@lang('messages.form.selecion_ciudad')</label>
             <select name="city" id="city" class="form-control">
-                <option value="">Seleccione</option>
+                <option value="">@lang('messages.placeholder.seleccione')</option>
             </select>
             <i class="bi bi-flag st-icon"></i>
         </div>
