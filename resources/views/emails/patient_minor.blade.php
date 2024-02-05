@@ -20,7 +20,7 @@
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
-                Su registro de realizó de forma exitosa:
+                Su registro fue realizado de forma exitosa:
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
@@ -36,7 +36,7 @@
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
-                Gracias por ser parte de nosotro, Sqlapio.com, innovando para el futuro.
+                Gracias por ser parte de nosotros, Sqlapio.com, innovando para el futuro.
             </p>
             <p style="text-align: justify; margin-left: 20px;">
                 Atentamente,

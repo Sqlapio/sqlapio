@@ -25,7 +25,7 @@
                 Gracias por ser parte de nuestra familia Sqlapio.com, usted acaba de registrarse como un usuario corporativo en nuestro sistema.
                 <br>
                 <br>
-                Es importate para nosotro que realize la confirmación de su correo electrónico a través del siguiente link:
+                Es importante para nosotros que realice la confirmación de su correo electrónico a través del siguiente link:
                 <br>
                 <br>
                 {{ env('APP_URL') }}/verify/{{ $mailData['verify_code'] }}
