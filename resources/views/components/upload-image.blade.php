@@ -70,7 +70,7 @@
             <div style="padding-top: 6px;">
                 {{-- <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 8px; margin-top: 4px">{{ $title }}</label> --}}
                 {{-- <input type="file" class="form-control" id="file" name="file" accept=".jpg, .jpeg, .png"> --}}
-                <label for="file" class="custom-file-upload"> {{ $title }} </label>
+                <label for="file" class="custom-file-upload">@lang('messages.label.cargar_img')</label>
                 <br>
                 {{-- <label for="name" class="form-label" style="font-size: 11px; margin-top: 4px; margin-bottom: 0">@lang('messages.label.info_2')</label> --}}
                 <input id="file" type="file" name="file" accept=".jpg, .jpeg, .png"/>
