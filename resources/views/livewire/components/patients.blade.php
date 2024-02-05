@@ -511,7 +511,7 @@
                             //     confirmButtonColor: '#42ABE2',
                             //     confirmButtonText: 'Aceptar'
                             // }).then((result) => {
-                                
+
                                 $('#search_patient').val('');
                                 $('#spinner2').hide();
                                 $(".accordion-collapseOne").collapse('show')
@@ -983,7 +983,7 @@
                                                 </div>
                                                 {{-- end --}}
                                             </div>
-                                            
+
                                             <div class="row mt-3 justify-content-md-end">
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end; flex-wrap: wrap;">
                                                     <div id="bnt-dairy" style="display: none;margin-left: 10px; ; margin-bottom: 10px"> </div>
@@ -1039,7 +1039,7 @@
                             </span>
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row mt-3" 
+                                    <div class="row mt-3"
                                     {{-- id="content-search-pat" --}}
                                     >
                                         <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mb-3 mt-3" style="width: 318px;">
@@ -1070,7 +1070,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -1098,7 +1098,7 @@
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.codigo_paciente')</th>
                                                         <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                         {{-- <th class="text-center" scope="col">Cédula</th> --}}
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_nacimiento')</th>
                                                         {{-- <th class="text-center" scope="col">Género</th>
                                                         <th class="text-center" scope="col">Teléfono</th>
                                                         <th class="text-center" scope="col">Email</th> --}}
