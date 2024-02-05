@@ -1031,7 +1031,7 @@
                     </div>
                 @endif
             @endif
-            @if (Auth::user()->role == 'medico' && Auth::user()->type_plane != '7')
+            @if (Auth::user()->role == 'medico' || Auth::user()->role == 'laboratorio')
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd mt-2">
                         <div class="accordion-item">
