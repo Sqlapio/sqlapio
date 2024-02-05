@@ -16,7 +16,7 @@
             margin-right: auto;
             width: 600px;
             height: auto;"
-        src="{{ asset('img/notification_email/cita_header.jpg') }}">
+        src="{{ asset('img/notification_email/notificaciones_img_3.jpg') }}">
         <div style="margin: auto;
                     width: 600px;
                     padding: 10px;">
@@ -53,7 +53,7 @@
                 </tr>
               </table>
               <p style="text-align: justify; margin-left: 20px;">
-                Gracias por ser parte de nosotro, Sqlapio.com, innovando para el futuro.
+                Gracias por ser parte de nosotros, Sqlapio.com, innovando para el futuro.
             </p>
             <p style="text-align: justify; margin-left: 20px;">
                 Atentamente,
