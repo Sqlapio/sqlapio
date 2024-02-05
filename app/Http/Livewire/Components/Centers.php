@@ -158,12 +158,12 @@ class Centers extends Component
                 ], 400);
             }
 
-            $state = StateCountry::where('id', $request->state_contrie)->first();
+            $state = State::where('id', $request->state_contrie)->first();
             
             $new_centers = new Center();
             $new_centers->address = $request->address;
             $new_centers->description = $request->full_name;
-            $new_centers->state = $state->name;
+            $new_centers->state = $state->description;
             $new_centers->state_id = $request->state_contrie;
             $new_centers->country = $request->contrie;
             $new_centers->user_id = Auth::user()->id;

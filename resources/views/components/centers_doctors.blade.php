@@ -1,13 +1,13 @@
 @php
 
-    use App\Models\StateCountry;
+    use App\Models\State;
     use App\Models\Center;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Auth;
 
     $user_state_id = Auth::user()->state;
-    $state = StateCountry::where('id', $user_state_id)->first();
-    $centers = Center::where('state', $state->name)->get();
+    $state = State::where('id', $user_state_id)->first();
+    $centers = Center::where('state', $state->description)->get();
     
 @endphp
 
