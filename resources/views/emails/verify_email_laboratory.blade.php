@@ -11,7 +11,7 @@
             margin-right: auto;
             width: 600px;
             height: auto;"
-        src="{{ asset('img/notification_email/notificaciones_img_3.jpg') }}">
+        src="{{ asset('img/notification_email/notificaciones_img_3.png') }}">
         <div style="margin: auto;
                     width: 600px;
                     padding: 10px;">
