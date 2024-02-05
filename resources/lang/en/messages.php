@@ -89,6 +89,10 @@ return [
         'fecha_fin'              => 'Completion Date',
         'tipo_cirugia'           => 'Type of surgery',
         'fecha'                  => 'Date',
+        'selecion_estado'        => 'State',
+        'selecion_ciudad'        => 'City',
+        'selecion_pais'        => 'Countrie',
+        'nombre_centro'        => 'Center Name',
 
     ],
     'menu' => [
@@ -127,6 +131,8 @@ return [
         'ultimas_consultas'    => 'Latest Queries',
         'informes_medico'      => 'Medical reports',
         'paciente_referencia'  => 'Patients with References',
+        'paciente_registrado'  => 'Patients Register',
+        'nuevo_centro'         => 'Add Center',
     ],
     'tooltips' => [
         'editar'          => 'Edit',
@@ -258,6 +264,8 @@ return [
         'observaciones'      => 'Observations',
         'añadir_alergia'      => 'Add Allergies',
         'añadir_medicamentos' => 'Add Medicines',
+        'cargar_img' => 'Upload Image',
+        'limpiar' => 'Clean Form',
     ],
 
     'select' => [
