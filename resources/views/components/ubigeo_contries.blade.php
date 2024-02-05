@@ -1,12 +1,11 @@
 @php
     use App\Models\Contries;
-    use App\Models\StatesContries;
-    use App\Models\CityContries;
+    use App\Models\State;
+    use App\Models\Cities;
 
     $contrie = Contries::where('enable',true)->get();
-    $states = StatesContries::all();
-    $cityContries = CityContries::all();
-
+    $states = State::all();
+    $cityContries = Cities::all();
 @endphp
 
 <div class="{{ $class }}">
@@ -57,14 +56,14 @@
 
     let states = @json($states);
 
-    let cityContries = @json($cityContries);
+    let cityContries = @json($cityContries); 
 
     function handlerState(e) {
         $('#state_contrie').find('option').remove().end();
         $('#city_contrie').find('option').remove().end();
-        state_contrier = states.filter((elem) => Number(elem.contrie_id)  === Number(e.target.value));
+        state_contrier = states.filter((elem) => Number(elem.countries_id)  === Number(e.target.value));
         state_contrier.map((item) => {
-            $('#state_contrie').append(new Option(item.name, item.id));
+            $('#state_contrie').append(new Option(item.description, item.id));
         });
     }
 
@@ -72,7 +71,7 @@
         $('#city_contrie').find('option').remove().end()
         city_contries = cityContries.filter((elem) => Number(elem.state_id)  === Number(e.target.value));
         city_contries.map((item) => {
-            $('#city_contrie').append(new Option(item.name, item.id));
+            $('#city_contrie').append(new Option(item.description, item.id));
         });
     }
 </script>

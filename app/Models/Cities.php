@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Country extends Model
+class Cities extends Model
 {
     use HasFactory;
 
      /**
      * Define table
      */
-    protected $table = 'countries';
+    protected $table = 'cities';
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +20,8 @@ class Country extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'enable',
+        'description',
+        'state_id',
+        'state'
     ];
 }

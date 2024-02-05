@@ -990,7 +990,7 @@
                                                     <div id="bnt-cons" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
                                                     <div id="bnt-hist" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
                                                     <input class="btn btnSave send" id="btn-save" value="Guardar" type="submit" style="margin-left: 10px; margin-bottom: 10px" />
-                                                    <button style="margin-left: 10px; padding: 10px; margin-bottom: 10px"
+                                                    <button style="margin-left: 10px; margin-bottom: 10px"
                                                         type="button" onclick="refreshForm();" class="btn btnSecond"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         data-html="true" title="Limpiar Formulario">
