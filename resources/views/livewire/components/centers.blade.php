@@ -206,7 +206,7 @@
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        success: function(response) {                         
+                        success: function(response) {
                             $('#send').show();
                             $('#spinner').hide();
                             $("#form-create-new-center").trigger("reset");
@@ -458,7 +458,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.nombre_centro')</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre_centro')</label>
                                                         <input autocomplete="off" class="mask-alfa-numeric form-control"
                                                             id="full_name" name="full_name" type="text"
                                                             value="" maxlength="100">
@@ -471,7 +471,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.direccion')</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
                                                         <textarea id="address" rows="2" name="address" class="form-control"></textarea>
                                                         <i class="bi bi-geo" style="top: 30px"></i>
                                                     </div>
@@ -481,7 +481,7 @@
 
                                         <div class="row text-center">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <input class="btn btnSave send mt-3" value="@lang('messages.botton.registrar')"
+                                                <input class="btn btnSave send mt-3" value="@lang('messages.botton.guardar')"
                                                     type="submit" />
                                             </div>
                                         </div>

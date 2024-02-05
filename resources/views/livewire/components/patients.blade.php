@@ -989,11 +989,11 @@
                                                     <div id="bnt-dairy" style="display: none;margin-left: 10px; ; margin-bottom: 10px"> </div>
                                                     <div id="bnt-cons" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
                                                     <div id="bnt-hist" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
-                                                    <input class="btn btnSave send" id="btn-save" value="Guardar" type="submit" style="margin-left: 10px; margin-bottom: 10px" />
+                                                    <input class="btn btnSave send" id="btn-save" value="@lang('messages.botton.guardar')" type="submit" style="margin-left: 10px; margin-bottom: 10px" />
                                                     <button style="margin-left: 10px; margin-bottom: 10px"
                                                         type="button" onclick="refreshForm();" class="btn btnSecond"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        data-html="true" title="Limpiar Formulario">
+                                                        data-html="true" title="@lang('messages.label.limpiar')">
                                                         <i class="bi bi-eraser"></i>
                                                     </button>
                                                 </div>
@@ -1034,7 +1034,7 @@
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-person-add"></i> Pacientes Registrados
+                                    <i class="bi bi-person-add"></i> @lang('messages.acordion.paciente_registrado')
                                 </button>
                             </span>
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
@@ -1136,7 +1136,7 @@
                                                                             type="button"
                                                                             class="btn btn-iSecond rounded-circle"
                                                                             data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom" title="Editar">
+                                                                            data-bs-placement="bottom" title="@lang('messages.tooltips.editar')">
                                                                             <i class="bi bi-pencil"></i>
                                                                         </button>
                                                                     </div>
@@ -1146,7 +1146,7 @@
                                                                                 class="btn btn-iPrimary rounded-circle"
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
-                                                                                title="Consulta médica">
+                                                                                title="@lang('messages.tooltips.consulta_medica')">
                                                                                 <i class="bi bi-file-earmark-text"></i>
                                                                             </button>
                                                                         </a>
@@ -1157,7 +1157,7 @@
                                                                                 class="btn btn-iSecond rounded-circle"
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
-                                                                                title="Historia Clínica">
+                                                                                title="@lang('messages.tooltips.historia')">
                                                                                 <i class="bi bi-file-earmark-text"></i>
                                                                             </button>
                                                                         </a>
