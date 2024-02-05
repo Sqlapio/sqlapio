@@ -15,7 +15,7 @@
             margin-left: auto;
             margin-right: auto;
             width: 600px;
-            height: auto;" src="{{ asset('img/notification_email/cita_header.jpg') }}">
+            height: auto;" src="{{ asset('img/notification_email/notificaciones_img_3.jpg') }}">
     <div style="margin: auto; width: 600px; padding: 10px;">
         <p style="text-align: justify; margin-left: 20px;">
             <h2 style="text-align: justify; margin-left: 20px;">Cita Médica agendada</h2>
@@ -43,7 +43,7 @@
         </p>
 
         <p style="text-align: justify; margin-left: 20px;">
-            Gracias por ser parte de nosotro, Sqlapio.com, innovando para el futuro.
+            Gracias por ser parte de nosotros, Sqlapio.com, innovando para el futuro.
         </p>
              <p style="text-align: justify; margin-left: 20px;">
             Para confirmar su cita puede hacerlo a traves del siguiente link:
