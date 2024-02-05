@@ -53,14 +53,14 @@
                 </div>
             </div>
             <div>
-                <label for="seal" class="form-label custom-file-upload" style="font-size: 13px; margin-bottom: 8px; margin-top: 4px; margin-right: 5px">Cargar Sello</label><i onclick="handler();" class="bi bi-info-circle"></i>
+                <label for="seal" class="form-label custom-file-upload" style="font-size: 13px; margin-bottom: 8px; margin-top: 4px; margin-right: 5px">@lang('messages.label.cargar_sello')</label><i onclick="handler();" class="bi bi-info-circle"></i>
                 <br>
                 {{-- <label for="seal_img" class="form-label" style="font-size: 13px; margin-bottom: 8px; margin-top: 4px">Ingrese una imagen de max 256kb</label> --}}
                 <input type="file" class="form-control" id="seal" name="seal" accept=".jpg, .jpeg, .png">
                 <input type="hidden" name="seal_img" id="seal_img" class="seal_img">
             </div>
         </div>
-        
+
     </div>
 
      <!-- Modal -->
@@ -77,11 +77,11 @@
 
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd">
-                                <label for="seal_img" class="form-label" style="font-size: 13px; margin-bottom: 8px; margin-top: 4px">Ingrese una imagen de max 256kb</label>
-                                <img src="{{asset('img/sello.jpg')}}" alt="" srcset="">                                
+                                <label for="seal_img" class="form-label" style="font-size: 13px; margin-bottom: 8px; margin-top: 4px">@lang('messages.label.validacion')</label>
+                                <img src="{{asset('img/sello.jpg')}}" alt="" srcset="">
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

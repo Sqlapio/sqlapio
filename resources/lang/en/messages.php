@@ -91,8 +91,13 @@ return [
         'fecha'                  => 'Date',
         'selecion_estado'        => 'State',
         'selecion_ciudad'        => 'City',
-        'selecion_pais'        => 'Countrie',
-        'nombre_centro'        => 'Center Name',
+        'selecion_pais'          => 'Countrie',
+        'nombre_centro'          => 'Center Name',
+        'especialidad'           => 'Speciality',
+        'piso_consultorio'       => 'Office Floor',
+        'num_consultorio'        => 'Office Number',
+        'num_tel_consultorio'    => 'Office Phone',
+        'mpps'                   => 'Tuition Number',
 
     ],
     'menu' => [
@@ -264,8 +269,12 @@ return [
         'observaciones'      => 'Observations',
         'añadir_alergia'      => 'Add Allergies',
         'añadir_medicamentos' => 'Add Medicines',
-        'cargar_img' => 'Upload Image',
-        'limpiar' => 'Clean Form',
+        'cargar_img'          => 'Upload File',
+        'limpiar'             => 'Clean Form',
+        'verificar_correo'    => 'You must verify your Email!',
+        'firma_digital'       => 'You must upload your Digital Signature',
+        'cargar_sello'        => 'Upload Digital Signature',
+        'validacion'       => 'Enter an image of max 256kb',
     ],
 
     'select' => [
@@ -288,6 +297,8 @@ return [
         'Alimentos'   => 'Food',
         'Latex'   => 'Latex',
         'Otros'   => 'Others',
+        'Masculino'   => 'Male',
+        'Femenino'   => 'Female',
 
     ],
 
