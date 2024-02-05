@@ -814,7 +814,7 @@
                                                     </div>
                                                 @endif
                                                 <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 ">
-                                                    <x-upload-image />
+                                                    <x-upload-image title/>
                                                 </div>
                                                 <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
                                                     <div class="row">
