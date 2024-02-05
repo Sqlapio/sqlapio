@@ -1366,7 +1366,7 @@ class UtilsController extends Controller
 	{
 
 		$data = [];
-		if ($row != 'cod_ref') {			
+		if ($row != 'cod_ref') {
 
 			$tablePat =  StudyPatient::where('status', 2)
 				->whereHas('get_patient', function ($q) use ($value) {
