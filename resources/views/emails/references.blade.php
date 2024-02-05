@@ -24,10 +24,10 @@
                 <h2 style="text-align: justify; margin-left: 20px;">Sr(a). {{ $mailData['patient_name'] }}</h2>
             </p>
             <p style="text-align: justify; margin-left: 20px;">
-                Nos complace informarle que usted acaba de realizarse una consulta médica con el <strong>Dr(a): {{ $mailData['dr_name'] }}</strong>, en el centro médico: <strong>{{ $mailData['center'] }}</strong>.
+                Nos complace informarle que usted acaba de tener una consulta médica con el <strong>Dr(a): {{ $mailData['dr_name'] }}</strong>, en el centro médico: <strong>{{ $mailData['center'] }}</strong>.
             </p>
             <p style="text-align: justify; margin-left: 20px;">
-                <strong>El Dr(a): {{ $mailData['dr_name'] }}</strong> <br> genero una referencia médica con las siguientes especificaciones:
+                <strong>El Dr(a): {{ $mailData['dr_name'] }}</strong> <br> generó una referencia médica con las siguientes especificaciones:
             </p>
             <table style="width: 600px; margin-left: 20px;">
                 <tr>
