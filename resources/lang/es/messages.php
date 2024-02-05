@@ -144,6 +144,7 @@ return [
         'paciente_referencia'   => 'Pacientes con Referencias',
         'paciente_registrado'   => 'Pacientes Registrados',
         'nuevo_centro'   => 'Pacientes Registrados',
+        'informacion_plan'   => 'Información del Plan',
 
     ],
     'tooltips' => [
@@ -279,6 +280,18 @@ return [
         'firma_digital'       => 'Debe cargar su Firma Digital!',
         'cargar_sello'       => 'Cargar Firma Digital',
         'validacion'       => 'Ingrese una imagen de max 256kb',
+        'paciente'         => 'Pacientes',
+        'consulta'         => 'Consultas',
+        'examenes'         => 'Examenes',
+        'estudios'         => 'Estudios',
+        'cambiar_plan'     => 'Cambiar Plan',
+        'renovar_plan'     => 'Renovar Plan',
+        'profesional'      => 'PROFESIONAL',
+        'free'      => 'FREE',
+        'ilimitado'        => 'ILIMITADO',
+        'estudios_video'        => 'Estudios con Video',
+        'publicidad'        => 'Publicidad',
+        'consulta_ia'        => 'Consulta IA',
 
     ],
 

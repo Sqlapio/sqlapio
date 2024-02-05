@@ -971,7 +971,7 @@
                                     aria-expanded="false"
                                     aria-controls="collapseTwo"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-envelope-at st-icon"></i> Actualización de Correo Electrónico
+                                    <i class="bi bi-envelope-at st-icon"></i> @lang('messages.acordion.actualizacion_correo')
                                 </button>
                             </span>
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
@@ -979,7 +979,7 @@
                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" id="email-div">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nuevo Correo Electrónico</label>
+                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
                                                 <input autocomplete="off" class="form-control alpha-no-spaces" id="act-email" name="act-email" type="text" value="">
                                                 <i class="bi bi-envelope-at st-icon"></i>
                                             </div>
@@ -1008,7 +1008,7 @@
                                         aria-expanded="false"
                                         aria-controls="collapseThree"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-file-earmark-text"></i> Firma Digital
+                                        <i class="bi bi-file-earmark-text"></i> @lang('messages.label.firma_digital')
                                     </button>
                                 </span>
                                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">
@@ -1040,7 +1040,7 @@
                                     aria-expanded="true"
                                     aria-controls="collapsePlanes"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-info-lg"></i> Información del plan
+                                    <i class="bi bi-info-lg"></i> @lang('messages.acordion.informacion_plan')
                                 </button>
                             </span>
                             <div id="collapsePlanes" class="accordion-collapse collapse show" aria-labelledby="headingPlanes" data-bs-parent="#accordion">
