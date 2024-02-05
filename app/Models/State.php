@@ -23,5 +23,6 @@ class State extends Model
      */
     protected $fillable = [
         'description',
+        'contries_id',
     ];
 }
