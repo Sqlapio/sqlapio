@@ -291,7 +291,7 @@
         switch (Number(type_plane)) {
             case 1:
                 $('#free-btn').hide();
-                $('#renew-btn').hide();                
+                $('#renew-btn').hide();
                 break;
             case 2:
                 $('#free-btn').hide();
@@ -333,7 +333,7 @@
                 }
                 $('#free').show();
                 $('#profesional').hide();
-                $('#ilimitado').hide();             
+                $('#ilimitado').hide();
                 break;
             case 2:
                 $("#type_plan").val(type_plane);
@@ -357,10 +357,10 @@
                 }
                 $('#free').hide();
                 $('#profesional').show();
-                $('#ilimitado').hide();                
+                $('#ilimitado').hide();
                 break;
             case 3:
-                
+
                 $("#type_plan").val(type_plane);
                 $("#amount").val('$39.99');
                 $("#code_card").attr('disabled', false);
@@ -368,7 +368,7 @@
                 $("#methodo_payment").attr('disabled', false);
                 $('#free').hide();
                 $('#profesional').hide();
-                $('#ilimitado').show();             
+                $('#ilimitado').show();
                 break;
             case 4:
                 $("#type_plan").val(type_plane);
@@ -432,7 +432,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                    <h5 class="fw-bold" style="color: #133837">Pacientes</h5>
+                                    <h5 class="fw-bold" style="color: #133837">@lang('messages.label.paciente')</h5>
                                     <div style="display: flex">
                                         <h3 id="paciente_span" class="count-plan">{{ auth()->user()->patient_counter }}/
                                         </h3>
@@ -449,7 +449,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                    <h5 class="fw-bold" style="color: #133837">Consultas</h5>
+                                    <h5 class="fw-bold" style="color: #133837">@lang('messages.label.consulta')</h5>
 
                                     <div style="display: flex">
                                         <h3 id="consulta_span" class="count-plan">
@@ -467,7 +467,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                    <h5 class="fw-bold" style="color: #133837">Exámenes</h5>
+                                    <h5 class="fw-bold" style="color: #133837">@lang('messages.label.examenes')</h5>
 
                                     <div style="display: flex">
                                         <h3 id="examene_span" class="count-plan">{{ auth()->user()->ref_counter }}/</h3>
@@ -484,7 +484,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                    <h5 class="fw-bold" style="color: #133837">Estudios </h5>
+                                    <h5 class="fw-bold" style="color: #133837">@lang('messages.label.estudios')</h5>
                                     <div style="display: flex">
                                         <h3 id="estudio_span" class="count-plan">{{ auth()->user()->ref_counter }}/</h3>
                                         <h3 id="estudios" class="count-plan"></h3>
@@ -502,7 +502,7 @@
             <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})" class="btn btnPrimary"
                 id="renew-btn">Renovar</button>
             <button type="button" onclick="renew_plan(2,{{ Auth::user()->type_plane }})" class="btn btnSecond"
-                id="change-btn" style='margin-left: 20px'>Cambiar de plan</button>
+                id="change-btn" style='margin-left: 20px'>@lang('messages.label.cambiar_plan')</button>
         </div>
     </div>
 </div>
@@ -519,7 +519,7 @@
             <div class="modal-content">
                 <div class="modal-header title">
                     <i class="bi bi-repeat"></i>
-                    <span style="padding-left: 5px">Renovar plan</span>
+                    <span style="padding-left: 5px">@lang('messages.label.revonar_plan')</span>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         style="font-size: 12px;"></button>
                 </div>
@@ -538,11 +538,11 @@
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                         style="display: flex; justify-content: space-around;">
                                         <button id="free-btn" type="button" onclick="handler_renew_plan(1)"
-                                            class="btn btnPrimary">FREE</button>
+                                            class="btn btnPrimary">@lang('messages.label.free')</button>
                                         <button id="profesional-btn" type="button"
-                                            onclick="handler_renew_plan(2)"class="btn btnPrimary">PROFESIONAL</button>
+                                            onclick="handler_renew_plan(2)"class="btn btnPrimary">@lang('messages.label.profesional')</button>
                                         <button id="ILIMITADO"-bnt type="button"
-                                            onclick="handler_renew_plan(3)"class="btn btnPrimary">ILIMITADO</button>
+                                            onclick="handler_renew_plan(3)"class="btn btnPrimary">@lang('messages.label.ilimitado')</button>
                                     </div>
                                 </div>
                                 {{-- formulario de pago --}}
@@ -555,24 +555,23 @@
                                             <div id="free" style="display: none">
                                                 <ul class="list-group list-group-flush">
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 10 <b>Pacientes</b></li>
+                                                            style="color: green;"></i> 10 <b>@lang('messages.label.paciente')</b></li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 20 <b>Consultas</b></li>
+                                                            style="color: green;"></i> 20 <b>@lang('messages.label.consulta')</b></li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 20 <b>Exámenes</b></li>
+                                                            style="color: green;"></i> 20 <b>@lang('messages.label.examenes')</b></li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 20 <b>Estudios</b></li>
+                                                            style="color: green;"></i> 20 <b>@lang('messages.label.estudios')</b></li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-x"
                                                             style="color: red;"></i> <b
-                                                            style="text-decoration: line-through;">Estudios con
-                                                            videos</b></li>
+                                                            style="text-decoration: line-through;">@lang('messages.label.estudios_video')</b></li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-x"
                                                             style="color: red;"></i> <b
-                                                            style="text-decoration: line-through;">Consultas en IA</b>
+                                                            style="text-decoration: line-through;">@lang('messages.label.consulta_ia')</b>
                                                     </li>
                                                     <li class="list-group-item text-capitalize"><i class="fa fa-check"
                                                             aria-hidden="true"
-                                                            style="color: green;"></i><b>Publicidad</b>
+                                                            style="color: green;"></i><b>@lang('messages.label.publicidad')</b>
                                                     </li>
 
                                                 </ul>
@@ -580,24 +579,23 @@
                                             <div id="profesional" style="display: none">
                                                 <ul class="list-group list-group-flush">
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 40 <b>Pacientes</b></li>
+                                                            style="color: green;"></i> 40 <b>@lang('messages.label.paciente')</b></li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 40 <b>Consultas</b></li>
+                                                            style="color: green;"></i> 40 <b>@lang('messages.label.consulta')</b></li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 80 <b>Exámenes</b></li>
+                                                            style="color: green;"></i> 80 <b>@lang('messages.label.examenes')</b></li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 80 <b>Estudios</b></li>
+                                                            style="color: green;"></i> 80 <b>@lang('messages.label.estudios')</b></li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-x"
                                                             style="color: red;"></i> <b
-                                                            style="text-decoration: line-through;">Estudios con
-                                                            videos</b></li>
+                                                            style="text-decoration: line-through;">@lang('messages.label.estudios_video')</b></li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-x"
                                                             style="color: red;"></i> <b
-                                                            style="text-decoration: line-through;">Consultas en IA</b>
+                                                            style="text-decoration: line-through;">@lang('messages.label.consulta_ia')</b>
                                                     </li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-x"
                                                             style="color: red;"></i> <b
-                                                            style="text-decoration: line-through;">Publicidad</b>
+                                                            style="text-decoration: line-through;">@lang('messages.label.publicidad')</b>
                                                     </li>
                                                 </ul>
                                             </diV>
