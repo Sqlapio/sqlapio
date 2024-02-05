@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('city_contrie')->nullable();
             $table->string('address')->nullable();
             $table->string('state_id')->nullable();
+            $table->string('country')->nullable();           
             $table->timestamps();
         });
     }
