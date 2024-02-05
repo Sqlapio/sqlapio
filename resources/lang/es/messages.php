@@ -99,8 +99,11 @@ return [
         'selecion_ciudad'        => 'Ciudad',
         'selecion_pais'          => 'País',
         'nombre_centro'          => 'Nombre del Centro',
-
-
+        'especialidad'           => 'Especialidad',
+        'piso_consultorio'       => 'Piso del Consultorio',
+        'num_consultorio'        => 'Numero del Consultorio',
+        'num_tel_consultorio'    => 'Telefono del Consultorio',
+        'mpps'                   => 'MPPS',
 
     ],
     'menu' => [
@@ -270,8 +273,13 @@ return [
         'observaciones'      => 'Observaciones',
         'añadir_alergia'      => 'Añadir Alergias',
         'añadir_medicamentos' => 'Añadir Medicamentos',
-        'cargar_img' => 'Cargar Imagen',
+        'cargar_img' => 'Cargar Archivo',
         'limpiar' => 'Limpiar Formulario',
+        'verificar_correo'    => 'Debe verificar su Correo Electrónico!',
+        'firma_digital'       => 'Debe cargar su Firma Digital!',
+        'cargar_sello'       => 'Cargar Firma Digital',
+        'validacion'       => 'Ingrese una imagen de max 256kb',
+
     ],
 
     'select' => [
@@ -294,6 +302,8 @@ return [
         'Alimentos'   => 'Alimentos',
         'Latex'   => 'Latex',
         'Otros'   => 'Otros',
+        'Masculino'   => 'Masculino',
+        'Femenino'   => 'Femenino',
 
     ],
 

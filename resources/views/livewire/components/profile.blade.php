@@ -485,7 +485,7 @@
 
                             }
                         });
-                        //end               
+                        //end
                     }
                 })
             }
@@ -530,24 +530,24 @@
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                     @if ($user->email_verified_at === null)
                         <div class="alert alert-warning" role="alert">
-                            Debe verificar su correo!
+                            @lang('messages.label.verificar_correo')
                         </div>
                     @endif
                     @if ($user->digital_cello === null && Auth::user()->role == 'medico')
                         <div class="alert alert-warning" role="alert" id="div-seal-content">
-                            Debe cargar su sello digital!
+                            @lang('messages.label.firma_digital')
                         </div>
                     @endif
 
                     <div class="accordion-item">
                         <span class="accordion-header title" id="headingOne">
-                            <button class="accordion-button bg-8" type="button" 
+                            <button class="accordion-button bg-8" type="button"
                                 data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" 
-                                aria-expanded="true" 
+                                data-bs-target="#collapseOne"
+                                aria-expanded="true"
                                 aria-controls="collapseOne"
                                 style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                <i class="bi bi-person"></i> Datos personales
+                                <i class="bi bi-person"></i> @lang('messages.acordion.datos_personales')
                             </button>
                         </span>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
@@ -567,7 +567,7 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
                                                                 <input autocomplete="off" placeholder=""
                                                                     class="form-control mask-text @error('name') is-invalid @enderror"
                                                                     id="name" name="name" type="text"
@@ -580,7 +580,7 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="last_name" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
                                                                 <input autocomplete="off" placeholder=""
                                                                     class="form-control mask-text @error('last_name') is-invalid @enderror"
                                                                     id="last_name" name="last_name" type="text"
@@ -593,8 +593,7 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="ci" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Cédula
-                                                                    de identidad</label>
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
                                                                 <input autocomplete="off" placeholder="" type="number"
                                                                     class="form-control @error('ci') is-invalid @enderror"
                                                                     id="ci" name="ci" type="text"
@@ -606,11 +605,10 @@
                                                     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <label for="birthdate" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha
-                                                                de Nacimiento</label>
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.fecha_nacimiento')</label>
                                                             <input autocomplete="off" placeholder=""
                                                                 class="form-control date-bd @error('birthdate') is-invalid @enderror"
-                                                                id="birthdate" name="birthdate" type="date" value="" 
+                                                                id="birthdate" name="birthdate" type="date" value=""
                                                                 style="padding: 0.375rem 5px 0.375rem 0.75rem;"
                                                                 onchange="calculateAge(event,'age')">
                                                         </div>
@@ -621,22 +619,22 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="genere" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Género</label>
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.genero')</label>
                                                                 <select name="genere" id="genere"
                                                                     placeholder="Seleccione"class="form-control @error('genere') is-invalid @enderror"
                                                                     class="form-control combo-textbox-input">
-                                                                    <option value="">Seleccione</option>
-                                                                    <option value="femenino"> Femenino</option>
-                                                                    <option value="masculino">Masculino</option>
+                                                                    <option value="">@lang('messages.placeholder.seleccione')</option>
+                                                                    <option value="femenino">@lang('messages.select.Femenino')</option>
+                                                                    <option value="masculino">@lang('messages.select.Masculino')</option>
                                                                 </select>
                                                                 <i class="bi bi-gender-ambiguous st-icon"></i>
                                                             </div>
                                                         </div>
-                                                    </div> 
+                                                    </div>
                                                     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="username" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo electrónico</label>
+                                                                <label for="username" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
                                                                 <input autocomplete="off" placeholder=""
                                                                     class="form-control @error('username') is-invalid @enderror"
                                                                     id="username" name="username" type="text" readonly
@@ -644,12 +642,12 @@
                                                                 <i class="bi bi-envelope-at st-icon"></i>
                                                             </div>
                                                         </diV>
-                                                    </div> 
+                                                    </div>
                                                     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono</label>
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
                                                                 <input autocomplete="off" placeholder=""
                                                                     class="form-control phone @error('phone') is-invalid @enderror"
                                                                     id="phone" name="phone" type="text"
@@ -657,21 +655,21 @@
                                                                 <i class="bi bi-telephone-forward st-icon"></i>
                                                             </div>
                                                         </diV>
-                                                    </div> 
+                                                    </div>
                                                     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="specialty" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Especialidad</label>
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.especialidad')</label>
                                                                 <select name="specialty" id="specialty"
                                                                     placeholder="Seleccione"class="form-control @error('specialty') is-invalid @enderror"
                                                                     class="form-control combo-textbox-input">
-                                                                    <option value="">Seleccione</option>
+                                                                    <option value="">@lang('messages.placeholder.seleccione')</option>
                                                                     @foreach ($speciality as $item)
                                                                         <option value="{{ $item->description }}">
                                                                             {{ $item->description }}</option>
                                                                     @endforeach
-        
+
                                                                 </select>
                                                                 <i class="bi bi-layers st-icon"></i>
                                                             </div>
@@ -683,7 +681,7 @@
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
+                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
                                                         <textarea id="address" rows="1" name="address" class="form-control @error('address') is-invalid @enderror" value="{!! !empty($user) ? $user->address : '' !!}"></textarea>
                                                         <i class="bi bi-geo st-icon"></i>
                                                     </div>
@@ -693,7 +691,7 @@
                                                 <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Piso del consultorio</label>
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.piso_consultorio')</label>
                                                             <input autocomplete="off" class="form-control mask-alfa-numeric @error('number_floor') is-invalid @enderror"
                                                                 id="number_floor" maxlength="10" name="number_floor" type="text"
                                                                 value="{!! !empty($user != null) ? $user->number_floor : '' !!}">
@@ -704,7 +702,7 @@
                                                 <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número del consultorio</label>
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_consultorio')</label>
                                                             <input autocomplete="off"  maxlength="10" class="form-control mask-alfa-numeric @error('number_consulting_room') is-invalid @enderror"
                                                                 id="number_consulting_room" name="number_consulting_room"
                                                                 type="text"
@@ -716,10 +714,10 @@
                                                 <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número teléfonico del consultorio</label>
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_tel_consultorio')</label>
                                                             <input autocomplete="off" class="form-control phone @error('number_consulting_phone') is-invalid @enderror"
                                                                 id="number_consulting_phone" name="number_consulting_phone"
-                                                                type="text" 
+                                                                type="text"
                                                                 value="{!! !empty($user != null) ? $user->number_consulting_phone : '' !!}">
                                                             <i class="bi bi-geo st-icon"></i>
                                                         </div>
@@ -731,7 +729,7 @@
                                             <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="zip_code" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Código Postal</label>
+                                                        <label for="zip_code" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.codigo_postal')</label>
                                                         <input autocomplete="off" placeholder=""
                                                             class="form-control mask-only-text @error('zip_code') is-invalid @enderror"
                                                             id="zip_code" name="zip_code" type="text"
@@ -743,7 +741,7 @@
                                             <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">MPPS</label>
+                                                        <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps')</label>
                                                         <input autocomplete="off" placeholder="MPPS"
                                                             class="form-control mask-only-number @error('cod_mpps') is-invalid @enderror"
                                                             id="cod_mpps" name="cod_mpps" type="text"
@@ -753,7 +751,7 @@
                                                 </div>
                                             </div>
                                         @else
-                                           
+
 
                                             <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 ">
                                                 @php
@@ -849,7 +847,7 @@
                                                     <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
@@ -870,7 +868,7 @@
                                                         <i class="bi bi-flag st-icon"></i>
                                                     </div>
                                                 </div>
-                                            </div> 
+                                            </div>
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
@@ -884,7 +882,7 @@
                                                         <i class="bi bi-geo st-icon"></i>
                                                     </div>
                                                 </diV>
-                                            </div> 
+                                            </div>
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
@@ -916,7 +914,7 @@
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Descripción</label>
-                                                        <input autocomplete="off" 
+                                                        <input autocomplete="off"
                                                             class="form-control mask-only-text @error('description') is-invalid @enderror"
                                                             id="description" name="description" type="text"
                                                             value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->description : '' !!}">
@@ -924,11 +922,11 @@
                                                     </div>
                                                 </diV>
                                             </div> --}}
-                                            
 
-                                            
+
+
                                         @endif
-                                            
+
                                             <div class="col-sm-2 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mb-btn" style="display: flex; justify-content: flex-end; align-items: flex-end; padding-left: 0">
                                                 <input class="btn btnSave send" value="Guardar" type="submit" style="margin-bottom: 1px; width: 100%;"/>
                                                 {{-- <button type="button" class="btn btnSecond btn6"
@@ -937,8 +935,8 @@
                                             @if (Auth::user()->role == 'corporativo')
                                                 <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2" style="display: flex; justify-content: space-around; align-items: flex-end; margin-bottom: 1px;">
                                                     <a id="Link-medicos" href="{{ Auth::user()->token_corporate }}"target="_blank" style="text-decoration: none;">
-                                                        <button type="button" class="btn btnPrimary" style="padding: 7px 20px">Registrar médicos</button> 
-                                                    </a> 
+                                                        <button type="button" class="btn btnPrimary" style="padding: 7px 20px">Registrar médicos</button>
+                                                    </a>
                                                     <button type="button" id="icon-copy"
                                                         class="btn btn-iSecond rounded-circle"
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -967,10 +965,10 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{Auth::user()->type_plane != '7' ? "mb-2" : "mb-cd mb-2"}}">
                         <div class="accordion-item ">
                             <span class="accordion-header title" id="headingTwo">
-                                <button class="accordion-button collapsed bg-8" 
+                                <button class="accordion-button collapsed bg-8"
                                     type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseTwo" 
-                                    aria-expanded="false" 
+                                    data-bs-target="#collapseTwo"
+                                    aria-expanded="false"
                                     aria-controls="collapseTwo"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-envelope-at st-icon"></i> Actualización de Correo Electrónico
@@ -1005,8 +1003,8 @@
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
                                     <button class="accordion-button collapsed bg-8" type="button"
-                                        data-bs-toggle="collapse" 
-                                        data-bs-target="#collapseThree" 
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapseThree"
                                         aria-expanded="false"
                                         aria-controls="collapseThree"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
@@ -1036,10 +1034,10 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingPlanes">
-                                <button class="accordion-button bg-8" 
+                                <button class="accordion-button bg-8"
                                     type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapsePlanes" 
-                                    aria-expanded="true" 
+                                    data-bs-target="#collapsePlanes"
+                                    aria-expanded="true"
                                     aria-controls="collapsePlanes"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-info-lg"></i> Información del plan
