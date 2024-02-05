@@ -30,8 +30,6 @@ return [
         'añadir_alergia'      => '+ Añadir Alergias',
         'añadir_cirugia'      => '+ Añadir Cirugía',
         'añadir_medicamentos' => '+ Añadir Medicamentos',
-        'registrar'           => 'Registrar',
-
     ],
     'form' => [
         'nombre'            => 'Nombre',
@@ -137,8 +135,6 @@ return [
         'ultimas_consultas'     => 'Ultimas Consultas',
         'informes_medico'       => 'Informes Médicos',
         'paciente_referencia'   => 'Pacientes con Referencias',
-        'nuevo_centro'   => 'Registrar nuevos centros',
-
 
     ],
     'tooltips' => [
@@ -184,8 +180,6 @@ return [
             'piso'                 => 'Piso',
             'consultorio'          => 'Consultorio',
             'telefono_consultorio' => 'Teléfono del Consultorio',
-            'nombre_centro'        => 'Nombre Completo del Centro',
-
         ],
         'tabla' => [
             'codigo'               => 'Código',

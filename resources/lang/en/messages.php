@@ -29,7 +29,6 @@ return [
         'añadir_alergia'     => '+ Add Allergies',
         'añadir_cirugia'     => '+ Add Surgery',
         'añadir_medicamento' => '+ Add Medicines',
-        'registrar'           => 'Register',
     ],
     'form' => [
         'nombre'            => 'First Name',
@@ -90,7 +89,6 @@ return [
         'fecha_fin'              => 'Completion Date',
         'tipo_cirugia'           => 'Type of surgery',
         'fecha'                  => 'Date',
-        'nombre_centro'        => 'Full Name of Center',
 
     ],
     'menu' => [
@@ -129,8 +127,6 @@ return [
         'ultimas_consultas'    => 'Latest Queries',
         'informes_medico'      => 'Medical reports',
         'paciente_referencia'  => 'Patients with References',
-        'nuevo_centro'         => 'Register New Centers',
-
     ],
     'tooltips' => [
         'editar'          => 'Edit',
