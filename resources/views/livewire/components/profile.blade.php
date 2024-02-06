@@ -741,6 +741,11 @@
                                             <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
+                                                        @if(Auth::user()->contrie == '81')
+                                                            <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps_rp')</label>
+                                                        @else
+                                                            <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps')</label>
+                                                        @endif
                                                         <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps')</label>
                                                         <input autocomplete="off" placeholder="MPPS"
                                                             class="form-control mask-only-number @error('cod_mpps') is-invalid @enderror"

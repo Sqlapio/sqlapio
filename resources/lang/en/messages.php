@@ -98,6 +98,7 @@ return [
         'num_consultorio'        => 'Office Number',
         'num_tel_consultorio'    => 'Office Phone',
         'mpps'                   => 'Tuition Number',
+        'mpps_rp'                => 'Tuition Number',
 
     ],
     'menu' => [

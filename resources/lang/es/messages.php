@@ -104,6 +104,7 @@ return [
         'num_consultorio'        => 'Numero del Consultorio',
         'num_tel_consultorio'    => 'Telefono del Consultorio',
         'mpps'                   => 'MPPS',
+        'mpps'                   => 'Nro. De Colegiatura',
 
     ],
     'menu' => [
