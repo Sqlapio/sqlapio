@@ -130,7 +130,7 @@
 @push('scripts')
     @vite(['resources/js/dairy.js'])
     <script>
-        $(document).ready(() => {          
+        $(document).ready(() => {
             let route = "{{ route('MedicalRecord', ':id') }}";
             let routeCancelled = "{{ route('cancelled_appointments', ':id') }}";
             let url2 = "{{ route('Diary') }}";
@@ -141,7 +141,7 @@
             let urlPostCreateAppointment = '{{ route('CreateAppointment') }}';
             getUrl(urlPostCreateAppointment, url2);
             getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments, imge_avatar);
-        });       
+        });
     </script>
 @endpush
 @section('content')
@@ -169,7 +169,7 @@
                             <span style="padding-left: 5px" id="title-modal"></span>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                 style="font-size: 12px;"></button>
-                        </div> 
+                        </div>
                         <div class="modal-body">
                             <div class="row mt-2">
                                 <div id="div-pat" style="display: none">
@@ -182,18 +182,21 @@
                                         </div>
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 modal-text" style="font-size: 13px;">
                                             <div>
-                                                <strong>Nombre: </strong><span class="text-capitalize" id="name"></span>
+                                                <strong>@lang('messages.ficha_paciente.nombre'): </strong><span class="text-capitalize" id="name"></span>
                                                 <br>
-                                                {{-- <strong>Cédula: </strong><span id="ci"></span> --}}
-                                                <strong>Cédula: </strong><span id="ci"></span>
+                                                @if (Auth::user()->contrie = '81')
+                                                <strong>@lang('messages.ficha_paciente.ci_rd'): </strong><span id="ci"></span>
+                                                @else
+                                                <strong>@lang('messages.ficha_paciente.ci'): </strong><span id="ci"></span>
+                                                @endif
                                                 <br>
-                                                <strong>Edad: </strong><span id="age"></span> años
+                                                <strong>@lang('messages.ficha_paciente.edad'): </strong><span id="age"></span> años
                                                 <br>
-                                                <strong>Genero: </strong><span class="text-capitalize" id="genere"></span>
+                                                <strong>@lang('messages.ficha_paciente.genero'): </strong><span class="text-capitalize" id="genere"></span>
                                                 <br>
-                                                <strong>Correo electrónico: </strong><span id="email"></span>
+                                                <strong>@lang('messages.ficha_paciente.correo'): </strong><span id="email"></span>
                                                 <br>
-                                                <strong>Teléfono: </strong><span id="phone"></span>
+                                                <strong>@lang('messages.ficha_paciente.telefono'): </strong><span id="phone"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -201,12 +204,12 @@
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1" id="appointment-data" style="font-size: 13px;">
                                     <div>
                                         <hr>
-                                        <h5>Información de la cita</h5>
-                                        <strong>Fecha: </strong><span id="fecha"></span>
+                                        <h5>@lang('messages.modal.titulo.info')</h5>
+                                        <strong>@lang('messages.modal.form.fecha'): </strong><span id="fecha"></span>
                                         <br>
-                                        <strong>Hora: </strong><span id="hour"></span>
+                                        <strong>@lang('messages.modal.tabla.hora'): </strong><span id="hour"></span>
                                         <br>
-                                        <strong>Centro: </strong><span id="center"></span>
+                                        <strong>@lang('messages.modal.tabla.centro'): </strong><span id="center"></span>
                                     </div>
                                 </div>
                                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -223,7 +226,7 @@
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="date" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha</label>
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.fecha')</label>
                                                 <input autocomplete="off" placeholder="" class="form-control"
                                                     id="date_start" readonly name="date_start" type="text"
                                                     value="">
@@ -236,13 +239,12 @@
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tiempo
-                                                    Horario</label>
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.tiempo_horario')</label>
                                                 <select id="timeIni" name="timeIni" onchange="handlerTime(event)"
                                                     class="form-control valid">
-                                                    <option value="">Seleccione</option>
-                                                    <option value="am">AM</option>
-                                                    <option value="pm">PM</option>
+                                                    <option value="">@lang('messages.placeholder.seleccione')</option>
+                                                    <option value="am">@lang('messages.select.am')</option>
+                                                    <option value="pm">@lang('messages.select.pm')</option>
                                                 </select>
                                                 <i class="bi bi-stopwatch st-icon"></i>
                                             </div>
@@ -253,8 +255,7 @@
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Horarios
-                                                    de cita</label>
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.horarios_cita')</label>
                                                 <select id="hour_start" name="hour_start"
                                                     class="form-control valid"></select>
                                                 <i class="bi bi-stopwatch st-icon"></i>
@@ -274,9 +275,7 @@
                                                 class="form-check-input" type="checkbox" role="switch"
                                                 id="showPrice" value="">
                                             <label style="margin-left: -146px;margin-top: 8px; font-size: 13px"
-                                                for="showPrice">Precio
-                                                de
-                                                la cita</label>
+                                                for="showPrice">@lang('messages.modal.form.precio')</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
@@ -284,7 +283,7 @@
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="searchPatients" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Precio</label>
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.precio')</label>
                                                 <input maxlength="8" type="text"
                                                     class="form-control mask-input-price" id="price"
                                                     name="price" id="searchPatients" value="">

@@ -8,10 +8,10 @@
             <div class="form-group">
                 <div class="Icon-inside">
                     <label for="id_select" class="form-label"
-                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Buscar paciente</label>
+                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.placeholder.buscar_paciente')</label>
                     <select style="width:100% !important " name="id_select" id="id_select"
                         class="form-control combo-textbox-input select_dos_dairy">
-                        <option value="">Seleccione...</option>
+                        <option value="">@lang('messages.placeholder.seleccione')...</option>
                         @foreach ($data as $item)
                             <option value="{{ $item }}">
                                 {{ $item->patient_code . ' - ' . $item->name . ' ' . $item->last_name }} </option>
@@ -29,8 +29,8 @@
                 dropdownParent: "#exampleModal",
                 matcher: matchCustom
 
-            }).on("change", function(e) {                
-                searchPatients(JSON.parse(e.target.value));              
+            }).on("change", function(e) {
+                searchPatients(JSON.parse(e.target.value));
             });
         });
 
