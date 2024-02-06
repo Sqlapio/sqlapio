@@ -104,6 +104,7 @@ return [
         'num_consultorio'        => 'Numero del Consultorio',
         'num_tel_consultorio'    => 'Telefono del Consultorio',
         'mpps'                   => 'MPPS',
+        'mpps_rp'                => 'Nro. De Colegiatura',
 
     ],
     'menu' => [
@@ -127,7 +128,7 @@ return [
         'estudios_cargados'     => 'Estudios Cargados',
         'datos_personales'      => 'Datos personales',
         'actualizacion_correo'  => 'Actualización de Correo Electrónico',
-        'sello_digital'         => 'Sello Digital',
+        'firma_sello_digital'         => 'Firma y Sello Digital',
         'informacion_plan'      => 'Información de plan',
         'antecedentes_per'      => 'Antecedentes Personales y Familiares',
         'antecedentes_per_pa'   => 'Antecedentes Personales Patológicos',
