@@ -990,11 +990,14 @@
                                                     <div id="bnt-cons" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
                                                     <div id="bnt-hist" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
                                                     <input class="btn btnSave send" id="btn-save" value="@lang('messages.botton.guardar')" type="submit" style="margin-left: 10px; margin-bottom: 10px" />
-                                                    <button style="margin-left: 10px; margin-bottom: 10px; padding: 11px"
-                                                        type="button" onclick="refreshForm();" class="btn btnSecond"
+                                                    <button style="margin-left: 10px; margin-bottom: 11px; padding: 0px"
+                                                        type="button" onclick="refreshForm();"
+                                                        {{-- class="btn btnSecond" --}}
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         data-html="true" title="@lang('messages.label.limpiar')">
-                                                        <i class="bi bi-eraser"></i>
+                                                        {{-- <i class="bi bi-eraser"></i> --}}
+                                                        {{-- <img class="" src="{{ asset('img/btnIcons/clear.png') }}" alt="Dashboard" style="width: 44px"> --}}
+                                                        <img class="" src="{{ asset('img/btnIcons/eraser.png') }}" alt="Dashboard" style="width: 33px">
                                                     </button>
                                                 </div>
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">  </div>
@@ -1134,31 +1137,35 @@
                                                                         <button
                                                                             onclick="editPatien({{ json_encode($item->get_paciente) }},true); "
                                                                             type="button"
-                                                                            class="btn btn-iSecond rounded-circle"
+                                                                            {{-- class="btn btn-iSecond rounded-circle" --}}
                                                                             data-bs-toggle="tooltip"
                                                                             data-bs-placement="bottom" title="@lang('messages.tooltips.editar')">
-                                                                            <i class="bi bi-pencil"></i>
+                                                                            {{-- <i class="bi bi-pencil"></i>  --}}
+                                                                            <img class="" src="{{ asset('img/btnIcons/user-edit.png') }}" alt="Dashboard" style="width: 40px">
+    
                                                                         </button>
                                                                     </div>
                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                         <a href="{{ route('MedicalRecord', $item->get_paciente->id) }}">
                                                                             <button type="button"
-                                                                                class="btn btn-iPrimary rounded-circle"
+                                                                                {{-- class="btn btn-iPrimary rounded-circle" --}}
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
                                                                                 title="@lang('messages.tooltips.consulta_medica')">
-                                                                                <i class="bi bi-file-earmark-text"></i>
+                                                                                {{-- <i class="bi bi-file-earmark-text"></i> --}}
+                                                                                <img class="" src="{{ asset('img/btnIcons/monitor.png') }}" alt="Dashboard" style="width: 40px">
                                                                             </button>
                                                                         </a>
                                                                     </div>
                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                         <a href="{{ route('ClinicalHistoryDetail', $item->get_paciente->id) }}">
                                                                             <button type="button"
-                                                                                class="btn btn-iSecond rounded-circle"
+                                                                                {{-- class="btn btn-iSecond rounded-circle" --}}
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
                                                                                 title="@lang('messages.tooltips.historia')">
-                                                                                <i class="bi bi-file-earmark-text"></i>
+                                                                                {{-- <i class="bi bi-file-earmark-text"></i> --}}
+                                                                                <img class="" src="{{ asset('img/btnIcons/medical-bill.png') }}" alt="Dashboard" style="width: 40px">
                                                                             </button>
                                                                         </a>
                                                                     </div>
