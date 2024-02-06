@@ -9,7 +9,7 @@
     .logoSq {
         width: 50% !important;
         height: auto;
-    }
+    }    
 
 
     @media only screen and (max-width: 576px) {
@@ -295,6 +295,11 @@
         function handlerTypeDoc(e) {
             $('#rif').val(e.target.value);
         }
+
+        function handlerModal() {
+            // $("#modalPaymet").modal('show');
+            window.location="https://buy.stripe.com/test_dR67vs2HFcIzeNG002"     
+        }
     </script>
 @endpush
 @section('content')
@@ -374,7 +379,7 @@
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombre Completo</label>
                                                 <input autocomplete="off"
                                                     class="form-control mask-text @error('name') is-invalid @enderror"
                                                     id="name" name="name" type="text" value="">
@@ -382,7 +387,7 @@
                                             </div>
                                         </diV>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="apellidos">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="apellidos"  style="display: none" >
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
@@ -394,7 +399,7 @@
                                             </div>
                                         </diV>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="cedula">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="cedula" style="display: none" >
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
@@ -487,7 +492,7 @@
                                         </diV>
                                     </div>
 
-                                    <div class="row" id="div-payment-metodo">
+                                    <div class="row" id="div-payment-metodo" style="display: none">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
@@ -580,7 +585,7 @@
                                 <div class="d-flex justify-content-center">
                                     <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
                                         style="display: flex; justify-content: center;">
-                                        <input class="btn btnSave send " value="Adquiere tu plan" type="submit"
+                                        <input class="btn btnSave send " value="Adquiere tu plan" onclick="handlerModal();" 
                                             style="margin-left: 20px" />
                                     </div>
                                 </div>
@@ -591,5 +596,33 @@
                 </div>
             </div>
         </div>
-    </div>
+
+          <!-- Modal -->
+          <div class="modal fade" id="modalPaymet" tabindex="-1" aria-labelledby="modalPaymetLabel" aria-hidden="true"
+          id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+          <div class="modal-dialog modal-dialog modal-xl">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header title">
+                          <i class="bi bi-alexa"></i>
+                          <span style="padding-left: 5px">Resultado de la consulta con inteligencia artificial</span>                         
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                              style="font-size: 12px;"></button>
+                      </div>
+                      <div class="modal-body">
+                          <iframe 
+                            src="https://buy.stripe.com/test_dR67vs2HFcIzeNG002" 
+                            frameborder="0"
+                            width="1000"
+                            height="500"
+                            >
+                        </iframe>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+    </div>   
 @endsection
