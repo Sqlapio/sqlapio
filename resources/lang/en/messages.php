@@ -98,6 +98,7 @@ return [
         'num_consultorio'        => 'Office Number',
         'num_tel_consultorio'    => 'Office Phone',
         'mpps'                   => 'Tuition Number',
+        'mpps_rp'                => 'Tuition Number',
 
     ],
     'menu' => [
@@ -121,7 +122,7 @@ return [
         'estudios_cargados'    => 'Loaded Studies',
         'datos_personales'     => 'Personal data',
         'actualizacion_correo' => 'Email Update',
-        'sello_digital'        => 'Digital Seal',
+        'firma_sello_digital'  => 'Firma y Sello Digital',
         'informacion_plan'     => 'Plan information',
         'antecedentes_per'     => 'Personal and Family History',
         'antecedentes_per_pa'  => 'Pathological personal history',

@@ -741,7 +741,11 @@
                                             <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps')</label>
+                                                        @if(Auth::user()->contrie == '81')
+                                                            <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps_rp')</label>
+                                                        @else
+                                                            <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps')</label>
+                                                        @endif
                                                         <input autocomplete="off" placeholder="MPPS"
                                                             class="form-control mask-only-number @error('cod_mpps') is-invalid @enderror"
                                                             id="cod_mpps" name="cod_mpps" type="text"
@@ -1008,7 +1012,7 @@
                                         aria-expanded="false"
                                         aria-controls="collapseThree"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-file-earmark-text"></i> @lang('messages.label.firma_digital')
+                                        <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.firma_sello_digital')
                                     </button>
                                 </span>
                                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">
