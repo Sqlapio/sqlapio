@@ -27,7 +27,8 @@
         let img;
         // $("#imgPreview").attr("src", img2);
         
-        if (user.user_img === null) {
+        console.log(img) 
+        if (user.user_img === null || img === undefined) {
             let img2 = '{{ URL::asset('/img/V2/combinado.png') }}';
             $("#imgPreview").attr("src", img2);
         }
