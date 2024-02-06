@@ -592,8 +592,11 @@
                                                     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="ci" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
+                                                                @if (Auth::user()->contrie == '81')
+                                                                <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.RNC')</label>
+                                                                @else
+                                                                <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
+                                                                @endif
                                                                 <input autocomplete="off" placeholder="" type="number"
                                                                     class="form-control @error('ci') is-invalid @enderror"
                                                                     id="ci" name="ci" type="text"
