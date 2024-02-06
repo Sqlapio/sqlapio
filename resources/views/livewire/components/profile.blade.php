@@ -593,7 +593,7 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 @if (Auth::user()->contrie == '81')
-                                                                <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.RNC')</label>
+                                                                <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.RCN')</label>
                                                                 @else
                                                                 <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
                                                                 @endif
