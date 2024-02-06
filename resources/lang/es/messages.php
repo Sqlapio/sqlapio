@@ -105,6 +105,9 @@ return [
         'num_tel_consultorio'    => 'Telefono del Consultorio',
         'mpps'                   => 'MPPS',
         'mpps_rp'                => 'Nro. De Colegiatura',
+        'RCN'                    => 'RNC',
+        'provincia'              => 'Provincia',
+
 
     ],
     'menu' => [
