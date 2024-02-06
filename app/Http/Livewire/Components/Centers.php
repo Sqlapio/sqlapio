@@ -134,7 +134,7 @@ class Centers extends Component
         try {
 
             $rules = [
-                'contrie' => 'required',
+                // 'contrie' => 'required',
                 'address' => 'required',
                 'state_contrie' => 'required',
                 'city_contrie' => 'required',
@@ -142,7 +142,7 @@ class Centers extends Component
             ];
 
             $msj = [
-                'contrie.required' => 'Campo requerido',
+                // 'contrie.required' => 'Campo requerido',
                 'address.required' => 'Campo requerido',
                 'state_contrie.required' => 'Campo requerido',
                 'city_contrie.required' => 'Campo requerido',
@@ -165,7 +165,7 @@ class Centers extends Component
             $new_centers->description = $request->full_name;
             $new_centers->state = $state->description;
             $new_centers->state_id = $request->state_contrie;
-            $new_centers->country = $request->contrie;
+            $new_centers->country = Auth::user()->contrie;
             $new_centers->user_id = Auth::user()->id;
             $new_centers->city_contrie = $request->city_contrie;
             $new_centers->save();
