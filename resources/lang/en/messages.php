@@ -121,7 +121,7 @@ return [
         'estudios_cargados'    => 'Loaded Studies',
         'datos_personales'     => 'Personal data',
         'actualizacion_correo' => 'Email Update',
-        'sello_digital'        => 'Digital Seal',
+        'firma_sello_digital'  => 'Firma y Sello Digital',
         'informacion_plan'     => 'Plan information',
         'antecedentes_per'     => 'Personal and Family History',
         'antecedentes_per_pa'  => 'Pathological personal history',

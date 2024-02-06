@@ -1008,7 +1008,7 @@
                                         aria-expanded="false"
                                         aria-controls="collapseThree"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-file-earmark-text"></i> @lang('messages.label.firma_digital')
+                                        <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.firma_sello_digital')
                                     </button>
                                 </span>
                                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">
