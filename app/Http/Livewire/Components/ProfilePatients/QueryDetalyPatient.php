@@ -6,6 +6,7 @@ use App\Http\Controllers\UtilsController;
 use App\Models\ExamPatient;
 use App\Models\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class QueryDetalyPatient extends Component
@@ -25,12 +26,9 @@ class QueryDetalyPatient extends Component
 		$patients = $tablePat->union($tableRep)->first();
 
 		//preparar datos de la consulta medica
-		if ($patients != null) {
-
-			
+		if ($patients != null) {			
 
 			foreach ($patients->get_medicard_record as $key => $record) {
-
 
 				$medicard_record[$key] = [
 					"id" => encrypt($record->id),
@@ -38,12 +36,13 @@ class QueryDetalyPatient extends Component
 					"record_date" => $record->record_date,
 					"doctor" => $record->get_doctor->name . " " . $record->get_doctor->last_name,
 					"specialty" => $record->get_doctor->specialty,
-					"study_medical" =>	$record->get_study_medical->where('status','2') ,
-					"exam_medical" =>	$record->get_exam_medical->where('status','2'),
+					"study_medical" =>	$record->get_study_medical_status_two,
+					"exam_medical" =>	$record->get_exam_medical_status_two,
 					"razon" => $record->razon,
 					"diagnosis" => $record->diagnosis,
 				];
 			}
+
 			//end
 			$data[] = [
 				//datos del paciente

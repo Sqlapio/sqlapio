@@ -602,21 +602,20 @@
                                             <div id="ilimitado" style="display: none">
                                                 <ul class="list-group list-group-flush">
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> <b>Pacientes</b> Ilimitados</li>
+                                                            style="color: green;"></i> <b>@lang('messages.label.paciente')</b> @lang('messages.label.ilimitado')</li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> <b>Consultas</b> Ilimitados</li>
+                                                            style="color: green;"></i> <b>@lang('messages.label.consulta')</b> @lang('messages.label.ilimitado')</li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> <b>Exámenes</b> Ilimitados</li>
+                                                            style="color: green;"></i> <b>@lang('messages.label.examenes')</b> @lang('messages.label.ilimitado')</li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> <b>Estudios</b> Ilimitados</li>
+                                                            style="color: green;"></i> <b>@lang('messages.label.estudios')</b> @lang('messages.label.ilimitado')</li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 0.10 por Gb <b>Estudios con
-                                                            videos</b></li>
+                                                            style="color: green;"></i> 0.10 por Gb <b>@lang('messages.label.estudios_video')</b></li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 300 <b>Consultas en IA</b></li>
+                                                            style="color: green;"></i> 300 <b>@lang('messages.label.consulta_ia')</b></li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-x"
                                                             style="color: red;"></i> <b
-                                                            style="text-decoration: line-through;">Publicidad</b>
+                                                            style="text-decoration: line-through;">@lang('messages.label.publicidad')</b>
                                                     </li>
                                                 </ul>
                                             </diV>
@@ -626,7 +625,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
                                                     <input readonly autocomplete="off" class="form-control mask-text"
                                                         id="name" name="name" type="text"
                                                         value="{{ Auth::user()->name }}">
@@ -639,7 +638,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
                                                     <input readonly autocomplete="off" class="form-control mask-text"
                                                         id="last_name" name="last_name" type="text"
                                                         value="{{ Auth::user()->last_name }}">
@@ -652,7 +651,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">C.I</label>
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
                                                     <input readonly autocomplete="off" class="form-control"
                                                         id="number_id" name="number_id" type="text"
                                                         value="{{ Auth::user()->ci }}">
@@ -666,8 +665,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
-                                                        social</label>
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon_social')</label>
                                                     <input readonly autocomplete="off" class="form-control"
                                                         id="business_name" name="business_name" type="text"
                                                         value="{{ Auth::user()->business_name }}">
@@ -681,15 +679,14 @@
                                             style="display: none">
                                             <div class="form-group">
                                                 <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Tipo
-                                                    de documento</label>
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.tipo_documento')</label>
                                                 <select readonly onchange="handlerTypeDoc(event)" name="type_rif_pay"
                                                     id="type_rif_pay" class="form-control">
-                                                    <option value="">Seleccione</option>
-                                                    <option value="F-">Firma personal</option>
-                                                    <option value="J-">Jurídico</option>
-                                                    <option value="C-">Comuna</option>
-                                                    <option value="G-">Gubernamental</option>
+                                                    <option value="">@lang('messages.placeholder.seleccione')</option>
+                                                    <option value="F-">@lang('messages.select.firma_personal')</option>
+                                                    <option value="J-">@lang('messages.select.juridico')</option>
+                                                    <option value="C-">@lang('messages.select.comuna')</option>
+                                                    <option value="G-">@lang('messages.select.gubernamental')</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -699,8 +696,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
-                                                        de Identificación o RIF</label>
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nro_identificacion_rif')</label>
                                                     <input readonly autocomplete="off" placeholder=""
                                                         class="form-control mask-rif" id="rif_pay" name="rif_pay"
                                                         type="text" maxlength="17"
@@ -714,8 +710,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
-                                                        eléctronico</label>
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
                                                     <input readonly autocomplete="off" class="form-control"
                                                         id="email" name="email" type="text"
                                                         value="{{ Auth::user()->email }}">

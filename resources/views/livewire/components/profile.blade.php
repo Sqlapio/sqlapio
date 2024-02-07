@@ -592,8 +592,11 @@
                                                     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="ci" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
+                                                                @if (Auth::user()->contrie == '81')
+                                                                <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.RCN')</label>
+                                                                @else
+                                                                <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
+                                                                @endif
                                                                 <input autocomplete="off" placeholder="" type="number"
                                                                     class="form-control @error('ci') is-invalid @enderror"
                                                                     id="ci" name="ci" type="text"
@@ -741,7 +744,11 @@
                                             <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps')</label>
+                                                        @if(Auth::user()->contrie == '81')
+                                                            <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps_rp')</label>
+                                                        @else
+                                                            <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps')</label>
+                                                        @endif
                                                         <input autocomplete="off" placeholder="MPPS"
                                                             class="form-control mask-only-number @error('cod_mpps') is-invalid @enderror"
                                                             id="cod_mpps" name="cod_mpps" type="text"
@@ -769,7 +776,7 @@
                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón social</label>
+                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon_social')</label>
                                                                 <input autocomplete="off" placeholder=""
                                                                     class="form-control mask-text  @error('business_name') is-invalid @enderror"
                                                                     id="business_name" name="business_name" type="text"
@@ -784,20 +791,20 @@
                                                     </div>
                                                     <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
-                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Tipo de documento</label>
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.tipo_documento')</label>
                                                             <select onchange="handlerTypeDoc(event)" name="type_rif" id="type_rif" class="form-control">
-                                                                <option value="">Seleccione</option>
-                                                                <option value="F-">Firma personal</option>
-                                                                <option value="J-">Jurídico</option>
-                                                                <option value="C-">Comuna</option>
-                                                                <option value="G-">Gubernamental</option>
+                                                                <option value="">@lang('messages.placeholder.seleccione')</option>
+                                                                <option value="F-">@lang('messages.select.firma_personal')</option>
+                                                                <option value="J-">@lang('messages.select.juridico')</option>
+                                                                <option value="C-">@lang('messages.select.comuna')</option>
+                                                                <option value="G-">@lang('messages.select.gubernamental')</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número de Identificación o RIF</label>
+                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nro_identificacion_rif')</label>
                                                                 <input autocomplete="off" placeholder=""
                                                                     class="form-control mask-rif @error('rif') is-invalid @enderror"
                                                                     id="rif" name="rif" type="text" maxlength="17"
@@ -809,7 +816,7 @@
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo electrónico</label>
+                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
                                                                 <input autocomplete="off" placeholder=""
                                                                     class="form-control @error('email') is-invalid @enderror"
                                                                     id="email" name="email" type="text" readonly
@@ -823,7 +830,7 @@
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número de Licencia salud</label>
+                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nro_licencia_salud')</label>
                                                                 <input autocomplete="off" placeholder=""
                                                                     class="form-control mask-only-text @error('license') is-invalid @enderror"
                                                                     id="license" name="license" type="text"
@@ -835,7 +842,7 @@
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Teléfono</label>
+                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
                                                                 <input autocomplete="off" placeholder=""
                                                                     class="form-control phone @error('phone') is-invalid @enderror"
                                                                     id="phone" name="phone" type="text"
@@ -852,18 +859,16 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tipo
-                                                            de empresa</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.tipo_empresa')</label>
                                                         <select name="type_laboratory" id="type_laboratory"
                                                             class="form-control">
-                                                            <option value="">Seleccione</option>
-                                                            <option value="clinico">Laboratorio clínico</option>
-                                                            <option value="investigacion">Laboratorio investigación
-                                                            </option>
-                                                            <option value="microbiológico">Laboratorio microbiológico
-                                                            <option value="centro_clinico">Centro clinico</option>
-                                                            <option value="hospital">Hospital</option>
-                                                            <option value="etc">etc</option>
+                                                            <option value="">@lang('messages.placeholder.seleccione')</option>
+                                                            <option value="clinico">@lang('messages.select.lab_clinico')</option>
+                                                            <option value="investigacion">@lang('messages.select.lab_inves')</option>
+                                                            <option value="microbiológico">@lang('messages.select.lab_micro')</option>
+                                                            <option value="centro_clinico">@lang('messages.select.centro_clinico')</option>
+                                                            <option value="hospital">@lang('messages.select.hospital')</option>
+                                                            <option value="etc">@lang('messages.select.etc')</option>
                                                         </select>
                                                         <i class="bi bi-flag st-icon"></i>
                                                     </div>
@@ -873,8 +878,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Responsable
-                                                            o Director</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.responsable_director')</label>
                                                         <input autocomplete="off" placeholder=""
                                                             class="form-control mask-only-text @error('responsible') is-invalid @enderror"
                                                             id="responsible" name="responsible" type="text"
@@ -887,8 +891,7 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Sitio
-                                                            web</label>
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.web')</label>
                                                         <input autocomplete="off" placeholder=""
                                                             class="form-control @error('website') is-invalid @enderror"
                                                             id="website" name="website" type="text"
@@ -903,28 +906,12 @@
                                             <div class="{{Auth::user()->role == 'corporativo' ? 'col-sm-9 col-md-9 col-lg-9 col-xl-9 col-xxl-9' : 'col-sm-11 col-md-11 col-lg-11 col-xl-11 col-xxl-11'}}">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
+                                                        <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
                                                         <textarea id="address" rows="1" id="address" name="address" class="form-control @error('address') is-invalid @enderror" value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->address : '' !!}"></textarea>
                                                         <i class="bi bi-geo st-icon"></i>
                                                     </div>
                                                 </diV>
                                             </div>
-                                            {{-- <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Descripción</label>
-                                                        <input autocomplete="off"
-                                                            class="form-control mask-only-text @error('description') is-invalid @enderror"
-                                                            id="description" name="description" type="text"
-                                                            value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->description : '' !!}">
-                                                        <i class="bi bi-geo st-icon"></i>
-                                                    </div>
-                                                </diV>
-                                            </div> --}}
-
-
-
                                         @endif
 
                                             <div class="col-sm-2 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mb-btn" style="display: flex; justify-content: flex-end; align-items: flex-end; padding-left: 0">
@@ -935,7 +922,7 @@
                                             @if (Auth::user()->role == 'corporativo')
                                                 <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2" style="display: flex; justify-content: space-around; align-items: flex-end; margin-bottom: 1px;">
                                                     <a id="Link-medicos" href="{{ Auth::user()->token_corporate }}"target="_blank" style="text-decoration: none;">
-                                                        <button type="button" class="btn btnPrimary" style="padding: 7px 20px">Registrar médicos</button>
+                                                        <button type="button" class="btn btnPrimary" style="padding: 7px 20px">@lang('messages.botton.registrar_medico')</button>
                                                     </a>
                                                     <button type="button" id="icon-copy"
                                                         class="btn btn-iSecond rounded-circle"
@@ -1008,7 +995,7 @@
                                         aria-expanded="false"
                                         aria-controls="collapseThree"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-file-earmark-text"></i> @lang('messages.label.firma_digital')
+                                        <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.firma_sello_digital')
                                     </button>
                                 </span>
                                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordion">

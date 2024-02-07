@@ -23,10 +23,17 @@
 </style>
 <script>
     $(document).ready(() => {
+        let user = @json(Auth::user());
         let img;
-        // let img2 = '{{ URL::asset('/img/V2/combinado.png') }}';
         // $("#imgPreview").attr("src", img2);
+        
+        console.log(img) 
+        if (user.user_img === null || img === undefined) {
+            let img2 = '{{ URL::asset('/img/V2/combinado.png') }}';
+            $("#imgPreview").attr("src", img2);
+        }
         $("#file").change(function() {
+            console.log('subida de arch')
             const file = this.files[0];
 
             if (file) {
