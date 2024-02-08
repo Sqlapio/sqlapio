@@ -9,7 +9,7 @@
     .logoSq {
         width: 50% !important;
         height: auto;
-    }    
+    }
 
 
     @media only screen and (max-width: 576px) {
@@ -41,6 +41,7 @@
         let listPlanes = [1, 2, 3, 4, 5, 6, 7];
         let active = @json($active);
         let token = @json($token);
+        let url = ""
 
         $(document).ready(() => {
 
@@ -51,7 +52,9 @@
                 $("#visitador_medico_id").val(token);
 
             } else {
+
                 const find = listPlanes.find((e) => e === Number(type_plan));
+
                 if (find == undefined) {
                     $('#div-content').hide();
                     return false;
@@ -60,155 +63,7 @@
                 handlerPlane(type_plan);
             }
 
-            $('#form-payment').validate({
-                rules: {
-                    name: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50,
-                    },
-                    last_name: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50,
-                    },
-                    amount: {
-                        required: true,
-                    },
-                    ci: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50,
-                    },
-                    number_card: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50,
 
-                    },
-                    code_card: {
-                        required: true,
-                        maxlength: 3,
-                    },
-                    methodo_payment: {
-                        required: true,
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    rif: {
-                        required: true,
-                    },
-                    business_name: {
-                        required: true,
-                    },
-                    type_rif: {
-                        required: true,
-                    },
-                    center_id: {
-                        required: true,
-                    }
-                },
-                messages: {
-                    name: {
-                        required: "Nombres es obligatorio",
-                    },
-                    last_name: {
-                        required: "Apellidos es obligatorio",
-                    },
-                    amount: {
-                        required: "Monto es obligatorio",
-                    },
-                    ci: {
-                        required: "Numero de cedula es obligatorio",
-                    },
-                    number_card: {
-                        required: "Numero de tarjeta es obligatorio",
-                    },
-                    code_card: {
-                        required: "Codigo de tarjeta es obligatorio",
-                    },
-                    methodo_payment: {
-                        required: "Debe Selecciones un metodo de pago",
-                    },
-                    email: {
-                        required: "Correo electronico es obligatorio",
-                    },
-                    rif: {
-                        required: "Rif es obligatorio",
-                    },
-                    business_name: {
-                        required: "Nombre de la empresa es obligatorio",
-                    },
-                    type_rif: {
-                        required: "Tipo de documento es obligatorio",
-                    },
-                    center_id: {
-                        required: "Centro es obligatorio",
-                    }
-                }
-            });
-
-
-
-            $.validator.addMethod("onlyNumber", function(value, element) {
-                var pattern = /^\d+\.?\d*$/;
-                return pattern.test(value);
-            }, "Campo numérico");
-
-            //envio del formulario
-            $("#form-payment").submit(function(event) {
-                event.preventDefault();
-                $("#form-payment").validate();
-                if ($("#form-payment").valid()) {
-                    $('#send').hide();
-                    $('#spinner2').show();
-                    var data = $('#form-payment').serialize();
-                    $.ajax({
-                        url: "{{ route('pay-plan') }}",
-                        type: 'POST',
-                        data: data,
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(response) {
-                            $('#send').show();
-                            $('#spinner2').hide();
-                            // $("#form-payment").trigger("reset");
-                            $(".holder").hide();
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Operacion exitosa!',
-                                allowOutsideClick: false,
-                                confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
-                            }).then((result) => {
-                                let url =
-                                    "{{ route('Register', ':id') }}";
-                                url = url.replace(':id', response.data);
-                                window.location.href = url;
-
-                            });
-                        },
-                        error: function(error) {
-                            error.responseJSON.errors.map((elm) => {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: elm,
-                                    allowOutsideClick: false,
-                                    confirmButtonColor: '#42ABE2',
-                                    confirmButtonText: 'Aceptar'
-                                }).then((result) => {
-                                    $('#send').show().attr('disabled', true);;
-                                    $('#spinner2').hide();
-                                    $(".holder").hide();
-                                });
-                            });
-                        }
-                    });
-                }
-            });
         });
 
         function handlerPlane(type_plan) {
@@ -218,68 +73,70 @@
             switch (Number(type_plan)) {
                 case 1:
 
-                    $("#amount").val('0');
-                    $("#code_card").attr('disabled', true)
-                    $("#number_card").attr('disabled', true)
-                    $("#methodo_payment").attr('disabled', true)
-                    $("#div-payment-metodo").hide();
-                    $("#free").show();
+                    // $("#amount").val('0');
+                    // $("#code_card").attr('disabled', true)
+                    // $("#number_card").attr('disabled', true)
+                    // $("#methodo_payment").attr('disabled', true)
+                    // $("#div-payment-metodo").hide();
+                    // $("#free").show();
 
                     break;
                 case 2:
-                    $("#amount").val('$19.99');
+                    // $("#amount").val('$19.99');
                     $("#free").hide();
+                    url = "https://buy.stripe.com/test_00g8zwgyv37Z7le6oo";
 
                     break;
-                case 3:
-                    $("#amount").val('$39.99');
+                case 3: //plan inlimitado
+                    // $("#amount").val('$39.99');
                     $("#free").hide();
+                    url = "https://buy.stripe.com/test_bIY0309635g7eNG8wx";
 
                     break;
                 case 4:
-                    $("#amount").val('$39.99');
-                    $("#nombre").hide();
-                    $("#apellidos").hide();
-                    $("#cedula").hide();
-                    $("#empresa").show();
-                    $("#tipo_rif").show();
-                    $("#Rif").show();
-                    $("#free").hide();
+                    // $("#amount").val('$39.99');
+                    // $("#nombre").hide();
+                    // $("#apellidos").hide();
+                    // $("#cedula").hide();
+                    // $("#empresa").show();
+                    // $("#tipo_rif").show();
+                    // $("#Rif").show();
+                    // $("#free").hide();
 
                     break;
                 case 5:
-                    $("#amount").val('$39.99');
-                    $("#nombre").hide();
-                    $("#apellidos").hide();
-                    $("#cedula").hide();
-                    $("#empresa").show();
-                    $("#tipo_rif").show();
-                    $("#Rif").show();
-                    $("#free").hide();
-                    $("#free").hide();
+                    // $("#amount").val('$39.99');
+                    // $("#nombre").hide();
+                    // $("#apellidos").hide();
+                    // $("#cedula").hide();
+                    // $("#empresa").show();
+                    // $("#tipo_rif").show();
+                    // $("#Rif").show();
+                    // $("#free").hide();
+                    // $("#free").hide();
 
 
                     break;
                 case 6:
-                    $("#amount").val('$39.99');
-                    $("#nombre").hide();
-                    $("#apellidos").hide();
-                    $("#cedula").hide();
-                    $("#empresa").show();
-                    $("#tipo_rif").show();
-                    $("#Rif").show();
+                    // $("#amount").val('$39.99');
+                    // $("#nombre").hide();
+                    // $("#apellidos").hide();
+                    // $("#cedula").hide();
+                    // $("#empresa").show();
+                    // $("#tipo_rif").show();
+                    // $("#Rif").show();
 
                     break;
                 case 7:
-                    $("#amount").val('$39.99');
-                    $("#nombre").hide();
-                    $("#apellidos").hide();
-                    $("#cedula").hide();
-                    $("#center").show();
-                    $("#tipo_rif").show();
-                    $("#Rif").show();
-                    $("#div-payment-metodo").hide();
-                    $("#free").hide()
+                    // $("#amount").val('$39.99');
+                    // $("#nombre").hide();
+                    // $("#apellidos").hide();
+                    // $("#cedula").hide();
+                    // $("#center").show();
+                    // $("#tipo_rif").show();
+                    // $("#Rif").show();
+                    // $("#div-payment-metodo").hide();
+                    // $("#free").hide()
 
                     break;
 
@@ -288,17 +145,83 @@
             }
         }
 
-        function handlerSelectPlan(e) {
-            handlerPlane(e.target.value);
+        // function handlerSelectPlan(e) {
+        //     handlerPlane(e.target.value);
+        // }
+
+        // function handlerTypeDoc(e) {
+        //     $('#rif').val(e.target.value);
+        // }
+
+        const handlerSubmit = () => {
+
+            $('#form-payment').validate({
+                rules: {
+                    full_name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    captcha: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    full_name: {
+                        required: "Nombres completo es obligatorio",
+                    },
+                    email: {
+                        required: "Correo es obligatorio",
+                    },
+                    captcha: {
+                        required: "Debe ingresar el codigo",
+                    }
+                }
+            });
+
+            $("#form-payment").validate();
+
+            if ($("#form-payment").valid()) {
+
+                window.location = url;
+            }
         }
 
-        function handlerTypeDoc(e) {
-            $('#rif').val(e.target.value);
+        const reloadCaptcha = () => {
+
+            $.ajax({
+                url: "{{ route('reloadCapchat') }}",
+                type: 'GET',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    $('#span-captcha').html(response);
+                }
+
+            });
         }
 
-        function handlerModal() {
-            // $("#modalPaymet").modal('show');
-            window.location="https://buy.stripe.com/test_dR67vs2HFcIzeNG002"     
+        const validateCaptcha = (e) => {
+
+            $.ajax({
+                url: "{{ route('validateCapchat') }}",
+                type: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}"
+                },
+                success: function(resp) {
+                    $('#samll-error').hide()
+                },
+                error: function(error) {
+                    $('#samll-error').show()
+                }
+
+            });
         }
     </script>
 @endpush
@@ -353,7 +276,7 @@
                                 </div>
                                 {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment']) }}
                                 <div class="row">
-                                    <input type="hidden" name="type_plan" id="type_plan">
+                                    {{-- <input type="hidden" name="type_plan" id="type_plan">
                                     <input type="hidden" name="visitador_medico_id" id="visitador_medico_id"
                                         value="">
 
@@ -370,24 +293,23 @@
                                                     <option value="2">PROFESIONAL</option>
                                                     <option value="3">INLIMITADO</option>
                                                 </select>
-                                                {{-- <i class="bi bi-credit-card st-icon"></i> --}}
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="nombre">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombre Completo</label>
-                                                <input autocomplete="off"
-                                                    class="form-control mask-text @error('name') is-invalid @enderror"
-                                                    id="name" name="name" type="text" value="">
+                                                <label for="full_name" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombre
+                                                    Completo</label>
+                                                <input autocomplete="off" class="form-control mask-text" id="full_name"
+                                                    name="full_name" type="text" value="">
                                                 <i class="bi bi-person-circle st-icon"></i>
                                             </div>
                                         </diV>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="apellidos"  style="display: none" >
+                                    {{-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="apellidos"  style="display: none" >
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
@@ -398,8 +320,8 @@
                                                 <i class="bi bi-person-circle st-icon"></i>
                                             </div>
                                         </diV>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="cedula" style="display: none" >
+                                    </div> --}}
+                                    {{-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="cedula" style="display: none" >
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label"
@@ -409,9 +331,9 @@
                                                 <i class="bi bi-person-vcard-fill st-icon"></i>
                                             </div>
                                         </diV>
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="empresa"
+                                    {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="empresa"
                                         style="display: none">
                                         <div class="form-group">
                                             <div class="Icon-inside">
@@ -423,9 +345,9 @@
                                                 <i class="bi bi-person-vcard-fill st-icon"></i>
                                             </div>
                                         </diV>
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="center"
+                                    {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="center"
                                         style="display: none">
                                         <div class="form-group">
                                             <div class="Icon-inside">
@@ -441,12 +363,11 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                {{-- <i class="bi bi-credit-card st-icon"></i> --}}
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="tipo_rif"
+                                    {{-- <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="tipo_rif"
                                         style="display: none">
                                         <div class="form-group">
                                             <label for="name" class="form-label"
@@ -477,7 +398,7 @@
                                                 <i class="bi bi-person-vcard st-icon"></i>
                                             </div>
                                         </diV>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="form-group">
@@ -485,14 +406,33 @@
                                                 <label for="name" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
                                                     eléctronico</label>
-                                                <input autocomplete="off" class="form-control" id="email"
-                                                    name="email" type="text" value="">
+                                                <input autocomplete="off" class="form-control" id="email" name="email"
+                                                    type="text" value="">
                                                 <i class="bi bi-envelope st-icon"></i>
                                             </div>
-                                        </diV>
+                                        </div>
                                     </div>
 
-                                    <div class="row" id="div-payment-metodo" style="display: none">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                        <span id="span-captcha"> {!! Captcha::img('flat') !!}</span>
+                                        <button type="button" id="reload" class="btn btn-danger reload"
+                                            onclick="reloadCaptcha()">
+                                            &#x21bb;
+                                        </button>
+                                    </div>
+
+
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                        <div class="form-group">
+                                            <input onblur="validateCaptcha(event)" placeholder="Ingrese su codigo"
+                                                autocomplete="off" class="form-control" id="captcha" name="captcha"
+                                                type="text" value="">
+                                            <small id="samll-error" style="display: none" for=""
+                                                class="text-danger">Codigo Incorrecto</small style="display: none">
+                                        </div>
+                                    </div>
+
+                                    {{-- <div class="row" id="div-payment-metodo" style="display: none">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
@@ -578,14 +518,14 @@
                                                 </div>
                                             </diV>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
 
                                 <div class="d-flex justify-content-center">
                                     <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
                                         style="display: flex; justify-content: center;">
-                                        <input class="btn btnSave send " value="Adquiere tu plan" onclick="handlerModal();" 
+                                        <input class="btn btnSave send " value="Adquiere tu plan" onclick="handlerSubmit();"
                                             style="margin-left: 20px" />
                                     </div>
                                 </div>
@@ -596,33 +536,5 @@
                 </div>
             </div>
         </div>
-
-          <!-- Modal -->
-          <div class="modal fade" id="modalPaymet" tabindex="-1" aria-labelledby="modalPaymetLabel" aria-hidden="true"
-          id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
-          <div class="modal-dialog modal-dialog modal-xl">
-              <div class="modal-dialog">
-                  <div class="modal-content">
-                      <div class="modal-header title">
-                          <i class="bi bi-alexa"></i>
-                          <span style="padding-left: 5px">Resultado de la consulta con inteligencia artificial</span>                         
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                              style="font-size: 12px;"></button>
-                      </div>
-                      <div class="modal-body">
-                          <iframe 
-                            src="https://buy.stripe.com/test_dR67vs2HFcIzeNG002" 
-                            frameborder="0"
-                            width="1000"
-                            height="500"
-                            >
-                        </iframe>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-    </div>   
+    </div>
 @endsection
