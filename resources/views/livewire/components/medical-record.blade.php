@@ -164,6 +164,13 @@
     .w-35 {
         width: 35% !important;
     }
+    .w-20 {
+        width: 20% !important;
+    }
+
+    .w-45 {
+        width: 45% !important;
+    }
 
     .w-55 {
         width: 55% !important;
@@ -1650,8 +1657,7 @@
                                         <div id="input-array"></div>
                                         <div class="row mt-2" style="margin: 0px 16px;">
                                             @if (Auth::user()->type_plane !== '7')
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -1707,9 +1713,7 @@
                                                         <ul id="symptoms" class="symptoms" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-top: 5px; margin-bottom: 0"> </ul>
                                                     </div>
 
-                                                    <div id='symptoms_card3'
-                                                        class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; margin-top: 0.5rem">
+                                                    <div id='symptoms_card3' class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; margin-top: 0.5rem">
                                                         <div class="form-group">
                                                             <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.sintomas')</label>
                                                             <textarea id="sintomas" rows="2" name="sintomas" class="form-control"></textarea>
@@ -1762,8 +1766,7 @@
                                                             <label id='search_exam_p' style="font-size: 13px; margin-bottom: 5px; display:none">@lang('messages.form.examenes') </label>
                                                         </div>
                                                         <div id="exam-text-area">
-                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                 <div class="form-group">
                                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.examenes')</label>
                                                                     <textarea id="text_area_exman" rows="2" name="text_area_exman" class="form-control"></textarea>
@@ -1929,11 +1932,8 @@
                                             </div>
                                         </div>
                                         <div class="row mt-2 justify-content-md-end">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 btn-mb"
-                                                id="send"
-                                                style="display: flex; justify-content: flex-end; padding-right: 30px;">
-                                                <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit"
-                                                    style="padding: 8px" />
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 btn-mb" id="send" style="display: flex; justify-content: flex-end; padding-right: 30px;">
+                                                <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="padding: 8px" />
                                                 <button style="margin-left: 20px; padding: 8px;" type="button"
                                                     onclick="resetForm();" class="btn btnSecond LF-mb"
                                                     data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
@@ -1969,8 +1969,8 @@
                                                         <th class="text-center w-8" scope="col">@lang('messages.tabla.id_consulta')</th>
                                                         <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.medico_tratante')</th>
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.centro_salud')</th>
-                                                        <th data-orderable="false" class="text-center" scope="col">@lang('messages.tabla.acciones') </th>
+                                                        <th class="text-center w-45" scope="col">@lang('messages.tabla.centro_salud')</th>
+                                                        <th data-orderable="false" class="text-center w-20" scope="col">@lang('messages.tabla.acciones') </th>
                                                         {{-- <th class="text-center" scope="col">Código de la referencia </th> --}}
                                                         {{-- <th class="text-center" scope="col">Nombre del paciente</th> --}}
                                                         {{-- <th class="text-center" scope="col">Género</th> --}}
@@ -1992,23 +1992,18 @@
                                                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <a href="{{ route('mr_exam', $item['patient_id']) }}">
                                                                                 <button type="button"
-                                                                                    {{-- class="btn refresf btn-iSecond rounded-circle" --}}
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
                                                                                     data-html="true" title="@lang('messages.tooltips.ver_examenes')">
-                                                                                    <img width="37" height="auto" src="{{ asset('/img/recipe.png') }}" alt="avatar">
-                                                                                    {{-- <i class="i bi-card-heading"></i> --}}
+                                                                                    <img width="32" height="auto" src="{{ asset('/img/recipe.png') }}" alt="avatar">
                                                                                 </button>
                                                                             </a>
                                                                         </div>
                                                                     @else
                                                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <button type="button"
-                                                                                {{-- class="refresf btn-idanger rounded-circle" --}}
-                                                                                onclick="showAlertNotExam();">
-                                                                                {{-- <i class="bi bi-exclamation-lg"></i> --}}
-                                                                                <img width="37" height="auto" src="{{ asset('/img/not-file-icon.png') }}" alt="avatar">
+                                                                            <button type="button" onclick="showAlertNotExam();">
+                                                                                <img width="32" height="auto" src="{{ asset('/img/not-file-icon.png') }}" alt="avatar">
                                                                             </button>
                                                                         </div>
                                                                     @endif
@@ -2016,31 +2011,26 @@
                                                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <a href="{{ route('mr_study', $item['patient_id']) }}">
                                                                                 <button type="button"
-                                                                                    {{-- class="btn refresf btn-iSecond rounded-circle" --}}
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
                                                                                     data-html="true" title="@lang('messages.tooltips.ver_estudios')">
-                                                                                    {{-- <i class="i bi-card-heading"></i> --}}
-                                                                                    <img width="37" height="auto" src="{{ asset('/img/recipe.png') }}" alt="avatar">
+                                                                                    <img width="32" height="auto" src="{{ asset('/img/recipe.png') }}" alt="avatar">
                                                                                 </button>
                                                                             </a>
                                                                         </div>
                                                                     @else
                                                                         <div
                                                                             class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <button type="button"
-                                                                                {{-- class="refresf btn-idanger rounded-circle" --}}
-                                                                                onclick="showAlertNotStudy();">
-                                                                                <img width="37" height="auto" src="{{ asset('/img/not-file-icon.png') }}" alt="avatar">
-                                                                                {{-- <i class="bi bi-exclamation-lg"></i> --}}
+                                                                            <button type="button" onclick="showAlertNotStudy();">
+                                                                                <img width="32" height="auto" src="{{ asset('/img/not-file-icon.png') }}" alt="avatar">
                                                                             </button>
                                                                         </div>
                                                                     @endif
                                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                         <a target="_blank" href="{{ route('pdf_medical_prescription', $item['id']) }}">
                                                                             <button type="button">
-                                                                                <img width="37" height="auto" src="{{ asset('/img/pdf-file.png') }}" alt="avatar" 
+                                                                                <img width="32" height="auto" src="{{ asset('/img/pdf-file.png') }}" alt="avatar" 
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
@@ -2052,12 +2042,12 @@
                                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                         <a target="_blank" href="{{ route('PDF_medical_record', $item['id']) }}">
                                                                             <button type="button">
-                                                                                <img width="37" height="auto" src="{{ asset('/img/pdf-file.png') }}" alt="avatar" 
+                                                                                <img width="32" height="auto" src="{{ asset('/img/pdf-file.png') }}" alt="avatar" 
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
                                                                                 data-bs-custom-class="custom-tooltip"
                                                                                 data-html="true"
-                                                                                title="@lang('messages.tooltips.vedr_consulta_medica')">
+                                                                                title="@lang('messages.tooltips.ver_consulta_medica')">
                                                                             </button>
                                                                         </a>
                                                                     </div>
