@@ -257,7 +257,7 @@
         }
 
         .m-mb {
-            padding: 0 !important;
+            padding: 0px 0px 9px !important;
         }
 
         .pr-5 {
@@ -1708,9 +1708,9 @@
                                                                 id="floatingInput" placeholder="">
                                                         </div>
                                                     </div>
-                                                    <div id='diagnosis_div' class="overflow-auto mt-2" style="max-width: 100%; max-height: 40px; min-height: 40px; position: relative;">
+                                                    <div id='diagnosis_div' class="overflow-auto mt-2" style="max-width: 100%; min-height: 60px; position: relative;">
                                                         <ul id="symptoms_filter" class="symptoms"  style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none"> </ul>
-                                                        <ul id="symptoms" class="symptoms" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-top: 5px; margin-bottom: 0"> </ul>
+                                                        <ul id="symptoms" class="symptoms list-mb" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
                                                     </div>
 
                                                     <div id='symptoms_card3' class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; margin-top: 0.5rem">
@@ -1746,7 +1746,7 @@
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <div class="form-group">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.diagnostico')</label>
-                                                    <textarea id="diagnosis" name="diagnosis" class="form-control prueba" spellcheck="false"></textarea>
+                                                    <textarea id="diagnosis" name="diagnosis" class="form-control" spellcheck="false"></textarea>
                                                     <div id="diagnosis-textarea" contenteditable class="textarea-div" oninput="document.querySelector('#diagnosis').textContent = this.innerText"></div>
                                                     <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="diagnosis-text"></pre>
                                                 </div>
