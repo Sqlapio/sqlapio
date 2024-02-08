@@ -88,13 +88,14 @@ class Diary extends Component
             $validate_dairy = Appointment::where('date_start', $request->date_start)
             ->where('hour_start',  $date[0].'-'.$date[1]." ".$request->timeIni)
             ->where('status',1)
+            ->where('user_id', Auth::user()->id)
             ->first();
 
             if(isset($validate_dairy))
             {
                 return response()->json([
                     'success' => 'false',
-                    'errors'  => 'Ya usted tiene una cita agendada en la fecha seleccionada'
+                    'errors'  => 'Ya usted tiene una cita agendada en la fecha seleccionada con otro médico'
                 ], 400);
 
             }else{
@@ -204,6 +205,7 @@ class Diary extends Component
 
             $validate = Appointment::where('date_start', $request->start)
             ->where('hour_start', 'like', '%'.$request->extendedProps['data'].'%')
+            ->where('user_id', Auth::user()->id)
             ->first();
             if($validate != null )
             {

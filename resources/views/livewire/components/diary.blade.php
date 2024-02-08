@@ -145,6 +145,9 @@
     </script>
 @endpush
 @section('content')
+    <div id="spinner2" style="display: none" class="spinner-md">
+        <x-load-spinner show="true" />
+    </div>
     <div>
         <div class="container-fluid" style="padding: 3%">
             <div class="row mt-2">
