@@ -44,7 +44,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Log;
+use Mews\Captcha\Facades\Captcha;
 use Svg\CssLength;
+use Illuminate\Support\Facades\Validator;
+
 
 class UtilsController extends Controller
 {
@@ -1717,5 +1720,32 @@ class UtilsController extends Controller
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_medical_record_user()', $message);
 		}
+	}
+
+	static function reloadCapchat()
+	{
+		return Captcha::img('flat');
+	}
+
+	static function validateCapchat(Request $request)
+	{
+		$rules = [
+			'captcha' => 'required|captcha',
+		];
+
+		$msj = [
+			'center_id.required' => 'error',
+		];
+
+		$validator = Validator::make($request->all(), $rules, $msj);
+
+		if ($validator->fails()) {
+			return response()->json([
+				'success' => 'false',
+				'errors'  => "errors"
+			], 400);
+		}
+
+		return true;
 	}
 }

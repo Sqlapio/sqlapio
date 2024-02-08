@@ -310,6 +310,10 @@ Route::get('/res_exam_sin_resul', [Examen::class, 'res_exam_sin_resul'])->name('
 Route::get('/res_study', [Study::class, 'res_study'])->name('res_study');
 Route::get('/res_study_sin_resul', [Study::class, 'res_study_sin_resul'])->name('res_study_sin_resul');
 
+Route::get('/reloadCapchat', [UtilsController::class, 'reloadCapchat'])->name('reloadCapchat');
+
+Route::post('/validateCapchat', [UtilsController::class, 'validateCapchat'])->name('validateCapchat');
+
 
 /**
  * Languaje
