@@ -340,7 +340,7 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
 
         Swal.fire({
           icon: 'warning',
-          title: 'prueba',
+          title: 'Está seleccionando un dia anterior a la fecha actual!',
           allowOutsideClick: false,
           confirmButtonColor: '#42ABE2',
           confirmButtonText: 'Aceptar'
