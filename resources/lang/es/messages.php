@@ -156,7 +156,7 @@ return [
 
     ],
     'tooltips' => [
-        'editar'           => 'Citas del día',
+        'editar'           => 'Editar',
         'consulta_medica'  => 'Consulta Médica',
         'historia'         => 'Historia Clínica',
         'cancelar_cita'    => 'Cancelar Cita',
