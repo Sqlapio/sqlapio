@@ -260,6 +260,10 @@
         .pl-5 {
             padding: 5px 0 0;
         }
+
+        .list-mb {
+            max-height: 50px;
+        }
     }
 
     @media (min-width: 577px) and (max-width: 768px) {
@@ -273,6 +277,10 @@
 
         .pl-5 {
             padding: 5px 0 0;
+        }
+
+        .list-mb {
+            max-height: 50px;
         }
     }
 
@@ -586,6 +594,7 @@
                             $("#razon-textarea").text('');
                             $("#sintomas-textarea").text('');
                             $("#exman-textarea").text('');
+                            $("#studies-textarea").text('');
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Consulta registrada exitosamente!',
@@ -870,6 +879,9 @@
                     $('#not-exam').hide();
                     $('#not-studie').hide();
                     valSymptoms = '';
+
+                    valExamenes = '';
+                    valStudios = '';
                     $('#search_studie').show();
                     $('#search_exam').show();
                     $('#diagnosis_div').show();
@@ -882,22 +894,22 @@
                     $("#symptoms_card1").removeClass("symptoms_style");
                     $("#symptoms_card2").removeClass("symptoms_style");
                     $("#symptoms_card3").removeClass("symptoms_mt-0");
-                    $("#diagnosis-textarea").show();
+                    $("#diagnosis-textarea").show().text('');
                     $("#diagnosis").hide();
                     $("#diagnosis-text").hide();
-                    $("#background-textarea").show();
+                    $("#background-textarea").show().text('');
                     $("#background").hide();
                     $("#background-text").hide();
-                    $("#razon-textarea").show();
+                    $("#razon-textarea").show().text('');
                     $("#razon").hide();
                     $("#razon-text").hide();
-                    $("#sintomas-textarea").show();
+                    $("#sintomas-textarea").show().text('');
                     $("#sintomas").hide();
                     $("#sintomas-text").hide();
-                    $("#exman-textarea").show();
+                    $("#exman-textarea").show().text('');
                     $("#exman").hide();
                     $("#exman-text").hide();
-                    $("#studies-textarea").show();
+                    $("#studies-textarea").show().text('');
                     $("#studies").hide();
                     $("#studies-text").hide();
                 }
@@ -1492,13 +1504,13 @@
                 route = route.replace( ':id', elem.id);
                 elem.btn = `
                             <a target="_blank" href="${route}">
-                                <button type="button"
-                                    class="btn refresf btn-iSecond rounded-circle"><i
-                                    class="bi bi-file-earmark-pdf"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="bottom"
-                                    data-bs-custom-class="custom-tooltip"
-                                    data-html="true" title="ver PDF"></i>
+                                <button type="button" class="btn refresf btn-iSecond rounded-circle">
+                                    <i class="bi bi-file-earmark-pdf"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="bottom"
+                                        data-bs-custom-class="custom-tooltip"
+                                        data-html="true" title="Ver PDF">
+                                    </i>
                                 </button>
                             </a>
                             `;
@@ -1762,8 +1774,11 @@
                                                         </div>
                                                         <div class="mt-2 overflow-auto" style="max-width: 100%; position: relative; min-height: 60px;">
                                                             <ul id="exam_filter" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; ; margin-bottom: 0;"> </ul>
-                                                            <span id='not-exam'>@lang('messages.label.info_3')</span>
-                                                            <ul id="exam" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
+                                                            <div id='not-exam'> 
+                                                                <img width="50" height="auto" src="{{ asset('/img/not-file.png') }}" alt="avatar">
+                                                                <span >@lang('messages.label.info_3')</span>
+                                                            </div>
+                                                            <ul id="exam" class="exam list-mb" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1791,22 +1806,23 @@
                                                         </div>
                                                         <div class="mt-2 card-study overflow-auto" style="max-width: 100%; min-height: 60px;">
                                                             <ul id="study_filter" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0;"> </ul>
-                                                            <span id='not-studie'>@lang('messages.label.info_4')</span>
-                                                            <ul id="studie" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
+                                                            <div id='not-studie'> 
+                                                                <img width="50" height="auto" src="{{ asset('/img/no-file.png') }}" alt="avatar">
+                                                                <span>@lang('messages.label.info_4')</span>
+                                                            </div>
+                                                            <ul id="studie" class="studie list-mb" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             {{-- Medicacion --}}
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <label style="font-size: 14px">Tratamiento</label>
                                                 <hr style="margin-bottom: 0; margin-top: 5px">
                                                 <div class="row medicine-form">
                                                     <div style="display: flex">
-                                                        <span class="text-warning mt-2" id='med'
-                                                            style="font-size: 14px;margin-right: 10px;"></span>
+                                                        <span class="text-warning mt-2" id='med' style="font-size: 14px;margin-right: 10px;"></span>
                                                     </div>
                                                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
@@ -1858,8 +1874,7 @@
                                                                     <option value="@lang('messages.select.1_anio')">@lang('messages.select.1_anio')</option>
                                                                 </select>
                                                                 <i class="bi bi-calendar-range st-icon"></i>
-                                                                <span id="treatmentDuration_span"
-                                                                    class="text-danger"></span>
+                                                                <span id="treatmentDuration_span" class="text-danger"></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1977,21 +1992,23 @@
                                                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <a href="{{ route('mr_exam', $item['patient_id']) }}">
                                                                                 <button type="button"
-                                                                                    class="btn refresf btn-iSecond rounded-circle"
+                                                                                    {{-- class="btn refresf btn-iSecond rounded-circle" --}}
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
                                                                                     data-html="true" title="@lang('messages.tooltips.ver_examenes')">
-                                                                                    <i class="i bi-card-heading"></i>
+                                                                                    <img width="37" height="auto" src="{{ asset('/img/recipe.png') }}" alt="avatar">
+                                                                                    {{-- <i class="i bi-card-heading"></i> --}}
                                                                                 </button>
                                                                             </a>
                                                                         </div>
                                                                     @else
                                                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <button type="button"
-                                                                                class="refresf btn-idanger rounded-circle"
+                                                                                {{-- class="refresf btn-idanger rounded-circle" --}}
                                                                                 onclick="showAlertNotExam();">
-                                                                                <i class="bi bi-exclamation-lg"></i>
+                                                                                {{-- <i class="bi bi-exclamation-lg"></i> --}}
+                                                                                <img width="37" height="auto" src="{{ asset('/img/not-file-icon.png') }}" alt="avatar">
                                                                             </button>
                                                                         </div>
                                                                     @endif
@@ -1999,12 +2016,13 @@
                                                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <a href="{{ route('mr_study', $item['patient_id']) }}">
                                                                                 <button type="button"
-                                                                                    class="btn refresf btn-iSecond rounded-circle"
+                                                                                    {{-- class="btn refresf btn-iSecond rounded-circle" --}}
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
                                                                                     data-html="true" title="@lang('messages.tooltips.ver_estudios')">
-                                                                                    <i class="i bi-card-heading"></i>
+                                                                                    {{-- <i class="i bi-card-heading"></i> --}}
+                                                                                    <img width="37" height="auto" src="{{ asset('/img/recipe.png') }}" alt="avatar">
                                                                                 </button>
                                                                             </a>
                                                                         </div>
@@ -2012,38 +2030,34 @@
                                                                         <div
                                                                             class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <button type="button"
-                                                                                class="refresf btn-idanger rounded-circle"
+                                                                                {{-- class="refresf btn-idanger rounded-circle" --}}
                                                                                 onclick="showAlertNotStudy();">
-                                                                                <i class="bi bi-exclamation-lg"></i>
+                                                                                <img width="37" height="auto" src="{{ asset('/img/not-file-icon.png') }}" alt="avatar">
+                                                                                {{-- <i class="bi bi-exclamation-lg"></i> --}}
                                                                             </button>
                                                                         </div>
                                                                     @endif
-                                                                    <div
-                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                        <a target="_blank"
-                                                                            href="{{ route('pdf_medical_prescription', $item['id']) }}">
-                                                                            <button type="button"
-                                                                                class="btn refresf btn-iSecond rounded-circle"><i
-                                                                                    class="bi bi-filetype-pdf"
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <a target="_blank" href="{{ route('pdf_medical_prescription', $item['id']) }}">
+                                                                            <button type="button">
+                                                                                <img width="37" height="auto" src="{{ asset('/img/pdf-file.png') }}" alt="avatar" 
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
                                                                                     data-html="true"
-                                                                                    title="@lang('messages.tooltips.ver_recipe')"></i>
+                                                                                    title="@lang('messages.tooltips.ver_orden_medica')">
                                                                             </button>
                                                                         </a>
                                                                     </div>
-                                                                    <div
-                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                        <a target="_blank"
-                                                                            href="{{ route('PDF_medical_record', $item['id']) }}">
-                                                                            <button type="button"
-                                                                                class="btn refresf btn-iSecond rounded-circle"><i
-                                                                                    class="bi bi-filetype-pdf"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="bottom"
-                                                                                    data-bs-custom-class="custom-tooltip"
-                                                                                    data-html="true" title="@lang('messages.tooltips.ver_pdf')"></i>
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <a target="_blank" href="{{ route('PDF_medical_record', $item['id']) }}">
+                                                                            <button type="button">
+                                                                                <img width="37" height="auto" src="{{ asset('/img/pdf-file.png') }}" alt="avatar" 
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                data-bs-custom-class="custom-tooltip"
+                                                                                data-html="true"
+                                                                                title="@lang('messages.tooltips.vedr_consulta_medica')">
                                                                             </button>
                                                                         </a>
                                                                     </div>

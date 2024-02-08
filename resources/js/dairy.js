@@ -336,8 +336,17 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
 
     },
     dateClick: function (info) {
-      if (info.dateStr >= dateString === false)
+      if (info.dateStr >= dateString === false) {
+
+        Swal.fire({
+          icon: 'warning',
+          title: 'prueba',
+          allowOutsideClick: false,
+          confirmButtonColor: '#42ABE2',
+          confirmButtonText: 'Aceptar'
+        })
         return (info.start >= getDateWithoutTime(new Date()));
+      }
       else {
         clearInput(info.dateStr);
         $('#exampleModal').modal('show');
@@ -355,8 +364,10 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
       
       let dateEnd = data.end && data.start
       if (dateEnd >= dateString) {
+        $('#spinner').show();
         update_appointments(ulrUpdate, data);
       } else if (data.extendedProps.data_app < dateEnd && dateEnd >= dateString) {
+        $('#spinner').show();
         update_appointments(ulrUpdate, data);
       } else {
         Swal.fire({
@@ -545,11 +556,13 @@ function searchPatients(res) {
 }
 
 function update_appointments(url, data) {
+  $('#spinner2').show();
   $.ajax({
     url: url,
     type: 'PUT',
     data: data,
     success: function (res) {
+      $('#spinner2').hide();
       Swal.fire({
         icon: 'success',
         title: 'Cita actualizada exitosamente!',
