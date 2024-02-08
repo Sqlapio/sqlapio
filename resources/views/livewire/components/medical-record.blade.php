@@ -289,6 +289,36 @@
             padding: 5px 0 0;
         }
     }
+
+    .textarea-div {
+        border: 1px solid #dee2e6;
+        width: 100%;
+        padding: .5rem;
+        min-height: 3rem;
+        border-radius: 5px;
+      }
+
+      .textarea-div:focus {
+        color: var(--bs-body-color);
+        background-color: var(--bs-body-bg);
+        border-color: #86b7fe;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+      .textarea-div:empty::before {
+        position: absolute;
+      }
+
+      #diagnosis, #background, #razon, #sintomas, #text_area_exman, #text_area_studies {
+        display: none;
+      }
+
+      .pre-textarea {
+        border: 1px solid #dee2e6;
+        border-radius: 0.375rem;
+        background-color: #f1f1f1;
+        padding: 10px;
+      }
 </style>
 @push('scripts')
 
@@ -316,8 +346,13 @@
         let user = @json(Auth::user());
         let doctor_centers = @json($doctor_centers);
         let validate_histroy = @json($validate_histroy);
-
-        $(document).ready(() => {//
+        $(document).ready(() => {
+            $("#diagnosis-text").hide();
+            $("#background-text").hide();
+            $("#razon-text").hide();
+            $("#sintomas-text").hide();
+            $("#exman-text").hide();
+            $("#studies-text").hide();
 
             tinymce.init({
                 selector: '#TextInforme',
@@ -546,6 +581,11 @@
                             $('#spinner').hide();
                             $("#form-consulta").trigger("reset");
                             $('#table-medicamento > tbody').empty();
+                            $("#diagnosis-textarea").text('');
+                            $("#background-textarea").text('');
+                            $("#razon-textarea").text('');
+                            $("#sintomas-textarea").text('');
+                            $("#exman-textarea").text('');
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Consulta registrada exitosamente!',
@@ -803,7 +843,6 @@
                     $('.btn-check').attr('disabled', false);
                     $(".medicine-form").show();
                     $('.send-ai').show();
-
                     // $("#indication").show();
                     // $("#treatmentDuration").show();
                     $("#center_id").attr('disabled', false);
@@ -815,7 +854,7 @@
                     $("#sintomas").attr('disabled', false);
                     // $("#exams").attr('disabled', false);
                     // $("#studies").attr('disabled', false);
-                    $('#form-consulta').find('input:checkbox').attr('checked', false);
+                    $('#form-consulta').find('input:checkbox').attr('checked', false);   
                     exams_array = [];
                     symptom_array = [];
                     studies_array = [];
@@ -843,6 +882,24 @@
                     $("#symptoms_card1").removeClass("symptoms_style");
                     $("#symptoms_card2").removeClass("symptoms_style");
                     $("#symptoms_card3").removeClass("symptoms_mt-0");
+                    $("#diagnosis-textarea").show();
+                    $("#diagnosis").hide();
+                    $("#diagnosis-text").hide();
+                    $("#background-textarea").show();
+                    $("#background").hide();
+                    $("#background-text").hide();
+                    $("#razon-textarea").show();
+                    $("#razon").hide();
+                    $("#razon-text").hide();
+                    $("#sintomas-textarea").show();
+                    $("#sintomas").hide();
+                    $("#sintomas-text").hide();
+                    $("#exman-textarea").show();
+                    $("#exman").hide();
+                    $("#exman-text").hide();
+                    $("#studies-textarea").show();
+                    $("#studies").hide();
+                    $("#studies-text").hide();
                 }
             });
 
@@ -890,15 +947,27 @@
             $("#symptoms_card1").addClass("symptoms_style");
             $("#symptoms_card2").addClass("symptoms_style");
             $("#symptoms_card3").addClass("symptoms_mt-0");
+            $("#diagnosis-textarea").hide();
+            $("#diagnosis-text").show().text(item.data.diagnosis);
+            $("#background-textarea").hide();
+            $("#background-text").show().text(item.data.background);
+            $("#razon-textarea").hide();
+            $("#razon-text").show().text(item.data.razon);
+            $("#sintomas-textarea").hide();
+            $("#sintomas-text").show().text(item.data.sintomas);
+            $("#exman-textarea").hide();
+            $("#exman-text").show().text(item.data.sintomas);
+            $("#studies-textarea").hide();
+            $("#studies-text").show().text(item.data.sintomas);
 
             item.data.medications_supplements.map((element, key) => {
                 countMedicationAdd = countMedicationAdd + 1;
                 var row = `
                         <tr id="${countMedicationAdd}">
-                        <td class="text-center">${element.medicine}</td>
-                        <td class="text-center">${element.indication}</td>
-                        <td class="text-center">${element.treatmentDuration}</td>
-                        <td class="text-center"><span><i class="bi bi-x-circle-fill"></i></span></td>
+                            <td class="text-center">${element.medicine}</td>
+                            <td class="text-center">${element.indication}</td>
+                            <td class="text-center">${element.treatmentDuration}</td>
+                            <td class="text-center"><span><i class="bi bi-x-circle-fill"></i></span></td>
                         </tr>`;
                 $('#table-medicamento').find('tbody').append(row);
 
@@ -913,14 +982,8 @@
                     var list = `
                     <ul style="padding-inline-start: 0;">
                         <li style="margin-bottom: 10px; padding-right: 5px">
-                            <input type="checkbox" class="btn-check"
-                                autocomplete="off"
-                                checked
-                                disabled >
-                            <label class="btn btn-outline-primary check-cm"
-                                for={elem.cod_exam}>
-                                ${element}
-                            </label>
+                            <input type="checkbox" class="btn-check" autocomplete="off" checked disabled >
+                            <label class="btn btn-outline-primary check-cm" for={elem.cod_exam}> ${element} </label>
                         </li>
                     </ul>`;
                     $('#exam_filter').append(list);
@@ -943,14 +1006,8 @@
                     var list = `
                     <ul style="padding-inline-start: 0;">
                         <li style="margin-bottom: 10px; padding-right: 5px">
-                            <input type="checkbox" class="btn-check"
-                                autocomplete="off"
-                                checked
-                                disabled >
-                            <label class="btn btn-outline-success check-cm"
-                                for={elem.cod_exam}>
-                                ${element}
-                            </label>
+                            <input type="checkbox" class="btn-check" autocomplete="off" checked disabled >
+                            <label class="btn btn-outline-success check-cm" for={elem.cod_exam}> ${element} </label>
                         </li>
                     </ul>`;
                     $('#study_filter').append(list);
@@ -973,7 +1030,6 @@
 
             switch (id) {
                 case 'studie':
-
                     let data = study.filter(e => e.description.toLowerCase().includes(value));
 
                     if (data.length > 0) {
@@ -984,7 +1040,6 @@
                     break;
 
                 case 'exam':
-
                     let data_exam = exam.filter(e => e.description.toLowerCase().includes(value));
 
                     if (data_exam.length > 0) {
@@ -995,7 +1050,6 @@
                     break;
 
                 default:
-
                     let symptom = symptoms.filter(e => e.description.toLowerCase().includes(value));
 
                     if (symptom.length > 0) {
@@ -1016,6 +1070,7 @@
                 valSymptoms = (valSymptoms == "") ? e.target.value : `${valSymptoms},${e.target.value}`;
 
                 $("#sintomas").val(valSymptoms);
+                $("#sintomas-textarea").text(valSymptoms);
                 handlerCheckTrue(symptom);
             } else {
                 valSymptoms = valSymptoms.replace(`${e.target.value}`, '');
@@ -1029,9 +1084,11 @@
                 if (valSymptoms.substring(valSymptoms.indexOf() + 1) == "," || valSymptoms.substring(valSymptoms.indexOf() +
                         1) == ",,") {
                     $("#sintomas").val('');
+                    $("#sintomas-textarea").text('');
                 }
 
                 $("#sintomas").val(valSymptoms);
+                $("#sintomas-textarea").text(valSymptoms);
 
                 handlerCheckDelete(symptom);
             }
@@ -1063,17 +1120,8 @@
 
                 if (k < number) {
                     let el = `<li style="margin-bottom: 10px; padding-right: 5px">
-                            <input type="checkbox" ${check} class="btn-check"
-                            id="${id}_${e.id}"
-                            name="chk${id}_${ e.id }"
-                            autocomplete="off"
-                            data-code="${code}"
-                            ${callback}
-                            value="${ e.description }">
-                            <label class="${clas}"
-                            for="${id}_${e.id }">
-                            ${ e.description }
-                            </label>
+                                <input type="checkbox" ${check} class="btn-check" id="${id}_${e.id}" name="chk${id}_${ e.id }" autocomplete="off" data-code="${code}" ${callback} value="${ e.description }">
+                                <label class="${clas}" for="${id}_${e.id }"> ${ e.description } </label>
                             </li>`;
                     array.push(el)
                 }
@@ -1137,6 +1185,7 @@
 
                 valExamenes = (valExamenes == "") ? e.target.value : `${valExamenes},${e.target.value}`;
                 $("#text_area_exman").val(valExamenes);
+                $("#exman-textarea").text(valExamenes);
                 handlerExamenCheckTrue(data);
 
             } else {
@@ -1151,9 +1200,11 @@
                 if (valExamenes.substring(valExamenes.indexOf() + 1) == "," || valExamenes.substring(valExamenes.indexOf() +
                         1) == ",,") {
                     $("#text_area_exman").val('');
+                    $("#exman-textarea").text('');
                 }
 
                 $("#text_area_exman").val(valExamenes);
+                $("#exman-textarea").text(valExamenes);
                 handlerExamenCheckDelete(data);
                 exams_array.splice(key, 1);
             }
@@ -1173,6 +1224,7 @@
 
                 valStudios = (valStudios == "") ? e.target.value : `${valStudios},${e.target.value}`;
                 $("#text_area_studies").val(valStudios);
+                $("#studies-textarea").text(valStudios);
                 handlerStudiesCheckTrue(data_study);
             } else {
                 valStudios = valStudios.replace(`${e.target.value}`, '');
@@ -1186,9 +1238,11 @@
                 if (valStudios.substring(valStudios.indexOf() + 1) == "," || valStudios.substring(valStudios.indexOf() +
                         1) == ",,") {
                     $("#text_area_studies").val('');
+                    $("#studies-textarea").text('');
                 }
 
                 $("#text_area_studies").val(valStudios);
+                $("#studies-textarea").text(valStudios);
                 studies_array.splice(key, 1);
                 handlerStudiesCheckDelete(data_study);
             }
@@ -1431,33 +1485,23 @@
         }
 
         const setDatatable = (data) => {
-
             let row=[];
 
             data.map((elem) => {
-
-                let route =
-                    "{{ route('PDF_informe_medico', ':id') }}";
-                route
-                    =
-                    route
-                    .replace(
-                        ':id', elem
-                        .id);
-
+                let route = "{{ route('PDF_informe_medico', ':id') }}";
+                route = route.replace( ':id', elem.id);
                 elem.btn = `
-                                                <a target="_blank"
-                                                href="${route}">
-                                                <button type="button"
-                                                class="btn refresf btn-iSecond rounded-circle"><i
-                                                class="bi bi-file-earmark-pdf"
-                                                data-bs-toggle="tooltip"
-                                                data-bs-placement="bottom"
-                                                data-bs-custom-class="custom-tooltip"
-                                                data-html="true" title="ver PDF"></i>
-                                                </button>
-                                                </a>
-                                               `;
+                            <a target="_blank" href="${route}">
+                                <button type="button"
+                                    class="btn refresf btn-iSecond rounded-circle"><i
+                                    class="bi bi-file-earmark-pdf"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom"
+                                    data-bs-custom-class="custom-tooltip"
+                                    data-html="true" title="ver PDF"></i>
+                                </button>
+                            </a>
+                            `;
 
                 elem.name = `${ elem.get_doctor.name} ${elem.get_doctor.last_name  }`
                 row.push(elem);
@@ -1494,10 +1538,29 @@
                         }
                     ],
                 });
-
-
-
         }
+
+        $(function(){
+            var textArea = $('#content'),
+            hiddenDiv = $(document.createElement('div')),
+            content = null;
+            
+            textArea.addClass('noscroll');
+            hiddenDiv.addClass('hiddendiv');
+            
+            $(textArea).after(hiddenDiv);
+            
+            textArea.on('keyup', function(){
+                content = $(this).val();
+                content = content.replace(/n/g, '<br>');
+                hiddenDiv.html(content + '<br class="lbr">');
+                $(this).css('height', hiddenDiv.height());
+        });
+
+
+
+
+});
     </script>
 @endpush
 @section('content')
@@ -1600,53 +1663,46 @@
                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
                                                     <div class="form-group">
-                                                        <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.antecedentes')</label>
+                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.antecedentes')</label>
                                                         <textarea id="background" rows="3" name="background" class="form-control"></textarea>
+                                                        <div id="background-textarea" contenteditable class="textarea-div" oninput="document.querySelector('#background').textContent = this.innerText"></div>
+                                                        <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="background-text"></pre>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pl-5">
                                                     <div class="form-group">
-                                                        <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon')</label>
+                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon')</label>
                                                         <textarea id="razon" rows="3" name="razon" class="form-control"></textarea>
+                                                        <div id="razon-textarea" contenteditable class="textarea-div" oninput="document.querySelector('#razon').textContent = this.innerText"></div>
+                                                        <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="razon-text"></pre>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div id='symptoms_card1' class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                <div id='symptoms_card2'
-                                                    class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
+                                                <div id='symptoms_card2' class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
                                                     <div class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <div class="form-group"
-                                                            style="display: flex; align-items: center;">
-                                                            <label for="search_symptoms"
-                                                                class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 130px">
-                                                                @lang('messages.form.buscar_sintoma')
-                                                            </label>
+                                                        <div class="form-group" style="display: flex; align-items: center;">
+                                                            <label for="search_symptoms" class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 130px">  @lang('messages.form.buscar_sintoma') </label>
                                                             <input onkeyup="search(event,'symptoms')" type="text"
                                                                 style="border-radius: 30px;" class="form-control"
                                                                 id="floatingInput" placeholder="">
                                                         </div>
                                                     </div>
                                                     <div id='diagnosis_div' class="overflow-auto mt-2" style="max-width: 100%; max-height: 40px; min-height: 40px; position: relative;">
-                                                        <ul id="symptoms_filter" class="symptoms"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none">
-                                                        </ul>
-                                                        <ul id="symptoms" class="symptoms"
-                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-top: 5px; margin-bottom: 0">
-                                                        </ul>
+                                                        <ul id="symptoms_filter" class="symptoms"  style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none"> </ul>
+                                                        <ul id="symptoms" class="symptoms" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-top: 5px; margin-bottom: 0"> </ul>
                                                     </div>
 
                                                     <div id='symptoms_card3'
                                                         class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                         style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; margin-top: 0.5rem">
                                                         <div class="form-group">
-                                                            <label for="phone" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.sintomas')</label>
+                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.sintomas')</label>
                                                             <textarea id="sintomas" rows="2" name="sintomas" class="form-control"></textarea>
+                                                            <div id="sintomas-textarea" contenteditable class="textarea-div" oninput="document.querySelector('#sintomas').textContent = this.innerText"></div>
+                                                            <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="sintomas-text"></pre>
                                                         </div>
                                                     </div>
 
@@ -1657,9 +1713,7 @@
                                                         <div id="spinner2" style="display: none">
                                                             <div class="container shadow-div">
                                                                 <div class="row justify-content-center form-sq">
-                                                                    <img class="spinnner s-IA"
-                                                                        src="{{ asset('img/GIF-CONSULTAR-IA.gif') }}"
-                                                                        alt="">
+                                                                    <img class="spinnner s-IA" src="{{ asset('img/GIF-CONSULTAR-IA.gif') }}" alt="">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1667,101 +1721,78 @@
                                                 </div>
 
                                                 <div class="row mt-2 justify-content-md-end send-ai">
-                                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                        style="display: flex; justify-content: flex-end;">
-                                                        <button onclick="handlerIA()" type="button"
-                                                            class="btn btnSave">@lang('messages.botton.consulta_ai')</button>
+                                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
+                                                        <button onclick="handlerIA()" type="button"  class="btn btnSave">@lang('messages.botton.consulta_ai')</button>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <div class="form-group">
-                                                    <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.diagnostico')</label>
-                                                    <textarea id="diagnosis" rows="2" name="diagnosis" class="form-control"></textarea>
+                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.diagnostico')</label>
+                                                    <textarea id="diagnosis" name="diagnosis" class="form-control prueba" spellcheck="false"></textarea>
+                                                    <div id="diagnosis-textarea" contenteditable class="textarea-div" oninput="document.querySelector('#diagnosis').textContent = this.innerText"></div>
+                                                    <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="diagnosis-text"></pre>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style"
-                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display: flex;">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display: flex;">
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
-                                                    <div
-                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <div style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                            <div class="form-group" id='search_exam'
-                                                                style="display: flex; align-items: center;">
-                                                                <label for="search_patient"
-                                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 135px">@lang('messages.form.buscar_examen')</label>
+                                                            <div class="form-group" id='search_exam' style="display: flex; align-items: center;">
+                                                                <label for="search_patient" class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 135px">@lang('messages.form.buscar_examen')</label>
                                                                 <input onkeyup="search(event,'exam')" type="text"
                                                                     style="border-radius: 30px;"
                                                                     class="form-control inputSearchExamen"
                                                                     id="floatingInput" placeholder="">
                                                             </div>
-                                                            <label id='search_exam_p'
-                                                                style="font-size: 13px; margin-bottom: 5px; display:none">@lang('messages.form.examenes')
-                                                            </label>
+                                                            <label id='search_exam_p' style="font-size: 13px; margin-bottom: 5px; display:none">@lang('messages.form.examenes') </label>
                                                         </div>
                                                         <div id="exam-text-area">
                                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
                                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                 <div class="form-group">
-                                                                    <label for="phone" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.examenes')</label>
+                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.examenes')</label>
                                                                     <textarea id="text_area_exman" rows="2" name="text_area_exman" class="form-control"></textarea>
+                                                                    <div id="exman-textarea" contenteditable class="textarea-div" oninput="document.querySelector('#text_area_exman').textContent = this.innerText"></div>
+                                                                    <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="exman-text"></pre>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="mt-2 overflow-auto"
-                                                            style="max-width: 100%; max-height: 35px; min-height: 35px; position: relative;">
-                                                            <ul id="exam_filter" class="exam"
-                                                                style="padding-inline-start: 0; display: flex; flex-wrap: wrap; ; margin-bottom: 0;">
-                                                            </ul>
+                                                        <div class="mt-2 overflow-auto" style="max-width: 100%; position: relative; min-height: 60px;">
+                                                            <ul id="exam_filter" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; ; margin-bottom: 0;"> </ul>
                                                             <span id='not-exam'>@lang('messages.label.info_3')</span>
-                                                            <ul id="exam" class="exam"
-                                                                style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
-                                                            </ul>
+                                                            <ul id="exam" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pl-5">
-                                                    <div
-                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <div style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                            <div class="form-group" id="search_studie"
-                                                                style="display: flex; align-items: center;">
-                                                                <label for="search_patient" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; width: 131px">@lang('messages.form.buscar_estudio')</label>
+                                                            <div class="form-group" id="search_studie" style="display: flex; align-items: center;">
+                                                                <label for="search_patient" class="form-label" style="font-size: 13px; margin-bottom: 5px; width: 131px">@lang('messages.form.buscar_estudio')</label>
                                                                 <input onkeyup="search(event,'studie')" type="text"
                                                                     style="border-radius: 30px;"
                                                                     class="form-control inputSearchStudi" placeholder=""
                                                                     id="floatingInputt">
                                                             </div>
                                                         </div>
-                                                        <label id='search_studie_p'
-                                                            style="font-size: 13px; margin-bottom: 5px; display:none">@lang('messages.form.estudios')
-                                                        </label>
+                                                        <label id='search_studie_p' style="font-size: 13px; margin-bottom: 5px; display:none">@lang('messages.form.estudios') </label>
                                                         <div id="study-text-area">
-                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                                                id="study-text-area"
-                                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="study-text-area" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                 <div class="form-group">
-                                                                    <label for="phone" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.estudios')</label>
+                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.estudios')</label>
                                                                     <textarea id="text_area_studies" rows="2" name="text_area_studies" class="form-control"></textarea>
+                                                                    <div id="studies-textarea" contenteditable class="textarea-div" oninput="document.querySelector('#text_area_studies').textContent = this.innerText"></div>
+                                                                    <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="studies-text"></pre>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="mt-2 card-study overflow-auto"
-                                                            style="max-width: 100%; max-height:35px;  min-height: 35px;">
-                                                            <ul id="study_filter" class="studie"
-                                                                style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0;">
-                                                            </ul>
+                                                        <div class="mt-2 card-study overflow-auto" style="max-width: 100%; min-height: 60px;">
+                                                            <ul id="study_filter" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0;"> </ul>
                                                             <span id='not-studie'>@lang('messages.label.info_4')</span>
-                                                            <ul id="studie" class="studie"
-                                                                style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
-                                                            </ul>
+                                                            <ul id="studie" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1780,13 +1811,11 @@
                                                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label"
-                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.medicamento')</label>
+                                                                <label for="phone" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.medicamento')</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-only-text" id="medicine"
                                                                     placeholder="@lang('messages.placeholder.info_1')"
-                                                                    name="medicine" type="text"
-                                                                    style='font-size: 13px !important' value="">
+                                                                    name="medicine" type="text" value="">
                                                                 <i class="bi bi-capsule st-icon"></i>
                                                             </div>
                                                             <span id="medicine_span" class="text-danger"></span>
@@ -1795,8 +1824,7 @@
                                                     <div class="col-sm-6 col-md-6 col-lg-5 col-xl-5 col-xxl-5 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label"
-                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.indicaciones')</label>
+                                                                <label for="phone" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.indicaciones')</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-only-text" id="indication"
                                                                     name="indication" type="text" value="">
@@ -1808,8 +1836,7 @@
                                                     <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="treatmentDuration" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.duracion')</label>
+                                                                <label for="treatmentDuration" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.duracion')</label>
                                                                 <select name="treatmentDuration" id="treatmentDuration"
                                                                     placeholder="Seleccione"class="form-control"
                                                                     class="form-control combo-textbox-input">
@@ -1836,8 +1863,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-1 col-xl-1 col-xxl-1 mt-2"
-                                                        style="display: flex; align-items: flex-end; margin-bottom: 3px;">
+                                                    <div class="col-sm-6 col-md-6 col-lg-1 col-xl-1 col-xxl-1 mt-2" style="display: flex; align-items: flex-end; margin-bottom: 3px;">
                                                         <span type="" onclick="addMedacition(event)"
                                                             class="btn btn-outline-secondary addMedacition" id="btn"
                                                             style="padding: 7px; font-size: 12px; width:100%">
@@ -1847,21 +1873,14 @@
                                                 </div>
                                                 {{-- tabla --}}
                                                 <div class="row">
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                                        style="margin-top: 20px; width: 100%;">
-                                                        <table class="table table-striped table-bordered"
-                                                            id="table-medicamento">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px; width: 100%;">
+                                                        <table class="table table-striped table-bordered" id="table-medicamento">
                                                             <thead>
                                                                 <tr>
-                                                                    <th class="text-center w-35" scope="col">
-                                                                        @lang('messages.tabla.medicamento') </th>
-                                                                    <th data-orderable="false" class="text-center w-55"
-                                                                        scope="col"> @lang('messages.tabla.indicaciones') </th>
-                                                                    <th data-orderable="false" class="text-center"
-                                                                        scope="col"> @lang('messages.tabla.duracion') </th>
-                                                                    <th data-orderable="false" class="text-center w-4"
-                                                                        scope="col"> <i style='font-size: 15px'
-                                                                            class="bi bi-trash-fill"></i> </th>
+                                                                    <th class="text-center w-35" scope="col"> @lang('messages.tabla.medicamento') </th>
+                                                                    <th data-orderable="false" class="text-center w-55" scope="col"> @lang('messages.tabla.indicaciones') </th>
+                                                                    <th data-orderable="false" class="text-center" scope="col"> @lang('messages.tabla.duracion') </th>
+                                                                    <th data-orderable="false" class="text-center w-4" scope="col"> <i style='font-size: 15px' class="bi bi-trash-fill"></i> </th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
