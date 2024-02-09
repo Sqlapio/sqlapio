@@ -197,9 +197,11 @@
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
 
-                    $('#spinner').show();
 
                     if (result.isConfirmed) {
+
+                        $('#spinner').show();
+
                         ///solicitar otp
                         $.ajax({
                             url: '{{ route('send_otp_paymet') }}',
@@ -211,8 +213,6 @@
                                 full_name: $('#full_name').val(),
                             },
                             success: function(response) {
-
-                                $('#spinner').hide();
 
                                 Swal.fire({
                                     title: 'Ingrese el código',
@@ -226,7 +226,6 @@
                                     confirmButtonText: 'Enviar',
                                     showLoaderOnConfirm: true,
                                     inputValidator: (value) => {
-                                        console.log(value.length);
                                         if (value === '') {
                                             return "Campo obligatorio"
                                         } else if (value.length > 6) {
@@ -235,6 +234,9 @@
                                         }
                                     },
                                     preConfirm: (login) => {
+                                        
+                                        $('#spinner').hide();
+
                                         $.ajax({
                                             url: '{{ route('verify_otp_paymet') }}',
                                             type: 'POST',
@@ -282,7 +284,7 @@
 
                                     },
                                     allowOutsideClick: () => !Swal.isLoading()
-                                });
+                                })
                             },
                             error: function(error) {
                                 $('#spinner').hide();
@@ -321,10 +323,16 @@
                     "_token": "{{ csrf_token() }}"
                 },
                 success: function(resp) {
-                    $('#samll-error').hide()
+
+                    $('.btnSave').attr('disabled', false);
+
+                    $('#samll-error').hide();
                 },
                 error: function(error) {
-                    $('#samll-error').show()
+
+                    $('#samll-error').show();
+
+                    $('#captcha').val('');
                 }
 
             });
@@ -402,6 +410,7 @@
                                             </div>
                                         </div>
                                     </div> --}}
+
 
                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="nombre">
                                         <div class="form-group">
@@ -631,8 +640,8 @@
                                 <div class="d-flex justify-content-center">
                                     <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
                                         style="display: flex; justify-content: center;">
-                                        <input class="btn btnSave send " value="Adquiere tu plan" onclick="handlerSubmit();"
-                                            style="margin-left: 20px" />
+                                        <input disabled class="btn btnSave send " value="Adquiere tu plan"
+                                            onclick="handlerSubmit();" style="margin-left: 20px" />
                                     </div>
                                 </div>
                                 {{ Form::close() }}
