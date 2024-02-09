@@ -352,10 +352,11 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function(response) {
+
                             $('#send').show();
                             $('#spinner2').hide();
                             // $("#form-patients").trigger("reset");
-                            $(".holder").hide();
+                            // $(".holder").hide();
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Paciente registrado exitosamente!',
@@ -384,7 +385,7 @@
                                 }).then((result) => {
                                     $('#btn-save').attr('disabled', false);
                                     $('#spinner2').hide();
-                                    $(".holder").hide();
+                                    // $(".holder").hide();
                                 });
                             });
                         }
@@ -445,6 +446,7 @@
             $("#center_id").val(item.center_id).change();
             $("#state").val(item.state).change();
             $("#city").val(item.city).change();
+            $('#btn-save').attr('disabled', false);
             $(".holder").show();
             let ulrImge = `{{ URL::asset('/imgs/${item.patient_img}') }}`;
             $(".holder").find('img').attr('src', ulrImge);
@@ -460,17 +462,26 @@
         }
 
         function refreshForm() {
-            $(".holder").hide();
+            // $(".holder").hide();
             $("#show-info-pat").hide();
             $("#bnt-save").show();
             $("#bnt-cons").hide();
             $("#bnt-hist").hide();
+            $("#bnt-dairy").hide();
             $("#form-patients").trigger("reset");
+            $('#data-rep').hide();
             $('#is_minor').val(false);
             $('#id').val('');
             $('#btn-save').attr('disabled', false);
             $("#div-otros").hide();
             $("#profesion-div").show();
+            $("#ci-div").show();
+            $("#email-div").show();
+            $("#div-phone").show();
+            $("#profesion-div").show();
+            $('#search_patient').val('');
+            let ulrImge = `{{ URL::asset('/img/V2/combinado.png') }}`;
+            $(".holder").find('img').attr('src', ulrImge);
 
         }
 
@@ -503,28 +514,19 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
-                        // $('#spinner2').hide();
-                        // Swal.fire({
-                            //     icon: 'success',
-                            //     title: 'Operación exitosa!',
-                            //     allowOutsideClick: false,
-                            //     confirmButtonColor: '#42ABE2',
-                            //     confirmButtonText: 'Aceptar'
-                            // }).then((result) => {
-
                                 $('#search_patient').val('');
                                 $('#spinner2').hide();
                                 $(".accordion-collapseOne").collapse('show')
-                                if (response.length > 1) {
+                            if (response.length > 1) {
                                 $('#show-info-pat').show();
                                 $('#content-patient').hide();
                                 let data = [];
                                 response.map((elem) => {
                                     let elemData = JSON.stringify(elem);
                                     elem.btn = `
-                                                <button onclick='setValue(${elemData})'
-                                                type="button" class="btn-2 btnSecond">Consultar</button>
-                                                </div>`;
+                                                <button onclick='setValue(${elemData})' type="button" class="btn-2 btnSecond">
+                                                    Consultar
+                                                </button>`;
                                     data.push(elem);
                                 })
 
@@ -545,7 +547,7 @@
                                         {
 
                                             data: 'get_reprensetative.re_ci',
-                                            title: 'Cédula paciente',
+                                            title: 'Cédula',
                                             className: "text-center w-10",
                                         },
 
@@ -585,7 +587,7 @@
                         }).then((result) => {
                             $('#send').show();
                             $('#spinner2').hide();
-                            $(".holder").hide();
+                            // $(".holder").hide();
                         });
                     }
                 });
@@ -990,11 +992,11 @@
                                                     <div id="bnt-cons" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
                                                     <div id="bnt-hist" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
                                                     <input class="btn btnSave send" id="btn-save" value="@lang('messages.botton.guardar')" type="submit" style="margin-left: 10px; margin-bottom: 10px" />
-                                                    <button style="margin-left: 10px; margin-bottom: 10px; padding: 11px"
-                                                        type="button" onclick="refreshForm();" class="btn btnSecond"
+                                                    <button style="margin-left: 10px; margin-bottom: 10px;"
+                                                        type="button" onclick="refreshForm();" 
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         data-html="true" title="@lang('messages.label.limpiar')">
-                                                        <i class="bi bi-eraser"></i>
+                                                        <img width="32" height="auto" src="{{ asset('/img/eraser.png') }}" alt="avatar">
                                                     </button>
                                                 </div>
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">  </div>
@@ -1076,7 +1078,7 @@
                         </div>
                     </div>
                 </div>
-                {{-- Lista de pacientes con consultas  --}}
+                {{-- Registro de consultas  --}}
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-cd">
                         <div class="accordion-item">
@@ -1134,32 +1136,29 @@
                                                                         <button
                                                                             onclick="editPatien({{ json_encode($item->get_paciente) }},true); "
                                                                             type="button"
-                                                                            class="btn btn-iSecond rounded-circle"
                                                                             data-bs-toggle="tooltip"
                                                                             data-bs-placement="bottom" title="@lang('messages.tooltips.editar')">
-                                                                            <i class="bi bi-pencil"></i>
+                                                                            <img width="40" height="auto" src="{{ asset('/img/user-edit.png') }}" alt="avatar">
                                                                         </button>
                                                                     </div>
                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                         <a href="{{ route('MedicalRecord', $item->get_paciente->id) }}">
-                                                                            <button type="button"
-                                                                                class="btn btn-iPrimary rounded-circle"
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                title="@lang('messages.tooltips.consulta_medica')">
-                                                                                <i class="bi bi-file-earmark-text"></i>
-                                                                            </button>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a href="{{ route('ClinicalHistoryDetail', $item->get_paciente->id) }}">
-                                                                            <button type="button"
-                                                                                class="btn btn-iSecond rounded-circle"
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                title="@lang('messages.tooltips.historia')">
-                                                                                <i class="bi bi-file-earmark-text"></i>
-                                                                            </button>
+                                                                        <button type="button"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom"
+                                                                            title="@lang('messages.tooltips.consulta_medica')">
+                                                                            <img width="40" height="auto" src="{{ asset('/img/monitor.png') }}" alt="avatar">
+                                                                        </button>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                    <a href="{{ route('ClinicalHistoryDetail', $item->get_paciente->id) }}">
+                                                                        <button type="button"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom"
+                                                                            title="@lang('messages.tooltips.historia')">
+                                                                            <img width="40" height="auto" src="{{ asset('/img/recipe.png') }}" alt="avatar">
+                                                                        </button>
                                                                         </a>
                                                                     </div>
                                                                 </div>
@@ -1290,8 +1289,7 @@
                                     </div>
 
                                     <div class="row text-center mt-2 mb-2">
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
-                                            style="margin-top: -4px" id="send">
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" style="margin-top: -4px" id="send">
                                             <input class="btn btnSave" id="registrer-pac" value="@lang('messages.botton.agendar_cita')" type="submit" />
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-con"></div>

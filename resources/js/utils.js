@@ -7,7 +7,7 @@ $('.mask-input-por').mask('000%', { reverse: true });
 $('.mask-only-number').mask('#', { reverse: true });
 $('.mask-only-breaths').mask('000/Min', { reverse: true });
 $('.mask-only-temperature').mask('00,00°', { reverse: true });
-$('.phone').mask('(0000) 000-00-00');
+$('.phone').mask('(000) 000-00-00');
 $('.mask-only-text').mask('Z', { translation: { 'Z': { pattern: /[a-zA-Z0-9 ]/, recursive: true } } });
 $('.mask-text').mask('Z', { translation: { 'Z': { pattern: /[áéíóúñüàèa-ñzA-Z\s]/, recursive: true } } });
 $('.mask-rif').mask('Z-0000000000000000', { translation: { 'Z': { pattern: /[G-J-C-F]/, recursive: true } } });
