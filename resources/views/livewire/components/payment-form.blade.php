@@ -187,7 +187,112 @@
 
             if ($("#form-payment").valid()) {
 
-                window.location = url;
+                Swal.fire({
+                    title: 'Esta seguro de realizar esta acción?',
+                    text: "Se enviara un código de verifcación al correo ingresado!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#42ABE2',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+
+                    $('#spinner').show();
+
+                    if (result.isConfirmed) {
+                        ///solicitar otp
+                        $.ajax({
+                            url: '{{ route('send_otp_paymet') }}',
+                            type: 'POST',
+                            dataType: "json",
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                email: $('#email').val(),
+                                full_name: $('#full_name').val(),
+                            },
+                            success: function(response) {
+
+                                $('#spinner').hide();
+
+                                Swal.fire({
+                                    title: 'Ingrese el código',
+                                    input: 'number',
+                                    inputAttributes: {
+                                        autocorrect: 'on',
+                                        max: 6,
+                                        maxlength: 6
+                                    },
+                                    showCancelButton: true,
+                                    confirmButtonText: 'Enviar',
+                                    showLoaderOnConfirm: true,
+                                    inputValidator: (value) => {
+                                        console.log(value.length);
+                                        if (value === '') {
+                                            return "Campo obligatorio"
+                                        } else if (value.length > 6) {
+                                            return "Campo debe ser de 6 caracteres"
+
+                                        }
+                                    },
+                                    preConfirm: (login) => {
+                                        $.ajax({
+                                            url: '{{ route('verify_otp_paymet') }}',
+                                            type: 'POST',
+                                            dataType: "json",
+                                            data: {
+                                                "_token": "{{ csrf_token() }}",
+                                                cod_update_pass: login,
+                                                email: $('#email').val(),
+                                                action: "rp",
+                                            },
+                                            headers: {
+                                                'X-CSRF-TOKEN': $(
+                                                        'meta[name="csrf-token"]'
+                                                    )
+                                                    .attr(
+                                                        'content')
+                                            },
+                                            success: function(response) {
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: response
+                                                        .msj,
+                                                    allowOutsideClick: false,
+                                                    confirmButtonColor: '#42ABE2',
+                                                    confirmButtonText: 'Aceptar'
+                                                }).then((result) => {
+                                                    window
+                                                        .location =
+                                                        url;
+
+                                                });
+                                            },
+                                            error: function(error) {
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: error
+                                                        .responseJSON
+                                                        .msj,
+                                                    allowOutsideClick: false,
+                                                    confirmButtonColor: '#42ABE2',
+                                                    confirmButtonText: 'Aceptar'
+                                                })
+                                            }
+                                        });
+
+                                    },
+                                    allowOutsideClick: () => !Swal.isLoading()
+                                });
+                            },
+                            error: function(error) {
+                                $('#spinner').hide();
+                                console.log(error.responseJSON.errors);
+
+                            }
+                        });
+                        //end
+                    }
+                });
             }
         }
 
@@ -212,6 +317,7 @@
                 url: "{{ route('validateCapchat') }}",
                 type: "POST",
                 data: {
+                    captcha: e.target.value,
                     "_token": "{{ csrf_token() }}"
                 },
                 success: function(resp) {
