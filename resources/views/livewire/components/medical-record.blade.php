@@ -1407,7 +1407,7 @@
         function showAlertNotExam() {
             Swal.fire({
                 icon: 'warning',
-                // iconHtml: `<img width="150" height="auto" src="{{ asset('/img/no-file.png') }}" alt="avatar">`,
+                // iconHtml: `<img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">`,
                 title: 'No hay exámenes cargados',
                 allowOutsideClick: false,
                 confirmButtonColor: '#42ABE2',
@@ -1784,7 +1784,7 @@
                                                         <div class="mt-2 overflow-auto" style="max-width: 100%; position: relative; min-height: 60px;">
                                                             <ul id="exam_filter" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; ; margin-bottom: 0;"> </ul>
                                                             <div id='not-exam'> 
-                                                                <img width="50" height="auto" src="{{ asset('/img/not-file.png') }}" alt="avatar">
+                                                                <img width="50" height="auto" src="{{ asset('/img/icons/not-file.png') }}" alt="avatar">
                                                                 <span >@lang('messages.label.info_3')</span>
                                                             </div>
                                                             <ul id="exam" class="exam list-mb" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
@@ -1816,7 +1816,7 @@
                                                         <div class="mt-2 card-study overflow-auto" style="max-width: 100%; min-height: 60px;">
                                                             <ul id="study_filter" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0;"> </ul>
                                                             <div id='not-studie'> 
-                                                                <img width="50" height="auto" src="{{ asset('/img/no-file.png') }}" alt="avatar">
+                                                                <img width="50" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
                                                                 <span>@lang('messages.label.info_4')</span>
                                                             </div>
                                                             <ul id="studie" class="studie list-mb" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
@@ -1944,7 +1944,7 @@
                                                     onclick="resetForm();" 
                                                     data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
                                                     title="Limpiar Formulario">
-                                                    <img width="32" height="auto" src="{{ asset('/img/eraser.png') }}" alt="avatar">
+                                                    <img width="32" height="auto" src="{{ asset('/img/icons/eraser.png') }}" alt="avatar">
                                                 </button>
                                             </div>
                                         </div>
@@ -2002,14 +2002,14 @@
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
                                                                                     data-html="true" title="@lang('messages.tooltips.ver_examenes')">
-                                                                                    <img width="32" height="auto" src="{{ asset('/img/recipe.png') }}" alt="avatar">
+                                                                                    <img width="32" height="auto" src="{{ asset('/img/icons/recipe.png') }}" alt="avatar">
                                                                                 </button>
                                                                             </a>
                                                                         </div>
                                                                     @else
                                                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <button type="button" onclick="showAlertNotExam();">
-                                                                                <img width="32" height="auto" src="{{ asset('/img/not-file-icon.png') }}" alt="avatar">
+                                                                                <img width="32" height="auto" src="{{ asset('/img/icons/not-file-icon.png') }}" alt="avatar">
                                                                             </button>
                                                                         </div>
                                                                     @endif
@@ -2021,7 +2021,7 @@
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
                                                                                     data-html="true" title="@lang('messages.tooltips.ver_estudios')">
-                                                                                    <img width="32" height="auto" src="{{ asset('/img/recipe.png') }}" alt="avatar">
+                                                                                    <img width="32" height="auto" src="{{ asset('/img/icons/recipe.png') }}" alt="avatar">
                                                                                 </button>
                                                                             </a>
                                                                         </div>
@@ -2029,14 +2029,14 @@
                                                                         <div
                                                                             class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <button type="button" onclick="showAlertNotStudy();">
-                                                                                <img width="32" height="auto" src="{{ asset('/img/not-file-icon.png') }}" alt="avatar">
+                                                                                <img width="32" height="auto" src="{{ asset('/img/icons/not-file-icon.png') }}" alt="avatar">
                                                                             </button>
                                                                         </div>
                                                                     @endif
                                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                         <a target="_blank" href="{{ route('pdf_medical_prescription', $item['id']) }}">
                                                                             <button type="button">
-                                                                                <img width="32" height="auto" src="{{ asset('/img/pdf-file.png') }}" alt="avatar" 
+                                                                                <img width="32" height="auto" src="{{ asset('/img/icons/pdf-file.png') }}" alt="avatar" 
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
@@ -2048,7 +2048,7 @@
                                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                         <a target="_blank" href="{{ route('PDF_medical_record', $item['id']) }}">
                                                                             <button type="button">
-                                                                                <img width="32" height="auto" src="{{ asset('/img/pdf-file.png') }}" alt="avatar" 
+                                                                                <img width="32" height="auto" src="{{ asset('/img/icons/pdf-file.png') }}" alt="avatar" 
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
                                                                                 data-bs-custom-class="custom-tooltip"
