@@ -201,6 +201,8 @@
         width: 12% !important;
     }
 
+    
+
     @media only screen and (max-width: 768px) {
         .s-IA {
             width: 50% !important;
@@ -1405,10 +1407,14 @@
         function showAlertNotExam() {
             Swal.fire({
                 icon: 'warning',
+                // iconHtml: `<img width="150" height="auto" src="{{ asset('/img/no-file.png') }}" alt="avatar">`,
                 title: 'No hay exámenes cargados',
                 allowOutsideClick: false,
                 confirmButtonColor: '#42ABE2',
-                confirmButtonText: 'Aceptar'
+                confirmButtonText: 'Aceptar',
+                // customClass: {
+                //     icon: 'no-border'
+                // }
             });
             return false;
         }
@@ -1934,11 +1940,11 @@
                                         <div class="row mt-2 justify-content-md-end">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 btn-mb" id="send" style="display: flex; justify-content: flex-end; padding-right: 30px;">
                                                 <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="padding: 8px" />
-                                                <button style="margin-left: 20px; padding: 8px;" type="button"
-                                                    onclick="resetForm();" class="btn btnSecond LF-mb"
+                                                <button style="margin-left: 20px;" type="button"
+                                                    onclick="resetForm();" 
                                                     data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
                                                     title="Limpiar Formulario">
-                                                    <i class="bi bi-eraser"></i>
+                                                    <img width="32" height="auto" src="{{ asset('/img/eraser.png') }}" alt="avatar">
                                                 </button>
                                             </div>
                                         </div>
