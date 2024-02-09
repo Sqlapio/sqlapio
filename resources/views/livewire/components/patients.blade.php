@@ -789,7 +789,7 @@
                                                     <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">@lang('messages.label.info_1') </h5>
                                                 </div>
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">
-                                                    <img width="150" height="auto" src="{{ asset('/img/icon-warning.png') }}" alt="avatar">
+                                                    <img width="150" height="auto" src="{{ asset('/img/icons/icon-warning.png') }}" alt="avatar">
                                                 </div>
                                             </div>
                                         </div>
@@ -996,7 +996,7 @@
                                                         type="button" onclick="refreshForm();" 
                                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                         data-html="true" title="@lang('messages.label.limpiar')">
-                                                        <img width="32" height="auto" src="{{ asset('/img/eraser.png') }}" alt="avatar">
+                                                        <img width="32" height="auto" src="{{ asset('/img/icons/eraser.png') }}" alt="avatar">
                                                     </button>
                                                 </div>
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">  </div>
@@ -1138,7 +1138,7 @@
                                                                             type="button"
                                                                             data-bs-toggle="tooltip"
                                                                             data-bs-placement="bottom" title="@lang('messages.tooltips.editar')">
-                                                                            <img width="40" height="auto" src="{{ asset('/img/user-edit.png') }}" alt="avatar">
+                                                                            <img width="40" height="auto" src="{{ asset('/img/icons/user-edit.png') }}" alt="avatar">
                                                                         </button>
                                                                     </div>
                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
@@ -1147,7 +1147,7 @@
                                                                             data-bs-toggle="tooltip"
                                                                             data-bs-placement="bottom"
                                                                             title="@lang('messages.tooltips.consulta_medica')">
-                                                                            <img width="40" height="auto" src="{{ asset('/img/monitor.png') }}" alt="avatar">
+                                                                            <img width="40" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
                                                                         </button>
                                                                     </a>
                                                                 </div>
@@ -1157,7 +1157,7 @@
                                                                             data-bs-toggle="tooltip"
                                                                             data-bs-placement="bottom"
                                                                             title="@lang('messages.tooltips.historia')">
-                                                                            <img width="40" height="auto" src="{{ asset('/img/recipe.png') }}" alt="avatar">
+                                                                            <img width="40" height="auto" src="{{ asset('/img/icons/recipe.png') }}" alt="avatar">
                                                                         </button>
                                                                         </a>
                                                                     </div>
