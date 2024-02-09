@@ -25,10 +25,16 @@
     $(document).ready(() => {
         let user = @json(Auth::user());
         let img;
+
+        console.log(user)
         
         if (user.user_img === null || img === undefined) {
             let img2 = '{{ URL::asset('/img/V2/combinado.png') }}';
             $("#imgPreview").attr("src", img2);
+            $("#img").attr("src", img2);
+        } else {
+            $("#imgPreview").attr("src", user.user_img);
+            $('#img').val(user.user_img)
         }
 
         $("#file").change(function() {

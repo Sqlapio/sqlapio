@@ -819,7 +819,7 @@
                                                         </div>
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">                                            
                                                             <img width="150" height="auto"
-                                                            src="{{ asset('/img/no-file.png') }}" alt="avatar">
+                                                            src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -837,7 +837,7 @@
                                                         </div>
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">                                            
                                                             <img width="150" height="auto"
-                                                            src="{{ asset('/img/no-file.png') }}" alt="avatar">
+                                                            src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
                                                         </div>
                                                     </div>
                                                 </div>
