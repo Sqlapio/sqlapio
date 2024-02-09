@@ -16,8 +16,7 @@
         font-weight: normal;
     }
 
-    .card-plans {
-        /* background-color: #ffffff !important; */
+    /* .card-plans {
         -webkit-background-size: cover !important;
         -moz-background-size: cover !important;
         -o-background-size: cover !important;
@@ -28,7 +27,68 @@
         font-size: 13px;
         width: 100%;
         ;
+    } */
+
+    *{
+        margin:0px;
+        padding:0px;
+        box-sizing: border-box;
     }
+    :root{
+        --color-text: #616161;
+    --color-text-btn: #ffffff;
+    --card1-gradient-color1: #459594;
+    --card1-gradient-color2: #95cecd;
+    }
+    .card-wrap{
+        width: 220px;
+        background: #fff;
+        border-radius: 20px;
+        border: 5px solid #fff;
+        overflow: hidden;
+        color: var(--color-text);
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+                    rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        cursor: pointer;
+        transition: all .2s ease-in-out;
+    }
+    .card-header{
+        height: 120px;
+        width: 100%;
+        background: red;
+        border-radius:100% 0% 100% 0% / 0% 50% 50% 100% !important;
+        display: grid;
+        place-items: center;
+
+    }
+
+    .card-header i{
+        color: #fff;
+        font-size: 72px;
+    }
+    .card-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 60%;
+        margin: 0 auto;
+    }
+    .card-title-2{
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 22px;
+        margin-top: 10px;
+    }
+    .card-text{
+        text-align: center;
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+    .card-header.one{
+        background: linear-gradient(to bottom left, var(--card1-gradient-color1), var(--card1-gradient-color2));
+    }
+
 
     .count-plan-0 {
         color: red
@@ -422,13 +482,24 @@
         <h2 class="title-card fw-bold tile-planes-dos card-title mb-3"></h2>
         <strong>{{ 'Fecha de activación: ' . \Carbon\Carbon::parse(auth()->user()->date_start_plan)->format('d-m-Y') }}</strong>
         <br>
-        <strong
-            class="{{ auth()->user()->expired_plan === 1 ? 'text-danger' : '' }} mt-2">{{ 'Fecha de corte: ' . \Carbon\Carbon::parse(auth()->user()->date_end_plan)->format('d-m-Y') }}</strong>
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+        <strong class="{{ auth()->user()->expired_plan === 1 ? 'text-danger' : '' }} mt-2">{{ 'Fecha de corte: ' . \Carbon\Carbon::parse(auth()->user()->date_end_plan)->format('d-m-Y') }}</strong>
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
             <div class="row">
-                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3"
-                    style="display: flex; justify-content: center;">
-                    <div class="card mt-3 card-plans">
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                    <div class="card-wrap">
+                        <div class="card-header one">
+                            <img width="80" height="auto" src="{{ asset('/img/icons/patient.png') }}" alt="avatar">
+                        </div>
+                        <div class="card-content">
+                          <h1 class="card-title-2">@lang('messages.label.paciente')</h1>
+                          <div style="display: flex">
+                            <h3 id="paciente_span" class="count-plan">{{ auth()->user()->patient_counter }}/ </h3>
+                            <h3 id="pacientes" class="count-plan"></h3>
+                        </div>
+                       </div>
+                    </div>
+                      
+                    {{-- <div class="card mt-3 card-plans">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
@@ -441,11 +512,22 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
-                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3"
-                    style="display: flex; justify-content: center;">
-                    <div class="card mt-3 card-plans">
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                    <div class="card-wrap">
+                        <div class="card-header one">
+                            <img width="80" height="auto" src="{{ asset('/img/icons/medical-report.png') }}" alt="avatar">
+                        </div>
+                        <div class="card-content">
+                          <h1 class="card-title-2">@lang('messages.label.consulta')</h1>
+                          <div style="display: flex">
+                            <h3 id="consulta_span" class="count-plan">{{ auth()->user()->medical_record_counter }}/ </h3>
+                            <h3 id="consultas" class="count-plan"></h3>
+                        </div>
+                       </div>
+                    </div>
+                    {{-- <div class="card mt-3 card-plans">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
@@ -459,11 +541,22 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
-                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3"
-                    style="display: flex; justify-content: center;">
-                    <div class="card mt-3 card-plans">
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                    <div class="card-wrap">
+                        <div class="card-header one">
+                            <img width="80" height="auto" src="{{ asset('/img/icons/medical-checkup.png') }}" alt="avatar">
+                        </div>
+                        <div class="card-content">
+                          <h1 class="card-title-2">@lang('messages.label.examenes')</h1>
+                          <div style="display: flex">
+                            <h3 id="examene_span" class="count-plan">{{ auth()->user()->ref_counter }}/ </h3>
+                            <h3 id="examenes" class="count-plan"></h3>
+                        </div>
+                       </div>
+                    </div>
+                    {{-- <div class="card mt-3 card-plans">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
@@ -476,11 +569,22 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
-                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3"
-                    style="display: flex; justify-content: center;">
-                    <div class="card mt-3 card-plans">
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                    <div class="card-wrap">
+                        <div class="card-header one">
+                            <img width="80" height="auto" src="{{ asset('/img/icons/medical-chart.png') }}" alt="avatar">
+                        </div>
+                        <div class="card-content">
+                          <h1 class="card-title-2">@lang('messages.label.estudios')</h1>
+                          <div style="display: flex">
+                            <h3 id="estudio_span" class="count-plan">{{ auth()->user()->ref_counter }}/ </h3>
+                            <h3 id="estudios" class="count-plan"></h3>
+                        </div>
+                       </div>
+                    </div>
+                    {{-- <div class="card mt-3 card-plans">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
@@ -493,7 +597,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
