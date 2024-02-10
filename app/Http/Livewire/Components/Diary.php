@@ -78,6 +78,7 @@ class Diary extends Component
                         'email'         => ($request->is_minor == "true") ? null : $request->email_patient,
                         'birthdate'     => $request->birthdate_patient,
                         'age'           => $request->age_patient,
+                        'center_id'           => $request->center_id,
                         'user_id'       => Auth::user()->id,
                         'verification_code' => Str::random(30)
 

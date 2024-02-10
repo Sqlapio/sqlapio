@@ -1125,7 +1125,7 @@
                                                             {{-- <td class="text-center text-capitalize">  {{ $item->genere }}</td>
                                                             <td class="text-center"> {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_phone . '  (Rep)' : $item->phone }} </td>
                                                             <td class="text-center"> {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_email . '  (Rep)' : $item->email }} </td> --}}
-                                                            <td class="text-center"> {{ (count($item->get_medicard_record)==0)? "Sin consulta medica" : "Con consulta medica"}} </td>
+                                                            <td class="text-center"> {{ $item->get_center->description}} </td>
                                                             <td class="text-center">
                                                                 <div class="d-flex">
                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
