@@ -107,4 +107,9 @@ class Patient extends Model
     {
         return $this->hasMany(MedicalReport::class, 'patient_id', 'id');
     }
+
+    public function get_patient_medical_record(): HasMany
+    {
+        return $this->hasMany(MedicalRecord::class, 'user_id', 'user_id');
+    }
 }
