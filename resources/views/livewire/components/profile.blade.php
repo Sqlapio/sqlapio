@@ -220,6 +220,7 @@
                 $('#address').val(user.address).change();
                 $('#genere').val(user.genere).change();
                 $('#specialty').val(user.specialty).change();
+                $(".holder").find('img').attr('src', img);
                 if (seal_img != null) {
                     $(".holder_seal").show();
                     let ulr_seal_img = `{{ URL::asset('/imgs/seal/${seal_img}') }}`;
@@ -276,10 +277,15 @@
             }
 
             if (img != null) {
+                console.log(img)
                 $(".holder").show();
                 let ulrImge = `{{ URL::asset('/imgs/${img}') }}`;
                 $(".holder").find('img').attr('src', ulrImge);
                 $("#img").val(img);
+            } else {
+                let img2 = '{{ URL::asset('/img/V2/combinado.png') }}';
+                $(".holder").find('img').attr('src', img2);
+                $("#img").val(img2);
             }
 
             //envio del formulario
