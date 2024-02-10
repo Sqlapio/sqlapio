@@ -83,6 +83,12 @@ class Patient extends Model
         return $this->hasMany(Center::class, 'patient_id', 'id');
     }
 
+    public function get_center(): HasOne
+    {
+        return $this->hasOne(Center::class, 'id', 'center_id');
+    }
+
+
     public function get_exams(): HasMany
     {
         return $this->hasMany(ExamPatient::class, 'patient_id', 'id');
@@ -106,5 +112,10 @@ class Patient extends Model
     public function medical_reports(): HasMany
     {
         return $this->hasMany(MedicalReport::class, 'patient_id', 'id');
+    }
+
+    public function get_patient_medical_record(): HasMany
+    {
+        return $this->hasMany(MedicalRecord::class, 'user_id', 'user_id');
     }
 }
