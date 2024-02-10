@@ -1729,12 +1729,13 @@ class UtilsController extends Controller
 
 	static function validateCapchat(Request $request)
 	{
+
 		$rules = [
-			'captcha' => 'required|captcha',
+			'captcha' => 'required|captcha_api:'. request('key') . ',math',
 		];
 
 		$msj = [
-			'center_id.required' => 'error',
+			'captcha.required' => 'error',
 		];
 
 		$validator = Validator::make($request->all(), $rules, $msj);

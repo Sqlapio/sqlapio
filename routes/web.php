@@ -44,7 +44,9 @@ use App\Models\Reference;
 use App\Models\User as ModelsUser;
 use Illuminate\Support\Str;
 use App\View\Components\VerifyplansComponent;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Laravel\Cashier\Cashier;
 
 /*
 |--------------------------------------------------------------------------
@@ -287,6 +289,16 @@ Route::middleware(['auth','AuthCheck'])->group(function () {
 
         // Referencias atendidas
         Route::get('/references/res', [UtilsController::class, 'responce_references'])->name("references_res");
+    });
+
+    Route::get('/sprite', function () {
+        $user = Auth::user();
+        // $paymentMethods = $user->paymentMethods();
+        $portal = $user->redirectToBillingPortal();
+        // $balance = $user->balance();
+        // $stripeCustomer = $user->createAsStripeCustomer();
+        return $portal;
+
     });
 });
 
