@@ -200,8 +200,23 @@ $(document).ready(() => {
       },
       id_select:{
         required: true,
-      }
-      
+      },
+      name_patient:{
+        required: true,
+      },
+
+      last_name_patient:{
+        required: true,
+      },
+      ci_patient:{
+        required: true,
+      },
+      email_patient:{
+        required: true,
+      },
+      birthdate_patient:{
+        required: true,
+      }      
     },
     messages: {
       center_id: {
@@ -231,7 +246,23 @@ $(document).ready(() => {
       },
       id_select: {
         required: "Debe Seleccionar un paciente",
-      }
+      },
+      name_patient: {
+        required: "Campo es obligatorio",
+      },
+      last_name_patient: {
+        required: "Campo es obligatorio",
+      },
+      ci_patient: {
+        required: "Campo es obligatorio",
+      },
+      email_patient: {
+        required: "Campo es obligatorio",
+      },
+      birthdate_patient: {
+        required: "Campo es obligatorio",
+      },
+      
     }
   });
 
@@ -387,6 +418,9 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
 }
 
 function clearInput(date) {
+
+  $("#handlerPetientRegister").show();
+
   $("#btn-con").find('button').remove();
   $("#btn-cancell").find('button').remove();
   $("#search-patients-show").show();
@@ -452,6 +486,7 @@ function setValue(data, info) {
 
   $('#registrer-pac').attr("disabled", false).hide();
 
+  $("#handlerPetientRegister").hide();
 
   $("#title-modal").text('Cita');
   ////

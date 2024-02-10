@@ -159,7 +159,7 @@ class Centers extends Component
             }
 
             $state = State::where('id', $request->state_contrie)->first();
-            
+
             $new_centers = new Center();
             $new_centers->address = $request->address;
             $new_centers->description = $request->full_name;
@@ -169,6 +169,16 @@ class Centers extends Component
             $new_centers->user_id = Auth::user()->id;
             $new_centers->city_contrie = $request->city_contrie;
             $new_centers->save();
+
+
+            $doctor_centers = new DoctorCenter();
+            $doctor_centers->address = $request->address;
+            $doctor_centers->number_floor = $request->number_floor_new;
+            $doctor_centers->number_consulting_room = $request->number_consulting_room_new;
+            $doctor_centers->phone_consulting_room = $request->phone_consulting_room_new;
+            $doctor_centers->user_id = Auth::user()->id;
+            $doctor_centers->center_id = $new_centers->id;
+            $doctor_centers->save();
 
             return true;
         } catch (\Throwable $th) {

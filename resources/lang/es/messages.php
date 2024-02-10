@@ -304,7 +304,7 @@ return [
         'estudios_video'        => 'Estudios con Video',
         'publicidad'        => 'Publicidad',
         'consulta_ia'        => 'Consulta IA',
-
+        'register_paciente'        => 'Registrar paciente',
     ],
 
     'select' => [

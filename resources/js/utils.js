@@ -20,9 +20,9 @@ $('.alpha-no-spaces').mask("A", {
 $("#datepicker").datepicker({
   language: 'es',
 });
-$(document).ready(() => { 
+$(document).ready(() => {
   // selec dos
-  $(".select_dos").select2({    
+  $(".select_dos").select2({
     matcher: matchCustom
   });
   ////end
@@ -45,6 +45,14 @@ function calculateAge(e, id) {
     edad--;
   }
   $(`#${id}`).val(edad);
+  if (Number(edad) >= 18) {
+    $(`#is_minor`).val(false);
+
+  } else {
+    $(`#is_minor`).val(true)
+
+  }
+
   return edad;
 }
 
@@ -91,21 +99,21 @@ async function get_data(url) {
   });
 }
 
-async function triggerExample  (token)  {
+async function triggerExample(token) {
   let link = `${token}`;
   try {
-      await navigator.clipboard.writeText(link);
-      $("#icon-copy").css("background", "#04AA6D");
-      
-      $("#copied").text('Enlace copiado!');
+    await navigator.clipboard.writeText(link);
+    $("#icon-copy").css("background", "#04AA6D");
 
-      setTimeout(function() {
-          $('#copied').hide();
-      }, 2000);
+    $("#copied").text('Enlace copiado!');
+
+    setTimeout(function () {
+      $('#copied').hide();
+    }, 2000);
 
   } catch (err) {
-      console.error('Failed to copy: ', err);
-      $("#copied").text('Error al copiar enlace!');
+    console.error('Failed to copy: ', err);
+    $("#copied").text('Error al copiar enlace!');
   }
 }
 window.triggerExample = triggerExample;

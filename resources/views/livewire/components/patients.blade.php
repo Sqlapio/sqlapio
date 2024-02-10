@@ -174,6 +174,24 @@
                 });
             }
 
+            var dtToday = new Date();
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+            if (month < 10)
+                month = '0' + month.toString();
+            if (day < 10)
+                day = '0' + day.toString();
+            var minDate = year + '-' + month + '-' + day;
+            $('.date-diary').attr('min', minDate);
+
+            var today = new Date();
+            var day = today.getDate() > 9 ? today.getDate() : "0" + today.getDate();
+            var month = (today.getMonth() + 1) > 9 ? (today.getMonth() + 1) : "0" + (today.getMonth() + 1);
+            var year = today.getFullYear();
+
+            $(".date-bd").attr('max', year + "-" + month + "-" + day);
+
             $('#form-patients').validate({
                 rules: {
                     ignore: [],
@@ -677,29 +695,7 @@
                     $('#email').val('');
                 });
             }
-        }
-
-        $(function() {
-            var dtToday = new Date();
-            var month = dtToday.getMonth() + 1;
-            var day = dtToday.getDate();
-            var year = dtToday.getFullYear();
-            if (month < 10)
-                month = '0' + month.toString();
-            if (day < 10)
-                day = '0' + day.toString();
-            var minDate = year + '-' + month + '-' + day;
-            $('.date-diary').attr('min', minDate);
-        })
-
-        $(document).ready(function() {
-            var today = new Date();
-            var day = today.getDate() > 9 ? today.getDate() : "0" + today.getDate();
-            var month = (today.getMonth() + 1) > 9 ? (today.getMonth() + 1) : "0" + (today.getMonth() + 1);
-            var year = today.getFullYear();
-
-            $(".date-bd").attr('max', year + "-" + month + "-" + day);
-        });
+        }  
 
         function switch_type_plane(type_plane, count_pat) {
 
@@ -1113,28 +1109,28 @@
                                                     @foreach ($patients as $item)
                                                         <tr>
                                                             <td class="table-avatar">
-                                                                <img class="avatar" src=" {{ $item->get_paciente->patient_img ? asset('/imgs/' . $item->get_paciente->patient_img) : ($item->get_paciente->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}" alt="Imagen del paciente">
+                                                                <img class="avatar" src=" {{ $item->patient_img ? asset('/imgs/' . $item->patient_img) : ($item->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}" alt="Imagen del paciente">
                                                             </td>
                                                             <td class="text-center">
                                                                 <button
-                                                                    onclick="agendarCita({{ $item->get_paciente }},{{ $item->get_paciente->get_reprensetative }})"
+                                                                    onclick="agendarCita({{ $item }},{{ $item->get_reprensetative }})"
                                                                     type="button" class="btn btnSecond"
                                                                     data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                                     data-bs-custom-class="custom-tooltip" data-html="true"
-                                                                    title="Agendar cita" style="font-size: 13px; padding: 0px 11px 0px 11px; !important">{{ $item->get_paciente->patient_code }}</button>
+                                                                    title="Agendar cita" style="font-size: 13px; padding: 0px 11px 0px 11px; !important">{{ $item->patient_code }}</button>
                                                             </td>
-                                                            <td class="text-center text-capitalize">  {{ $item->get_paciente->name }} {{ $item->get_paciente->last_name }}</td>
-                                                            {{-- <td class="text-center">  {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_ci . '  (Rep)' : $item->get_paciente->ci }} </td> --}}
-                                                            <td class="text-center"> {{ date('d-m-Y', strtotime($item->get_paciente->birthdate)) }} </td>
-                                                            {{-- <td class="text-center text-capitalize">  {{ $item->get_paciente->genere }}</td>
-                                                            <td class="text-center"> {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_phone . '  (Rep)' : $item->get_paciente->phone }} </td>
-                                                            <td class="text-center"> {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_email . '  (Rep)' : $item->get_paciente->email }} </td> --}}
-                                                            <td class="text-center"> {{ $item->get_center->description }} </td>
+                                                            <td class="text-center text-capitalize">  {{ $item->name }} {{ $item->last_name }}</td>
+                                                            {{-- <td class="text-center">  {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_ci . '  (Rep)' : $item->ci }} </td> --}}
+                                                            <td class="text-center"> {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>
+                                                            {{-- <td class="text-center text-capitalize">  {{ $item->genere }}</td>
+                                                            <td class="text-center"> {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_phone . '  (Rep)' : $item->phone }} </td>
+                                                            <td class="text-center"> {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_email . '  (Rep)' : $item->email }} </td> --}}
+                                                            <td class="text-center"> {{ $item->get_center->description}} </td>
                                                             <td class="text-center">
                                                                 <div class="d-flex">
                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                         <button
-                                                                            onclick="editPatien({{ json_encode($item->get_paciente) }},true); "
+                                                                            onclick="editPatien({{ json_encode($item) }},true); "
                                                                             type="button"
                                                                             data-bs-toggle="tooltip"
                                                                             data-bs-placement="bottom" title="@lang('messages.tooltips.editar')">
@@ -1142,7 +1138,7 @@
                                                                         </button>
                                                                     </div>
                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a href="{{ route('MedicalRecord', $item->get_paciente->id) }}">
+                                                                        <a href="{{ route('MedicalRecord', $item->id) }}">
                                                                         <button type="button"
                                                                             data-bs-toggle="tooltip"
                                                                             data-bs-placement="bottom"
@@ -1152,7 +1148,7 @@
                                                                     </a>
                                                                 </div>
                                                                 <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                    <a href="{{ route('ClinicalHistoryDetail', $item->get_paciente->id) }}">
+                                                                    <a href="{{ route('ClinicalHistoryDetail', $item->id) }}">
                                                                         <button type="button"
                                                                             data-bs-toggle="tooltip"
                                                                             data-bs-placement="bottom"

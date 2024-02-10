@@ -1281,7 +1281,10 @@ class UtilsController extends Controller
 		try {
 
 			$user = Auth::user();
-			$medical_record = MedicalRecord::where('user_id', $user->id)->get()->unique('patient_id');
+			// MedicalRecord::where('user_id', $user->id)->get()->unique('patient_id');
+
+			$medical_record = Patient::where('user_id', $user->id)
+			->with('get_patient_medical_record')->get();	
 			return $medical_record;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
