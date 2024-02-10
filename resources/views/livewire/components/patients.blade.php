@@ -110,7 +110,10 @@
         let urlhist = "{{ route('ClinicalHistoryDetail', ':id') }}";
         let path = "{{ route('verify-plans') }}";
 
+        
         $(document).ready(() => {
+            let ulrImge = `{{ URL::asset('/img/V2/combinado.png') }}`;
+            $(".holder").find('img').attr('src', ulrImge);
 
             switch (Number(user.type_plane)) {
                 case 1:
