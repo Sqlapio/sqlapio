@@ -1554,7 +1554,7 @@
                         {
                             data: 'date',
                             title: 'Fecha',
-                            className: "text-center td-pad",
+                            className: "text-center td-pad w-10",
                         },
                         {
                             data: 'btn',
@@ -1615,24 +1615,17 @@
                                                     class="img-medical">
                                             </div>
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                                <strong>@lang('messages.ficha_paciente.nombre'):</strong><span class="text-capitalize">
-                                                    {{ $Patient->last_name . ', ' . $Patient->name }}</span>
+                                                <strong>@lang('messages.ficha_paciente.nombre'):</strong><span class="text-capitalize"> {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                                 <br>
-                                                <strong>@lang('messages.ficha_paciente.fecha_nacimiento'):</strong><span>
-                                                    {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
+                                                <strong>@lang('messages.ficha_paciente.fecha_nacimiento'):</strong><span> {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.edad'):</strong><span> {{ $Patient->age }} años</span>
                                                 <br>
-                                                <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
-                                                <span>
-                                                    {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
+                                                <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong> <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                                 <br>
-                                                <strong>@lang('messages.ficha_paciente.genero'):</strong> <span class="text-capitalize">
-                                                    {{ $Patient->genere }}</span>
+                                                <strong>@lang('messages.ficha_paciente.genero'):</strong> <span class="text-capitalize"> {{ $Patient->genere }}</span>
                                                 <br>
-                                                <strong>@lang('messages.ficha_paciente.nro_historias'):</strong><span>
-                                                    {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
-                                                </span>
+                                                <strong>@lang('messages.ficha_paciente.nro_historias'):</strong><span> {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }} </span>
                                             </div>
                                         </div>
                                     </div>
@@ -1973,7 +1966,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center w-8" scope="col">@lang('messages.tabla.id_consulta')</th>
-                                                        <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.medico_tratante')</th>
                                                         <th class="text-center w-45" scope="col">@lang('messages.tabla.centro_salud')</th>
                                                         <th data-orderable="false" class="text-center w-20" scope="col">@lang('messages.tabla.acciones') </th>
@@ -2098,7 +2091,7 @@
                                                     <tr>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.codigo')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.medico_tratante')</th>
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.fecha')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha')</th>
                                                         <th data-orderable="false" class="text-center" scope="col">@lang('messages.tabla.acciones')</th>
                                                     </tr>
                                                 </thead>

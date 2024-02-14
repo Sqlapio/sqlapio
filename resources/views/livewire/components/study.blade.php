@@ -465,18 +465,18 @@
                     {
                         data: 'date',
                         title: 'Fecha',
-                        className: "text-center",
+                        className: "text-center w-10",
                     },
                     {
 
                         data: 'full_name',
                         title: 'Nombre y apellido',
-                        className: "text-center",
+                        className: "text-center w-17",
                     },
                     {
                         data: 'ci',
                         title: 'Cedula',
-                        className: "text-center text-capitalize",
+                        className: "text-center text-capitalize w-10",
                     },
                     {
                         data: 'description',
@@ -572,7 +572,7 @@
 
                         data: 'date',
                         title: 'Fecha',
-                        className: "text-center",
+                        className: "text-center w-10",
                     },
                     {
 
@@ -583,12 +583,12 @@
                     {
                         data: 'full_name',
                         title: 'Nombre y apellido',
-                        className: "text-center text-capitalize",
+                        className: "text-center text-capitalize w-17",
                     },
                     {
                         data: 'ci',
                         title: 'Cédula',
-                        className: "text-center text-capitalize",
+                        className: "text-center text-capitalize w-10",
                     },
                     {
                         data: 'btn',
@@ -698,9 +698,9 @@
                                                 <tr>
                                                     <th class="text-center w-image" scope="col" data-orderable="false">
                                                         @lang('messages.tabla.foto')</th>
-                                                    <th class="text-center" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
-                                                    <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                    <th class="text-center" scope="col">@lang('messages.tabla.cedula')</th>
+                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
+                                                    <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                     <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
                                                     <th class="text-center"scope="col" data-orderable="false">
                                                         @lang('messages.tabla.resultado')</th>
@@ -754,14 +754,12 @@
                                             class="table-pag-dos table-striped table-bordered" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center w-image" scope="col" data-orderable="false">
-                                                        @lang('messages.tabla.foto')</th>
-                                                    <th class="text-center" scope="col">@lang('messages.tabla.fecha_resultado')</th>
+                                                    <th class="text-center w-image" scope="col" data-orderable="false"> @lang('messages.tabla.foto')</th>
+                                                    <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_resultado')</th>
                                                     <th class="text-center" scope="col">@lang('messages.tabla.referencia')</th>
-                                                    <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                    <th class="text-center" scope="col">@lang('messages.tabla.cedula')</th>
-                                                    <th class="text-center" scope="col" data-orderable="false">
-                                                        @lang('messages.tabla.cargar_res')</th>
+                                                    <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                    <th class="text-center" scope="col" data-orderable="false"> @lang('messages.tabla.cargar_res')</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
