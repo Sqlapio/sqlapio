@@ -308,7 +308,7 @@
                     {
                         data: 'get_patient.name',
                         title: 'Nombre y Apellido',
-                        className: "text-center text-capitalize",
+                        className: "text-center text-capitalize w-17",
                     },
                     {
                         data: 'get_patient.ci',
@@ -434,7 +434,7 @@
                             {
                                 data: 'patient_info.full_name',
                                 title: 'Nombre y Apellido',
-                                className: "text-center",
+                                className: "text-center w-17",
                             },
                             {
                                 data: 'patient_info.ci',
@@ -486,7 +486,7 @@
                             {
                                 data: 'patient_info.full_name',
                                 title: 'Nombre y Apellido',
-                                className: "text-center",
+                                className: "text-center w-17",
                             },
                             {
                                 data: 'patient_info.ci',
@@ -561,7 +561,7 @@
                                                         <tr>
                                                             {{-- <th class="text-center" scope="col">Fecha</th> --}}
                                                             <th class="text-center w-10" scope="col">@lang('messages.tabla.hora')</th>
-                                                            <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                            <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                             <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                             {{-- <th class="text-center" scope="col">Género</th> --}}
                                                             {{-- <th class="text-center" scope="col">Teléfono</th> --}}
@@ -585,26 +585,25 @@
                                                                 <td class="text-center td-pad"> <span class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">{{ $item['extendedProps']['status'] }}</span> </td>
                                                                 <td>
                                                                     <div class="d-flex" style="justify-content: center;">
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="width: 32px;">
+                                                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                                                                             <a href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
                                                                                 <button type="button"
-                                                                                    class="btn btn-iPrimary rounded-circle"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
-                                                                                    title="Consulta médica">
-                                                                                    <i class="bi bi-file-earmark-text"></i>
+                                                                                    title="@lang('messages.tooltips.consulta_medica')">
+                                                                                    <img width="40" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
                                                                                 </button>
                                                                             </a>
                                                                         </div>
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="margin-left: 10px; width: 32px;">
+                                                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                                                                             <button type="button"
-                                                                                class="btn btn-iSecond rounded-circle"
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
-                                                                                title="Cancelar Cita"
+                                                                                title="@lang('messages.tooltips.cancelar_cita')"
                                                                                 onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
-                                                                                <i class="bi bi-calendar-x"></i>
+                                                                                <img width="40" height="auto" src="{{ asset('/img/icons/canceled.png') }}" alt="avatar">
                                                                             </button>
+                                                                            
                                                                         </div>
                                                                         {{-- <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
                                                                             style="margin-left: 10px; width: 32px;">
@@ -760,10 +759,10 @@
                                                     style="width:100%">
                                                     <thead>
                                                         <tr>
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
+                                                            <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
                                                             <th class="text-center w-10" scope="col">@lang('messages.tabla.referencia')</th>
                                                             {{-- <th class="text-center" scope="col">Referencia consulta médica </th> --}}
-                                                            <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                            <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                             <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                             {{-- <th class="text-center" scope="col">Género</th> --}}
                                                             <th class="text-center w-10" scope="col">@lang('messages.tabla.telefono')</th>
@@ -802,13 +801,13 @@
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                        <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
+                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.referencia')</th>
                                                         {{-- <th class="text-center" scope="col">Código Examen</th> --}}
                                                         <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_resultado')</th>
+                                                        <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_resultado')</th>
                                                         {{-- <th class="text-center" scope="col">Género</th> --}}
                                                     </tr>
                                                 </thead>
@@ -853,13 +852,13 @@
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                        <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
+                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.referencia')</th>
                                                         {{-- <th class="text-center" scope="col">Código Estudios</th> --}}
                                                         <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_resultado')</th>
+                                                        <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_resultado')</th>
                                                         {{-- <th class="text-center" scope="col">Género</th> --}}
                                                     </tr>
                                                 </thead>

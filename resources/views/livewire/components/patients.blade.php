@@ -93,7 +93,7 @@
             width: 17%;
         }
     }
-    }
+    
 </style>
 @push('scripts')
     @vite(['resources/js/dairy.js'])
@@ -585,7 +585,7 @@
                                         {
                                             data: 'btn',
                                             title: 'Acciones',
-                                            className: "text-center",
+                                            className: "text-center w-20",
                                         }
                                     ],
                                 });
@@ -900,7 +900,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" id="email-div">
+                                                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="email-div">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
@@ -918,7 +918,7 @@
 
                                                 {{-- <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" /> --}}
 
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.codigo_postal')</label>
@@ -1010,11 +1010,11 @@
                                             <table id="table-show-info-pat" class="table table-striped table-bordered" style="width:100%; ">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_nacimiento')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.genero')</th>
-                                                        <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
+                                                        <th class="text-center w-20" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1040,9 +1040,7 @@
                             </span>
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row mt-3"
-                                    {{-- id="content-search-pat" --}}
-                                    >
+                                    <div class="row mt-3" {{-- id="content-search-pat" --}} >
                                         <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mb-3 mt-3" style="width: 318px;">
                                             <div class="form-check form-check-inline">
                                                 <input onchange="habdlerPatSearch(event)" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="0">
@@ -1071,6 +1069,87 @@
                                             </button>
                                         </div>
                                     </div>
+                                    <div class="row mt-2">
+                                        <div class="row" id="table-patients">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive" >
+                                                <table id="table-patient" class="table table-striped table-bordered" style="width:100%; ">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.codigo_paciente')</th>
+                                                            <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                            {{-- <th class="text-center" scope="col">Cédula</th> --}}
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_nacimiento')</th>
+                                                            {{-- <th class="text-center" scope="col">Género</th>
+                                                            <th class="text-center" scope="col">Teléfono</th>
+                                                            <th class="text-center" scope="col">Email</th> --}}
+                                                            <th class="text-center" scope="col">@lang('messages.tabla.centro_salud')</th>
+                                                            <th class="text-center w-20" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
+    
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($patients as $item)
+                                                            <tr>
+                                                                <td class="table-avatar">
+                                                                    <img class="avatar" src=" {{ $item->patient_img ? asset('/imgs/' . $item->patient_img) : ($item->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}" alt="Imagen del paciente">
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <button
+                                                                        onclick="agendarCita({{ $item }},{{ $item->get_reprensetative }})"
+                                                                        type="button" class="btn btnSecond"
+                                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                                        data-bs-custom-class="custom-tooltip" data-html="true"
+                                                                        title="Agendar cita" style="font-size: 13px; padding: 0px 11px 0px 11px; !important">{{ $item->patient_code }}</button>
+                                                                </td>
+                                                                <td class="text-center text-capitalize">  {{ $item->name }} {{ $item->last_name }}</td>
+                                                                {{-- <td class="text-center">  {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_ci . '  (Rep)' : $item->ci }} </td> --}}
+                                                                <td class="text-center"> {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>
+                                                                {{-- <td class="text-center text-capitalize">  {{ $item->genere }}</td>
+                                                                <td class="text-center"> {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_phone . '  (Rep)' : $item->phone }} </td>
+                                                                <td class="text-center"> {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_email . '  (Rep)' : $item->email }} </td> --}}
+                                                                <td class="text-center"> {{ $item->get_center->description}} </td>
+                                                                <td class="text-center">
+                                                                    <div class="d-flex">
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                            <button
+                                                                                onclick="editPatien({{ json_encode($item) }},true); "
+                                                                                type="button"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom" title="@lang('messages.tooltips.editar')">
+                                                                                <img width="40" height="auto" src="{{ asset('/img/icons/user-edit.png') }}" alt="avatar">
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                            <a href="{{ route('MedicalRecord', $item->id) }}">
+                                                                                <button type="button"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="bottom"
+                                                                                    title="@lang('messages.tooltips.consulta_medica')">
+                                                                                    <img width="40" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
+                                                                                </button>
+                                                                            </a>
+                                                                    </div>
+                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <a href="{{ route('ClinicalHistoryDetail', $item->id) }}">
+                                                                            <button type="button"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="@lang('messages.tooltips.historia')">
+                                                                                <img width="40" height="auto" src="{{ asset('/img/icons/recipe.png') }}" alt="avatar">
+                                                                            </button>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
 
                                 </div>
                             </div>
@@ -1078,7 +1157,7 @@
                     </div>
                 </div>
                 {{-- Registro de consultas  --}}
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-cd">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingThree">
@@ -1090,89 +1169,12 @@
                             </span>
                             <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row" id="table-patients">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive" >
-                                            <table id="table-patient" class="table table-striped table-bordered" style="width:100%; ">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.codigo_paciente')</th>
-                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                        {{-- <th class="text-center" scope="col">Cédula</th> --}}
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_nacimiento')</th>
-                                                        {{-- <th class="text-center" scope="col">Género</th>
-                                                        <th class="text-center" scope="col">Teléfono</th>
-                                                        <th class="text-center" scope="col">Email</th> --}}
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.centro_salud')</th>
-                                                        <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($patients as $item)
-                                                        <tr>
-                                                            <td class="table-avatar">
-                                                                <img class="avatar" src=" {{ $item->patient_img ? asset('/imgs/' . $item->patient_img) : ($item->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}" alt="Imagen del paciente">
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <button
-                                                                    onclick="agendarCita({{ $item }},{{ $item->get_reprensetative }})"
-                                                                    type="button" class="btn btnSecond"
-                                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                                    data-bs-custom-class="custom-tooltip" data-html="true"
-                                                                    title="Agendar cita" style="font-size: 13px; padding: 0px 11px 0px 11px; !important">{{ $item->patient_code }}</button>
-                                                            </td>
-                                                            <td class="text-center text-capitalize">  {{ $item->name }} {{ $item->last_name }}</td>
-                                                            {{-- <td class="text-center">  {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_ci . '  (Rep)' : $item->ci }} </td> --}}
-                                                            <td class="text-center"> {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>
-                                                            {{-- <td class="text-center text-capitalize">  {{ $item->genere }}</td>
-                                                            <td class="text-center"> {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_phone . '  (Rep)' : $item->phone }} </td>
-                                                            <td class="text-center"> {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_email . '  (Rep)' : $item->email }} </td> --}}
-                                                            <td class="text-center"> {{ $item->get_center->description}} </td>
-                                                            <td class="text-center">
-                                                                <div class="d-flex">
-                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <button
-                                                                            onclick="editPatien({{ json_encode($item) }},true); "
-                                                                            type="button"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom" title="@lang('messages.tooltips.editar')">
-                                                                            <img width="40" height="auto" src="{{ asset('/img/icons/user-edit.png') }}" alt="avatar">
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a href="{{ route('MedicalRecord', $item->id) }}">
-                                                                        <button type="button"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom"
-                                                                            title="@lang('messages.tooltips.consulta_medica')">
-                                                                            <img width="40" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
-                                                                        </button>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                    <a href="{{ route('ClinicalHistoryDetail', $item->id) }}">
-                                                                        <button type="button"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom"
-                                                                            title="@lang('messages.tooltips.historia')">
-                                                                            <img width="40" height="auto" src="{{ asset('/img/icons/recipe.png') }}" alt="avatar">
-                                                                        </button>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
 
