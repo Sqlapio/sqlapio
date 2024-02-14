@@ -467,12 +467,12 @@
                             {
                                 data: 'dateIniTreatment',
                                 title: 'Fecha inicio',
-                                className: "text-center td-pad",
+                                className: "text-center td-pad w-7",
                             },
                             {
                                 data: 'dateEndTreatment',
                                 title: 'Fecha fin',
-                                className: "text-center td-pad",
+                                className: "text-center td-pad w-7",
                             },
                             {
                                 data: 'btn',
@@ -535,7 +535,7 @@
                             {
                                 data: 'datecirugia',
                                 title: 'Fecha',
-                                className: "text-center td-pad",
+                                className: "text-center td-pad w-7",
                             },
                             {
                                 data: 'btn',
@@ -1001,121 +1001,123 @@
                     </div>
                 </div>
                 {{-- historia ginecológica --}}
-                <div class="row mt-2">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                        <div class="accordion-item">
-                            <span class="accordion-header title" id="headingFive">
-                                <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-clipboard2-pulse"></i> @lang('messages.acordion.antecedentes_gine')
-                                </button>
-                            </span>
-                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <div class="row">
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        @lang('messages.form.edad_mestruacion')
-                                                    </label>
-                                                    <input autocomplete="off"
-                                                        class="form-control  mask-only-number @error('edad_primera_menstruation') is-invalid @enderror"
-                                                        id="edad_primera_menstruation" name="edad_primera_menstruation"
-                                                        type="text" value="{!! !empty($validateHistory) ? $Patient->get_history->edad_primera_menstruation : '' !!}">
-                                                    <i class="bi bi-calendar-event st-icon"></i>
+                @if ($Patient->genere == 'femenino')     
+                    <div class="row mt-2">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                            <div class="accordion-item">
+                                <span class="accordion-header title" id="headingFive">
+                                    <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive"
+                                        style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                        <i class="bi bi-clipboard2-pulse"></i> @lang('messages.acordion.antecedentes_gine')
+                                    </button>
+                                </span>
+                                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordion">
+                                    <div class="accordion-body">
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.edad_mestruacion')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control  mask-only-number @error('edad_primera_menstruation') is-invalid @enderror"
+                                                            id="edad_primera_menstruation" name="edad_primera_menstruation"
+                                                            type="text" value="{!! !empty($validateHistory) ? $Patient->get_history->edad_primera_menstruation : '' !!}">
+                                                        <i class="bi bi-calendar-event st-icon"></i>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        @lang('messages.form.fecha_periodo')
-                                                    </label>
-                                                    <input autocomplete="off"
-                                                        class="form-control datePickert @error('fecha_ultima_regla') is-invalid @enderror"
-                                                        id="fecha_ultima_regla" name="fecha_ultima_regla" type="text"
-                                                        readonly value="{!! !empty($validateHistory) ? $Patient->get_history->fecha_ultima_regla : '' !!}">
-                                                    <i class="bi bi-calendar2-week st-icon"></i>
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.fecha_periodo')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control datePickert @error('fecha_ultima_regla') is-invalid @enderror"
+                                                            id="fecha_ultima_regla" name="fecha_ultima_regla" type="text"
+                                                            readonly value="{!! !empty($validateHistory) ? $Patient->get_history->fecha_ultima_regla : '' !!}">
+                                                        <i class="bi bi-calendar2-week st-icon"></i>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        @lang('messages.form.nro_embarazos')
-                                                    </label>
-                                                    <input autocomplete="off"
-                                                        class="form-control mask-only-number @error('numero_embarazos') is-invalid @enderror"
-                                                        id="numero_embarazos" name="numero_embarazos" type="text"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->numero_embarazos : '' !!}">
-                                                    <i class="bi bi-hash st-icon"></i>
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.nro_embarazos')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control mask-only-number @error('numero_embarazos') is-invalid @enderror"
+                                                            id="numero_embarazos" name="numero_embarazos" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->numero_embarazos : '' !!}">
+                                                        <i class="bi bi-hash st-icon"></i>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        @lang('messages.form.nro_partos')
-                                                    </label>
-                                                    <input autocomplete="off"
-                                                        class="form-control mask-only-number @error('numero_partos') is-invalid @enderror"
-                                                        id="numero_partos" name="numero_partos" type="text"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->numero_partos : '' !!}">
-                                                    <i class="bi bi-hash st-icon"></i>
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.nro_partos')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control mask-only-number @error('numero_partos') is-invalid @enderror"
+                                                            id="numero_partos" name="numero_partos" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->numero_partos : '' !!}">
+                                                        <i class="bi bi-hash st-icon"></i>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        @lang('messages.form.nro_cesareas')
-                                                    </label>
-                                                    <input autocomplete="off"
-                                                        class="form-control mask-only-number @error('cesareas') is-invalid @enderror"
-                                                        id="cesareas" name="cesareas" type="text"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->cesareas : '' !!}">
-                                                    <i class="bi bi-hash st-icon"></i>
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.nro_cesareas')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control mask-only-number @error('cesareas') is-invalid @enderror"
+                                                            id="cesareas" name="cesareas" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->cesareas : '' !!}">
+                                                        <i class="bi bi-hash st-icon"></i>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        @lang('messages.form.nro_abortos')
-                                                    </label>
-                                                    <input autocomplete="off"
-                                                        class="form-control mask-only-number @error('numero_abortos') is-invalid @enderror"
-                                                        id="numero_abortos" name="numero_abortos" type="text"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->numero_abortos : '' !!}">
-                                                    <i class="bi bi-hash st-icon"></i>
+                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.nro_abortos')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control mask-only-number @error('numero_abortos') is-invalid @enderror"
+                                                            id="numero_abortos" name="numero_abortos" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->numero_abortos : '' !!}">
+                                                        <i class="bi bi-hash st-icon"></i>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        @lang('messages.form.anticonceptivo')
-                                                    </label>
-                                                    <input autocomplete="off"
-                                                        class="form-control mask-only-text @error('pregunta') is-invalid @enderror"
-                                                        id="pregunta" name="pregunta" type="text"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->pregunta : '' !!}">
-                                                    <i class="bi bi-capsule st-icon"></i>
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.anticonceptivo')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control mask-only-text @error('pregunta') is-invalid @enderror"
+                                                            id="pregunta" name="pregunta" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->pregunta : '' !!}">
+                                                        <i class="bi bi-capsule st-icon"></i>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                            <div class="form-group">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_ginecologica" name="observations_ginecologica" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_ginecologica : '' !!}</textarea>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                    <textarea id="observations_ginecologica" name="observations_ginecologica" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_ginecologica : '' !!}</textarea>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1123,7 +1125,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                @endif
                 {{-- alergias --}}
                 <div class="row mt-2">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 ">
@@ -1286,7 +1288,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.cirugia')</th>
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.fecha')</th>
+                                                        <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha')</th>
                                                         <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.eliminar')</th>
                                                     </tr>
                                                 </thead>
@@ -1708,8 +1710,8 @@
                                                         <th class="text-center" scope="col">@lang('messages.tabla.patologia')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.via_administracion')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.duracion')</th>
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.fecha_ini')</th>
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.fecha_fin')</th>
+                                                        <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_ini')</th>
+                                                        <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_fin')</th>
                                                         <th class="text-center" data-orderable="false" scope="col">@lang('messages.tabla.eliminar')</th>
                                                     </tr>
                                                 </thead>

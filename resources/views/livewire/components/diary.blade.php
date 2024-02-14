@@ -192,8 +192,7 @@
                 </div>
             </div>
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-                id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -204,15 +203,14 @@
                                     style="font-size: 12px;"></button>
                             </div>
                             <div class="modal-body">
+                                <strong>@lang('messages.modal.form.fecha'): </strong><span id="date"></span>
 
-                                <div id="handlerPetientRegister" class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mb-3 mt-3"
-                                    style="width: 318px;">
+                                <div id="handlerPetientRegister" class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mb-3 mt-3" style="width: 318px;">
                                     <div class="form-check form-switch ">
                                         <input onchange="handlerPetientRegister(event);" style="width: 5em"
                                             class="form-check-input" type="checkbox" role="switch"
                                             id="flexSwitchCheckChecked" value="">
-                                        <label style="margin-top: 9px; font-size: 15px" class="form-check-label"
-                                            for="inlineRadio1">
+                                        <label style="margin-top: 9px; font-size: 15px" class="form-check-label" for="inlineRadio1">
                                             @lang('messages.label.register_paciente')
                                         </label>
                                     </div>
@@ -224,15 +222,12 @@
                                         <div class="d-flex" style="align-items: center;">
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 modal-d">
                                                 <div class="img">
-                                                    <img id="img-pat" src="" width="125" height="125"
-                                                        alt="Imagen del paciente">
+                                                    <img id="img-pat" src="" width="125" height="125" alt="Imagen del paciente">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 modal-text"
-                                                style="font-size: 13px;">
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 modal-text" style="font-size: 13px;">
                                                 <div>
-                                                    <strong>@lang('messages.ficha_paciente.nombre'): </strong><span class="text-capitalize"
-                                                        id="name"></span>
+                                                    <strong>@lang('messages.ficha_paciente.nombre'): </strong><span class="text-capitalize" id="name"></span>
                                                     <br>
                                                     @if (Auth::user()->contrie = '81')
                                                         <strong>@lang('messages.ficha_paciente.ci_rd'): </strong><span id="ci"></span>
@@ -242,8 +237,7 @@
                                                     <br>
                                                     <strong>@lang('messages.ficha_paciente.edad'): </strong><span id="age"></span> años
                                                     <br>
-                                                    <strong>@lang('messages.ficha_paciente.genero'): </strong><span class="text-capitalize"
-                                                        id="genere"></span>
+                                                    <strong>@lang('messages.ficha_paciente.genero'): </strong><span class="text-capitalize" id="genere"></span>
                                                     <br>
                                                     <strong>@lang('messages.ficha_paciente.correo'): </strong><span id="email"></span>
                                                     <br>
@@ -252,8 +246,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1"
-                                        id="appointment-data" style="font-size: 13px;">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1" id="appointment-data" style="font-size: 13px;">
                                         <div>
                                             <hr>
                                             <h5>@lang('messages.modal.titulo.info')</h5>
@@ -281,8 +274,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="FC">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="date" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.fecha')</label>
+                                                    <label for="date" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.fecha')</label>
                                                     <input autocomplete="off" placeholder="" class="form-control"
                                                         id="date_start" readonly name="date_start" type="text"
                                                         value="">
