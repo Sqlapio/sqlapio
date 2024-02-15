@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Components;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\UtilsController;
 use App\Models\Appointment;
+use App\Models\Center;
 use App\Models\DoctorCenter;
 use App\Models\Patient;
 use App\Models\Representative;
@@ -114,7 +115,7 @@ class Diary extends Component
             $appointment->hour_start = $date[0] . '-' . $date[1] . " " . $request->timeIni;
             $appointment->center_id = isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id;
             $appointment->price = $request->price;
-            $appointment->color = $date[2];
+            $appointment->color = Center::where('id', $request->center_id)->first()->color;;
 
             //Validacion para evitar que la citas se registren en mismo dia a la misma hora
             $validate_dairy = Appointment::where('date_start', $request->date_start)
