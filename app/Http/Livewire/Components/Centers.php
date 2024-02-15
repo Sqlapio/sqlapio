@@ -35,8 +35,7 @@ class Centers extends Component
                 'name.required' => 'Campo requerido',
                 'number_floor.required' => 'Campo requerido',
                 'number_consulting_room.required' => 'Campo requerido',
-                // 'number_floor.numeric' => 'El valor debe ser numerico',
-                // 'number_consulting_room.numeric' => 'El valor debe ser numerico',
+
             ];
 
             $validator = Validator::make($request->all(), $rules, $msj);
@@ -63,6 +62,7 @@ class Centers extends Component
                 $doctor_centers->phone_consulting_room = $request->phone_consulting_room;
                 $doctor_centers->user_id = $user->id;
                 $doctor_centers->center_id = $request->center_id;
+                $doctor_centers->color = Center::where('id', $request->center_id)->first()->color;
                 $doctor_centers->save();
 
                 $action = '10';
@@ -70,7 +70,7 @@ class Centers extends Component
                 ActivityLogController::store_log($action);
 
                 /**
-                 * Logica para el envio de la notificacion 
+                 * Logica para el envio de la notificacion
                  * via correo electronico
                  */
 
@@ -98,8 +98,10 @@ class Centers extends Component
                 return true;
             }
         } catch (\Throwable $th) {
-            $message = $th->getMessage();
-            dd('Error Livewire.Components.Centers.store()', $message);
+            return response()->json([
+                'success' => 'false',
+                'errors'  => $th->getMessage()
+            ], 500);
         }
     }
 
@@ -168,6 +170,7 @@ class Centers extends Component
             $new_centers->country = Auth::user()->contrie;
             $new_centers->user_id = Auth::user()->id;
             $new_centers->city_contrie = $request->city_contrie;
+            $new_centers->color = UtilsController::color_dairy();
             $new_centers->save();
 
 
@@ -178,17 +181,18 @@ class Centers extends Component
             $doctor_centers->phone_consulting_room = $request->phone_consulting_room_new;
             $doctor_centers->user_id = Auth::user()->id;
             $doctor_centers->center_id = $new_centers->id;
+            $doctor_centers->color = $new_centers->color;
             $doctor_centers->save();
 
             return true;
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             return response()->json([
                 'success' => 'false',
-                'errors'  => $th
+                'errors'  => $th->getMessage()
             ], 500);
         }
     }
+
     public function render()
     {
         $user_id = Auth::user()->id;
