@@ -62,7 +62,6 @@ class Centers extends Component
                 $doctor_centers->phone_consulting_room = $request->phone_consulting_room;
                 $doctor_centers->user_id = $user->id;
                 $doctor_centers->center_id = $request->center_id;
-                $doctor_centers->color = Center::where('id', $request->center_id)->first()->color;
                 $doctor_centers->save();
 
                 $action = '10';
@@ -181,7 +180,6 @@ class Centers extends Component
             $doctor_centers->phone_consulting_room = $request->phone_consulting_room_new;
             $doctor_centers->user_id = Auth::user()->id;
             $doctor_centers->center_id = $new_centers->id;
-            $doctor_centers->color = $new_centers->color;
             $doctor_centers->save();
 
             return true;
