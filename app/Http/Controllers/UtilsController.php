@@ -1284,7 +1284,7 @@ class UtilsController extends Controller
 			// MedicalRecord::where('user_id', $user->id)->get()->unique('patient_id');
 
 			$medical_record = Patient::where('user_id', $user->id)
-			->with('get_patient_medical_record')->get();	
+			->with('get_patient_medical_record')->get();
 			return $medical_record;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
@@ -1719,6 +1719,35 @@ class UtilsController extends Controller
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_medical_record_user()', $message);
+		}
+	}
+
+    static function color_dairy()
+	{
+		try {
+
+            $colors = [
+                'rgb(128,0,0)',
+                'rgb(0,139,139)',
+                'rgb(70,130,180)',
+                'rgb(112,128,144)',
+                'rgb(250,128,114)'
+            ];
+
+			/** Selecion aleatoria */
+			$n = count($colors);
+			$rand = mt_rand(0, $n - 1);
+			$color_appointments = $colors[$rand];
+
+            return $color_appointments;
+
+		} catch (\Throwable $th) {
+
+            return response()->json([
+				'success' => 'true',
+				'data'  =>  $th->getMessage()
+			], 400);
+
 		}
 	}
 }
