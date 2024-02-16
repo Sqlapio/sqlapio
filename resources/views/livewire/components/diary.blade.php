@@ -153,17 +153,17 @@
 
                 $("#div-pat").hide();
 
-                $("#patient_new").val(true);                
+                $("#patient_new").val(true);
 
             } else {
 
-                $("#name_patient").val('');                
-                $("#last_name_patient").val('');                
-                $("#ci_patient").val('');                
-                $("#email_patient").val('');                
+                $("#name_patient").val('');
+                $("#last_name_patient").val('');
+                $("#ci_patient").val('');
+                $("#email_patient").val('');
                 $("#birthdate_patient").val('');
 
-                $("#patient_new").val(false);                
+                $("#patient_new").val(false);
 
 
                 $("#search-patients-show").show();
@@ -312,8 +312,7 @@
                                         </div>
 
                                         @if (Auth::user()->type_plane != '7')
-                                            <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                                id="CM" />
+                                            <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="CM" />
                                         @endif
 
                                         <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center"
