@@ -115,23 +115,11 @@
         }
     </script>
 @endpush
-@section('content')
+ @section('content')
     <div>
         <div class="container-fluid text-center">
             <div id="spinner" style="display: none">
                 <x-load-spinner />
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                style="display: flex; justify-content: flex-end; padding-right: 22px;">
-                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input onclick="handleLen(event);" type="radio" value="es" class="btn-check" name="btnradio"
-                        id="btnEs2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnEs2" style="padding: 8px">ES</label>
-
-                    <input onclick="handleLen(event);" type="radio" value="en" class="btn-check" name="btnradio"
-                        id="btnEn1" autocomplete="off" checked>
-                    <label class="btn btn-outline-primary" for="btnEn1" style="padding: 8px">EN</label>
-                </div>
             </div>
             <div class="row form-sq" style="position: relative">
                 <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 loginDric">
@@ -177,8 +165,13 @@
                     <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
                         <a class="links" href="{{ config('sidebar_item.var') }}">@lang('messages.login.adquiere_plan')</a>
                     </div>
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-bottom: 4px;">
                         <a class="links" href="{{ route('recovery_password') }}">@lang('messages.login.recuperar_clave')</a>
+                    </div>
+                    <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center; align-items: center; }">
+                        <img width="40" src="{{ asset('img/language.png') }}" class="">
+                        <a class="links" onclick="handleLen(event);" style="padding-left: 6px; cursor: pointer; font-weight: 700;">ES</a> 
+                        <a class="links" onclick="handleLen(event);" style="padding-left: 7px; cursor: pointer; font-weight: 700;">EN</a>
                     </div>
                 </div>
 

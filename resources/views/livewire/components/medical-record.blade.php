@@ -307,35 +307,20 @@
         }
     }
 
-    .textarea-div {
-        border: 1px solid #dee2e6;
+    textarea {
+        padding-top: 10px;
+        padding-bottom: 10px;
         width: 100%;
-        padding: .5rem;
-        min-height: 3rem;
-        border-radius: 5px;
-      }
-
-      .textarea-div:focus {
-        color: var(--bs-body-color);
-        background-color: var(--bs-body-bg);
-        border-color: #86b7fe;
-        outline: 0;
-        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        display: block;
+        height: 60px;
     }
-      .textarea-div:empty::before {
-        position: absolute;
-      }
 
-      #diagnosis, #background, #razon, #sintomas, #text_area_exman, #text_area_studies {
-        display: none;
-      }
-
-      .pre-textarea {
+    .pre-textarea {
         border: 1px solid #dee2e6;
         border-radius: 0.375rem;
         background-color: #f1f1f1;
         padding: 10px;
-      }
+    }
 </style>
 @push('scripts')
 
@@ -598,12 +583,6 @@
                             $('#spinner').hide();
                             $("#form-consulta").trigger("reset");
                             $('#table-medicamento > tbody').empty();
-                            $("#diagnosis-textarea").text('');
-                            $("#background-textarea").text('');
-                            $("#razon-textarea").text('');
-                            $("#sintomas-textarea").text('');
-                            $("#exman-textarea").text('');
-                            $("#studies-textarea").text('');
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Consulta registrada exitosamente!',
@@ -842,6 +821,7 @@
                     });
                 }
             });
+
         });
 
         function resetForm() {
@@ -903,23 +883,18 @@
                     $("#symptoms_card1").removeClass("symptoms_style");
                     $("#symptoms_card2").removeClass("symptoms_style");
                     $("#symptoms_card3").removeClass("symptoms_mt-0");
-                    $("#diagnosis-textarea").show().text('');
-                    $("#diagnosis").hide();
+
+                    $("#diagnosis").show();
                     $("#diagnosis-text").hide();
-                    $("#background-textarea").show().text('');
-                    $("#background").hide();
+                    $("#background").show();
                     $("#background-text").hide();
-                    $("#razon-textarea").show().text('');
-                    $("#razon").hide();
+                    $("#razon").show();
                     $("#razon-text").hide();
-                    $("#sintomas-textarea").show().text('');
-                    $("#sintomas").hide();
+                    $("#sintomas").show();
                     $("#sintomas-text").hide();
-                    $("#exman-textarea").show().text('');
-                    $("#exman").hide();
+                    $("#text_area_exman").show();
                     $("#exman-text").hide();
-                    $("#studies-textarea").show().text('');
-                    $("#studies").hide();
+                    $("#text_area_studies").show();
                     $("#studies-text").hide();
                 }
             });
@@ -968,17 +943,18 @@
             $("#symptoms_card1").addClass("symptoms_style");
             $("#symptoms_card2").addClass("symptoms_style");
             $("#symptoms_card3").addClass("symptoms_mt-0");
-            $("#diagnosis-textarea").hide();
+
+            $("#diagnosis").hide();
             $("#diagnosis-text").show().text(item.data.diagnosis);
-            $("#background-textarea").hide();
+            $("#background").hide();
             $("#background-text").show().text(item.data.background);
-            $("#razon-textarea").hide();
+            $("#razon").hide();
             $("#razon-text").show().text(item.data.razon);
-            $("#sintomas-textarea").hide();
+            $("#sintomas").hide();
             $("#sintomas-text").show().text(item.data.sintomas);
-            $("#exman-textarea").hide();
+            $("#text_area_exman").hide();
             $("#exman-text").show().text(item.data.sintomas);
-            $("#studies-textarea").hide();
+            $("#text_area_studies").hide();
             $("#studies-text").show().text(item.data.sintomas);
 
             item.data.medications_supplements.map((element, key) => {
@@ -1091,7 +1067,6 @@
                 valSymptoms = (valSymptoms == "") ? e.target.value : `${valSymptoms},${e.target.value}`;
 
                 $("#sintomas").val(valSymptoms);
-                $("#sintomas-textarea").text(valSymptoms);
                 handlerCheckTrue(symptom);
             } else {
                 valSymptoms = valSymptoms.replace(`${e.target.value}`, '');
@@ -1102,14 +1077,11 @@
                     valSymptoms = valSymptoms.slice(1);
                 }
 
-                if (valSymptoms.substring(valSymptoms.indexOf() + 1) == "," || valSymptoms.substring(valSymptoms.indexOf() +
-                        1) == ",,") {
+                if (valSymptoms.substring(valSymptoms.indexOf() + 1) == "," || valSymptoms.substring(valSymptoms.indexOf() +  1) == ",,") {
                     $("#sintomas").val('');
-                    $("#sintomas-textarea").text('');
                 }
 
                 $("#sintomas").val(valSymptoms);
-                $("#sintomas-textarea").text(valSymptoms);
 
                 handlerCheckDelete(symptom);
             }
@@ -1206,7 +1178,6 @@
 
                 valExamenes = (valExamenes == "") ? e.target.value : `${valExamenes},${e.target.value}`;
                 $("#text_area_exman").val(valExamenes);
-                $("#exman-textarea").text(valExamenes);
                 handlerExamenCheckTrue(data);
 
             } else {
@@ -1218,14 +1189,11 @@
                     valExamenes = valExamenes.slice(1);
                 }
 
-                if (valExamenes.substring(valExamenes.indexOf() + 1) == "," || valExamenes.substring(valExamenes.indexOf() +
-                        1) == ",,") {
+                if (valExamenes.substring(valExamenes.indexOf() + 1) == "," || valExamenes.substring(valExamenes.indexOf() + 1) == ",,") {
                     $("#text_area_exman").val('');
-                    $("#exman-textarea").text('');
                 }
 
                 $("#text_area_exman").val(valExamenes);
-                $("#exman-textarea").text(valExamenes);
                 handlerExamenCheckDelete(data);
                 exams_array.splice(key, 1);
             }
@@ -1245,7 +1213,6 @@
 
                 valStudios = (valStudios == "") ? e.target.value : `${valStudios},${e.target.value}`;
                 $("#text_area_studies").val(valStudios);
-                $("#studies-textarea").text(valStudios);
                 handlerStudiesCheckTrue(data_study);
             } else {
                 valStudios = valStudios.replace(`${e.target.value}`, '');
@@ -1259,11 +1226,9 @@
                 if (valStudios.substring(valStudios.indexOf() + 1) == "," || valStudios.substring(valStudios.indexOf() +
                         1) == ",,") {
                     $("#text_area_studies").val('');
-                    $("#studies-textarea").text('');
                 }
 
                 $("#text_area_studies").val(valStudios);
-                $("#studies-textarea").text(valStudios);
                 studies_array.splice(key, 1);
                 handlerStudiesCheckDelete(data_study);
             }
@@ -1566,26 +1531,24 @@
         }
 
         $(function(){
-            var textArea = $('#content'),
-            hiddenDiv = $(document.createElement('div')),
-            content = null;
-            
-            textArea.addClass('noscroll');
-            hiddenDiv.addClass('hiddendiv');
-            
-            $(textArea).after(hiddenDiv);
-            
-            textArea.on('keyup', function(){
-                content = $(this).val();
-                content = content.replace(/n/g, '<br>');
-                hiddenDiv.html(content + '<br class="lbr">');
-                $(this).css('height', hiddenDiv.height());
+            function autoTextarea(id) {
+                document.getElementById(id).addEventListener('keyup', function() {
+                    this.style.overflow = 'hidden';
+                    this.style.height = 0;
+                    this.style.height = this.scrollHeight + 'px';
+                }, false);
+            }
+
+            autoTextarea('background');
+            autoTextarea('sintomas');
+            autoTextarea('razon');
+            autoTextarea('diagnosis');
+            autoTextarea('text_area_exman');
+            autoTextarea('text_area_studies');
         });
 
+            
 
-
-
-});
     </script>
 @endpush
 @section('content')
@@ -1645,8 +1608,7 @@
                                     <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.consulta_medica')
                                 </button>
                             </span>
-                            <div id="collapseTwo" class="accordion-collapse2 collapse" aria-labelledby="headingTwo"
-                                data-bs-parent="#accordionExample">
+                            <div id="collapseTwo" class="accordion-collapse2 collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                 <div class="accordion-body m-mb">
                                     <form id="form-consulta" method="post" action="/">
                                         {{ csrf_field() }}
@@ -1676,22 +1638,19 @@
                                                     </div>
                                                 </div>
                                             @endif
-                                            <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style'
-                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
+                                            <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style' style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
                                                     <div class="form-group">
-                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.antecedentes')</label>
-                                                        <textarea id="background" rows="3" name="background" class="form-control"></textarea>
-                                                        <div id="background-textarea" contenteditable class="textarea-div" oninput="document.querySelector('#background').textContent = this.innerText"></div>
+                                                        <label for="background" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.antecedentes')</label>
+                                                        <textarea id="background" rows="1" name="background" class="form-control"></textarea>
                                                         <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="background-text"></pre>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pl-5">
                                                     <div class="form-group">
-                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon')</label>
-                                                        <textarea id="razon" rows="3" name="razon" class="form-control"></textarea>
-                                                        <div id="razon-textarea" contenteditable class="textarea-div" oninput="document.querySelector('#razon').textContent = this.innerText"></div>
+                                                        <label for="razon" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon')</label>
+                                                        <textarea id="razon" rows="1" name="razon" class="form-control"></textarea>
                                                         <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="razon-text"></pre>
                                                     </div>
                                                 </div>
@@ -1702,12 +1661,10 @@
                                                     <div class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <div class="form-group" style="display: flex; align-items: center;">
                                                             <label for="search_symptoms" class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 130px">  @lang('messages.form.buscar_sintoma') </label>
-                                                            <input onkeyup="search(event,'symptoms')" type="text"
-                                                                style="border-radius: 30px;" class="form-control"
-                                                                id="floatingInput" placeholder="">
+                                                            <input onkeyup="search(event,'symptoms')" type="text" style="border-radius: 30px;" class="form-control" id="floatingInput" placeholder="">
                                                         </div>
                                                     </div>
-                                                    <div id='diagnosis_div' class="overflow-auto mt-2" style="max-width: 100%; min-height: 60px; position: relative;">
+                                                    <div id='diagnosis_div' class="overflow-auto mt-2" style="max-width: 100%; min-height: 35px; position: relative;">
                                                         <ul id="symptoms_filter" class="symptoms"  style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none"> </ul>
                                                         <ul id="symptoms" class="symptoms list-mb" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
                                                     </div>
@@ -1716,7 +1673,6 @@
                                                         <div class="form-group">
                                                             <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.sintomas')</label>
                                                             <textarea id="sintomas" rows="2" name="sintomas" class="form-control"></textarea>
-                                                            <div id="sintomas-textarea" contenteditable class="textarea-div" oninput="document.querySelector('#sintomas').textContent = this.innerText"></div>
                                                             <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="sintomas-text"></pre>
                                                         </div>
                                                     </div>
@@ -1745,8 +1701,7 @@
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <div class="form-group">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.diagnostico')</label>
-                                                    <textarea id="diagnosis" name="diagnosis" class="form-control" spellcheck="false"></textarea>
-                                                    <div id="diagnosis-textarea" contenteditable class="textarea-div" oninput="document.querySelector('#diagnosis').textContent = this.innerText"></div>
+                                                    <textarea id="diagnosis" rows="1" name="diagnosis" class="form-control" spellcheck="false"></textarea>
                                                     <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="diagnosis-text"></pre>
                                                 </div>
                                             </div>
@@ -1768,8 +1723,7 @@
                                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                 <div class="form-group">
                                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.examenes')</label>
-                                                                    <textarea id="text_area_exman" rows="2" name="text_area_exman" class="form-control"></textarea>
-                                                                    <div id="exman-textarea" contenteditable class="textarea-div" oninput="document.querySelector('#text_area_exman').textContent = this.innerText"></div>
+                                                                    <textarea id="text_area_exman" rows='2' name="text_area_exman" class="form-control"></textarea>
                                                                     <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="exman-text"></pre>
                                                                 </div>
                                                             </div>
@@ -1777,7 +1731,7 @@
                                                         <div class="mt-2 overflow-auto" style="max-width: 100%; position: relative; min-height: 60px;">
                                                             <ul id="exam_filter" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; ; margin-bottom: 0;"> </ul>
                                                             <div id='not-exam'> 
-                                                                <img width="50" height="auto" src="{{ asset('/img/icons/not-file.png') }}" alt="avatar">
+                                                                <img width="50" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
                                                                 <span >@lang('messages.label.info_3')</span>
                                                             </div>
                                                             <ul id="exam" class="exam list-mb" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
@@ -1801,7 +1755,6 @@
                                                                 <div class="form-group">
                                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.estudios')</label>
                                                                     <textarea id="text_area_studies" rows="2" name="text_area_studies" class="form-control"></textarea>
-                                                                    <div id="studies-textarea" contenteditable class="textarea-div" oninput="document.querySelector('#text_area_studies').textContent = this.innerText"></div>
                                                                     <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="studies-text"></pre>
                                                                 </div>
                                                             </div>
@@ -2142,13 +2095,11 @@
                                 onclick="triggerExample();" style="margin-left: 5%;">
                                 <i class="bi bi-file-earmark-text"></i>
                             </button> <span style="padding-left: 5px" id="copied"></span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                style="font-size: 12px;"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                         </div>
                         <div class="modal-body">
                             <div class="div-ia">
-                                <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
-                                    id="p-ia"></pre>
+                                <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="p-ia"></pre>
                             </div>
                         </div>
                     </div>
@@ -2181,14 +2132,12 @@
                                             class="img-medical-modal">
                                     </div>
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                        <strong>Nombre:</strong><span class="text-capitalize">
-                                            {{ $Patient->last_name . ', ' . $Patient->name }}</span>
+                                        <strong>Nombre:</strong><span class="text-capitalize"> {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                         <br>
                                         <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
                                         <br>
                                         <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
-                                        <span>
-                                            {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
+                                        <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                     </div>
                                 </div>
 

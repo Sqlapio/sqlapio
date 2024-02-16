@@ -452,6 +452,7 @@
             if (active) {
                 $(".accordion-collapseOne").collapse('show')
             }
+            
             $("#id").val(item.id);
             $("#name").val(item.name);
             $("#name").val(item.name);
@@ -469,15 +470,21 @@
             $("#city").val(item.city).change();
             $('#btn-save').attr('disabled', false);
             $(".holder").show();
-            let ulrImge = `{{ URL::asset('/imgs/${item.patient_img}') }}`;
-            $(".holder").find('img').attr('src', ulrImge);
-            $("#img").val(item.patient_img);
             if (item.is_minor === 'true') {
                 $("#re_name").val(item.get_reprensetative.re_name);
                 $("#re_last_name").val(item.get_reprensetative.re_last_name);
                 $("#re_ci").val(item.get_reprensetative.re_ci);
                 $("#re_email").val(item.get_reprensetative.re_email);
                 $("#re_phone").val(item.get_reprensetative.re_phone);
+            }
+            if (item.patient_img === null) {
+                let ulrImge = `{{ URL::asset('/img/V2/combinado.png') }}`;
+                $(".holder").find('img').attr('src', ulrImge);
+                $("#img").val(ulrImge);
+            } else {
+                let ulrImge = `{{ URL::asset('/imgs/${item.patient_img}') }}`;
+                $(".holder").find('img').attr('src', ulrImge);
+                $("#img").val(item.patient_img);
             }
 
         }
@@ -1012,8 +1019,8 @@
                                                     <tr>
                                                         <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_nacimiento')</th>
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.genero')</th>
+                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.fecha_nacimiento')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.genero')</th>
                                                         <th class="text-center w-20" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
                                                     </tr>
                                                 </thead>
