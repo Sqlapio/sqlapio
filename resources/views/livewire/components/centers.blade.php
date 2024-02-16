@@ -58,7 +58,6 @@
                     address: {
                         required: true,
                         minlength: 3,
-                        maxlength: 50,
                     },
                     number_floor: {
                         required: true,
@@ -77,7 +76,6 @@
                     address: {
                         required: "Dirección es obligatorio",
                         minlength: "Dirección debe ser mayor a 3 caracteres",
-                        maxlength: "Dirección debe ser menor a 50 caracteres",
                     },
                     number_floor: {
                         required: "Número de piso es obligatorio",
@@ -150,7 +148,6 @@
                     address: {
                         required: true,
                         minlength: 3,
-                        maxlength: 50,
                     },
                     contrie: {
                         required: true,
@@ -178,7 +175,6 @@
                     address: {
                         required: "Dirección es obligatorio",
                         minlength: "Dirección debe ser mayor a 3 caracteres",
-                        maxlength: "Dirección debe ser menor a 50 caracteres",
                     },
                     state_contrie: {
                         required: "Estado es obligatorio",
