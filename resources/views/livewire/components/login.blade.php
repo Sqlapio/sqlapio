@@ -170,8 +170,8 @@
                     </div>
                     <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center; align-items: center; }">
                         <img width="40" src="{{ asset('img/language.png') }}" class="">
-                        <a class="links" onclick="handleLen(event);" style="padding-left: 6px; cursor: pointer; font-weight: 700;">ES</a> 
-                        <a class="links" onclick="handleLen(event);" style="padding-left: 7px; cursor: pointer; font-weight: 700;">EN</a>
+                        <input onclick="handleLen(event);" class="links" type="button" value="es" style="background: transparent; border:none; text-transform: uppercase; pointer; font-weight: 700; padding: 0 0 0 7px;">
+                        <input onclick="handleLen(event);" class="links" type="button" value="en" style="background: transparent; border:none; text-transform: uppercase; pointer; font-weight: 700; padding: 0 0 0 7px;">
                     </div>
                 </div>
 

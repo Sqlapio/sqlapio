@@ -83,12 +83,12 @@
                     height: {
                         required: true,
                     },
-                    current_illness: {
-                        required: true,
-                    },
-                    reason: {
-                        required: true,
-                    },
+                    // current_illness: {
+                    //     required: true,
+                    // },
+                    // reason: {
+                    //     required: true,
+                    // },
                     applied_studies: {
                         required: true,
                     },
@@ -142,12 +142,12 @@
                     countNotPathological: {
                         required: "Debe seleccionar una opción"
                     },
-                    current_illness: {
-                        required: "Enfermedad Actual es obligatoria",
-                    },
-                    reason: {
-                        required: "Motivo de la consulta es obligatoria"
-                    },
+                    // current_illness: {
+                    //     required: "Enfermedad Actual es obligatoria",
+                    // },
+                    // reason: {
+                    //     required: "Motivo de la consulta es obligatoria"
+                    // },
                     strain_two: {
                         required: "Tensión es obligatoria"
                     },
@@ -211,7 +211,7 @@
                 $('#strain_two').val() === "" || $('#temperature').val() === "" ||
                 $('#breaths').val() === "" || $('#pulse').val() === "" ||
                 $('#saturation').val() === "" || $('#condition').val() === "" ||
-                $('#reason').val() === "" || $('#current_illness').val() === "" ||
+                // $('#reason').val() === "" || $('#current_illness').val() === "" ||
                 $('#countVitalSigns').val() === "" || $('#countVitalSigns').val() === "" ) {
                     $("#EF").html(`Debe completar los datos <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`);
                     $("#VS").html(`Debe seleccionar al menos una opción <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`);
@@ -1018,7 +1018,7 @@
                                             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                        <label for="edad_primera_menstruation" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                             @lang('messages.form.edad_mestruacion')
                                                         </label>
                                                         <input autocomplete="off"
@@ -1032,7 +1032,7 @@
                                             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                        <label for="fecha_ultima_regla" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                             @lang('messages.form.fecha_periodo')
                                                         </label>
                                                         <input autocomplete="off"
@@ -1046,7 +1046,7 @@
                                             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                        <label for="numero_embarazos" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                             @lang('messages.form.nro_embarazos')
                                                         </label>
                                                         <input autocomplete="off"
@@ -1060,7 +1060,7 @@
                                             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                        <label for="numero_partos" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                             @lang('messages.form.nro_partos')
                                                         </label>
                                                         <input autocomplete="off"
@@ -1074,7 +1074,7 @@
                                             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                        <label for="cesareas" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                             @lang('messages.form.nro_cesareas')
                                                         </label>
                                                         <input autocomplete="off"
@@ -1088,7 +1088,7 @@
                                             <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                        <label for="numero_abortos" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                             @lang('messages.form.nro_abortos')
                                                         </label>
                                                         <input autocomplete="off"
@@ -1115,7 +1115,7 @@
                                             </div>
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                 <div class="form-group">
-                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                    <label for="observations_ginecologica" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
                                                     <textarea id="observations_ginecologica" name="observations_ginecologica" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_ginecologica : '' !!}</textarea>
                                                 </div>
                                             </div>
@@ -1253,7 +1253,7 @@
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                    <label for="tipo_cirugia" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                         @lang('messages.form.tipo_cirugia')
                                                     </label>
                                                     <input autocomplete="off" class="form-control mask-only-text" id="cirugia" name="cirugia" type="text" value="">
@@ -1265,7 +1265,7 @@
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                    <label for="datecirugia" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                         @lang('messages.form.fecha')
                                                     </label>
                                                     <input autocomplete="off" class="form-control datePickert"
@@ -1282,8 +1282,7 @@
                                             </span>
                                         </div>
                                         {{-- tabla --}}
-                                        <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5 table-responsive"
-                                            style="margin-top: 20px; width: 100%;">
+                                        <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5 table-responsive" style="margin-top: 20px; width: 100%;">
                                             <table class="table table-striped table-bordered" id="table-cirugia">
                                                 <thead>
                                                     <tr>

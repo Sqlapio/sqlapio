@@ -172,6 +172,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function(response) {
+                            console.log(response[0])
                             if (response.length > 0) {
                                 $('#spinner').hide();
                                 Swal.fire({
@@ -221,7 +222,7 @@
                                     <div class="row p-3">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <ul class="list-group" style="border-radius: 8px;">
-                                                <li class="list-group-item active aa" aria-current="true">
+                                                <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
                                                     <div class="d-flex w-100 justify-content-between">
                                                         <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Examen Físico</h5>
                                                     </div>    
@@ -276,6 +277,11 @@
                                                         <small>Enfermedad Actual:</small><span >${ response[0].current_illness}</span>   
                                                     </div>
                                                 </li>                                   
+                                                <li class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <small>Observaciones:</small><span >${ response[0].applied_studies}</span>   
+                                                    </div>
+                                                </li>                                   
                                             </ul>
                                         </div>
                                     </div>
@@ -285,6 +291,7 @@
 
                                     // Antecedentes Personales y Familiares
                                     $('.family_back').empty();
+                                    $('.ob_family_back').empty();
                                     family_back.map((value, keyy) => {
                                         for (const [key, val] of Object.entries(
                                                 response[0])) {
@@ -302,10 +309,20 @@
                                             };
                                         }
                                     });
+                                    if (response[0].observations_back_family) {
+                                        $('.ob_family_back').append(
+                                            `<li class="list-group-item">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <small>Observaciones:</small><span >${ response[0].observations_back_family}</span>   
+                                                </div>
+                                            </li>`
+                                        );
+                                    }
                                     //end
 
                                     // Antecedentes personales patológicos
                                     $('.pathology_back').empty();
+                                    $('.ob_pathology_back').empty();
                                     pathology_back.map((value, keyy) => {
                                         for (const [key, val] of Object.entries(
                                                 response[0])) {
@@ -325,10 +342,21 @@
                                             };
                                         }
                                     });
+
+                                    if (response[0].observations_diagnosis) {
+                                        $('.ob_pathology_back').append(
+                                            `<li class="list-group-item">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <small>Observaciones:</small><span >${ response[0].observations_diagnosis}</span>   
+                                                </div>
+                                            </li>`
+                                        );
+                                    }
                                     // end
 
                                     // historia Antecedentes personales no patológicos
                                     $('.non_pathology_back').empty();
+                                    $('.ob_non_pathology_back').empty();
                                     non_pathology_back.map((value, keyy) => {
                                         for (const [key, val] of Object.entries(
                                                 response[0])) {
@@ -347,6 +375,18 @@
                                             };
                                         }
                                     });
+
+                                    if (response[0].observations_not_pathological) {
+                                        $('.ob_non_pathology_back').append(
+                                            `<li class="list-group-item">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <small>Observaciones:</small><span >${ response[0].observations_not_pathological}</span>   
+                                                </div>
+                                            </li>`
+                                        );
+                                    }
+                                    
+                                    
                                     // end
 
                                     /// gilecologico
@@ -355,7 +395,7 @@
                                     let gine = `<div class="row p-3">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                         <ul class="list-group" style="border-radius: 8px;">
-                                            <li class="list-group-item active aa" aria-current="true">
+                                            <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Antecedentes ginecologicos (si aplica) </h5>                                   
                                                 </div>
@@ -402,6 +442,12 @@
                                                     <small>Utiliza algún método anticonceptivo, ¿Cual?:</small><span>${response[0].pregunta}</span>   
                                                 </div>
                                             </li>       
+                                            <li class="list-group-item"
+                                                aria-current="true">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <small>Observaciones:</small><span>${response[0].observations_ginecologica}</span>   
+                                                </div>
+                                            </li>       
                                         </ul>
                                     </div>`
 
@@ -411,6 +457,7 @@
 
                                     /// alegias
                                     $('.list-alergias').empty();
+                                    $('.ob-alergias').empty();
                                     response[0].allergies.map((e, key) => {
                                         $('.list-alergias').append(
                                             `<li class=" ${key} list-group-item" aria-current="true"> 
@@ -421,6 +468,15 @@
                                         );
                                     });
                                                 
+                                    if (response[0].observations_allergies) {
+                                        $('.ob-alergias').append(
+                                            `<li class="list-group-item">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <small>Observaciones:</small><span >${ response[0].observations_allergies}</span>   
+                                                </div>
+                                            </li>`
+                                        );
+                                    }
                                     if (response[0].allergies.length === 0) {
                                         $('#not-alergias').show();
                                     } else {
@@ -431,6 +487,7 @@
 
                                     /// cirugias
                                     $('.list-cirugias').empty();
+                                    $('.ob-cirugias').empty();
                                     response[0].history_surgical.map((e, key) => {
                                         $('.list-cirugias').append(
                                             `<li class=" ${key} list-group-item" aria-current="true"> 
@@ -442,6 +499,17 @@
 
                                     });
 
+                                    if (response[0].observations_ginecologica) {
+                                        $('.ob-cirugias').append(
+                                            `<li class="list-group-item">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <small>Observaciones:</small><span >${ response[0].observations_ginecologica}</span>   
+                                                </div>
+                                            </li>`
+                                        );
+                                    }
+                                    
+
                                     if (response[0].history_surgical.length === 0) {
                                         $('#not-cirugias').show();
                                     } else {
@@ -451,6 +519,7 @@
 
                                     /// medicamentos
                                     $('.list-medicamentos').empty();
+                                    $('.ob-medicamentos').empty();
                                     response[0].medications_supplements.map((e,
                                         key) => {
                                         $('.list-medicamentos').append(
@@ -461,6 +530,16 @@
                                             </li>`
                                         );
                                     });
+
+                                    if (response[0].observations_medication) {
+                                        $('.ob-medicamentos').append(
+                                            `<li class="list-group-item">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <small>Observaciones:</small><span >${ response[0].observations_medication}</span>   
+                                                </div>
+                                            </li>`
+                                        );
+                                    }
 
                                     if (response[0].medications_supplements.length === 0) {
                                         $('#not-medications').show();
@@ -479,7 +558,7 @@
                                         let element = '';
                                         if ((key % 2) == 0) {
                                             element =
-                                        `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px;">
+                                        `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px; z-index: 0;">
                                             <div class="d-flex w-100 justify-content-between">
                                                 <h5 class="text-capitalize">Médico: ${e.doctor} </h5><br>
                                             </div>
@@ -645,31 +724,21 @@
                                 <div class="row mt-2">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                         <h5 style='font-size: 15px;'>Historia del paciente</h5>
-
                                     </div>
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                         <div class="form-group">
-                                            <label for="ci"
-                                                class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Ingrese
-                                                número de cédula</label>
-                                            <input maxlength="10" type="text" class="form-control mask-only-number"
-                                                id="ci" name="ci" placeholder="" value="">
+                                            <label for="ci" class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Ingrese número de cédula</label>
+                                            <input maxlength="10" type="text" class="form-control mask-only-number" id="ci" name="ci" placeholder="" value="">
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                         <div class="form-group">
-                                            <label for="phone" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha de
-                                                Nacimiento</label>
-                                            <input class="form-control date-bd" id="birthdate" name="birthdate"
-                                                style="padding: 0.375rem 5px 0.375rem 0.75rem;"
-                                                type="date" value="">
+                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha de Nacimiento</label>
+                                            <input class="form-control date-bd" id="birthdate" name="birthdate" style="padding: 0.375rem 5px 0.375rem 0.75rem;" type="date" value="">
                                         </div>
                                     </div>
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2"
-                                        style="display: flex; align-items: flex-end;">
-                                        <input class="btn btnSave send" id="btn-save" value="Consultar" type="submit"
-                                            style="margin-left: 10px; margin-bottom: 4px;" />
+                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" style="display: flex; align-items: flex-end;">
+                                        <input class="btn btnSave send" id="btn-save" value="Consultar" type="submit" style="margin-left: 10px; margin-bottom: 4px;" />
                                     </div>
                                 </div>
                             </form>
@@ -678,7 +747,6 @@
                                 <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8">
                                     <div class="d-flex" style="align-items: center;" id="info-pat"></div>
                                 </div>
-
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-4">
                                     <div id="wizard">
                                         <h3>Historia clinica</h3>
@@ -690,13 +758,14 @@
                                                 <div class="row p-3 mt-2">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <ul class="list-group" style="border-radius: 8px;">
-                                                            <li class="list-group-item active aa" aria-current="true">
+                                                            <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Antecedentes Personales y Familiares</h5>
+                                                                    <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Antecedentes Personales</h5>
                                                                 </div>
                                                             </li>
                                                             <div class="family_back">
-
+                                                            </div>
+                                                            <div class="ob_family_back">
                                                             </div>
                                                         </ul>
                                                     </div>
@@ -706,13 +775,14 @@
                                                 <div class="row p-3 mt-2">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <ul class="list-group" style="border-radius: 8px;">
-                                                            <li class="list-group-item active aa" aria-current="true">
+                                                            <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
                                                                 <div class="d-flex w-100 justify-content-between">
                                                                     <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Antecedentes personales patológicos</h5>
                                                                 </div>
                                                             </li>
                                                             <div class="pathology_back ">
-
+                                                            </div>
+                                                            <div class="ob_pathology_back ">
                                                             </div>
                                                         </ul>
                                                     </div>
@@ -721,13 +791,14 @@
                                                 <div class="row p-3 mt-2">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <ul class="list-group" style="border-radius: 8px;">
-                                                            <li class="list-group-item active aa" aria-current="true">
+                                                            <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
                                                                 <div class="d-flex w-100 justify-content-between">
                                                                     <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Antecedentes no patológicos</h5>
                                                                 </div>
                                                             </li>
                                                             <div class="non_pathology_back ">
-
+                                                            </div>
+                                                            <div class="ob_non_pathology_back">
                                                             </div>
                                                         </ul>
                                                     </div>
@@ -741,12 +812,14 @@
                                                 <div class="row p-3 mt-2">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <ul class="list-group" style="border-radius: 8px;">
-                                                            <li class="list-group-item active aa" aria-current="true">
+                                                            <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
                                                                 <div class="d-flex w-100 justify-content-between">
                                                                     <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Antecedentes alérgicos</h5>
                                                                 </div>
                                                             </li>
                                                             <div class="list-alergias ">
+                                                            </div>
+                                                            <div class="ob-alergias">
                                                             </div>
                                                             <div id="not-alergias">
                                                                 <li  class="list-group-item" aria-current="true"> 
@@ -761,13 +834,16 @@
                                                 <div class="row p-3 mt-2">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <ul class="list-group" style="border-radius: 8px;">
-                                                            <li class="list-group-item active aa" aria-current="true">
+                                                            <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
                                                                 <div class="d-flex w-100 justify-content-between">
                                                                     <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Antecedentes quirúrgicos </h5>
                                                                 </div>
                                                             </li>
                                                             <div class="list-cirugias">
                                                             </div>
+                                                            <div class="ob-cirugias">
+                                                            </div>
+                                                            
                                                             <div id="not-cirugias">
                                                                 <li  class="list-group-item" aria-current="true"> 
                                                                     <div class="d-flex w-100 justify-content-between">
@@ -782,13 +858,15 @@
                                                 <div class="row p-3 mt-2">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <ul class="list-group" style="border-radius: 8px;">
-                                                            <li class="list-group-item active aa" aria-current="true">
+                                                            <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
                                                                 <div class="d-flex w-100 justify-content-between">
                                                                     <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Medicamentos
                                                                     </h5>
                                                                 </div>
                                                             </li>
                                                             <div class="list-medicamentos">
+                                                            </div>
+                                                            <div class="ob-medicamentos">
                                                             </div>
                                                             <div id="not-medications">
                                                                 <li  class="list-group-item" aria-current="true"> 
