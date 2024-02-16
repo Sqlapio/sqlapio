@@ -801,7 +801,7 @@
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
                                                         <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.referencia')</th>
@@ -852,7 +852,7 @@
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
                                                         <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.referencia')</th>
