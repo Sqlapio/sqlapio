@@ -117,6 +117,9 @@ class UtilsController extends Controller
 		if ($value == '22') {
 			return 'initial registration of General Manager';
 		}
+        if ($value == '23') {
+			return 'dairy: pre-registration of patient';
+		}
 	}
 
 	/**
