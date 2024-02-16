@@ -278,6 +278,7 @@ return [
         'datos_paciente'      => 'Datos del paciente',
         'am'                  => 'AM',
         'pm'                  => 'PM',
+        'detalle_plan'        => 'Detalles del plan',
         'centro_salud'        => 'Centro de Salud',
         'seleccione'          => 'Seleccione',
         'info_3'              => 'No hay exámenes para mostrar de este paciente',
