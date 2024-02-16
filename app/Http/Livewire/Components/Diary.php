@@ -66,9 +66,17 @@ class Diary extends Component
                 ], 400);
             }
 
-            // crear pacinete nuevo
-            if ($request->patient_new == "true") {
-
+            /**
+             * Logica para realizar un pre-registro del paciente
+             * desde la agenda
+             *
+             * Se toman los datos primarios del paciente
+             * y son agregados en la tabla 'patient'
+             *
+             * @param patient_new == "true"
+             */
+            if ($request->patient_new == "true")
+            {
                 $patient =  Patient::updateOrCreate(
                     ['id' => $request->id],
                     [
@@ -96,8 +104,20 @@ class Diary extends Component
                     $re_patient->patient_id = $patient->id;
                     $re_patient->save();
                 }
+
+                $action = '23';
+                ActivityLogController::store_log($action);
+
+                /**
+                 * Logica para aumentar el contador
+                 * de almacenamiento para el numero
+                 * de pacientes.
+                 *
+                 * Esta logica se aplica al tema de los planes
+                 */
+                UtilsController::update_patient_counter(Auth::user()->id);
             }
-            ///end
+            /** Fin de la funcion */
 
             /** Validacion para cargar el centro correcto cuando el medico
              * esta asociado al plan corporativo
