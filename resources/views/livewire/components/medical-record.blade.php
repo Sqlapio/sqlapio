@@ -200,8 +200,8 @@
     }
 
     /* .section {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/fondo.jpg");
-    }    */
+background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/fondo.jpg");
+}    */
 
     .s-IA {
         width: 12% !important;
@@ -884,7 +884,7 @@
                     conut_vital_sing: {
                         required: true,
                     },
-                    center_id:{
+                    center_id: {
                         required: true,
                     }
                 },
@@ -1111,12 +1111,12 @@
             item.data.medications_supplements.map((element, key) => {
                 countMedicationAdd = countMedicationAdd + 1;
                 var row = `
-                        <tr id="${countMedicationAdd}">
-                            <td class="text-center">${element.medicine}</td>
-                            <td class="text-center">${element.indication}</td>
-                            <td class="text-center">${element.treatmentDuration}</td>
-                            <td class="text-center"><span><i class="bi bi-x-circle-fill"></i></span></td>
-                        </tr>`;
+<tr id="${countMedicationAdd}">
+<td class="text-center">${element.medicine}</td>
+<td class="text-center">${element.indication}</td>
+<td class="text-center">${element.treatmentDuration}</td>
+<td class="text-center"><span><i class="bi bi-x-circle-fill"></i></span></td>
+</tr>`;
                 $('#table-medicamento').find('tbody').append(row);
 
                 //setiar examenes
@@ -1128,12 +1128,12 @@
                 exam_filter.map((element) => {
 
                     var list = `
-                    <ul style="padding-inline-start: 0;">
-                        <li style="margin-bottom: 10px; padding-right: 5px">
-                            <input type="checkbox" class="btn-check" autocomplete="off" checked disabled >
-                            <label class="btn btn-outline-primary check-cm" for={elem.cod_exam}> ${element} </label>
-                        </li>
-                    </ul>`;
+<ul style="padding-inline-start: 0;">
+<li style="margin-bottom: 10px; padding-right: 5px">
+<input type="checkbox" class="btn-check" autocomplete="off" checked disabled >
+<label class="btn btn-outline-primary check-cm" for={elem.cod_exam}> ${element} </label>
+</li>
+</ul>`;
                     $('#exam_filter').append(list);
                 })
 
@@ -1152,12 +1152,12 @@
                 study_filter.map((element) => {
 
                     var list = `
-                    <ul style="padding-inline-start: 0;">
-                        <li style="margin-bottom: 10px; padding-right: 5px">
-                            <input type="checkbox" class="btn-check" autocomplete="off" checked disabled >
-                            <label class="btn btn-outline-success check-cm" for={elem.cod_exam}> ${element} </label>
-                        </li>
-                    </ul>`;
+<ul style="padding-inline-start: 0;">
+<li style="margin-bottom: 10px; padding-right: 5px">
+<input type="checkbox" class="btn-check" autocomplete="off" checked disabled >
+<label class="btn btn-outline-success check-cm" for={elem.cod_exam}> ${element} </label>
+</li>
+</ul>`;
                     $('#study_filter').append(list);
                 })
 
@@ -1266,9 +1266,9 @@
 
                 if (k < number) {
                     let el = `<li style="margin-bottom: 10px; padding-right: 5px">
-                                <input type="checkbox" ${check} class="btn-check" id="${id}_${e.id}" name="chk${id}_${ e.id }" autocomplete="off" data-code="${code}" ${callback} value="${ e.description }">
-                                <label class="${clas}" for="${id}_${e.id }"> ${ e.description } </label>
-                            </li>`;
+<input type="checkbox" ${check} class="btn-check" id="${id}_${e.id}" name="chk${id}_${ e.id }" autocomplete="off" data-code="${code}" ${callback} value="${ e.description }">
+<label class="${clas}" for="${id}_${e.id }"> ${ e.description } </label>
+</li>`;
                     array.push(el)
                 }
             });
@@ -1636,17 +1636,17 @@
                 let route = "{{ route('PDF_informe_medico', ':id') }}";
                 route = route.replace(':id', elem.id);
                 elem.btn = `
-                            <a target="_blank" href="${route}">
-                                <button type="button" class="btn refresf btn-iSecond rounded-circle">
-                                    <i class="bi bi-file-earmark-pdf"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="bottom"
-                                        data-bs-custom-class="custom-tooltip"
-                                        data-html="true" title="Ver PDF">
-                                    </i>
-                                </button>
-                            </a>
-                            `;
+<a target="_blank" href="${route}">
+<button type="button" class="btn refresf btn-iSecond rounded-circle">
+<i class="bi bi-file-earmark-pdf"
+data-bs-toggle="tooltip"
+data-bs-placement="bottom"
+data-bs-custom-class="custom-tooltip"
+data-html="true" title="Ver PDF">
+</i>
+</button>
+</a>
+`;
 
                 elem.name = `${ elem.get_doctor.name} ${elem.get_doctor.last_name  }`
                 row.push(elem);
@@ -2058,8 +2058,7 @@
                                             </div>
                                         </div>
 
-
-                                        <div class="row mt-2 justify-content-md-end">
+                                        <div class="row mt-2 justify-content-md-end mt-2">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 btn-mb"
                                                 id="send"
                                                 style="display: flex; justify-content: flex-end; padding-right: 30px;">
@@ -2068,6 +2067,59 @@
                                             </div>
                                         </div>
                                     </form>
+
+                                    <div class="row mt-3">
+
+                                        <hr>
+                                        <h5> Historial de  @lang('messages.acordion.examen_fisico')</h5>
+                                        <hr>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                            style="margin-top: 20px;">
+                                            <table id="table-medical-report" class="table table-striped table-bordered"
+                                                style="width:100%; ">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center" scope="col">Centro de salud</th>
+                                                        <th class="text-center" scope="col">Fecha</th>
+                                                        <th class="text-center" scope="col">Peso</th>
+                                                        <th class="text-center" scope="col">Altura</th>
+                                                        <th class="text-center" scope="col">Presion arterial</th>
+                                                        <th class="text-center" scope="col">Temperatura</th>
+                                                        <th class="text-center" scope="col">Respiraciones</th>
+                                                        <th class="text-center" scope="col">Pulso</th>
+                                                        <th class="text-center" scope="col">Saturacon</th>
+                                                        <th class="text-center" scope="col">Condicon general</th>
+                                                        <th class="text-center" scope="col">Signos vitales</th>
+                                                        <th class="text-center" scope="col">Observacion</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($physical_exams as $item)
+                                                        <tr>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item->get_center->description }}</td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item->date }}
+                                                            </td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item->height }}
+                                                            </td>
+                                                            <td class="text-center td-pad"> {{ $item->strain }}</td>
+                                                            <td class="text-center td-pad"> {{ $item->temperature }}</td>
+                                                            <td class="text-center td-pad"> {{ $item->saturation }}</td>
+                                                            <td class="text-center td-pad"> {{ $item->breaths }}</td>
+                                                            <td class="text-center td-pad"> {{ $item->pulse }}</td>
+                                                            <td class="text-center td-pad"> {{ $item->saturation }}</td>
+                                                            <td class="text-center td-pad"> {{ $item->condition }}</td>
+                                                            <td class="text-center td-pad"> {{ $item->date }}</td>
+                                                            <td class="text-center td-pad"> {{ $item->observations }}</td>
+
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
