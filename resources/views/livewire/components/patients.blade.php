@@ -1071,7 +1071,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-3">
-                                            <button style="margin-top: 2px;" onclick="searchPat()" class="btn btnSecond">
+                                            <button style="margin-top: 2px;" onclick="searchPat()" class="btn btnSave">
                                                 @lang('messages.botton.buscar')
                                             </button>
                                         </div>

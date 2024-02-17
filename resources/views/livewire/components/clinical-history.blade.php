@@ -47,6 +47,11 @@
 
 
     }
+
+    .input-border {
+        border-top-left-radius: 0 !important; 
+        border-bottom-left-radius: 0 !important;
+    }
 </style>
 @push('scripts')
     <script>
@@ -334,7 +339,7 @@
                             {
                                 data: 'btn',
                                 title: 'Eliminar',
-                                className: "text-center td-pad",
+                                className: "text-center td-pad w-5",
                             }
                         ],
                         fnCreatedRow: function(rowEl, data) {
@@ -391,6 +396,12 @@
                 $('#countGynecological').val(countGynecological);
             }
         }
+
+        function addForm(e) {
+            console.log(e)
+                $('#form-medication').show();
+        }
+
         //agregar medicamento
         function addMedacition(e) {
             // validaciones para agragar medicacion
@@ -477,7 +488,7 @@
                             {
                                 data: 'btn',
                                 title: 'Eliminar',
-                                className: "text-center td-pad",
+                                className: "text-center td-pad w-",
                             }
                         ],
                         fnCreatedRow: function(rowEl, data) {
@@ -535,12 +546,12 @@
                             {
                                 data: 'datecirugia',
                                 title: 'Fecha',
-                                className: "text-center td-pad w-7",
+                                className: "text-center td-pad w-10",
                             },
                             {
                                 data: 'btn',
                                 title: 'Eliminar',
-                                className: "text-center td-pad",
+                                className: "text-center td-pad w-5",
                             }
                         ],
                         fnCreatedRow: function(rowEl, data) {
@@ -1178,7 +1189,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-cr">
-                                            <span type="" onclick="handlerAllergies(event)" class="btn btn-outline-secondary" id="btn">@lang('messages.botton.añadir_alergia')</span>
+                                            <span type="" onclick="handlerAllergies(event)" class="btn btnSecond" id="btn">@lang('messages.botton.añadir_alergia')</span>
                                         </div>
                                         {{-- Tabla --}}
                                         <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5 table-responsive"
@@ -1277,7 +1288,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-cr">
-                                            <span type="" onclick="handlerSurgical(event)" class="btn btn-outline-secondary" id="btn">
+                                            <span type="" onclick="handlerSurgical(event)" class="btn btnSecond" id="btn">
                                                 @lang('messages.botton.añadir_cirugia')
                                             </span>
                                         </div>
@@ -1405,7 +1416,7 @@
                                                 <span class="input-group-text span-input">/</span>
                                                 <input type="text" name="strain_two" id="strain_two"
                                                     onchange="handlerValidate(event,'strain_two');"
-                                                    class="EF form-control mask-input-two" placeholder="Baja"
+                                                    class="EF form-control mask-input-two input-border" placeholder="Baja"
                                                     aria-label="strain" value="{!! !empty($validateHistory) ? $data[1] : '' !!}">
                                             </div>
                                         </div>
@@ -1576,7 +1587,7 @@
                             <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row mt-2" style="align-items: flex-end;">
+                                    <div id="form-medication" class="row mt-2" style="align-items: flex-end; display: none">
                                         <h6 class="collapseBtn" style="margin-bottom: 10px">@lang('messages.label.añadir_medicamentos')</h6>
                                         <hr style="margin-bottom: 0;">
                                         <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
@@ -1692,12 +1703,15 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2 offset-md-5">
-                                            <span type="" onclick="addMedacition(event)"
-                                                class="btn btn-outline-secondary" id="btn">@lang('messages.botton.añadir_medicamentos')</span>
+                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                            <span type="" onclick="addMedacition(event)" class="btn btnSave" id="btn">@lang('messages.botton.guardar_medicamentos')</span>
                                         </div>
                                     </div>
                                     {{-- tabla --}}
+                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2 offset-md-5">
+                                        <span type="" onclick="addForm(event)"
+                                            class="btn btnSecond" id="btn">@lang('messages.botton.añadir_medicamentos')</span>
+                                    </div>
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
                                             style="margin-top: 20px; width: 100%;">
@@ -1711,7 +1725,7 @@
                                                         <th class="text-center" scope="col">@lang('messages.tabla.duracion')</th>
                                                         <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_ini')</th>
                                                         <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_fin')</th>
-                                                        <th class="text-center" data-orderable="false" scope="col">@lang('messages.tabla.eliminar')</th>
+                                                        <th class="text-center w-5" data-orderable="false" scope="col">@lang('messages.tabla.eliminar')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
