@@ -14,6 +14,7 @@ use App\Models\ExamPatient;
 use App\Models\MedicalRecord as ModelsMedicalRecord;
 use App\Models\MedicalReport;
 use App\Models\Patient;
+use App\Models\PhysicalExam;
 use App\Models\Reference;
 use App\Models\Representative;
 use App\Models\Study;
@@ -27,7 +28,8 @@ use Illuminate\Support\Facades\Validator;
 class MedicalRecord extends Component
 {
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         try {
 
@@ -134,6 +136,86 @@ class MedicalRecord extends Component
         }
     }
 
+    public function store_physical_exams(Request $request)
+    {
+
+        try {
+
+            $rules = [
+                'weight'        => 'required',
+                'height'        => 'required',
+                'strain'        => 'required',
+                'temperature'   => 'required',
+                'breaths'       => 'required',
+                'pulse'         => 'required',
+                'saturation'    => 'required',
+                'condition'     => 'required',
+            ];
+
+            $msj = [
+                'weight'        => 'Campo requerido',
+                'height'        => 'Campo requerido',
+                'strain'        => 'Campo requerido',
+                'temperature'   => 'Campo requerido',
+                'breaths'       => 'Campo requerido',
+                'pulse'         => 'Campo requerido',
+                'saturation'    => 'Campo requerido',
+                'condition'     => 'Campo requerido',
+            ];
+
+            $validator = Validator::make($request->all(), $rules, $msj);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => 'false',
+                    'errors'  => $validator->errors()->all()
+                ], 400);
+            }
+
+            /** Validacion para cargar el centro correcto cuando el medico
+             * esta asociado al plan corporativo
+             */
+            if (Auth::user()->center_id != null) {
+                $center_id_corporativo = Auth::user()->center_id;
+            }
+
+            $physical_exams = new PhysicalExam();
+            $physical_exams->patient_id = $request->patient_id;
+            $physical_exams->user_id = Auth::user()->id;
+            $physical_exams->center_id = isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id;
+            $physical_exams->date = date('d-m-Y');
+            $physical_exams->weight = $request->weight;
+            $physical_exams->height = $request->height;
+            $physical_exams->strain = $request->strain;
+            $physical_exams->temperature = $request->temperature;
+            $physical_exams->breaths = $request->breaths;
+            $physical_exams->pulse = $request->pulse;
+            $physical_exams->saturation = $request->saturation;
+            $physical_exams->condition = $request->condition;
+            $physical_exams->hidratado = $request->hidratado;
+            $physical_exams->eupenico = $request->eupenico;
+            $physical_exams->febril = $request->febril;
+            $physical_exams->esfera_neurologica = $request->esfera_neurologica;
+            $physical_exams->glasgow = $request->glasgow;
+            $physical_exams->esfera_orl = $request->esfera_orl;
+            $physical_exams->esfera_cardiopulmonar = $request->esfera_cardiopulmonar;
+            $physical_exams->esfera_abdominal = $request->esfera_abdominal;
+            $physical_exams->extremidades = $request->extremidades;
+            $physical_exams->observations = $request->observations;
+            $physical_exams->save();
+
+            $action = '24';
+            ActivityLogController::store_log($action);
+
+
+            return true;
+
+        } catch (\Throwable $th) {
+            $message = $th->getMessage();
+            dd('Error Livewire.Components.MedicalRecord.store_physical_exams()', $message);
+        }
+    }
+
     public function informe_medico (Request $request)
     {
 
@@ -172,9 +254,9 @@ class MedicalRecord extends Component
                 'description'   => $request->TextInforme,
             ]
         );
-        
 
-        $medical_report = UtilsController::get_medical_report($request->patient_id);        
+
+        $medical_report = UtilsController::get_medical_report($request->patient_id);
 
 
         return $medical_report ;
@@ -187,11 +269,12 @@ class MedicalRecord extends Component
         $doctor_centers = DoctorCenter::where('user_id', $user_id)->where('status', 1)->get();
         $Patient = UtilsController::get_one_patient($id);
         $medical_record_user = UtilsController::get_medical_record_user($id);
-        $medical_report = UtilsController::get_medical_report($id);        
+        $medical_report = UtilsController::get_medical_report($id);
         $validate_histroy = $Patient->get_history;
         $exam = Exam::all();
         $study = Study::all();
         $symptoms = Symptom::all();
-        return view('livewire.components.medical-record',compact('Patient', 'doctor_centers','validate_histroy','medical_record_user','id','exam','study','symptoms','medical_report'));
+        $physical_exams = PhysicalExam::where('patient_id', $id)->get();
+        return view('livewire.components.medical-record',compact('Patient', 'doctor_centers','validate_histroy','medical_record_user','id','exam','study','symptoms','medical_report','physical_exams'));
     }
 }
