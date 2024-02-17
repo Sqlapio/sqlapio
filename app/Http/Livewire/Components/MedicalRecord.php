@@ -192,6 +192,21 @@ class MedicalRecord extends Component
         $exam = Exam::all();
         $study = Study::all();
         $symptoms = Symptom::all();
-        return view('livewire.components.medical-record',compact('Patient', 'doctor_centers','validate_histroy','medical_record_user','id','exam','study','symptoms','medical_report'));
+        $vital_sing = UtilsController::get_history_vital_sing();
+        $get_condition = UtilsController::get_condition();
+
+        return view('livewire.components.medical-record',compact(
+            'Patient',
+             'doctor_centers',
+             'validate_histroy',
+             'medical_record_user',
+             'id',
+             'exam',
+             'study',
+             'symptoms',
+             'medical_report',
+             'vital_sing',
+             'get_condition'
+            ));
     }
 }

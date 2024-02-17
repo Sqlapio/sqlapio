@@ -4,6 +4,11 @@
 @section('title', 'Detalle Médico')
 
 <style>
+    .input-group> :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+        border-top-left-radius: 0px !important;
+        border-bottom-left-radius: 0px !important;
+    }
+
     .modal.show .modal-dialog .InformeMedicomodal {
         width: 100% !important;
     }
@@ -164,6 +169,7 @@
     .w-35 {
         width: 35% !important;
     }
+
     .w-20 {
         width: 20% !important;
     }
@@ -201,7 +207,7 @@
         width: 12% !important;
     }
 
-    
+
 
     @media only screen and (max-width: 768px) {
         .s-IA {
@@ -323,7 +329,6 @@
     }
 </style>
 @push('scripts')
-
     <script>
         let valExams = '';
         let valStudy = '';
@@ -348,6 +353,9 @@
         let user = @json(Auth::user());
         let doctor_centers = @json($doctor_centers);
         let validate_histroy = @json($validate_histroy);
+
+
+
         $(document).ready(() => {
             $("#diagnosis-text").hide();
             $("#background-text").hide();
@@ -366,6 +374,21 @@
                 toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
             });
 
+
+            const autoTextarea = (id) => {
+                document.getElementById(id).addEventListener('keyup', function() {
+                    this.style.overflow = 'hidden';
+                    this.style.height = 0;
+                    this.style.height = this.scrollHeight + 'px';
+                }, false);
+            }
+
+            autoTextarea('background');
+            autoTextarea('sintomas');
+            autoTextarea('razon');
+            autoTextarea('diagnosis');
+            autoTextarea('text_area_exman');
+            autoTextarea('text_area_studies');
 
             switch_type_plane(user);
 
@@ -822,9 +845,144 @@
                 }
             });
 
+            ///formularios del examne fisico
+            $('#form-examen-fisico').validate({
+                ignore: [],
+                rules: {
+                    weight: {
+                        required: true,
+                    },
+                    height: {
+                        required: true,
+                    },
+                    strain: {
+                        required: true,
+                    },
+                    strain_two: {
+                        required: true,
+                    },
+                    temperature: {
+                        required: true,
+                    },
+                    breaths: {
+                        required: true,
+                    },
+                    pulse: {
+                        required: true,
+                    },
+
+                    saturation: {
+                        required: true,
+                    },
+
+                    condition: {
+                        required: true,
+                    },
+                    applied_studies: {
+                        required: true,
+                    },
+                    conut_vital_sing: {
+                        required: true,
+                    }
+                },
+                messages: {
+                    weight: {
+                        required: "Campo Obligatorio",
+                    },
+                    height: {
+                        required: "Campo Obligatorio",
+                    },
+                    strain: {
+                        required: "Campo Obligatorio",
+                    },
+                    strain_two: {
+                        required: "Campo Obligatorio",
+                    },
+                    temperature: {
+                        required: "Campo Obligatorio",
+                    },
+                    breaths: {
+                        required: "Campo Obligatorio",
+                    },
+                    pulse: {
+                        required: "Campo Obligatorio",
+                    },
+
+                    saturation: {
+                        required: "Campo Obligatorio",
+                    },
+                    condition: {
+                        required: "Campo Obligatorio",
+                    },
+                    applied_studies: {
+                        required: "Campo Obligatorio",
+                    },
+                    conut_vital_sing: {
+                        required: "Debe seleccionar un signo vital",
+                    }
+                }
+            });
+            $("#form-examen-fisico").submit(function(event) {
+                event.preventDefault();
+                $("#form-examen-fisico").validate();
+
+                if ($("#form-examen-fisico").valid()) {
+                    $('#send').hide();
+                    $('#spinner').show();
+
+                    //preparar la data para el envio
+                    let formData = $('#form-examen-fisico').serializeArray();
+                    let data = {};
+                    formData.map((item) => data[item.name] = item.value);
+                    data["exams_array"] = JSON.stringify(exams_array);
+                    data["symptom_array"] = JSON.stringify(symptom_array);
+                    data["studies_array"] = JSON.stringify(studies_array);
+                    data["medications_supplements"] = JSON.stringify(medications_supplements);
+
+                    ////end
+                    $.ajax({
+                        url: '{{ route('MedicalRecordCreate') }}',
+                        type: 'POST',
+                        dataType: "json",
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            "data": JSON.stringify(data),
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            $('#send').show();
+                            $('#spinner').hide();
+                            $("#form-examen-fisico").trigger("reset");
+                            $('#table-medicamento > tbody').empty();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Consulta registrada exitosamente!',
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+
+                                console.log("");
+
+
+                            });
+                        },
+                        error: function(error) {
+                            $('#send').show();
+                            $('#spinner').hide();
+                            console.log(error);
+
+                        }
+                    });
+                }
+            });
+            /////
+
         });
 
-        function resetForm() {
+        const resetForm = () => {
             Swal.fire({
                 icon: 'warning',
                 title: 'Desea realizar esta acción?',
@@ -852,7 +1010,7 @@
                     $("#sintomas").attr('disabled', false);
                     // $("#exams").attr('disabled', false);
                     // $("#studies").attr('disabled', false);
-                    $('#form-consulta').find('input:checkbox').attr('checked', false);   
+                    $('#form-consulta').find('input:checkbox').attr('checked', false);
                     exams_array = [];
                     symptom_array = [];
                     studies_array = [];
@@ -902,7 +1060,7 @@
 
         }
 
-        function showDataEdit(item, active = true) {
+        const showDataEdit = (item, active = true) => {
             if (active) {
                 $(".accordion-collapse2").collapse('show')
             }
@@ -1021,7 +1179,7 @@
             });
         }
 
-        function search(e, id) {
+        const search = (e, id) => {
 
             let value = e.target.value.toLowerCase();
 
@@ -1058,7 +1216,7 @@
             }
         }
 
-        function setSymptoms(e, key, id) {
+        const setSymptoms = (e, key, id) => {
 
             let symptom = symptoms.find(el => el.id == id);
 
@@ -1077,7 +1235,9 @@
                     valSymptoms = valSymptoms.slice(1);
                 }
 
-                if (valSymptoms.substring(valSymptoms.indexOf() + 1) == "," || valSymptoms.substring(valSymptoms.indexOf() +  1) == ",,") {
+                if (valSymptoms.substring(valSymptoms.indexOf() + 1) == "," || valSymptoms.substring(valSymptoms
+                        .indexOf() +
+                        1) == ",,") {
                     $("#sintomas").val('');
                 }
 
@@ -1166,7 +1326,7 @@
             exam = [...filter, val];
         }
 
-        function setExams(e, key, id) {
+        const setExams = (e, key, id) => {
 
             let data = exam.find(el => el.id == id);
 
@@ -1189,7 +1349,9 @@
                     valExamenes = valExamenes.slice(1);
                 }
 
-                if (valExamenes.substring(valExamenes.indexOf() + 1) == "," || valExamenes.substring(valExamenes.indexOf() + 1) == ",,") {
+                if (valExamenes.substring(valExamenes.indexOf() + 1) == "," || valExamenes.substring(valExamenes
+                        .indexOf() +
+                        1) == ",,") {
                     $("#text_area_exman").val('');
                 }
 
@@ -1200,7 +1362,7 @@
             $('.inputSearchExamen').val('');
         }
 
-        function setStudy(e, key, id) {
+        const setStudy = (e, key, id) => {
 
             let data_study = study.find(el => el.id == id);
 
@@ -1236,7 +1398,7 @@
         }
 
         //agregar medicamento
-        function addMedacition(e) {
+        const addMedacition = (e) => {
 
             // validaciones para agragar medicacion
             if ($('#medicine').val() === "") {
@@ -1310,7 +1472,7 @@
         }
 
         //borrar medicamento
-        function deleteMedication(count) {
+        const deleteMedication = (count) => {
             Swal.fire({
                 icon: 'warning',
                 title: 'Desea realizar esta acción?',
@@ -1330,7 +1492,7 @@
             });
         }
 
-        function switch_type_plane(user) {
+        const switch_type_plane = (user) => {
 
             switch (Number(user.type_plane)) {
                 case 1:
@@ -1369,7 +1531,7 @@
             }
         }
 
-        function showAlertNotExam() {
+        const showAlertNotExam = () => {
             Swal.fire({
                 icon: 'warning',
                 // iconHtml: `<img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">`,
@@ -1384,7 +1546,7 @@
             return false;
         }
 
-        function showAlertNotStudy() {
+        const showAlertNotStudy = () => {
             Swal.fire({
                 icon: 'warning',
                 title: 'No hay estudios cargados',
@@ -1475,11 +1637,11 @@
         }
 
         const setDatatable = (data) => {
-            let row=[];
+            let row = [];
 
             data.map((elem) => {
                 let route = "{{ route('PDF_informe_medico', ':id') }}";
-                route = route.replace( ':id', elem.id);
+                route = route.replace(':id', elem.id);
                 elem.btn = `
                             <a target="_blank" href="${route}">
                                 <button type="button" class="btn refresf btn-iSecond rounded-circle">
@@ -1530,25 +1692,95 @@
                 });
         }
 
-        $(function(){
-            function autoTextarea(id) {
-                document.getElementById(id).addEventListener('keyup', function() {
-                    this.style.overflow = 'hidden';
-                    this.style.height = 0;
-                    this.style.height = this.scrollHeight + 'px';
-                }, false);
+        const handlerValidate = (e, input) => {
+
+            switch (input) {
+                case 'age':
+                    if (Number(e.target.value.replace(',', '')) > 30000) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    }
+                    break;
+                case 'height':
+
+                    let value = e.target.value.replace(',', '');
+                    value = value.replace('CM', '');
+                    if (Number(value) > 25000) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    }
+                    break;
+                case 'strain':
+                    if (Number(e.target.value) < 50) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    } else if (Number(e.target.value) > 250) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+
+                    }
+                    break;
+                case 'strain_two':
+                    if (Number(e.target.value) < 30) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    } else if (Number(e.target.value) > 150) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+
+                    }
+                    break;
+                case 'temperature':
+                    let temperature = e.target.value.replace(',', '');
+                    temperature = temperature.replace('°', '');
+                    if (Number(temperature) < 34) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    } else if (Number(temperature) > 4200) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    } else if (temperature.length == 2) {
+                        if (Number(temperature) > 42) {
+                            $(`#${e.target.id}`).val('');
+                            $(`#${e.target.id}`).focus();
+                        }
+                    }
+                    break;
+
+                case 'breaths':
+                    if (Number(e.target.value.replace('/Min', '')) < 12) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    } else if (Number(e.target.value.replace('/Min', '')) > 30) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    }
+                    break;
+
+                case 'pulse':
+                    if (Number(e.target.value) < 40) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    } else if (Number(e.target.value) > 200) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    }
+                    break;
+
+                case 'saturation':
+                    if (Number(e.target.value.replace('%', '')) < 70) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    } else if (Number(e.target.value.replace('%', '')) > 100) {
+                        $(`#${e.target.id}`).val('');
+                        $(`#${e.target.id}`).focus();
+                    }
+                    break;
+
+                default:
+                    break;
             }
-
-            autoTextarea('background');
-            autoTextarea('sintomas');
-            autoTextarea('razon');
-            autoTextarea('diagnosis');
-            autoTextarea('text_area_exman');
-            autoTextarea('text_area_studies');
-        });
-
-            
-
+        }
     </script>
 @endpush
 @section('content')
@@ -1572,23 +1804,31 @@
                                 <div class="accordion-body">
                                     <div class="row mt-2">
                                         <div class="d-flex" style="align-items: center;">
-                                            <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 135px;">
+                                            <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2"
+                                                style="width: 135px;">
                                                 <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
                                                     width="125" height="125" alt="Imagen del paciente"
                                                     class="img-medical">
                                             </div>
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                                <strong>@lang('messages.ficha_paciente.nombre'):</strong><span class="text-capitalize"> {{ $Patient->last_name . ', ' . $Patient->name }}</span>
+                                                <strong>@lang('messages.ficha_paciente.nombre'):</strong><span class="text-capitalize">
+                                                    {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                                 <br>
-                                                <strong>@lang('messages.ficha_paciente.fecha_nacimiento'):</strong><span> {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
+                                                <strong>@lang('messages.ficha_paciente.fecha_nacimiento'):</strong><span>
+                                                    {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.edad'):</strong><span> {{ $Patient->age }} años</span>
                                                 <br>
-                                                <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong> <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
+                                                <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
+                                                <span>
+                                                    {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                                 <br>
-                                                <strong>@lang('messages.ficha_paciente.genero'):</strong> <span class="text-capitalize"> {{ $Patient->genere }}</span>
+                                                <strong>@lang('messages.ficha_paciente.genero'):</strong> <span class="text-capitalize">
+                                                    {{ $Patient->genere }}</span>
                                                 <br>
-                                                <strong>@lang('messages.ficha_paciente.nro_historias'):</strong><span> {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }} </span>
+                                                <strong>@lang('messages.ficha_paciente.nro_historias'):</strong><span>
+                                                    {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -1596,6 +1836,212 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                {{-- Examen fisico --}}
+                <div class="row mt-2">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                        <div class="accordion-item">
+                            <span class="accordion-header title" id="headingOne">
+                                <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-activity"></i> @lang('messages.acordion.examen_fisico')
+                                </button>
+                            </span>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                                data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    <form id="form-examen-fisico" method="post" action="">
+
+                                        <div class="row">
+                                            <div style="display: flex">
+                                                <span class="text-warning mt-2" id="EF"
+                                                    style="font-size: 15px;margin-right: 10px;"></span>
+                                            </div>
+                                            <input type="hidden" name="history_vital_signs[]" id="history_vital_signs"
+                                                value="">
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="weight" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.peso')
+                                                        </label>
+                                                        <input autocomplete="off" class="EF mask-input form-control"
+                                                            id="weight" name="weight" type="text"
+                                                            onchange="handlerValidate(event,'age');" value="">
+                                                        <i class="bi bi-file-earmark-medical st-icon"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="height" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.altura')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="EF mask-input-height form-control @error('height') is-invalid @enderror"
+                                                            id="height" name="height" type="text"
+                                                            onchange="handlerValidate(event,'height');" value="">
+                                                        <i class="bi bi-rulers st-icon"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                <label for="strain" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                    @lang('messages.form.presion_arterial')
+                                                </label>
+                                                <div class="input-group">
+                                                    <input type="text" name="strain" id="strain"
+                                                        class="EF form-control  mask-input-two input-one"
+                                                        placeholder="Alta" onchange="handlerValidate(event,'strain');"
+                                                        aria-label="strain" value="">
+                                                    <span class="input-group-text span-input">/</span>
+                                                    <input type="text" name="strain_two" id="strain_two"
+                                                        onchange="handlerValidate(event,'strain_two');"
+                                                        class="EF form-control mask-input-two input-border"
+                                                        placeholder="Baja" aria-label="strain" value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="temperature" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.temperatura')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="EF mask-only-temperature form-control @error('temperature') is-invalid @enderror"
+                                                            id="temperature" name="temperature" type="text"
+                                                            onchange="handlerValidate(event,'temperature');"
+                                                            value="">
+                                                        <i class="bi bi-thermometer st-icon"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="breaths" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.respiraciones')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="EF mask-only-breaths form-control @error('breaths') is-invalid @enderror"
+                                                            onchange="handlerValidate(event,'breaths');" id="breaths"
+                                                            name="breaths" type="text" maxlength="3" value="">
+                                                        <i class="bi bi-lungs st-icon"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="pulse" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.pulso')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="EF mask-only-number form-control @error('pulse') is-invalid @enderror"
+                                                            onchange="handlerValidate(event,'pulse');" id="pulse"
+                                                            name="pulse" type="text" maxlength="3" value="">
+                                                        <i class="bi bi-heart-pulse st-icon"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="saturation" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.saturacion')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="EF mask-input-por form-control @error('saturation') is-invalid @enderror"
+                                                            id="saturation" name="saturation" type="text"
+                                                            onchange="handlerValidate(event,'saturation');"
+                                                            value="">
+                                                        <i class="bi bi-lungs st-icon"></i>
+                                                    </div>
+                                                </diV>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="condition" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.condicion')</label>
+                                                        <select name="condition" id="condition"
+                                                            placeholder="Seleccione"class="form-control"
+                                                            class="EF form-control combo-textbox-input">
+                                                            <option value="">@lang('messages.label.seleccione')</option>
+                                                            @foreach ($get_condition as $item)
+                                                                <option value="{{ $item->description }}">
+                                                                    {{ $item->description }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <i class="bi bi-activity st-icon"></i>
+                                                        <span id="condition_span" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            @foreach ($vital_sing as $item)
+                                                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                    <div style="display: flex">
+                                                        <span class="text-warning mt-2" id="VS"
+                                                            style="font-size: 15px;margin-right: 10px;"></span>
+                                                    </div>
+                                                    <div class="floating-label-group">
+                                                        <div class="form-check" style="display: flex; ">
+                                                            <div style="margin-right: 30px;">
+                                                                <input onclick="handlerVitalSigns(event);"
+                                                                    class="form-check" name="{{ $item->name }}"
+                                                                    type="checkbox" id="{{ $item->name }}"
+                                                                    value="">
+                                                            </div>
+                                                            <div>
+                                                                <label style="font-size: 14px;" class="form-check-label"
+                                                                    for="flexCheckDefault">
+                                                                    {{ $item->text }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+
+                                            <input type="hidden" name="conut_vital_sing" id="conut_vital_sing" value="">
+
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                                <div class="form-group">
+                                                    <label for="applied_studies" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                    <textarea id="applied_studies" name="applied_studies" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row mt-2 justify-content-md-end">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 btn-mb"
+                                                id="send"
+                                                style="display: flex; justify-content: flex-end; padding-right: 30px;">
+                                                <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit"
+                                                    style="padding: 8px" />
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 {{-- consulta médica --}}
                 <div class="row">
@@ -1608,17 +2054,20 @@
                                     <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.consulta_medica')
                                 </button>
                             </span>
-                            <div id="collapseTwo" class="accordion-collapse2 collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div id="collapseTwo" class="accordion-collapse2 collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordionExample">
                                 <div class="accordion-body m-mb">
                                     <form id="form-consulta" method="post" action="/">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="medical_record_id" id="medical_record_id"
                                             value="">
-                                        <input type="hidden" name="id" id="id" value="{{ $Patient->id }}">
+                                        <input type="hidden" name="id" id="id"
+                                            value="{{ $Patient->id }}">
                                         <div id="input-array"></div>
                                         <div class="row mt-2" style="margin: 0px 16px;">
                                             @if (Auth::user()->type_plane !== '7')
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
@@ -1638,42 +2087,69 @@
                                                     </div>
                                                 </div>
                                             @endif
-                                            <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style' style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
+                                            <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style'
+                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
                                                     <div class="form-group">
-                                                        <label for="background" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.antecedentes')</label>
+                                                        <label for="background" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.antecedentes')</label>
                                                         <textarea id="background" rows="1" name="background" class="form-control"></textarea>
-                                                        <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="background-text"></pre>
+                                                        <pre class="pre-textarea"
+                                                            style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+                                                            id="background-text"></pre>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pl-5">
                                                     <div class="form-group">
-                                                        <label for="razon" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon')</label>
+                                                        <label for="razon" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon')</label>
                                                         <textarea id="razon" rows="1" name="razon" class="form-control"></textarea>
-                                                        <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="razon-text"></pre>
+                                                        <pre class="pre-textarea"
+                                                            style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+                                                            id="razon-text"></pre>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div id='symptoms_card1' class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                <div id='symptoms_card2' class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
-                                                    <div class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                        <div class="form-group" style="display: flex; align-items: center;">
-                                                            <label for="search_symptoms" class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 130px">  @lang('messages.form.buscar_sintoma') </label>
-                                                            <input onkeyup="search(event,'symptoms')" type="text" style="border-radius: 30px;" class="form-control" id="floatingInput" placeholder="">
+                                            <div id='symptoms_card1'
+                                                class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div id='symptoms_card2'
+                                                    class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
+                                                    <div
+                                                        class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                        <div class="form-group"
+                                                            style="display: flex; align-items: center;">
+                                                            <label for="search_symptoms"
+                                                                class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 130px">
+                                                                @lang('messages.form.buscar_sintoma') </label>
+                                                            <input onkeyup="search(event,'symptoms')" type="text"
+                                                                style="border-radius: 30px;" class="form-control"
+                                                                id="floatingInput" placeholder="">
                                                         </div>
                                                     </div>
-                                                    <div id='diagnosis_div' class="overflow-auto mt-2" style="max-width: 100%; min-height: 35px; position: relative;">
-                                                        <ul id="symptoms_filter" class="symptoms"  style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none"> </ul>
-                                                        <ul id="symptoms" class="symptoms list-mb" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
+                                                    <div id='diagnosis_div' class="overflow-auto mt-2"
+                                                        style="max-width: 100%; min-height: 35px; position: relative;">
+                                                        <ul id="symptoms_filter" class="symptoms"
+                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; display: none">
+                                                        </ul>
+                                                        <ul id="symptoms" class="symptoms list-mb"
+                                                            style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
+                                                        </ul>
                                                     </div>
 
-                                                    <div id='symptoms_card3' class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; margin-top: 0.5rem">
+                                                    <div id='symptoms_card3'
+                                                        class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; margin-top: 0.5rem">
                                                         <div class="form-group">
-                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.sintomas')</label>
+                                                            <label for="phone" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.sintomas')</label>
                                                             <textarea id="sintomas" rows="2" name="sintomas" class="form-control"></textarea>
-                                                            <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="sintomas-text"></pre>
+                                                            <pre class="pre-textarea"
+                                                                style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+                                                                id="sintomas-text"></pre>
                                                         </div>
                                                     </div>
 
@@ -1684,7 +2160,9 @@
                                                         <div id="spinner2" style="display: none">
                                                             <div class="container shadow-div">
                                                                 <div class="row justify-content-center form-sq">
-                                                                    <img class="spinnner s-IA" src="{{ asset('img/GIF-CONSULTAR-IA.gif') }}" alt="">
+                                                                    <img class="spinnner s-IA"
+                                                                        src="{{ asset('img/GIF-CONSULTAR-IA.gif') }}"
+                                                                        alt="">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1692,101 +2170,144 @@
                                                 </div>
 
                                                 <div class="row mt-2 justify-content-md-end send-ai">
-                                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
-                                                        <button onclick="handlerIA()" type="button"  class="btn btnSave">@lang('messages.botton.consulta_ai')</button>
+                                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                        style="display: flex; justify-content: flex-end;">
+                                                        <button onclick="handlerIA()" type="button"
+                                                            class="btn btnSave">@lang('messages.botton.consulta_ai')</button>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <div class="form-group">
-                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.diagnostico')</label>
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.diagnostico')</label>
                                                     <textarea id="diagnosis" rows="1" name="diagnosis" class="form-control" spellcheck="false"></textarea>
-                                                    <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="diagnosis-text"></pre>
+                                                    <pre class="pre-textarea"
+                                                        style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+                                                        id="diagnosis-text"></pre>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display: flex;">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style"
+                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display: flex;">
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
-                                                    <div style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <div
+                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                            <div class="form-group" id='search_exam' style="display: flex; align-items: center;">
-                                                                <label for="search_patient" class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 135px">@lang('messages.form.buscar_examen')</label>
+                                                            <div class="form-group" id='search_exam'
+                                                                style="display: flex; align-items: center;">
+                                                                <label for="search_patient"
+                                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; width: 135px">@lang('messages.form.buscar_examen')</label>
                                                                 <input onkeyup="search(event,'exam')" type="text"
                                                                     style="border-radius: 30px;"
                                                                     class="form-control inputSearchExamen"
                                                                     id="floatingInput" placeholder="">
                                                             </div>
-                                                            <label id='search_exam_p' style="font-size: 13px; margin-bottom: 5px; display:none">@lang('messages.form.examenes') </label>
+                                                            <label id='search_exam_p'
+                                                                style="font-size: 13px; margin-bottom: 5px; display:none">@lang('messages.form.examenes')
+                                                            </label>
                                                         </div>
                                                         <div id="exam-text-area">
-                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                 <div class="form-group">
-                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.examenes')</label>
+                                                                    <label for="phone" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.examenes')</label>
                                                                     <textarea id="text_area_exman" rows='2' name="text_area_exman" class="form-control"></textarea>
-                                                                    <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="exman-text"></pre>
+                                                                    <pre class="pre-textarea"
+                                                                        style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+                                                                        id="exman-text"></pre>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="mt-2 overflow-auto" style="max-width: 100%; position: relative; min-height: 60px;">
-                                                            <ul id="exam_filter" class="exam" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; ; margin-bottom: 0;"> </ul>
-                                                            <div id='not-exam'> 
-                                                                <img width="50" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
-                                                                <span >@lang('messages.label.info_3')</span>
+                                                        <div class="mt-2 overflow-auto"
+                                                            style="max-width: 100%; position: relative; min-height: 60px;">
+                                                            <ul id="exam_filter" class="exam"
+                                                                style="padding-inline-start: 0; display: flex; flex-wrap: wrap; ; margin-bottom: 0;">
+                                                            </ul>
+                                                            <div id='not-exam'>
+                                                                <img width="50" height="auto"
+                                                                    src="{{ asset('/img/icons/no-file.png') }}"
+                                                                    alt="avatar">
+                                                                <span>@lang('messages.label.info_3')</span>
                                                             </div>
-                                                            <ul id="exam" class="exam list-mb" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
+                                                            <ul id="exam" class="exam list-mb"
+                                                                style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
+                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pl-5">
-                                                    <div style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <div
+                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                            <div class="form-group" id="search_studie" style="display: flex; align-items: center;">
-                                                                <label for="search_patient" class="form-label" style="font-size: 13px; margin-bottom: 5px; width: 131px">@lang('messages.form.buscar_estudio')</label>
+                                                            <div class="form-group" id="search_studie"
+                                                                style="display: flex; align-items: center;">
+                                                                <label for="search_patient" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; width: 131px">@lang('messages.form.buscar_estudio')</label>
                                                                 <input onkeyup="search(event,'studie')" type="text"
                                                                     style="border-radius: 30px;"
                                                                     class="form-control inputSearchStudi" placeholder=""
                                                                     id="floatingInputt">
                                                             </div>
                                                         </div>
-                                                        <label id='search_studie_p' style="font-size: 13px; margin-bottom: 5px; display:none">@lang('messages.form.estudios') </label>
+                                                        <label id='search_studie_p'
+                                                            style="font-size: 13px; margin-bottom: 5px; display:none">@lang('messages.form.estudios')
+                                                        </label>
                                                         <div id="study-text-area">
-                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="study-text-area" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                                                id="study-text-area"
+                                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                                 <div class="form-group">
-                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.estudios')</label>
+                                                                    <label for="phone" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.estudios')</label>
                                                                     <textarea id="text_area_studies" rows="2" name="text_area_studies" class="form-control"></textarea>
-                                                                    <pre class="pre-textarea" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="studies-text"></pre>
+                                                                    <pre class="pre-textarea"
+                                                                        style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+                                                                        id="studies-text"></pre>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="mt-2 card-study overflow-auto" style="max-width: 100%; min-height: 60px;">
-                                                            <ul id="study_filter" class="studie" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0;"> </ul>
-                                                            <div id='not-studie'> 
-                                                                <img width="50" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
+                                                        <div class="mt-2 card-study overflow-auto"
+                                                            style="max-width: 100%; min-height: 60px;">
+                                                            <ul id="study_filter" class="studie"
+                                                                style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0;">
+                                                            </ul>
+                                                            <div id='not-studie'>
+                                                                <img width="50" height="auto"
+                                                                    src="{{ asset('/img/icons/no-file.png') }}"
+                                                                    alt="avatar">
                                                                 <span>@lang('messages.label.info_4')</span>
                                                             </div>
-                                                            <ul id="studie" class="studie list-mb" style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0"> </ul>
+                                                            <ul id="studie" class="studie list-mb"
+                                                                style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
+                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             {{-- Medicacion --}}
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <label style="font-size: 14px">Tratamiento</label>
                                                 <hr style="margin-bottom: 0; margin-top: 5px">
                                                 <div class="row medicine-form">
                                                     <div style="display: flex">
-                                                        <span class="text-warning mt-2" id='med' style="font-size: 14px;margin-right: 10px;"></span>
+                                                        <span class="text-warning mt-2" id='med'
+                                                            style="font-size: 14px;margin-right: 10px;"></span>
                                                     </div>
                                                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.medicamento')</label>
+                                                                <label for="phone" class="form-label"
+                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.medicamento')</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-only-text" id="medicine"
-                                                                    placeholder="@lang('messages.placeholder.info_1')"
-                                                                    name="medicine" type="text" value="">
+                                                                    placeholder="@lang('messages.placeholder.info_1')" name="medicine"
+                                                                    type="text" value="">
                                                                 <i class="bi bi-capsule st-icon"></i>
                                                             </div>
                                                             <span id="medicine_span" class="text-danger"></span>
@@ -1795,7 +2316,8 @@
                                                     <div class="col-sm-6 col-md-6 col-lg-5 col-xl-5 col-xxl-5 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.indicaciones')</label>
+                                                                <label for="phone" class="form-label"
+                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.indicaciones')</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-only-text" id="indication"
                                                                     name="indication" type="text" value="">
@@ -1807,33 +2329,51 @@
                                                     <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="treatmentDuration" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.duracion')</label>
+                                                                <label for="treatmentDuration" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.duracion')</label>
                                                                 <select name="treatmentDuration" id="treatmentDuration"
                                                                     placeholder="Seleccione"class="form-control"
                                                                     class="form-control combo-textbox-input">
                                                                     <option value="">@lang('messages.label.seleccione')</option>
-                                                                    <option value="@lang('messages.select.1_dia')">@lang('messages.select.1_dia')</option>
-                                                                    <option value="@lang('messages.select.2_dia')">@lang('messages.select.2_dia')</option>
-                                                                    <option value="@lang('messages.select.3_dia')">@lang('messages.select.3_dia')</option>
-                                                                    <option value="@lang('messages.select.4_dia')">@lang('messages.select.4_dia')</option>
-                                                                    <option value="@lang('messages.select.5_dia')">@lang('messages.select.5_dia')</option>
-                                                                    <option value="@lang('messages.select.6_dia')">@lang('messages.select.6_dia')</option>
-                                                                    <option value="@lang('messages.select.7_dia')">@lang('messages.select.7_dia')</option>
-                                                                    <option value="@lang('messages.select.1_semana')">@lang('messages.select.1_semana')</option>
-                                                                    <option value="@lang('messages.select.2_semana')">@lang('messages.select.2_semana')</option>
-                                                                    <option value="@lang('messages.select.3_semana')">@lang('messages.select.3_semana')</option>
-                                                                    <option value="@lang('messages.select.4_semana')">@lang('messages.select.4_semana')</option>
-                                                                    <option value="@lang('messages.select.1_mes')">@lang('messages.select.1_mes')</option>
-                                                                    <option value="@lang('messages.select.2_mes')">@lang('messages.select.2_mes')</option>
-                                                                    <option value="@lang('messages.select.3_mes')">@lang('messages.select.3_mes')</option>
-                                                                    <option value="@lang('messages.select.1_anio')">@lang('messages.select.1_anio')</option>
+                                                                    <option value="@lang('messages.select.1_dia')">@lang('messages.select.1_dia')
+                                                                    </option>
+                                                                    <option value="@lang('messages.select.2_dia')">@lang('messages.select.2_dia')
+                                                                    </option>
+                                                                    <option value="@lang('messages.select.3_dia')">@lang('messages.select.3_dia')
+                                                                    </option>
+                                                                    <option value="@lang('messages.select.4_dia')">@lang('messages.select.4_dia')
+                                                                    </option>
+                                                                    <option value="@lang('messages.select.5_dia')">@lang('messages.select.5_dia')
+                                                                    </option>
+                                                                    <option value="@lang('messages.select.6_dia')">@lang('messages.select.6_dia')
+                                                                    </option>
+                                                                    <option value="@lang('messages.select.7_dia')">@lang('messages.select.7_dia')
+                                                                    </option>
+                                                                    <option value="@lang('messages.select.1_semana')">@lang('messages.select.1_semana')
+                                                                    </option>
+                                                                    <option value="@lang('messages.select.2_semana')">@lang('messages.select.2_semana')
+                                                                    </option>
+                                                                    <option value="@lang('messages.select.3_semana')">@lang('messages.select.3_semana')
+                                                                    </option>
+                                                                    <option value="@lang('messages.select.4_semana')">@lang('messages.select.4_semana')
+                                                                    </option>
+                                                                    <option value="@lang('messages.select.1_mes')">@lang('messages.select.1_mes')
+                                                                    </option>
+                                                                    <option value="@lang('messages.select.2_mes')">@lang('messages.select.2_mes')
+                                                                    </option>
+                                                                    <option value="@lang('messages.select.3_mes')">@lang('messages.select.3_mes')
+                                                                    </option>
+                                                                    <option value="@lang('messages.select.1_anio')">@lang('messages.select.1_anio')
+                                                                    </option>
                                                                 </select>
                                                                 <i class="bi bi-calendar-range st-icon"></i>
-                                                                <span id="treatmentDuration_span" class="text-danger"></span>
+                                                                <span id="treatmentDuration_span"
+                                                                    class="text-danger"></span>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-1 col-xl-1 col-xxl-1 mt-2" style="display: flex; align-items: flex-end; margin-bottom: 3px;">
+                                                    <div class="col-sm-6 col-md-6 col-lg-1 col-xl-1 col-xxl-1 mt-2"
+                                                        style="display: flex; align-items: flex-end; margin-bottom: 3px;">
                                                         <span type="" onclick="addMedacition(event)"
                                                             class="btn btn-outline-secondary addMedacition" id="btn"
                                                             style="padding: 7px; font-size: 12px; width:100%">
@@ -1843,14 +2383,21 @@
                                                 </div>
                                                 {{-- tabla --}}
                                                 <div class="row">
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px; width: 100%;">
-                                                        <table class="table table-striped table-bordered" id="table-medicamento">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                                        style="margin-top: 20px; width: 100%;">
+                                                        <table class="table table-striped table-bordered"
+                                                            id="table-medicamento">
                                                             <thead>
                                                                 <tr>
-                                                                    <th class="text-center w-35" scope="col"> @lang('messages.tabla.medicamento') </th>
-                                                                    <th data-orderable="false" class="text-center w-55" scope="col"> @lang('messages.tabla.indicaciones') </th>
-                                                                    <th data-orderable="false" class="text-center" scope="col"> @lang('messages.tabla.duracion') </th>
-                                                                    <th data-orderable="false" class="text-center w-4" scope="col"> <i style='font-size: 15px' class="bi bi-trash-fill"></i> </th>
+                                                                    <th class="text-center w-35" scope="col">
+                                                                        @lang('messages.tabla.medicamento') </th>
+                                                                    <th data-orderable="false" class="text-center w-55"
+                                                                        scope="col"> @lang('messages.tabla.indicaciones') </th>
+                                                                    <th data-orderable="false" class="text-center"
+                                                                        scope="col"> @lang('messages.tabla.duracion') </th>
+                                                                    <th data-orderable="false" class="text-center w-4"
+                                                                        scope="col"> <i style='font-size: 15px'
+                                                                            class="bi bi-trash-fill"></i> </th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -1860,7 +2407,8 @@
                                                             <div class="row mt-2" style="display: none">
                                                                 <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                     <div class="input-group flex-nowrap">
-                                                                        <span class="input-group-text">@lang('messages.label.info_5')</span>
+                                                                        <span
+                                                                            class="input-group-text">@lang('messages.label.info_5')</span>
                                                                         <input type="text" id="countMedicationAdd"
                                                                             name="countMedicationAdd" class="form-control"
                                                                             readonly value="{!! !empty($validateHistory)
@@ -1884,13 +2432,16 @@
                                             </div>
                                         </div>
                                         <div class="row mt-2 justify-content-md-end">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 btn-mb" id="send" style="display: flex; justify-content: flex-end; padding-right: 30px;">
-                                                <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="padding: 8px" />
-                                                <button style="margin-left: 20px;" type="button"
-                                                    onclick="resetForm();" 
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 btn-mb"
+                                                id="send"
+                                                style="display: flex; justify-content: flex-end; padding-right: 30px;">
+                                                <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit"
+                                                    style="padding: 8px" />
+                                                <button style="margin-left: 20px;" type="button" onclick="resetForm();"
                                                     data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
                                                     title="Limpiar Formulario">
-                                                    <img width="32" height="auto" src="{{ asset('/img/icons/eraser.png') }}" alt="avatar">
+                                                    <img width="32" height="auto"
+                                                        src="{{ asset('/img/icons/eraser.png') }}" alt="avatar">
                                                 </button>
                                             </div>
                                         </div>
@@ -1911,18 +2462,24 @@
                                     <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.ultimas_consultas')
                                 </button>
                             </span>
-                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row" id="table-one">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px;">
-                                            <table id="table-medical-record" class="table table-striped table-bordered" style="width:100%; ">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                            style="margin-top: 20px;">
+                                            <table id="table-medical-record" class="table table-striped table-bordered"
+                                                style="width:100%; ">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center w-8" scope="col">@lang('messages.tabla.id_consulta')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha')
+                                                        </th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.medico_tratante')</th>
-                                                        <th class="text-center w-45" scope="col">@lang('messages.tabla.centro_salud')</th>
-                                                        <th data-orderable="false" class="text-center w-20" scope="col">@lang('messages.tabla.acciones') </th>
+                                                        <th class="text-center w-45" scope="col">@lang('messages.tabla.centro_salud')
+                                                        </th>
+                                                        <th data-orderable="false" class="text-center w-20"
+                                                            scope="col">@lang('messages.tabla.acciones') </th>
                                                         {{-- <th class="text-center" scope="col">Código de la referencia </th> --}}
                                                         {{-- <th class="text-center" scope="col">Nombre del paciente</th> --}}
                                                         {{-- <th class="text-center" scope="col">Género</th> --}}
@@ -1931,58 +2488,87 @@
                                                 <tbody>
                                                     @foreach ($medical_record_user as $item)
                                                         <tr>
-                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['data']['record_code'] }}</td>
-                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['date'] }}</td>
-                                                            <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});">Dr. {{ $item['full_name_doc'] }} </td>
-                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['center'] }}</td>
+                                                            <td class="text-center td-pad"
+                                                                onclick="showDataEdit({{ json_encode($item) }});">
+                                                                {{ $item['data']['record_code'] }}</td>
+                                                            <td class="text-center td-pad"
+                                                                onclick="showDataEdit({{ json_encode($item) }});">
+                                                                {{ $item['date'] }}</td>
+                                                            <td class="text-center td-pad text-capitalize"
+                                                                onclick="showDataEdit({{ json_encode($item) }});">Dr.
+                                                                {{ $item['full_name_doc'] }} </td>
+                                                            <td class="text-center td-pad"
+                                                                onclick="showDataEdit({{ json_encode($item) }});">
+                                                                {{ $item['center'] }}</td>
                                                             {{-- <td class="text-center td-pad"  onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['data']['cod_ref'] }}</td> --}}
                                                             {{-- <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['name_patient'] }} </td> --}}
                                                             {{-- <td class="text-center td-pad text-capitalize"  onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['genere'] }} </td> --}}
                                                             <td class="text-center td-pad">
                                                                 <div class="d-flex">
                                                                     @if ($item['data']['status_exam'])
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <a href="{{ route('mr_exam', $item['patient_id']) }}">
+                                                                        <div
+                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <a
+                                                                                href="{{ route('mr_exam', $item['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
-                                                                                    data-html="true" title="@lang('messages.tooltips.ver_examenes')">
-                                                                                    <img width="32" height="auto" src="{{ asset('/img/icons/recipe.png') }}" alt="avatar">
-                                                                                </button>
-                                                                            </a>
-                                                                        </div>
-                                                                    @else
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <button type="button" onclick="showAlertNotExam();">
-                                                                                <img width="32" height="auto" src="{{ asset('/img/icons/not-file-icon.png') }}" alt="avatar">
-                                                                            </button>
-                                                                        </div>
-                                                                    @endif
-                                                                    @if ($item['data']['status_study'])
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <a href="{{ route('mr_study', $item['patient_id']) }}">
-                                                                                <button type="button"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="bottom"
-                                                                                    data-bs-custom-class="custom-tooltip"
-                                                                                    data-html="true" title="@lang('messages.tooltips.ver_estudios')">
-                                                                                    <img width="32" height="auto" src="{{ asset('/img/icons/recipe.png') }}" alt="avatar">
+                                                                                    data-html="true"
+                                                                                    title="@lang('messages.tooltips.ver_examenes')">
+                                                                                    <img width="32" height="auto"
+                                                                                        src="{{ asset('/img/icons/recipe.png') }}"
+                                                                                        alt="avatar">
                                                                                 </button>
                                                                             </a>
                                                                         </div>
                                                                     @else
                                                                         <div
                                                                             class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <button type="button" onclick="showAlertNotStudy();">
-                                                                                <img width="32" height="auto" src="{{ asset('/img/icons/not-file-icon.png') }}" alt="avatar">
+                                                                            <button type="button"
+                                                                                onclick="showAlertNotExam();">
+                                                                                <img width="32" height="auto"
+                                                                                    src="{{ asset('/img/icons/not-file-icon.png') }}"
+                                                                                    alt="avatar">
                                                                             </button>
                                                                         </div>
                                                                     @endif
-                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                        <a target="_blank" href="{{ route('pdf_medical_prescription', $item['id']) }}">
+                                                                    @if ($item['data']['status_study'])
+                                                                        <div
+                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <a
+                                                                                href="{{ route('mr_study', $item['patient_id']) }}">
+                                                                                <button type="button"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="bottom"
+                                                                                    data-bs-custom-class="custom-tooltip"
+                                                                                    data-html="true"
+                                                                                    title="@lang('messages.tooltips.ver_estudios')">
+                                                                                    <img width="32" height="auto"
+                                                                                        src="{{ asset('/img/icons/recipe.png') }}"
+                                                                                        alt="avatar">
+                                                                                </button>
+                                                                            </a>
+                                                                        </div>
+                                                                    @else
+                                                                        <div
+                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <button type="button"
+                                                                                onclick="showAlertNotStudy();">
+                                                                                <img width="32" height="auto"
+                                                                                    src="{{ asset('/img/icons/not-file-icon.png') }}"
+                                                                                    alt="avatar">
+                                                                            </button>
+                                                                        </div>
+                                                                    @endif
+                                                                    <div
+                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <a target="_blank"
+                                                                            href="{{ route('pdf_medical_prescription', $item['id']) }}">
                                                                             <button type="button">
-                                                                                <img width="32" height="auto" src="{{ asset('/img/icons/pdf-file.png') }}" alt="avatar" 
+                                                                                <img width="32" height="auto"
+                                                                                    src="{{ asset('/img/icons/pdf-file.png') }}"
+                                                                                    alt="avatar"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     data-bs-custom-class="custom-tooltip"
@@ -1991,15 +2577,19 @@
                                                                             </button>
                                                                         </a>
                                                                     </div>
-                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                        <a target="_blank" href="{{ route('PDF_medical_record', $item['id']) }}">
+                                                                    <div
+                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <a target="_blank"
+                                                                            href="{{ route('PDF_medical_record', $item['id']) }}">
                                                                             <button type="button">
-                                                                                <img width="32" height="auto" src="{{ asset('/img/icons/pdf-file.png') }}" alt="avatar" 
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                data-bs-custom-class="custom-tooltip"
-                                                                                data-html="true"
-                                                                                title="@lang('messages.tooltips.ver_consulta_medica')">
+                                                                                <img width="32" height="auto"
+                                                                                    src="{{ asset('/img/icons/pdf-file.png') }}"
+                                                                                    alt="avatar"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="bottom"
+                                                                                    data-bs-custom-class="custom-tooltip"
+                                                                                    data-html="true"
+                                                                                    title="@lang('messages.tooltips.ver_consulta_medica')">
                                                                             </button>
                                                                         </a>
                                                                     </div>
@@ -2028,7 +2618,8 @@
                                     <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.informes_medico')
                                 </button>
                             </span>
-                            <div id="collapseInfome" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                            <div id="collapseInfome" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row" id="table-one">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
@@ -2038,21 +2629,28 @@
                                                     class="bi bi-plus-circle-dotted"></i>
                                             </button>
                                         </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px;">
-                                            <table id="table-medical-report" class="table table-striped table-bordered" style="width:100%; ">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                            style="margin-top: 20px;">
+                                            <table id="table-medical-report" class="table table-striped table-bordered"
+                                                style="width:100%; ">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.codigo')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.medico_tratante')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha')</th>
-                                                        <th data-orderable="false" class="text-center" scope="col">@lang('messages.tabla.acciones')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha')
+                                                        </th>
+                                                        <th data-orderable="false" class="text-center" scope="col">
+                                                            @lang('messages.tabla.acciones')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($medical_report as $item)
                                                         <tr>
-                                                            <td class="text-center td-pad"> {{ $item->cod_medical_report }}</td>
-                                                            <td class="text-center td-pad">  {{ $item->get_doctor->name.' '.$item->get_doctor->last_name  }}</td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item->cod_medical_report }}</td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item->get_doctor->name . ' ' . $item->get_doctor->last_name }}
+                                                            </td>
                                                             <td class="text-center td-pad"> {{ $item->date }}</td>
                                                             <td class="text-center td-pad">
                                                                 <a target="_blank"
@@ -2095,11 +2693,13 @@
                                 onclick="triggerExample();" style="margin-left: 5%;">
                                 <i class="bi bi-file-earmark-text"></i>
                             </button> <span style="padding-left: 5px" id="copied"></span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                style="font-size: 12px;"></button>
                         </div>
                         <div class="modal-body">
                             <div class="div-ia">
-                                <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" id="p-ia"></pre>
+                                <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+                                    id="p-ia"></pre>
                             </div>
                         </div>
                     </div>
@@ -2132,12 +2732,14 @@
                                             class="img-medical-modal">
                                     </div>
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                        <strong>Nombre:</strong><span class="text-capitalize"> {{ $Patient->last_name . ', ' . $Patient->name }}</span>
+                                        <strong>Nombre:</strong><span class="text-capitalize">
+                                            {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                         <br>
                                         <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
                                         <br>
                                         <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
-                                        <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
+                                        <span>
+                                            {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                     </div>
                                 </div>
 
