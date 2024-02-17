@@ -2,7 +2,7 @@
 @section('title', 'Historia Clínica')
 <style>
     #btn {
-        padding: 7px 16px 8px 10px !important;
+        padding: 8px 16px !important;
     }
 
     .span-input {
@@ -32,9 +32,17 @@
         .mt-cr {
             padding-top: 1rem;
         }
+
+        .btn {
+            width: 100% !important;
+        }
     }
 
     @media (min-width: 391px) and (max-width: 576px) {
+
+        .btn {
+            width: 100% !important;
+        }
 
         .mt-cr {
             padding-top: 1rem;
@@ -48,10 +56,11 @@
 
     }
 
-    .input-border {
-        border-top-left-radius: 0 !important; 
-        border-bottom-left-radius: 0 !important;
+    .input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+        border-top-left-radius: 0px !important; 
+        border-bottom-left-radius: 0px !important;
     }
+
 </style>
 @push('scripts')
     <script>
@@ -398,8 +407,7 @@
         }
 
         function addForm(e) {
-            console.log(e)
-                $('#form-medication').show();
+                $("#form-medication").toggle();
         }
 
         //agregar medicamento
@@ -478,17 +486,17 @@
                             {
                                 data: 'dateIniTreatment',
                                 title: 'Fecha inicio',
-                                className: "text-center td-pad w-7",
+                                className: "text-center td-pad w-10",
                             },
                             {
                                 data: 'dateEndTreatment',
                                 title: 'Fecha fin',
-                                className: "text-center td-pad w-7",
+                                className: "text-center td-pad w-10",
                             },
                             {
                                 data: 'btn',
                                 title: 'Eliminar',
-                                className: "text-center td-pad w-",
+                                className: "text-center td-pad w-5",
                             }
                         ],
                         fnCreatedRow: function(rowEl, data) {
@@ -506,6 +514,7 @@
                 $('#treatmentDuration').val("")
                 $('#dateIniTreatment').val("")
                 $('#dateEndTreatment').val("")
+                $('#form-medication').hide();
             }
         }
 
@@ -1180,9 +1189,7 @@
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                         @lang('messages.form.detalle')
                                                     </label>
-                                                    <input autocomplete="off" class="form-control mask-only-text"
-                                                        id="detalle_alergia" name="detalle_alergia" type="text"
-                                                        value="">
+                                                    <input autocomplete="off" class="form-control mask-only-text" id="detalle_alergia" name="detalle_alergia" type="text" value="">
                                                     <i class="bi bi-file-medical st-icon"></i>
                                                 </div>
                                                 <span id="detalle_alergia_span" class="text-danger"></span>
@@ -1192,14 +1199,13 @@
                                             <span type="" onclick="handlerAllergies(event)" class="btn btnSecond" id="btn">@lang('messages.botton.añadir_alergia')</span>
                                         </div>
                                         {{-- Tabla --}}
-                                        <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5 table-responsive"
-                                            style="margin-top: 20px; width: 100%;">
+                                        <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5 table-responsive" style="margin-top: 20px; width: 100%;">
                                             <table class="table table-striped table-bordered" id="table-alergias">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.tipo_alergias')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.detalle')</th>
-                                                        <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.eliminar')</th>
+                                                        <th class="text-center w-5" scope="col" data-orderable="false">@lang('messages.tabla.eliminar')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1212,7 +1218,7 @@
                                                                 <tr id="{{ $key }}">
                                                                     <td class="text-center"> {{ $item['type_alergia'] }}</td>
                                                                     <td class="text-center"> {{ $item['detalle_alergia'] }} </td>
-                                                                    <td class="text-center"><span onclick="deleteAllergie({{ $key }})"><i class="bi bi-trash-fill"></i></span> </td>
+                                                                    <td class="text-center w-5"><span onclick="deleteAllergie({{ $key }})"><i class="bi bi-trash-fill"></i></span> </td>
                                                                 </tr>
                                                             @endforeach
                                                         @endif
@@ -1298,8 +1304,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.cirugia')</th>
-                                                        <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha')</th>
-                                                        <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.eliminar')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha')</th>
+                                                        <th class="text-center w-5" scope="col" data-orderable="false">@lang('messages.tabla.eliminar')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1416,7 +1422,7 @@
                                                 <span class="input-group-text span-input">/</span>
                                                 <input type="text" name="strain_two" id="strain_two"
                                                     onchange="handlerValidate(event,'strain_two');"
-                                                    class="EF form-control mask-input-two input-border" placeholder="Baja"
+                                                    class="EF form-control mask-input-two" placeholder="Baja"
                                                     aria-label="strain" value="{!! !empty($validateHistory) ? $data[1] : '' !!}">
                                             </div>
                                         </div>
@@ -1503,9 +1509,7 @@
                                     <div class="row">
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                             <div class="form-group">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                    @lang('messages.form.motivo')
-                                                </label>
+                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">  @lang('messages.form.motivo') </label>
                                                 <textarea id="reason" name="reason" class="EF form-control">{!! !empty($validateHistory) ? $Patient->get_history->reason : '' !!}</textarea>
                                             </div>
                                         </div>
@@ -1584,8 +1588,7 @@
                                     <i class="bi bi-capsule"></i> @lang('messages.acordion.medicamentos')
                                 </button>
                             </span>
-                            <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight"
-                                data-bs-parent="#accordion">
+                            <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div id="form-medication" class="row mt-2" style="align-items: flex-end; display: none">
                                         <h6 class="collapseBtn" style="margin-bottom: 10px">@lang('messages.label.añadir_medicamentos')</h6>
@@ -1596,8 +1599,7 @@
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                         @lang('messages.form.medicamento')
                                                     </label>
-                                                    <input autocomplete="off" class="form-control mask-only-text"
-                                                        id="medicine" name="medicine" type="text" value="">
+                                                    <input autocomplete="off" class="form-control mask-only-text" id="medicine" name="medicine" type="text" value="">
                                                     <i class="bi bi-capsule st-icon"></i>
                                                 </div>
                                                 <span id="medicine_span" class="text-danger"></span>
@@ -1609,8 +1611,7 @@
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                         @lang('messages.form.dosis')
                                                     </label>
-                                                    <input autocomplete="off" class="form-control mask-only-text"
-                                                        id="dose" name="dose" type="text" value="">
+                                                    <input autocomplete="off" class="form-control mask-only-text" id="dose" name="dose" type="text" value="">
                                                     <i class="bi bi-file-medical st-icon"></i>
                                                 </div>
                                                 <span id="dose_span" class="text-danger"></span>
@@ -1622,8 +1623,7 @@
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                         @lang('messages.form.patologia')
                                                     </label>
-                                                    <input autocomplete="off" class="form-control mask-only-text"
-                                                        id="patologi" name="patologi" type="text" value="">
+                                                    <input autocomplete="off" class="form-control mask-only-text" id="patologi" name="patologi" type="text" value="">
                                                     <i class="bi bi-file-medical st-icon"></i>
                                                 </div>
                                                 <span id="patologi_span" class="text-danger"></span>
@@ -1635,8 +1635,7 @@
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                         @lang('messages.form.via_administracion')
                                                     </label>
-                                                    <input autocomplete="off" class="form-control mask-only-text"
-                                                        id="viaAdmin" name="viaAdmin" type="text" value="">
+                                                    <input autocomplete="off" class="form-control mask-only-text" id="viaAdmin" name="viaAdmin" type="text" value="">
                                                     <i class="bi bi-file-medical st-icon"></i>
                                                 </div>
                                                 <span id="viaAdmin_span" class="text-danger"></span>
@@ -1680,9 +1679,7 @@
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                         @lang('messages.form.fecha_ini')
                                                     </label>
-                                                    <input autocomplete="off" class="form-control datePickert"
-                                                        id="dateIniTreatment" readonly name="dateIniTreatment"
-                                                        type="text" value="">
+                                                    <input autocomplete="off" class="form-control datePickert" id="dateIniTreatment" readonly name="dateIniTreatment" type="text" value="">
                                                     <i class="bi bi-calendar2-week st-icon"></i>
                                                 </div>
                                                 <span id="dateIniTreatment_span" class="text-danger"></span>
@@ -1703,28 +1700,26 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                        <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <span type="" onclick="addMedacition(event)" class="btn btnSave" id="btn">@lang('messages.botton.guardar_medicamentos')</span>
                                         </div>
                                     </div>
                                     {{-- tabla --}}
-                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2 offset-md-5">
-                                        <span type="" onclick="addForm(event)"
-                                            class="btn btnSecond" id="btn">@lang('messages.botton.añadir_medicamentos')</span>
+                                    <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3">
+                                        <span type="" onclick="addForm(event)" class="btn btnSecond" id="btn">@lang('messages.botton.añadir_medicamentos')</span>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                            style="margin-top: 20px; width: 100%;">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px; width: 100%;">
                                             <table class="table table-striped table-bordered" id="table-medicamento">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.medicamento')</th>
                                                         <th class="text-center" data-orderable="false" scope="col">@lang('messages.tabla.dosis')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.patologia')</th>
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.via_administracion')</th>
+                                                        {{-- <th class="text-center" scope="col">@lang('messages.tabla.via_administracion')</th> --}}
                                                         <th class="text-center" scope="col">@lang('messages.tabla.duracion')</th>
-                                                        <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_ini')</th>
-                                                        <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_fin')</th>
+                                                        {{-- <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_ini')</th> --}}
+                                                        {{-- <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_fin')</th> --}}
                                                         <th class="text-center w-5" data-orderable="false" scope="col">@lang('messages.tabla.eliminar')</th>
                                                     </tr>
                                                 </thead>
@@ -1739,10 +1734,10 @@
                                                                     <td class="text-center text-capitalize">{{ $item['medicine'] }}</td>
                                                                     <td class="text-center"> {{ $item['dose'] }} </td>
                                                                     <td class="text-center"> {{ $item['patologi'] }} </td>
-                                                                    <td class="text-center"> {{ $item['viaAdmin'] }} </td>
+                                                                    {{-- <td class="text-center"> {{ $item['viaAdmin'] }} </td> --}}
                                                                     <td class="text-center">  {{ $item['treatmentDuration'] }}</td>
-                                                                    <td class="text-center"> {{ $item['dateIniTreatment'] }}</td>
-                                                                    <td class="text-center"> {{ $item['dateEndTreatment'] }}</td>
+                                                                    {{-- <td class="text-center"> {{ $item['dateIniTreatment'] }}</td> --}}
+                                                                    {{-- <td class="text-center"> {{ $item['dateEndTreatment'] }}</td> --}}
                                                                     <td class="text-center"><span  onclick="deleteMedication({{ $key }})"><i class="bi bi-trash-fill"></i></span> </td>
                                                                 </tr>
                                                             @endforeach
