@@ -120,6 +120,9 @@ class UtilsController extends Controller
         if ($value == '23') {
 			return 'dairy: pre-registration of patient';
 		}
+        if ($value == '24') {
+			return 'add physical exams';
+		}
 	}
 
 	/**

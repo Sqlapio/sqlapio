@@ -118,4 +118,14 @@ class Patient extends Model
     {
         return $this->hasMany(MedicalRecord::class, 'user_id', 'user_id');
     }
+
+    /**
+     * Get all of the get_physical_exams for the Patient
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function get_physical_exams(): HasMany
+    {
+        return $this->hasMany(PhysicalExam::class, 'patient_id', 'id');
+    }
 }
