@@ -14,6 +14,13 @@
     .links:hover {
         color: #42abe2;
     }
+
+    @media only screen and (min-width: 1800px) {
+        .col-xxxl {
+            width: 20% !important;
+        }
+
+    }
 </style>
 @push('scripts')
     <script>
@@ -122,7 +129,7 @@
                 <x-load-spinner />
             </div>
             <div class="row form-sq" style="position: relative">
-                <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 loginDric">
+                <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-xxxl loginDric">
                     <div class="">
                         <img class="img" src="{{ asset('img/iniciar-sesion.png') }}" class="">
                     </div>
@@ -159,12 +166,12 @@
                 </div>
                 {{ Form::close() }}
                 <div class="row justify-content-center">
-                    <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
+                    {{-- <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
                         <a class="links" href="https://system.sqlapio.com/public/payment-form/1">@lang('messages.login.registrate_gratis')</a>
-                    </div>
-                    <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
+                    </div> --}}
+                    {{-- <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
                         <a class="links" href="{{ config('sidebar_item.var') }}">@lang('messages.login.adquiere_plan')</a>
-                    </div>
+                    </div> --}}
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-bottom: 4px;">
                         <a class="links" href="{{ route('recovery_password') }}">@lang('messages.login.recuperar_clave')</a>
                     </div>
