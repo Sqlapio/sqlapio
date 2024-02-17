@@ -2071,7 +2071,7 @@ data-html="true" title="Ver PDF">
                                     <div class="row mt-3">
 
                                         <hr>
-                                        <h5> Historial de  @lang('messages.acordion.examen_fisico')</h5>
+                                        <h5> Historial de @lang('messages.acordion.examen_fisico')</h5>
                                         <hr>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
                                             style="margin-top: 20px;">
