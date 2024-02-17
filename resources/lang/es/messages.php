@@ -30,6 +30,7 @@ return [
         'añadir_alergia'      => 'Añadir Alergias',
         'añadir_cirugia'      => 'Añadir Cirugía',
         'añadir_medicamentos' => 'Añadir Medicamentos',
+        'guardar_medicamentos' => 'Guardar Medicamentos',
         'registrar_medico'    => 'Registrar Médicos',
     ],
     'form' => [
