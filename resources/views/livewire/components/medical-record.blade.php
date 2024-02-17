@@ -878,14 +878,20 @@
                     condition: {
                         required: true,
                     },
-                    applied_studies: {
+                    observations: {
                         required: true,
                     },
                     conut_vital_sing: {
                         required: true,
+                    },
+                    center_id:{
+                        required: true,
                     }
                 },
                 messages: {
+                    center_id: {
+                        required: "Campo Obligatorio",
+                    },
                     weight: {
                         required: "Campo Obligatorio",
                     },
@@ -914,7 +920,7 @@
                     condition: {
                         required: "Campo Obligatorio",
                     },
-                    applied_studies: {
+                    observations: {
                         required: "Campo Obligatorio",
                     },
                     conut_vital_sing: {
@@ -931,41 +937,28 @@
                     $('#spinner').show();
 
                     //preparar la data para el envio
-                    let formData = $('#form-examen-fisico').serializeArray();
-                    let data = {};
-                    formData.map((item) => data[item.name] = item.value);
-                    data["exams_array"] = JSON.stringify(exams_array);
-                    data["symptom_array"] = JSON.stringify(symptom_array);
-                    data["studies_array"] = JSON.stringify(studies_array);
-                    data["medications_supplements"] = JSON.stringify(medications_supplements);
+                    let formData = $('#form-examen-fisico').serialize();
 
                     ////end
                     $.ajax({
-                        url: '{{ route('MedicalRecordCreate') }}',
+                        url: '{{ route('create-examen-fisico') }}',
                         type: 'POST',
                         dataType: "json",
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            "data": JSON.stringify(data),
-                        },
+                        data: formData,
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function(response) {
                             $('#send').show();
                             $('#spinner').hide();
-                            $("#form-examen-fisico").trigger("reset");
-                            $('#table-medicamento > tbody').empty();
+                            $("#form-examen-fisico").trigger("reset");;
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Consulta registrada exitosamente!',
+                                title: 'Operacion exitosa!',
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
-
-                                console.log("");
-
 
                             });
                         },
@@ -1784,7 +1777,7 @@
 
         const handlerVitalSigns = (e) => {
             if ($(`#${e.target.id}`).is(':checked')) {
-                // $(`#${e.target.id}`).val(1);
+                $(`#${e.target.id}`).val(1);
                 countVitalSigns = countVitalSigns + 1;
                 $('#conut_vital_sing').val(countVitalSigns);
             } else {
@@ -1868,14 +1861,37 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <form id="form-examen-fisico" method="post" action="">
-
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="patient_id" id="patient_id"
+                                            value="{{ $Patient->id }}">
                                         <div class="row">
                                             <div style="display: flex">
                                                 <span class="text-warning mt-2" id="EF"
                                                     style="font-size: 15px;margin-right: 10px;"></span>
                                             </div>
-                                            <input type="hidden" name="history_vital_signs[]" id="history_vital_signs"
-                                                value="">
+
+                                            @if (Auth::user()->type_plane !== '7')
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="phone" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.centro_salud')</label>
+                                                            <select name="center_id" id="center_id"
+                                                                placeholder="Seleccione"class="form-control"
+                                                                class="form-control combo-textbox-input">
+                                                                <option value="">@lang('messages.label.seleccione')</option>
+                                                                @foreach ($doctor_centers as $item)
+                                                                    <option value="{{ $item->center_id }}">
+                                                                        {{ $item->get_center->description }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <i class="bi bi-hospital st-icon"></i>
+                                                            <span id="type_alergia_span" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
@@ -2035,9 +2051,9 @@
 
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                 <div class="form-group">
-                                                    <label for="applied_studies" class="form-label"
+                                                    <label for="observations" class="form-label"
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                    <textarea id="applied_studies" name="applied_studies" class="form-control"></textarea>
+                                                    <textarea id="observations" name="observations" class="form-control"></textarea>
                                                 </div>
                                             </div>
                                         </div>
