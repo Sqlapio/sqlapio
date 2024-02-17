@@ -353,7 +353,7 @@
         let user = @json(Auth::user());
         let doctor_centers = @json($doctor_centers);
         let validate_histroy = @json($validate_histroy);
-
+        let countVitalSigns = 0;
 
 
         $(document).ready(() => {
@@ -1781,6 +1781,21 @@
                     break;
             }
         }
+
+        const handlerVitalSigns = (e) => {
+            if ($(`#${e.target.id}`).is(':checked')) {
+                // $(`#${e.target.id}`).val(1);
+                countVitalSigns = countVitalSigns + 1;
+                $('#conut_vital_sing').val(countVitalSigns);
+            } else {
+                $(`#${e.target.id}`).val(null);
+                countVitalSigns = countVitalSigns - 1;
+
+                if (countVitalSigns == 0) {
+                    $('#conut_vital_sing').val('');
+                }
+            }
+        }
     </script>
 @endpush
 @section('content')
@@ -2015,7 +2030,8 @@
                                                 </div>
                                             @endforeach
 
-                                            <input type="hidden" name="conut_vital_sing" id="conut_vital_sing" value="">
+                                            <input type="hidden" name="conut_vital_sing" id="conut_vital_sing"
+                                                value="">
 
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                 <div class="form-group">
