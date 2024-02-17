@@ -207,8 +207,9 @@ class MedicalRecord extends Component
             $action = '24';
             ActivityLogController::store_log($action);
 
+            $physical_exams = PhysicalExam::where('patient_id', $request->patient_id)->get();
 
-            return true;
+            return  $physical_exams;
 
         } catch (\Throwable $th) {
             $message = $th->getMessage();
@@ -277,7 +278,6 @@ class MedicalRecord extends Component
         $vital_sing = UtilsController::get_history_vital_sing();
         $get_condition = UtilsController::get_condition();
         $physical_exams = PhysicalExam::where('patient_id', $id)->get();
-
 
         return view('livewire.components.medical-record',compact(
             'Patient',

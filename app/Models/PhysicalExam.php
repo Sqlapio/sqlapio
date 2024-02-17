@@ -48,5 +48,10 @@ class PhysicalExam extends Model
 
     ];
 
+    public function get_center()
+    {
+        return $this->hasOne(Center::class, 'id', 'center_id');
+    }
+
 
 }
