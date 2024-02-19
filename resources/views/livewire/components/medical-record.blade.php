@@ -200,8 +200,8 @@
     }
 
     /* .section {
-background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/fondo.jpg");
-}    */
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/fondo.jpg");
+        }    */
 
     .s-IA {
         width: 12% !important;
@@ -960,6 +960,8 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
 
+                                setDatatableExamenFisico(response);
+
                             });
                         },
                         error: function(error) {
@@ -1111,12 +1113,12 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("
             item.data.medications_supplements.map((element, key) => {
                 countMedicationAdd = countMedicationAdd + 1;
                 var row = `
-<tr id="${countMedicationAdd}">
-<td class="text-center">${element.medicine}</td>
-<td class="text-center">${element.indication}</td>
-<td class="text-center">${element.treatmentDuration}</td>
-<td class="text-center"><span><i class="bi bi-x-circle-fill"></i></span></td>
-</tr>`;
+                        <tr id="${countMedicationAdd}">
+                        <td class="text-center">${element.medicine}</td>
+                        <td class="text-center">${element.indication}</td>
+                        <td class="text-center">${element.treatmentDuration}</td>
+                        <td class="text-center"><span><i class="bi bi-x-circle-fill"></i></span></td>
+                        </tr>`;
                 $('#table-medicamento').find('tbody').append(row);
 
                 //setiar examenes
@@ -1128,12 +1130,12 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("
                 exam_filter.map((element) => {
 
                     var list = `
-<ul style="padding-inline-start: 0;">
-<li style="margin-bottom: 10px; padding-right: 5px">
-<input type="checkbox" class="btn-check" autocomplete="off" checked disabled >
-<label class="btn btn-outline-primary check-cm" for={elem.cod_exam}> ${element} </label>
-</li>
-</ul>`;
+                        <ul style="padding-inline-start: 0;">
+                        <li style="margin-bottom: 10px; padding-right: 5px">
+                        <input type="checkbox" class="btn-check" autocomplete="off" checked disabled >
+                        <label class="btn btn-outline-primary check-cm" for={elem.cod_exam}> ${element} </label>
+                        </li>
+                        </ul>`;
                     $('#exam_filter').append(list);
                 })
 
@@ -1152,12 +1154,12 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("
                 study_filter.map((element) => {
 
                     var list = `
-<ul style="padding-inline-start: 0;">
-<li style="margin-bottom: 10px; padding-right: 5px">
-<input type="checkbox" class="btn-check" autocomplete="off" checked disabled >
-<label class="btn btn-outline-success check-cm" for={elem.cod_exam}> ${element} </label>
-</li>
-</ul>`;
+                        <ul style="padding-inline-start: 0;">
+                        <li style="margin-bottom: 10px; padding-right: 5px">
+                        <input type="checkbox" class="btn-check" autocomplete="off" checked disabled >
+                        <label class="btn btn-outline-success check-cm" for={elem.cod_exam}> ${element} </label>
+                        </li>
+                        </ul>`;
                     $('#study_filter').append(list);
                 })
 
@@ -1266,9 +1268,9 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("
 
                 if (k < number) {
                     let el = `<li style="margin-bottom: 10px; padding-right: 5px">
-<input type="checkbox" ${check} class="btn-check" id="${id}_${e.id}" name="chk${id}_${ e.id }" autocomplete="off" data-code="${code}" ${callback} value="${ e.description }">
-<label class="${clas}" for="${id}_${e.id }"> ${ e.description } </label>
-</li>`;
+            <input type="checkbox" ${check} class="btn-check" id="${id}_${e.id}" name="chk${id}_${ e.id }" autocomplete="off" data-code="${code}" ${callback} value="${ e.description }">
+            <label class="${clas}" for="${id}_${e.id }"> ${ e.description } </label>
+            </li>`;
                     array.push(el)
                 }
             });
@@ -1636,17 +1638,17 @@ background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("
                 let route = "{{ route('PDF_informe_medico', ':id') }}";
                 route = route.replace(':id', elem.id);
                 elem.btn = `
-<a target="_blank" href="${route}">
-<button type="button" class="btn refresf btn-iSecond rounded-circle">
-<i class="bi bi-file-earmark-pdf"
-data-bs-toggle="tooltip"
-data-bs-placement="bottom"
-data-bs-custom-class="custom-tooltip"
-data-html="true" title="Ver PDF">
-</i>
-</button>
-</a>
-`;
+                    <a target="_blank" href="${route}">
+                    <button type="button" class="btn refresf btn-iSecond rounded-circle">
+                    <i class="bi bi-file-earmark-pdf"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="bottom"
+                    data-bs-custom-class="custom-tooltip"
+                    data-html="true" title="Ver PDF">
+                    </i>
+                    </button>
+                    </a>
+                    `;
 
                 elem.name = `${ elem.get_doctor.name} ${elem.get_doctor.last_name  }`
                 row.push(elem);
@@ -1788,6 +1790,132 @@ data-html="true" title="Ver PDF">
                     $('#conut_vital_sing').val('');
                 }
             }
+        }
+
+        const setDatatableExamenFisico = (data) => {
+
+            let signosVitales = "";
+
+            let row = []
+
+            data.map((item) => {
+
+                let signosVitales = '';
+                let eupenio = '';
+                let febril = '';
+                let esfera_neurologica = '';
+                let glasgow = '';
+                let esfera_cardiopulmonar = '';
+                let esfera_abdominal = '';
+                let extremidades = '';
+                let esfera_orl = '';
+                let hidratado = '';
+
+                if (item.hidratado) {
+                hidratado = 'Hidratado';
+                } 
+                if (item.eupenio) {
+                eupenio = ',Eupenio';
+                } 
+                if (item.febril) {
+                febril = ',Febril';
+                } 
+                if (item.esfera_neurologica) {
+                esfera_neurologica = 'Enfera Neurologica';
+                } 
+                if (item.glasgow) {
+                glasgow = ',Glasgow';
+                } 
+                if (item.esfera_orl) {
+                esfera_orl = ',Esfera oral';
+                } 
+                if (item.esfera_cardiopulmonar) {
+                esfera_cardiopulmonar = 'Cardio Pulmorar';
+                } 
+                if (item.esfera_abdominal) {
+                esfera_abdominal = ',Esfera Abdominal';
+                } 
+                if (item.extremidades) {
+                extremidades = ',Extremidades';
+                }               
+
+                item.signos_vitales = `${hidratado}${eupenio}${febril}${esfera_neurologica}${glasgow}${esfera_orl}${esfera_cardiopulmonar}${esfera_abdominal}${extremidades}`
+
+                row.push(item);
+            });
+
+            new DataTable(
+                '#table-examen-fisico', {
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                    },
+                    // reponsive: true,
+                    bDestroy: true,
+                    data: row,
+                    "searching": false,
+                    "bLengthChange": false,
+                    columns: [{
+                            data: 'get_center.description',
+                            title: 'Centro de salud',
+                            className: "text-center td-pad",
+                        },
+                        {
+                            data: 'date',
+                            title: 'Fecha',
+                            className: "text-center td-pad",
+                        },
+                        {
+                            data: 'weight',
+                            title: 'Peso',
+                            className: "text-center td-pad w-10",
+                        },
+                        {
+                            data: 'height',
+                            title: 'Altura',
+                            className: "text-center td-pad",
+                        },
+                        {
+                            data: 'strain',
+                            title: 'Presion arterial',
+                            className: "text-center td-pad",
+                        },
+                        {
+                            data: 'temperature',
+                            title: 'Temperatura',
+                            className: "text-center td-pad",
+                        },
+                        {
+                            data: 'breaths',
+                            title: 'Respiraciones',
+                            className: "text-center td-pad",
+                        },
+                        {
+                            data: 'pulse',
+                            title: 'Pulso',
+                            className: "text-center td-pad",
+                        },
+                        {
+                            data: 'saturation',
+                            title: 'Saturacon',
+                            className: "text-center td-pad",
+                        },
+                        {
+                            data: 'condition',
+                            title: 'Condicon general',
+                            className: "text-center td-pad",
+                        },
+                        {
+                            data: 'signos_vitales',
+                            title: 'Signos vitales',
+                            className: "text-center td-pad",
+                        },
+                        {
+                            data: 'observations',
+                            title: 'Observacion',
+                            className: "text-center td-pad",
+                        }
+                    ],
+                });
         }
     </script>
 @endpush
@@ -2075,7 +2203,7 @@ data-html="true" title="Ver PDF">
                                         <hr>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
                                             style="margin-top: 20px;">
-                                            <table id="table-medical-report" class="table table-striped table-bordered"
+                                            <table id="table-examen-fisico" class="table table-striped table-bordered"
                                                 style="width:100%; ">
                                                 <thead>
                                                     <tr>
@@ -2094,6 +2222,7 @@ data-html="true" title="Ver PDF">
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+
                                                     @foreach ($physical_exams as $item)
                                                         <tr>
                                                             <td class="text-center td-pad">
@@ -2111,9 +2240,50 @@ data-html="true" title="Ver PDF">
                                                             <td class="text-center td-pad"> {{ $item->pulse }}</td>
                                                             <td class="text-center td-pad"> {{ $item->saturation }}</td>
                                                             <td class="text-center td-pad"> {{ $item->condition }}</td>
-                                                            <td class="text-center td-pad"> {{ $item->date }}</td>
-                                                            <td class="text-center td-pad"> {{ $item->observations }}</td>
+                                                            @php
 
+                                                                $signosVitales = '';
+                                                                $eupenio = '';
+                                                                $febril = '';
+                                                                $esfera_neurologica = '';
+                                                                $glasgow = '';
+                                                                $esfera_cardiopulmonar = '';
+                                                                $esfera_abdominal = '';
+                                                                $extremidades = '';
+                                                                $esfera_orl = '';
+
+                                                                if ($item->hidratado) {
+                                                                    $hidratado = 'Hidratado';
+                                                                } 
+                                                                if ($item->eupenio) {
+                                                                    $eupenio = ',Eupenio';
+                                                                } 
+                                                                if ($item->febril) {
+                                                                    $febril = ',Febril';
+                                                                } 
+                                                                if ($item->esfera_neurologica) {
+                                                                    $esfera_neurologica = 'Enfera Neurologica';
+                                                                } 
+                                                                if ($item->glasgow) {
+                                                                    $glasgow = ',Glasgow';
+                                                                } 
+                                                                if ($item->esfera_orl) {
+                                                                    $esfera_orl = ',Esfera oral';
+                                                                } 
+                                                                if ($item->esfera_cardiopulmonar) {
+                                                                    $esfera_cardiopulmonar = 'Cardio Pulmorar';
+                                                                } 
+                                                                if ($item->esfera_abdominal) {
+                                                                    $esfera_abdominal = ',Esfera Abdominal';
+                                                                } 
+                                                                if ($item->extremidades) {
+                                                                    $extremidades = ',Extremidades';
+                                                                }
+                                                            @endphp
+                                                            <td class="text-center td-pad">
+                                                                {{ $hidratado.$eupenio.$febril.$esfera_neurologica.$glasgow.$esfera_orl.$esfera_cardiopulmonar.$esfera_abdominal.$extremidades }}
+                                                            </td>
+                                                            <td class="text-center td-pad"> {{ $item->observations }}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

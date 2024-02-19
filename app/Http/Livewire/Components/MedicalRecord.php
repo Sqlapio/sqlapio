@@ -207,7 +207,7 @@ class MedicalRecord extends Component
             $action = '24';
             ActivityLogController::store_log($action);
 
-            $physical_exams = PhysicalExam::where('patient_id', $request->patient_id)->get();
+            $physical_exams = PhysicalExam::where('patient_id', $request->patient_id)->with('get_center')->get();
 
             return  $physical_exams;
 
