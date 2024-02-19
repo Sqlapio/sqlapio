@@ -98,21 +98,28 @@
         color: #459594
     }
 
+    .btn-plans {
+        justify-content: flex-end;
+    }
+    
     @media only screen and (max-width: 576px) {
         .mt-m3 {
             margin-top: 100px
         }
-
+        
         .logoSq {
             width: 30%;
             height: auto;
         }
-
+        
         .logo-bank {
             width: 20px;
             margin-left: 20px;
         }
-
+        
+        .btn-plans {
+            justify-content: center;
+        }
     }
 </style>
 <script>
@@ -485,7 +492,7 @@
         <strong class="{{ auth()->user()->expired_plan === 1 ? 'text-danger' : '' }} mt-2">{{ 'Fecha de corte: ' . \Carbon\Carbon::parse(auth()->user()->date_end_plan)->format('d-m-Y') }}</strong>
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
             <div class="row">
-                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3" style="display: flex; justify-content: center;">
                     <div class="card-wrap">
                         <div class="card-header one">
                             <img width="80" height="auto" src="{{ asset('/img/icons/patient.png') }}" alt="avatar">
@@ -514,7 +521,7 @@
                         </div>
                     </div> --}}
                 </div>
-                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3" style="display: flex; justify-content: center;">
                     <div class="card-wrap">
                         <div class="card-header one">
                             <img width="80" height="auto" src="{{ asset('/img/icons/medical-report.png') }}" alt="avatar">
@@ -543,7 +550,7 @@
                         </div>
                     </div> --}}
                 </div>
-                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3" style="display: flex; justify-content: center;">
                     <div class="card-wrap">
                         <div class="card-header one">
                             <img width="80" height="auto" src="{{ asset('/img/icons/medical-checkup.png') }}" alt="avatar">
@@ -571,7 +578,7 @@
                         </div>
                     </div> --}}
                 </div>
-                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3" style="display: flex; justify-content: center;">
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3" style="display: flex; justify-content: center;">
                     <div class="card-wrap">
                         <div class="card-header one">
                             <img width="80" height="auto" src="{{ asset('/img/icons/medical-chart.png') }}" alt="avatar">
@@ -601,8 +608,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-1"
-            style="display: flex; justify-content: flex-end;">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-1 btn-plans" style="display: flex;">
             <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})" class="btn btnPrimary"
                 id="renew-btn">Renovar</button>
             <button type="button" onclick="renew_plan(2,{{ Auth::user()->type_plane }})" class="btn btnSecond"

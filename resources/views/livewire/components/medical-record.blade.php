@@ -2222,6 +2222,17 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    @php                                                        
+                                                                $signosVitales = '';
+                                                                $eupenio = '';
+                                                                $febril = '';
+                                                                $esfera_neurologica = '';
+                                                                $glasgow = '';
+                                                                $esfera_cardiopulmonar = '';
+                                                                $esfera_abdominal = '';
+                                                                $extremidades = '';
+                                                                $esfera_orl = '';
+                                                    @endphp
 
                                                     @foreach ($physical_exams as $item)
                                                         <tr>
@@ -2241,17 +2252,6 @@
                                                             <td class="text-center td-pad"> {{ $item->saturation }}</td>
                                                             <td class="text-center td-pad"> {{ $item->condition }}</td>
                                                             @php
-
-                                                                $signosVitales = '';
-                                                                $eupenio = '';
-                                                                $febril = '';
-                                                                $esfera_neurologica = '';
-                                                                $glasgow = '';
-                                                                $esfera_cardiopulmonar = '';
-                                                                $esfera_abdominal = '';
-                                                                $extremidades = '';
-                                                                $esfera_orl = '';
-
                                                                 if ($item->hidratado) {
                                                                     $hidratado = 'Hidratado';
                                                                 } 
