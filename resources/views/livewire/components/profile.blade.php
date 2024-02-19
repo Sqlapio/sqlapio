@@ -9,13 +9,31 @@
         color: #428bca;
     }
 
-    @media only screen and (max-width: 768px) {
+    .mb-btn {
+        margin-top: 0.5rem;     
+    }
+
+    @media only screen and (max-width: 992px) {
         .mb-btn {
             margin-top: 18px !important;
-            margin-left: 12px;
+            /* margin-left: 12px; */
+        }
+    }
+
+    @media (min-width: 391px) and (max-width: 576px) {
+        .mb-btnSve {
+            width: 40% !important;
         }
 
+        .mb-btnRtr {
+            width: 60% !important;
+        }
+    
     }
+
+
+
+
 </style>
 @push('scripts')
     <script>
@@ -522,6 +540,20 @@
                 $("#copied").text('Error al copiar enlace!');
             }
         }
+
+        const handleProfesion = (e) => {
+
+            if (e.target.value === "Otros") {
+                $('#specialty-div').hide();
+                $('#div-otros').show();
+            }
+        }
+
+        const refresh = () => {
+            $('#specialty').val('').change();
+            $('#specialty-div').show();
+            $('#div-otros').hide();
+        }
     </script>
 @endpush
 @section('content')
@@ -557,19 +589,19 @@
                             </button>
                         </span>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
-                            <div class="accordion-body">
+                                    <div class="accordion-body" style="{{Auth::user()->role == 'corporativo' ? 'padding: 0px 16px' : ''}}">
                                 <form id="form-profile" method="post" action="/">
                                     {{ csrf_field() }}
                                     <input type="hidden" id="rol" name="rol" value="{{ Auth::user()->role }}">
                                     <div class="row Form-edit-user">
                                         @if (Auth::user()->role == 'medico')
                                             {{-- rol medico --}}
-                                            <div class="col-sm-3 col-md-2 col-lg-2 col-xl-2 col-xxl-2 ">
+                                            <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2 ">
                                                 <x-upload-image />
                                             </div>
-                                            <div class="col-sm-9 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
+                                            <div class="col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
                                                 <div class="row">
-                                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label"
@@ -582,7 +614,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="last_name" class="form-label"
@@ -595,7 +627,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 @if (Auth::user()->contrie == '81')
@@ -611,20 +643,19 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <label for="birthdate" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.fecha_nacimiento')</label>
                                                             <input autocomplete="off" placeholder=""
                                                                 class="form-control date-bd @error('birthdate') is-invalid @enderror"
                                                                 id="birthdate" name="birthdate" type="date" value=""
-                                                                style="padding: 0.375rem 5px 0.375rem 0.75rem;"
                                                                 onchange="calculateAge(event,'age')">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                    <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="genere" class="form-label"
@@ -640,7 +671,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="username" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
@@ -652,7 +683,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -665,7 +696,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2" id="specialty-div">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="specialty" class="form-label"
@@ -678,11 +709,24 @@
                                                                         <option value="{{ $item->description }}">
                                                                             {{ $item->description }}</option>
                                                                     @endforeach
-
+                                                                    <option value='Otros'>@lang('messages.label.otros')</option>
                                                                 </select>
                                                                 <i class="bi bi-layers st-icon"></i>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2" id='div-otros'>
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="specialty" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                    @lang('messages.label.nueva_especialidad')
+                                                                </label>
+                                                                <input autocomplete="off" class="form-control mask-text" id="specialty_new" name="specialty_new"
+                                                                    type="text" value="">
+                                                                <i data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip"
+                                                                    data-html="true" title="Refrescar" class="bi bi-arrow-clockwise st-icon" onclick="refresh();"></i>
+                                                            </div>
+                                                        </diV>
                                                     </div>
                                                 </div>
                                             </div>
@@ -733,9 +777,9 @@
                                                     </diV>
                                                 </div>
                                             @endif
-                                            <x-ubigeo_contries class="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2" />
+                                            <x-ubigeo_contries class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2" />
 
-                                            <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                            <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="zip_code" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.codigo_postal')</label>
@@ -747,7 +791,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                            <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         @if(Auth::user()->contrie == '81')
@@ -764,9 +808,7 @@
                                                 </div>
                                             </div>
                                         @else
-
-
-                                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 ">
+                                            <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2" >
                                                 @php
                                                     $title = 'Cargar imagen';
                                                     if (Auth::user()->role == 'corporativo') {
@@ -776,10 +818,10 @@
                                                 <x-upload-image :title="$title" />
                                             </div>
                                             {{-- rol laboratorio --}}
-                                            <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
+                                            <div class="col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
                                                 <div class="row">
                                                     <input type="hidden" id="id" name="id" value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->id : '' !!}">
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon_social')</label>
@@ -795,7 +837,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.tipo_documento')</label>
                                                             <select onchange="handlerTypeDoc(event)" name="type_rif" id="type_rif" class="form-control">
@@ -807,7 +849,7 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nro_identificacion_rif')</label>
@@ -819,7 +861,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-12 col-md-5 col-lg-5 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
@@ -833,7 +875,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nro_licencia_salud')</label>
@@ -845,7 +887,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
@@ -857,11 +899,11 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
+                                                    <x-ubigeo class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                            <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -880,7 +922,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                            <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -893,7 +935,7 @@
                                                     </div>
                                                 </diV>
                                             </div>
-                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -909,7 +951,7 @@
                                                         class="collapseBtn">https://www.sitioweb.com</small>
                                                 </diV>
                                             </div>
-                                            <div class="{{Auth::user()->role == 'corporativo' ? 'col-sm-9 col-md-9 col-lg-9 col-xl-9 col-xxl-9' : 'col-sm-11 col-md-11 col-lg-11 col-xl-11 col-xxl-11'}}">
+                                            <div class="{{Auth::user()->role == 'corporativo' ? 'col-sm-12 col-md-12 col-lg-7 col-xl-7 col-xxl-7' : 'col-sm-11 col-md-11 col-lg-11 col-xl-11 col-xxl-11'}}">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
@@ -920,13 +962,11 @@
                                             </div>
                                         @endif
 
-                                            <div class="col-sm-2 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mb-btn" style="display: flex; justify-content: flex-end; align-items: flex-end; padding-left: 0">
+                                            <div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl-2 mb-btn mb-btnSve" style="display: flex; align-items: flex-end;">
                                                 <input class="btn btnSave send" value="Guardar" type="submit" style="margin-bottom: 1px; width: 100%;"/>
-                                                {{-- <button type="button" class="btn btnSecond btn6"
-                                                    style="margin-left: 20px">Cancelar</button> --}}
                                             </div>
                                             @if (Auth::user()->role == 'corporativo')
-                                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2" style="display: flex; justify-content: space-around; align-items: flex-end; margin-bottom: 1px;">
+                                                <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mb-btn mb-btnRtr" style="display: flex; justify-content: space-around; align-items: flex-end; margin-bottom: 1px;">
                                                     <a id="Link-medicos" href="{{ Auth::user()->token_corporate }}"target="_blank" style="text-decoration: none;">
                                                         <button type="button" class="btn btnPrimary" style="padding: 7px 20px">@lang('messages.botton.registrar_medico')</button>
                                                     </a>
@@ -969,7 +1009,7 @@
                             </span>
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" id="email-div">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 col-xxl-3" id="email-div">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>

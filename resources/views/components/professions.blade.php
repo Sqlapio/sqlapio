@@ -18,7 +18,7 @@
         $('#div-otros').hide();
     }
 </script>
-<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" id="profesion-div">
+<div class="{{ $class }} mt-2" id="profesion-div">
     <div class="form-group">
         <div class="Icon-inside">
             <label for="phone" class="form-label"
@@ -37,7 +37,7 @@
     </div>
 </div>
 
-<div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" id="div-otros" style="display: none">
+<div class="{{ $class }}" id="div-otros" style="display: none">
     <div class="form-group">
         <div class="Icon-inside">
             <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
