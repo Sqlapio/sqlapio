@@ -821,12 +821,12 @@
                                                         @endforeach
                                                     </div>
                                                 @endif
-                                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 ">
+                                                <div class="col-sm-12 col-md-3 col-lg-2 col-xl-2 col-xxl-2 ">
                                                     <x-upload-image title/>
                                                 </div>
-                                                <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
+                                                <div class="col-sm-12 col-md-9 col-lg-10 col-xl-10 col-xxl-10">
                                                     <div class="row">
-                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -837,7 +837,7 @@
                                                                 </div>
                                                             </diV>
                                                         </div>
-                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -848,7 +848,7 @@
                                                                 </div>
                                                             </diV>
                                                         </div>
-                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                     @lang('messages.form.fecha_nacimiento')
@@ -858,7 +858,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -873,7 +873,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="ci-div">
+                                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="ci-div">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="phone" class="form-label" type="number" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -887,7 +887,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div id="div-phone" class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="div-phone">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
@@ -901,7 +901,7 @@
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
+                                                            <label for="address" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
                                                             <textarea id="address" name="address" class="form-control" rows="1"></textarea>
                                                             <i class="bi bi-geo st-icon"></i>
                                                         </div>
@@ -910,7 +910,7 @@
                                                 <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="email-div">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
+                                                            <label for="email" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
                                                             @php
                                                                 $email = Auth::user()->email;
                                                             @endphp
@@ -921,21 +921,21 @@
                                                 </div>
 
                                                 <input id="age" name="age" type="hidden" value="">
-                                                <x-professions />
+                                                <x-professions class="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
 
                                                 {{-- <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" /> --}}
 
-                                                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                <div class="col-sm-12 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.codigo_postal')</label>
+                                                            <label for="zip_code" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.codigo_postal')</label>
                                                             <input autocomplete="off" class="form-control mask-only-text @error('zip_code') is-invalid @enderror" id="zip_code" name="zip_code" type="text" value="">
                                                             <i class="bi bi-geo st-icon"></i>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 @if (Auth::user()->type_plane !== '7')
-                                                <x-centers_user  class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
+                                                <x-centers_user  class="col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
                                                 @endif
                                                 {{-- <x-upload-image /> --}}
                                                 {{-- data del representante --}}
@@ -946,7 +946,7 @@
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
+                                                                <label for="re_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
                                                                 <input autocomplete="off" class="form-control mask-text @error('re_name') is-invalid @enderror" id="re_name" name="re_name" type="text" value="">
                                                                 <i class="bi bi-person-circle st-icon"></i>
                                                             </div>
@@ -955,7 +955,7 @@
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
+                                                                <label for="re_last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
                                                                 <input autocomplete="off" class="form-control mask-text @error('re_last_name') is-invalid @enderror" id="re_last_name" name="re_last_name" type="text" value="">
                                                                 <i class="bi bi-person-circle st-icon"></i>
                                                             </div>
@@ -964,7 +964,7 @@
                                                     <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
+                                                                <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
                                                                 <input autocomplete="off" class="form-control @error('re_ci') is-invalid @enderror" id="re_ci" name="re_ci" type="text" value="">
                                                                 <i class="bi bi-person-vcard st-icon"></i>
                                                             </div>
@@ -973,7 +973,7 @@
                                                     <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
+                                                                <label for="telefono" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
                                                                 <input autocomplete="off" class="form-control phone @error('re_phone') is-invalid @enderror" id="re_phone" name="re_phone" type="text" value="">
                                                                 <i class="bi bi-telephone-forward st-icon"></i>
                                                             </div>
@@ -982,7 +982,7 @@
                                                     <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2" style="padding-right: 0;">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
+                                                                <label for="email" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
                                                                 <input autocomplete="off" onchange='handlerEmail(event,@json($email))' class="form-control @error('re_email') is-invalid @enderror" id="re_email" name="re_email" type="text" value="">
                                                                 <i class="bi bi-envelope-at st-icon"></i>
                                                             </div>
@@ -1036,7 +1036,7 @@
                 </div>
                 {{-- Pacientes registrados  --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-cd">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
@@ -1295,7 +1295,7 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    {{-- btns --}}
                                     <div class="row text-center mt-2 mb-2">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" style="margin-top: -4px" id="send">
                                             <input class="btn btnSave" id="registrer-pac" value="@lang('messages.botton.agendar_cita')" type="submit" />

@@ -271,6 +271,7 @@ return [
         'masculino'           => 'Male',
         'otros'               => 'Others',
         'nueva_profesion'     => 'New Profession',
+        'nueva_especialidad'  => 'New Specialty',
         'datos_representante' => 'Representative Data',
         'datos_paciente'      => 'Patient Data',
         'am'                  => 'AM',

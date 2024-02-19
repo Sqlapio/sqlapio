@@ -11,9 +11,10 @@ class Professions extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public $class;
+    public function __construct($class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 div-select")
     {
-        //
+        $this->class = $class;
     }
 
     /**

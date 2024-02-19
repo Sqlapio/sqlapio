@@ -56,6 +56,14 @@
 
     }
 
+    textarea {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        width: 100%;
+        display: block;
+        height: 36px;
+    }
+
     .input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
         border-top-left-radius: 0px !important; 
         border-bottom-left-radius: 0px !important;
@@ -185,6 +193,21 @@
                     }
                 }
             });
+
+            const autoTextarea = (id) => {
+                document.getElementById(id).addEventListener('keyup', function() {
+                    this.style.overflow = 'hidden';
+                    this.style.height = 0;
+                    this.style.height = this.scrollHeight + 'px';
+                }, false);
+            }
+
+            autoTextarea('observations_back_family');
+            autoTextarea('observations_diagnosis');
+            autoTextarea('observations_not_pathological');
+            autoTextarea('observations_ginecologica');
+            autoTextarea('observations_allergies');
+            autoTextarea('observations_medication');
 
             $.validator.addMethod("onlyText", function(value, element) {
                 let pattern = /^[a-zA-ZñÑáéíóúü0-9\s]+$/g;
@@ -473,26 +496,26 @@
                                 title: 'Patología',
                                 className: "text-center td-pad",
                             },
-                            {
-                                data: 'viaAdmin',
-                                title: 'Via de administración',
-                                className: "text-center td-pad",
-                            },
+                            // {
+                            //     data: 'viaAdmin',
+                            //     title: 'Via de administración',
+                            //     className: "text-center td-pad",
+                            // },
                             {
                                 data: 'treatmentDuration',
-                                title: 'Duración de tratamiento',
+                                title: 'Duración',
                                 className: "text-center td-pad",
                             },
-                            {
-                                data: 'dateIniTreatment',
-                                title: 'Fecha inicio',
-                                className: "text-center td-pad w-10",
-                            },
-                            {
-                                data: 'dateEndTreatment',
-                                title: 'Fecha fin',
-                                className: "text-center td-pad w-10",
-                            },
+                            // {
+                            //     data: 'dateIniTreatment',
+                            //     title: 'Fecha inicio',
+                            //     className: "text-center td-pad w-10",
+                            // },
+                            // {
+                            //     data: 'dateEndTreatment',
+                            //     title: 'Fecha fin',
+                            //     className: "text-center td-pad w-10",
+                            // },
                             {
                                 data: 'btn',
                                 title: 'Eliminar',
@@ -861,7 +884,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_back_family" name="observations_back_family" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_back_family : '' !!}</textarea>
+                                                <textarea id="observations_back_family" rows="{{$Patient->get_history->observations_back_family ? '8' : '1'}}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_back_family" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_back_family : '' !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -936,7 +959,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_diagnosis" name="observations_diagnosis" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_diagnosis : '' !!}</textarea>
+                                                <textarea id="observations_diagnosis" rows="{{ $Patient->get_history->observations_diagnosis ? '8' : '1'}}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_diagnosis" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_diagnosis : '' !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -1011,7 +1034,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_not_pathological" name="observations_not_pathological" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_not_pathological : '' !!}</textarea>
+                                                <textarea id="observations_not_pathological" rows="{{$Patient->get_history->observations_not_pathological ? '8' : '1'}}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_not_pathological" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_not_pathological : '' !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -1136,7 +1159,7 @@
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                 <div class="form-group">
                                                     <label for="observations_ginecologica" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                    <textarea id="observations_ginecologica" name="observations_ginecologica" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_ginecologica : '' !!}</textarea>
+                                                    <textarea id="observations_ginecologica" rows="{{$Patient->get_history->observations_not_pathological ? '8' : '1'}}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_ginecologica" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_not_pathological : '' !!}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -1242,7 +1265,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_allergies" name="observations_allergies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_allergies : '' !!}</textarea>
+                                                <textarea id="observations_allergies" rows="{{$Patient->get_history->observations_allergies ? '8' : '1'}}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_allergies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_allergies : '' !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -1347,7 +1370,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_ginecologica" name="observations_ginecologica" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_ginecologica : '' !!}</textarea>
+                                                <textarea id="observations_ginecologica" rows="{{$Patient->get_history->observations_ginecologica ? '8' : '1'}}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_ginecologica" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_ginecologica : '' !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -1560,7 +1583,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="applied_studies" name="applied_studies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->applied_studies : '' !!}</textarea>
+                                                <textarea id="applied_studies" rows="1" name="applied_studies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->applied_studies : '' !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -1593,7 +1616,7 @@
                                     <div id="form-medication" class="row mt-2" style="align-items: flex-end; display: none">
                                         <h6 class="collapseBtn" style="margin-bottom: 10px">@lang('messages.label.añadir_medicamentos')</h6>
                                         <hr style="margin-bottom: 0;">
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -1605,7 +1628,7 @@
                                                 <span id="medicine_span" class="text-danger"></span>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -1617,7 +1640,7 @@
                                                 <span id="dose_span" class="text-danger"></span>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -1629,7 +1652,7 @@
                                                 <span id="patologi_span" class="text-danger"></span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -1641,7 +1664,7 @@
                                                 <span id="viaAdmin_span" class="text-danger"></span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="treatmentDuration" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -1673,7 +1696,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -1685,7 +1708,7 @@
                                                 <span id="dateIniTreatment_span" class="text-danger"></span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -1768,7 +1791,7 @@
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">
                                             <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                            <textarea id="observations_medication" name="observations_medication" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_medication : '' !!}</textarea>
+                                            <textarea id="observations_medication" rows="{{$Patient->get_history->observations_medication ? '8' : '1'}}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_medication" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_medication : '' !!}</textarea>
                                         </div>
                                     </div>
                                 </div>
