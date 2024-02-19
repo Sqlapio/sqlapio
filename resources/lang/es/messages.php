@@ -275,6 +275,7 @@ return [
         'masculino'           => 'Masculino',
         'otros'               => 'Otros',
         'nueva_profesion'     => 'Nueva profesión',
+        'nueva_especialidad'  => 'Nueva especialidad',
         'datos_representante' => 'Datos del representante',
         'datos_paciente'      => 'Datos del paciente',
         'am'                  => 'AM',
