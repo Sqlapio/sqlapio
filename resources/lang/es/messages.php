@@ -103,7 +103,7 @@ return [
         'nombre_centro'          => 'Nombre del Centro',
         'especialidad'           => 'Especialidad',
         'piso_consultorio'       => 'Piso',
-        'num_consultorio'        => 'Número',
+        'num_consultorio'        => 'Consultorio',
         'num_tel_consultorio'    => 'Teléfono',
         'mpps'                   => 'MPPS',
         'mpps_rp'                => 'Nro. De Colegiatura',

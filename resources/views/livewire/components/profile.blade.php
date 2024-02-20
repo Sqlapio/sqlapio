@@ -741,7 +741,7 @@
                                                 </diV>
                                             </div>
                                             @if (Auth::user()->type_plane == '7')
-                                                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.piso_consultorio')</label>
@@ -752,7 +752,7 @@
                                                         </div>
                                                     </diV>
                                                 </div>
-                                                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_consultorio')</label>
@@ -764,7 +764,7 @@
                                                         </div>
                                                     </diV>
                                                 </div>
-                                                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_tel_consultorio')</label>
@@ -777,7 +777,7 @@
                                                     </diV>
                                                 </div>
                                             @endif
-                                            <x-ubigeo_contries class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2" />
+                                            <x-ubigeo_contries class="{{Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3' : 'col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2'}}  mt-2" />
 
                                             <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                 <div class="form-group">
@@ -951,7 +951,7 @@
                                                         class="collapseBtn">https://www.sitioweb.com</small>
                                                 </diV>
                                             </div>
-                                            <div class="{{Auth::user()->role == 'corporativo' ? 'col-sm-12 col-md-12 col-lg-7 col-xl-7 col-xxl-7' : 'col-sm-11 col-md-11 col-lg-11 col-xl-11 col-xxl-11'}}">
+                                            <div class="{{Auth::user()->role == 'corporativo' ? 'col-sm-12 col-md-12 col-lg-7 col-xl-7 col-xxl-7' : 'col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10'}}">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
@@ -962,7 +962,7 @@
                                             </div>
                                         @endif
 
-                                            <div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl-2 mb-btn mb-btnSve" style="display: flex; align-items: flex-end;">
+                                            <div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl-2 mb-btn {{Auth::user()->role == 'corporativo' ? 'mb-btnSve' : ''}}" style="display: flex; align-items: flex-end;">
                                                 <input class="btn btnSave send" value="Guardar" type="submit" style="margin-bottom: 1px; width: 100%;"/>
                                             </div>
                                             @if (Auth::user()->role == 'corporativo')
@@ -995,7 +995,7 @@
             @if ($user->email_verified_at !== null)
                 {{-- actualizacion de correo Electronico --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{Auth::user()->type_plane != '7' ? "mb-2" : "mb-cd mb-2"}}">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{Auth::user()->role === 'corporativo' ? "mb-cd mb-2" : ""}}">
                         <div class="accordion-item ">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button collapsed bg-8"
@@ -1032,7 +1032,7 @@
                 @if (Auth::user()->role == 'medico')
                     {{-- firma Digital --}}
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 {{Auth::user()->role == 'medico' && Auth::user()->type_plane != '7' ? "" : "mb-cd mb-2"}}">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? "mb-cd mb-2" : ""}}">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
                                     <button class="accordion-button collapsed bg-8" type="button"
@@ -1062,9 +1062,9 @@
                     </div>
                 @endif
             @endif
-            @if (Auth::user()->role == 'medico' || Auth::user()->role == 'laboratorio')
+            @if (Auth::user()->role == 'medico' && Auth::user()->type_plane != '7' || Auth::user()->role == 'laboratorio')
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3 mb-cd mt-2">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3 mb-cd">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingPlanes">
                                 <button class="accordion-button bg-8"

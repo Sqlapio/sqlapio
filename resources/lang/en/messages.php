@@ -97,7 +97,7 @@ return [
         'nombre_centro'          => 'Center Name',
         'especialidad'           => 'Speciality',
         'piso_consultorio'       => 'Floor',
-        'num_consultorio'        => 'Number',
+        'num_consultorio'        => 'Consulting Room        ',
         'num_tel_consultorio'    => 'Phone',
         'mpps'                   => 'Tuition Number',
         'mpps_rp'                => 'Tuition Number',
