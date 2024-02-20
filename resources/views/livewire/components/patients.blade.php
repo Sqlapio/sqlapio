@@ -821,12 +821,12 @@
                                                         @endforeach
                                                     </div>
                                                 @endif
-                                                <div class="col-sm-12 col-md-3 col-lg-2 col-xl-2 col-xxl-2 ">
+                                                <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2 ">
                                                     <x-upload-image title/>
                                                 </div>
-                                                <div class="col-sm-12 col-md-9 col-lg-10 col-xl-10 col-xxl-10">
+                                                <div class="col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
                                                     <div class="row">
-                                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -837,7 +837,7 @@
                                                                 </div>
                                                             </diV>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -848,7 +848,7 @@
                                                                 </div>
                                                             </diV>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                     @lang('messages.form.fecha_nacimiento')
@@ -858,7 +858,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -873,7 +873,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="ci-div">
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="ci-div">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="phone" class="form-label" type="number" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -887,7 +887,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="div-phone">
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="div-phone">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
@@ -897,7 +897,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                            </div>
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
@@ -921,11 +921,11 @@
                                                 </div>
 
                                                 <input id="age" name="age" type="hidden" value="">
-                                                <x-professions class="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
+                                                <x-professions class="col-sm-12 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
 
                                                 {{-- <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" /> --}}
 
-                                                <div class="col-sm-12 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                <div class="col-sm-12 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="zip_code" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.codigo_postal')</label>
