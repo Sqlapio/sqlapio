@@ -99,12 +99,12 @@
             $('#form-mecal-histroy').validate({
                 ignore: [],
                 rules: {
-                    weight: {
-                        required: true,
-                    },
-                    height: {
-                        required: true,
-                    },
+                    // weight: {
+                    //     required: true,
+                    // },
+                    // height: {
+                    //     required: true,
+                    // },
                     // current_illness: {
                     //     required: true,
                     // },
@@ -114,24 +114,24 @@
                     applied_studies: {
                         required: true,
                     },
-                    strain_two: {
-                        required: true
-                    },
-                    temperature: {
-                        required: true
-                    },
-                    breaths: {
-                        required: true
-                    },
-                    pulse: {
-                        required: true
-                    },
-                    saturation: {
-                        required: true
-                    },
-                    condition: {
-                        required: true
-                    },
+                    // strain_two: {
+                    //     required: true
+                    // },
+                    // temperature: {
+                    //     required: true
+                    // },
+                    // breaths: {
+                    //     required: true
+                    // },
+                    // pulse: {
+                    //     required: true
+                    // },
+                    // saturation: {
+                    //     required: true
+                    // },
+                    // condition: {
+                    //     required: true
+                    // },
                     countBackFamily: {
                         required: true,
                     },
@@ -146,12 +146,12 @@
                     },
                 },
                 messages: {
-                    weight: {
-                        required: "Peso es obligatorio",
-                    },
-                    height: {
-                        required: "Altura es obligatoria",
-                    },
+                    // weight: {
+                    //     required: "Peso es obligatorio",
+                    // },
+                    // height: {
+                    //     required: "Altura es obligatoria",
+                    // },
                     applied_studies: {
                         required: "Observaciones es obligatorio"
                     },
@@ -170,24 +170,24 @@
                     // reason: {
                     //     required: "Motivo de la consulta es obligatoria"
                     // },
-                    strain_two: {
-                        required: "Tensión es obligatoria"
-                    },
-                    temperature: {
-                        required: "Temperatura es obligatoria"
-                    },
-                    breaths: {
-                        required: "Respiraciones es obligatoria"
-                    },
-                    pulse: {
-                        required: "Pulso es obligatoria"
-                    },
-                    saturation: {
-                        required: "Saturación es obligatoria"
-                    },
-                    condition: {
-                        required: "Condición es obligatoria"
-                    },
+                    // strain_two: {
+                    //     required: "Tensión es obligatoria"
+                    // },
+                    // temperature: {
+                    //     required: "Temperatura es obligatoria"
+                    // },
+                    // breaths: {
+                    //     required: "Respiraciones es obligatoria"
+                    // },
+                    // pulse: {
+                    //     required: "Pulso es obligatoria"
+                    // },
+                    // saturation: {
+                    //     required: "Saturación es obligatoria"
+                    // },
+                    // condition: {
+                    //     required: "Condición es obligatoria"
+                    // },
                     countVitalSigns: {
                         required: "Debe seleccionar una opción"
                     }
@@ -884,7 +884,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_back_family" rows="{{$Patient->get_history->observations_back_family ? '8' : '1'}}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_back_family" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_back_family : '' !!}</textarea>
+                                                <textarea id="observations_back_family" name="observations_back_family" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_back_family : '' !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -959,7 +959,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_diagnosis" rows="{{ $Patient->get_history->observations_diagnosis ? '8' : '1'}}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_diagnosis" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_diagnosis : '' !!}</textarea>
+                                                <textarea id="observations_diagnosis" name="observations_diagnosis" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_diagnosis : '' !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -1034,7 +1034,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_not_pathological" rows="{{$Patient->get_history->observations_not_pathological ? '8' : '1'}}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_not_pathological" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_not_pathological : '' !!}</textarea>
+                                                <textarea id="observations_not_pathological" name="observations_not_pathological" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_not_pathological : '' !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -1159,7 +1159,7 @@
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                 <div class="form-group">
                                                     <label for="observations_ginecologica" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                    <textarea id="observations_ginecologica" rows="{{$Patient->get_history->observations_not_pathological ? '8' : '1'}}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_ginecologica" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_not_pathological : '' !!}</textarea>
+                                                    <textarea id="observations_ginecologica" name="observations_ginecologica" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_not_pathological : '' !!}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -1265,7 +1265,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_allergies" rows="{{$Patient->get_history->observations_allergies ? '8' : '1'}}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_allergies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_allergies : '' !!}</textarea>
+                                                <textarea id="observations_allergies"  name="observations_allergies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_allergies : '' !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -1370,7 +1370,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_ginecologica" rows="{{$Patient->get_history->observations_ginecologica ? '8' : '1'}}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_ginecologica" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_ginecologica : '' !!}</textarea>
+                                                <textarea id="observations_ginecologica"  name="observations_ginecologica" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_ginecologica : '' !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -1379,227 +1379,7 @@
                         </div>
                     </div>
                 </div>
-                {{-- Examen fisico --}}
-                <div class="row mt-2">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                        <div class="accordion-item">
-                            <span class="accordion-header title" id="headingOne">
-                                <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-activity"></i> @lang('messages.acordion.examen_fisico')
-                                </button>
-                            </span>
-                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                                data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <div class="row">
-                                        <div style="display: flex">
-                                            <span class="text-warning mt-2" id="EF" style="font-size: 15px;margin-right: 10px;"></span>
-                                        </div>
-                                        <input type="hidden" name="history_vital_signs[]" id="history_vital_signs" value="">
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="weight" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        @lang('messages.form.peso')
-                                                    </label>
-                                                    <input autocomplete="off"
-                                                        class="EF mask-input form-control @error('weight') is-invalid @enderror"
-                                                        id="weight" name="weight" type="text"
-                                                        onchange="handlerValidate(event,'age');"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->weight : '' !!}">
-                                                    <i class="bi bi-file-earmark-medical st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        @lang('messages.form.altura')
-                                                    </label>
-                                                    <input autocomplete="off"
-                                                        class="EF mask-input-height form-control @error('height') is-invalid @enderror"
-                                                        id="height" name="height" type="text"
-                                                        onchange="handlerValidate(event,'height');"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->height : '' !!}">
-                                                    <i class="bi bi-rulers st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        @php
-                                            if ($validateHistory) {
-                                                $data = explode('/', $Patient->get_history->strain);
-                                            }
-                                        @endphp
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
-                                            <label for="strain" class="form-label"  style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                @lang('messages.form.presion_arterial')
-                                            </label>
-                                            <div class="input-group">
-                                                <input type="text" name="strain" id="strain"
-                                                    class="EF form-control  mask-input-two input-one" placeholder="Alta"
-                                                    onchange="handlerValidate(event,'strain');" aria-label="strain"
-                                                    value="{!! !empty($validateHistory) ? $data[0] : '' !!}">
-                                                <span class="input-group-text span-input">/</span>
-                                                <input type="text" name="strain_two" id="strain_two"
-                                                    onchange="handlerValidate(event,'strain_two');"
-                                                    class="EF form-control mask-input-two" placeholder="Baja"
-                                                    aria-label="strain" value="{!! !empty($validateHistory) ? $data[1] : '' !!}">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="temperature" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        @lang('messages.form.temperatura')
-                                                    </label>
-                                                    <input autocomplete="off"
-                                                        class="EF mask-only-temperature form-control @error('temperature') is-invalid @enderror"
-                                                        id="temperature" name="temperature" type="text"
-                                                        onchange="handlerValidate(event,'temperature');"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->temperature : '' !!}">
-                                                    <i class="bi bi-thermometer st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="breaths" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        @lang('messages.form.respiraciones')
-                                                    </label>
-                                                    <input autocomplete="off"
-                                                        class="EF mask-only-breaths form-control @error('breaths') is-invalid @enderror"
-                                                        onchange="handlerValidate(event,'breaths');" id="breaths"
-                                                        name="breaths" type="text" maxlength="3"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->breaths : '' !!}">
-                                                    <i class="bi bi-lungs st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="pulse" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        @lang('messages.form.pulso')
-                                                    </label>
-                                                    <input autocomplete="off"
-                                                        class="EF mask-only-number form-control @error('pulse') is-invalid @enderror"
-                                                        onchange="handlerValidate(event,'pulse');" id="pulse"
-                                                        name="pulse" type="text" maxlength="3"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->pulse : '' !!}">
-                                                    <i class="bi bi-heart-pulse st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="saturation" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        @lang('messages.form.saturacion')
-                                                    </label>
-                                                    <input autocomplete="off"
-                                                        class="EF mask-input-por form-control @error('saturation') is-invalid @enderror"
-                                                        id="saturation" name="saturation" type="text"
-                                                        onchange="handlerValidate(event,'saturation');"
-                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->saturation : '' !!}">
-                                                    <i class="bi bi-lungs st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="condition" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.condicion')</label>
-                                                    <select name="condition" id="condition"
-                                                        placeholder="Seleccione"class="form-control"
-                                                        class="EF form-control combo-textbox-input">
-                                                        <option value="">@lang('messages.label.seleccione')</option>
-                                                        @foreach ($get_condition as $item)
-                                                            <option value="{{ $item->description }}"
-                                                                {!! !empty($validateHistory) ? ($item->description === $validateHistory->condition ? 'selected' : '') : '' !!}>
-                                                                {{ $item->description }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <i class="bi bi-activity st-icon"></i>
-                                                    <span id="condition_span" class="text-danger"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                            <div class="form-group">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">  @lang('messages.form.motivo') </label>
-                                                <textarea id="reason" name="reason" class="EF form-control">{!! !empty($validateHistory) ? $Patient->get_history->reason : '' !!}</textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                            <div class="form-group">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                    @lang('messages.form.enfermedad')
-                                                </label>
-                                                <textarea id="current_illness" name="current_illness" class="EF form-control">{!! !empty($validateHistory) ? $Patient->get_history->current_illness : '' !!}</textarea>
-                                            </div>
-                                        </div>
-                                        @php
-                                            $count_vital_signs = 0;
-                                        @endphp
-                                        @foreach ($vital_sing as $item)
-                                            @php
-                                                if ($validateHistory) {
-                                                    $name = $item->name;
-                                                    $value = $Patient->get_history->$name;
-                                                    if ($value === '1') {
-                                                        $count_vital_signs++;
-                                                    }
-                                                }
-                                            @endphp
-                                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                                <div style="display: flex">
-                                                    <span class="text-warning mt-2" id="VS" style="font-size: 15px;margin-right: 10px;"></span>
-                                                </div>
-                                                <div class="floating-label-group">
-                                                    <div class="form-check" style="display: flex; ">
-                                                        <div style="margin-right: 30px;">
-                                                            <input onclick="handlerVitalSigns(event);" class="form-check"
-                                                                name="{{ $item->name }}" type="checkbox"
-                                                                id="{{ $item->name }}" value="{!! !empty($validateHistory) ? 1 : null !!}"
-                                                                {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
-                                                        </div>
-                                                        <div>
-                                                            <label style="font-size: 14px;" class="form-check-label"
-                                                                for="flexCheckDefault">
-                                                                {{ $item->text }}
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                            <div class="form-group">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="applied_studies" rows="1" name="applied_studies" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->applied_studies : '' !!}</textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2" style="display: none">
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text">Total Signos vitales </span>
-                                                <input type="text" id="countVitalSigns" name="countVitalSigns" class="form-control" readonly value="{!! !empty($validateHistory) ? $count_vital_signs : '' !!}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+           
                 {{-- Medicacion --}}
                 <div class="row mt-2">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
@@ -1791,7 +1571,7 @@
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">
                                             <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                            <textarea id="observations_medication" rows="{{$Patient->get_history->observations_medication ? '8' : '1'}}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_medication" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_medication : '' !!}</textarea>
+                                            <textarea id="observations_medication"  name="observations_medication" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_medication : '' !!}</textarea>
                                         </div>
                                     </div>
                                 </div>
