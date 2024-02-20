@@ -374,22 +374,6 @@
                 toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
             });
 
-
-            const autoTextarea = (id) => {
-                document.getElementById(id).addEventListener('keyup', function() {
-                    this.style.overflow = 'hidden';
-                    this.style.height = 0;
-                    this.style.height = this.scrollHeight + 'px';
-                }, false);
-            }
-
-            autoTextarea('background');
-            autoTextarea('sintomas');
-            autoTextarea('razon');
-            autoTextarea('diagnosis');
-            autoTextarea('text_area_exman');
-            autoTextarea('text_area_studies');
-
             switch_type_plane(user);
 
             handlerUl(symptoms, 'symptoms', 'btn btn-outline-other check-cm', 12);
@@ -1917,6 +1901,25 @@
                     ],
                 });
         }
+
+        (function() {
+            
+            const autoTextarea = (id) => {
+                    document.getElementById(id).addEventListener('keyup', function() {
+                        this.style.overflow = 'hidden';
+                        this.style.height = 0;
+                        this.style.height = this.scrollHeight + 'px';
+                    }, false);
+                }
+    
+                autoTextarea('background');
+                autoTextarea('sintomas');
+                autoTextarea('razon');
+                autoTextarea('diagnosis');
+                autoTextarea('text_area_exman');
+                autoTextarea('text_area_studies');
+        })
+
     </script>
 @endpush
 @section('content')
