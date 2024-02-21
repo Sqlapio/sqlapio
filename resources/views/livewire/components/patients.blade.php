@@ -829,7 +829,7 @@
                                                         <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
-                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                    <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                         @lang('messages.form.nombre')
                                                                     </label>
                                                                     <input autocomplete="off" class="form-control mask-text @error('name') is-invalid @enderror" id="name" name="name" type="text" value="">
@@ -840,7 +840,7 @@
                                                         <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
-                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                    <label for="last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                         @lang('messages.form.apellido')
                                                                     </label>
                                                                     <input autocomplete="off" class="form-control mask-text @error('last_name') is-invalid @enderror" id="last_name" name="last_name"  type="text" value="">
@@ -850,7 +850,7 @@
                                                         </div>
                                                         <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                <label for="birthdate" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                     @lang('messages.form.fecha_nacimiento')
                                                                 </label>
                                                                 <input class="form-control date-bd" id="birthdate" name="birthdate" type="date" value="" style="padding: 0.375rem 5px 0.375rem 0.75rem;" onchange="calculateAge(event,'age'), handlerAge(event)">
@@ -897,12 +897,21 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                            </div>
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                </div>
+                                                <div class="col-sm-12 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="address" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
                                                             <textarea id="address" name="address" class="form-control" rows="1"></textarea>
+                                                            <i class="bi bi-geo st-icon"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="zip_code" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.codigo_postal')</label>
+                                                            <input autocomplete="off" class="form-control mask-only-text @error('zip_code') is-invalid @enderror" id="zip_code" name="zip_code" type="text" value="">
                                                             <i class="bi bi-geo st-icon"></i>
                                                         </div>
                                                     </div>
@@ -921,23 +930,12 @@
                                                 </div>
 
                                                 <input id="age" name="age" type="hidden" value="">
-                                                <x-professions class="col-sm-12 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-3" />
+                                                <x-professions class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3" />
 
-                                                {{-- <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" /> --}}
-
-                                                <div class="col-sm-12 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="zip_code" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.codigo_postal')</label>
-                                                            <input autocomplete="off" class="form-control mask-only-text @error('zip_code') is-invalid @enderror" id="zip_code" name="zip_code" type="text" value="">
-                                                            <i class="bi bi-geo st-icon"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
                                                 @if (Auth::user()->type_plane !== '7')
-                                                <x-centers_user  class="col-sm-12 col-md-12 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
+                                                <x-centers_user  class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2" />
                                                 @endif
-                                                {{-- <x-upload-image /> --}}
                                                 {{-- data del representante --}}
                                                 <div class="row mt-3" id="data-rep" style="display: none; padding-right: 0px;">
                                                     <hr>
@@ -1090,7 +1088,7 @@
                                                             {{-- <th class="text-center" scope="col">Género</th>
                                                             <th class="text-center" scope="col">Teléfono</th>
                                                             <th class="text-center" scope="col">Email</th> --}}
-                                                            <th class="text-center" scope="col">@lang('messages.tabla.centro_salud')</th>
+                                                            <th class="text-center w-30" scope="col">@lang('messages.tabla.centro_salud')</th>
                                                             <th class="text-center w-20" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
     
                                                         </tr>
@@ -1186,8 +1184,7 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-            id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
             <div id="spinner" style="display: none">
                 <x-load-spinner show="true" />
             </div>
