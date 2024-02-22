@@ -80,7 +80,7 @@ return [
         'detalle'                => 'Detalle',
         'peso'                   => 'Peso (0 - 300 kg)',
         'altura'                 => 'Altura (0 - 250 cm)',
-        'presion_arterial'       => 'Presión arterial (Sistólica 50 - 250, Diastólica 30 - 150 mmHg)',
+        'presion_arterial'       => 'Presión arterial (mmHg)',
         'temperatura'            => 'Temperatura (34 - 42 C)',
         'respiraciones'          => 'Respiraciones (12 - 30 por minuto)',
         'pulso'                  => 'Pulso (40 - 200 Latidos por minuto)',
@@ -167,6 +167,7 @@ return [
         'ver_examenes'         => 'Ver Exámenes',
         'ver_estudios'         => 'Ver Estudios',
         'generar_informe'      => 'Generar Informe Médico',
+        'observaciones'        => 'Observación',
     ],
     'ficha_paciente' => [
         'nombre'            => 'Nombre',
