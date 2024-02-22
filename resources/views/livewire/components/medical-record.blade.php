@@ -207,6 +207,10 @@
         width: 12% !important;
     }
 
+    body {
+        padding-right: 0px !important;
+    }
+
 
 
     @media only screen and (max-width: 768px) {
@@ -364,6 +368,8 @@
             $("#exman-text").hide();
             $("#studies-text").hide();
 
+           
+
             tinymce.init({
                 selector: '#TextInforme',
                 skin: false,
@@ -382,21 +388,7 @@
 
             handlerUl(study, 'studie', 'btn btn-outline-success check-cm', 4);
 
-            const autoTextarea = (id) => {
-                document.getElementById(id).addEventListener('keyup', function() {
-                    this.style.overflow = 'hidden';
-                    this.style.height = 0;
-                    this.style.height = this.scrollHeight + 'px';
-                }, false);
-            }
-    
-                autoTextarea('background');
-                autoTextarea('sintomas');
-                autoTextarea('razon');
-                autoTextarea('diagnosis');
-                autoTextarea('text_area_exman');
-                autoTextarea('text_area_studies');
-                autoTextarea('observations');
+            
 
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             tooltipTriggerList.forEach(element => {
@@ -958,7 +950,6 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             }).then((result) => {
-
                                 setDatatableExamenFisico(response);
 
                             });
@@ -973,6 +964,22 @@
                 }
             });
             /////
+
+            const autoTextarea = (id) => {
+                document.getElementById(id).addEventListener('keyup', function() {
+                    this.style.overflow = 'hidden';
+                    this.style.height = 0;
+                    this.style.height = this.scrollHeight + 'px';
+                }, false);
+            }
+    
+            autoTextarea('background');
+            autoTextarea('sintomas');
+            autoTextarea('razon');
+            autoTextarea('diagnosis');
+            autoTextarea('text_area_exman');
+            autoTextarea('text_area_studies');
+            autoTextarea('observations');
 
         });
 
@@ -1612,8 +1619,10 @@
             $('#modalInformeMedico').modal("show");
         }
 
-        const handleObservaciones = () => {
+        function handleObservaciones(item) {
+
             $('#modalObservations').modal("show");
+            $("#p-Observations").text(item.observations);
         }
 
         const triggerExample = async () => {
@@ -1649,7 +1658,7 @@
                         data-bs-placement="bottom"
                         data-bs-custom-class="custom-tooltip"
                         data-html="true"
-                        title="@lang('messages.tooltips.ver_informe')">
+                        title="Ver informe">
                     </a>
                     `;
 
@@ -1803,6 +1812,7 @@
 
             data.map((item) => {
 
+                let elemData = JSON.stringify(item);
                 let signosVitales = '';
                 let eupenio = '';
                 let febril = '';
@@ -1844,6 +1854,19 @@
 
                 item.signos_vitales = `${hidratado}${eupenio}${febril}${esfera_neurologica}${glasgow}${esfera_orl}${esfera_cardiopulmonar}${esfera_abdominal}${extremidades}`
 
+                item.btn =
+                    `<button onclick='handleObservaciones(${elemData})'>
+                        <img width="25" height="auto"
+                        src="{{ asset('/img/icons/justify.png') }}"
+                        alt="avatar"
+                        type="button"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        title="@lang('messages.tooltips.observaciones')">
+                    </button>`;
+
+
+
                 row.push(item);
             });
 
@@ -1860,17 +1883,17 @@
                     columns: [{
                             data: 'get_center.description',
                             title: 'Centro de salud',
-                            className: "text-center td-pad",
+                            className: "text-center td-pad w-30",
                         },
                         {
                             data: 'date',
                             title: 'Fecha',
-                            className: "text-center td-pad",
+                            className: "text-center td-pad w-10",
                         },
                         {
                             data: 'weight',
                             title: 'Peso',
-                            className: "text-center td-pad w-10",
+                            className: "text-center td-pad",
                         },
                         {
                             data: 'height',
@@ -1878,8 +1901,8 @@
                             className: "text-center td-pad",
                         },
                         {
-                            data: 'strain',
-                            title: 'Presion arterial',
+                            data: 'strain' + 'strain_two',
+                            title: 'Presión arterial',
                             className: "text-center td-pad",
                         },
                         {
@@ -1899,22 +1922,22 @@
                         },
                         {
                             data: 'saturation',
-                            title: 'Saturacon',
+                            title: 'Saturación',
                             className: "text-center td-pad",
                         },
+                        // {
+                        //     data: 'condition',
+                        //     title: 'Condición general',
+                        //     className: "text-center td-pad",
+                        // },
+                        // {
+                        //     data: 'signos_vitales',
+                        //     title: 'Signos vitales',
+                        //     className: "text-center td-pad",
+                        // },
                         {
-                            data: 'condition',
-                            title: 'Condicon general',
-                            className: "text-center td-pad",
-                        },
-                        {
-                            data: 'signos_vitales',
-                            title: 'Signos vitales',
-                            className: "text-center td-pad",
-                        },
-                        {
-                            data: `observations`,
-                            title: 'Observacion',
+                            data: `btn`,
+                            title: 'Observación',
                             className: "text-center td-pad",
                         }
                     ],
@@ -2015,8 +2038,7 @@
                                                 </div>
 
                                                 @if (Auth::user()->type_plane !== '7')
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -2036,130 +2058,134 @@
                                                         </div>
                                                     </div>
                                                 @endif
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="weight" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                @lang('messages.form.peso')
-                                                            </label>
-                                                            <input autocomplete="off" class="EF mask-input form-control"
-                                                                id="weight" name="weight" type="text"
-                                                                onchange="handlerValidate(event,'age');" value="">
-                                                            <i class="bi bi-file-earmark-medical st-icon"></i>
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <div class="row">
+                                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="weight" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                        @lang('messages.form.peso')
+                                                                    </label>
+                                                                    <input autocomplete="off" class="EF mask-input form-control"
+                                                                        id="weight" name="weight" type="text"
+                                                                        onchange="handlerValidate(event,'age');" value="">
+                                                                    <i class="bi bi-file-earmark-medical st-icon"></i>
+                                                                </div>
+                                                            </diV>
                                                         </div>
-                                                    </diV>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="height" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                @lang('messages.form.altura')
-                                                            </label>
-                                                            <input autocomplete="off"
-                                                                class="EF mask-input-height form-control @error('height') is-invalid @enderror"
-                                                                id="height" name="height" type="text"
-                                                                onchange="handlerValidate(event,'height');" value="">
-                                                            <i class="bi bi-rulers st-icon"></i>
+                                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="height" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                        @lang('messages.form.altura')
+                                                                    </label>
+                                                                    <input autocomplete="off"
+                                                                        class="EF mask-input-height form-control @error('height') is-invalid @enderror"
+                                                                        id="height" name="height" type="text"
+                                                                        onchange="handlerValidate(event,'height');" value="">
+                                                                    <i class="bi bi-rulers st-icon"></i>
+                                                                </div>
+                                                            </diV>
                                                         </div>
-                                                    </diV>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
-                                                    <label for="strain" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        @lang('messages.form.presion_arterial')
-                                                    </label>
-                                                    <div class="input-group">
-                                                        <input type="text" name="strain" id="strain"
-                                                            class="EF form-control  mask-input-two input-one"
-                                                            placeholder="Alta" onchange="handlerValidate(event,'strain');"
-                                                            aria-label="strain" value="">
-                                                        <span class="input-group-text span-input">/</span>
-                                                        <input type="text" name="strain_two" id="strain_two"
-                                                            onchange="handlerValidate(event,'strain_two');"
-                                                            class="EF form-control mask-input-two input-border"
-                                                            placeholder="Baja" aria-label="strain" value="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="temperature" class="form-label"
+                                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                            <label for="strain" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                @lang('messages.form.temperatura')
+                                                                @lang('messages.form.presion_arterial')
                                                             </label>
-                                                            <input autocomplete="off"
-                                                                class="EF mask-only-temperature form-control @error('temperature') is-invalid @enderror"
-                                                                id="temperature" name="temperature" type="text"
-                                                                onchange="handlerValidate(event,'temperature');"
-                                                                value="">
-                                                            <i class="bi bi-thermometer st-icon"></i>
+                                                            <div class="input-group">
+                                                                <input type="text" name="strain" id="strain"
+                                                                    class="EF form-control  mask-input-two input-one"
+                                                                    placeholder="Sistólica 50 - 250" onchange="handlerValidate(event,'strain');"
+                                                                    aria-label="strain" value="">
+                                                                <span class="input-group-text span-input">/</span>
+                                                                <input type="text" name="strain_two" id="strain_two"
+                                                                    onchange="handlerValidate(event,'strain_two');"
+                                                                    class="EF form-control mask-input-two input-border"
+                                                                    placeholder="Diastólica 30 - 150" aria-label="strain" value="">
+                                                            </div>
                                                         </div>
-                                                    </diV>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="breaths" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                @lang('messages.form.respiraciones')
-                                                            </label>
-                                                            <input autocomplete="off"
-                                                                class="EF mask-only-breaths form-control @error('breaths') is-invalid @enderror"
-                                                                onchange="handlerValidate(event,'breaths');" id="breaths"
-                                                                name="breaths" type="text" maxlength="3" value="">
-                                                            <i class="bi bi-lungs st-icon"></i>
+                                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="temperature" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                        @lang('messages.form.temperatura')
+                                                                    </label>
+                                                                    <input autocomplete="off"
+                                                                        class="EF mask-only-temperature form-control @error('temperature') is-invalid @enderror"
+                                                                        id="temperature" name="temperature" type="text"
+                                                                        onchange="handlerValidate(event,'temperature');"
+                                                                        value="">
+                                                                    <i class="bi bi-thermometer st-icon"></i>
+                                                                </div>
+                                                            </diV>
                                                         </div>
-                                                    </diV>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="pulse" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                @lang('messages.form.pulso')
-                                                            </label>
-                                                            <input autocomplete="off"
-                                                                class="EF mask-only-number form-control @error('pulse') is-invalid @enderror"
-                                                                onchange="handlerValidate(event,'pulse');" id="pulse"
-                                                                name="pulse" type="text" maxlength="3" value="">
-                                                            <i class="bi bi-heart-pulse st-icon"></i>
+                                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="breaths" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                        @lang('messages.form.respiraciones')
+                                                                    </label>
+                                                                    <input autocomplete="off"
+                                                                        class="EF mask-only-breaths form-control @error('breaths') is-invalid @enderror"
+                                                                        onchange="handlerValidate(event,'breaths');" id="breaths"
+                                                                        name="breaths" type="text" maxlength="3" value="">
+                                                                    <i class="bi bi-lungs st-icon"></i>
+                                                                </div>
+                                                            </diV>
                                                         </div>
-                                                    </diV>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="saturation" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                @lang('messages.form.saturacion')
-                                                            </label>
-                                                            <input autocomplete="off"
-                                                                class="EF mask-input-por form-control @error('saturation') is-invalid @enderror"
-                                                                id="saturation" name="saturation" type="text"
-                                                                onchange="handlerValidate(event,'saturation');"
-                                                                value="">
-                                                            <i class="bi bi-lungs st-icon"></i>
+                                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="pulse" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                        @lang('messages.form.pulso')
+                                                                    </label>
+                                                                    <input autocomplete="off"
+                                                                        class="EF mask-only-number form-control @error('pulse') is-invalid @enderror"
+                                                                        onchange="handlerValidate(event,'pulse');" id="pulse"
+                                                                        name="pulse" type="text" maxlength="3" value="">
+                                                                    <i class="bi bi-heart-pulse st-icon"></i>
+                                                                </div>
+                                                            </diV>
                                                         </div>
-                                                    </diV>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="condition" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.condicion')</label>
-                                                            <select name="condition" id="condition"
-                                                                placeholder="Seleccione"class="form-control"
-                                                                class="EF form-control combo-textbox-input">
-                                                                <option value="">@lang('messages.label.seleccione')</option>
-                                                                @foreach ($get_condition as $item)
-                                                                    <option value="{{ $item->description }}">
-                                                                        {{ $item->description }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                            <i class="bi bi-activity st-icon"></i>
-                                                            <span id="condition_span" class="text-danger"></span>
+                                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="saturation" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                        @lang('messages.form.saturacion')
+                                                                    </label>
+                                                                    <input autocomplete="off"
+                                                                        class="EF mask-input-por form-control @error('saturation') is-invalid @enderror"
+                                                                        id="saturation" name="saturation" type="text"
+                                                                        onchange="handlerValidate(event,'saturation');"
+                                                                        value="">
+                                                                    <i class="bi bi-lungs st-icon"></i>
+                                                                </div>
+                                                            </diV>
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="condition" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.condicion')</label>
+                                                                    <select name="condition" id="condition"
+                                                                        placeholder="Seleccione"class="form-control"
+                                                                        class="EF form-control combo-textbox-input">
+                                                                        <option value="">@lang('messages.label.seleccione')</option>
+                                                                        @foreach ($get_condition as $item)
+                                                                            <option value="{{ $item->description }}">
+                                                                                {{ $item->description }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    <i class="bi bi-activity st-icon"></i>
+                                                                    <span id="condition_span" class="text-danger"></span>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2190,14 +2216,14 @@
                                                     </div>
                                                 @endforeach
 
-                                                <input type="hidden" name="conut_vital_sing" id="conut_vital_sing"
-                                                    value="">
-
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                                    <div class="form-group">
-                                                        <label for="observations" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                        <textarea id="observations" name="observations" class="form-control"></textarea>
+                                                <input type="hidden" name="conut_vital_sing" id="conut_vital_sing" value="">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                                        <div class="form-group">
+                                                            <label for="observations" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                            <textarea id="observations" rows="1" name="observations" class="form-control"></textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2225,17 +2251,17 @@
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center w-30" scope="col">Centro de salud</th>
-                                                            <th class="text-center w'10" scope="col">Fecha</th>
-                                                            <th class="text-center" scope="col">Peso</th>
-                                                            <th class="text-center" scope="col">Altura</th>
-                                                            <th class="text-center" scope="col">Presion arterial</th>
-                                                            <th class="text-center" scope="col">Temperatura</th>
-                                                            <th class="text-center" scope="col">Respiraciones</th>
-                                                            <th class="text-center" scope="col">Pulso</th>
-                                                            <th class="text-center" scope="col">Saturación</th>
-                                                            <th class="text-center" scope="col">Condición general</th>
-                                                            <th class="text-center" scope="col">Signos vitales</th>
-                                                            <th class="text-center w-5" scope="col">Observación</th>
+                                                            <th class="text-center w-10" scope="col">Fecha</th>
+                                                            <th class="text-center" scope="col" data-orderable="false">Peso</th>
+                                                            <th class="text-center" scope="col" data-orderable="false">Altura</th>
+                                                            <th class="text-center" scope="col" data-orderable="false">Presion arterial</th>
+                                                            <th class="text-center" scope="col" data-orderable="false">Temperatura</th>
+                                                            <th class="text-center" scope="col" data-orderable="false">Respiraciones</th>
+                                                            <th class="text-center" scope="col" data-orderable="false">Pulso</th>
+                                                            <th class="text-center" scope="col" data-orderable="false">Saturación</th>
+                                                            {{-- <th class="text-center" scope="col">Condición general</th> --}}
+                                                            {{-- <th class="text-center" scope="col">Signos vitales</th> --}}
+                                                            <th class="text-center w-5" scope="col" data-orderable="false">Observación</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -2253,22 +2279,17 @@
 
                                                         @foreach ($physical_exams as $item)
                                                             <tr>
-                                                                <td class="text-center td-pad">
-                                                                    {{ $item->get_center->description }}</td>
-                                                                <td class="text-center td-pad">
-                                                                    {{ $item->date }}
-                                                                </td>
-                                                                <td class="text-center td-pad">
-                                                                    {{ $item->height }}
-                                                                </td>
+                                                                <td class="text-center td-pad"> {{ $item->get_center->description }}</td>
+                                                                <td class="text-center td-pad"> {{ $item->date }} </td>
+                                                                <td class="text-center td-pad"> {{ $item->weight }} </td>
+                                                                <td class="text-center td-pad"> {{ $item->height }} </td>
                                                                 <td class="text-center td-pad"> {{ $item->strain }}</td>
                                                                 <td class="text-center td-pad"> {{ $item->temperature }}</td>
-                                                                <td class="text-center td-pad"> {{ $item->saturation }}</td>
                                                                 <td class="text-center td-pad"> {{ $item->breaths }}</td>
                                                                 <td class="text-center td-pad"> {{ $item->pulse }}</td>
                                                                 <td class="text-center td-pad"> {{ $item->saturation }}</td>
-                                                                <td class="text-center td-pad"> {{ $item->condition }}</td>
-                                                                @php
+                                                                {{-- <td class="text-center td-pad"> {{ $item->condition }}</td> --}}
+                                                                {{-- @php
                                                                     if ($item->hidratado) {
                                                                         $hidratado = 'Hidratado';
                                                                     } 
@@ -2299,9 +2320,19 @@
                                                                 @endphp
                                                                 <td class="text-center td-pad">
                                                                     {{ $hidratado.$eupenio.$febril.$esfera_neurologica.$glasgow.$esfera_orl.$esfera_cardiopulmonar.$esfera_abdominal.$extremidades }}
+                                                                </td> --}}
+                                                                {{-- <td class="text-center td-pad"> {{ $item->observations }}</td> --}}
+                                                                <td class="text-center td-pad">
+                                                                    <button onclick='handleObservaciones({{ $item }})'>
+                                                                        <img width="25" height="auto"
+                                                                        src="{{ asset('/img/icons/justify.png') }}"
+                                                                        alt="avatar"
+                                                                        type="button"
+                                                                        data-bs-toggle="tooltip"
+                                                                        data-bs-placement="bottom"
+                                                                        title="@lang('messages.tooltips.observaciones')">
+                                                                    </button>
                                                                 </td>
-                                                                <td class="text-center td-pad"> {{ $item->observations }}</td>
-                                                                {{-- <td class="text-center td-pad"><i class="bi bi-file-earmark-text" onclick="handleObservaciones('observations');"></i></td> --}}
                                                             </tr>
                                                         @endforeach
                                                     </tbody>
@@ -2339,8 +2370,7 @@
                                         <div id="input-array"></div>
                                         <div class="row mt-2" style="margin: 0px 16px;">
                                             @if (Auth::user()->type_plane !== '7')
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.centro_salud')</label>
@@ -2389,8 +2419,7 @@
                                                 <div id='symptoms_card2'
                                                     class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                     style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
-                                                    <div
-                                                        class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                    <div  class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <div class="form-group"
                                                             style="display: flex; align-items: center;">
                                                             <label for="search_symptoms"
@@ -2904,7 +2933,7 @@
                                                             <td class="text-center td-pad">
                                                                 <a target="_blank"
                                                                     href="{{ route('PDF_informe_medico', $item->id) }}">
-                                                                    <button type="button" class="btn refresf btn-iSecond rounded-circle">
+                                                                    <button type="button">
                                                                         <img width="32" height="auto"
                                                                         src="{{ asset('/img/icons/pdf-file.png') }}"
                                                                         alt="avatar"
@@ -2933,24 +2962,22 @@
         <!-- Modal -->
         <div class="modal fade" id="modalIA" tabindex="-1" aria-labelledby="modalIALabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-xl">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header title">
-                            <i class="bi bi-alexa"></i>
-                            <span style="padding-left: 5px">Resultado de la consulta con inteligencia artificial</span>
-                            <button type="button" id="icon-copy" class="btn btn-iSecond rounded-circle"
-                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Copiar diagnostico"
-                                onclick="triggerExample();" style="margin-left: 5%;">
-                                <i class="bi bi-file-earmark-text"></i>
-                            </button> <span style="padding-left: 5px" id="copied"></span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                style="font-size: 12px;"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="div-ia">
-                                <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
-                                    id="p-ia"></pre>
-                            </div>
+                <div class="modal-content">
+                    <div class="modal-header title">
+                        <i class="bi bi-alexa"></i>
+                        <span style="padding-left: 5px">Resultado de la consulta con inteligencia artificial</span>
+                        <button type="button" id="icon-copy" class="btn btn-iSecond rounded-circle"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Copiar diagnostico"
+                            onclick="triggerExample();" style="margin-left: 5%;">
+                            <i class="bi bi-file-earmark-text"></i>
+                        </button> <span style="padding-left: 5px" id="copied"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            style="font-size: 12px;"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="div-ia">
+                            <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+                                id="p-ia"></pre>
                         </div>
                     </div>
                 </div>
@@ -2959,19 +2986,17 @@
 
         <!-- Modal Observaciones -->
         <div class="modal fade" id="modalObservations" tabindex="-1" aria-labelledby="modalObservationsLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
-            <div class="modal-dialog modal-dialog-centered modal-xl">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header title">
-                            <i class="bi bi-alexa"></i>
-                            <span style="padding-left: 5px">Observaciones</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="div-Observations">
-                                <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
-                                    id="p-Observations"></pre>
-                            </div>
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header title">
+                        <i class="bi bi-alexa"></i>
+                        <span style="padding-left: 5px">Observaciones</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="div-Observations">
+                            <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
+                                id="p-Observations"></pre>
                         </div>
                     </div>
                 </div>
@@ -2984,81 +3009,79 @@
                 <x-load-spinner show="true" />
             </div>
             <div class="modal-dialog modal-dialog-centered modal-xl InformeMedicomodal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header title">
-                            <i class="bi bi-alexa"></i>
-                            <span style="padding-left: 5px">Informe medico</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                style="font-size: 12px;"></button>
-                        </div>
-                        <div class="modal-body">
+                <div class="modal-content">
+                    <div class="modal-header title">
+                        <i class="bi bi-alexa"></i>
+                        <span style="padding-left: 5px">Informe medico</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            style="font-size: 12px;"></button>
+                    </div>
+                    <div class="modal-body">
 
-                            <form action="" method="post" id="form-informe-medico">
+                        <form action="" method="post" id="form-informe-medico">
 
-                                {{ csrf_field() }}
+                            {{ csrf_field() }}
 
-                                <div class="d-flex" style="align-items: center;">
-                                    <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 90px;">
-                                        <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
-                                            width="80" height="80" alt="Imagen del paciente"
-                                            class="img-medical-modal">
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                        <strong>Nombre:</strong><span class="text-capitalize">
-                                            {{ $Patient->last_name . ', ' . $Patient->name }}</span>
-                                        <br>
-                                        <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
-                                        <br>
-                                        <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
-                                        <span>
-                                            {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
-                                    </div>
+                            <div class="d-flex" style="align-items: center;">
+                                <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 90px;">
+                                    <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                        width="80" height="80" alt="Imagen del paciente"
+                                        class="img-medical-modal">
                                 </div>
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
+                                    <strong>Nombre:</strong><span class="text-capitalize">
+                                        {{ $Patient->last_name . ', ' . $Patient->name }}</span>
+                                    <br>
+                                    <strong>Edad:</strong><span> {{ $Patient->age }} años</span>
+                                    <br>
+                                    <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
+                                    <span>
+                                        {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
+                                </div>
+                            </div>
 
-                                <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
-                                <input type="hidden" id="patient_id" name="patient_id" value="{{ $Patient->id }}">
-                                <input type="hidden" id="medical_report_id" name="medical_report_id" value="">
+                            <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
+                            <input type="hidden" id="patient_id" name="patient_id" value="{{ $Patient->id }}">
+                            <input type="hidden" id="medical_report_id" name="medical_report_id" value="">
 
-                                @if (Auth::user()->type_plane !== '7')
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
-                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro
-                                                    de salud</label>
-                                                <select name="center_id" id="center_id"
-                                                    placeholder="Seleccione"class="form-control"
-                                                    class="form-control combo-textbox-input">
-                                                    <option value="">Seleccione</option>
-                                                    @foreach ($doctor_centers as $item)
-                                                        <option value="{{ $item->center_id }}">
-                                                            {{ $item->get_center->description }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <i class="bi bi-hospital st-icon"></i>
-                                                <span id="type_alergia_span" class="text-danger"></span>
-                                            </div>
+                            @if (Auth::user()->type_plane !== '7')
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <label for="phone" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro
+                                                de salud</label>
+                                            <select name="center_id" id="center_id"
+                                                placeholder="Seleccione"class="form-control"
+                                                class="form-control combo-textbox-input">
+                                                <option value="">Seleccione</option>
+                                                @foreach ($doctor_centers as $item)
+                                                    <option value="{{ $item->center_id }}">
+                                                        {{ $item->get_center->description }}</option>
+                                                @endforeach
+                                            </select>
+                                            <i class="bi bi-hospital st-icon"></i>
+                                            <span id="type_alergia_span" class="text-danger"></span>
                                         </div>
                                     </div>
-                                @endif
-
-                                <div class="mt-3">
-                                    <textarea id="TextInforme" name="TextInforme"></textarea>
                                 </div>
+                            @endif
 
-                                <div class="row mt-2 justify-content-md-end">
-                                    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                        id="send"
-                                        style="display: flex; justify-content: flex-end; padding-right: 30px;">
-                                        <input class="btn btnSave send" value="Enviar" type="submit" />
+                            <div class="mt-3">
+                                <textarea id="TextInforme" name="TextInforme"></textarea>
+                            </div>
 
-                                    </div>
+                            <div class="row mt-2 justify-content-md-end">
+                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                    id="send"
+                                    style="display: flex; justify-content: flex-end; padding-right: 30px;">
+                                    <input class="btn btnSave send" value="Enviar" type="submit" />
+
                                 </div>
-                            </form>
+                            </div>
+                        </form>
 
-                        </div>
                     </div>
                 </div>
             </div>
