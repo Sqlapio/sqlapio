@@ -861,7 +861,7 @@
                                                         <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
-                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                    <label for="genere" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                         @lang('messages.form.genero')
                                                                     </label>
                                                                     <select name="genere" id="genere" placeholder="Seleccione"class="form-control @error('genere') is-invalid @enderror" class="form-control combo-textbox-input">
@@ -876,7 +876,7 @@
                                                         <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="ci-div">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
-                                                                    <label for="phone" class="form-label" type="number" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                    <label for="ci" class="form-label" type="number" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                         @lang('messages.form.cedula_identidad')
                                                                     </label>
                                                                     <input autocomplete="off"
