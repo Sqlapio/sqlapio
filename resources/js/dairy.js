@@ -208,15 +208,15 @@ $(document).ready(() => {
       last_name_patient:{
         required: true,
       },
-      ci_patient:{
-        required: true,
-      },
+      // ci_patient:{
+      //   required: true,
+      // },
       email_patient:{
         required: true,
       },
-      birthdate_patient:{
-        required: true,
-      }      
+      // birthdate_patient:{
+      //   required: true,
+      // }      
     },
     messages: {
       center_id: {
@@ -253,15 +253,15 @@ $(document).ready(() => {
       last_name_patient: {
         required: "Campo es obligatorio",
       },
-      ci_patient: {
-        required: "Campo es obligatorio",
-      },
+      // ci_patient: {
+      //   required: "Campo es obligatorio",
+      // },
       email_patient: {
         required: "Campo es obligatorio",
       },
-      birthdate_patient: {
-        required: "Campo es obligatorio",
-      },
+      // birthdate_patient: {
+      //   required: "Campo es obligatorio",
+      // },
       
     }
   });
