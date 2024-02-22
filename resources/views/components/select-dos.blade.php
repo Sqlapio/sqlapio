@@ -2,15 +2,17 @@
         ul {
             list-style-type: none;
         }
+
+        .select2-container .select2-selection {
+            border-radius: 30px !important;
+        }
     </style>
     <div>
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="search-patients-show">
             <div class="form-group">
                 <div class="Icon-inside">
-                    <label for="id_select" class="form-label"
-                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.placeholder.buscar_paciente')</label>
-                    <select style="width:100% !important " name="id_select" id="id_select"
-                        class="form-control combo-textbox-input select_dos_dairy">
+                    <label for="id_select" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.placeholder.buscar_paciente')</label>
+                    <select style="width:100% !important " name="id_select" id="id_select" class="form-control combo-textbox-input select_dos_dairy">
                         <option value="">@lang('messages.placeholder.seleccione')...</option>
                         @foreach ($data as $item)
                             <option value="{{ $item }}">
