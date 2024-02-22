@@ -74,7 +74,7 @@ return [
         'detalle'                => 'Details',
         'peso'                   => 'Weight (0 - 300 kg)',
         'altura'                 => 'Height (0 - 250 cm)',
-        'presion_arterial'       => 'Blood pressure (Systolic 50 - 250, Diastolic 30 - 150 mmHg)',
+        'presion_arterial'       => 'Blood pressure (mmHg)',
         'temperatura'            => 'Temperature (34 - 42 C)',
         'respiraciones'          => 'Breaths (12 - 30 per minute)',
         'pulso'                  => 'Pulse (40 - 200 Beats per minute)',
@@ -160,6 +160,7 @@ return [
         'ver_examenes'         => 'View Exams',
         'ver_estudios'         => 'View Studies',
         'generar_informe'      => 'Generate Medical Report',
+        'observaciones'        => 'Observation',
     ],
     'ficha_paciente' => [
         'nombre'            => 'Name',
