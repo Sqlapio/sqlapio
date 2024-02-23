@@ -52,7 +52,6 @@
     <script>
 
         $(document).ready(() => {
-            console.log('AQUI')
             $(".select_dos_dairy").select2({
                 dropdownParent: "#exampleModal",
 
