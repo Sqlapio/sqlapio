@@ -1901,7 +1901,7 @@
                             className: "text-center td-pad",
                         },
                         {
-                            data: 'strain' + 'strain_two',
+                            data: 'strain',
                             title: 'Presión arterial',
                             className: "text-center td-pad",
                         },
@@ -2244,10 +2244,8 @@
                                             <hr>
                                             <h5> Historial de @lang('messages.acordion.examen_fisico')</h5>
                                             <hr>
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                                style="margin-top: 20px;">
-                                                <table id="table-examen-fisico" class="table table-striped table-bordered"
-                                                    style="width:100%; ">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px;">
+                                                <table id="table-examen-fisico" class="table table-striped table-bordered" style="width:100%; ">
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center w-30" scope="col">Centro de salud</th>
@@ -3023,7 +3021,7 @@
                             {{ csrf_field() }}
 
                             <div class="d-flex" style="align-items: center;">
-                                <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 90px;">
+                                <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 80px;">
                                     <img src=" {{ $Patient->patient_img ? asset('/imgs/' . $Patient->patient_img) : ($Patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
                                         width="80" height="80" alt="Imagen del paciente"
                                         class="img-medical-modal">

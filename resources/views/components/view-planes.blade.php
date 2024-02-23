@@ -493,9 +493,10 @@
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
             <div class="row">
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3" style="display: flex; justify-content: center;">
+                   
                     <div class="card-wrap">
                         <div class="card-header one">
-                            <img width="80" height="auto" src="{{ asset('/img/icons/patient.png') }}" alt="avatar">
+                            <img width="80" height="auto" src="{{ asset('/img/icons/patients.png') }}" alt="avatar">
                         </div>
                         <div class="card-content">
                           <h1 class="card-title-2">@lang('messages.label.paciente')</h1>
@@ -524,7 +525,7 @@
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3" style="display: flex; justify-content: center;">
                     <div class="card-wrap">
                         <div class="card-header one">
-                            <img width="80" height="auto" src="{{ asset('/img/icons/medical-report.png') }}" alt="avatar">
+                            <img width="80" height="auto" src="{{ asset('/img/icons/medical-report3.png') }}" alt="avatar">
                         </div>
                         <div class="card-content">
                           <h1 class="card-title-2">@lang('messages.label.consulta')</h1>
@@ -553,7 +554,7 @@
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3" style="display: flex; justify-content: center;">
                     <div class="card-wrap">
                         <div class="card-header one">
-                            <img width="80" height="auto" src="{{ asset('/img/icons/medical-checkup.png') }}" alt="avatar">
+                            <img width="80" height="auto" src="{{ asset('/img/icons/medical-report.png') }}" alt="avatar">
                         </div>
                         <div class="card-content">
                           <h1 class="card-title-2">@lang('messages.label.examenes')</h1>
@@ -581,7 +582,7 @@
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3" style="display: flex; justify-content: center;">
                     <div class="card-wrap">
                         <div class="card-header one">
-                            <img width="80" height="auto" src="{{ asset('/img/icons/medical-chart.png') }}" alt="avatar">
+                            <img width="80" height="auto" src="{{ asset('/img/icons/medical1.png') }}" alt="avatar">
                         </div>
                         <div class="card-content">
                           <h1 class="card-title-2">@lang('messages.label.estudios')</h1>
