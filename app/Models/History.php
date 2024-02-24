@@ -62,7 +62,8 @@ class History extends Model
         'tranfusiones_sanguineas',
         'COVID19',
         'no_aplica_back',
-
+        'no_aplica',
+        'tabaco',
         //Antecedentes personales patológicos
         'hepatitis',
         'VIH_SIDA',
@@ -72,6 +73,7 @@ class History extends Model
         'tiroides',
         'lupus',
         'enfermedad_autoimmune',
+        'coagulación_anormal',
         'diabetes_mellitus',
         'presion_arterial_alta',
         'tiene_cateter_venoso',
@@ -112,6 +114,7 @@ class History extends Model
         'observations_back_family',
         'observations_diagnosis',
         'observations_not_pathological',
+        'observations_quirurgicas'
     ];
 
     public function  get_paciente(): HasOne
