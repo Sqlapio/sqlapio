@@ -118,7 +118,7 @@ class MedicalHistory extends Component
                 'history_surgical'          => $data->arrayhistory_surgical,
                 'medications_supplements'   => $data->arraymedications_supplements,
                 //observaciones
-                'observations_ginecologica'   => $data->observations_ginecologica,
+                'observations_ginecologica'   =>(isset($data->observations_ginecologica) ? $data->observations_ginecologica : null) ,
                 'observations_medication'   => $data->observations_medication,
                 'observations_not_pathological'=>  $data->observations_not_pathological,
                 'observations_diagnosis'    => $data->observations_diagnosis,
