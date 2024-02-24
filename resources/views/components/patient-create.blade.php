@@ -28,8 +28,8 @@
         <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mt-3">
             <div class="form-group">
                 <div class="Icon-inside">
-                    <label for="phone_patient" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
-                    <input autocomplete="off" placeholder="" class="form-control phone @error('phone') is-invalid @enderror" id="phone" name="phone" type="text" value="">
+                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
+                    <input autocomplete="off" placeholder="" class="form-control phone" id="phone" name="phone" type="text" value="">
                     <i class="bi bi-telephone-forward st-icon"></i>
                 </div>
             </div>

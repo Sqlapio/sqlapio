@@ -186,21 +186,12 @@ class MedicalRecord extends Component
             $physical_exams->date = date('d-m-Y');
             $physical_exams->weight = $request->weight;
             $physical_exams->height = $request->height;
-            $physical_exams->strain = $request->strain;
+            $physical_exams->strain = $request->strain."/".$request->strain_two;
             $physical_exams->temperature = $request->temperature;
             $physical_exams->breaths = $request->breaths;
             $physical_exams->pulse = $request->pulse;
             $physical_exams->saturation = $request->saturation;
-            $physical_exams->condition = $request->condition;
-            // $physical_exams->hidratado = $request->hidratado;
-            // $physical_exams->eupenico = $request->eupenico;
-            // $physical_exams->febril = $request->febril;
-            // $physical_exams->esfera_neurologica = $request->esfera_neurologica;
-            // $physical_exams->glasgow = $request->glasgow;
-            // $physical_exams->esfera_orl = $request->esfera_orl;
-            // $physical_exams->esfera_cardiopulmonar = $request->esfera_cardiopulmonar;
-            // $physical_exams->esfera_abdominal = $request->esfera_abdominal;
-            // $physical_exams->extremidades = $request->extremidades;
+            $physical_exams->condition = $request->condition;      
             $physical_exams->observations = $request->observations;
             $physical_exams->save();
 

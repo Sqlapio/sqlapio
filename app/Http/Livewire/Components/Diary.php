@@ -83,27 +83,15 @@ class Diary extends Component
                         'patient_code'  => UtilsController::get_patient_code($request->ci_patient),
                         'name'          => $request->name_patient,
                         'last_name'     => $request->last_name_patient,
-                        // 'ci'            => ($request->is_minor == "true") ? null : $request->ci_patient,
-                        'email'         => ($request->is_minor == "true") ? null : $request->email_patient,
+                        'phone'         => $request->phone,
+                        'email'         => $request->email_patient,
                         // 'birthdate'     => $request->birthdate_patient,
                         'age'           => $request->age_patient,
                         'center_id'     => $request->center_id,
                         'user_id'       => Auth::user()->id,
                         'verification_code' => Str::random(30)
-
                     ]
-                );
-
-                if ($request->is_minor == "true") {
-
-                    $re_patient = new Representative();
-                    $re_patient->re_name = $request->name_patient;
-                    $re_patient->re_last_name = $request->last_name_patient;
-                    // $re_patient->re_ci = $request->ci_patient;
-                    $re_patient->re_email = $request->email_patient;
-                    $re_patient->patient_id = $patient->id;
-                    $re_patient->save();
-                }
+                );        
 
                 $action = '23';
                 ActivityLogController::store_log($action);
