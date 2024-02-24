@@ -193,20 +193,6 @@
                 }
             });
 
-            const autoTextarea = (id) => {
-                document.getElementById(id).addEventListener('keyup', function() {
-                    this.style.overflow = 'hidden';
-                    this.style.height = 0;
-                    this.style.height = this.scrollHeight + 'px';
-                }, false);
-            }
-
-            autoTextarea('observations_back_family');
-            autoTextarea('observations_diagnosis');
-            autoTextarea('observations_not_pathological');
-            autoTextarea('observations_ginecologica');
-            autoTextarea('observations_allergies');
-            autoTextarea('observations_medication');
 
             $.validator.addMethod("onlyText", function(value, element) {
                 let pattern = /^[a-zA-ZñÑáéíóúü0-9\s]+$/g;
@@ -324,6 +310,22 @@
                     });
                 }
             })
+
+            
+            const autoTextarea = (id) => {
+                document.getElementById(id).addEventListener('keyup', function() {
+                    this.style.overflow = 'hidden';
+                    this.style.height = 0;
+                    this.style.height = this.scrollHeight + 'px';
+                }, false);
+            }
+
+            autoTextarea('observations_back_family');
+            autoTextarea('observations_diagnosis');
+            autoTextarea('observations_not_pathological');
+            autoTextarea('observations_ginecologica');
+            autoTextarea('observations_allergies');
+            autoTextarea('observations_medication');
         })
 
         const handlerBackFamiliy = (e) => {

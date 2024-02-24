@@ -1699,12 +1699,7 @@
                         }
                     ],
                 });
-        }
-
-        (function() {
-            
-            
-        })
+        }   
 
     </script>
 @endpush
