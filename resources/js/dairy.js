@@ -208,9 +208,9 @@ $(document).ready(() => {
       last_name_patient:{
         required: true,
       },
-      // ci_patient:{
-      //   required: true,
-      // },
+      phone:{
+        required: true,
+      },
       email_patient:{
         required: true,
       },
@@ -253,9 +253,9 @@ $(document).ready(() => {
       last_name_patient: {
         required: "Campo es obligatorio",
       },
-      // ci_patient: {
-      //   required: "Campo es obligatorio",
-      // },
+      phone: {
+        required: "Campo es obligatorio",
+      },
       email_patient: {
         required: "Campo es obligatorio",
       },
