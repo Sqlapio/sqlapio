@@ -93,7 +93,7 @@ class MedicalHistory extends Component
                 'embolia_pulmonar'          => (isset($data->embolia_pulmonar) ? $data->embolia_pulmonar : null),
                 'varices_piernas'           => (isset($data->varices_piernas) ? $data->varices_piernas : null),
                 'insuficiencia_arterial'    => (isset($data->varices_piernas) ? $data->varices_piernas : null),
-                'coagulación_anormal'       => (isset($data->coagulación_anormal) ? $data->coagulación_anormal : null),
+                'coagulacion_anormal'       => (isset($data->coagulacion_anormal) ? $data->coagulacion_anormal : null),
                 'moretones_frecuentes'      => (isset($data->moretones_frecuentes) ? $data->moretones_frecuentes : null),
                 'sangrado_cirugías_previas' => (isset($data->sangrado_cirugías_previas) ? $data->sangrado_cirugías_previas : null),
                 'sangrado_cepillado_dental' => (isset($data->sangrado_cepillado_dental) ? $data->sangrado_cepillado_dental : null),
