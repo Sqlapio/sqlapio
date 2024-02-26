@@ -684,26 +684,22 @@
                                 <i class="bi bi-person"></i></i> @lang('messages.acordion.estudios_cargados')
                             </button>
                         </span>
-                        <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample">
+                        <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <x-search-person />
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                         <hr>
                                         <h5 class="mb-4">@lang('messages.subtitulos.estudios_res')</h5>
-                                        <table id="table-info-estudios" class="table-pag table-striped table-bordered"
-                                            style="width:100%; ">
+                                        <table id="table-info-estudios" class="table-pag table-striped table-bordered" style="width:100%; ">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center w-image" scope="col" data-orderable="false">
-                                                        @lang('messages.tabla.foto')</th>
+                                                    <th class="text-center w-image" scope="col" data-orderable="false"> @lang('messages.tabla.foto')</th>
                                                     <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
                                                     <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                     <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                     <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
-                                                    <th class="text-center"scope="col" data-orderable="false">
-                                                        @lang('messages.tabla.resultado')</th>
+                                                    <th class="text-center w-5"scope="col" data-orderable="false"> @lang('messages.tabla.resultado')</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -715,25 +711,22 @@
                                                                 alt="Imagen del paciente">
                                                         </td>
                                                         <td class="text-center"> {{ $item->date }} </td>
-                                                        <td class="text-center text-capitalize">
-                                                            {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }}
-                                                        </td>
-                                                        <td class="text-center">
-                                                            {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }}
-                                                        </td>
+                                                        <td class="text-center text-capitalize"> {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }} </td>
+                                                        <td class="text-center"> {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }} </td>
                                                         <td class="text-center"> {{ $item->description }} </td>
                                                         <td class="text-center">
                                                             <div class="d-flex" style="justify-content: center;">
                                                                 <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                    <a target="_blank"
-                                                                        href="{{ URL::asset('/imgs/' . $item->file) }}"
-                                                                        style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
+                                                                    <a target="_blank"  href="{{ URL::asset('/imgs/' . $item->file) }}" style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
                                                                         <button type="button"
-                                                                            class="btn btn-iPrimary rounded-circle"
                                                                             data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom" title="Ver archivo"
-                                                                            style="margin-right: 0">
-                                                                            <i class="bi bi-file-earmark-text"></i>
+                                                                            data-bs-placement="bottom"
+                                                                            data-bs-custom-class="custom-tooltip"
+                                                                            data-html="true"
+                                                                            title="@lang('messages.tooltips.ver_estudios')">
+                                                                            <img width="32" height="auto"
+                                                                                src="{{ asset('/img/icons/doc.png') }}"
+                                                                                alt="avatar">
                                                                         </button>
                                                                     </a>
                                                                 </div>
@@ -759,7 +752,7 @@
                                                     <th class="text-center" scope="col">@lang('messages.tabla.referencia')</th>
                                                     <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                     <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
-                                                    <th class="text-center" scope="col" data-orderable="false"> @lang('messages.tabla.cargar_res')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false"> @lang('messages.tabla.cargar_res')</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -773,28 +766,23 @@
                                                             </td>
                                                             <td class="text-center"> {{ $item->date }} </td>
                                                             <td class="text-center"> {{ $item->cod_ref }} </td>
-                                                            <td class="text-center">
-                                                                {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }}
-                                                            </td>
-                                                            <td class="text-center">
-                                                                {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }}
-                                                            </td>
+                                                            <td class="text-center">  {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }} </td>
+                                                            <td class="text-center">  {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }} </td>
                                                             <td class="text-center">
                                                                 <div class="d-flex" style="justify-content: center;">
-                                                                    <div
-                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a
-                                                                            style="text-decoration: none; display: flex; justify-content: center;">
+                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <a style="text-decoration: none; display: flex; justify-content: center;">
                                                                             <button
                                                                                 onclick='showModal({{ $item }})'
                                                                                 data-bs-toggle='tooltip'
                                                                                 data-bs-placement='right'
                                                                                 data-bs-custom-class='custom-tooltip'
-                                                                                data-html='true' title='Cargar estudios'
+                                                                                data-html='true' title="@lang('messages.tooltips.cargar_estudio')"
                                                                                 type='button'
-                                                                                class='btn btn-iPrimary rounded-circle'
+                                                                                {{-- class='btn btn-iPrimary rounded-circle' --}}
                                                                                 style="margin-right: 0">
-                                                                                <i class='bi bi-info-circle-fill'></i>
+                                                                                <img width="30" height="auto" src="{{ asset('/img/icons/add-document.png') }}" alt="avatar">
+                                                                                {{-- <i class='bi bi-info-circle-fill'></i> --}}
                                                                             </button>
                                                                         </a>
                                                                     </div>
@@ -847,8 +835,7 @@
                                                 <tr>
                                                     <th class="text-center" scope="col">Código</th>
                                                     <th class="text-center" scope="col">Descripción</th>
-                                                    <th class="text-center" scope="col" data-orderable="false">Cargar
-                                                        Resultado</th>
+                                                    <th class="text-center" scope="col" data-orderable="false">Cargar Resultado</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
