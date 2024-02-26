@@ -2324,7 +2324,7 @@
                                                         <span class="text-warning mt-2" id='med'
                                                             style="font-size: 14px;margin-right: 10px;"></span>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -2338,7 +2338,7 @@
                                                             <span id="medicine_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-5 col-xl-5 col-xxl-5 mt-2">
+                                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -2351,7 +2351,7 @@
                                                             <span id="indication_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                    <div class="col-sm-12 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="treatmentDuration" class="form-label"
@@ -2397,10 +2397,10 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-1 col-xl-1 col-xxl-1 mt-2"
+                                                    <div class="col-sm-12 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2"
                                                         style="display: flex; align-items: flex-end; margin-bottom: 3px;">
                                                         <span type="" onclick="addMedacition(event)"
-                                                            class="btn btn-outline-secondary addMedacition" id="btn"
+                                                            class="btn btnSecond addMedacition" id="btn"
                                                             style="padding: 7px; font-size: 12px; width:100%">
                                                             <i class="bi bi-plus-lg"></i> @lang('messages.botton.añadir')
                                                         </span>
