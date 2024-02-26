@@ -25,13 +25,17 @@
         border-radius: 35px !important;
         background: #9dc8e2;
         color: #fff;
-        height: 117px;
-        font-size: 15px
+        /* height: 117px; */
+        font-size: 13px
     }
 
     .wizard>.content>.body {
         width: 100% !important;
         height: 100% !important;
+    }
+
+    .wizard > .steps > ul > li {
+        width: 20% !important; 
     }
 
     .wizard>.content>.body ul>li {
@@ -58,35 +62,33 @@
         border-color: #748b4e !important;
     }
 
-    @media (min-width: 1040px) and (max-width: 2100px) {
+    /* @media (min-width: 1040px) and (max-width: 2100px) {
 
         .wizard>.steps a,
         .wizard>.steps a:hover,
         .wizard>.steps a:active {
             height: 70px;
         }
-    }
-
-    /* @media (min-width: 577px) and (max-width: 885px) {
-
-        .wizard>.steps a,
-        .wizard>.steps a:hover,
-        .wizard>.steps a:active {
-            height: 87px;
-        }
     } */
 
+    @media (min-width: 577px) and (max-width: 768px) { 
+        .wizard > .steps > ul > li {
+            width: 100% !important;
+        }
+    }
+        
     @media screen and (max-width: 576px) {
 
         .wizard>.steps>ul>li {
             width: 100% !important;
-        }
 
+        }
+        
         .wizard>.steps a,
         .wizard>.steps a:hover,
         .wizard>.steps a:active {
-            height: 8%;
-            padding: 9px 28px 13px !important;
+            height: 6%;
+            padding: 2px 28px 0px !important;
         }
 
         .pmv-0 {
@@ -262,8 +264,7 @@
                                                 };
                                             }
                                         });
-                                        if (response.patient.get_history
-                                            .observations_back_family) {
+                                        if (response.patient.get_history.observations_back_family) {
                                             $('.ob_family_back').append(
                                                 `<li class="list-group-item">
                                                 <div class="d-flex w-100 justify-content-between">
@@ -299,8 +300,7 @@
                                             }
                                         });
 
-                                        if (response.patient.get_history
-                                            .observations_diagnosis) {
+                                        if (response.patient.get_history.observations_diagnosis) {
                                             $('.ob_pathology_back').append(
                                                 `<li class="list-group-item">
                                                 <div class="d-flex w-100 justify-content-between">
@@ -334,7 +334,7 @@
                                             }
                                         });
 
-                                        if (response.observations_not_pathological) {
+                                        if (response.patient.get_history.observations_not_pathological) {
                                             $('.ob_non_pathology_back').append(
                                                 `<li class="list-group-item">
                                                 <div class="d-flex w-100 justify-content-between">
@@ -414,7 +414,8 @@
 
                                         // alegias
                                    
-                                        if (response.observations_allergies != null) {
+                                        if (response.allergies != null) {
+
                                             response.allergies.map((e, key) => {
                                                 $('.list-alergias').append(
                                                     `<li class=" ${key} list-group-item" aria-current="true"> 
@@ -425,11 +426,11 @@
                                                 );
                                             });
 
-                                            if (response.observations_allergies) {
+                                            if (response.patient.get_history.observations_allergies) {
                                                 $('.ob-alergias').append(
                                                     `<li class="list-group-item">
                                                 <div class="d-flex w-100 justify-content-between">
-                                                <small>Observaciones:</small><span >${ response.observations_allergies}</span>   
+                                                <small>Observaciones:</small><span >${ response.patient.get_history.observations_allergies}</span>   
                                                 </div>
                                                 </li>`
                                                 );
@@ -442,8 +443,7 @@
 
                                         // cirugias
                                  
-                                        if (response.history_surgical != null) {
-
+                                        if (response.patient.get_history.history_surgical != null) {
                                             response.history_surgical.map((e, key) => {
                                                 $('.list-cirugias').append(
                                                     `<li class=" ${key} list-group-item" aria-current="true"> 
@@ -455,11 +455,11 @@
 
                                             });
 
-                                            if (response.observations_ginecologica) {
+                                            if (response.patient.get_history.observations_quirurgicas) {
                                                 $('.ob-cirugias').append(
                                                     `<li class="list-group-item">
                                                 <div class="d-flex w-100 justify-content-between">
-                                                <small>Observaciones:</small><span >${ response.observations_ginecologica}</span>   
+                                                <small>Observaciones:</small><span >${ response.patient.get_history.observations_quirurgicas}</span>   
                                                 </div>
                                                 </li>`
                                                 );
@@ -476,20 +476,24 @@
                                                 key) => {
                                                 $('.list-medicamentos').append(
                                                     `<li class=" ${key} list-group-item" aria-current="true"> 
-                                                <div class="d-flex w-100 justify-content-between">
-                                                <small class="text-capitalize"><strong>Medicamento:</strong> ${e.medicine}, <strong>Dosis:</strong> ${e.dose}, <strong>Patología:</strong> ${e.patologi}, <strong>Duración del tratamiento:</strong> ${e.treatmentDuration}</small>
-                                                </div>
-                                                </li>`
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <span class="text-capitalize"><strong>Medicamento:</strong> ${e.medicine}, <strong>Dosis:</strong> ${e.dose}, <strong>Patología:</strong> ${e.patologi}, <strong>Duración del tratamiento:</strong> ${e.treatmentDuration}</span>  
+                                                        </div>
+                                                    </li>`
                                                 );
                                             });
 
-                                            if (response.observations_medication) {
+                                            if (response.patient.get_history.observations_medication) {
                                                 $('.ob-medicamentos').append(
                                                     `<li class="list-group-item">
-                                                <div class="d-flex w-100 justify-content-between">
-                                                <small>Observaciones:</small><span >${ response.observations_medication}</span>   
-                                                </div>
-                                                </li>`
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <span >
+                                                                <strong>Observaciones:</strong>
+                                                                <br>
+                                                                ${response.patient.get_history.observations_medication}
+                                                            </span>   
+                                                        </div>
+                                                    </li>`
                                                 );
                                             }
                                         } else {
@@ -739,8 +743,8 @@
             <x-load-spinner show="true" />
         </div>
         <div class="container-fluid body" style="padding: 0 3% 3%">
-            <div class="row justify-content-center">
-                <div class="col-sm-12 col-md-12 col-lg-11 col-xl-11 col-xxl-10">
+            <div class="row justify-content-center" >
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-11 col-xxl-10">
                     <div class="card mt-2 card-ex">
                         <div class="card-body">
                             <form id="form-detaly-patient" method="post" action="">

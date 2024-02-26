@@ -325,6 +325,7 @@
             autoTextarea('observations_not_pathological');
             autoTextarea('observations_ginecologica');
             autoTextarea('observations_allergies');
+            autoTextarea('observations_quirurgicas');
             autoTextarea('observations_medication');
         })
 
