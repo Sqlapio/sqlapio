@@ -701,8 +701,7 @@
                                                         <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
-                                                        <th class="text-center"scope="col" data-orderable="false">
-                                                            @lang('messages.tabla.resultado')</th>
+                                                        <th class="text-center w-5"scope="col" data-orderable="false"> @lang('messages.tabla.resultado')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -714,27 +713,25 @@
                                                                     alt="Imagen del paciente">
                                                             </td>
                                                             <td class="text-center"> {{ $item->date }} </td>
-                                                            <td class="text-center text-capitalize">
-                                                                {{ $item->get_patients->name . ' ' . $item->get_patients->last_name }}
-                                                            </td>
-                                                            <td class="text-center">
-                                                                {{ $item->get_patients->is_minor === 'true' ? $item->get_patients->get_reprensetative->re_ci . '  (Rep)' : $item->get_patients->ci }}
-                                                            </td>
-                                                            <td class="text-center">
-                                                                {{ $item->description }} </td>
+                                                            <td class="text-center text-capitalize"> {{ $item->get_patients->name . ' ' . $item->get_patients->last_name }} </td>
+                                                            <td class="text-center"> {{ $item->get_patients->is_minor === 'true' ? $item->get_patients->get_reprensetative->re_ci . '  (Rep)' : $item->get_patients->ci }} </td>
+                                                            <td class="text-center"> {{ $item->description }} </td>
                                                             <td class="text-center">
                                                                 <div class="d-flex" style="justify-content: center;">
-                                                                    <div
-                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                         <a target="_blank"
                                                                             href="{{ URL::asset('/imgs/' . $item->file) }}"
                                                                             style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
+                                                                            
                                                                             <button type="button"
-                                                                                class="btn btn-iPrimary rounded-circle"
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
-                                                                                title="Ver archivo" style="margin-right: 0">
-                                                                                <i class="bi bi-file-earmark-text"></i>
+                                                                                data-bs-custom-class="custom-tooltip"
+                                                                                data-html="true"
+                                                                                title="@lang('messages.tooltips.ver_examenes')">
+                                                                                <img width="32" height="auto"
+                                                                                    src="{{ asset('/img/icons/doc.png') }}"
+                                                                                    alt="avatar">
                                                                             </button>
                                                                         </a>
                                                                     </div>
@@ -763,7 +760,7 @@
                                                         <th class="text-center" scope="col">@lang('messages.tabla.referencia')</th>
                                                         <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
-                                                        <th class="text-center" scope="col" data-orderable="false"> @lang('messages.tabla.cargar_res')</th>
+                                                        <th class="text-center w-10" scope="col" data-orderable="false"> @lang('messages.tabla.cargar_res')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -775,38 +772,27 @@
                                                                         src=" {{ $item->get_patient->patient_img ? asset('/imgs/' . $item->get_patient->patient_img) : ($item->get_patient->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
                                                                         alt="Imagen del paciente">
                                                                 </td>
-                                                                <td class="text-center">
-                                                                    {{ $item->date . '-->' . $item->id }}
-                                                                </td>
+                                                                <td class="text-center"> {{ $item->date }} </td>
                                                                 <td class="text-center"> {{ $item->cod_ref }} </td>
-                                                                <td class="text-center text-capitalize">
-                                                                    {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }}
-                                                                </td>
-                                                                <td class="text-center">
-                                                                    {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }}
-                                                                </td>
-
+                                                                <td class="text-center text-capitalize"> {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }} </td>
+                                                                <td class="text-center"> {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }} </td>
                                                                 <td>
                                                                     <div class="d-flex" style="justify-content: center;">
-                                                                        <div
-                                                                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                            <a
-                                                                                style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                            <a style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
                                                                                 <button
                                                                                     onclick='showModal({{ $item }})'
                                                                                     data-bs-toggle='tooltip'
                                                                                     data-bs-placement='right'
                                                                                     data-bs-custom-class='custom-tooltip'
-                                                                                    data-html='true' title='Cargar examen'
+                                                                                    data-html='true' title="@lang('messages.tooltips.cargar_examen')"
                                                                                     type='button'
-                                                                                    class='btn btn-iPrimary rounded-circle'
                                                                                     style="margin-right: 0">
-                                                                                    <i class='bi bi-info-circle-fill'></i>
-                                                                                </button>
+                                                                                <img width="30" height="auto" src="{{ asset('/img/icons/add-document.png') }}" alt="avatar">
+                                                                            </button>
                                                                             </a>
                                                                         </div>
                                                                     </div>
-
                                                                 </td>
                                                             </tr>
                                                         @endif

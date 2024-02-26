@@ -161,6 +161,8 @@ return [
         'ver_estudios'         => 'View Studies',
         'generar_informe'      => 'Generate Medical Report',
         'observaciones'        => 'Observation',
+        'cargar_examen'        => 'Load Exam',
+        'cargar_estudio'       => 'Load Study',
     ],
     'ficha_paciente' => [
         'nombre'            => 'Name',
