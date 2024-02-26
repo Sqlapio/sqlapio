@@ -450,9 +450,9 @@
                     center_id: {
                         required: true,
                     },
-                    countMedicationAdd: {
-                        required: true,
-                    }
+                    // countMedicationAdd: {
+                    //     required: true,
+                    // }
                 },
                 messages: {
                     background: {
@@ -474,9 +474,9 @@
                     center_id: {
                         required: "Centro es obligatorio",
                     },
-                    countMedicationAdd: {
-                        required: "debe agregar un tratamiento",
-                    }
+                    // countMedicationAdd: {
+                    //     required: "debe agregar un tratamiento",
+                    // }
                 }
             });
             $.validator.addMethod("onlyText", function(value, element) {
@@ -548,19 +548,19 @@
             $("#form-consulta").submit(function(event) {
                 event.preventDefault();
                 $("#form-consulta").validate();
-                if (countMedicationAdd === 0) {
-                    $("#med").html(
-                        `Debe agregar al menos un tratamiento <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`
-                    );
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Debe agregar al menos un tratamiento',
-                        allowOutsideClick: false,
-                        confirmButtonColor: '#42ABE2',
-                        confirmButtonText: 'Aceptar'
-                    });
-                    return false;
-                }
+                // if (countMedicationAdd === 0) {
+                //     $("#med").html(
+                //         `Debe agregar al menos un tratamiento <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`
+                //     );
+                //     Swal.fire({
+                //         icon: 'warning',
+                //         title: 'Debe agregar al menos un tratamiento',
+                //         allowOutsideClick: false,
+                //         confirmButtonColor: '#42ABE2',
+                //         confirmButtonText: 'Aceptar'
+                //     });
+                //     return false;
+                // }
                 if ($("#form-consulta").valid()) {
                     $('#send').hide();
                     $('#spinner').show();
@@ -2321,8 +2321,7 @@
                                                 <hr style="margin-bottom: 0; margin-top: 5px">
                                                 <div class="row medicine-form">
                                                     <div style="display: flex">
-                                                        <span class="text-warning mt-2" id='med'
-                                                            style="font-size: 14px;margin-right: 10px;"></span>
+                                                        <span class="text-warning mt-2" id='med' style="font-size: 14px;margin-right: 10px;"></span>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">

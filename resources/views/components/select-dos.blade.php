@@ -54,9 +54,19 @@
         $(document).ready(() => {
             $(".select_dos_dairy").select2({
                 dropdownParent: "#exampleModal",
+                // matcher: matchCustom
 
-                // matcher: matchCustom,
+            }).on("change", function(e) {
+                searchPatients(JSON.parse(e.target.value));
             });
         });
+
+        // function search(e) {
+        //     let value = e.target.value.toLowerCase();
+        //     $('#search_data li').filter(function() {
+        //         $(this).toggle($(this).text().toLowerCase().indexOf(e.target.value) > -1);
+        //     });
+        // }
+
 
     </script>
