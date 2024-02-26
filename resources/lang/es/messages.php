@@ -168,6 +168,8 @@ return [
         'ver_estudios'         => 'Ver Estudios',
         'generar_informe'      => 'Generar Informe Médico',
         'observaciones'        => 'Observación',
+        'cargar_examen'        => 'Cargar Exámen',
+        'cargar_estudio'       => 'Cargar Estudio',
     ],
     'ficha_paciente' => [
         'nombre'            => 'Nombre',

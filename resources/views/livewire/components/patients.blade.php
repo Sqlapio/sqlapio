@@ -1156,7 +1156,7 @@
                                                     name="search_patient" placeholder="" value="">
                                             </div>
                                         </div>
-                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-3">
+                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-3" style='display: flex; align-items: flex-end;'>
                                             <button style="margin-top: 2px;" onclick="searchPat()" class="btn btnSave">
                                                 @lang('messages.botton.buscar')
                                             </button>
@@ -1180,8 +1180,7 @@
                                                             </th>
                                                             <th class="text-center w-30" scope="col">@lang('messages.tabla.centro_salud')
                                                             </th>
-                                                            <th class="text-center w-20" scope="col"
-                                                                data-orderable="false">@lang('messages.tabla.acciones')</th>
+                                                            <th class="text-center w-17" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
 
                                                         </tr>
                                                     </thead>
@@ -1211,8 +1210,7 @@
                                                                     {{ $item->get_center->description }} </td>
                                                                 <td class="text-center">
                                                                     <div class="d-flex">
-                                                                        <div
-                                                                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <button
                                                                                 onclick="editPatien({{ json_encode($item) }},true); "
                                                                                 type="button" data-bs-toggle="tooltip"
@@ -1223,8 +1221,7 @@
                                                                                     alt="avatar">
                                                                             </button>
                                                                         </div>
-                                                                        <div
-                                                                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <a href="{{ $item->age == '' ? '#' : route('MedicalRecord', $item->id) }}"
                                                                                 onclick={{ $item->age == '' ? 'alertInfoPaciente();' : '' }}>
                                                                                 <button type="button"
@@ -1237,8 +1234,7 @@
                                                                                 </button>
                                                                             </a>
                                                                         </div>
-                                                                        <div
-                                                                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <a href="{{ $item->age == '' ? '#' : route('ClinicalHistoryDetail', $item->id) }}"
                                                                                 onclick={{ $item->age == '' ? 'alertInfoPaciente();' : '' }}>
                                                                                 <button type="button"
