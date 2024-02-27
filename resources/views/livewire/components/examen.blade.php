@@ -692,8 +692,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <hr>
                                             <h5 class="mb-4">@lang('messages.subtitulos.examenes_res')</h5>
-                                            <table id="table-info-examen" class="table-pag table-striped table-bordered"
-                                                style="width:100%; ">
+                                            <table id="table-info-examen" class="table-pag table-striped table-bordered" style="width:100%; ">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center w-image" scope="col"
@@ -748,13 +747,11 @@
                                     </div>
                                     {{-- EXAMENES SIN RESULTADOS --}}
                                     <div class="row mt-3">
-                                        <div
-                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <hr>
 
                                             <h5 class="mb-4">@lang('messages.subtitulos.examenes_sin_res')</h5>
-                                            <table id="table-info-sin-examen"
-                                                class="table-pag-dos table-striped table-bordered" style="width:100%">
+                                            <table id="table-info-sin-examen" class="table-pag-dos table-striped table-bordered" style="width:100%">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>

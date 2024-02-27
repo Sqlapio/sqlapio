@@ -2658,8 +2658,7 @@
                                                             <td class="text-center td-pad"> {{ $item->get_doctor->name . ' ' . $item->get_doctor->last_name }} </td>
                                                             <td class="text-center td-pad"> {{ $item->date }}</td>
                                                             <td class="text-center td-pad">
-                                                                <a target="_blank"
-                                                                    href="{{ route('PDF_informe_medico', $item->id) }}">
+                                                                <a target="_blank" href="{{ route('PDF_informe_medico', $item->id) }}">
                                                                     <button type="button">
                                                                         <img width="32" height="auto"
                                                                         src="{{ asset('/img/icons/pdf-file.png') }}"
