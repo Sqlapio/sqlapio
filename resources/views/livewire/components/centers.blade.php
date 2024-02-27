@@ -493,8 +493,7 @@
                                     <hr>
                                     <div class="table-responsive" id="table-patients"
                                         style="margin-top: 20px; width: 100%;">
-                                        <table id="table-centers" class="table table-striped table-bordered"
-                                            style="width: 100%;">
+                                        <table id="table-centers" class="table table-striped table-bordered" style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center w-30">@lang('messages.tabla.centro_salud')</th>
