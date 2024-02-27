@@ -87,10 +87,10 @@
         border-spacing: 0px;
         border-collapse: separate;
     }
-    
+
     .border-table {
         border: 1px solid black;
-        border-radius: 10px; 
+        border-radius: 10px;
     }
 
     .border-b {
@@ -165,7 +165,7 @@
     .barcodeStyle  {
         width: 50% !important;
         height: 3%;
-        margin-left: 30%; 
+        margin-left: 30%;
         margin-bottom: 1% !important;
     }
     .code-span{
@@ -233,7 +233,7 @@
                             height="auto">
                     </td>
                     <td style="padding: 20px">
-                        Copyright © 2023 SqLapioTechnology LLC. All rights reserved.
+                        Copyright © 2024 SqLapioTechnology LLC. All rights reserved.
                     </td>
                 </tr>
             </tbody>
@@ -285,7 +285,7 @@
                                         height="100" style="border-radius: 20%; object-fit: cover" alt="Avatar">
                                 @endif
                             @endif
-                        </div>                        
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -328,11 +328,11 @@
                 </tbody>
             </table>
         </div>
-        
+
         <div class="div-seal">
             <img class="img-pat" style="border-radius: 20%; object-fit: cover"
             src="../public/imgs/seal/{{ Auth::user()->digital_cello }}"
-            alt="Avatar" width="270" height="150">            
+            alt="Avatar" width="270" height="150">
         </div>
     </div>
     <script type="text/php">

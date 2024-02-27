@@ -778,7 +778,7 @@
         const alertInfoPaciente = () => {
             Swal.fire({
                 icon: 'warning',
-                title: 'Debe editar la informacion del paciente!',
+                title: 'Debe actualizar la información del paciente!',
                 allowOutsideClick: false,
                 confirmButtonColor: '#42ABE2',
                 confirmButtonText: 'Aceptar'
@@ -1203,12 +1203,9 @@
                                                                         data-html="true" title="Agendar cita"
                                                                         style="font-size: 13px; padding: 0px 11px 0px 11px; !important">{{ $item->patient_code }}</button>
                                                                 </td>
-                                                                <td class="text-center text-capitalize">
-                                                                    {{ $item->name }} {{ $item->last_name }}</td>
-                                                                <td class="text-center">
-                                                                    {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>
-                                                                <td class="text-center">
-                                                                    {{ $item->get_center->description }} </td>
+                                                                <td class="text-center text-capitalize"> {{ $item->name }} {{ $item->last_name }}</td>
+                                                                <td class="text-center"> {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>
+                                                                <td class="text-center"> {{ $item->get_center->description }} </td>
                                                                 <td class="text-center">
                                                                     <div class="d-flex">
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
@@ -1242,9 +1239,7 @@
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     title="@lang('messages.tooltips.historia')">
-                                                                                    <img width="40" height="auto"
-                                                                                        src="{{ asset('/img/icons/recipe.png') }}"
-                                                                                        alt="avatar">
+                                                                                    <img width="40" height="auto" src="{{ asset('/img/icons/recipe.png') }}" alt="avatar">
                                                                                 </button>
                                                                             </a>
                                                                         </div>
