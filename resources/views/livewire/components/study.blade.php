@@ -59,6 +59,7 @@
         /* font-family: 'Roboto', 'Inter', "Helvetica Neue", Helvetica, 'Source Sans Pro' !important; */
         letter-spacing: -.022em;
         color: #1d1d1f;
+        padding-right: 0px !important;
     }
 
     .form-switch {
@@ -687,6 +688,7 @@
                         <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <x-search-person />
+                                {{-- examenes con resultados --}}
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                         <hr>
@@ -696,6 +698,7 @@
                                                 <tr>
                                                     <th class="text-center w-image" scope="col" data-orderable="false"> @lang('messages.tabla.foto')</th>
                                                     <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
+                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_resultado')</th>
                                                     <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                     <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                     <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
@@ -711,6 +714,7 @@
                                                                 alt="Imagen del paciente">
                                                         </td>
                                                         <td class="text-center"> {{ $item->date }} </td>
+                                                        <td class="text-center"> {{ $item->date_result }} </td>
                                                         <td class="text-center text-capitalize"> {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }} </td>
                                                         <td class="text-center"> {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }} </td>
                                                         <td class="text-center"> {{ $item->description }} </td>
@@ -738,7 +742,7 @@
                                         </table>
                                     </div>
                                 </div>
-
+                                {{-- EXAMENES SIN RESULTADOS --}}
                                 <div class="row mt-3">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                         <hr>
@@ -748,7 +752,7 @@
                                             <thead>
                                                 <tr>
                                                     <th class="text-center w-image" scope="col" data-orderable="false"> @lang('messages.tabla.foto')</th>
-                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_resultado')</th>
+                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
                                                     <th class="text-center" scope="col">@lang('messages.tabla.referencia')</th>
                                                     <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                     <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
