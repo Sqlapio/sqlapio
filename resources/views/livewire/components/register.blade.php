@@ -80,10 +80,19 @@
     }
 
     
+    @media only screen and (min-width: 1800px) {
+        .col-xxxl {
+            width: 20% !important;
+        }
 
+    }
+    
+    @media only screen and (min-width: 1400px) {
+        .col-xxxl {
+            width: 21% !important;
+        }
 
-
-
+    }
 
     @media only screen and (max-width: 768px) {
 
@@ -281,16 +290,16 @@
 @section('content')
     <div>
         <div class="container-fluid">
-            <div class="row form-sq form-sq-mv">
+            <div class="row form-sq">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                     <div class="text-center">
                         <img class="img" src="{{ asset('img/registro.png') }}" style="width: 200px;">
                     </div>
                 </div>
 
-                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
-                    <div class="card" id="div-form">
-                        <div class="card-body">
+                <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-xxxl">
+                    <!-- <div class="card" id="div-form">
+                        <div class="card-body"> -->
                             <div>
                                     
                                 {{ Form::open(['url' => 'register', 'method' => 'post', 'id' => 'form-register']) }}
@@ -306,12 +315,6 @@
                                     {{-- registro normal  --}}
                                     @if ($bellied_plan !== null)
                                         @if ($bellied_plan->get_user->role == 'medico')
-                                            <div class="container">
-                                                <div class="row mt-2" style="display: grid; justify-items: center;">
-                                                    <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-02.png') }}"
-                                                        alt="">
-                                                </div>
-                                            </div>
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
@@ -475,17 +478,16 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center">
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-3 mb-3"
                                         style="display: flex; justify-content: space-around;">
-                                        <button type="" class="btn btnPrimary">Registrar</button>
-                                        <a href="/"><button type="button"
-                                                class="btn btnSecond btn2">Cancelar</button></a>
+                                        <button type="" class="btn btnPrimary" style="margin-right: 20px;">Registrar</button>
+                                        <a href="/"><button type="button" class="btn btnSecond btn2">Cancelar</button></a>
                                     </div>
                                 </div>
                                 {{ Form::close() }}
                             </div>
-                        </div>
-                    </div>
+                        <!-- </div>
+                    </div> -->
                 </div>
             </div>
         </div>

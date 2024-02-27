@@ -165,11 +165,11 @@
 
                 </div>
                 {{ Form::close() }}
-                <div class="row justify-content-center">
-                    {{-- <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
+                <div class="row justify-content-center mt-2">
+                    {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <a class="links" href="https://system.sqlapio.com/public/payment-form/1">@lang('messages.login.registrate_gratis')</a>
                     </div> --}}
-                    {{-- <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
+                    {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <a class="links" href="{{ config('sidebar_item.var') }}">@lang('messages.login.adquiere_plan')</a>
                     </div> --}}
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-bottom: 4px;">
