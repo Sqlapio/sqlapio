@@ -144,7 +144,7 @@
     .barcodeStyle  {
         width: 50% !important;
         height: 3%;
-        margin-left: 30%; 
+        margin-left: 30%;
         margin-bottom: 1% !important;
     }
     .code-span{
@@ -212,7 +212,7 @@
                             height="auto">
                     </td>
                     <td style="padding: 20px">
-                        Copyright © 2023 SqLapioTechnology LLC. All rights reserved.
+                        Copyright © 2024 SqLapioTechnology LLC. All rights reserved.
                     </td>
                 </tr>
             </tbody>
