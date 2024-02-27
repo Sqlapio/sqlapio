@@ -193,9 +193,12 @@
     }
 
     .shadow-div {
-        box-shadow: 0 0 0 64em rgba(0, 0, 0, 0.75);
-        position: absolute;
-        z-index: 1;
+        position:fixed;
+        width:100%;
+        left:0;right:0;top:0;bottom:0;
+        background-color: #000000a8;
+        z-index:9999;
+        max-width: 100%;
 
     }
 
@@ -322,7 +325,7 @@
         padding-bottom: 10px;
         width: 100%;
         display: block;
-        height: 60px;
+        height: 36px;
     }
 
     .pre-textarea {
@@ -368,7 +371,7 @@
             $("#exman-text").hide();
             $("#studies-text").hide();
 
-           
+
 
             tinymce.init({
                 selector: '#TextInforme',
@@ -388,7 +391,7 @@
 
             handlerUl(study, 'studie', 'btn btn-outline-success check-cm', 4);
 
-            
+
 
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             tooltipTriggerList.forEach(element => {
@@ -443,7 +446,7 @@
                     },
                     treatment: {
                         required: true,
-                    },                   
+                    },
                     sintomas: {
                         required: true,
                     },
@@ -601,7 +604,7 @@
                                 let url =
                                     "{{ route('MedicalRecord', ':id') }}";
                                 url = url.replace(':id', id);
-                                window.location.href = url;                       
+                                window.location.href = url;
                             });
                         },
                         error: function(error) {
@@ -649,7 +652,7 @@
                     },
                     observations: {
                         required: true,
-                    },                 
+                    },
                     center_id: {
                         required: true,
                     }
@@ -688,7 +691,7 @@
                     },
                     observations: {
                         required: "Campo Obligatorio",
-                    }                  
+                    }
                 }
             });
             $("#form-examen-fisico").submit(function(event) {
@@ -744,7 +747,7 @@
                     this.style.height = this.scrollHeight + 'px';
                 }, false);
             }
-    
+
             autoTextarea('background');
             autoTextarea('sintomas');
             autoTextarea('razon');
@@ -1559,7 +1562,7 @@
                 default:
                     break;
             }
-        }  
+        }
 
         const setDatatableExamenFisico = (data) => {
 
@@ -1583,31 +1586,31 @@
 
                 if (item.hidratado) {
                 hidratado = 'Hidratado';
-                } 
+                }
                 if (item.eupenio) {
                 eupenio = ',Eupenio';
-                } 
+                }
                 if (item.febril) {
                 febril = ',Febril';
-                } 
+                }
                 if (item.esfera_neurologica) {
                 esfera_neurologica = 'Enfera Neurologica';
-                } 
+                }
                 if (item.glasgow) {
                 glasgow = ',Glasgow';
-                } 
+                }
                 if (item.esfera_orl) {
                 esfera_orl = ',Esfera oral';
-                } 
+                }
                 if (item.esfera_cardiopulmonar) {
                 esfera_cardiopulmonar = 'Cardio Pulmorar';
-                } 
+                }
                 if (item.esfera_abdominal) {
                 esfera_abdominal = ',Esfera Abdominal';
-                } 
+                }
                 if (item.extremidades) {
                 extremidades = ',Extremidades';
-                }               
+                }
 
                 item.signos_vitales = `${hidratado}${eupenio}${febril}${esfera_neurologica}${glasgow}${esfera_orl}${esfera_cardiopulmonar}${esfera_abdominal}${extremidades}`
 
@@ -1699,7 +1702,7 @@
                         }
                     ],
                 });
-        }   
+        }
 
     </script>
 @endpush
@@ -1778,7 +1781,7 @@
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                 <div class="accordion-body m-mb">
                                     <div class="row mt-2" style="margin: 0px 16px;">
-                                        
+
                                         <form id="form-examen-fisico" method="post" action="">
                                             {{ csrf_field() }}
                                             <input type="hidden" name="patient_id" id="patient_id"
@@ -1942,7 +1945,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row mt-2">                                          
+                                            <div class="row mt-2">
 
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
@@ -1990,7 +1993,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        @php                                                        
+                                                        @php
                                                                     $signosVitales = '';
                                                                     $eupenio = '';
                                                                     $febril = '';
@@ -2017,28 +2020,28 @@
                                                                 {{-- @php
                                                                     if ($item->hidratado) {
                                                                         $hidratado = 'Hidratado';
-                                                                    } 
+                                                                    }
                                                                     if ($item->eupenio) {
                                                                         $eupenio = ',Eupenio';
-                                                                    } 
+                                                                    }
                                                                     if ($item->febril) {
                                                                         $febril = ',Febril';
-                                                                    } 
+                                                                    }
                                                                     if ($item->esfera_neurologica) {
                                                                         $esfera_neurologica = 'Enfera Neurologica';
-                                                                    } 
+                                                                    }
                                                                     if ($item->glasgow) {
                                                                         $glasgow = ',Glasgow';
-                                                                    } 
+                                                                    }
                                                                     if ($item->esfera_orl) {
                                                                         $esfera_orl = ',Esfera oral';
-                                                                    } 
+                                                                    }
                                                                     if ($item->esfera_cardiopulmonar) {
                                                                         $esfera_cardiopulmonar = 'Cardio Pulmorar';
-                                                                    } 
+                                                                    }
                                                                     if ($item->esfera_abdominal) {
                                                                         $esfera_abdominal = ',Esfera Abdominal';
-                                                                    } 
+                                                                    }
                                                                     if ($item->extremidades) {
                                                                         $extremidades = ',Extremidades';
                                                                     }
@@ -2076,11 +2079,11 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingThree">
-                                <button class="accordion-button collapsed bg-5" 
-                                    type="button" 
+                                <button class="accordion-button collapsed bg-5"
+                                    type="button"
                                     data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree" 
-                                    aria-expanded="false" 
+                                    data-bs-target="#collapseThree"
+                                    aria-expanded="false"
                                     aria-controls="collapseThree"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.consulta_medica')

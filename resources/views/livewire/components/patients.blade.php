@@ -18,6 +18,7 @@
         /* font-family: 'Roboto', 'Inter', "Helvetica Neue", Helvetica, 'Source Sans Pro' !important; */
         letter-spacing: -.022em;
         color: #1d1d1f;
+        padding-right: 0px !important;
     }
 
     .form-switch {

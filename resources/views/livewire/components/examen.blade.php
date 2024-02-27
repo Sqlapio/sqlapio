@@ -59,6 +59,7 @@
         /* font-family: 'Roboto', 'Inter', "Helvetica Neue", Helvetica, 'Source Sans Pro' !important; */
         letter-spacing: -.022em;
         color: #1d1d1f;
+        padding-right: 0px !important;
     }
 
     .form-switch {
@@ -686,9 +687,9 @@
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <x-search-person />
+                                    {{-- examenes con resultados --}}
                                     <div class="row">
-                                        <div
-                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <hr>
                                             <h5 class="mb-4">@lang('messages.subtitulos.examenes_res')</h5>
                                             <table id="table-info-examen" class="table-pag table-striped table-bordered"
@@ -698,6 +699,7 @@
                                                         <th class="text-center w-image" scope="col"
                                                             data-orderable="false">@lang('messages.tabla.foto')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_resultado')</th>
                                                         <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
@@ -713,6 +715,7 @@
                                                                     alt="Imagen del paciente">
                                                             </td>
                                                             <td class="text-center"> {{ $item->date }} </td>
+                                                            <td class="text-center"> {{ $item->date_result }} </td>
                                                             <td class="text-center text-capitalize"> {{ $item->get_patients->name . ' ' . $item->get_patients->last_name }} </td>
                                                             <td class="text-center"> {{ $item->get_patients->is_minor === 'true' ? $item->get_patients->get_reprensetative->re_ci . '  (Rep)' : $item->get_patients->ci }} </td>
                                                             <td class="text-center"> {{ $item->description }} </td>
@@ -722,7 +725,7 @@
                                                                         <a target="_blank"
                                                                             href="{{ URL::asset('/imgs/' . $item->file) }}"
                                                                             style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
-                                                                            
+
                                                                             <button type="button"
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
@@ -743,7 +746,7 @@
                                             </table>
                                         </div>
                                     </div>
-
+                                    {{-- EXAMENES SIN RESULTADOS --}}
                                     <div class="row mt-3">
                                         <div
                                             class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
@@ -754,9 +757,8 @@
                                                 class="table-pag-dos table-striped table-bordered" style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-image" scope="col"
-                                                            data-orderable="false">@lang('messages.tabla.foto')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_resultado')</th>
+                                                        <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.referencia')</th>
                                                         <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
