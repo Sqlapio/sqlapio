@@ -179,11 +179,11 @@
     </script>
 @endpush
 @section('content')
+<div>
     <div id="spinner2" style="display: none" class="spinner-md">
         <x-load-spinner show="true" />
     </div>
-    <div>
-        <div class="container-fluid" style="padding: 3%">
+    <div class="container-fluid" style="padding: 3%">
             <div class="row mt-2">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
                     <div class="card accordion-diary">
