@@ -67,6 +67,15 @@
                     },
                     center_id: {
                         required: true,
+                    },
+                    state_contrie: {
+                        required: true,
+                    },
+                    city_contrie: {
+                        required: true,
+                    },
+                    full_name: {
+                        required: true,
                     }
                 },
                 messages: {
@@ -83,6 +92,15 @@
 
                     number_consulting_room: {
                         required: "Número del consultorio es obligatorio",
+                    },
+                    state_contrie: {
+                        required: "Estado es obligatorio",
+                    },
+                    city_contrie: {
+                        required: "Ciudad es obligatorio",
+                    },
+                    full_name: {
+                        required: "Nombre del centro es obligatorio",
                     }
                 }
             });
@@ -108,11 +126,15 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function(response) {
-                            // let route = "{{ route('ClinicalHistoryDetail', ':id') }}";
-                            // route = route.replace(':id', response.id);
+                          
                             $('#send').show();
+
                             $('#spinner').hide();
+
                             $("#form-centers").trigger("reset");
+
+                            $('#div-new-center').hide();
+
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Centro registrado exitosamente!',
@@ -125,6 +147,7 @@
                             });
                         },
                         error: function(error) {
+
                             error.responseJSON.errors.map((elm) => {
                                 Swal.fire({
                                     icon: 'error',
@@ -133,6 +156,7 @@
                                     confirmButtonColor: '#42ABE2',
                                     confirmButtonText: 'Click para salir'
                                 }).then((result) => {
+
                                     $('#send').show();
                                     $('#spinner').hide();
                                 });
@@ -142,108 +166,6 @@
                 }
             });
 
-            ///formulario de nuevos centros
-            $('#form-create-new-center').validate({
-                rules: {
-                    address: {
-                        required: true,
-                        minlength: 3,
-                    },
-                    contrie: {
-                        required: true,
-                    },
-                    state_contrie: {
-                        required: true,
-                    },
-                    city_contrie: {
-                        required: true,
-                    },
-                    full_name: {
-                        required: true,
-                    },
-                    number_floor_new: {
-                        required: true,
-                    },
-                    number_consulting_room_new: {
-                        required: true,
-                    },
-                },
-                messages: {
-                    contrie: {
-                        required: 'País es obligatorio',
-                    },
-                    address: {
-                        required: "Dirección es obligatorio",
-                        minlength: "Dirección debe ser mayor a 3 caracteres",
-                    },
-                    state_contrie: {
-                        required: "Estado es obligatorio",
-                    },
-                    city_contrie: {
-                        required: "Ciudad es obligatorio",
-                    },
-                    full_name: {
-                        required: "Nombre del centro es obligatorio",
-                    },
-                    number_floor_new: {
-                        required: "Número de piso es obligatorio",
-                    },
-                    number_consulting_room_new: {
-                        required: "Número del consultorio es obligatorio",
-                    }
-                }
-            });
-
-            $.validator.addMethod("onlyNumber", function(value, element) {
-                var pattern = /^\d+\.?\d*$/;
-                return pattern.test(value);
-            }, "Campo numérico");
-
-            $("#form-create-new-center").submit(function(event) {
-                event.preventDefault();
-                $("#form-create-new-center").validate();
-                if ($("#form-create-new-center").valid()) {
-                    $('#send').hide();
-                    $('#spinner').show();
-                    var data = $('#form-create-new-center').serialize();
-                    $.ajax({
-                        url: '{{ route('register-new-centers') }}',
-                        type: 'POST',
-                        data: data,
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(response) {
-                            $('#send').show();
-                            $('#spinner').hide();
-                            $("#form-create-new-center").trigger("reset");
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Centro registrado exitosamente!',
-                                allowOutsideClick: false,
-                                confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
-                            }).then((result) => {
-                                window.location = '{{ route('Centers') }}'
-                            });
-                        },
-                        error: function(error) {
-                            error.responseJSON.errors.map((elm) => {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: elm,
-                                    allowOutsideClick: false,
-                                    confirmButtonColor: '#42ABE2',
-                                    confirmButtonText: 'Click para salir'
-                                }).then((result) => {
-                                    $('#send').show();
-                                    $('#spinner').hide();
-                                });
-                            });
-                        }
-                    });
-                }
-            })
         });
 
         function showModal() {
@@ -365,107 +287,26 @@
             });
 
         }
+
+        const handlerCenterSelect = (e) => {
+
+            if(Number(e.target.value)=== 0){
+
+                $('#div-new-center').show();
+
+            }else{
+
+                $('#div-new-center').hide();
+
+            }
+
+        }
     </script>
 @endpush
 @section('content')
     <div>
         <div class="container-fluid" style="padding: 0 3% 3%">
-            <div class="row mt-2">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd">
-                    <div class="accordion" id="accordion">
-                        <div class="accordion-item">
-                            <span class="accordion-header title" id="headingOne">
-                                <button class="accordion-button bg-4" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseDos" aria-expanded="true" aria-controls="collapseDos"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-hospital"></i> @lang('messages.acordion.nuevo_centro')
-                                </button>
-                            </span>
-                            <div id="collapseDos" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                                data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <form id="form-create-new-center" method="post" action="">
-                                        {{ csrf_field() }}
-
-                                        <div class="row mt-2">
-
-                                            <x-ubigeo_contries class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" />
-
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre_centro')</label>
-                                                        <input autocomplete="off" class="mask-alfa-numeric form-control"
-                                                            id="full_name" name="full_name" type="text" value=""
-                                                            maxlength="100">
-                                                        <i class="bi bi-hash" style="top: 30px"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
-                                                        <textarea id="address" rows="2" name="address" class="form-control"></textarea>
-                                                        <i class="bi bi-geo" style="top: 30px"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="number_floor_new" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.piso')</label>
-                                                        <input autocomplete="off" class="mask-alfa-numeric form-control"
-                                                            id="number_floor_new" name="number_floor_new" type="text"
-                                                            value="" maxlength="2">
-                                                        <i class="bi bi-hash st-icon"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="number_consulting_room_new" class="form-label"
-                                                            style="font-size: 12px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.consultorio')</label>
-                                                        <input autocomplete="off" class="form-control mask-alfa-numeric"
-                                                            id="number_consulting_room_new"
-                                                            name="number_consulting_room_new" type="text" value=""
-                                                            maxlength="5">
-                                                        <i class="bi bi-hash st-icon"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="phone_consulting_room_new" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.telefono_consultorio')</label>
-                                                        <input autocomplete="off" class="form-control phone"
-                                                            id="phone_consulting_room_new" name="phone_consulting_room_new"
-                                                            type="text" value="">
-                                                        <i class="bi bi-telephone-forward st-icon"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row text-center">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <input class="btn btnSave send mt-3" value="@lang('messages.botton.guardar')"
-                                                    type="submit" />
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+   
             <div class="row mt-2">
                 {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
                     <h5 class="text-capitalize">Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}</h5>
@@ -561,6 +402,26 @@
                                     @if (Auth::user()->status_register != 1)
                                         <x-centers_doctors class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" />
                                     @endif
+
+                                    <div class="row" id="div-new-center" style="display: none">
+
+                                        <x-ubigeo_contries class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" />
+    
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre_centro')</label>
+                                                    <input autocomplete="off" class="mask-alfa-numeric form-control"
+                                                        id="full_name" name="full_name" type="text" value=""
+                                                        maxlength="100">
+                                                    <i class="bi bi-hash" style="top: 30px"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
