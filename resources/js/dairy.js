@@ -390,10 +390,8 @@ function setValue(data, info) {
     } else {
       img_url = `${avatar_imge}/avatar hombre.png`;
     }
-  }
-  
+  }  
 
-  console.log(info.event.extendedProps.age);
   // datos del paciente
   $("#btn-con").find('button').remove();
   $("#btn-cancell").find('button').remove();
