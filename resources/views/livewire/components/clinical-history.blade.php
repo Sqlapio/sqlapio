@@ -84,7 +84,6 @@
         let countDiagnosis = 0;
         let countNotPathological = 0;
         let countGynecological = 0;
-        let countVitalSigns = 0;
         let countBackFamily = 0;
         ////
         let arrayAllergies = (allergies) ? allergies : [];
@@ -97,40 +96,7 @@
             });
             $('#form-mecal-histroy').validate({
                 ignore: [],
-                rules: {
-                    // weight: {
-                    //     required: true,
-                    // },
-                    // height: {
-                    //     required: true,
-                    // },
-                    // current_illness: {
-                    //     required: true,
-                    // },
-                    // reason: {
-                    //     required: true,
-                    // },
-                    applied_studies: {
-                        required: true,
-                    },
-                    // strain_two: {
-                    //     required: true
-                    // },
-                    // temperature: {
-                    //     required: true
-                    // },
-                    // breaths: {
-                    //     required: true
-                    // },
-                    // pulse: {
-                    //     required: true
-                    // },
-                    // saturation: {
-                    //     required: true
-                    // },
-                    // condition: {
-                    //     required: true
-                    // },
+                rules: {                
                     countBackFamily: {
                         required: true,
                     },
@@ -139,58 +105,24 @@
                     },
                     countNotPathological: {
                         required: true,
-                    },
-                    countVitalSigns: {
-                        required: true
-                    },
+                    }                   
                 },
-                messages: {
-                    // weight: {
-                    //     required: "Peso es obligatorio",
-                    // },
-                    // height: {
-                    //     required: "Altura es obligatoria",
-                    // },
-                    applied_studies: {
-                        required: "Observaciones es obligatorio"
-                    },
+                messages: {              
+                  
                     countBackFamily: {
-                        required: "Debe seleccionar una opción"
+                        required: "Debe seleccionar al menos un antecedente personal y familiar"
                     },
                     countDiagnosis: {
-                        required: "Debe seleccionar una opción"
+                        required: "Debe seleccionar al menos un antecedente personal patológico"
                     },
                     countNotPathological: {
-                        required: "Debe seleccionar una opción"
-                    },
-                    // current_illness: {
-                    //     required: "Enfermedad Actual es obligatoria",
-                    // },
-                    // reason: {
-                    //     required: "Motivo de la consulta es obligatoria"
-                    // },
-                    // strain_two: {
-                    //     required: "Tensión es obligatoria"
-                    // },
-                    // temperature: {
-                    //     required: "Temperatura es obligatoria"
-                    // },
-                    // breaths: {
-                    //     required: "Respiraciones es obligatoria"
-                    // },
-                    // pulse: {
-                    //     required: "Pulso es obligatoria"
-                    // },
-                    // saturation: {
-                    //     required: "Saturación es obligatoria"
-                    // },
-                    // condition: {
-                    //     required: "Condición es obligatoria"
-                    // },
-                    countVitalSigns: {
-                        required: "Debe seleccionar una opción"
-                    }
-                }
+                        required: "Debe seleccionar al menos un antecedente personal no patológico"
+                    }                  
+                },
+                // errorPlacement: function(error, element) {
+                //     $("#collapseTwo").collapse('show');  
+                //     return false;                
+                // }
             });
 
 
@@ -207,51 +139,8 @@
             //envio del formulario
             $("#form-mecal-histroy").submit(function(event) {
                 event.preventDefault();
-                $("#form-mecal-histroy").validate();
-                if ($('#countBackFamily').val() === "") {
-                    $("#APF").html(
-                        `Debe seleccionar al menos un antecedente personal y familiar <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`
-                    );
-                    $("#collapseTwo").collapse('show')
-                } else {
-                    $("#APF").text('');
-                    $("#collapseTwo").removeClass("show")
-                }
-                if ($('#countDiagnosis').val() === "") {
-                    $("#APP").html(
-                        `Debe seleccionar al menos un antecedente personal patológico <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`
-                    );
-                    $('#collapseThree').collapse('show')
-                } else {
-                    $("#APP").text('');
-                    $("#collapseThree").removeClass("show")
-                }
-                if ($('#countNotPathological').val() === "") {
-                    $("#ANP").html(
-                        `Debe seleccionar al menos un antecedente personal no patológico <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`
-                    );
-                    $('#collapseFour').collapse('show')
-                } else {
-                    $("#ANP").text('');
-                    $("#collapseFour").removeClass("show")
-                }
-                if ($('#weight').val() === "" || $('#strain').val() === "" ||
-                    $('#strain_two').val() === "" || $('#temperature').val() === "" ||
-                    $('#breaths').val() === "" || $('#pulse').val() === "" ||
-                    $('#saturation').val() === "" || $('#condition').val() === "" ||
-                    // $('#reason').val() === "" || $('#current_illness').val() === "" ||
-                    $('#countVitalSigns').val() === "" || $('#countVitalSigns').val() === "") {
-                    $("#EF").html(
-                        `Debe completar los datos <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`
-                    );
-                    $("#VS").html(
-                        `Debe seleccionar al menos una opción <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`
-                    );
-                    $('#collapseOne').collapse('show')
-                } else {
-                    $("#EF").text('');
-                    $("#collapseOne").removeClass("show")
-                }
+                $("#form-mecal-histroy").validate();              
+             
                 if ($("#form-mecal-histroy").valid()) {
                     $('#send').hide();
                     $('#spinner').show();
@@ -308,6 +197,8 @@
                             });
                         }
                     });
+                }else{
+                    $("#collapseTwo").collapse('show');  
                 }
             })
 
@@ -344,7 +235,7 @@
 
                     $(`#${e.target.id}`).val(1);
 
-
+                    countBackFamily = 0;
 
                 } else {
 
@@ -357,18 +248,18 @@
                     $(`#${e.target.id}`).prop('checked', true);
 
                     countBackFamily = countBackFamily + 1;
-
-                    $('#countBackFamily').val(countBackFamily);
                 }
 
             } else {
 
                 $(`#${e.target.id}`).val(null);
 
-                countBackFamily = countBackFamily - 1;
+                countBackFamily = (countBackFamily==0)? '' : countBackFamily - 1;
 
-                $('#countBackFamily').val(countBackFamily);
             }
+
+            $('#countBackFamily').val(countBackFamily);
+
         }
         //agregar alergia
         function handlerAllergies(e) {
@@ -448,7 +339,7 @@
 
                     $(`#${e.target.id}`).val(1);
 
-
+                    countDiagnosis = 0;
 
                 } else {
 
@@ -460,16 +351,17 @@
                     $(`#${e.target.id}`).val(1);
 
                     countDiagnosis = countDiagnosis + 1;
-
-                    $('#countDiagnosis').val(countDiagnosis);
                 }
 
             } else {
-                $(`#${e.target.id}`).val(null);
-                countDiagnosis = countDiagnosis - 1;
-                $('#countDiagnosis').val(countDiagnosis);
 
+                $(`#${e.target.id}`).val(null);
+
+                countDiagnosis = (countDiagnosis==0)? '' : countDiagnosis - 1;
             }
+
+            $('#countDiagnosis').val(countDiagnosis);
+
         }
 
         const handlerNotPathologica = (e) => {
@@ -487,6 +379,8 @@
 
                     $(`#${e.target.id}`).val(1);
 
+                    countNotPathological = 0;
+
                 } else {
 
                     $('#no_aplica_no_pathology').prop('checked', false);
@@ -497,17 +391,17 @@
                     $(`#${e.target.id}`).val(1);
 
                     countNotPathological = countNotPathological + 1;
-
-                    $('#countNotPathological').val(countNotPathological);
-
                 }
 
             } else {
-                $(`#${e.target.id}`).val(null);
-                countNotPathological = countNotPathological - 1;
-                $('#countNotPathological').val(countNotPathological);
 
+                $(`#${e.target.id}`).val(null);
+
+                countNotPathological = (countNotPathological==0)? '' : countNotPathological - 1;
             }
+
+            $('#countNotPathological').val(countNotPathological);
+
         }
 
         function handlerGynecological(e) {
@@ -693,20 +587,7 @@
                 $('#cirugia').val("");
                 $('#datecirugia').val("");
             }
-        }
-
-        // agregar signos vitales
-        function handlerVitalSigns(e) {
-            if ($(`#${e.target.id}`).is(':checked')) {
-                $(`#${e.target.id}`).val(1);
-                countVitalSigns = countVitalSigns + 1;
-                $('#countVitalSigns').val(countVitalSigns);
-            } else {
-                $(`#${e.target.id}`).val(null);
-                countVitalSigns = countVitalSigns - 1;
-                $('#countVitalSigns').val(countVitalSigns);
-            }
-        }
+        }     
 
         //borrar medicamento
         function deleteMedication(count) {
@@ -933,6 +814,9 @@
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
+
+                                    {{-- antecedentes personales --}}
+
                                     <div class="row" id="checkbok-input">
                                         <div style="display: flex">
                                             <span class="text-warning mt-2" id='APF'
@@ -972,11 +856,12 @@
                                             </div>
                                         @endforeach
                                     </div>
+
                                     <div class="row mt-2">
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="display: none">
+
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                             <div class="input-group flex-nowrap">
-                                                <span class="input-group-text" id="">Total Antecedentes</span>
-                                                <input type="text" id="countBackFamily" name="countBackFamily"
+                                                <input type="hidden" id="countBackFamily" name="countBackFamily"
                                                     class="form-control" readonly value="{!! !empty($validateHistory) ? $count_back_bamiliy : '' !!}">
                                             </div>
                                         </div>
@@ -989,11 +874,17 @@
                                                     name="observations_back_family" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_back_family : '' !!}</textarea>
                                             </div>
                                         </div>
+
+                                    
+
                                     </div>
+                                    {{-- end --}}
                                     <hr style="margin-bottom: 0;">
                                     <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
                                         @lang('messages.acordion.antecedentes_per_pa')</h6>
                                     <hr style="margin-bottom: 0;">
+                                    {{-- Antecedentes Personales Patológicos --}}
+
                                     <div class="row" id="checkbok-input-diagnosis">
                                         <div style="display: flex">
                                             <span class="text-warning mt-2" id="APP"
@@ -1033,11 +924,9 @@
                                         @endforeach
                                     </div>
                                     <div class="row mt-2">
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="display: none">
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text">Total patológicos
-                                                </span>
-                                                <input type="text" id="countDiagnosis" name="countDiagnosis"
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            <div class="input-group flex-nowrap">                                               
+                                                <input type="hidden" id="countDiagnosis" name="countDiagnosis"
                                                     class="form-control" readonly value="{!! !empty($validateHistory) ? $count_dagnosis : '' !!}">
                                             </div>
                                         </div>
@@ -1050,10 +939,13 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {{-- end --}}
                                     <hr style="margin-bottom: 0;">
                                     <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
                                         @lang('messages.acordion.antecedentes_per_no_pa')</h6>
                                     <hr style="margin-bottom: 0;">
+                                    {{-- Antecedentes Personales No Patológicos --}}
+
                                     <div class="row" id="div_no_aplica_no_pathology">
                                         <div style="display: flex">
                                             <span class="text-warning mt-2" id="ANP"
@@ -1094,10 +986,9 @@
                                         @endforeach
                                     </div>
                                     <div class="row mt-2">
-                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="display: none">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                             <div class="input-group flex-nowrap">
-                                                <span class="input-group-text">Total historia no patológica </span>
-                                                <input type="text" id="countNotPathological"
+                                                <input type="hidden" id="countNotPathological"
                                                     name="countNotPathological" class="form-control" readonly
                                                     value="{!! !empty($validateHistory) ? $count_notpathologica : '' !!}">
                                             </div>
@@ -1112,6 +1003,8 @@
                                             {{-- <a>{{$Patient->get_history->observations_not_pathological}}</a> --}}
                                         </div>
                                     </div>
+                                    {{-- end --}}
+
                                 </div>
                             </div>
                         </div>
