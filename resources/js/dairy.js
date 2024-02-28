@@ -15,76 +15,37 @@ let avatar_imge;
 let ulrUpdate;
 let urlPost;
 let dataDos;
+
 let arrayAm = [{
   value: '',
   name: 'Seleccione...'
 },
-// {
-//   value: '01:00-02:00-rgb(160,213,210)',
-//   name: "01:00 - 02:00",
-//   color: 'rgb(160,213,210)'
-// },
-// {
-//   value: '02:00-03:00-rgb(160,213,210)',
-//   name: '02:00 - 03:00',
-//   color: 'rgb(160,213,210)'
-
-// },
-// {
-//   value: '03:00-04:00-rgb(160,213,210)',
-//   name: '03:00 - 04:00',
-//   color: 'rgb(160,213,210)'
-
-// },
-// {
-//   value: '04:00-05:00-rgb(160,213,210)',
-//   name: '04:00 - 05:00',
-//   color: 'rgb(160,213,210)'
-
-// },
-// {
-//   value: '05:00-06:0-rgb(160,213,210)',
-//   name: '05:00 - 06:00',
-//   color: 'rgb(160,213,210)'
-
-// },
 {
   value: '06:00-07:00',
   name: '06:00 - 07:00',
-  // color: 'rgb(160,213,210)'
-
 },
 {
   value: '07:00-08:00',
   name: '07:00 - 08:00',
-  // color: 'rgb(160,213,210)'
-
 },
 {
   value: '08:00-09:00',
   name: '08:00 - 09:00',
-  // color: 'rgb(160,213,210)'
-
 },
 {
   value: '09:00-10:00',
   name: '09:00 - 10:00',
-  // color: 'rgb(177,177,177)'
-
 },
 {
   value: '10:00-11:00',
   name: '10:00 - 11:00',
-  // color: 'rgb(178,214,237)'
-
 },
 {
   value: '10:00-11:00',
   name: '11:00 - 12:00',
-  // color: 'rgb(165,219,189)'
-
 }
 ];
+
 let arrayPm = [{
   value: '',
   name: 'Seleccione...'
@@ -92,76 +53,41 @@ let arrayPm = [{
 {
   value: '12:00-13:00',
   name: '12:00 - 01:00',
-  // color: 'rgb(252,208,212)'
-
 },
 {
   value: '13:00-14:00',
   name: '01:00 - 02:00',
-  // color: 'rgb(244,201,240)'
-
 },
 {
   value: '14:00-15:00',
   name: '02:00 - 03:00',
-  // color: 'rgb(249,174,112)'
-
 },
 {
   value: '15:00-16:00',
   name: '03:00 - 04:00',
-  // color: 'rgb(217,186,244)'
-
 },
 {
   value: '16:00-17:00',
   name: '04:00 - 05:00',
-  // color: 'rgb(242,146,141)'
-
 },
 {
   value: '17:00-18:00',
   name: '05:00 - 06:00',
-  // color: 'rgb(237,242,247)'
-
 },
 {
   value: '18:00-19:00',
   name: '06:00 - 07:00',
-  // color: 'rgb(178,214,237)'
-
 },
 {
   value: '19:00-20:00',
   name: '07:00 - 08:00',
-  // color: 'rgb(237,219,3)'
-
 },
 {
   value: '20:00-21:00',
   name: '08:00 - 09:00',
-  // color: 'rgb(69,139,139)'
-
 },
-// {
-//   value: '21:00-22:00-rgb(139,136,191)',
-//   name: '09:00 - 10:00',
-//   color: 'rgb(139,136,191)'
-
-// },
-// {
-//   value: '22:00-23:00-rgb(175,170,4',
-//   name: '10:00 - 11:00',
-//   color: 'rgb(175,170,4)'
-
-// },
-// {
-//   value: '23:00-00:00-rgb(217,186,244)',
-//   name: '11:00 - 12:00',
-//   color: 'rgb(217,186,244)'
-
-// }
 ];
+
 let dateString = getDateWithoutTime(new Date()).toISOString().substring(0, 10);
 
 
@@ -198,20 +124,20 @@ $(document).ready(() => {
       center_id: {
         required: true,
       },
-      id_select:{
+      id_select: {
         required: true,
       },
-      name_patient:{
+      name_patient: {
         required: true,
       },
 
-      last_name_patient:{
+      last_name_patient: {
         required: true,
       },
-      phone:{
+      phone: {
         required: true,
       },
-      email_patient:{
+      email_patient: {
         required: true,
       },
       // birthdate_patient:{
@@ -262,7 +188,7 @@ $(document).ready(() => {
       // birthdate_patient: {
       //   required: "Campo es obligatorio",
       // },
-      
+
     }
   });
 
@@ -362,7 +288,7 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
     eventClick: function (info) {
       setValue(info.event._def.title, info);
       $('#exampleModal').modal('show');
-      
+
     },
     dateClick: function (info) {
       if (info.dateStr >= dateString === false) {
@@ -395,7 +321,7 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
         "color": info.event._def.ui.backgroundColor,
         "extendedProps": info.event._def.extendedProps
       }
-      
+
       let dateEnd = data.end && data.start
       if (dateEnd >= dateString) {
         $('#spinner').show();
@@ -465,13 +391,20 @@ function setValue(data, info) {
       img_url = `${avatar_imge}/avatar hombre.png`;
     }
   }
-  // let dataPers = data.split(",");
+  
+
+  console.log(info.event.extendedProps.age);
   // datos del paciente
   $("#btn-con").find('button').remove();
   $("#btn-cancell").find('button').remove();
   url = url.replace(':id', info.event.extendedProps.patient_id);
   let item = JSON.stringify(info);
-  $("#btn-con").append(`<button onclick='handlerMedicalRecord(${item})' type="button" class="btn btnSecond">Consulta medica</button>`);
+
+  if(info.event.extendedProps.age) {
+    
+     $("#btn-con").append(`<button onclick='handlerMedicalRecord(${item})' type="button" class="btn btnSecond">Consulta medica</button>`);
+  }
+
   $("#btn-cancell").append(`<button type="button" onclick="cancelled_appointments(${info.event.extendedProps.id},'${urlCancelled}')" class="btn btnSecond">Cancelar Cita</button>`);
   $("#search-patients-show").hide();
   $("#center_id").val(info.event.extendedProps.center_id).change().attr("disabled", true);
@@ -513,53 +446,7 @@ function setValue(data, info) {
 }
 
 function searchPatients(res) {
-  // if ($('#searchPatients').val() != '') {
-  //   url = url.replace(':value', $('#searchPatients').val());
-  //   $.ajax({
-  //     url: url,
-  //     type: 'GET',
-  //     headers: {
-  //       'X-CSRF-TOKEN': $(
-  //         'meta[name="csrf-token"]').attr(
-  //           'content')
-  //     },
-  //     success: function (res) {
-  //       if (res != "") {
-  //         if (res.is_minor) {
-  //           $("#name").text(res.name + ' ' + res.last_name);
-  //           $("#email").text(res.email);
-  //           $("#phone").text(res.phone);
-  //           $("#ci").text(res.ci);
-  //           $("#genere").text(res.genere);
-  //           $("#age").text(res.age);
-  //           $("#patient_id").val(res.id);
-  //         } else {
-  //           $("#name").text(res.re_name + ' ' + res.re_last_name);
-  //           $("#email").text(res.re_email);
-  //           $("#phone").text(res.re_phone);
-  //           $("#ci").text(res.re_ci);
-  //           $("#genere").text(res.genere);
-  //           $("#age").text(res.age);
-  //           $("#patient_id").val(res.id);
-  //         }
-  //         $('#div-pat').show();
-  //         $("#img-pat").attr("src", `${ulrimge}/${res.patient_img}`);
-  //         $('#registrer-pac').attr("disabled", false);
-  //         $('#timeIni').focus()
-  //       } else {
-  //         Swal.fire({
-  //           icon: 'error',
-  //           title: 'Paciente no encontrado!',
-  //           allowOutsideClick: false,
-  //           confirmButtonColor: '#42ABE2',
-  //           confirmButtonText: 'Aceptar'
-  //         }).then((result) => {
-  //         });
-  //       }
 
-  //     }
-  //   });
-  // }
   if (res.is_minor) {
     $("#name").text(res.name + ' ' + res.last_name);
     $("#email").text(res.email);
