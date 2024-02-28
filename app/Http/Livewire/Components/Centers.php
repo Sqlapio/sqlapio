@@ -21,6 +21,7 @@ class Centers extends Component
     {
         try {
 
+
             $user = Auth::user();
 
             $rules = [
@@ -47,14 +48,44 @@ class Centers extends Component
                 ], 400);
             }
 
-            $center = DoctorCenter::where('user_id', $user->id)->where('center_id', $request->center_id)->first();
+            if ($request->center_id == "0") { //nuevo centro
 
-            if ($center != null) {
-                return response()->json([
-                    'error' => 'true',
-                    'mjs'  => 'El centro ya se encuentra asociado a su usuario. Favor intente con uno diferente'
-                ], 400);
+                $state = State::where('id', $request->state_contrie)->first();
+
+                $new_centers = new Center();
+                $new_centers->address = $request->address;
+                $new_centers->description = $request->full_name;
+                $new_centers->state = $state->description;
+                $new_centers->state_id = $request->state_contrie;
+                $new_centers->country = Auth::user()->contrie;
+                $new_centers->user_id = Auth::user()->id;
+                $new_centers->city_contrie = $request->city_contrie;
+                $new_centers->color = UtilsController::color_dairy();
+                $new_centers->save();
+
+
+                $doctor_centers = new DoctorCenter();
+                $doctor_centers->address = $request->address;
+                $doctor_centers->number_floor = $request->number_floor;
+                $doctor_centers->number_consulting_room = $request->number_consulting_room;
+                $doctor_centers->phone_consulting_room = $request->phone_consulting_room;
+                $doctor_centers->user_id = Auth::user()->id;
+                $doctor_centers->center_id = $new_centers->id;
+                $doctor_centers->save();
+
+                return true;
             } else {
+
+                $center = DoctorCenter::where('user_id', $user->id)->where('center_id', $request->center_id)->first();
+
+                if ($center != null) {
+                    return response()->json([
+                        'success' => 'false',
+                        'errors'  => ['El centro ya se encuentra asociado a su usuario. Favor intente con uno diferente']
+                    ], 400);
+                }
+
+
                 $doctor_centers = new DoctorCenter();
                 $doctor_centers->address = $request->address;
                 $doctor_centers->number_floor = $request->number_floor;
