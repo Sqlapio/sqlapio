@@ -142,7 +142,7 @@ $(document).ready(() => {
       },
       // birthdate_patient:{
       //   required: true,
-      // }      
+      // }
     },
     messages: {
       center_id: {
@@ -390,7 +390,7 @@ function setValue(data, info) {
     } else {
       img_url = `${avatar_imge}/avatar hombre.png`;
     }
-  }  
+  }
 
   // datos del paciente
   $("#btn-con").find('button').remove();
@@ -399,7 +399,7 @@ function setValue(data, info) {
   let item = JSON.stringify(info);
 
   if(info.event.extendedProps.age) {
-    
+
      $("#btn-con").append(`<button onclick='handlerMedicalRecord(${item})' type="button" class="btn btnSecond">Consulta medica</button>`);
   }
 
@@ -500,6 +500,7 @@ function update_appointments(url, data) {
         window.location.href = urlDairy;
       });
     }, error: function (error) {
+      $('#spinner2').hide();
       Swal.fire({
         icon: 'error',
         title: error.responseJSON.errors,
@@ -537,6 +538,7 @@ function cancelled_appointments(id, url, active = null) {
               'content')
         },
         success: function (res) {
+        $('#spinner').hide();
           Swal.fire({
             icon: 'error',
             title: 'Cita cancelada exitosamente!',
@@ -580,6 +582,8 @@ function finalizar_appointments(id, url, active = null) {
               'content')
         },
         success: function (res) {
+          $('#spinner').hide();
+
           Swal.fire({
             icon: 'success',
             title: 'Cita finalizada exitosamente!',
