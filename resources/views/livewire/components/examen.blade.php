@@ -273,6 +273,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
+                        $('#spinner2').hide();
                         if (response.length === 0) {
                             Swal.fire({
                                 icon: 'warning',
@@ -398,12 +399,13 @@
                                 <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                     <a target="_blank" href="${target}" style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
                                     <button type="button"
-                                        class="btn btn-iPrimary rounded-circle"
                                         data-bs-toggle="tooltip"
                                         data-bs-placement="bottom"
-                                        title="Ver archivo"
+                                        title="@lang('messages.tooltips.ver_examenes')"
                                         style="margin-rigth: 0">
-                                        <i class="bi bi-file-earmark-text"></i>
+                                        <img width="32" height="auto"
+                                        src="{{ asset('/img/icons/doc.png') }}"
+                                        alt="avatar">
                                     </button>
                                     </a>
                                 </div>
@@ -459,33 +461,38 @@
                 columns: [{
 
                         data: 'img',
-                        title: 'Foto',
+                        title: '@lang('messages.tabla.foto')',
                         className: "text-center text-capitalize w-image",
                     },
                     {
                         data: 'date',
-                        title: 'Fecha',
+                        title: '@lang('messages.tabla.fecha_solicitud')',
+                        className: "text-center",
+                    },
+                    {
+                        data: 'date_result',
+                        title: '@lang('messages.tabla.fecha_resultado')',
                         className: "text-center",
                     },
                     {
 
                         data: 'full_name',
-                        title: 'Nombre y apellido',
+                        title: '@lang('messages.tabla.nombre_apellido')',
                         className: "text-center w-17",
                     },
                     {
                         data: 'ci',
-                        title: 'Cedula',
+                        title: '@lang('messages.tabla.cedula')',
                         className: "text-center text-capitalize",
                     },
                     {
                         data: 'description',
-                        title: 'Descripcion del examen',
+                        title: '@lang('messages.tabla.descripcion')',
                         className: "text-center text-capitalize",
                     },
                     {
                         data: 'btn',
-                        title: 'Acciones',
+                        title: '@lang('messages.tabla.resultado')',
                         className: "text-center",
                     }
                 ],
@@ -507,10 +514,9 @@
                     e.btn = `<button onclick='showModal(${ eData })'
                             data-bs-toggle='tooltip' data-bs-placement='right'
                             data-bs-custom-class='custom-tooltip' data-html='true'
-                            title='Ver exámenes' type='button'
-                            class='btn btn-iPrimary rounded-circle'
+                            title="@lang('messages.tooltips.cargar_examen')" type='button'
                             style="margin-rigth: 0">
-                            <i class='bi bi-info-circle-fill'></i>
+                            <img width="30" height="auto" src="{{ asset('/img/icons/add-document.png') }}" alt="avatar">
                             </button>`;
 
 
