@@ -397,6 +397,7 @@
                         },
                         error: function(error) {
                             error.responseJSON.errors.map((elm) => {
+                                $('#spinner2').hide();
                                 Swal.fire({
                                     icon: 'error',
                                     title: elm,
