@@ -142,9 +142,11 @@
             let appointments = @json($appointments);
             let ulrImge = "{{ URL::asset('/imgs/') }}";
             let imge_avatar = "{{ URL::asset('/img/avatar/') }}";
+            let ulrPaciente = "{{ route('Patients') }}";
+
             let urlPostCreateAppointment = '{{ route('CreateAppointment') }}';
             getUrl(urlPostCreateAppointment, url2);
-            getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments, imge_avatar);
+            getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments, imge_avatar,ulrPaciente);
         });
 
         const handlerPetientRegister = (e) => {
