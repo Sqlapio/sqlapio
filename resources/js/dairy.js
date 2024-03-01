@@ -15,7 +15,7 @@ let avatar_imge;
 let ulrUpdate;
 let urlPost;
 let dataDos;
-
+let urlPaciente;
 let arrayAm = [{
   value: '',
   name: 'Seleccione...'
@@ -243,7 +243,7 @@ $(document).ready(() => {
   })
 });
 
-function getAppointments(appointments, route, routeCancelled, url2, ulrImge, updateAppointments, ulr_imge_avatar) {
+function getAppointments(appointments, route, routeCancelled, url2, ulrImge, updateAppointments, ulr_imge_avatar,ulrPaciente) {
   data = appointments;
   url = route;
   urlDairy = url2;
@@ -251,6 +251,7 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
   ulrimge = ulrImge;
   ulrUpdate = updateAppointments;
   avatar_imge = ulr_imge_avatar;
+  urlPaciente = ulrPaciente
 
   const calendarEl = document.getElementById('calendar')
   calendar = new Calendar(calendarEl, {
@@ -401,6 +402,11 @@ function setValue(data, info) {
   if(info.event.extendedProps.age) {
 
      $("#btn-con").append(`<button onclick='handlerMedicalRecord(${item})' type="button" class="btn btnSecond">Consulta medica</button>`);
+  }else{
+
+
+    $("#btn-con").append(`<a href='${urlPaciente}' ><button type="button" class="btn btnPrimary">Actualizar datos</button></a>`);
+
   }
 
   $("#btn-cancell").append(`<button type="button" onclick="cancelled_appointments(${info.event.extendedProps.id},'${urlCancelled}')" class="btn btnSecond">Cancelar Cita</button>`);

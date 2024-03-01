@@ -34,8 +34,20 @@ class MedicalRecord extends Component
         try {
 
             $data = json_decode($request->data);
-            $user = Auth::user()->id;
 
+            $symptom_array = json_decode($data->symptom_array,true);
+
+            $symptom_strig ='';          
+
+            foreach ( $symptom_array as $valor){ 
+
+                $symptom_strig = ($symptom_strig=='')? $valor["description"] : $symptom_strig.",".$valor["description"];
+
+            }
+            
+            $symptom_strig = ($data->sintomas=="")? $symptom_strig :  $symptom_strig.",".$data->sintomas;
+
+            $user = Auth::user()->id;
 
             /**
              * Paciente mayor de edad
@@ -90,7 +102,7 @@ class MedicalRecord extends Component
                 'background'    => $data->background,
                 'razon'         => $data->razon,
                 'diagnosis'     => $data->diagnosis,
-                'sintomas'     => $data->sintomas,
+                'sintomas'     => $symptom_strig,
                 'medications_supplements' => $data->medications_supplements,
             ]);
 
