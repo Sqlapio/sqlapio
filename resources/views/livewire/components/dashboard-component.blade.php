@@ -133,31 +133,32 @@
         function showModal(item, active, info) {
             if (info.length > 0) {
                 count = 0;
-            $('#count').val('');
-            $('.holder').hide();
-            $('#code_ref').val(item.cod_ref);
-            $('#img').val('');
-            $('#ModalLoadResult').modal('show');
-            $('#table-info').find('tbody').empty();
+                $('#count').val('');
+                $('.holder').hide();
+                $('#code_ref').val(item.cod_ref);
+                $('#img').val('');
+                $('#ModalLoadResult').modal('show');
+                $('#table-info').find('tbody').empty();
 
-            if (active == 0) {
-                urlPost = '{{ route('upload_result_exam') }}';
-                $('.modal-title').text('Examen del Paciente');
-                info.map((elemt, index) => {
-                    let elemData = JSON.stringify(elemt);
-                    let label =
-                        `<label><input type="checkbox" id="cod_exam_${index}" onclick='cuontResul(event,${elemData},0,${index});'></label>`
-                    if (Number(elemt.status) === 2) {
-                        $('#div-result').hide();
-                        $('#div-btn').hide();
-                        label =
-                        `<div  class="pad"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
-                    }
-                    if (Number(elemt.status) === 1) {;
-                        $('#div-result').show();
-                        $('#div-btn').show();
-                    }
-                    let row = `
+                if (active == 0) {
+                    urlPost = '{{ route('upload_result_exam') }}';
+                    $('.modal-title').text('Examen del Paciente');
+                    info.map((elemt, index) => {
+                        let elemData = JSON.stringify(elemt);
+                        let label =
+                            `<label><input type="checkbox" id="cod_exam_${index}" onclick='cuontResul(event,${elemData},0,${index});'></label>`
+                        if (Number(elemt.status) === 2) {
+                            $('#div-result').hide();
+                            $('#div-btn').hide();
+                            label =
+                                `<div  class="pad"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
+                        }
+                        if (Number(elemt.status) === 1) {
+                            ;
+                            $('#div-result').show();
+                            $('#div-btn').show();
+                        }
+                        let row = `
                         <tr>
                             <td class="text-center">${elemt.cod_exam}</td>
                             <td class="text-center">${elemt.description}</td>
@@ -166,37 +167,38 @@
                         $('#table-info').find('tbody').append(row);
 
                     });
-            } else {
-                urlPost = '{{ route('upload_result_study') }}';
-                $('.modal-title').text('Información del Estudio');
-                info.map((elemt, index) => {
+                } else {
+                    urlPost = '{{ route('upload_result_study') }}';
+                    $('.modal-title').text('Información del Estudio');
+                    info.map((elemt, index) => {
 
-                    let elemData = JSON.stringify(elemt);
-                    let label =
-                    `<label><input type="checkbox"  id="cod_exam_${index}" onclick='cuontResul(event,${elemData},1,${index});'></label>`
-                    if (Number(elemt.status) === 2) {
-                        label =
-                            `<div  class="prueba"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
-                        $('#div-result').hide();
-                        $('#div-btn').hide();
-                    }
-                    if (Number(elemt.status) === 1) {;
-                        $('#div-result').show();
-                        $('#div-btn').show();
-                    }
-                    let row = `
+                        let elemData = JSON.stringify(elemt);
+                        let label =
+                            `<label><input type="checkbox"  id="cod_exam_${index}" onclick='cuontResul(event,${elemData},1,${index});'></label>`
+                        if (Number(elemt.status) === 2) {
+                            label =
+                                `<div  class="prueba"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
+                            $('#div-result').hide();
+                            $('#div-btn').hide();
+                        }
+                        if (Number(elemt.status) === 1) {
+                            ;
+                            $('#div-result').show();
+                            $('#div-btn').show();
+                        }
+                        let row = `
                         <tr>
                             <td class="text-center">${elemt.cod_study}</td>
                             <td class="text-center">${elemt.description}</td>
                             <td class="text-center">${label}</label></td>
                         </tr>`;
-                    $('#table-info').find('tbody').append(row);
+                        $('#table-info').find('tbody').append(row);
 
-                });
-            }
-            $('#ref').text(item.cod_ref);
-            $('#id').val(item.id);
-            $('#ref-pat').text(`${item.get_patient.name} ${item.get_patient.last_name}`);
+                    });
+                }
+                $('#ref').text(item.cod_ref);
+                $('#id').val(item.id);
+                $('#ref-pat').text(`${item.get_patient.name} ${item.get_patient.last_name}`);
             } else {
                 Swal.fire({
                     icon: 'warning',
@@ -528,6 +530,18 @@
             });
 
         }
+
+        const alertInfoPaciente = () => {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Debe actualizar la información del paciente!',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {                
+                window.location.href = "{{ route('Patients') }}";
+            });
+        }
     </script>
 @endpush
 @section('content')
@@ -553,57 +567,77 @@
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <div class="row"id="table-patients">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                            <div
+                                                class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
 
                                                 <table id="table-patient" class="table table-striped table-bordered"
                                                     style="width:100%">
                                                     <thead>
                                                         <tr>
                                                             {{-- <th class="text-center" scope="col">Fecha</th> --}}
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.hora')</th>
-                                                            <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.hora')
+                                                            </th>
+                                                            <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')
+                                                            </th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')
+                                                            </th>
                                                             {{-- <th class="text-center" scope="col">Género</th> --}}
                                                             {{-- <th class="text-center" scope="col">Teléfono</th> --}}
                                                             {{-- <th class="text-center" scope="col">Email</th> --}}
                                                             <th class="text-center" scope="col">@lang('messages.tabla.centro_salud')</th>
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.estatus')</th>
-                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.estatus')
+                                                            </th>
+                                                            <th class="text-center w-10" scope="col"
+                                                                data-orderable="false">@lang('messages.tabla.acciones')</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($appointments as $item)
                                                             <tr>
                                                                 {{-- <td class="text-center td-pad"> {{ date('d-m-Y', strtotime($item['extendedProps']['data_app'])) }}  </td> --}}
-                                                                <td class="text-center td-pad">  {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }} </td>
-                                                                <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }} </td>
-                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['ci'] }}</td>
+                                                                <td class="text-center td-pad">
+                                                                    {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }}
+                                                                </td>
+                                                                <td class="text-center td-pad text-capitalize">
+                                                                    {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }}
+                                                                </td>
+                                                                <td class="text-center td-pad">
+                                                                    {{ $item['extendedProps']['ci'] }}</td>
                                                                 {{-- <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['genere'] }}</td>
                                                                 <td class="text-center td-pad"> {{ $item['extendedProps']['phone'] }}</td>
-                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['email'] }}</td>--}}
-                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['center'] }}</td>
-                                                                <td class="text-center td-pad"> <span class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">{{ $item['extendedProps']['status'] }}</span> </td>
+                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['email'] }}</td> --}}
+                                                                <td class="text-center td-pad">
+                                                                    {{ $item['extendedProps']['center'] }}</td>
+                                                                <td class="text-center td-pad"> <span
+                                                                        class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">{{ $item['extendedProps']['status'] }}</span>
+                                                                </td>
                                                                 <td>
                                                                     <div class="d-flex" style="justify-content: center;">
-                                                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                                                            <a href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
+                                                                        <div
+                                                                            class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                                            <a href="{{ $item['extendedProps']['age'] == '' ? '#' : route('MedicalRecord', $item['extendedProps']['patient_id']) }}"
+                                                                                onclick={{ $item['extendedProps']['age'] == '' ? 'alertInfoPaciente();' : '' }}>
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     title="@lang('messages.tooltips.consulta_medica')">
-                                                                                    <img width="40" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
+                                                                                    <img width="40" height="auto"
+                                                                                        src="{{ asset('/img/icons/monitor.png') }}"
+                                                                                        alt="avatar">
                                                                                 </button>
                                                                             </a>
                                                                         </div>
-                                                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                                                            <button type="button"
-                                                                                data-bs-toggle="tooltip"
+                                                                        <div
+                                                                            class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                                            <button type="button" data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
                                                                                 title="@lang('messages.tooltips.cancelar_cita')"
                                                                                 onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
-                                                                                <img width="40" height="auto" src="{{ asset('/img/icons/canceled.png') }}" alt="avatar">
+                                                                                <img width="40" height="auto"
+                                                                                    src="{{ asset('/img/icons/canceled.png') }}"
+                                                                                    alt="avatar">
                                                                             </button>
-                                                                            
+
                                                                         </div>
                                                                         {{-- <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
                                                                             style="margin-left: 10px; width: 32px;">
@@ -628,7 +662,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2" >
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingTwo">
                                     <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
@@ -643,8 +677,7 @@
                                         <div class="row">
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="card text-white" style="background-color: rgb(251,220,226)">
-                                                    <div class="c-chart-wrapper mt-2 mx-3"
-                                                        style="height:auto; width:auto">
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:auto">
                                                         <canvas id="countPatientRegister"></canvas>
                                                     </div>
                                                 </div>
@@ -754,21 +787,30 @@
                                     <div class="accordion-body">
                                         <x-search-person />
                                         <div class="row mt-2" id="content-table-ref" style="display: none">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive" >
+                                            <div
+                                                class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                                 <table id="table-ref" class="table table-striped table-bordered"
                                                     style="width:100%">
                                                     <thead>
                                                         <tr>
-                                                            <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.referencia')</th>
+                                                            <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_solicitud')
+                                                            </th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.referencia')
+                                                            </th>
                                                             {{-- <th class="text-center" scope="col">Referencia consulta médica </th> --}}
-                                                            <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                            <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')
+                                                            </th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')
+                                                            </th>
                                                             {{-- <th class="text-center" scope="col">Género</th> --}}
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.telefono')</th>
-                                                            <th class="text-center w-5" scope="col" data-orderable="false">@lang('messages.tabla.examenes')</th>
-                                                            <th class="text-center w-5" scope="col" data-orderable="false">@lang('messages.tabla.estudios')</th>
-                                                            <th class="text-center w-5" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.telefono')
+                                                            </th>
+                                                            <th class="text-center w-5" scope="col"
+                                                                data-orderable="false">@lang('messages.tabla.examenes')</th>
+                                                            <th class="text-center w-5" scope="col"
+                                                                data-orderable="false">@lang('messages.tabla.estudios')</th>
+                                                            <th class="text-center w-5" scope="col"
+                                                                data-orderable="false">@lang('messages.tabla.acciones')</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -796,15 +838,20 @@
                                 <div id="collapseThree" class="accordion-collapse collapse"
                                     aria-labelledby="headingThree" data-bs-parent="#accordion">
                                     <div class="accordion-body">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive" >
+                                        <div
+                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <table id="table-ref-examenes" class="table table-striped table-bordered"
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
-                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.referencia')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')
+                                                        </th>
+                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')
+                                                        </th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')
+                                                        </th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.referencia')
+                                                        </th>
                                                         {{-- <th class="text-center" scope="col">Código Examen</th> --}}
                                                         <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
                                                         <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_resultado')</th>
@@ -815,11 +862,14 @@
                                                     @foreach ($res_exams as $key => $item)
                                                         <tr>
                                                             <td class="text-center"> {{ $item['date_ref'] }}</td>
-                                                            <td class="text-center text-capitalize"> {{ $item['patient_info']['full_name'] }} </td>
-                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }} </td>
+                                                            <td class="text-center text-capitalize">
+                                                                {{ $item['patient_info']['full_name'] }} </td>
+                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }}
+                                                            </td>
                                                             <td class="text-center"> {{ $item['cod_ref'] }}</td>
                                                             {{-- <td class="text-center"> {{ $item['cod_exam'] }}</td> --}}
-                                                            <td class="text-center text-capitalize"> {{ $item['description'] }}</td>
+                                                            <td class="text-center text-capitalize">
+                                                                {{ $item['description'] }}</td>
                                                             <td class="text-center"> {{ $item['date_upload_res'] }}</td>
                                                             {{-- <td class="text-center text-capitalize"> {{ $item['patient_info']['genere'] }} </td> --}}
                                                         </tr>
@@ -834,7 +884,7 @@
                     </div>
                     {{-- Estudios atendidos --}}
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2" >
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2">
                             <div class="accordion-item accordion-dashboard">
                                 <span class="accordion-header title" id="headingFour">
                                     <button class="accordion-button collapsed bg-1" type="button"
@@ -847,15 +897,20 @@
                                 <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                        <div
+                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <table id="table-ref-estudios" class="table table-striped table-bordered"
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
-                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.referencia')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')
+                                                        </th>
+                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')
+                                                        </th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')
+                                                        </th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.referencia')
+                                                        </th>
                                                         {{-- <th class="text-center" scope="col">Código Estudios</th> --}}
                                                         <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
                                                         <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_resultado')</th>
@@ -866,11 +921,14 @@
                                                     @foreach ($res_studies as $key => $item)
                                                         <tr>
                                                             <td class="text-center"> {{ $item['date_ref'] }}</td>
-                                                            <td class="text-center text-capitalize"> {{ $item['patient_info']['full_name'] }} </td>
-                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }} </td>
+                                                            <td class="text-center text-capitalize">
+                                                                {{ $item['patient_info']['full_name'] }} </td>
+                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }}
+                                                            </td>
                                                             <td class="text-center"> {{ $item['cod_ref'] }}</td>
                                                             {{-- <td class="text-center"> {{ $item['cod_study'] }}</td> --}}
-                                                            <td class="text-center text-capitalize"> {{ $item['description'] }}</td>
+                                                            <td class="text-center text-capitalize">
+                                                                {{ $item['description'] }}</td>
                                                             <td class="text-center"> {{ $item['date_upload_res'] }}</td>
                                                             {{-- <td class="text-center text-capitalize"> {{ $item['patient_info']['genere'] }} </td> --}}
                                                         </tr>
@@ -967,7 +1025,8 @@
                                             <tr>
                                                 <th class="text-center" scope="col">@lang('messages.modal.tabla.codigo')</th>
                                                 <th class="text-center" scope="col">@lang('messages.modal.tabla.descripcion')</th>
-                                                <th class="text-center" scope="col" data-orderable="false">@lang('messages.modal.tabla.carga_resultado')</th>
+                                                <th class="text-center" scope="col" data-orderable="false">
+                                                    @lang('messages.modal.tabla.carga_resultado')</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
