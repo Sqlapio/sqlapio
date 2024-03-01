@@ -193,11 +193,14 @@
     }
 
     .shadow-div {
-        position:fixed;
-        width:100%;
-        left:0;right:0;top:0;bottom:0;
+        position: fixed;
+        width: 100%;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
         background-color: #000000a8;
-        z-index:9999;
+        z-index: 9999;
         max-width: 100%;
 
     }
@@ -448,7 +451,7 @@
                         required: true,
                     },
                     sintomas: {
-                        required: true,
+                        validateSintoma: true,
                     },
                     center_id: {
                         required: true,
@@ -471,9 +474,9 @@
                     treatment: {
                         required: "Tratamiento es obligatorio",
                     },
-                    sintomas: {
-                        required: "Sintomas es obligatorio",
-                    },
+                    // sintomas: {
+                    //     required: "Sintomas es obligatorio",
+                    // },
                     center_id: {
                         required: "Centro es obligatorio",
                     },
@@ -486,6 +489,18 @@
                 let pattern = /^[a-zA-ZñÑáéíóúü0-9\s]+$/g;
                 return pattern.test(value);
             }, "No se permiten caracteres especiales");
+            $.validator.addMethod("validateSintoma", function(value, element) {
+
+                if (symptom_array.length == 0 && value == "") {
+
+                    return false;
+
+                } else {
+
+                    return true;
+                }
+
+            }, "Debe seleccionar o escribir un sintoma");
 
             //envio del formulario informe
             $('#form-informe-medico').validate({
@@ -997,30 +1012,41 @@
             let symptom = symptoms.find(el => el.id == id);
 
             if ($(`#${e.target.id}`).is(':checked')) {
-                valSymptoms = valSymptoms.replace(',,', '');
-                valSymptoms = (valSymptoms == "") ? e.target.value : `${valSymptoms},${e.target.value}`;
 
-                $("#sintomas").val(valSymptoms);
+                // valSymptoms = valSymptoms.replace(',,', '');
+                // valSymptoms = (valSymptoms == "") ? e.target.value : `${valSymptoms},${e.target.value}`;
+
+                // $("#sintomas").val(valSymptoms);
+
+                symptom_array = [...symptom_array, {
+                    code: $(`#${e.target.id}`).data('code'),
+                    description: e.target.value,
+                    id: id
+                }];
+
                 handlerCheckTrue(symptom);
             } else {
-                valSymptoms = valSymptoms.replace(`${e.target.value}`, '');
+                // valSymptoms = valSymptoms.replace(`${e.target.value}`, '');
 
-                valSymptoms = valSymptoms.replace(',,', '');
+                symptom_array = symptom_array.filter((e) => e.id !== id);
 
-                if (valSymptoms[0] == ',') {
-                    valSymptoms = valSymptoms.slice(1);
-                }
+                // valSymptoms = valSymptoms.replace(',,', '');
 
-                if (valSymptoms.substring(valSymptoms.indexOf() + 1) == "," || valSymptoms.substring(valSymptoms
-                        .indexOf() +
-                        1) == ",,") {
-                    $("#sintomas").val('');
-                }
+                // if (valSymptoms[0] == ',') {
+                //     valSymptoms = valSymptoms.slice(1);
+                // }
 
-                $("#sintomas").val(valSymptoms);
+                // if (valSymptoms.substring(valSymptoms.indexOf() + 1) == "," || valSymptoms.substring(valSymptoms
+                //         .indexOf() +
+                //         1) == ",,") {
+                //     $("#sintomas").val('');
+                // }
+
+                // $("#sintomas").val(valSymptoms);
 
                 handlerCheckDelete(symptom);
             }
+
             $('#floatingInput').val('');
         }
 
@@ -1107,34 +1133,42 @@
             let data = exam.find(el => el.id == id);
 
             if ($(`#${e.target.id}`).is(':checked')) {
-                exams_array.push({
-                    code_exams: $(`#${e.target.id}`).data('code'),
-                    description: $(`#${e.target.id}`).val(),
-                });
 
-                valExamenes = (valExamenes == "") ? e.target.value : `${valExamenes},${e.target.value}`;
-                $("#text_area_exman").val(valExamenes);
+                exams_array = [...exams_array, {
+                    code_exams: $(`#${e.target.id}`).data('code'),
+                    description: e.target.value,
+                    id: id
+                }];
+
+
+                // valExamenes = (valExamenes == "") ? e.target.value : `${valExamenes},${e.target.value}`;
+                // $("#text_area_exman").val(valExamenes);
                 handlerExamenCheckTrue(data);
 
             } else {
-                valExamenes = valExamenes.replace(`${e.target.value}`, '');
 
-                valExamenes = valExamenes.replace(',,', '');
+                exams_array = exams_array.filter((e) => e.id !== id);
 
-                if (valExamenes[0] == ',') {
-                    valExamenes = valExamenes.slice(1);
-                }
+                // valExamenes = valExamenes.replace(`${e.target.value}`, '');
 
-                if (valExamenes.substring(valExamenes.indexOf() + 1) == "," || valExamenes.substring(valExamenes
-                        .indexOf() +
-                        1) == ",,") {
-                    $("#text_area_exman").val('');
-                }
+                // valExamenes = valExamenes.replace(',,', '');
 
-                $("#text_area_exman").val(valExamenes);
+                // if (valExamenes[0] == ',') {
+                //     valExamenes = valExamenes.slice(1);
+                // }
+
+                // if (valExamenes.substring(valExamenes.indexOf() + 1) == "," || valExamenes.substring(valExamenes
+                //         .indexOf() +
+                //         1) == ",,") {
+                //     $("#text_area_exman").val('');
+                // }
+
+                // $("#text_area_exman").val(valExamenes);
+                // exams_array.splice(key, 1);
+
                 handlerExamenCheckDelete(data);
-                exams_array.splice(key, 1);
             }
+
             $('.inputSearchExamen').val('');
         }
 
@@ -1143,33 +1177,39 @@
             let data_study = study.find(el => el.id == id);
 
             if ($(`#${e.target.id}`).is(':checked')) {
-                studies_array.push({
+
+                studies_array = [...studies_array, {
                     code_studies: $(`#${e.target.id}`).data('code'),
-                    description: $(`#${e.target.id}`).val(),
+                    description: e.target.value,
+                    id: id
+                }];
 
-                });
-
-                valStudios = (valStudios == "") ? e.target.value : `${valStudios},${e.target.value}`;
-                $("#text_area_studies").val(valStudios);
+                // valStudios = (valStudios == "") ? e.target.value : `${valStudios},${e.target.value}`;
+                // $("#text_area_studies").val(valStudios);
                 handlerStudiesCheckTrue(data_study);
+
             } else {
-                valStudios = valStudios.replace(`${e.target.value}`, '');
 
-                valStudios = valStudios.replace(',,', '');
+                studies_array = studies_array.filter((e) => e.id !== id);
+
+                // valStudios = valStudios.replace(`${e.target.value}`, '');
+
+                // valStudios = valStudios.replace(',,', '');
 
 
-                if (valStudios[0] == ',') {
-                    valStudios = valStudios.slice(1);
-                }
-                if (valStudios.substring(valStudios.indexOf() + 1) == "," || valStudios.substring(valStudios.indexOf() +
-                        1) == ",,") {
-                    $("#text_area_studies").val('');
-                }
+                // if (valStudios[0] == ',') {
+                //     valStudios = valStudios.slice(1);
+                // }
+                // if (valStudios.substring(valStudios.indexOf() + 1) == "," || valStudios.substring(valStudios.indexOf() +
+                //         1) == ",,") {
+                //     $("#text_area_studies").val('');
+                // }
 
-                $("#text_area_studies").val(valStudios);
-                studies_array.splice(key, 1);
+                // $("#text_area_studies").val(valStudios);
+                // studies_array.splice(key, 1);
                 handlerStudiesCheckDelete(data_study);
             }
+
             $('.inputSearchStudi').val('');
         }
 
@@ -1585,34 +1625,35 @@
                 let hidratado = '';
 
                 if (item.hidratado) {
-                hidratado = 'Hidratado';
+                    hidratado = 'Hidratado';
                 }
                 if (item.eupenio) {
-                eupenio = ',Eupenio';
+                    eupenio = ',Eupenio';
                 }
                 if (item.febril) {
-                febril = ',Febril';
+                    febril = ',Febril';
                 }
                 if (item.esfera_neurologica) {
-                esfera_neurologica = 'Enfera Neurologica';
+                    esfera_neurologica = 'Enfera Neurologica';
                 }
                 if (item.glasgow) {
-                glasgow = ',Glasgow';
+                    glasgow = ',Glasgow';
                 }
                 if (item.esfera_orl) {
-                esfera_orl = ',Esfera oral';
+                    esfera_orl = ',Esfera oral';
                 }
                 if (item.esfera_cardiopulmonar) {
-                esfera_cardiopulmonar = 'Cardio Pulmorar';
+                    esfera_cardiopulmonar = 'Cardio Pulmorar';
                 }
                 if (item.esfera_abdominal) {
-                esfera_abdominal = ',Esfera Abdominal';
+                    esfera_abdominal = ',Esfera Abdominal';
                 }
                 if (item.extremidades) {
-                extremidades = ',Extremidades';
+                    extremidades = ',Extremidades';
                 }
 
-                item.signos_vitales = `${hidratado}${eupenio}${febril}${esfera_neurologica}${glasgow}${esfera_orl}${esfera_cardiopulmonar}${esfera_abdominal}${extremidades}`
+                item.signos_vitales =
+                    `${hidratado}${eupenio}${febril}${esfera_neurologica}${glasgow}${esfera_orl}${esfera_cardiopulmonar}${esfera_abdominal}${extremidades}`
 
                 item.btn =
                     `<button onclick='handleObservaciones(${elemData})'>
@@ -1703,7 +1744,6 @@
                     ],
                 });
         }
-
     </script>
 @endpush
 @section('content')
@@ -1716,16 +1756,14 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingOne">
-                                <button class="accordion-button bg-5"
-                                    type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne"
-                                    aria-expanded="true"
-                                    aria-controls="collapseOne"
+                                <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-person"></i> @lang('messages.acordion.datos_paciente')
                                 </button>
                             </span>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row mt-2">
                                         <div class="d-flex" style="align-items: center;">
@@ -1768,17 +1806,14 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
-                                <button class="accordion-button collapsed bg-5"
-                                    type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#collapseTwo"
-                                    aria-expanded="true"
-                                    aria-controls="collapseTwo"
+                                <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-activity"></i> @lang('messages.acordion.examen_fisico')
                                 </button>
                             </span>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordionExample">
                                 <div class="accordion-body m-mb">
                                     <div class="row mt-2" style="margin: 0px 16px;">
 
@@ -1793,7 +1828,8 @@
                                                 </div>
 
                                                 @if (Auth::user()->type_plane !== '7')
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -1813,7 +1849,8 @@
                                                         </div>
                                                     </div>
                                                 @endif
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                     <div class="row">
                                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
                                                             <div class="form-group">
@@ -1822,9 +1859,11 @@
                                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                         @lang('messages.form.peso')
                                                                     </label>
-                                                                    <input autocomplete="off" class="EF mask-input form-control"
-                                                                        id="weight" name="weight" type="text"
-                                                                        onchange="handlerValidate(event,'age');" value="">
+                                                                    <input autocomplete="off"
+                                                                        class="EF mask-input form-control" id="weight"
+                                                                        name="weight" type="text"
+                                                                        onchange="handlerValidate(event,'age');"
+                                                                        value="">
                                                                     <i class="bi bi-file-earmark-medical st-icon"></i>
                                                                 </div>
                                                             </diV>
@@ -1839,7 +1878,8 @@
                                                                     <input autocomplete="off"
                                                                         class="EF mask-input-height form-control @error('height') is-invalid @enderror"
                                                                         id="height" name="height" type="text"
-                                                                        onchange="handlerValidate(event,'height');" value="">
+                                                                        onchange="handlerValidate(event,'height');"
+                                                                        value="">
                                                                     <i class="bi bi-rulers st-icon"></i>
                                                                 </div>
                                                             </diV>
@@ -1852,13 +1892,15 @@
                                                             <div class="input-group">
                                                                 <input type="text" name="strain" id="strain"
                                                                     class="EF form-control  mask-input-two input-one"
-                                                                    placeholder="Sistólica 50 - 250" onchange="handlerValidate(event,'strain');"
+                                                                    placeholder="Sistólica 50 - 250"
+                                                                    onchange="handlerValidate(event,'strain');"
                                                                     aria-label="strain" value="">
                                                                 <span class="input-group-text span-input">/</span>
                                                                 <input type="text" name="strain_two" id="strain_two"
                                                                     onchange="handlerValidate(event,'strain_two');"
                                                                     class="EF form-control mask-input-two input-border"
-                                                                    placeholder="Diastólica 30 - 150" aria-label="strain" value="">
+                                                                    placeholder="Diastólica 30 - 150" aria-label="strain"
+                                                                    value="">
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
@@ -1870,7 +1912,8 @@
                                                                     </label>
                                                                     <input autocomplete="off"
                                                                         class="EF mask-only-temperature form-control @error('temperature') is-invalid @enderror"
-                                                                        id="temperature" name="temperature" type="text"
+                                                                        id="temperature" name="temperature"
+                                                                        type="text"
                                                                         onchange="handlerValidate(event,'temperature');"
                                                                         value="">
                                                                     <i class="bi bi-thermometer st-icon"></i>
@@ -1886,8 +1929,9 @@
                                                                     </label>
                                                                     <input autocomplete="off"
                                                                         class="EF mask-only-breaths form-control @error('breaths') is-invalid @enderror"
-                                                                        onchange="handlerValidate(event,'breaths');" id="breaths"
-                                                                        name="breaths" type="text" maxlength="3" value="">
+                                                                        onchange="handlerValidate(event,'breaths');"
+                                                                        id="breaths" name="breaths" type="text"
+                                                                        maxlength="3" value="">
                                                                     <i class="bi bi-lungs st-icon"></i>
                                                                 </div>
                                                             </diV>
@@ -1901,8 +1945,9 @@
                                                                     </label>
                                                                     <input autocomplete="off"
                                                                         class="EF mask-only-number form-control @error('pulse') is-invalid @enderror"
-                                                                        onchange="handlerValidate(event,'pulse');" id="pulse"
-                                                                        name="pulse" type="text" maxlength="3" value="">
+                                                                        onchange="handlerValidate(event,'pulse');"
+                                                                        id="pulse" name="pulse" type="text"
+                                                                        maxlength="3" value="">
                                                                     <i class="bi bi-heart-pulse st-icon"></i>
                                                                 </div>
                                                             </diV>
@@ -1947,7 +1992,8 @@
                                             </div>
                                             <div class="row mt-2">
 
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                         <div class="form-group">
                                                             <label for="observations" class="form-label"
@@ -1962,9 +2008,9 @@
                                             </div>
                                             <div class="row mt-2 justify-content-md-end mt-2">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 btn-mb"
-                                                    id="send"
-                                                    style="display: flex; justify-content: flex-end;">
-                                                    <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="padding: 8px" />
+                                                    id="send" style="display: flex; justify-content: flex-end;">
+                                                    <input class="btn btnSave send" value="@lang('messages.botton.guardar')"
+                                                        type="submit" style="padding: 8px" />
                                                 </div>
                                             </div>
                                         </form>
@@ -1974,48 +2020,62 @@
                                             <hr>
                                             <h5> Historial de @lang('messages.acordion.examen_fisico')</h5>
                                             <hr>
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px;">
-                                                <table id="table-examen-fisico" class="table table-striped table-bordered" style="width:100%; ">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                                style="margin-top: 20px;">
+                                                <table id="table-examen-fisico" class="table table-striped table-bordered"
+                                                    style="width:100%; ">
                                                     <thead>
                                                         <tr>
-                                                            <th class="text-center w-30" scope="col">Centro de salud</th>
+                                                            <th class="text-center w-30" scope="col">Centro de salud
+                                                            </th>
                                                             <th class="text-center w-10" scope="col">Fecha</th>
-                                                            <th class="text-center" scope="col" data-orderable="false">Peso</th>
-                                                            <th class="text-center" scope="col" data-orderable="false">Altura</th>
-                                                            <th class="text-center" scope="col" data-orderable="false">Presion arterial</th>
-                                                            <th class="text-center" scope="col" data-orderable="false">Temperatura</th>
-                                                            <th class="text-center" scope="col" data-orderable="false">Respiraciones</th>
-                                                            <th class="text-center" scope="col" data-orderable="false">Pulso</th>
-                                                            <th class="text-center" scope="col" data-orderable="false">Saturación</th>
+                                                            <th class="text-center" scope="col"
+                                                                data-orderable="false">Peso</th>
+                                                            <th class="text-center" scope="col"
+                                                                data-orderable="false">Altura</th>
+                                                            <th class="text-center" scope="col"
+                                                                data-orderable="false">Presion arterial</th>
+                                                            <th class="text-center" scope="col"
+                                                                data-orderable="false">Temperatura</th>
+                                                            <th class="text-center" scope="col"
+                                                                data-orderable="false">Respiraciones</th>
+                                                            <th class="text-center" scope="col"
+                                                                data-orderable="false">Pulso</th>
+                                                            <th class="text-center" scope="col"
+                                                                data-orderable="false">Saturación</th>
                                                             {{-- <th class="text-center" scope="col">Condición general</th> --}}
                                                             {{-- <th class="text-center" scope="col">Signos vitales</th> --}}
-                                                            <th class="text-center w-5" scope="col" data-orderable="false">Observación</th>
+                                                            <th class="text-center w-5" scope="col"
+                                                                data-orderable="false">Observación</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         @php
-                                                                    $signosVitales = '';
-                                                                    $eupenio = '';
-                                                                    $febril = '';
-                                                                    $esfera_neurologica = '';
-                                                                    $glasgow = '';
-                                                                    $esfera_cardiopulmonar = '';
-                                                                    $esfera_abdominal = '';
-                                                                    $extremidades = '';
-                                                                    $esfera_orl = '';
+                                                            $signosVitales = '';
+                                                            $eupenio = '';
+                                                            $febril = '';
+                                                            $esfera_neurologica = '';
+                                                            $glasgow = '';
+                                                            $esfera_cardiopulmonar = '';
+                                                            $esfera_abdominal = '';
+                                                            $extremidades = '';
+                                                            $esfera_orl = '';
                                                         @endphp
 
                                                         @foreach ($physical_exams as $item)
                                                             <tr>
-                                                                <td class="text-center td-pad"> {{ $item->get_center->description }}</td>
+                                                                <td class="text-center td-pad">
+                                                                    {{ $item->get_center->description }}</td>
                                                                 <td class="text-center td-pad"> {{ $item->date }} </td>
                                                                 <td class="text-center td-pad"> {{ $item->weight }} </td>
                                                                 <td class="text-center td-pad"> {{ $item->height }} </td>
                                                                 <td class="text-center td-pad"> {{ $item->strain }}</td>
-                                                                <td class="text-center td-pad"> {{ $item->temperature }}</td>
+                                                                <td class="text-center td-pad"> {{ $item->temperature }}
+                                                                </td>
                                                                 <td class="text-center td-pad"> {{ $item->breaths }}</td>
                                                                 <td class="text-center td-pad"> {{ $item->pulse }}</td>
-                                                                <td class="text-center td-pad"> {{ $item->saturation }}</td>
+                                                                <td class="text-center td-pad"> {{ $item->saturation }}
+                                                                </td>
                                                                 {{-- <td class="text-center td-pad"> {{ $item->condition }}</td> --}}
                                                                 {{-- @php
                                                                     if ($item->hidratado) {
@@ -2051,14 +2111,14 @@
                                                                 </td> --}}
                                                                 {{-- <td class="text-center td-pad"> {{ $item->observations }}</td> --}}
                                                                 <td class="text-center td-pad">
-                                                                    <button onclick='handleObservaciones({{ $item }})'>
+                                                                    <button
+                                                                        onclick='handleObservaciones({{ $item }})'>
                                                                         <img width="25" height="auto"
-                                                                        src="{{ asset('/img/icons/justify.png') }}"
-                                                                        alt="avatar"
-                                                                        type="button"
-                                                                        data-bs-toggle="tooltip"
-                                                                        data-bs-placement="bottom"
-                                                                        title="@lang('messages.tooltips.observaciones')">
+                                                                            src="{{ asset('/img/icons/justify.png') }}"
+                                                                            alt="avatar" type="button"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom"
+                                                                            title="@lang('messages.tooltips.observaciones')">
                                                                     </button>
                                                                 </td>
                                                             </tr>
@@ -2079,29 +2139,30 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingThree">
-                                <button class="accordion-button collapsed bg-5"
-                                    type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree"
-                                    aria-expanded="false"
-                                    aria-controls="collapseThree"
+                                <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.consulta_medica')
                                 </button>
                             </span>
-                            <div id="collapseThree" class="accordion-collapse2 collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                            <div id="collapseThree" class="accordion-collapse2 collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordionExample">
                                 <div class="accordion-body m-mb">
                                     <form id="form-consulta" method="post" action="/">
                                         {{ csrf_field() }}
-                                        <input type="hidden" name="medical_record_id" id="medical_record_id" value="">
-                                        <input type="hidden" name="id" id="id" value="{{ $Patient->id }}">
+                                        <input type="hidden" name="medical_record_id" id="medical_record_id"
+                                            value="">
+                                        <input type="hidden" name="id" id="id"
+                                            value="{{ $Patient->id }}">
                                         <div id="input-array"></div>
                                         <div class="row mt-2" style="margin: 0px 16px;">
                                             @if (Auth::user()->type_plane !== '7')
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.centro_salud')</label>
+                                                            <label for="phone" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.centro_salud')</label>
                                                             <select name="center_id" id="center_id"
                                                                 placeholder="Seleccione"class="form-control"
                                                                 class="form-control combo-textbox-input">
@@ -2117,7 +2178,8 @@
                                                     </div>
                                                 </div>
                                             @endif
-                                            <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style' style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
+                                            <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style'
+                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
                                                     <div class="form-group">
                                                         <label for="background" class="form-label"
@@ -2147,7 +2209,8 @@
                                                 <div id='symptoms_card2'
                                                     class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                     style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; ">
-                                                    <div  class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                    <div
+                                                        class="btn-search-s col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <div class="form-group"
                                                             style="display: flex; align-items: center;">
                                                             <label for="search_symptoms"
@@ -2324,7 +2387,8 @@
                                                 <hr style="margin-bottom: 0; margin-top: 5px">
                                                 <div class="row medicine-form">
                                                     <div style="display: flex">
-                                                        <span class="text-warning mt-2" id='med' style="font-size: 14px;margin-right: 10px;"></span>
+                                                        <span class="text-warning mt-2" id='med'
+                                                            style="font-size: 14px;margin-right: 10px;"></span>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
@@ -2493,15 +2557,20 @@
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row" id="table-one">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px;">
-                                            <table id="table-medical-record" class="table table-striped table-bordered" style="width:100%; ">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                            style="margin-top: 20px;">
+                                            <table id="table-medical-record" class="table table-striped table-bordered"
+                                                style="width:100%; ">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center w-8" scope="col">@lang('messages.tabla.id_consulta')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha') </th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha')
+                                                        </th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.medico_tratante')</th>
-                                                        <th class="text-center w-30" scope="col">@lang('messages.tabla.centro_salud') </th>
-                                                        <th data-orderable="false" class="text-center w-20" scope="col">@lang('messages.tabla.acciones') </th>
+                                                        <th class="text-center w-30" scope="col">@lang('messages.tabla.centro_salud')
+                                                        </th>
+                                                        <th data-orderable="false" class="text-center w-20"
+                                                            scope="col">@lang('messages.tabla.acciones') </th>
                                                         {{-- <th class="text-center" scope="col">Código de la referencia </th> --}}
                                                         {{-- <th class="text-center" scope="col">Nombre del paciente</th> --}}
                                                         {{-- <th class="text-center" scope="col">Género</th> --}}
@@ -2510,18 +2579,28 @@
                                                 <tbody>
                                                     @foreach ($medical_record_user as $item)
                                                         <tr>
-                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['data']['record_code'] }}</td>
-                                                            <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['date'] }}</td>
-                                                            <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});">Dr. {{ $item['full_name_doc'] }} </td>
-                                                            <td class="text-center td-pad"  onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['center'] }}</td>
+                                                            <td class="text-center td-pad"
+                                                                onclick="showDataEdit({{ json_encode($item) }});">
+                                                                {{ $item['data']['record_code'] }}</td>
+                                                            <td class="text-center td-pad"
+                                                                onclick="showDataEdit({{ json_encode($item) }});">
+                                                                {{ $item['date'] }}</td>
+                                                            <td class="text-center td-pad text-capitalize"
+                                                                onclick="showDataEdit({{ json_encode($item) }});">Dr.
+                                                                {{ $item['full_name_doc'] }} </td>
+                                                            <td class="text-center td-pad"
+                                                                onclick="showDataEdit({{ json_encode($item) }});">
+                                                                {{ $item['center'] }}</td>
                                                             {{-- <td class="text-center td-pad"  onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['data']['cod_ref'] }}</td> --}}
                                                             {{-- <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['name_patient'] }} </td> --}}
                                                             {{-- <td class="text-center td-pad text-capitalize"  onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['genere'] }} </td> --}}
                                                             <td class="text-center td-pad">
                                                                 <div class="d-flex">
                                                                     @if ($item['data']['status_exam'])
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <a href="{{ route('mr_exam', $item['patient_id']) }}">
+                                                                        <div
+                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <a
+                                                                                href="{{ route('mr_exam', $item['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
@@ -2630,7 +2709,8 @@
                                     <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.informes_medico')
                                 </button>
                             </span>
-                            <div id="collapseInfome" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                            <div id="collapseInfome" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                                data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row" id="table-one">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
@@ -2640,34 +2720,39 @@
                                                     class="bi bi-plus-circle-dotted"></i>
                                             </button>
                                         </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px;">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
+                                            style="margin-top: 20px;">
                                             <table id="table-medical-report" class="table table-striped table-bordered"
                                                 style="width:100%; ">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.codigo')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.medico_tratante')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha') </th>
-                                                        <th data-orderable="false" class="text-center" scope="col"> @lang('messages.tabla.acciones')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha')
+                                                        </th>
+                                                        <th data-orderable="false" class="text-center" scope="col">
+                                                            @lang('messages.tabla.acciones')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($medical_report as $item)
                                                         <tr>
-                                                            <td class="text-center td-pad"> {{ $item->cod_medical_report }}</td>
-                                                            <td class="text-center td-pad"> {{ $item->get_doctor->name . ' ' . $item->get_doctor->last_name }} </td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item->cod_medical_report }}</td>
+                                                            <td class="text-center td-pad">
+                                                                {{ $item->get_doctor->name . ' ' . $item->get_doctor->last_name }}
+                                                            </td>
                                                             <td class="text-center td-pad"> {{ $item->date }}</td>
                                                             <td class="text-center td-pad">
-                                                                <a target="_blank" href="{{ route('PDF_informe_medico', $item->id) }}">
+                                                                <a target="_blank"
+                                                                    href="{{ route('PDF_informe_medico', $item->id) }}">
                                                                     <button type="button">
                                                                         <img width="32" height="auto"
-                                                                        src="{{ asset('/img/icons/pdf-file.png') }}"
-                                                                        alt="avatar"
-                                                                        data-bs-toggle="tooltip"
-                                                                        data-bs-placement="bottom"
-                                                                        data-bs-custom-class="custom-tooltip"
-                                                                        data-html="true"
-                                                                        title="@lang('messages.tooltips.ver_informe')">
+                                                                            src="{{ asset('/img/icons/pdf-file.png') }}"
+                                                                            alt="avatar" data-bs-toggle="tooltip"
+                                                                            data-bs-placement="bottom"
+                                                                            data-bs-custom-class="custom-tooltip"
+                                                                            data-html="true" title="@lang('messages.tooltips.ver_informe')">
                                                                     </button>
                                                                 </a>
                                                             </td>
@@ -2686,7 +2771,8 @@
         @endif
 
         <!-- Modal -->
-        <div class="modal fade" id="modalIA" tabindex="-1" aria-labelledby="modalIALabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal fade" id="modalIA" tabindex="-1" aria-labelledby="modalIALabel" aria-hidden="true"
+            id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
                     <div class="modal-header title">
@@ -2711,13 +2797,15 @@
         </div>
 
         <!-- Modal Observaciones -->
-        <div class="modal fade" id="modalObservations" tabindex="-1" aria-labelledby="modalObservationsLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal fade" id="modalObservations" tabindex="-1" aria-labelledby="modalObservationsLabel"
+            aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header title">
                         <i class="bi bi-alexa"></i>
                         <span style="padding-left: 5px">Observaciones</span>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            style="font-size: 12px;"></button>
                     </div>
                     <div class="modal-body">
                         <div class="div-Observations">
@@ -2730,7 +2818,8 @@
         </div>
 
         <!-- Modal Informe medico -->
-        <div class="modal fade" id="modalInformeMedico" tabindex="-1" aria-labelledby="modalInformeMedicoLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal fade" id="modalInformeMedico" tabindex="-1" aria-labelledby="modalInformeMedicoLabel"
+            aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
             <div id="spinner3" style="display: none">
                 <x-load-spinner show="true" />
             </div>
@@ -2799,8 +2888,7 @@
                             </div>
 
                             <div class="row mt-2 justify-content-md-end">
-                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                    id="send"
+                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="send"
                                     style="display: flex; justify-content: flex-end; padding-right: 30px;">
                                     <input class="btn btnSave send" value="Enviar" type="submit" />
 
