@@ -784,14 +784,17 @@
             }
         }
 
-        const alertInfoPaciente = () => {
+        const alertInfoPaciente = (item) => {
             Swal.fire({
                 icon: 'warning',
                 title: 'Debe actualizar la información del paciente!',
                 allowOutsideClick: false,
                 confirmButtonColor: '#42ABE2',
                 confirmButtonText: 'Aceptar'
-            }).then((result) => {});
+            }).then((result) => {
+                editPatien(item,true);
+
+            });
         }
     </script>
 @endpush
@@ -1230,7 +1233,7 @@
                                                                         </div>
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <a href="{{ $item->age == '' ? '#' : route('MedicalRecord', $item->id) }}"
-                                                                                onclick={{ $item->age == '' ? 'alertInfoPaciente();' : '' }}>
+                                                                                onclick='{{ $item->age == '' ? "alertInfoPaciente($item)"  : '' }}'>
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
@@ -1242,8 +1245,8 @@
                                                                             </a>
                                                                         </div>
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                            <a href="{{ $item->age == '' ? '#' : route('ClinicalHistoryDetail', $item->id) }}"
-                                                                                onclick={{ $item->age == '' ? 'alertInfoPaciente();' : '' }}>
+                                                                            <a href="{{ $item->age == '' ? '#' : route('ClinicalHistoryDetail', $item->id) }}"                                                                            
+                                                                                onclick='{{ $item->age == '' ? "alertInfoPaciente($item)"  : '' }}'>
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"

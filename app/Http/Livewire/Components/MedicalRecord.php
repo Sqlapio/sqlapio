@@ -45,7 +45,7 @@ class MedicalRecord extends Component
 
             }
             
-            $symptom_strig = ($data->sintomas=="")? $symptom_strig :  $symptom_strig.",".$data->sintomas;
+            $symptom_strig = (count( $symptom_array)==0)? $data->sintomas :  $symptom_strig.",".$data->sintomas;
 
             $user = Auth::user()->id;
 
@@ -102,7 +102,7 @@ class MedicalRecord extends Component
                 'background'    => $data->background,
                 'razon'         => $data->razon,
                 'diagnosis'     => $data->diagnosis,
-                'sintomas'     => $symptom_strig,
+                'sintomas'     => strtolower($symptom_strig),
                 'medications_supplements' => $data->medications_supplements,
             ]);
 
