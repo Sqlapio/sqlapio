@@ -142,7 +142,7 @@
             let appointments = @json($appointments);
             let ulrImge = "{{ URL::asset('/imgs/') }}";
             let imge_avatar = "{{ URL::asset('/img/avatar/') }}";
-            let ulrPaciente = "{{ route('Patients') }}";
+            let ulrPaciente = "{{ route('Patients', ':id_patient') }}";
 
             let urlPostCreateAppointment = '{{ route('CreateAppointment') }}';
             getUrl(urlPostCreateAppointment, url2);

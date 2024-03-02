@@ -103,7 +103,7 @@ Route::middleware(['auth','AuthCheck'])->group(function () {
         Route::middleware(['VerifySelloDigital', 'verify_email'])->group(function () {
             Route::get('/home', [Home::class, 'render'])->name('home');
             Route::get('/dashboard', [DashboardComponent::class, 'render'])->name('DashboardComponent');
-            Route::get('/patients', [Patients::class, 'render'])->name('Patients')->middleware(['VerifyPlanExpiredPlan']);
+            Route::get('/patients/{id_patient?}', [Patients::class, 'render'])->name('Patients')->middleware(['VerifyPlanExpiredPlan']);
             Route::get('/setting', [setting::class, 'render'])->name('Setting');
             Route::get('/diary', [Diary::class, 'render'])->name('Diary');
             Route::post('/create-appointment', [Diary::class, 'store'])->name('CreateAppointment')->middleware(['VerifyPlanExpiredPlan']);

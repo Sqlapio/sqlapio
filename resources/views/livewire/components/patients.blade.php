@@ -109,9 +109,18 @@
         let url = "{{ route('MedicalRecord', ':id') }}";
         let urlhist = "{{ route('ClinicalHistoryDetail', ':id') }}";
         let path = "{{ route('verify-plans') }}";
+        let patient = @json($patient);
+
 
 
         $(document).ready(() => {
+
+            if(patient.length==undefined){
+
+                editPatien(patient,true);
+
+            }
+            
             let ulrImge = `{{ URL::asset('/img/V2/combinado.png') }}`;
             $(".holder").find('img').attr('src', ulrImge);
 

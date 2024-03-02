@@ -36,7 +36,8 @@
         let count = 0;
         let exams_array = [];
         let studies_array = [];
-        let row = ""
+        let row = "";
+
 
         $(document).ready(() => {
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -531,15 +532,20 @@
 
         }
 
-        const alertInfoPaciente = () => {
+        const alertInfoPaciente = (id_patient) => {
             Swal.fire({
                 icon: 'warning',
                 title: 'Debe actualizar la información del paciente!',
                 allowOutsideClick: false,
                 confirmButtonColor: '#42ABE2',
                 confirmButtonText: 'Aceptar'
-            }).then((result) => {                
-                window.location.href = "{{ route('Patients') }}";
+            }).then((result) => {
+
+                let url = "{{ route('Patients', ':id_patient') }}";
+
+                url = url.replace(':id_patient', id_patient);
+
+                window.location.href = url;
             });
         }
     </script>
@@ -616,7 +622,9 @@
                                                                         <div
                                                                             class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                                                                             <a href="{{ $item['extendedProps']['age'] == '' ? '#' : route('MedicalRecord', $item['extendedProps']['patient_id']) }}"
-                                                                                onclick={{ $item['extendedProps']['age'] == '' ? 'alertInfoPaciente();' : '' }}>
+                                                                                @php
+$id_patient =  $item["extendedProps"]["patient_id"]; @endphp
+                                                                                onclick='{{ $item['extendedProps']['age'] == '' ? "alertInfoPaciente($id_patient )" : '' }}'>
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
