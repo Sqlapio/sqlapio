@@ -402,8 +402,10 @@ function setValue(data, info) {
   if(info.event.extendedProps.age) {
 
      $("#btn-con").append(`<button onclick='handlerMedicalRecord(${item})' type="button" class="btn btnSecond">Consulta medica</button>`);
+
   }else{
 
+    urlPaciente = urlPaciente.replace(':id_patient', info.event.extendedProps.patient_id);
 
     $("#btn-con").append(`<a href='${urlPaciente}' ><button type="button" class="btn btnPrimary">Actualizar datos</button></a>`);
 
