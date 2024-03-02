@@ -492,13 +492,16 @@ class Patients extends Component
             dd('Error Livewire.Components.Patient.search()', $message);
         }
     }
-    public function render()
+    public function render($id=null)
     {
+
+        $patient = ($id)? Patient::where('id',$id)->first(): [];
         $patients = UtilsController::get_table_medical_record();
         $cities = UtilsController::get_cities();
         $states = UtilsController::get_states();
         $centers = DoctorCenter::where('user_id', Auth::user()->id)->where('status', 1)->get();
         $user = Auth::user();
-        return view('livewire.components.patients', compact('patients', 'cities', 'states', 'centers', 'user'));
+
+        return view('livewire.components.patients', compact('patients', 'cities', 'states', 'centers', 'user','patient'));
     }
 }
