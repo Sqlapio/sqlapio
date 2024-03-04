@@ -942,9 +942,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2"
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3"
                                                             id="div-phone">
-                                                            <div class="form-group">
+                                                            <x-phone_component/>
+
+                                                            {{-- <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="phone" class="form-label"
                                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
@@ -954,7 +956,7 @@
                                                                         value="">
                                                                     <i class="bi bi-telephone-forward st-icon"></i>
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                 </div>
