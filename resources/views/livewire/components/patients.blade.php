@@ -120,7 +120,7 @@
                 editPatien(patient,true);
 
             }
-            
+
             let ulrImge = `{{ URL::asset('/img/V2/combinado.png') }}`;
             $(".holder").find('img').attr('src', ulrImge);
 
@@ -943,7 +943,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3"
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2"
                                                             id="div-phone">
                                                             <x-phone_component/>
 
@@ -1248,7 +1248,7 @@
                                                                             </a>
                                                                         </div>
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                            <a href="{{ $item->age == '' ? '#' : route('ClinicalHistoryDetail', $item->id) }}"                                                                            
+                                                                            <a href="{{ $item->age == '' ? '#' : route('ClinicalHistoryDetail', $item->id) }}"
                                                                                 onclick='{{ $item->age == '' ? "alertInfoPaciente($item)"  : '' }}'>
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"

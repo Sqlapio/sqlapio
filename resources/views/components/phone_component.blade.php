@@ -33,7 +33,7 @@
 
             let elem = JSON.stringify(country);
 
-            const element = `<li class="pn-list-item ${flag === "nl" ? "pn-list-item--selected" : ""} 
+            const element = `<li class="pn-list-item ${flag === "nl" ? "pn-list-item--selected" : ""}
                             js_pn-list-item" data-flag="${flag}" data-prefix="${prefix}" tabindex="0" role="button" aria-pressed="false">
                             <img class="pn-list-item__flag" src="${url_img}" />
                             <span  onclick='handlerSelectContry(${elem});'  class="pn-list-item__country js_country-name">${name}</span>
@@ -69,7 +69,32 @@
         $(".pn-input__phonenumber").focus();
     }
 </script>
+<style>
+    .pn-input {
+        background: transparent !important;
+        padding: 5px 15px !important;
+    }
+
+.pn-select {
+    font-size: 1rem !important;
+    border-radius: 30px !important;
+    padding: 0.375rem 30px 0.375rem 15px !important;
+    box-shadow: 2px 3px 9px -4px rgba(0, 0, 0, 0.77);
+    -webkit-box-shadow: 2px 3px 9px -4px rgba(0, 0, 0, 0.77);
+    -moz-box-shadow: 2px 3px 9px -4px rgba(0, 0, 0, 0.77);
+    padding: 3px !important;
+}
+
+.pn-select:focus, .pn-select:focus-within {
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+    </style>
 <div>
+    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
     <div class="pn-select" id="js_pn-select" style="--prefix-length: 2">
         <button class="pn-selected-prefix" aria-label="Select phonenumber prefix" id="js_trigger-dropdown"
             onclick="openDropdownNew();" tabindex="1" type="button">
@@ -80,7 +105,7 @@
                 <input class="pn-input__prefix input-telelfono-class" id="pn-input__prefix" value="+58"
                     type="text" name="phonenumber-prefix" id="js_number-prefix" />
                 <input class="pn-input__phonenumber input-telelfono-class phone input-phone-class" id="phone"
-                    type="tel" name="phone" value="" placeholder="@lang('messages.form.telefono')" max="10"
+                    type="tel" name="phone" value="" max="10"
                     onclick="closeDropdown();" autocomplete="nope" />
             </div>
         </div>
