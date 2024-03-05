@@ -1375,12 +1375,19 @@
         }
 
         const handlerIA = () => {
-            console.log("ai", symptom_array)
 
-            if ($("#sintomas").val() !== "" || symptom_array) {
+            if ($("#sintomas").val() !== "" || symptom_array.length>0 ) {
 
                 $(".send-ai").hide();
                 $("#spinner2").show();
+
+                let symtomsString = $("#sintomas").val();
+
+                if(symptom_array.length>0){
+
+                    symptom_array.map((e) => symtomsString += (symtomsString=="")?`${e.description}`:`,${e.description}`);
+
+                }
 
                 $.ajax({
                     url: '{{ route('medicard_record_ia') }}',
@@ -1388,9 +1395,9 @@
                     dataType: "json",
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        "symtoms": $("#sintomas").val(), symptom_array,
+                        "symtoms":symtomsString,
                         "genere": patient.genere,
-                        "age": patient.age
+                        "age": patient.age,
                     },
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

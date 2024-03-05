@@ -785,14 +785,17 @@
             }
         }
 
-        const alertInfoPaciente = () => {
+        const alertInfoPaciente = (item) => {
             Swal.fire({
                 icon: 'warning',
                 title: 'Debe actualizar la información del paciente!',
                 allowOutsideClick: false,
                 confirmButtonColor: '#42ABE2',
                 confirmButtonText: 'Aceptar'
-            }).then((result) => {});
+            }).then((result) => {
+                editPatien(item,true);
+
+            });
         }
     </script>
 @endpush
@@ -940,9 +943,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2"
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3"
                                                             id="div-phone">
-                                                            <div class="form-group">
+                                                            <x-phone_component/>
+
+                                                            {{-- <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="phone" class="form-label"
                                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
@@ -952,7 +957,7 @@
                                                                         value="">
                                                                     <i class="bi bi-telephone-forward st-icon"></i>
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1231,7 +1236,7 @@
                                                                         </div>
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <a href="{{ $item->age == '' ? '#' : route('MedicalRecord', $item->id) }}"
-                                                                                onclick={{ $item->age == '' ? 'alertInfoPaciente();' : '' }}>
+                                                                                onclick='{{ $item->age == '' ? "alertInfoPaciente($item)"  : '' }}'>
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
@@ -1243,8 +1248,8 @@
                                                                             </a>
                                                                         </div>
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                            <a href="{{ $item->age == '' ? '#' : route('ClinicalHistoryDetail', $item->id) }}"
-                                                                                onclick={{ $item->age == '' ? 'alertInfoPaciente();' : '' }}>
+                                                                            <a href="{{ $item->age == '' ? '#' : route('ClinicalHistoryDetail', $item->id) }}"                                                                            
+                                                                                onclick='{{ $item->age == '' ? "alertInfoPaciente($item)"  : '' }}'>
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
