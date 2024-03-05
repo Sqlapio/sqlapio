@@ -83,6 +83,7 @@
     -webkit-box-shadow: 2px 3px 9px -4px rgba(0, 0, 0, 0.77);
     -moz-box-shadow: 2px 3px 9px -4px rgba(0, 0, 0, 0.77);
     padding: 3px !important;
+    max-width: 100% !important;
 }
 
 .pn-select:focus, .pn-select:focus-within {
