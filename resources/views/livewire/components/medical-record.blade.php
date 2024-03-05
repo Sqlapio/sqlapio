@@ -1050,6 +1050,7 @@
             $('#floatingInput').val('');
         }
 
+
         const handlerUl = (data, id, clas, number) => {
 
             let array = [];
@@ -1374,8 +1375,9 @@
         }
 
         const handlerIA = () => {
+            console.log("ai", symptom_array)
 
-            if ($("#sintomas").val() !== "") {
+            if ($("#sintomas").val() !== "" || symptom_array) {
 
                 $(".send-ai").hide();
                 $("#spinner2").show();
@@ -1386,7 +1388,7 @@
                     dataType: "json",
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        "symtoms": $("#sintomas").val(),
+                        "symtoms": $("#sintomas").val(), symptom_array,
                         "genere": patient.genere,
                         "age": patient.age
                     },
