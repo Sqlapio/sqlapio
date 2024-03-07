@@ -406,6 +406,14 @@ return [
         'selec_antpp'              => 'Debe seleccionar al menos un antecedente personal patológico',
         'selec_antpnp'             => 'Debe seleccionar al menos un antecedente personal no patológico',
         'campo_numerico'           => 'Campo numérico',
+        'direccion_3_caracteres'   => 'Dirección debe ser mayor a 3 caracteres',
+        'num_piso_obligatorio'     => 'Número de piso es obligatorio',
+        'num_cons_obligatorio'     => 'Número del consultorio es obligatorio',
+        'estado_obligatorio'       => 'Estado es obligatorio',
+        'ciudad_obligatorio'       => 'Ciudad es obligatorio',
+        'nombre_centro_obligatorio'=> 'Nombre del centro es obligatorio',
+        'cargar_archivo'           => 'Debe cargar un Archivo',
+        'seleccionar_resultado'    => 'Debe selecionar un resultado',
 
         // sweet alert //
         'operacion_exitosa'   => 'Operación exitosa!',
@@ -421,8 +429,13 @@ return [
         'logeado'             => 'Accion no permitida, el correo se encuentra logueado en el sistema!',
         'asociar_centro'      => 'Debe asociar un centro!',
         'crear_historia'      => 'Debe crear una historia clinica para este paciente!',
-        'paciente_registrado' => 'Paciente registrado exitosamente!',
+        'centro_registrado'   => 'Centro registrado exitosamente!',
         'historia_registrada' => 'Historia clinica registrada exitosamente!',
+        'deshabilitar_centro' => '¿Está seguro que desea deshabilitar este centro?',
+        'habilitar_centro'    => '¿Está seguro que desea habilitar este centro?',
+        'registro_inicial'    => 'Debe completar su registro inicial!',
+        'paciente_sin_info'   => 'El paciente no tiene información cargada en el sistema!',
+        'registro_inicial'    => 'Debe completar su registro inicial!',
     ],
 
 ];
