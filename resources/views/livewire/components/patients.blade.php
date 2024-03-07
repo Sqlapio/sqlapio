@@ -111,8 +111,6 @@
         let path = "{{ route('verify-plans') }}";
         let patient = @json($patient);
 
-
-
         $(document).ready(() => {
 
             if(patient.length==undefined){
@@ -130,10 +128,10 @@
 
                         Swal.fire({
                             icon: 'warning',
-                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            title: '@lang('messages.alert.limite_plan')',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         });
                         return false;
                     }
@@ -150,10 +148,10 @@
 
                         Swal.fire({
                             icon: 'warning',
-                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            title: '@lang('messages.alert.limite_plan')',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         });
                         return false;
                     }
@@ -177,10 +175,10 @@
             if (user.type_plane != '7' && centers.length === 0) {
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Debe asociar  un centro!',
+                    title: '@lang('messages.alert.asociar_centro')',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
                 }).then((result) => {
                     window.location.href = "{{ route('Centers') }}";
                 });
@@ -284,32 +282,30 @@
                 },
                 messages: {
                     name: {
-                        required: "Nombres es obligatorio",
-                        minlength: "Nombres debe ser mayor a 3 caracteres",
-                        maxlength: "Nombres debe ser menor a 50 caracteres",
+                        required: "@lang('messages.alert.nombre_obligatorio')",
+                        minlength: "@lang('messages.alert.nombre_3_caracteres')",
+                        maxlength: "@lang('messages.alert.nombre_50_caracteres')",
                     },
                     last_name: {
-                        required: "Apellidos es obligatorio",
-                        minlength: "Apellidos debe ser mayor a 6 caracteres",
-                        maxlength: "Apellidos debe ser menor a 8 caracteres",
+                        required: "@lang('messages.alert.apellido_obligatorio')",
+                        minlength: "@lang('messages.alert.apellido_6_caracteres')",
+                        maxlength: "@lang('messages.alert.apellido_8_caracteres')",
                     },
 
                     email: {
-                        required: "Correo Electrónico es obligatorio",
-                        minlength: "Correo Electrónico debe ser mayor a 6 caracteres",
-                        maxlength: "Correo Electrónico debe ser menor a 8 caracteres",
-                        email: "Correo Electrónico incorrecto"
+                        required: "@lang('messages.alert.correo_obligatorio')",
+                        email: "@lang('messages.alert.correo_incorrecto')"
                     },
                     ci: {
-                        required: "Cédula de identidad es obligatoria",
-                        minlength: "Cédula de identidad  debe ser mayor a 5 caracteres",
-                        maxlength: "Cédula de identidad  debe ser menor a 8 caracteres",
+                        required: "@lang('messages.alert.cedula_obligatoria')",
+                        minlength: "@lang('messages.alert.cedula_5_caracteres')",
+                        maxlength: "@lang('messages.alert.cedula_8_caracteres')",
                     },
                     genere: {
-                        required: "Género es obligatorio",
+                        required: "@lang('messages.alert.genero_obligatorio')",
                     },
                     birthdate: {
-                        required: "Fecha de nacimiento es obligatorio",
+                        required: "@lang('messages.alert.fecha_obligatorio')",
                     },
                     // state: {
                     //     required: "Estado es obligatoria",
@@ -318,43 +314,41 @@
                     //     required: "Ciudad es obligatoria",
                     // },
                     address: {
-                        required: "Dirección es obligatoria",
+                        required: "@lang('messages.alert.direccion_obligatoria')",
                     },
                     zip_code: {
-                        required: "Código postal es obligatorio",
+                        required: "@lang('messages.alert.codigo_obligatorio')",
                     },
                     re_name: {
-                        required: "Nombre del representante es obligatorio",
-                        minlength: "Nombre del representante debe ser mayor a 3 caracteres",
-                        maxlength: "Nombre del representante debe ser menor a 50 caracteres",
+                        required: "@lang('messages.alert.nombre_obligatorio')",
+                        minlength: "@lang('messages.alert.nombre_3_caracteres')",
+                        maxlength: "@lang('messages.alert.nombre_50_caracteres')",
                     },
                     re_last_name: {
-                        required: "Apellido del representante es obligatorio",
-                        minlength: "Apellido del representante debe ser mayor a 3 caracteres",
-                        maxlength: "Apellido del representante debe ser menor a 50 caracteres",
+                        required: "@lang('messages.alert.apellido_obligatorio')",
+                        minlength: "@lang('messages.alert.apellido_6_caracteres')",
+                        maxlength: "@lang('messages.alert.apellido_8_caracteres')",
                     },
                     re_email: {
-                        required: "Correo del representante es obligatorio",
-                        minlength: "Correo debe ser mayor a 6 caracteres",
-                        maxlength: "Correo debe ser menor a 8 caracteres",
-                        email: "Correo incorrecto"
+                        required: "@lang('messages.alert.correo_obligatorio')",
+                        email: "@lang('messages.alert.correo_incorrecto')",
                     },
                     re_ci: {
-                        required: "Cédula del representante es obligatorio",
-                        minlength: "Cédula del representante  debe ser mayor a 5 caracteres",
-                        maxlength: "Cédula del representante  debe ser menor a 8 caracteres",
+                        required: "@lang('messages.alert.cedula_obligatoria')",
+                        minlength: "@lang('messages.alert.cedula_5_caracteres')",
+                        maxlength: "@lang('messages.alert.cedula_8_caracteres')",
                     },
                     re_phone: {
-                        required: "Teléfono del representante es obligatorio",
+                        required: "@lang('messages.alert.telefono_obligatorio')",
                     },
                     profession: {
-                        required: "Profesión es obligatoria",
+                        required: "@lang('messages.alert.profesion_obligatoria')",
                     },
                     phone: {
-                        required: "Teléfono es obligatorio",
+                        required: "@lang('messages.alert.telefono_obligatorio')",
                     },
                     center_id: {
-                        required: "Centro es obligatorio",
+                        required: "@lang('messages.alert.centro_obligatorio')",
                     }
 
                 }
@@ -389,16 +383,16 @@
                             // $(".holder").hide();
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Paciente registrado exitosamente!',
+                                title: '@lang('messages.alert.paciente_registrado')',
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
                             }).then((result) => {
                                 url = url.replace(':id', response[0].id);
                                 $("#bnt-cons").show();
                                 $("#bnt-cons").find('a').remove();
                                 $("#bnt-cons").append(
-                                    `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`
+                                    `<a href="${url}"><button type="button" class="btn btnSecond">@lang('messages.botton.consulta_medica')</button></a>`
                                 );
 
                                 switch_type_plane(user.type_plane, response[1]);
@@ -412,7 +406,7 @@
                                     title: elm,
                                     allowOutsideClick: false,
                                     confirmButtonColor: '#42ABE2',
-                                    confirmButtonText: 'Aceptar'
+                                    confirmButtonText: '@lang('messages.botton.aceptar')'
                                 }).then((result) => {
                                     $('#btn-save').attr('disabled', false);
                                     $('#spinner2').hide();
@@ -573,16 +567,13 @@
                                 let elemData = JSON.stringify(elem);
                                 elem.btn = `
                                                 <button onclick='setValue(${elemData})' type="button" class="btn-2 btnSecond">
-                                                    Consultar
+                                                    @lang('messages.botton.consultar')
                                                 </button>`;
                                 data.push(elem);
 
                             })
 
                             new DataTable('#table-show-info-pat', {
-                                language: {
-                                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
-                                },
                                 bDestroy: true,
                                 data: data,
                                 "searching": false,
@@ -590,29 +581,28 @@
                                 columns: [{
 
                                         data: 'name_full',
-                                        title: 'Nombre',
-                                        className: "text-center text-capitalize",
+                                        title: '@lang('messages.tabla.nombre_apellido')',
+                                        className: "text-center text-capitalize w-17",
                                     },
                                     {
-
                                         data: 'ci',
-                                        title: 'Cédula',
+                                        title: '@lang('messages.tabla.cedula')',
                                         className: "text-center w-10",
                                     },
 
                                     {
                                         data: 'birthdate',
-                                        title: 'Fecha de Nacimiento ',
+                                        title: '@lang('messages.tabla.fecha_nacimiento')',
                                         className: "text-center w-10",
                                     },
                                     {
                                         data: 'genere',
-                                        title: 'Género',
+                                        title: '@lang('messages.tabla.genero')',
                                         className: "text-center text-capitalize",
                                     },
                                     {
                                         data: 'btn',
-                                        title: 'Acciones',
+                                        title: '@lang('messages.tabla.acciones')',
                                         className: "text-center w-20",
                                     }
                                 ],
@@ -632,7 +622,7 @@
                             title: error.responseJSON.errors,
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         }).then((result) => {
                             $('#send').show();
                             $('#spinner2').hide();
@@ -659,14 +649,14 @@
             $("#bnt-dairy").find('button').remove();
             $("#bnt-hist").find('button').remove();
             $("#bnt-cons").append(
-                `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`);
+                `<a href="${url}"><button type="button" class="btn btnSecond">@lang('messages.botton.consulta_medica')</button></a>`);
             let elemData = JSON.stringify(data);
             let elemRep = JSON.stringify(data.get_reprensetative);
             $("#bnt-dairy").append(
-                `<button onclick='agendarCita(${elemData},${elemRep});' type="button" class="btn btnPrimary">Agendar cita</button>`
+                `<button onclick='agendarCita(${elemData},${elemRep});' type="button" class="btn btnPrimary">@lang('messages.botton.agendar_cita')</button>`
             );
             $("#bnt-hist").append(
-                `<a href="${urlhist}"><button type="button" class="btn btnSecond">Historia clinica</button></a>`
+                `<a href="${urlhist}"><button type="button" class="btn btnSecond">@lang('messages.botton.historia_clinica')</button></a>`
             );
             editPatien(data, false);
         }
@@ -718,10 +708,10 @@
             if (e.target.value === email) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Accion no permitida, el correo se encuentra logueado en el sistema!',
+                    title: '@lang('messages.alert.logeado')',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
                 }).then((result) => {
                     $('#email').val('');
                 });
@@ -736,20 +726,20 @@
 
                         Swal.fire({
                             icon: 'warning',
-                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            title: '@lang('messages.alert.limite_plan')',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         });
                         return false;
                     }
                     if (Number(count_pat) >= 10) {
                         Swal.fire({
                             icon: 'warning',
-                            title: '¡Ha consumido el total de pacientes registrados!',
+                            title: '@lang('messages.alert.consumo_total')',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         }).then((result) => {
                             window.location.href = path;
                         });
@@ -760,20 +750,20 @@
 
                         Swal.fire({
                             icon: 'warning',
-                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            title: '@lang('messages.alert.limite_plan')',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         });
                         return false;
                     }
                     if (Number(count_pat) >= 40) {
                         Swal.fire({
                             icon: 'warning',
-                            title: '¡Ha consumido el total de pacientes registrados!',
+                            title: '@lang('messages.alert.consumo_total')',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         }).then((result) => {
                             window.location.href = path;
                         });
@@ -788,10 +778,10 @@
         const alertInfoPaciente = (item) => {
             Swal.fire({
                 icon: 'warning',
-                title: 'Debe actualizar la información del paciente!',
+                title: '@lang('messages.alert.actualizar_paciente')',
                 allowOutsideClick: false,
                 confirmButtonColor: '#42ABE2',
-                confirmButtonText: 'Aceptar'
+                confirmButtonText: '@lang('messages.botton.aceptar')'
             }).then((result) => {
                 editPatien(item,true);
 
@@ -816,8 +806,7 @@
                                     <i class="bi bi-person-add"></i> @lang('messages.acordion.nuevo_paciente')
                                 </button>
                             </span>
-                            <div id="collapseOne" class="accordion-collapseOne accordion-collapse collapse"
-                                aria-labelledby="headingOne" data-bs-parent="#accordion">
+                            <div id="collapseOne" class="accordion-collapseOne accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row mt-3 justify-content-center" id="paciente-warnig" style="display: none">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
@@ -1004,13 +993,11 @@
                                                 </div>
 
                                                 <input id="age" name="age" type="hidden" value="">
-                                                <x-professions
-                                                    class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3" />
+                                                <x-professions class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3" />
 
 
                                                 @if (Auth::user()->type_plane !== '7')
-                                                    <x-centers_user
-                                                        class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2" />
+                                                    <x-centers_user class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2" />
                                                 @endif
                                                 {{-- data del representante --}}
                                                 <div class="row mt-3" id="data-rep"
@@ -1034,8 +1021,7 @@
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="re_last_name" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
+                                                                <label for="re_last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-text @error('re_last_name') is-invalid @enderror"
                                                                     id="re_last_name" name="re_last_name" type="text"
@@ -1060,8 +1046,7 @@
                                                     <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="telefono" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
+                                                                <label for="telefono" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control phone @error('re_phone') is-invalid @enderror"
                                                                     id="re_phone" name="re_phone" type="text"
@@ -1074,8 +1059,7 @@
                                                         style="padding-right: 0;">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="email" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
+                                                                <label for="email" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
                                                                 <input autocomplete="off"
                                                                     onchange='handlerEmail(event,@json($email))'
                                                                     class="form-control @error('re_email') is-invalid @enderror"
@@ -1180,14 +1164,11 @@
                                     </div>
                                     <div class="row mt-2">
                                         <div class="row" id="table-patients">
-                                            <div
-                                                class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-                                                <table id="table-patient" class="table table-striped table-bordered"
-                                                    style="width:100%; ">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                <table id="table-patient" class="table table-striped table-bordered" style="width:100%; ">
                                                     <thead>
                                                         <tr>
-                                                            <th class="text-center w-image" scope="col"
-                                                                data-orderable="false">@lang('messages.tabla.foto')</th>
+                                                            <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
                                                             <th class="text-center w-10" scope="col">@lang('messages.tabla.codigo_paciente')
                                                             </th>
                                                             <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')
@@ -1215,7 +1196,7 @@
                                                                         data-bs-toggle="tooltip"
                                                                         data-bs-placement="bottom"
                                                                         data-bs-custom-class="custom-tooltip"
-                                                                        data-html="true" title="Agendar cita"
+                                                                        data-html="true" title="@lang('messages.tooltips.agendar_cita')"
                                                                         style="font-size: 13px; padding: 0px 11px 0px 11px; !important">{{ $item->patient_code }}</button>
                                                                 </td>
                                                                 <td class="text-center text-capitalize"> {{ $item->name }} {{ $item->last_name }}</td>
