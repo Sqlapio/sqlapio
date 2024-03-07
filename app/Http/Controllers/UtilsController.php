@@ -27,6 +27,7 @@ use App\Models\NonPathologicalBackground;
 use App\Models\PathologicalBackground;
 use App\Models\Reference;
 use App\Models\Representative;
+use App\Models\Specialty;
 use App\Models\Study;
 use App\Models\StudyPatient;
 use App\Models\Token;
@@ -165,6 +166,14 @@ class UtilsController extends Controller
 			} else {
 				$nameFile = $request->img;
 			}
+			$specialty =  $request->specialty;
+			
+			if($request->specialty_new!=null){
+				
+				$specialty_new = Specialty::create(['description' => $request->specialty_new]);
+
+				$specialty =  $specialty_new->description;
+			}
 
 			$update = DB::table('users')
 				->where('id', $id)
@@ -174,7 +183,7 @@ class UtilsController extends Controller
 					'ci' 		=> $request->ci,
 					'birthdate' => $request->birthdate,
 					'genere'    => $request->genere,
-					'specialty' => $request->specialty,
+					'specialty' => $specialty,
 					'age' 		=> $request->age,
 					'phone' 	=> $request->phone,
 					'state' 	=> $request->state_contrie,
