@@ -177,8 +177,8 @@ return [
     'ficha_paciente' => [
         'nombre'            => 'Nombre',
         'fecha_nacimiento'  => 'Fecha de Nacimiento',
-        'ci'                => 'C.I:',
-        'ci_rd'             => 'RNC:',
+        'ci'                => 'C.I',
+        'ci_rd'             => 'RNC',
         'genero'            => 'Genero',
         'nro_historias'     => 'Nro. Historia',
         'edad'              => 'Edad',
@@ -402,6 +402,10 @@ return [
         'campo_obligatorio'        => 'Campo Obligatorio',
         'copiado'                  => 'Copiado!',
         'error_copiar'             => 'Error al copiar!',
+        'selec_antp'               => 'Debe seleccionar al menos un antecedente personal',
+        'selec_antpp'              => 'Debe seleccionar al menos un antecedente personal patológico',
+        'selec_antpnp'             => 'Debe seleccionar al menos un antecedente personal no patológico',
+        'campo_numerico'           => 'Campo numérico',
 
         // sweet alert //
         'operacion_exitosa'   => 'Operación exitosa!',
@@ -418,6 +422,7 @@ return [
         'asociar_centro'      => 'Debe asociar un centro!',
         'crear_historia'      => 'Debe crear una historia clinica para este paciente!',
         'paciente_registrado' => 'Paciente registrado exitosamente!',
+        'historia_registrada' => 'Historia clinica registrada exitosamente!',
     ],
 
 ];

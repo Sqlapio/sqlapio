@@ -142,7 +142,7 @@ return [
         'antecedentes_per_pa'     => 'Pathological personal history',
         'antecedentes_per_no_pa'  => 'Non-pathological personal history',
         'antecedentes_gine'       => 'Gynecological History',
-        'antecedentes_alerg'      => 'Allegic Background',
+        'antecedentes_alerg'      => 'Allergic History',
         'antecedentes_qx'         => 'Surgical History',
         'examen_fisico'           => 'Physical Exam',
         'medicamentos'            => 'Current Treatment',
@@ -177,8 +177,8 @@ return [
     'ficha_paciente' => [
         'nombre'            => 'Name',
         'fecha_nacimiento'  => 'Date of Birth',
-        'ci'                => 'ID:',
-        'ci_rd'             => 'ID:',
+        'ci'                => 'ID',
+        'ci_rd'             => 'ID',
         'genero'            => 'Gender',
         'nro_historias'     => 'Nro. History',
         'edad'              => 'Age',
@@ -402,6 +402,10 @@ return [
         'campo_obligatorio'       => 'Required field',
         'copiado'                 => 'Copied!',
         'error_copiar'            => 'Error copying!',
+        'selec_antp'              => 'You must select at least one personal background',
+        'selec_antpp'             => 'You must select at least one pathological personal history',
+        'selec_antpnp'            => 'You must select at least one non-pathological personal history',
+        'campo_numerico'          => 'Numeric field',
 
         // sweet alert //
         'operacion_exitosa'  => 'Successful Operation!',
@@ -418,5 +422,6 @@ return [
         'asociar_centro'     => 'Must associate a medical facility',
         'crear_historia'     => 'You must create a medical record for this patient!',
         'paciente_registrado'=> 'Successfully Registered Patient!',
+        'historia_registrada'=> 'Successfully recorded medical history',
     ],
 ];
