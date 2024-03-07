@@ -40,11 +40,23 @@
     }
 </style>
 <body>
+    @php
+    $lang = session()->get('locale');
+        if($lang == 'en')
+        {
+            $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/en-EN.json';
+        }else{
+            $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json';
+        }
+    @endphp
     <x-nav-bar />
     @stack('scripts')
     @yield('content')
     @livewireScripts
 </body>
+    <script>
+        var url = @json($url);
+    </script>
 <x-footer />
 
 </html>
