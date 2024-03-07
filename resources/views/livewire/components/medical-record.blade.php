@@ -1050,6 +1050,7 @@
             $('#floatingInput').val('');
         }
 
+
         const handlerUl = (data, id, clas, number) => {
 
             let array = [];
