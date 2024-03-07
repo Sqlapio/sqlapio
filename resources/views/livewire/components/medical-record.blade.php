@@ -544,7 +544,7 @@
                         $('#spinner3').hide();
                         Swal.fire({
                             icon: 'success',
-                            title: '@lang('messages.alert.oeracion_exitosa')',
+                            title: '@lang('messages.alert.operacion_exitosa')',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: '@lang('messages.botton.aceptar')'
@@ -1793,7 +1793,7 @@
                                                 <strong>@lang('messages.ficha_paciente.edad'):</strong>
                                                 <span> {{ $Patient->age }} @lang('messages.ficha_paciente.anios')</span>
                                                 <br>
-                                                <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I' }}</strong>
+                                                <strong>@lang('messages.ficha_paciente.ci') {{ $Patient->is_minor === 'true' ? '(Rep)' : '' }}:</strong>
                                                 <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.genero'):</strong>
@@ -2544,14 +2544,12 @@
                                     <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.ultimas_consultas')
                                 </button>
                             </span>
-                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-                                data-bs-parent="#accordionExample">
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row" id="table-one">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
                                             style="margin-top: 20px;">
-                                            <table id="table-medical-record" class="table table-striped table-bordered"
-                                                style="width:100%; ">
+                                            <table id="table-medical-record" class="table table-striped table-bordered" style="width:100%; ">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center w-8" scope="col">@lang('messages.tabla.id_consulta')</th>
@@ -2577,10 +2575,8 @@
                                                             <td class="text-center td-pad">
                                                                 <div class="d-flex">
                                                                     @if ($item['data']['status_exam'])
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <a
-                                                                                href="{{ route('mr_exam', $item['patient_id']) }}">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <a href="{{ route('mr_exam', $item['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
@@ -2594,10 +2590,8 @@
                                                                             </a>
                                                                         </div>
                                                                     @else
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <button type="button"
-                                                                                onclick="showAlertNotExam();">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <button type="button" onclick="showAlertNotExam();">
                                                                                 <img width="32" height="auto"
                                                                                     src="{{ asset('/img/icons/not-file-icon.png') }}"
                                                                                     alt="avatar">
@@ -2605,10 +2599,8 @@
                                                                         </div>
                                                                     @endif
                                                                     @if ($item['data']['status_study'])
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <a
-                                                                                href="{{ route('mr_study', $item['patient_id']) }}">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                            <a href="{{ route('mr_study', $item['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
@@ -2622,8 +2614,7 @@
                                                                             </a>
                                                                         </div>
                                                                     @else
-                                                                        <div
-                                                                            class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                             <button type="button"
                                                                                 onclick="showAlertNotStudy();">
                                                                                 <img width="32" height="auto"
@@ -2632,8 +2623,7 @@
                                                                             </button>
                                                                         </div>
                                                                     @endif
-                                                                    <div
-                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                         <a target="_blank"
                                                                             href="{{ route('pdf_medical_prescription', $item['id']) }}">
                                                                             <button type="button">
@@ -2648,8 +2638,7 @@
                                                                             </button>
                                                                         </a>
                                                                     </div>
-                                                                    <div
-                                                                        class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                                                                         <a target="_blank"
                                                                             href="{{ route('PDF_medical_record', $item['id']) }}">
                                                                             <button type="button">
@@ -2714,8 +2703,7 @@
                                                     @foreach ($medical_report as $item)
                                                         <tr>
                                                             <td class="text-center td-pad"> {{ $item->cod_medical_report }}</td>
-                                                            <td class="text-center td-pad"> {{ $item->get_doctor->name . ' ' . $item->get_doctor->last_name }}
-                                                            </td>
+                                                            <td class="text-center td-pad"> {{ $item->get_doctor->name . ' ' . $item->get_doctor->last_name }} </td>
                                                             <td class="text-center td-pad"> {{ $item->date }}</td>
                                                             <td class="text-center td-pad">
                                                                 <a target="_blank" href="{{ route('PDF_informe_medico', $item->id) }}">
@@ -2744,8 +2732,7 @@
         @endif
 
         <!-- Modal -->
-        <div class="modal fade" id="modalIA" tabindex="-1" aria-labelledby="modalIALabel" aria-hidden="true"
-            id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal fade" id="modalIA" tabindex="-1" aria-labelledby="modalIALabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
                     <div class="modal-header title">
@@ -2770,8 +2757,7 @@
         </div>
 
         <!-- Modal Observaciones -->
-        <div class="modal fade" id="modalObservations" tabindex="-1" aria-labelledby="modalObservationsLabel"
-            aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal fade" id="modalObservations" tabindex="-1" aria-labelledby="modalObservationsLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header title">
@@ -2817,7 +2803,7 @@
                                     <br>
                                     <strong>@lang('messages.ficha_paciente.edad'):</strong><span> {{ $Patient->age }} @lang('messages.ficha_paciente.anios')</span>
                                     <br>
-                                    <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
+                                    <strong>@lang('messages.ficha_paciente.ci') {{ $Patient->is_minor === 'true' ? '(Rep)' : '' }}:</strong>
                                     <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                 </div>
                             </div>
