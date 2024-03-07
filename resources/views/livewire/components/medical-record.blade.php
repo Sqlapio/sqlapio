@@ -1367,7 +1367,7 @@
     const showAlertNotStudy = () => {
         Swal.fire({
             icon: 'warning',
-            title: '@lang('messages.alert.limite_plan')',
+            title: '@lang('messages.alert.no_estudios')',
             allowOutsideClick: false,
             confirmButtonColor: '#42ABE2',
             confirmButtonText: '@lang('messages.botton.aceptar')'
