@@ -96,7 +96,7 @@
             });
             $('#form-mecal-histroy').validate({
                 ignore: [],
-                rules: {                
+                rules: {
                     countBackFamily: {
                         required: true,
                     },
@@ -105,23 +105,23 @@
                     },
                     countNotPathological: {
                         required: true,
-                    }                   
+                    }
                 },
-                messages: {              
-                  
+                messages: {
+
                     countBackFamily: {
-                        required: "Debe seleccionar al menos un antecedente personal y familiar"
+                        required: "@lang('messages.alert.selec_antp')"
                     },
                     countDiagnosis: {
-                        required: "Debe seleccionar al menos un antecedente personal patológico"
+                        required: "@lang('messages.alert.selec_antpp')"
                     },
                     countNotPathological: {
-                        required: "Debe seleccionar al menos un antecedente personal no patológico"
-                    }                  
+                        required: "@lang('messages.alert.selec_antpnp')"
+                    }
                 },
                 // errorPlacement: function(error, element) {
-                //     $("#collapseTwo").collapse('show');  
-                //     return false;                
+                //     $("#collapseTwo").collapse('show');
+                //     return false;
                 // }
             });
 
@@ -129,18 +129,18 @@
             $.validator.addMethod("onlyText", function(value, element) {
                 let pattern = /^[a-zA-ZñÑáéíóúü0-9\s]+$/g;
                 return pattern.test(value);
-            }, "No se permiten caracteres especiales");
+            }, "@lang('messages.alert.no_caracteres')");
 
             $.validator.addMethod("onlyNumber", function(value, element) {
                 let pattern = /^\d+\.?\d\s*$/;
                 return pattern.test(value);
-            }, "Campo numérico");
+            }, "@lang('messages.alert.campo_numerico')");
 
             //envio del formulario
             $("#form-mecal-histroy").submit(function(event) {
                 event.preventDefault();
-                $("#form-mecal-histroy").validate();              
-             
+                $("#form-mecal-histroy").validate();
+
                 if ($("#form-mecal-histroy").valid()) {
                     $('#send').hide();
                     $('#spinner').show();
@@ -170,10 +170,10 @@
                             $("#form-mecal-histroy").trigger("reset");
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Historia clinica registrada exitosamente!',
+                                title: '@lang('messages.alert.historia_registrada')',
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
                             }).then((result) => {
                                 let url = "{{ route('MedicalRecord', ':id') }}";
                                 url = url.replace(':id', $('#id_patient').val());
@@ -188,7 +188,7 @@
                                     title: elm,
                                     allowOutsideClick: false,
                                     confirmButtonColor: '#42ABE2',
-                                    confirmButtonText: 'Aceptar'
+                                    confirmButtonText: '@lang('messages.botton.aceptar')'
                                 }).then((result) => {
                                     $('#send').show();
                                     $('#spinner').hide();
@@ -198,11 +198,11 @@
                         }
                     });
                 }else{
-                    $("#collapseTwo").collapse('show');  
+                    $("#collapseTwo").collapse('show');
                 }
             })
 
-            
+
             const autoTextarea = (id) => {
                 document.getElementById(id).addEventListener('keyup', function() {
                     this.style.overflow = 'hidden';
@@ -265,10 +265,10 @@
         function handlerAllergies(e) {
             // validaciones para agragar cirugia
             if ($('#type_alergia').val() === "") {
-                $("#type_alergia_span").text('Campo obligatorio');
+                $("#type_alergia_span").text('@lang('messages.alert.campo_obligatorio')');
             } else if ($('#detalle_alergia').val() === "") {
                 $("#cirugia").text('');
-                $("#detalle_alergia_span").text('Campo obligatorio');
+                $("#detalle_alergia_span").text('@lang('messages.alert.campo_obligatorio')');
             } else {
                 $("#detalle_alergia_span").text('');
 
@@ -293,17 +293,17 @@
                         "bLengthChange": false,
                         columns: [{
                                 data: 'type_alergia',
-                                title: 'Tipo de alergias',
-                                className: "text-center td-pad",
+                                title: '@lang('messages.tabla.tipo_alergias')',
+                                className: "text-center td-pad w-17",
                             },
                             {
                                 data: 'detalle_alergia',
-                                title: 'Detalle',
+                                title: '@lang('messages.tabla.detalle')',
                                 className: "text-center td-pad",
                             },
                             {
                                 data: 'btn',
-                                title: 'Eliminar',
+                                title: '@lang('messages.tabla.eliminar')',
                                 className: "text-center td-pad w-5",
                             }
                         ],
@@ -424,25 +424,25 @@
         function addMedacition(e) {
             // validaciones para agragar medicacion
             if ($('#medicine').val() === "") {
-                $("#medicine_span").text('Campo obligatorio');
+                $("#medicine_span").text('@lang('messages.alert.campo_obligatorio')');
             } else if ($('#dose').val() === "") {
                 $("#medicine_span").text('');
-                $("#dose_span").text('Campo obligatorio');
+                $("#dose_span").text('@lang('messages.alert.campo_obligatorio')');
             } else if ($('#patologi').val() === "") {
                 $("#dose_span").text('');
-                $("#patologi_span").text('Campo obligatorio');
+                $("#patologi_span").text('@lang('messages.alert.campo_obligatorio')');
             } else if ($('#viaAdmin').val() === "") {
                 $("#patologi_span").text('');
-                $("#viaAdmin_span").text('Campo obligatorio');
+                $("#viaAdmin_span").text('@lang('messages.alert.campo_obligatorio')');
             } else if ($('#treatmentDuration').val() === "") {
                 $("#viaAdmin_span").text('');
-                $("#treatmentDuration_span").text('Campo obligatorio');
+                $("#treatmentDuration_span").text('@lang('messages.alert.campo_obligatorio')');
             } else if ($('#dateIniTreatment').val() === "") {
                 $("#treatmentDuration_span").text('');
-                $("#dateIniTreatment_span").text('Campo obligatorio');
+                $("#dateIniTreatment_span").text('@lang('messages.alert.campo_obligatorio')');
             } else if ($('#dateEndTreatment').val() === "") {
                 $("#dateIniTreatment_span").text('');
-                $("#dateEndTreatment_span").text('Campo obligatorio');
+                $("#dateEndTreatment_span").text('@lang('messages.alert.campo_obligatorio')');
             } else {
 
                 let btn =
@@ -471,17 +471,17 @@
                         "bLengthChange": false,
                         columns: [{
                                 data: 'medicine',
-                                title: 'Medicamento',
+                                title: '@lang('messages.tabla.medicamento')',
                                 className: "text-center td-pad",
                             },
                             {
                                 data: 'dose',
-                                title: 'Dosis',
+                                title: '@lang('messages.tabla.dosis')',
                                 className: "text-center td-pad",
                             },
                             {
                                 data: 'patologi',
-                                title: 'Patología',
+                                title: '@lang('messages.tabla.patologia')',
                                 className: "text-center td-pad",
                             },
                             // {
@@ -491,7 +491,7 @@
                             // },
                             {
                                 data: 'treatmentDuration',
-                                title: 'Duración',
+                                title: '@lang('messages.tabla.duracion')',
                                 className: "text-center td-pad",
                             },
                             // {
@@ -506,7 +506,7 @@
                             // },
                             {
                                 data: 'btn',
-                                title: 'Eliminar',
+                                title: '@lang('messages.tabla.eliminar')',
                                 className: "text-center td-pad w-5",
                             }
                         ],
@@ -533,10 +533,10 @@
         function handlerSurgical(e) {
             // validaciones para agragar cirugia
             if ($('#cirugia').val() === "") {
-                $("#cirugia_span").text('Campo obligatorio');
+                $("#cirugia_span").text('@lang('messages.alert.campo_obligatorio')');
             } else if ($('#datecirugia').val() === "") {
                 $("#cirugia").text('');
-                $("#datecirugia_span").text('Campo obligatorio');
+                $("#datecirugia_span").text('@lang('messages.alert.campo_obligatorio')');
             } else {
                 $("#datecirugia_span").text('');
 
@@ -560,17 +560,17 @@
                         "bLengthChange": false,
                         columns: [{
                                 data: 'cirugia',
-                                title: 'Cirugía',
+                                title: '@lang('messages.tabla.cirugia')',
                                 className: "text-center td-pad",
                             },
                             {
                                 data: 'datecirugia',
-                                title: 'Fecha',
+                                title: '@lang('messages.tabla.fecha')',
                                 className: "text-center td-pad w-10",
                             },
                             {
                                 data: 'btn',
-                                title: 'Eliminar',
+                                title: '@lang('messages.tabla.eliminar')',
                                 className: "text-center td-pad w-5",
                             }
                         ],
@@ -587,16 +587,16 @@
                 $('#cirugia').val("");
                 $('#datecirugia').val("");
             }
-        }     
+        }
 
         //borrar medicamento
         function deleteMedication(count) {
             Swal.fire({
                 icon: 'warning',
-                title: 'Desea realizar esta acción?',
+                title: '@lang('messages.alert.accion')',
                 allowOutsideClick: false,
                 confirmButtonColor: '#42ABE2',
-                confirmButtonText: 'Aceptar',
+                confirmButtonText: '@lang('messages.botton.aceptar')',
                 showCancelButton: true,
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -613,10 +613,10 @@
         function deleteSurgical(count) {
             Swal.fire({
                 icon: 'warning',
-                title: 'Desea realizar esta acción?',
+                title: '@lang('messages.alert.accion')',
                 allowOutsideClick: false,
                 confirmButtonColor: '#42ABE2',
-                confirmButtonText: 'Aceptar',
+                confirmButtonText: '@lang('messages.botton.aceptar')',
                 showCancelButton: true,
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -634,10 +634,10 @@
 
             Swal.fire({
                 icon: 'warning',
-                title: 'Desea realizar esta acción?',
+                title: '@lang('messages.alert.accion')',
                 allowOutsideClick: false,
                 confirmButtonColor: '#42ABE2',
-                confirmButtonText: 'Aceptar',
+                confirmButtonText: '@lang('messages.botton.aceptar')',
                 showCancelButton: true,
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -773,25 +773,23 @@
                                                     class="img-medical">
                                             </div>
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                                <strong>@lang('messages.ficha_paciente.nombre'):</strong><span class="text-capitalize">
-                                                    {{ $Patient->last_name . ', ' . $Patient->name }}</span>
+                                                <strong>@lang('messages.ficha_paciente.nombre'):</strong>
+                                                <span class="text-capitalize"> {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                                 <br>
-                                                <strong>@lang('messages.ficha_paciente.fecha_nacimiento'):</strong><span>
-                                                    {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
+                                                <strong>@lang('messages.ficha_paciente.fecha_nacimiento'):</strong>
+                                                <span> {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
                                                 <br>
-                                                <strong>@lang('messages.ficha_paciente.edad'):</strong><span> {{ $Patient->age }}
-                                                    @lang('messages.ficha_paciente.anios')</span>
+                                                <strong>@lang('messages.ficha_paciente.edad'):</strong>
+                                                <span> {{ $Patient->age }} @lang('messages.ficha_paciente.anios')</span>
                                                 <br>
-                                                <strong>{{ $Patient->is_minor === 'true' ? 'C.I del representante:' : 'C.I:' }}</strong>
-                                                <span>
-                                                    {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
+                                                <strong>@lang('messages.ficha_paciente.ci') {{ $Patient->is_minor === 'true' ? '(Rep)' : '' }}:</strong>
+                                                <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                                 <br>
-                                                <strong>@lang('messages.ficha_paciente.genero'):</strong> <span class="text-capitalize">
-                                                    {{ $Patient->genere }}</span>
+                                                <strong>@lang('messages.ficha_paciente.genero'):</strong>
+                                                <span class="text-capitalize"> {{ $Patient->genere }}</span>
                                                 <br>
-                                                <strong>@lang('messages.ficha_paciente.nro_historias'):</strong><span>
-                                                    {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
-                                                </span>
+                                                <strong>@lang('messages.ficha_paciente.nro_historias'):</strong>
+                                                <span> {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }} </span>
                                             </div>
                                         </div>
                                     </div>
@@ -875,7 +873,7 @@
                                             </div>
                                         </div>
 
-                                    
+
 
                                     </div>
                                     {{-- end --}}
@@ -925,7 +923,7 @@
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                            <div class="input-group flex-nowrap">                                               
+                                            <div class="input-group flex-nowrap">
                                                 <input type="hidden" id="countDiagnosis" name="countDiagnosis"
                                                     class="form-control" readonly value="{!! !empty($validateHistory) ? $count_dagnosis : '' !!}">
                                             </div>
@@ -941,8 +939,7 @@
                                     </div>
                                     {{-- end --}}
                                     <hr style="margin-bottom: 0;">
-                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
-                                        @lang('messages.acordion.antecedentes_per_no_pa')</h6>
+                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px"> @lang('messages.acordion.antecedentes_per_no_pa')</h6>
                                     <hr style="margin-bottom: 0;">
                                     {{-- Antecedentes Personales No Patológicos --}}
 
@@ -995,10 +992,8 @@
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
-                                                <label for="observations_not_pathological" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_not_pathological" rows="{!! !empty($Patient->get_history->observations_not_pathological) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}"
-                                                    name="observations_not_pathological" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_not_pathological : '' !!}</textarea>
+                                                <label for="observations_not_pathological" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                <textarea id="observations_not_pathological" rows="{!! !empty($Patient->get_history->observations_not_pathological) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_not_pathological" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_not_pathological : '' !!}</textarea>
                                             </div>
                                             {{-- <a>{{$Patient->get_history->observations_not_pathological}}</a> --}}
                                         </div>
@@ -1211,10 +1206,9 @@
                                             <table class="table table-striped table-bordered" id="table-alergias">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.tipo_alergias')</th>
+                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.tipo_alergias')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.detalle')</th>
-                                                        <th class="text-center w-5" scope="col"
-                                                            data-orderable="false">@lang('messages.tabla.eliminar')</th>
+                                                        <th class="text-center w-5" scope="col" data-orderable="false">@lang('messages.tabla.eliminar')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1225,10 +1219,8 @@
                                                             @endphp
                                                             @foreach ($dataAllergies as $key => $item)
                                                                 <tr id="{{ $key }}">
-                                                                    <td class="text-center"> {{ $item['type_alergia'] }}
-                                                                    </td>
-                                                                    <td class="text-center">
-                                                                        {{ $item['detalle_alergia'] }} </td>
+                                                                    <td class="text-center"> {{ $item['type_alergia'] }} </td>
+                                                                    <td class="text-center"> {{ $item['detalle_alergia'] }} </td>
                                                                     <td class="text-center w-5"><span
                                                                             onclick="deleteAllergie({{ $key }})"><img
                                                                                 width="30" height="auto"
@@ -1328,10 +1320,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.cirugia')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha')
-                                                        </th>
-                                                        <th class="text-center w-5" scope="col"
-                                                            data-orderable="false">@lang('messages.tabla.eliminar')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha') </th>
+                                                        <th class="text-center w-5" scope="col" data-orderable="false">@lang('messages.tabla.eliminar')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1389,7 +1379,6 @@
                         </div>
                     </div>
                 </div>
-
                 {{-- Medicacion --}}
                 <div class="row mt-2">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
@@ -1515,15 +1504,13 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.medicamento')</th>
-                                                        <th class="text-center" data-orderable="false" scope="col">
-                                                            @lang('messages.tabla.dosis')</th>
+                                                        <th class="text-center" data-orderable="false" scope="col"> @lang('messages.tabla.dosis')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.patologia')</th>
                                                         {{-- <th class="text-center" scope="col">@lang('messages.tabla.via_administracion')</th> --}}
                                                         <th class="text-center" scope="col">@lang('messages.tabla.duracion')</th>
                                                         {{-- <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_ini')</th> --}}
                                                         {{-- <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_fin')</th> --}}
-                                                        <th class="text-center w-5" data-orderable="false"
-                                                            scope="col">@lang('messages.tabla.eliminar')</th>
+                                                        <th class="text-center w-5" data-orderable="false" scope="col">@lang('messages.tabla.eliminar')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1539,8 +1526,7 @@
                                                                     <td class="text-center"> {{ $item['dose'] }} </td>
                                                                     <td class="text-center"> {{ $item['patologi'] }} </td>
                                                                     {{-- <td class="text-center"> {{ $item['viaAdmin'] }} </td> --}}
-                                                                    <td class="text-center">
-                                                                        {{ $item['treatmentDuration'] }}</td>
+                                                                    <td class="text-center"> {{ $item['treatmentDuration'] }}</td>
                                                                     {{-- <td class="text-center"> {{ $item['dateIniTreatment'] }}</td> --}}
                                                                     {{-- <td class="text-center"> {{ $item['dateEndTreatment'] }}</td> --}}
                                                                     <td class="text-center"><span
@@ -1576,10 +1562,8 @@
 
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">
-                                            <label for="observations_medication" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                            <textarea id="observations_medication" rows="{!! !empty($Patient->get_history->observations_medication) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}"
-                                                name="observations_medication" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_medication : '' !!}</textarea>
+                                            <label for="observations_medication" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                            <textarea id="observations_medication" rows="{!! !empty($Patient->get_history->observations_medication) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_medication" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_medication : '' !!}</textarea>
                                         </div>
                                     </div>
                                 </div>
