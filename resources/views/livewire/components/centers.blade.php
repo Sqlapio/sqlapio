@@ -45,10 +45,10 @@
             if (user.status_register === '1') {
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Debe completar su registro inicial!',
+                    title: '@lang('messages.alert.registro_inicial')',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
                 }).then((result) => {
                     window.location.href = "{{ route('Profile') }}";
                 });
@@ -80,27 +80,27 @@
                 },
                 messages: {
                     center_id: {
-                        required: 'Centro es obligatorio',
+                        required: '@lang('messages.alert.centro_obligatorio')',
                     },
                     address: {
-                        required: "Dirección es obligatorio",
-                        minlength: "Dirección debe ser mayor a 3 caracteres",
+                        required: "@lang('messages.alert.direccion_obligatoria')",
+                        minlength: "@lang('messages.alert.direccion_3_caracteres')",
                     },
                     number_floor: {
-                        required: "Número de piso es obligatorio",
+                        required: "@lang('messages.alert.num_piso_obligatorio')",
                     },
 
                     number_consulting_room: {
-                        required: "Número del consultorio es obligatorio",
+                        required: "@lang('messages.alert.num_cons_obligatorio')",
                     },
                     state_contrie: {
-                        required: "Estado es obligatorio",
+                        required: "@lang('messages.alert.estado_obligatorio')",
                     },
                     city_contrie: {
-                        required: "Ciudad es obligatorio",
+                        required: "@lang('messages.alert.ciudad_obligatorio')",
                     },
                     full_name: {
-                        required: "Nombre del centro es obligatorio",
+                        required: "@lang('messages.alert.nombre_centro_obligatorio')",
                     }
                 }
             });
@@ -126,7 +126,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function(response) {
-                          
+
                             $('#send').show();
 
                             $('#spinner').hide();
@@ -137,10 +137,10 @@
 
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Centro registrado exitosamente!',
+                                title: '@lang('messages.alert.centro_registrado')',
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
                             }).then((result) => {
                                 $('#modalCenter').modal('toggle');
                                 refreshTable();
@@ -154,7 +154,7 @@
                                     title: elm,
                                     allowOutsideClick: false,
                                     confirmButtonColor: '#42ABE2',
-                                    confirmButtonText: 'Click para salir'
+                                    confirmButtonText: '@lang('messages.botton.aceptar')'
                                 }).then((result) => {
 
                                     $('#send').show();
@@ -176,20 +176,20 @@
             if ($(`#${e.target.id}`).is(':checked')) {
                 Swal.fire({
                     icon: 'warning',
-                    title: '¿Está seguro que desea habilitar este centro?',
+                    title: '@lang('messages.alert.habilitar_centro')',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
                 }).then((result) => {
                     handlerStatus("{{ route('center_enabled', ':id') }}", e.target.value);
                 });
             } else {
                 Swal.fire({
                     icon: 'warning',
-                    title: '¿Está seguro que desea deshabilitar este centro?',
+                    title: '@lang('messages.alert.deshabilitar_centro')',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
                 }).then((result) => {
                     handlerStatus("{{ route('center_disabled', ':id') }}", e.target.value);
                 });
@@ -210,8 +210,7 @@
                     let data = [];
                     let checked = ''
                     res.map((elem) => {
-                        if (elem.status ==
-                            "1") {
+                        if (elem.status == "1") {
                             checked = "checked";
 
                         } else {
@@ -235,33 +234,33 @@
                         "bLengthChange": false,
                         columns: [{
                                 data: 'center',
-                                title: 'Centro de Salud',
-                                className: "text-center",
+                                title: '@lang('messages.tabla.centro_salud')',
+                                className: "text-center w-30",
                             },
                             {
                                 data: 'address',
-                                title: 'Dirección',
+                                title: '@lang('messages.tabla.direccion')',
                                 className: "text-center w-50",
                             },
                             {
                                 data: 'number_floor',
-                                title: 'Piso',
+                                title: '@lang('messages.tabla.piso')',
                                 className: "text-center w-5",
                             },
                             {
                                 data: 'number_consulting_room',
-                                title: 'Consultorio',
+                                title: '@lang('messages.tabla.consultorio')',
                                 className: "text-center w-5",
                             },
 
                             {
                                 data: 'phone_consulting_room',
-                                title: 'Teléfono',
+                                title: '@lang('messages.tabla.telefono')',
                                 className: "text-center w-10",
                             },
                             {
                                 data: 'btn',
-                                title: 'Estatus',
+                                title: '@lang('messages.tabla.estatus')',
                                 className: "text-center table-check w-5",
                             }
                         ],
@@ -306,7 +305,7 @@
 @section('content')
     <div>
         <div class="container-fluid" style="padding: 0 3% 3%">
-   
+
             <div class="row mt-2">
                 {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
                     <h5 class="text-capitalize">Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}</h5>
@@ -325,29 +324,21 @@
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row mt-2">
-                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8"
-                                            style="font-size:10px;">
-                                            <button type="button" id="btnShow" class="btn btnPrimary"
-                                                onclick="showModal()">@lang('messages.botton.asociar_centro')</button>
+                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8" style="font-size:10px;">
+                                            <button type="button" id="btnShow" class="btn btnPrimary" onclick="showModal()">@lang('messages.botton.asociar_centro')</button>
                                         </div>
                                     </div>
                                     <hr>
-                                    <div class="table-responsive" id="table-patients"
-                                        style="margin-top: 20px; width: 100%;">
+                                    <div class="table-responsive" id="table-patients" style="margin-top: 20px; width: 100%;">
                                         <table id="table-centers" class="table table-striped table-bordered" style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center w-30">@lang('messages.tabla.centro_salud')</th>
-                                                    <th class="text-center w-45" data-orderable="false">@lang('messages.tabla.direccion')
-                                                    </th>
-                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.piso')
-                                                    </th>
-                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.consultorio')
-                                                    </th>
-                                                    <th class="text-center w-10" data-orderable="false">@lang('messages.tabla.telefono')
-                                                    </th>
-                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.estatus')
-                                                    </th>
+                                                    <th class="text-center w-45" data-orderable="false">@lang('messages.tabla.direccion') </th>
+                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.piso') </th>
+                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.consultorio') </th>
+                                                    <th class="text-center w-10" data-orderable="false">@lang('messages.tabla.telefono') </th>
+                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.estatus') </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -392,8 +383,7 @@
                         <div class="modal-header title">
                             <i class="bi bi-hospital"></i>
                             <span style="padding-left: 5px">@lang('messages.modal.titulo.asociar_centro')</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                style="font-size: 12px;"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                         </div>
                         <div class="modal-body">
                             <form id="form-centers" method="post" action="/">
@@ -406,7 +396,7 @@
                                     <div class="row" id="div-new-center" style="display: none">
 
                                         <x-ubigeo_contries class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" />
-    
+
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
@@ -425,8 +415,7 @@
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.direccion')</label>
+                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.direccion')</label>
                                                 <textarea id="address" rows="2" name="address" class="form-control"></textarea>
                                                 <i class="bi bi-geo st-icon"></i>
                                             </div>
@@ -435,8 +424,7 @@
                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.piso')</label>
+                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.piso')</label>
                                                 <input autocomplete="off" class="mask-alfa-numeric form-control"
                                                     id="number_floor" name="number_floor" type="text" value=""
                                                     maxlength="2">
@@ -447,8 +435,7 @@
                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 12px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.consultorio')</label>
+                                                <label for="name" class="form-label" style="font-size: 12px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.consultorio')</label>
                                                 <input autocomplete="off" class="form-control mask-alfa-numeric"
                                                     id="number_consulting_room" name="number_consulting_room"
                                                     type="text" value="" maxlength="5">
@@ -459,8 +446,7 @@
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.telefono_consultorio')</label>
+                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.telefono_consultorio')</label>
                                                 <input autocomplete="off" class="form-control phone"
                                                     id="phone_consulting_room" name="phone_consulting_room"
                                                     type="text" value="">
