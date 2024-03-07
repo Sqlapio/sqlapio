@@ -119,6 +119,14 @@
         }
     }
 </style>
+@php
+    $lang = session()->get('locale');
+    if ($lang == 'en') {
+        $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/en-EN.json';
+    } else{
+        $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json';
+    }
+@endphp
 @push('scripts')
     <script>
         let studies_array = [];
@@ -128,6 +136,7 @@
         let countTable = 0;
         let estudios_sin_resul = @json($estudios_sin_resul);
         let countTableDos = 0;
+        let url = @json($url);
 
         $(document).ready(function() {
 
@@ -137,7 +146,7 @@
 
             new DataTable('.table-pag', {
                 language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                    url: url,
                 },
                 reponsive: true,
                 searching: false,
@@ -160,7 +169,7 @@
 
             new DataTable('.table-pag-dos', {
                 language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                    url: url,
                 },
                 reponsive: true,
                 searching: false,
@@ -194,10 +203,10 @@
                 },
                 messages: {
                     img: {
-                        required: 'Debe cargar un Archivo',
+                        required: '@lang('messages.alert.cargar_archivo')',
                     },
                     count: {
-                        required: 'Debe selecionar un resultado',
+                        required: '@lang('messages.alert.seleccionar_resultado')',
                     }
                 }
             });
@@ -230,10 +239,10 @@
                             $("#form-load-img-estudios").trigger("reset");
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Operacion exitosa!',
+                                title: '@lang('messages.alert.operacion_exitosa')',
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
                             }).then((result) => {
                                 location.reload();
                             });
@@ -245,7 +254,7 @@
                                     title: elm,
                                     allowOutsideClick: false,
                                     confirmButtonColor: '#42ABE2',
-                                    confirmButtonText: 'Click para salir'
+                                    confirmButtonText: '@lang('messages.botton.aceptar')'
                                 }).then((result) => {
                                     $('#send').show();
                                     $('#spinner').hide();
@@ -281,20 +290,20 @@
                         if (response.length === 0) {
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'El paciente no tiene información cargada en el sistema!',
+                                title: '@lang('messages.alert.paciente_sin_info')',
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
                             });
                             return false;
 
                         }
                         Swal.fire({
                             icon: 'success',
-                            title: 'Operación exitosa!',
+                            title: '@lang('messages.alert.operacion_exitosa')',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         }).then((result) => {
                             $('#spinner2').hide();
 
@@ -315,7 +324,7 @@
                             title: error.responseJSON.errors,
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         }).then((result) => {
                             $('#send').show();
                             $('#spinner').hide();
@@ -381,10 +390,10 @@
         function showNotStudy() {
             Swal.fire({
                 icon: 'warning',
-                title: 'No hay estudios cargados',
+                title: '@lang('messages.alert.no_estudios')',
                 allowOutsideClick: false,
                 confirmButtonColor: '#42ABE2',
-                confirmButtonText: 'Aceptar'
+                confirmButtonText: '@lang('messages.botton.aceptar')'
             });
             return false;
         }
@@ -428,14 +437,14 @@
                 elem.ci = (elem.get_patient.is_minor == "true") ? `${elem.get_reprensetative.re_ci} (Rep)` : elem
                     .get_patient.ci;
 
-                elem.description = `${elem.description}----->${elem.id}`
+                elem.description = `${elem.description}`
 
                 data.push(elem);
             });
 
             new DataTable('#table-info-estudios', {
                 language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                    url: url,
                 },
                 bDestroy: true,
                 reponsive: true,
@@ -545,7 +554,7 @@
 
             new DataTable('#table-info-sin-estudios', {
                 language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                    url: url,
                 },
                 bDestroy: true,
                 reponsive: true,
@@ -817,64 +826,62 @@
                 <x-load-spinner show="true" />
             </div>
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header title">
-                            <span style="padding-left: 5px">Carga de resultados</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                style="font-size: 12px;"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="form-load-img-estudios" method="post" action="/">
-                                {{ csrf_field() }}
-                                <input type="hidden" id="id" name="id" value="">
-                                <input type="hidden" id="code_ref" name="code_ref" value="">
-                                <input type="hidden" id="doctor_id" name="doctor_id" value="{{ Auth::user()->id }}">
+                <div class="modal-content">
+                    <div class="modal-header title">
+                        <span style="padding-left: 5px">@lang('messages.modal.titulo.carga_resultados')</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            style="font-size: 12px;"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-load-img-estudios" method="post" action="/">
+                            {{ csrf_field() }}
+                            <input type="hidden" id="id" name="id" value="">
+                            <input type="hidden" id="code_ref" name="code_ref" value="">
+                            <input type="hidden" id="doctor_id" name="doctor_id" value="{{ Auth::user()->id }}">
 
-                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                    <strong>Referencia: </strong><span id="ref"></span>
-                                    <br>
-                                    <strong>Paciente: </strong><span class="text-capitalize" id="ref-pat"></span>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="info-show">
-                                        <table class="table table-striped table-bordered" id="table-info">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" scope="col">Código</th>
-                                                    <th class="text-center" scope="col">Descripción</th>
-                                                    <th class="text-center" scope="col" data-orderable="false">Cargar Resultado</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody></tbody>
-                                        </table>
-                                    </div>
-
-                                    <div class="col-sm-7 md-7 lg-7 xl-7 xxl-7" style="display: none">
-                                        <div class="input-group flex-nowrap">
-                                            <span class="input-group-text">Total resultados
-                                            </span>
-                                            <input type="text" id="count" name="count" class="form-control"
-                                                readonly value="">
-                                        </div>
-                                    </div>
+                            <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                                <strong>@lang('messages.modal.titulo.referencia'): </strong><span id="ref"></span>
+                                <br>
+                                <strong>@lang('messages.modal.titulo.paciente'): </strong><span class="text-capitalize" id="ref-pat"></span>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="info-show">
+                                    <table class="table table-striped table-bordered" id="table-info">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" scope="col">@lang('messages.modal.tabla.codigo')</th>
+                                                <th class="text-center" scope="col">@lang('messages.modal.tabla.descripcion')</th>
+                                                <th class="text-center" scope="col" data-orderable="false">@lang('messages.modal.tabla.carga_resultado')</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
                                 </div>
 
-                                <div id="input-array"></div>
-                                <div id="div-btn">
-                                    <div class="row mt-2 div-result">
-                                        <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                            <x-upload-image title="Cargar Resultados" />
-                                        </div>
-                                    </div>
-                                    <div class="row text-center">
-                                        <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                            <input class="btn btnPrimary send " value="Guardar" type="submit" />
-                                        </div>
+                                <div class="col-sm-7 md-7 lg-7 xl-7 xxl-7" style="display: none">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text">Total resultados
+                                        </span>
+                                        <input type="text" id="count" name="count" class="form-control"
+                                            readonly value="">
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+
+                            <div id="input-array"></div>
+                            <div id="div-btn">
+                                <div class="row mt-2 div-result">
+                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                                        <x-upload-image title="Cargar Resultados" />
+                                    </div>
+                                </div>
+                                <div class="row text-center">
+                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                                        <input class="btn btnPrimary send " value="@lang('messages.botton.guardar')" type="submit" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
