@@ -214,6 +214,8 @@
                             },
                             success: function(response) {
 
+                                $('#spinner').hide();
+
                                 Swal.fire({
                                     title: 'Ingrese el código',
                                     input: 'number',
@@ -233,9 +235,7 @@
 
                                         }
                                     },
-                                    preConfirm: (login) => {
-                                        
-                                        $('#spinner').hide();
+                                    preConfirm: (login) => {                                        
 
                                         $.ajax({
                                             url: '{{ route('verify_otp_paymet') }}',

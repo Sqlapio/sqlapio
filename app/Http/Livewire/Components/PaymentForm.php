@@ -199,6 +199,7 @@ class PaymentForm extends Component
         try {
 
             $code = random_int(111111, 999999);
+            
             DB::table('users')
                 ->where('email', $request->email)
                 ->update(['cod_update_pass' => $code]);
@@ -223,23 +224,15 @@ class PaymentForm extends Component
 
     public function verify_otp(Request $request)
     {
-        $user = Auth::user();
         try {
-            DB::table('users')
-                ->where('email', $user->email)
-                ->update(['email' => $request->email]);
+
+
+
 
             return response()->json([
                 'success' => 'true',
-                'msj'  => 'Su direccion de correo fue actualizada de forma exitosa.'
-            ], 200);
-
-            /**
-             * Registro de accion en el log
-             * del sistema
-             */
-            $action = '20';
-            ActivityLogController::store_log($action);
+                'msj'  => 'Operacion exitosa!'
+            ], 200);       
 
         } catch (\Throwable $th) {
             return response()->json([
