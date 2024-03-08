@@ -70,6 +70,10 @@
         max-width: 500px !important;
     }
 
+    body {
+        padding-right: 0px !important;
+    }
+
     @media screen and (max-width: 390px) {
         #img-pat {
             margin: 4px 20px 0 0;
@@ -138,15 +142,50 @@
             let appointments = @json($appointments);
             let ulrImge = "{{ URL::asset('/imgs/') }}";
             let imge_avatar = "{{ URL::asset('/img/avatar/') }}";
+            let ulrPaciente = "{{ route('Patients', ':id_patient') }}";
+
             let urlPostCreateAppointment = '{{ route('CreateAppointment') }}';
             getUrl(urlPostCreateAppointment, url2);
-            getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments, imge_avatar);
+            getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments, imge_avatar,ulrPaciente);
         });
+
+        const handlerPetientRegister = (e) => {
+
+            if ($(`#${e.target.id}`).is(':checked')) {
+
+                $(".form-patient-register").show();
+
+                $("#search-patients-show").hide();
+
+                $("#div-pat").hide();
+
+                $("#patient_new").val(true);
+
+            } else {
+
+                $("#name_patient").val('');
+                $("#last_name_patient").val('');
+                $("#phone_patient").val('');
+                $("#email_patient").val('');
+                // $("#birthdate_patient").val('');
+
+                $("#patient_new").val(false);
+
+
+                $("#search-patients-show").show();
+
+
+                $(".form-patient-register").hide();
+            }
+        }
     </script>
 @endpush
 @section('content')
-    <div>
-        <div class="container-fluid" style="padding: 3%">
+<div>
+    <div id="spinner2" style="display: none" class="spinner-md">
+        <x-load-spinner show="true" />
+    </div>
+    <div class="container-fluid" style="padding: 3%">
             <div class="row mt-2">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
                     <div class="card accordion-diary">
@@ -159,10 +198,8 @@
                 </div>
             </div>
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-            id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-dialog">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header title">
                             <i class="bi bi-calendar-week"></i>
@@ -171,13 +208,26 @@
                                 style="font-size: 12px;"></button>
                         </div>
                         <div class="modal-body">
+                            <strong>@lang('messages.modal.form.fecha'): </strong><span id="date"></span>
+
+                            <div id="handlerPetientRegister" class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mb-3 mt-3" style="width: 318px;">
+                                <div class="form-check form-switch ">
+                                    <input onchange="handlerPetientRegister(event);" style="width: 5em"
+                                        class="form-check-input" type="checkbox" role="switch"
+                                        id="flexSwitchCheckChecked" value="">
+                                    <label style="margin-top: 9px; font-size: 15px" class="form-check-label" for="inlineRadio1">
+                                        @lang('messages.label.register_paciente')
+                                    </label>
+                                </div>
+                            </div>
+
+                            {{-- datos del paciente --}}
                             <div class="row mt-2">
                                 <div id="div-pat" style="display: none">
                                     <div class="d-flex" style="align-items: center;">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 modal-d">
                                             <div class="img">
-                                                <img id="img-pat" src="" width="125" height="125"
-                                                    alt="Imagen del paciente">
+                                                <img id="img-pat" src="" width="125" height="125" alt="Imagen del paciente">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 modal-text" style="font-size: 13px;">
@@ -185,9 +235,9 @@
                                                 <strong>@lang('messages.ficha_paciente.nombre'): </strong><span class="text-capitalize" id="name"></span>
                                                 <br>
                                                 @if (Auth::user()->contrie = '81')
-                                                <strong>@lang('messages.ficha_paciente.ci_rd'): </strong><span id="ci"></span>
+                                                    <strong>@lang('messages.ficha_paciente.ci_rd'): </strong><span id="ci"></span>
                                                 @else
-                                                <strong>@lang('messages.ficha_paciente.ci'): </strong><span id="ci"></span>
+                                                    <strong>@lang('messages.ficha_paciente.ci'): </strong><span id="ci"></span>
                                                 @endif
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.edad'): </strong><span id="age"></span> años
@@ -218,6 +268,10 @@
                             <form action="" id="form-appointment">
                                 {{ csrf_field() }}
 
+                                <x-patient-create />
+
+                                <input type="hidden" name="patient_new" id="patient_new" value="">
+
                                 <x-select-dos :data="$patient" />
 
                                 <div class="row mt-1">
@@ -225,8 +279,7 @@
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="FC">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="date" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.fecha')</label>
+                                                <label for="date" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.fecha')</label>
                                                 <input autocomplete="off" placeholder="" class="form-control"
                                                     id="date_start" readonly name="date_start" type="text"
                                                     value="">
@@ -264,8 +317,7 @@
                                     </div>
 
                                     @if (Auth::user()->type_plane != '7')
-                                        <x-centers_user
-                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="CM"/>
+                                        <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="CM" />
                                     @endif
 
                                     <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center"
@@ -313,7 +365,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 @endsection

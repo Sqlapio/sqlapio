@@ -105,7 +105,7 @@ Route::middleware(['auth','AuthCheck'])->group(function () {
         Route::middleware(['VerifySelloDigital', 'verify_email'])->group(function () {
             Route::get('/home', [Home::class, 'render'])->name('home');
             Route::get('/dashboard', [DashboardComponent::class, 'render'])->name('DashboardComponent');
-            Route::get('/patients', [Patients::class, 'render'])->name('Patients')->middleware(['VerifyPlanExpiredPlan']);
+            Route::get('/patients/{id_patient?}', [Patients::class, 'render'])->name('Patients')->middleware(['VerifyPlanExpiredPlan']);
             Route::get('/setting', [setting::class, 'render'])->name('Setting');
             Route::get('/diary', [Diary::class, 'render'])->name('Diary');
             Route::post('/create-appointment', [Diary::class, 'store'])->name('CreateAppointment')->middleware(['VerifyPlanExpiredPlan']);
@@ -121,6 +121,8 @@ Route::middleware(['auth','AuthCheck'])->group(function () {
                 Route::get('/medical-record/{id}', [MedicalRecord::class, 'render'])->name('MedicalRecord')->middleware(['VerifyPlans']);
                 Route::post('/medical-consultation-create', [MedicalRecord::class, 'store'])->name('MedicalRecordCreate')->middleware(['VerifyPlans']);
                 Route::post('/create-informe-medico', [MedicalRecord::class, 'informe_medico'])->name('create-informe-medico')->middleware(['VerifyPlans']);
+                Route::post('/create-examen-fisico', [MedicalRecord::class, 'store_physical_exams'])->name('create-examen-fisico')->middleware(['VerifyPlans']);
+
                 Route::get('/medical-history', [MedicalHistory::class, 'render'])->name('MedicalHistory');
                 Route::post('/register-patients', [Patients::class, 'store'])->name('register-patients');
                 Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail')->middleware(['VerifyPlans', 'VerifyPlanExpiredPlan']);

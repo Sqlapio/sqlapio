@@ -59,6 +59,7 @@
         /* font-family: 'Roboto', 'Inter', "Helvetica Neue", Helvetica, 'Source Sans Pro' !important; */
         letter-spacing: -.022em;
         color: #1d1d1f;
+        padding-right: 0px !important;
     }
 
     .form-switch {
@@ -118,6 +119,14 @@
         }
     }
 </style>
+@php
+    $lang = session()->get('locale');
+    if ($lang == 'en') {
+        $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/en-EN.json';
+    } else{
+        $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json';
+    }
+@endphp
 @push('scripts')
     <script>
         let studies_array = [];
@@ -127,6 +136,7 @@
         let countTable = 0;
         let estudios_sin_resul = @json($estudios_sin_resul);
         let countTableDos = 0;
+        let url = @json($url);
 
         $(document).ready(function() {
 
@@ -136,7 +146,7 @@
 
             new DataTable('.table-pag', {
                 language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                    url: url,
                 },
                 reponsive: true,
                 searching: false,
@@ -159,7 +169,7 @@
 
             new DataTable('.table-pag-dos', {
                 language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                    url: url,
                 },
                 reponsive: true,
                 searching: false,
@@ -193,10 +203,10 @@
                 },
                 messages: {
                     img: {
-                        required: 'Debe cargar un Archivo',
+                        required: '@lang('messages.alert.cargar_archivo')',
                     },
                     count: {
-                        required: 'Debe selecionar un resultado',
+                        required: '@lang('messages.alert.seleccionar_resultado')',
                     }
                 }
             });
@@ -229,10 +239,10 @@
                             $("#form-load-img-estudios").trigger("reset");
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Operacion exitosa!',
+                                title: '@lang('messages.alert.operacion_exitosa')',
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
                             }).then((result) => {
                                 location.reload();
                             });
@@ -244,7 +254,7 @@
                                     title: elm,
                                     allowOutsideClick: false,
                                     confirmButtonColor: '#42ABE2',
-                                    confirmButtonText: 'Click para salir'
+                                    confirmButtonText: '@lang('messages.botton.aceptar')'
                                 }).then((result) => {
                                     $('#send').show();
                                     $('#spinner').hide();
@@ -276,23 +286,24 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
+                        $('#spinner2').hide();
                         if (response.length === 0) {
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'El paciente no tiene información cargada en el sistema!',
+                                title: '@lang('messages.alert.paciente_sin_info')',
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
                             });
                             return false;
 
                         }
                         Swal.fire({
                             icon: 'success',
-                            title: 'Operación exitosa!',
+                            title: '@lang('messages.alert.operacion_exitosa')',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         }).then((result) => {
                             $('#spinner2').hide();
 
@@ -313,7 +324,7 @@
                             title: error.responseJSON.errors,
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         }).then((result) => {
                             $('#send').show();
                             $('#spinner').hide();
@@ -353,7 +364,7 @@
                                     <br>
                                     <span>Ver consulta:
                                     <a href="${url}" class="cod-co">
-                                    <strong class="text-capitalize" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Consulta"> ${elem.record_code}</strong>
+                                        <strong class="text-capitalize" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Consulta"> ${elem.record_code}</strong>
                                     </a>
                                     </span>
                                     <br>
@@ -379,10 +390,10 @@
         function showNotStudy() {
             Swal.fire({
                 icon: 'warning',
-                title: 'No hay estudios cargados',
+                title: '@lang('messages.alert.no_estudios')',
                 allowOutsideClick: false,
                 confirmButtonColor: '#42ABE2',
-                confirmButtonText: 'Aceptar'
+                confirmButtonText: '@lang('messages.botton.aceptar')'
             });
             return false;
         }
@@ -399,11 +410,10 @@
                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                         <a target="_blank" href="${target}" style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
                             <button type="button"
-                                class="btn btn-iPrimary rounded-circle"
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="bottom"
-                                title="Ver archivo">
-                                <i class="bi bi-file-earmark-text"></i>
+                                title="@lang('messages.tooltips.ver_estudios')">
+                                <img width="32" height="auto" src="{{ asset('/img/icons/doc.png') }}" alt="avatar">
                             </button>
                         </a>
                     </div>
@@ -427,14 +437,14 @@
                 elem.ci = (elem.get_patient.is_minor == "true") ? `${elem.get_reprensetative.re_ci} (Rep)` : elem
                     .get_patient.ci;
 
-                elem.description = `${elem.description}----->${elem.id}`
+                elem.description = `${elem.description}`
 
                 data.push(elem);
             });
 
             new DataTable('#table-info-estudios', {
                 language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                    url: url,
                 },
                 bDestroy: true,
                 reponsive: true,
@@ -459,33 +469,38 @@
                 columns: [{
 
                         data: 'img',
-                        title: 'Foto',
+                        title: '@lang('messages.tabla.foto')',
                         className: "text-center text-capitalize w-image",
                     },
                     {
                         data: 'date',
-                        title: 'Fecha',
-                        className: "text-center",
+                        title: '@lang('messages.tabla.fecha_solicitud')',
+                        className: "text-center w-10",
+                    },
+                    {
+                        data: 'date_result',
+                        title: '@lang('messages.tabla.fecha_resultado')',
+                        className: "text-center w-10",
                     },
                     {
 
                         data: 'full_name',
-                        title: 'Nombre y apellido',
-                        className: "text-center",
+                        title: '@lang('messages.tabla.nombre_apellido')',
+                        className: "text-center w-17",
                     },
                     {
                         data: 'ci',
-                        title: 'Cedula',
-                        className: "text-center text-capitalize",
+                        title: '@lang('messages.tabla.cedula')',
+                        className: "text-center text-capitalize w-10",
                     },
                     {
                         data: 'description',
-                        title: 'Descripcion del estudio',
+                        title: '@lang('messages.tabla.descripcion')',
                         className: "text-center text-capitalize",
                     },
                     {
                         data: 'btn',
-                        title: 'Resultado',
+                        title: '@lang('messages.tabla.resultado')',
                         className: "text-center",
                     }
                 ],
@@ -507,10 +522,9 @@
                     e.btn = `<button onclick='showModal(${ eData })'
                             data-bs-toggle='tooltip' data-bs-placement='right'
                             data-bs-custom-class='custom-tooltip' data-html='true'
-                            title='Ver estudios' type='button'
-                            class='btn btn-iPrimary rounded-circle'
+                            title="@lang('messages.tooltips.cargar_estudio')" type='button'
                             style="margin-right: 0">
-                            <i class='bi bi-info-circle-fill'></i>
+                            <img width="30" height="auto" src="{{ asset('/img/icons/add-document.png') }}" alt="avatar">
                             </button>`;
 
 
@@ -540,7 +554,7 @@
 
             new DataTable('#table-info-sin-estudios', {
                 language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                    url: url,
                 },
                 bDestroy: true,
                 reponsive: true,
@@ -565,34 +579,34 @@
                 columns: [{
 
                         data: 'img',
-                        title: 'Foto',
+                        title: '@lang('messages.tabla.foto')',
                         className: "text-center text-capitalize w-image",
                     },
                     {
 
                         data: 'date',
-                        title: 'Fecha',
-                        className: "text-center",
+                        title: '@lang('messages.tabla.fecha_solicitud')',
+                        className: "text-center w-10",
                     },
                     {
 
                         data: 'cod_ref',
-                        title: 'Referencia',
+                        title: '@lang('messages.tabla.referencia')',
                         className: "text-center",
                     },
                     {
                         data: 'full_name',
-                        title: 'Nombre y apellido',
-                        className: "text-center text-capitalize",
+                        title: '@lang('messages.tabla.nombre_apellido')',
+                        className: "text-center text-capitalize w-17",
                     },
                     {
                         data: 'ci',
-                        title: 'Cédula',
-                        className: "text-center text-capitalize",
+                        title: '@lang('messages.tabla.cedula')',
+                        className: "text-center text-capitalize w-10",
                     },
                     {
                         data: 'btn',
-                        title: 'Cargar Resultado',
+                        title: '@lang('messages.tabla.cargar_res')',
                         className: "text-center",
                     }
                 ],
@@ -684,26 +698,24 @@
                                 <i class="bi bi-person"></i></i> @lang('messages.acordion.estudios_cargados')
                             </button>
                         </span>
-                        <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample">
+                        <div id="collapseOne" class="accordion-collapse collapsee" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <x-search-person />
+                                {{-- examenes con resultados --}}
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                         <hr>
                                         <h5 class="mb-4">@lang('messages.subtitulos.estudios_res')</h5>
-                                        <table id="table-info-estudios" class="table-pag table-striped table-bordered"
-                                            style="width:100%; ">
+                                        <table id="table-info-estudios" class="table-pag table-striped table-bordered" style="width:100%; ">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center w-image" scope="col" data-orderable="false">
-                                                        @lang('messages.tabla.foto')</th>
-                                                    <th class="text-center" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
-                                                    <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                    <th class="text-center" scope="col">@lang('messages.tabla.cedula')</th>
+                                                    <th class="text-center w-image" scope="col" data-orderable="false"> @lang('messages.tabla.foto')</th>
+                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
+                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_resultado')</th>
+                                                    <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                     <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
-                                                    <th class="text-center"scope="col" data-orderable="false">
-                                                        @lang('messages.tabla.resultado')</th>
+                                                    <th class="text-center w-5"scope="col" data-orderable="false"> @lang('messages.tabla.resultado')</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -715,25 +727,23 @@
                                                                 alt="Imagen del paciente">
                                                         </td>
                                                         <td class="text-center"> {{ $item->date }} </td>
-                                                        <td class="text-center text-capitalize">
-                                                            {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }}
-                                                        </td>
-                                                        <td class="text-center">
-                                                            {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }}
-                                                        </td>
+                                                        <td class="text-center"> {{ $item->date_result }} </td>
+                                                        <td class="text-center text-capitalize"> {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }} </td>
+                                                        <td class="text-center"> {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }} </td>
                                                         <td class="text-center"> {{ $item->description }} </td>
                                                         <td class="text-center">
                                                             <div class="d-flex" style="justify-content: center;">
                                                                 <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                    <a target="_blank"
-                                                                        href="{{ URL::asset('/imgs/' . $item->file) }}"
-                                                                        style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
+                                                                    <a target="_blank"  href="{{ URL::asset('/imgs/' . $item->file) }}" style="color: #47525e; text-decoration: none; display: flex; justify-content: center;">
                                                                         <button type="button"
-                                                                            class="btn btn-iPrimary rounded-circle"
                                                                             data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom" title="Ver archivo"
-                                                                            style="margin-right: 0">
-                                                                            <i class="bi bi-file-earmark-text"></i>
+                                                                            data-bs-placement="bottom"
+                                                                            data-bs-custom-class="custom-tooltip"
+                                                                            data-html="true"
+                                                                            title="@lang('messages.tooltips.ver_estudios')">
+                                                                            <img width="32" height="auto"
+                                                                                src="{{ asset('/img/icons/doc.png') }}"
+                                                                                alt="avatar">
                                                                         </button>
                                                                     </a>
                                                                 </div>
@@ -745,7 +755,7 @@
                                         </table>
                                     </div>
                                 </div>
-
+                                {{-- EXAMENES SIN RESULTADOS --}}
                                 <div class="row mt-3">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                         <hr>
@@ -754,14 +764,12 @@
                                             class="table-pag-dos table-striped table-bordered" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center w-image" scope="col" data-orderable="false">
-                                                        @lang('messages.tabla.foto')</th>
-                                                    <th class="text-center" scope="col">@lang('messages.tabla.fecha_resultado')</th>
+                                                    <th class="text-center w-image" scope="col" data-orderable="false"> @lang('messages.tabla.foto')</th>
+                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
                                                     <th class="text-center" scope="col">@lang('messages.tabla.referencia')</th>
-                                                    <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                    <th class="text-center" scope="col">@lang('messages.tabla.cedula')</th>
-                                                    <th class="text-center" scope="col" data-orderable="false">
-                                                        @lang('messages.tabla.cargar_res')</th>
+                                                    <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false"> @lang('messages.tabla.cargar_res')</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -775,28 +783,23 @@
                                                             </td>
                                                             <td class="text-center"> {{ $item->date }} </td>
                                                             <td class="text-center"> {{ $item->cod_ref }} </td>
-                                                            <td class="text-center">
-                                                                {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }}
-                                                            </td>
-                                                            <td class="text-center">
-                                                                {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }}
-                                                            </td>
+                                                            <td class="text-center">  {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }} </td>
+                                                            <td class="text-center">  {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }} </td>
                                                             <td class="text-center">
                                                                 <div class="d-flex" style="justify-content: center;">
-                                                                    <div
-                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a
-                                                                            style="text-decoration: none; display: flex; justify-content: center;">
+                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <a style="text-decoration: none; display: flex; justify-content: center;">
                                                                             <button
                                                                                 onclick='showModal({{ $item }})'
                                                                                 data-bs-toggle='tooltip'
                                                                                 data-bs-placement='right'
                                                                                 data-bs-custom-class='custom-tooltip'
-                                                                                data-html='true' title='Cargar estudios'
+                                                                                data-html='true' title="@lang('messages.tooltips.cargar_estudio')"
                                                                                 type='button'
-                                                                                class='btn btn-iPrimary rounded-circle'
+                                                                                {{-- class='btn btn-iPrimary rounded-circle' --}}
                                                                                 style="margin-right: 0">
-                                                                                <i class='bi bi-info-circle-fill'></i>
+                                                                                <img width="30" height="auto" src="{{ asset('/img/icons/add-document.png') }}" alt="avatar">
+                                                                                {{-- <i class='bi bi-info-circle-fill'></i> --}}
                                                                             </button>
                                                                         </a>
                                                                     </div>
@@ -823,65 +826,62 @@
                 <x-load-spinner show="true" />
             </div>
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header title">
-                            <span style="padding-left: 5px">Carga de resultados</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                style="font-size: 12px;"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="form-load-img-estudios" method="post" action="/">
-                                {{ csrf_field() }}
-                                <input type="hidden" id="id" name="id" value="">
-                                <input type="hidden" id="code_ref" name="code_ref" value="">
-                                <input type="hidden" id="doctor_id" name="doctor_id" value="{{ Auth::user()->id }}">
+                <div class="modal-content">
+                    <div class="modal-header title">
+                        <span style="padding-left: 5px">@lang('messages.modal.titulo.carga_resultados')</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            style="font-size: 12px;"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-load-img-estudios" method="post" action="/">
+                            {{ csrf_field() }}
+                            <input type="hidden" id="id" name="id" value="">
+                            <input type="hidden" id="code_ref" name="code_ref" value="">
+                            <input type="hidden" id="doctor_id" name="doctor_id" value="{{ Auth::user()->id }}">
 
-                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                    <strong>Referencia: </strong><span id="ref"></span>
-                                    <br>
-                                    <strong>Paciente: </strong><span class="text-capitalize" id="ref-pat"></span>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="info-show">
-                                        <table class="table table-striped table-bordered" id="table-info">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" scope="col">Código</th>
-                                                    <th class="text-center" scope="col">Descripción</th>
-                                                    <th class="text-center" scope="col" data-orderable="false">Cargar
-                                                        Resultado</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody></tbody>
-                                        </table>
-                                    </div>
-
-                                    <div class="col-sm-7 md-7 lg-7 xl-7 xxl-7" style="display: none">
-                                        <div class="input-group flex-nowrap">
-                                            <span class="input-group-text">Total resultados
-                                            </span>
-                                            <input type="text" id="count" name="count" class="form-control"
-                                                readonly value="">
-                                        </div>
-                                    </div>
+                            <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                                <strong>@lang('messages.modal.titulo.referencia'): </strong><span id="ref"></span>
+                                <br>
+                                <strong>@lang('messages.modal.titulo.paciente'): </strong><span class="text-capitalize" id="ref-pat"></span>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="info-show">
+                                    <table class="table table-striped table-bordered" id="table-info">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" scope="col">@lang('messages.modal.tabla.codigo')</th>
+                                                <th class="text-center" scope="col">@lang('messages.modal.tabla.descripcion')</th>
+                                                <th class="text-center" scope="col" data-orderable="false">@lang('messages.modal.tabla.carga_resultado')</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
                                 </div>
 
-                                <div id="input-array"></div>
-                                <div id="div-btn">
-                                    <div class="row mt-2 div-result">
-                                        <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                            <x-upload-image title="Cargar Resultados" />
-                                        </div>
-                                    </div>
-                                    <div class="row text-center">
-                                        <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                            <input class="btn btnPrimary send " value="Guardar" type="submit" />
-                                        </div>
+                                <div class="col-sm-7 md-7 lg-7 xl-7 xxl-7" style="display: none">
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text">Total resultados
+                                        </span>
+                                        <input type="text" id="count" name="count" class="form-control"
+                                            readonly value="">
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+
+                            <div id="input-array"></div>
+                            <div id="div-btn">
+                                <div class="row mt-2 div-result">
+                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                                        <x-upload-image title="Cargar Resultados" />
+                                    </div>
+                                </div>
+                                <div class="row text-center">
+                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
+                                        <input class="btn btnPrimary send " value="@lang('messages.botton.guardar')" type="submit" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

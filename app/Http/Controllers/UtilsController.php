@@ -27,6 +27,7 @@ use App\Models\NonPathologicalBackground;
 use App\Models\PathologicalBackground;
 use App\Models\Reference;
 use App\Models\Representative;
+use App\Models\Specialty;
 use App\Models\Study;
 use App\Models\StudyPatient;
 use App\Models\Token;
@@ -120,6 +121,12 @@ class UtilsController extends Controller
 		if ($value == '22') {
 			return 'initial registration of General Manager';
 		}
+        if ($value == '23') {
+			return 'dairy: pre-registration of patient';
+		}
+        if ($value == '24') {
+			return 'add physical exams';
+		}
 	}
 
 	/**
@@ -162,6 +169,14 @@ class UtilsController extends Controller
 			} else {
 				$nameFile = $request->img;
 			}
+			$specialty =  $request->specialty;
+			
+			if($request->specialty_new!=null){
+				
+				$specialty_new = Specialty::create(['description' => $request->specialty_new]);
+
+				$specialty =  $specialty_new->description;
+			}
 
 			$update = DB::table('users')
 				->where('id', $id)
@@ -171,7 +186,7 @@ class UtilsController extends Controller
 					'ci' 		=> $request->ci,
 					'birthdate' => $request->birthdate,
 					'genere'    => $request->genere,
-					'specialty' => $request->specialty,
+					'specialty' => $specialty,
 					'age' 		=> $request->age,
 					'phone' 	=> $request->phone,
 					'state' 	=> $request->state_contrie,
@@ -1284,7 +1299,10 @@ class UtilsController extends Controller
 		try {
 
 			$user = Auth::user();
-			$medical_record = MedicalRecord::where('user_id', $user->id)->get()->unique('patient_id');
+			// MedicalRecord::where('user_id', $user->id)->get()->unique('patient_id');
+
+			$medical_record = Patient::where('user_id', $user->id)
+			->with('get_patient_medical_record')->get();
 			return $medical_record;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
@@ -1719,6 +1737,35 @@ class UtilsController extends Controller
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_medical_record_user()', $message);
+		}
+	}
+
+    static function color_dairy()
+	{
+		try {
+
+            $colors = [
+                'rgb(128,0,0)',
+                'rgb(0,139,139)',
+                'rgb(70,130,180)',
+                'rgb(112,128,144)',
+                'rgb(250,128,114)'
+            ];
+
+			/** Selecion aleatoria */
+			$n = count($colors);
+			$rand = mt_rand(0, $n - 1);
+			$color_appointments = $colors[$rand];
+
+            return $color_appointments;
+
+		} catch (\Throwable $th) {
+
+            return response()->json([
+				'success' => 'true',
+				'data'  =>  $th->getMessage()
+			], 400);
+
 		}
 	}
 

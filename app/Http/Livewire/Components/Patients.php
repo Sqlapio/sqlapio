@@ -31,8 +31,7 @@ class Patients extends Component
 
             $user_id = Auth::user()->id;
 
-            if(Str::contains($request->img, 'base64'))
-            {
+            if (Str::contains($request->img, 'base64')) {
                 $file =  $request->img;
                 if ($file != null) {
                     $png = strstr($file, 'data:image/png;base64');
@@ -55,13 +54,12 @@ class Patients extends Component
 
                     file_put_contents(public_path('imgs/') . $nameFile, $file);
                 }
-
-            }else{
+            } else {
                 $nameFile = $request->img;
             }
 
-            if ($request->is_minor == "true")
-            {/** Paciente menor de edad */
+            if ($request->is_minor == "true") {
+                /** Paciente menor de edad */
                 $rules = [
 
                     'name'          => 'required|min:3|max:50',
@@ -121,33 +119,34 @@ class Patients extends Component
                 /** Validacion para cargar el centro correcto cuando el medico
                  * esta asociado al plan corporativo
                  */
-                if(Auth::user()->center_id != null)
-                {
+                if (Auth::user()->center_id != null) {
                     $center_id_corporativo = Auth::user()->center_id;
                 }
 
                 // Guardamos la informacion del paciente menor de edad
 
-                $patient= Patient::updateOrCreate(['id' => $request->id],
-                [
+                $patient = Patient::updateOrCreate(
+                    ['id' => $request->id],
+                    [
 
-                    'patient_code'  => UtilsController::get_patient_code($request->re_ci),
-                    'name'          => $request->name,
-                    'last_name'     => $request->last_name,
-                    'genere'        => $request->genere,
-                    'birthdate'     => $request->birthdate,
-                    'is_minor'      => 'true',
-                    'age'           => $request->age,
-                    // 'state'         => $request->state,
-                    // 'city'          => $request->city,
-                    'address'       => $request->address,
-                    'zip_code'      => $request->zip_code,
-                    'user_id'       => $user_id,
-                    'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
-                    'patient_img'   => $nameFile,
-                    'verification_code' => Str::random(30)
+                        'patient_code'  => UtilsController::get_patient_code($request->re_ci),
+                        'name'          => $request->name,
+                        'last_name'     => $request->last_name,
+                        'genere'        => $request->genere,
+                        'birthdate'     => $request->birthdate,
+                        'is_minor'      => 'true',
+                        'age'           => $request->age,
+                        // 'state'         => $request->state,
+                        // 'city'          => $request->city,
+                        'address'       => $request->address,
+                        'zip_code'      => $request->zip_code,
+                        'user_id'       => $user_id,
+                        'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
+                        'patient_img'   => $nameFile,
+                        'verification_code' => Str::random(30)
 
-                ]);
+                    ]
+                );
 
                 /**
                  * Buscamos el ultimo paciente registrado por el medico
@@ -208,8 +207,8 @@ class Patients extends Component
                  * en nuestro sistema
                  */
 
-                 if(isset($center_id_corporativo))
-                 {  /** Registro del medico con plan corporativo */
+                if (isset($center_id_corporativo)) {
+                    /** Registro del medico con plan corporativo */
                     $type = 'patient_minor';
                     $center_info = Center::where('id', $center_id_corporativo)->first();
                     $mailData = [
@@ -226,9 +225,9 @@ class Patients extends Component
                         'patient_phone' => $re_patient->re_phone,
                     ];
                     UtilsController::notification_mail($mailData, $type);
-
-                 }else /** Registro del medico con plan 1 2 o 3 */
-                 {
+                } else
+                /** Registro del medico con plan 1 2 o 3 */
+                {
                     $type = 'patient_minor';
                     $center_info = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
                     $mailData = [
@@ -245,7 +244,7 @@ class Patients extends Component
                         'patient_phone' => $re_patient->re_phone,
                     ];
                     UtilsController::notification_mail($mailData, $type);
-                 }
+                }
 
 
 
@@ -254,8 +253,8 @@ class Patients extends Component
                  * Funcion para enviar el mensaje por whatsaap
                  * de bienvenida
                  */
-                $caption = 'Bienvenido a sqlapio.com Sr(a). '.$request->name.' '.$request->last_name;
-                $body = 'Paciente: '.$request->name.' '.$request->last_name.' Codigo:'.$patient['patient_code'];
+                $caption = 'Bienvenido a sqlapio.com Sr(a). ' . $request->name . ' ' . $request->last_name;
+                $body = 'Paciente: ' . $request->name . ' ' . $request->last_name . ' Codigo:' . $patient['patient_code'];
 
                 $image = 'http://sqldevelop.sqlapio.net/img/notification_email/cita_header.jpg';
 
@@ -264,23 +263,23 @@ class Patients extends Component
                 ApiServicesController::sms_welcome($phone, $caption, $image);
 
                 ApiServicesController::sms_info($phone, $body);
+            } else {
+                /** Paciente mayor de edad */
+                $rules = [
 
-            } else { /** Paciente mayor de edad */
-                $rules =[
-
-                        'name'          => 'required|min:3|max:50',
-                        'last_name'     => 'required|min:3|max:50',
-                        'ci'            => "required|min:5|max:8|unique:patients,ci,$request->id",
-                        'email'         => "required|email|unique:patients,email,$request->id",
-                        // 'phone'         => 'required',
-                        'profession'    => 'required',
-                        'genere'        => 'required',
-                        'birthdate'     => 'required',
-                        'age'           => 'required|min:1|max:3',
-                        // 'state'         => 'required',
-                        // 'city'          => 'required',
-                        'address'       => 'required',
-                        'zip_code'      => 'required',
+                    'name'          => 'required|min:3|max:50',
+                    'last_name'     => 'required|min:3|max:50',
+                    'ci'            => "required|min:5|max:8|unique:patients,ci,$request->id",
+                    'email'         => "required|email|unique:patients,email,$request->id",
+                    // 'phone'         => 'required',
+                    'profession'    => 'required',
+                    'genere'        => 'required',
+                    'birthdate'     => 'required',
+                    'age'           => 'required|min:1|max:3',
+                    // 'state'         => 'required',
+                    // 'city'          => 'required',
+                    'address'       => 'required',
+                    'zip_code'      => 'required',
 
                 ];
 
@@ -323,43 +322,43 @@ class Patients extends Component
                 /** Validacion para cargar el centro correcto cuando el medico
                  * esta asociado al plan corporativo
                  */
-                if(Auth::user()->center_id != null)
-                {
+                if (Auth::user()->center_id != null) {
                     $center_id_corporativo = Auth::user()->center_id;
                 }
 
                 /** Logica para cargar una nueva profesion */
-                if(isset($request->profession_new))
-                {
-                    $profession_new = Profession::create(['description'=>$request->profession_new]);
+                if (isset($request->profession_new)) {
+                    $profession_new = Profession::create(['description' => $request->profession_new]);
                     $profession = $profession_new;
-                }else{
+                } else {
                     $profession = $request->profession;
                 }
 
-                $patient=  Patient::updateOrCreate(['id' => $request->id],
-                [
+                $patient =  Patient::updateOrCreate(
+                    ['id' => $request->id],
+                    [
 
-                    'patient_code'  => UtilsController::get_patient_code($request->ci),
-                    'name'          => $request->name,
-                    'last_name'     => $request->last_name,
-                    'ci'            => $request->ci,
-                    'email'         => $request->email,
-                    'phone'         => $request->phone,
-                    'profession'    => $profession,
-                    'genere'        => $request->genere,
-                    'birthdate'     => $request->birthdate,
-                    'age'           => $request->age,
-                    'state'         => $request->state,
-                    'city'          => $request->city,
-                    'address'       => $request->address,
-                    'zip_code'      => $request->zip_code,
-                    'user_id'       => $user_id,
-                    'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
-                    'patient_img'   => $nameFile,
-                    'verification_code' => Str::random(30)
+                        'patient_code'  => UtilsController::get_patient_code($request->ci),
+                        'name'          => $request->name,
+                        'last_name'     => $request->last_name,
+                        'ci'            => $request->ci,
+                        'email'         => $request->email,
+                        'phone'         => $request->phone,
+                        'profession'    => $profession,
+                        'genere'        => $request->genere,
+                        'birthdate'     => $request->birthdate,
+                        'age'           => $request->age,
+                        'state'         => $request->state,
+                        'city'          => $request->city,
+                        'address'       => $request->address,
+                        'zip_code'      => $request->zip_code,
+                        'user_id'       => $user_id,
+                        'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
+                        'patient_img'   => $nameFile,
+                        'verification_code' => Str::random(30)
 
-                ]);
+                    ]
+                );
 
                 /**
                  * Acumulado para el manejo de estadisticas
@@ -399,8 +398,8 @@ class Patients extends Component
                  * por haber sido registrado
                  * en nuestro sistema
                  */
-                if(isset($center_id_corporativo))
-                 {  /** Registro del medico con plan corporativo */
+                if (isset($center_id_corporativo)) {
+                    /** Registro del medico con plan corporativo */
                     $type = 'patient';
                     $center_info = Center::where('id', $center_id_corporativo)->first();
                     $mailData = [
@@ -417,28 +416,28 @@ class Patients extends Component
                         'patient_phone' => $patient['phone'],
                     ];
                     UtilsController::notification_mail($mailData, $type);
-
-                 }else /** Registro del medico con plan 1 2 o 3 */
-                 {
+                } else
+                /** Registro del medico con plan 1 2 o 3 */
+                {
                     $type = 'patient';
                     $center_info = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
                     $mailData = [
-                    'dr_name' => $user->name . ' ' . $user->last_name,
-                    'center' => Center::where('id', $request->center_id)->first()->description,
-                    'center_piso' => $center_info->number_floor,
-                    'center_consulting_room' => $center_info->number_consulting_room,
-                    'center_phone' => $center_info->phone_consulting_room,
-                    'center_address' => $center_info->address,
-                    'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
-                    'patient_code' => $patient['patient_code'],
-                    'patient_email' => $patient['email'],
-                    'patient_phone' => $patient['phone'],
+                        'dr_name' => $user->name . ' ' . $user->last_name,
+                        'center' => Center::where('id', $request->center_id)->first()->description,
+                        'center_piso' => $center_info->number_floor,
+                        'center_consulting_room' => $center_info->number_consulting_room,
+                        'center_phone' => $center_info->phone_consulting_room,
+                        'center_address' => $center_info->address,
+                        'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
+                        'patient_code' => $patient['patient_code'],
+                        'patient_email' => $patient['email'],
+                        'patient_phone' => $patient['phone'],
                     ];
                     UtilsController::notification_mail($mailData, $type);
-                 }
+                }
 
-                $caption = 'Bienvenido a sqlapio.com Sr(a). '.$request->name.' '.$request->last_name;
-                $body = 'Paciente: '.$request->name.' '.$request->last_name.' Codigo:'.$patient['patient_code'];
+                $caption = 'Bienvenido a sqlapio.com Sr(a). ' . $request->name . ' ' . $request->last_name;
+                $body = 'Paciente: ' . $request->name . ' ' . $request->last_name . ' Codigo:' . $patient['patient_code'];
 
                 $image = 'http://sqldevelop.sqlapio.net/img/notification_email/cita_header.jpg';
 
@@ -447,7 +446,6 @@ class Patients extends Component
                 ApiServicesController::sms_welcome($phone, $caption, $image);
 
                 ApiServicesController::sms_info($phone, $body);
-
             }
 
             $action = '5';
@@ -458,7 +456,6 @@ class Patients extends Component
             $patient_counter = $patient_counter + 1;
 
             return [$patient, $patient_counter];
-
         } catch (\Throwable $th) {
             $message = $th->getMessage();
             dd('Error Livewire.Components.Patient.store()', $message);
@@ -471,69 +468,40 @@ class Patients extends Component
 
             $array = explode('-', $ci);
 
-            if($array[1] == 'true'){
-                $patient = Patient::where('ci', $array[0])->first();
-                if($patient == null){
-                    return response()->json([
-                        'success' => 'false',
-                        'errors'  => 'El paciente no existe debe registrarlo'
-                    ], 400);
-                }else{
-                    return $patient;
-                }
-            }else{
-                $representative = Representative::where('re_ci', $array[0])->get();
-                if($representative == null){
-                    return response()->json([
-                        'success' => 'false',
-                        'errors'  => 'El paciente no existe debe registrarlo'
-                    ], 400);
-                }else{
-                    foreach ($representative as $key => $value) {
-                        $data_patient = Patient::where('id', $value->patient_id)->first();
-                        $patient_re[$key] = [
-                            'id' => $data_patient->id,
-                            'is_minor' => $data_patient->is_minor,
-                            'name_full' => $data_patient->name." ".$data_patient->last_name,
-                            'patient_code' => $data_patient->patient_code,
-                            'name' => $data_patient->name,
-                            'last_name' => $data_patient->last_name,
-                            'email' => $data_patient->email,
-                            'profession' => $data_patient->profession,
-                            'age' => $data_patient->age,
-                            'genere' => $data_patient->genere,
-                            'birthdate' => $data_patient->birthdate,
-                            'phone' => $data_patient->phone,
-                            'state' => $data_patient->state,
-                            'city' => $data_patient->city,
-                            'address' => $data_patient->address,
-                            'zip_code' => $data_patient->zip_code,
-                            'patient_img' => $data_patient->patient_img,
-                            'get_reprensetative' => [
-                                're_name' => $value->re_name,
-                                're_last_name' => $value->re_last_name,
-                                're_ci' => $value->re_ci,
-                                're_email' => $value->re_email,
-                                're_phone' => $value->re_phone,
-                            ],
-                        ];
-                    }
-                    return $patient_re;
-                }
+            $ci = $array[0];
 
+            $tablePat =  Patient::where('ci', "=", $ci);
+
+            $tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($ci) {
+                $q->where('re_ci', "=", $ci);
+            });
+
+            $patient = $tablePat->union($tableRep)->with('get_reprensetative')->get();
+
+            if (count($patient)==0) {
+                return response()->json([
+                    'success' => 'false',
+                    'errors'  => 'El paciente no existe debe registrarlo'
+                ], 400);
             }
+
+            return $patient;
+
         } catch (\Throwable $th) {
             $message = $th->getMessage();
             dd('Error Livewire.Components.Patient.search()', $message);
         }
     }
-    public function render()
+    public function render($id=null)
     {
+
+        $patient = ($id)? Patient::where('id',$id)->first(): [];
         $patients = UtilsController::get_table_medical_record();
         $cities = UtilsController::get_cities();
         $states = UtilsController::get_states();
         $centers = DoctorCenter::where('user_id', Auth::user()->id)->where('status', 1)->get();
         $user = Auth::user();
-        return view('livewire.components.patients', compact('patients', 'cities', 'states', 'centers','user'));
+
+        return view('livewire.components.patients', compact('patients', 'cities', 'states', 'centers', 'user','patient'));
     }
 }

@@ -15,153 +15,79 @@ let avatar_imge;
 let ulrUpdate;
 let urlPost;
 let dataDos;
+let urlPaciente;
 let arrayAm = [{
   value: '',
   name: 'Seleccione...'
 },
-// {
-//   value: '01:00-02:00-rgb(160,213,210)',
-//   name: "01:00 - 02:00",
-//   color: 'rgb(160,213,210)'
-// },
-// {
-//   value: '02:00-03:00-rgb(160,213,210)',
-//   name: '02:00 - 03:00',
-//   color: 'rgb(160,213,210)'
-
-// },
-// {
-//   value: '03:00-04:00-rgb(160,213,210)',
-//   name: '03:00 - 04:00',
-//   color: 'rgb(160,213,210)'
-
-// },
-// {
-//   value: '04:00-05:00-rgb(160,213,210)',
-//   name: '04:00 - 05:00',
-//   color: 'rgb(160,213,210)'
-
-// },
-// {
-//   value: '05:00-06:0-rgb(160,213,210)',
-//   name: '05:00 - 06:00',
-//   color: 'rgb(160,213,210)'
-
-// },
 {
-  value: '06:00-07:00-rgb(160,213,210)',
+  value: '06:00-07:00',
   name: '06:00 - 07:00',
-  color: 'rgb(160,213,210)'
-
 },
 {
-  value: '07:00-08:00-rgb(160,213,210)',
+  value: '07:00-08:00',
   name: '07:00 - 08:00',
-  color: 'rgb(160,213,210)'
-
 },
 {
-  value: '08:00-09:00-rgb(160,213,210)',
+  value: '08:00-09:00',
   name: '08:00 - 09:00',
-  color: 'rgb(160,213,210)'
-
 },
 {
-  value: '09:00-10:00-rgb(177,177,177)',
+  value: '09:00-10:00',
   name: '09:00 - 10:00',
-  color: 'rgb(177,177,177)'
-
 },
 {
-  value: '10:00-11:00-rgb(178,214,237)',
+  value: '10:00-11:00',
   name: '10:00 - 11:00',
-  color: 'rgb(178,214,237)'
-
 },
 {
-  value: '10:00-11:00-rgb(165,219,189)',
+  value: '10:00-11:00',
   name: '11:00 - 12:00',
-  color: 'rgb(165,219,189)'
-
 }
 ];
+
 let arrayPm = [{
   value: '',
   name: 'Seleccione...'
 },
 {
-  value: '12:00-13:00-rgb(252,208,212)',
+  value: '12:00-13:00',
   name: '12:00 - 01:00',
-  color: 'rgb(252,208,212)'
-
 },
 {
-  value: '13:00-14:00-rgb(244,201,240)',
+  value: '13:00-14:00',
   name: '01:00 - 02:00',
-  color: 'rgb(244,201,240)'
-
 },
 {
-  value: '14:00-15:00-rgbrgb(249,174,112)',
+  value: '14:00-15:00',
   name: '02:00 - 03:00',
-  color: 'rgb(249,174,112)'
-
 },
 {
-  value: '15:00-16:00-rgb(217,186,244)',
+  value: '15:00-16:00',
   name: '03:00 - 04:00',
-  color: 'rgb(217,186,244)'
-
 },
 {
-  value: '16:00-17:00-rgb(242,146,141)',
+  value: '16:00-17:00',
   name: '04:00 - 05:00',
-  color: 'rgb(242,146,141)'
-
 },
 {
-  value: '17:00-18:00-rgb(237,242,247)',
+  value: '17:00-18:00',
   name: '05:00 - 06:00',
-  color: 'rgb(237,242,247)'
-
 },
 {
-  value: '18:00-19:00-rgb(178,214,237)',
+  value: '18:00-19:00',
   name: '06:00 - 07:00',
-  color: 'rgb(178,214,237)'
-
 },
 {
-  value: '19:00-20:00-rgb(237,219,3)',
+  value: '19:00-20:00',
   name: '07:00 - 08:00',
-  color: 'rgb(237,219,3)'
-
 },
 {
-  value: '20:00-21:00-rgb(69,139,139',
+  value: '20:00-21:00',
   name: '08:00 - 09:00',
-  color: 'rgb(69,139,139)'
-
 },
-// {
-//   value: '21:00-22:00-rgb(139,136,191)',
-//   name: '09:00 - 10:00',
-//   color: 'rgb(139,136,191)'
-
-// },
-// {
-//   value: '22:00-23:00-rgb(175,170,4',
-//   name: '10:00 - 11:00',
-//   color: 'rgb(175,170,4)'
-
-// },
-// {
-//   value: '23:00-00:00-rgb(217,186,244)',
-//   name: '11:00 - 12:00',
-//   color: 'rgb(217,186,244)'
-
-// }
 ];
+
 let dateString = getDateWithoutTime(new Date()).toISOString().substring(0, 10);
 
 
@@ -198,10 +124,25 @@ $(document).ready(() => {
       center_id: {
         required: true,
       },
-      id_select:{
+      id_select: {
         required: true,
-      }
-      
+      },
+      name_patient: {
+        required: true,
+      },
+
+      last_name_patient: {
+        required: true,
+      },
+      phone: {
+        required: true,
+      },
+      email_patient: {
+        required: true,
+      },
+      // birthdate_patient:{
+      //   required: true,
+      // }
     },
     messages: {
       center_id: {
@@ -231,7 +172,23 @@ $(document).ready(() => {
       },
       id_select: {
         required: "Debe Seleccionar un paciente",
-      }
+      },
+      name_patient: {
+        required: "Campo es obligatorio",
+      },
+      last_name_patient: {
+        required: "Campo es obligatorio",
+      },
+      phone: {
+        required: "Campo es obligatorio",
+      },
+      email_patient: {
+        required: "Campo es obligatorio",
+      },
+      // birthdate_patient: {
+      //   required: "Campo es obligatorio",
+      // },
+
     }
   });
 
@@ -286,7 +243,7 @@ $(document).ready(() => {
   })
 });
 
-function getAppointments(appointments, route, routeCancelled, url2, ulrImge, updateAppointments, ulr_imge_avatar) {
+function getAppointments(appointments, route, routeCancelled, url2, ulrImge, updateAppointments, ulr_imge_avatar,ulrPaciente) {
   data = appointments;
   url = route;
   urlDairy = url2;
@@ -294,9 +251,8 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
   ulrimge = ulrImge;
   ulrUpdate = updateAppointments;
   avatar_imge = ulr_imge_avatar;
+  urlPaciente = ulrPaciente
 
-
-  //
   const calendarEl = document.getElementById('calendar')
   calendar = new Calendar(calendarEl, {
     timeZone: 'America/Caracas',
@@ -336,11 +292,25 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
 
     },
     dateClick: function (info) {
-      if (info.dateStr >= dateString === false)
+      if (info.dateStr >= dateString === false) {
+
+        Swal.fire({
+          icon: 'warning',
+          title: 'Está seleccionando un dia anterior a la fecha actual!',
+          allowOutsideClick: false,
+          confirmButtonColor: '#42ABE2',
+          confirmButtonText: 'Aceptar'
+        })
         return (info.start >= getDateWithoutTime(new Date()));
+      }
       else {
         clearInput(info.dateStr);
+        let date = new Date(info.dateStr);
+        let formattedDate = `${date.getDate() + 1}/${date.getMonth() + 1}/${date.getFullYear()}`;
+
         $('#exampleModal').modal('show');
+        $("#date").text(formattedDate);
+
       }
     },
     eventChange(info) {
@@ -352,11 +322,13 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
         "color": info.event._def.ui.backgroundColor,
         "extendedProps": info.event._def.extendedProps
       }
-      
+
       let dateEnd = data.end && data.start
       if (dateEnd >= dateString) {
+        $('#spinner').show();
         update_appointments(ulrUpdate, data);
       } else if (data.extendedProps.data_app < dateEnd && dateEnd >= dateString) {
+        $('#spinner').show();
         update_appointments(ulrUpdate, data);
       } else {
         Swal.fire({
@@ -376,6 +348,9 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
 }
 
 function clearInput(date) {
+
+  $("#handlerPetientRegister").show();
+
   $("#btn-con").find('button').remove();
   $("#btn-cancell").find('button').remove();
   $("#search-patients-show").show();
@@ -397,11 +372,13 @@ function clearInput(date) {
   $("#title-modal").text('Agendar Cita');
   $("#appointment-data").hide();
 
-  $("#FC").show();
+  $("#FC").hide();
   $("#TH").show();
   $("#HS").show();
   $("#CM").show();
   $("#check-price").show();
+  $("#inlineRadio1").show();
+  $("#date").show();
 }
 
 function setValue(data, info) {
@@ -415,13 +392,25 @@ function setValue(data, info) {
       img_url = `${avatar_imge}/avatar hombre.png`;
     }
   }
-  // let dataPers = data.split(",");
+
   // datos del paciente
   $("#btn-con").find('button').remove();
   $("#btn-cancell").find('button').remove();
   url = url.replace(':id', info.event.extendedProps.patient_id);
   let item = JSON.stringify(info);
-  $("#btn-con").append(`<button onclick='handlerMedicalRecord(${item})' type="button" class="btn btnSecond">Consulta medica</button>`);
+
+  if(info.event.extendedProps.age) {
+
+     $("#btn-con").append(`<button onclick='handlerMedicalRecord(${item})' type="button" class="btn btnSecond">Consulta medica</button>`);
+
+  }else{
+
+    urlPaciente = urlPaciente.replace(':id_patient', info.event.extendedProps.patient_id);
+
+    $("#btn-con").append(`<a href='${urlPaciente}' ><button type="button" class="btn btnPrimary">Actualizar datos</button></a>`);
+
+  }
+
   $("#btn-cancell").append(`<button type="button" onclick="cancelled_appointments(${info.event.extendedProps.id},'${urlCancelled}')" class="btn btnSecond">Cancelar Cita</button>`);
   $("#search-patients-show").hide();
   $("#center_id").val(info.event.extendedProps.center_id).change().attr("disabled", true);
@@ -441,6 +430,7 @@ function setValue(data, info) {
 
   $('#registrer-pac').attr("disabled", false).hide();
 
+  $("#handlerPetientRegister").hide();
 
   $("#title-modal").text('Cita');
   ////
@@ -455,58 +445,14 @@ function setValue(data, info) {
   $("#HS").hide();
   $("#CM").hide();
   $("#check-price").hide();
+  $("#inlineRadio1").hide();
+  $("#date").hide();
 
 
 }
 
 function searchPatients(res) {
-  // if ($('#searchPatients').val() != '') {
-  //   url = url.replace(':value', $('#searchPatients').val());
-  //   $.ajax({
-  //     url: url,
-  //     type: 'GET',
-  //     headers: {
-  //       'X-CSRF-TOKEN': $(
-  //         'meta[name="csrf-token"]').attr(
-  //           'content')
-  //     },
-  //     success: function (res) {
-  //       if (res != "") {
-  //         if (res.is_minor) {
-  //           $("#name").text(res.name + ' ' + res.last_name);
-  //           $("#email").text(res.email);
-  //           $("#phone").text(res.phone);
-  //           $("#ci").text(res.ci);
-  //           $("#genere").text(res.genere);
-  //           $("#age").text(res.age);
-  //           $("#patient_id").val(res.id);
-  //         } else {
-  //           $("#name").text(res.re_name + ' ' + res.re_last_name);
-  //           $("#email").text(res.re_email);
-  //           $("#phone").text(res.re_phone);
-  //           $("#ci").text(res.re_ci);
-  //           $("#genere").text(res.genere);
-  //           $("#age").text(res.age);
-  //           $("#patient_id").val(res.id);
-  //         }
-  //         $('#div-pat').show();
-  //         $("#img-pat").attr("src", `${ulrimge}/${res.patient_img}`);
-  //         $('#registrer-pac').attr("disabled", false);
-  //         $('#timeIni').focus()
-  //       } else {
-  //         Swal.fire({
-  //           icon: 'error',
-  //           title: 'Paciente no encontrado!',
-  //           allowOutsideClick: false,
-  //           confirmButtonColor: '#42ABE2',
-  //           confirmButtonText: 'Aceptar'
-  //         }).then((result) => {
-  //         });
-  //       }
 
-  //     }
-  //   });
-  // }
   if (res.is_minor) {
     $("#name").text(res.name + ' ' + res.last_name);
     $("#email").text(res.email);
@@ -545,11 +491,13 @@ function searchPatients(res) {
 }
 
 function update_appointments(url, data) {
+  $('#spinner2').show();
   $.ajax({
     url: url,
     type: 'PUT',
     data: data,
     success: function (res) {
+      $('#spinner2').hide();
       Swal.fire({
         icon: 'success',
         title: 'Cita actualizada exitosamente!',
@@ -560,6 +508,7 @@ function update_appointments(url, data) {
         window.location.href = urlDairy;
       });
     }, error: function (error) {
+      $('#spinner2').hide();
       Swal.fire({
         icon: 'error',
         title: error.responseJSON.errors,
@@ -597,6 +546,7 @@ function cancelled_appointments(id, url, active = null) {
               'content')
         },
         success: function (res) {
+        $('#spinner').hide();
           Swal.fire({
             icon: 'error',
             title: 'Cita cancelada exitosamente!',
@@ -640,6 +590,8 @@ function finalizar_appointments(id, url, active = null) {
               'content')
         },
         success: function (res) {
+          $('#spinner').hide();
+
           Swal.fire({
             icon: 'success',
             title: 'Cita finalizada exitosamente!',

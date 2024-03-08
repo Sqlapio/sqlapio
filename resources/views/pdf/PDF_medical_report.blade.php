@@ -152,6 +152,11 @@
     .code-span {
         margin-left: 40%;
     }
+
+    pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
 </style>
 
 <body>
@@ -181,7 +186,7 @@
                             <span>{{ Auth::user()->name . ' ' . Auth::user()->last_name }}</span>
                             <br>
                             <strong>Fecha de la Consulta:</strong>
-                            <span>{{ $MedicalReport->record_date }}</span>
+                            <span>{{ $MedicalReport->date }}</span>
                         </div>
                     </td>
                     <td>
@@ -213,7 +218,7 @@
                             height="auto">
                     </td>
                     <td style="padding: 20px">
-                        Copyright © 2023 SqLapioTechnology LLC. All rights reserved.
+                        Copyright © 2024 SqLapioTechnology LLC. All rights reserved.
                     </td>
                 </tr>
             </tbody>
@@ -290,7 +295,7 @@
                             $des = str_replace('</p>', '', $MedicalReport->description);
                             $des = str_replace('<p>', '', $des);
                         @endphp
-                        {{ $des }}
+                        <pre style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">{{ $des }}</pre>
                     </td>
                 </tr>
 

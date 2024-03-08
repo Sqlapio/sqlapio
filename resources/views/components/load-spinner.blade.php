@@ -1,9 +1,15 @@
 <style>
     .shadow-div {
-        box-shadow: 0 0 0 64em rgba(0,0,0,0.75);
+        /* box-shadow: 0 0 0 64em rgba(0,0,0,0.75);
         position: absolute;
-        z-index: 1;
-        
+        z-index: 3; */
+
+        position:fixed;
+        width:100%;
+        left:0;right:0;top:0;bottom:0;
+        background-color: #000000a8;
+        z-index:9999;
+        max-width: 100%;
     }
 
     /* .section {

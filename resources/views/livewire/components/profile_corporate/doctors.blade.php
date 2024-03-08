@@ -150,7 +150,7 @@
                     {
                         data: 'name',
                         title: 'Nombre y Apellido',
-                        className: "text-center text-capitalize",
+                        className: "text-center text-capitalize w-17",
                     },
                     {
                         data: 'ci',
@@ -210,7 +210,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center w-image" scope="col" data-orderable="false">Foto</th>
-                                                <th class="text-center">Nombre y Apellido</th>
+                                                <th class="text-center w-17">Nombre y Apellido</th>
                                                 <th class="text-center w-10">Cédula</th>
                                                 <th class="text-center" data-orderable="false">Correo electrónico</th>
                                                 <th class="text-center w-10">Especialidad</th>

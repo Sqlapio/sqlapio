@@ -14,6 +14,13 @@
     .links:hover {
         color: #42abe2;
     }
+
+    @media only screen and (min-width: 1800px) {
+        .col-xxxl {
+            width: 20% !important;
+        }
+
+    }
 </style>
 @push('scripts')
     <script>
@@ -115,26 +122,14 @@
         }
     </script>
 @endpush
-@section('content')
+ @section('content')
     <div>
         <div class="container-fluid text-center">
             <div id="spinner" style="display: none">
                 <x-load-spinner />
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                style="display: flex; justify-content: flex-end; padding-right: 22px;">
-                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input onclick="handleLen(event);" type="radio" value="es" class="btn-check" name="btnradio"
-                        id="btnEs2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnEs2" style="padding: 8px">ES</label>
-
-                    <input onclick="handleLen(event);" type="radio" value="en" class="btn-check" name="btnradio"
-                        id="btnEn1" autocomplete="off" checked>
-                    <label class="btn btn-outline-primary" for="btnEn1" style="padding: 8px">EN</label>
-                </div>
-            </div>
             <div class="row form-sq" style="position: relative">
-                <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 loginDric">
+                <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-xxxl loginDric">
                     <div class="">
                         <img class="img" src="{{ asset('img/iniciar-sesion.png') }}" class="">
                     </div>
@@ -170,15 +165,20 @@
 
                 </div>
                 {{ Form::close() }}
-                <div class="row justify-content-center">
-                    <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
+                <div class="row justify-content-center mt-2">
+                    {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <a class="links" href="https://system.sqlapio.com/public/payment-form/1">@lang('messages.login.registrate_gratis')</a>
-                    </div>
-                    <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12">
+                    </div> --}}
+                    {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <a class="links" href="{{ config('sidebar_item.var') }}">@lang('messages.login.adquiere_plan')</a>
-                    </div>
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                    </div> --}}
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-bottom: 4px;">
                         <a class="links" href="{{ route('recovery_password') }}">@lang('messages.login.recuperar_clave')</a>
+                    </div>
+                    <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center; align-items: center; }">
+                        <img width="40" src="{{ asset('img/language.png') }}" class="">
+                        <input onclick="handleLen(event);" class="links" type="button" value="es" style="background: transparent; border:none; text-transform: uppercase; pointer; font-weight: 700; padding: 0 0 0 7px;">
+                        <input onclick="handleLen(event);" class="links" type="button" value="en" style="background: transparent; border:none; text-transform: uppercase; pointer; font-weight: 700; padding: 0 0 0 7px;">
                     </div>
                 </div>
 

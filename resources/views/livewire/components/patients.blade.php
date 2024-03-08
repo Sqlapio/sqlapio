@@ -18,6 +18,7 @@
         /* font-family: 'Roboto', 'Inter', "Helvetica Neue", Helvetica, 'Source Sans Pro' !important; */
         letter-spacing: -.022em;
         color: #1d1d1f;
+        padding-right: 0px !important;
     }
 
     .form-switch {
@@ -93,7 +94,6 @@
             width: 17%;
         }
     }
-    }
 </style>
 @push('scripts')
     @vite(['resources/js/dairy.js'])
@@ -109,8 +109,18 @@
         let url = "{{ route('MedicalRecord', ':id') }}";
         let urlhist = "{{ route('ClinicalHistoryDetail', ':id') }}";
         let path = "{{ route('verify-plans') }}";
+        let patient = @json($patient);
 
         $(document).ready(() => {
+
+            if(patient.length==undefined){
+
+                editPatien(patient,true);
+
+            }
+
+            let ulrImge = `{{ URL::asset('/img/V2/combinado.png') }}`;
+            $(".holder").find('img').attr('src', ulrImge);
 
             switch (Number(user.type_plane)) {
                 case 1:
@@ -118,10 +128,10 @@
 
                         Swal.fire({
                             icon: 'warning',
-                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            title: '@lang('messages.alert.limite_plan')',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         });
                         return false;
                     }
@@ -138,10 +148,10 @@
 
                         Swal.fire({
                             icon: 'warning',
-                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            title: '@lang('messages.alert.limite_plan')',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         });
                         return false;
                     }
@@ -162,17 +172,35 @@
             });
 
             getUrl(urlPostCreateAppointment, urlDiary);
-            if (user.type_plane!='7' && centers.length === 0) {
+            if (user.type_plane != '7' && centers.length === 0) {
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Debe asociar  un centro!',
+                    title: '@lang('messages.alert.asociar_centro')',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
                 }).then((result) => {
                     window.location.href = "{{ route('Centers') }}";
                 });
             }
+
+            var dtToday = new Date();
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+            if (month < 10)
+                month = '0' + month.toString();
+            if (day < 10)
+                day = '0' + day.toString();
+            var minDate = year + '-' + month + '-' + day;
+            $('.date-diary').attr('min', minDate);
+
+            var today = new Date();
+            var day = today.getDate() > 9 ? today.getDate() : "0" + today.getDate();
+            var month = (today.getMonth() + 1) > 9 ? (today.getMonth() + 1) : "0" + (today.getMonth() + 1);
+            var year = today.getFullYear();
+
+            $(".date-bd").attr('max', year + "-" + month + "-" + day);
 
             $('#form-patients').validate({
                 rules: {
@@ -254,32 +282,30 @@
                 },
                 messages: {
                     name: {
-                        required: "Nombres es obligatorio",
-                        minlength: "Nombres debe ser mayor a 3 caracteres",
-                        maxlength: "Nombres debe ser menor a 50 caracteres",
+                        required: "@lang('messages.alert.nombre_obligatorio')",
+                        minlength: "@lang('messages.alert.nombre_3_caracteres')",
+                        maxlength: "@lang('messages.alert.nombre_50_caracteres')",
                     },
                     last_name: {
-                        required: "Apellidos es obligatorio",
-                        minlength: "Apellidos debe ser mayor a 6 caracteres",
-                        maxlength: "Apellidos debe ser menor a 8 caracteres",
+                        required: "@lang('messages.alert.apellido_obligatorio')",
+                        minlength: "@lang('messages.alert.apellido_6_caracteres')",
+                        maxlength: "@lang('messages.alert.apellido_8_caracteres')",
                     },
 
                     email: {
-                        required: "Correo Electrónico es obligatorio",
-                        minlength: "Correo Electrónico debe ser mayor a 6 caracteres",
-                        maxlength: "Correo Electrónico debe ser menor a 8 caracteres",
-                        email: "Correo Electrónico incorrecto"
+                        required: "@lang('messages.alert.correo_obligatorio')",
+                        email: "@lang('messages.alert.correo_incorrecto')"
                     },
                     ci: {
-                        required: "Cédula de identidad es obligatoria",
-                        minlength: "Cédula de identidad  debe ser mayor a 5 caracteres",
-                        maxlength: "Cédula de identidad  debe ser menor a 8 caracteres",
+                        required: "@lang('messages.alert.cedula_obligatoria')",
+                        minlength: "@lang('messages.alert.cedula_5_caracteres')",
+                        maxlength: "@lang('messages.alert.cedula_8_caracteres')",
                     },
                     genere: {
-                        required: "Género es obligatorio",
+                        required: "@lang('messages.alert.genero_obligatorio')",
                     },
                     birthdate: {
-                        required: "Fecha de nacimiento es obligatorio",
+                        required: "@lang('messages.alert.fecha_obligatorio')",
                     },
                     // state: {
                     //     required: "Estado es obligatoria",
@@ -288,43 +314,41 @@
                     //     required: "Ciudad es obligatoria",
                     // },
                     address: {
-                        required: "Dirección es obligatoria",
+                        required: "@lang('messages.alert.direccion_obligatoria')",
                     },
                     zip_code: {
-                        required: "Código postal es obligatorio",
+                        required: "@lang('messages.alert.codigo_obligatorio')",
                     },
                     re_name: {
-                        required: "Nombre del representante es obligatorio",
-                        minlength: "Nombre del representante debe ser mayor a 3 caracteres",
-                        maxlength: "Nombre del representante debe ser menor a 50 caracteres",
+                        required: "@lang('messages.alert.nombre_obligatorio')",
+                        minlength: "@lang('messages.alert.nombre_3_caracteres')",
+                        maxlength: "@lang('messages.alert.nombre_50_caracteres')",
                     },
                     re_last_name: {
-                        required: "Apellido del representante es obligatorio",
-                        minlength: "Apellido del representante debe ser mayor a 3 caracteres",
-                        maxlength: "Apellido del representante debe ser menor a 50 caracteres",
+                        required: "@lang('messages.alert.apellido_obligatorio')",
+                        minlength: "@lang('messages.alert.apellido_6_caracteres')",
+                        maxlength: "@lang('messages.alert.apellido_8_caracteres')",
                     },
                     re_email: {
-                        required: "Correo del representante es obligatorio",
-                        minlength: "Correo debe ser mayor a 6 caracteres",
-                        maxlength: "Correo debe ser menor a 8 caracteres",
-                        email: "Correo incorrecto"
+                        required: "@lang('messages.alert.correo_obligatorio')",
+                        email: "@lang('messages.alert.correo_incorrecto')",
                     },
                     re_ci: {
-                        required: "Cédula del representante es obligatorio",
-                        minlength: "Cédula del representante  debe ser mayor a 5 caracteres",
-                        maxlength: "Cédula del representante  debe ser menor a 8 caracteres",
+                        required: "@lang('messages.alert.cedula_obligatoria')",
+                        minlength: "@lang('messages.alert.cedula_5_caracteres')",
+                        maxlength: "@lang('messages.alert.cedula_8_caracteres')",
                     },
                     re_phone: {
-                        required: "Teléfono del representante es obligatorio",
+                        required: "@lang('messages.alert.telefono_obligatorio')",
                     },
                     profession: {
-                        required: "Profesión es obligatoria",
+                        required: "@lang('messages.alert.profesion_obligatoria')",
                     },
                     phone: {
-                        required: "Teléfono es obligatorio",
+                        required: "@lang('messages.alert.telefono_obligatorio')",
                     },
                     center_id: {
-                        required: "Centro es obligatorio",
+                        required: "@lang('messages.alert.centro_obligatorio')",
                     }
 
                 }
@@ -352,22 +376,23 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function(response) {
+
                             $('#send').show();
                             $('#spinner2').hide();
                             // $("#form-patients").trigger("reset");
-                            $(".holder").hide();
+                            // $(".holder").hide();
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Paciente registrado exitosamente!',
+                                title: '@lang('messages.alert.paciente_registrado')',
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
                             }).then((result) => {
                                 url = url.replace(':id', response[0].id);
                                 $("#bnt-cons").show();
                                 $("#bnt-cons").find('a').remove();
                                 $("#bnt-cons").append(
-                                    `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`
+                                    `<a href="${url}"><button type="button" class="btn btnSecond">@lang('messages.botton.consulta_medica')</button></a>`
                                 );
 
                                 switch_type_plane(user.type_plane, response[1]);
@@ -375,16 +400,17 @@
                         },
                         error: function(error) {
                             error.responseJSON.errors.map((elm) => {
+                                $('#spinner2').hide();
                                 Swal.fire({
                                     icon: 'error',
                                     title: elm,
                                     allowOutsideClick: false,
                                     confirmButtonColor: '#42ABE2',
-                                    confirmButtonText: 'Aceptar'
+                                    confirmButtonText: '@lang('messages.botton.aceptar')'
                                 }).then((result) => {
                                     $('#btn-save').attr('disabled', false);
                                     $('#spinner2').hide();
-                                    $(".holder").hide();
+                                    // $(".holder").hide();
                                 });
                             });
                         }
@@ -430,6 +456,7 @@
             if (active) {
                 $(".accordion-collapseOne").collapse('show')
             }
+
             $("#id").val(item.id);
             $("#name").val(item.name);
             $("#name").val(item.name);
@@ -445,10 +472,8 @@
             $("#center_id").val(item.center_id).change();
             $("#state").val(item.state).change();
             $("#city").val(item.city).change();
+            $('#btn-save').attr('disabled', false);
             $(".holder").show();
-            let ulrImge = `{{ URL::asset('/imgs/${item.patient_img}') }}`;
-            $(".holder").find('img').attr('src', ulrImge);
-            $("#img").val(item.patient_img);
             if (item.is_minor === 'true') {
                 $("#re_name").val(item.get_reprensetative.re_name);
                 $("#re_last_name").val(item.get_reprensetative.re_last_name);
@@ -456,21 +481,39 @@
                 $("#re_email").val(item.get_reprensetative.re_email);
                 $("#re_phone").val(item.get_reprensetative.re_phone);
             }
+            if (item.patient_img === null) {
+                let ulrImge = `{{ URL::asset('/img/V2/combinado.png') }}`;
+                $(".holder").find('img').attr('src', ulrImge);
+                $("#img").val(ulrImge);
+            } else {
+                let ulrImge = `{{ URL::asset('/imgs/${item.patient_img}') }}`;
+                $(".holder").find('img').attr('src', ulrImge);
+                $("#img").val(item.patient_img);
+            }
 
         }
 
         function refreshForm() {
-            $(".holder").hide();
+            // $(".holder").hide();
             $("#show-info-pat").hide();
             $("#bnt-save").show();
             $("#bnt-cons").hide();
             $("#bnt-hist").hide();
+            $("#bnt-dairy").hide();
             $("#form-patients").trigger("reset");
+            $('#data-rep').hide();
             $('#is_minor').val(false);
             $('#id').val('');
             $('#btn-save').attr('disabled', false);
             $("#div-otros").hide();
             $("#profesion-div").show();
+            $("#ci-div").show();
+            $("#email-div").show();
+            $("#div-phone").show();
+            $("#profesion-div").show();
+            $('#search_patient').val('');
+            let ulrImge = `{{ URL::asset('/img/V2/combinado.png') }}`;
+            $(".holder").find('img').attr('src', ulrImge);
 
         }
 
@@ -503,76 +546,74 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
-                        // $('#spinner2').hide();
-                        // Swal.fire({
-                            //     icon: 'success',
-                            //     title: 'Operación exitosa!',
-                            //     allowOutsideClick: false,
-                            //     confirmButtonColor: '#42ABE2',
-                            //     confirmButtonText: 'Aceptar'
-                            // }).then((result) => {
 
-                                $('#search_patient').val('');
-                                $('#spinner2').hide();
-                                $(".accordion-collapseOne").collapse('show')
-                                if (response.length > 1) {
-                                $('#show-info-pat').show();
-                                $('#content-patient').hide();
-                                let data = [];
-                                response.map((elem) => {
-                                    let elemData = JSON.stringify(elem);
-                                    elem.btn = `
-                                                <button onclick='setValue(${elemData})'
-                                                type="button" class="btn-2 btnSecond">Consultar</button>
-                                                </div>`;
-                                    data.push(elem);
-                                })
+                        $('#search_patient').val('');
+                        $('#spinner2').hide();
+                        $(".accordion-collapseOne").collapse('show')
+                        if (response.length > 1) {
+                            $('#show-info-pat').show();
+                            $('#content-patient').hide();
+                            let data = [];
 
-                                new DataTable('#table-show-info-pat', {
-                                    language: {
-                                        url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                            response.map((elem) => {
+
+                                elem.name_full = (elem.is_minor == "true") ?
+                                    `${elem.get_reprensetative.re_name} ${elem.get_reprensetative.re_last_name}` :
+                                    `${elem.name} ${elem.last_name}`;
+
+                                elem.ci = (elem.is_minor == "true") ? elem.get_reprensetative.re_ci :
+                                    elem.ci;
+
+                                let elemData = JSON.stringify(elem);
+                                elem.btn = `
+                                                <button onclick='setValue(${elemData})' type="button" class="btn-2 btnSecond">
+                                                    @lang('messages.botton.consultar')
+                                                </button>`;
+                                data.push(elem);
+
+                            })
+
+                            new DataTable('#table-show-info-pat', {
+                                bDestroy: true,
+                                data: data,
+                                "searching": false,
+                                "bLengthChange": false,
+                                columns: [{
+
+                                        data: 'name_full',
+                                        title: '@lang('messages.tabla.nombre_apellido')',
+                                        className: "text-center text-capitalize w-17",
                                     },
-                                    bDestroy: true,
-                                    data: data,
-                                    "searching": false,
-                                    "bLengthChange": false,
-                                    columns: [{
+                                    {
+                                        data: 'ci',
+                                        title: '@lang('messages.tabla.cedula')',
+                                        className: "text-center w-10",
+                                    },
 
-                                            data: 'name_full',
-                                            title: 'Nombre',
-                                            className: "text-center text-capitalize",
-                                        },
-                                        {
-
-                                            data: 'get_reprensetative.re_ci',
-                                            title: 'Cédula paciente',
-                                            className: "text-center w-10",
-                                        },
-
-                                        {
-                                            data: 'birthdate',
-                                            title: 'Fecha de Nacimiento ',
-                                            className: "text-center w-10",
-                                        },
-                                        {
-                                            data: 'genere',
-                                            title: 'Género',
-                                            className: "text-center text-capitalize",
-                                        },
-                                        {
-                                            data: 'btn',
-                                            title: 'Acciones',
-                                            className: "text-center",
-                                        }
-                                    ],
-                                });
+                                    {
+                                        data: 'birthdate',
+                                        title: '@lang('messages.tabla.fecha_nacimiento')',
+                                        className: "text-center w-10",
+                                    },
+                                    {
+                                        data: 'genere',
+                                        title: '@lang('messages.tabla.genero')',
+                                        className: "text-center text-capitalize",
+                                    },
+                                    {
+                                        data: 'btn',
+                                        title: '@lang('messages.tabla.acciones')',
+                                        className: "text-center w-20",
+                                    }
+                                ],
+                            });
+                        } else {
+                            if (response.is_minor != undefined) {
+                                setValue(response);
                             } else {
-                                if (response.is_minor != undefined) {
-                                    setValue(response);
-                                } else {
-                                    setValue(response[0]);
-                                }
+                                setValue(response[0]);
                             }
+                        }
                         // });
                     },
                     error: function(error) {
@@ -581,11 +622,11 @@
                             title: error.responseJSON.errors,
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         }).then((result) => {
                             $('#send').show();
                             $('#spinner2').hide();
-                            $(".holder").hide();
+                            // $(".holder").hide();
                         });
                     }
                 });
@@ -608,14 +649,14 @@
             $("#bnt-dairy").find('button').remove();
             $("#bnt-hist").find('button').remove();
             $("#bnt-cons").append(
-                `<a href="${url}"><button type="button" class="btn btnSecond">Consulta medica</button></a>`);
+                `<a href="${url}"><button type="button" class="btn btnSecond">@lang('messages.botton.consulta_medica')</button></a>`);
             let elemData = JSON.stringify(data);
             let elemRep = JSON.stringify(data.get_reprensetative);
             $("#bnt-dairy").append(
-                `<button onclick='agendarCita(${elemData},${elemRep});' type="button" class="btn btnPrimary">Agendar cita</button>`
+                `<button onclick='agendarCita(${elemData},${elemRep});' type="button" class="btn btnPrimary">@lang('messages.botton.agendar_cita')</button>`
             );
             $("#bnt-hist").append(
-                `<a href="${urlhist}"><button type="button" class="btn btnSecond">Historia clinica</button></a>`
+                `<a href="${urlhist}"><button type="button" class="btn btnSecond">@lang('messages.botton.historia_clinica')</button></a>`
             );
             editPatien(data, false);
         }
@@ -667,37 +708,15 @@
             if (e.target.value === email) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Accion no permitida, el correo se encuentra logueado en el sistema!',
+                    title: '@lang('messages.alert.logeado')',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
                 }).then((result) => {
                     $('#email').val('');
                 });
             }
         }
-
-        $(function() {
-            var dtToday = new Date();
-            var month = dtToday.getMonth() + 1;
-            var day = dtToday.getDate();
-            var year = dtToday.getFullYear();
-            if (month < 10)
-                month = '0' + month.toString();
-            if (day < 10)
-                day = '0' + day.toString();
-            var minDate = year + '-' + month + '-' + day;
-            $('.date-diary').attr('min', minDate);
-        })
-
-        $(document).ready(function() {
-            var today = new Date();
-            var day = today.getDate() > 9 ? today.getDate() : "0" + today.getDate();
-            var month = (today.getMonth() + 1) > 9 ? (today.getMonth() + 1) : "0" + (today.getMonth() + 1);
-            var year = today.getFullYear();
-
-            $(".date-bd").attr('max', year + "-" + month + "-" + day);
-        });
 
         function switch_type_plane(type_plane, count_pat) {
 
@@ -707,20 +726,20 @@
 
                         Swal.fire({
                             icon: 'warning',
-                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            title: '@lang('messages.alert.limite_plan')',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         });
                         return false;
                     }
                     if (Number(count_pat) >= 10) {
                         Swal.fire({
                             icon: 'warning',
-                            title: '¡Ha consumido el total de pacientes registrados!',
+                            title: '@lang('messages.alert.consumo_total')',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         }).then((result) => {
                             window.location.href = path;
                         });
@@ -731,20 +750,20 @@
 
                         Swal.fire({
                             icon: 'warning',
-                            title: '¡Su plan está en el límite de su capacidad de registro!',
+                            title: '@lang('messages.alert.limite_plan')',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         });
                         return false;
                     }
                     if (Number(count_pat) >= 40) {
                         Swal.fire({
                             icon: 'warning',
-                            title: '¡Ha consumido el total de pacientes registrados!',
+                            title: '@lang('messages.alert.consumo_total')',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         }).then((result) => {
                             window.location.href = path;
                         });
@@ -754,6 +773,19 @@
                 default:
                     break;
             }
+        }
+
+        const alertInfoPaciente = (item) => {
+            Swal.fire({
+                icon: 'warning',
+                title: '@lang('messages.alert.actualizar_paciente')',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: '@lang('messages.botton.aceptar')'
+            }).then((result) => {
+                editPatien(item,true);
+
+            });
         }
     </script>
 @endpush
@@ -767,13 +799,9 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                         <div class="accordion-item">
-                             <span class="accordion-header title" id="headingOne">
-                                <button class="accordion-button bg-5"
-                                    type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne"
-                                    aria-expanded="true"
-                                    aria-controls="collapseOne"
+                            <span class="accordion-header title" id="headingOne">
+                                <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-person-add"></i> @lang('messages.acordion.nuevo_paciente')
                                 </button>
@@ -784,15 +812,20 @@
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                             <div class="row justify-content-center">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                    <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">@lang('messages.label.info_1') </h5>
+                                                    <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">
+                                                        @lang('messages.label.info_1') </h5>
                                                 </div>
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">
-                                                    <img width="150" height="auto" src="{{ asset('/img/icon-warning.png') }}" alt="avatar">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                    style="display: flex; justify-content: center;">
+                                                    <img width="150" height="auto"
+                                                        src="{{ asset('/img/icons/icon-warning.png') }}" alt="avatar">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
-                                            <a style="margin-top: 10px;" href="{{ route('verify-plans') }}" class="btn btnSecond">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                            style="display: flex; justify-content: flex-end;">
+                                            <a style="margin-top: 10px;" href="{{ route('verify-plans') }}"
+                                                class="btn btnSecond">
                                                 @lang('messages.label.detalle_plan')
                                             </a>
                                         </div>
@@ -809,66 +842,86 @@
                                                             <span class="text-danger error-span">
                                                                 {{ $message }}
                                                             </span>
-                                                            <br/>
+                                                            <br />
                                                         @endforeach
                                                     </div>
                                                 @endif
-                                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 ">
-                                                    <x-upload-image title/>
+                                                <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2 ">
+                                                    <x-upload-image title />
                                                 </div>
-                                                <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
+                                                <div class="col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
                                                     <div class="row">
-                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
-                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                    <label for="name" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                         @lang('messages.form.nombre')
                                                                     </label>
-                                                                    <input autocomplete="off" class="form-control mask-text @error('name') is-invalid @enderror" id="name" name="name" type="text" value="">
+                                                                    <input autocomplete="off"
+                                                                        class="form-control mask-text @error('name') is-invalid @enderror"
+                                                                        id="name" name="name" type="text"
+                                                                        value="">
                                                                     <i class="bi bi-person-circle st-icon"></i>
                                                                 </div>
                                                             </diV>
                                                         </div>
-                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
-                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                    <label for="last_name" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                         @lang('messages.form.apellido')
                                                                     </label>
-                                                                    <input autocomplete="off" class="form-control mask-text @error('last_name') is-invalid @enderror" id="last_name" name="last_name"  type="text" value="">
+                                                                    <input autocomplete="off"
+                                                                        class="form-control mask-text @error('last_name') is-invalid @enderror"
+                                                                        id="last_name" name="last_name" type="text"
+                                                                        value="">
                                                                     <i class="bi bi-person-circle st-icon"></i>
                                                                 </div>
                                                             </diV>
                                                         </div>
-                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                <label for="birthdate" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                     @lang('messages.form.fecha_nacimiento')
                                                                 </label>
-                                                                <input class="form-control date-bd" id="birthdate" name="birthdate" type="date" value="" style="padding: 0.375rem 5px 0.375rem 0.75rem;" onchange="calculateAge(event,'age'), handlerAge(event)">
+                                                                <input class="form-control date-bd" id="birthdate"
+                                                                    name="birthdate" type="date" value=""
+                                                                    style="padding: 0.375rem 5px 0.375rem 0.75rem;"
+                                                                    onchange="calculateAge(event,'age'), handlerAge(event)">
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
-                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                    <label for="genere" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                         @lang('messages.form.genero')
                                                                     </label>
-                                                                    <select name="genere" id="genere" placeholder="Seleccione"class="form-control @error('genere') is-invalid @enderror" class="form-control combo-textbox-input">
+                                                                    <select name="genere" id="genere"
+                                                                        placeholder="Seleccione"class="form-control @error('genere') is-invalid @enderror"
+                                                                        class="form-control combo-textbox-input">
                                                                         <option value="">@lang('messages.placeholder.seleccione')</option>
-                                                                        <option value="femenino">@lang('messages.label.femenino')</option>
-                                                                        <option value="masculino">@lang('messages.label.masculino')</option>
+                                                                        <option value="femenino">@lang('messages.label.femenino')
+                                                                        </option>
+                                                                        <option value="masculino">@lang('messages.label.masculino')
+                                                                        </option>
                                                                     </select>
                                                                     <i class="bi bi-gender-ambiguous st-icon"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="ci-div">
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2"
+                                                            id="ci-div">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
-                                                                    <label for="phone" class="form-label" type="number" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                    <label for="ci" class="form-label"
+                                                                        type="number"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                         @lang('messages.form.cedula_identidad')
                                                                     </label>
                                                                     <input autocomplete="off"
@@ -879,67 +932,88 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div id="div-phone" class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                                            <div class="form-group">
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2"
+                                                            id="div-phone">
+                                                            <x-phone_component/>
+
+                                                            {{-- <div class="form-group">
                                                                 <div class="Icon-inside">
-                                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
-                                                                    <input autocomplete="off" placeholder="" class="form-control phone @error('phone') is-invalid @enderror" id="phone" name="phone" type="text" value="">
+                                                                    <label for="phone" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
+                                                                    <input autocomplete="off" placeholder=""
+                                                                        class="form-control phone @error('phone') is-invalid @enderror"
+                                                                        id="phone" name="phone" type="text"
+                                                                        value="">
                                                                     <i class="bi bi-telephone-forward st-icon"></i>
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                <div class="col-sm-12 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
+                                                            <label for="address" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
                                                             <textarea id="address" name="address" class="form-control" rows="1"></textarea>
                                                             <i class="bi bi-geo st-icon"></i>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" id="email-div">
+                                                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
+                                                            <label for="zip_code" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.codigo_postal')</label>
+                                                            <input autocomplete="off"
+                                                                class="form-control mask-only-text @error('zip_code') is-invalid @enderror"
+                                                                id="zip_code" name="zip_code" type="text"
+                                                                value="">
+                                                            <i class="bi bi-geo st-icon"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2"
+                                                    id="email-div">
+                                                    <div class="form-group">
+                                                        <div class="Icon-inside">
+                                                            <label for="email" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
                                                             @php
                                                                 $email = Auth::user()->email;
                                                             @endphp
-                                                            <input autocomplete="off" onchange='handlerEmail(event,@json($email))' class="form-control @error('email') is-invalid @enderror" id="email" name="email" type="text" value="">
+                                                            <input autocomplete="off"
+                                                                onchange='handlerEmail(event,@json($email))'
+                                                                class="form-control @error('email') is-invalid @enderror"
+                                                                id="email" name="email" type="text"
+                                                                value="">
                                                             <i class="bi bi-envelope-at st-icon"></i>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <input id="age" name="age" type="hidden" value="">
-                                                <x-professions />
+                                                <x-professions class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3" />
 
-                                                {{-- <x-ubigeo class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-3" /> --}}
 
-                                                <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.codigo_postal')</label>
-                                                            <input autocomplete="off" class="form-control mask-only-text @error('zip_code') is-invalid @enderror" id="zip_code" name="zip_code" type="text" value="">
-                                                            <i class="bi bi-geo st-icon"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 @if (Auth::user()->type_plane !== '7')
-                                                <x-centers_user  class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
+                                                    <x-centers_user class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2" />
                                                 @endif
-                                                {{-- <x-upload-image /> --}}
                                                 {{-- data del representante --}}
-                                                <div class="row mt-3" id="data-rep" style="display: none; padding-right: 0px;">
+                                                <div class="row mt-3" id="data-rep"
+                                                    style="display: none; padding-right: 0px;">
                                                     <hr>
                                                     <h5>@lang('messages.label.datos_representante')</h5>
                                                     <hr>
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
-                                                                <input autocomplete="off" class="form-control mask-text @error('re_name') is-invalid @enderror" id="re_name" name="re_name" type="text" value="">
+                                                                <label for="re_name" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
+                                                                <input autocomplete="off"
+                                                                    class="form-control mask-text @error('re_name') is-invalid @enderror"
+                                                                    id="re_name" name="re_name" type="text"
+                                                                    value="">
                                                                 <i class="bi bi-person-circle st-icon"></i>
                                                             </div>
                                                         </diV>
@@ -947,8 +1021,11 @@
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
-                                                                <input autocomplete="off" class="form-control mask-text @error('re_last_name') is-invalid @enderror" id="re_last_name" name="re_last_name" type="text" value="">
+                                                                <label for="re_last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
+                                                                <input autocomplete="off"
+                                                                    class="form-control mask-text @error('re_last_name') is-invalid @enderror"
+                                                                    id="re_last_name" name="re_last_name" type="text"
+                                                                    value="">
                                                                 <i class="bi bi-person-circle st-icon"></i>
                                                             </div>
                                                         </diV>
@@ -956,8 +1033,12 @@
                                                     <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
-                                                                <input autocomplete="off" class="form-control @error('re_ci') is-invalid @enderror" id="re_ci" name="re_ci" type="text" value="">
+                                                                <label for="ci" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
+                                                                <input autocomplete="off"
+                                                                    class="form-control @error('re_ci') is-invalid @enderror"
+                                                                    id="re_ci" name="re_ci" type="text"
+                                                                    value="">
                                                                 <i class="bi bi-person-vcard st-icon"></i>
                                                             </div>
                                                         </diV>
@@ -965,17 +1046,25 @@
                                                     <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
-                                                                <input autocomplete="off" class="form-control phone @error('re_phone') is-invalid @enderror" id="re_phone" name="re_phone" type="text" value="">
+                                                                <label for="telefono" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
+                                                                <input autocomplete="off"
+                                                                    class="form-control phone @error('re_phone') is-invalid @enderror"
+                                                                    id="re_phone" name="re_phone" type="text"
+                                                                    value="">
                                                                 <i class="bi bi-telephone-forward st-icon"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2" style="padding-right: 0;">
+                                                    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2"
+                                                        style="padding-right: 0;">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
-                                                                <input autocomplete="off" onchange='handlerEmail(event,@json($email))' class="form-control @error('re_email') is-invalid @enderror" id="re_email" name="re_email" type="text" value="">
+                                                                <label for="email" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
+                                                                <input autocomplete="off"
+                                                                    onchange='handlerEmail(event,@json($email))'
+                                                                    class="form-control @error('re_email') is-invalid @enderror"
+                                                                    id="re_email" name="re_email" type="text"
+                                                                    value="">
                                                                 <i class="bi bi-envelope-at st-icon"></i>
                                                             </div>
                                                         </diV>
@@ -985,19 +1074,28 @@
                                             </div>
 
                                             <div class="row mt-3 justify-content-md-end">
-                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end; flex-wrap: wrap;">
-                                                    <div id="bnt-dairy" style="display: none;margin-left: 10px; ; margin-bottom: 10px"> </div>
-                                                    <div id="bnt-cons" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
-                                                    <div id="bnt-hist" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
-                                                    <input class="btn btnSave send" id="btn-save" value="@lang('messages.botton.guardar')" type="submit" style="margin-left: 10px; margin-bottom: 10px" />
-                                                    <button style="margin-left: 10px; margin-bottom: 10px; padding: 11px"
-                                                        type="button" onclick="refreshForm();" class="btn btnSecond"
-                                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                        data-html="true" title="@lang('messages.label.limpiar')">
-                                                        <i class="bi bi-eraser"></i>
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                    style="display: flex; justify-content: flex-end; align-items: flex-end; flex-wrap: wrap;">
+                                                    <div id="bnt-dairy"
+                                                        style="display: none;margin-left: 10px; ; margin-bottom: 10px">
+                                                    </div>
+                                                    <div id="bnt-cons"
+                                                        style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
+                                                    <div id="bnt-hist"
+                                                        style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
+                                                    <input class="btn btnSave send" id="btn-save"
+                                                        value="@lang('messages.botton.guardar')" type="submit"
+                                                        style="margin-left: 10px; margin-bottom: 10px" />
+                                                    <button style="margin-left: 10px; margin-bottom: 10px;" type="button"
+                                                        onclick="refreshForm();" data-bs-toggle="tooltip"
+                                                        data-bs-placement="bottom" data-html="true"
+                                                        title="@lang('messages.label.limpiar')">
+                                                        <img width="32" height="auto"
+                                                            src="{{ asset('/img/icons/eraser.png') }}" alt="avatar">
                                                     </button>
                                                 </div>
-                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">  </div>
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                    style="display: flex; justify-content: center;"> </div>
                                             </div>
                                         </form>
                                     </div>
@@ -1006,14 +1104,20 @@
                                             <hr>
                                             <h5 style="margin-bottom: 17px;">@lang('messages.label.hijos_registrados')</h5>
                                             <hr>
-                                            <table id="table-show-info-pat" class="table table-striped table-bordered" style="width:100%; ">
+                                            <table id="table-show-info-pat" class="table table-striped table-bordered"
+                                                style="width:100%; ">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_nacimiento')</th>
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.genero')</th>
-                                                        <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
+                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')
+                                                        </th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')
+                                                        </th>
+                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.fecha_nacimiento')
+                                                        </th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.genero')
+                                                        </th>
+                                                        <th class="text-center w-20" scope="col"
+                                                            data-orderable="false">@lang('messages.tabla.acciones')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1028,7 +1132,7 @@
                 </div>
                 {{-- Pacientes registrados  --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-cd">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
@@ -1037,139 +1141,115 @@
                                     <i class="bi bi-person-add"></i> @lang('messages.acordion.paciente_registrado')
                                 </button>
                             </span>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row mt-3"
-                                    {{-- id="content-search-pat" --}}
-                                    >
-                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mb-3 mt-3" style="width: 318px;">
-                                            <div class="form-check form-check-inline">
-                                                <input onchange="habdlerPatSearch(event)" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="0">
-                                                <label style="margin-top: 9px; font-size: 15px" class="form-check-label" for="inlineRadio1">
-                                                    @lang('messages.label.mayor')
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input onchange="habdlerPatSearch(event)" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="1">
-                                                <label style="margin-top: 9px; font-size: 15px" class="form-check-label" for="inlineRadio2">
-                                                    @lang('messages.label.menor')
-                                                </label>
-                                            </div>
-                                        </div>
+                                    <div class="row mt-3" {{-- id="content-search-pat" --}}>
                                         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group" style="margin-top: 5px;">
-                                                <label for="search_patient" class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">
+                                                <label for="search_patient"
+                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">
                                                     @lang('messages.form.cedula_identidad')
                                                 </label>
-                                                <input disabled maxlength="10" type="text" class="form-control mask-only-number" id="search_patient" name="search_patient" placeholder="" value="">
+                                                <input maxlength="10" type="text"
+                                                    class="form-control mask-only-number" id="search_patient"
+                                                    name="search_patient" placeholder="" value="">
                                             </div>
                                         </div>
-                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-3">
-                                            <button style="margin-top: 2px;" onclick="searchPat()" class="btn btnSecond">
+                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-3" style='display: flex; align-items: flex-end;'>
+                                            <button style="margin-top: 2px;" onclick="searchPat()" class="btn btnSave">
                                                 @lang('messages.botton.buscar')
                                             </button>
                                         </div>
                                     </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{-- Lista de pacientes con consultas  --}}
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-cd">
-                        <div class="accordion-item">
-                            <span class="accordion-header title" id="headingThree">
-                                <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-card-list"></i> @lang('messages.acordion.registro_consultas')
-                                </button>
-                            </span>
-                            <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <div class="row" id="table-patients">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive" >
-                                            <table id="table-patient" class="table table-striped table-bordered" style="width:100%; ">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.codigo_paciente')</th>
-                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                        {{-- <th class="text-center" scope="col">Cédula</th> --}}
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_nacimiento')</th>
-                                                        {{-- <th class="text-center" scope="col">Género</th>
-                                                        <th class="text-center" scope="col">Teléfono</th>
-                                                        <th class="text-center" scope="col">Email</th> --}}
-                                                        <th class="text-center" scope="col">@lang('messages.tabla.centro_salud')</th>
-                                                        <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($patients as $item)
+                                    <div class="row mt-2">
+                                        <div class="row" id="table-patients">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                <table id="table-patient" class="table table-striped table-bordered" style="width:100%; ">
+                                                    <thead>
                                                         <tr>
-                                                            <td class="table-avatar">
-                                                                <img class="avatar" src=" {{ $item->get_paciente->patient_img ? asset('/imgs/' . $item->get_paciente->patient_img) : ($item->get_paciente->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}" alt="Imagen del paciente">
-                                                            </td>
-                                                            <td class="text-center">
-                                                                <button
-                                                                    onclick="agendarCita({{ $item->get_paciente }},{{ $item->get_paciente->get_reprensetative }})"
-                                                                    type="button" class="btn btnSecond"
-                                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                                    data-bs-custom-class="custom-tooltip" data-html="true"
-                                                                    title="Agendar cita" style="font-size: 13px; padding: 0px 11px 0px 11px; !important">{{ $item->get_paciente->patient_code }}</button>
-                                                            </td>
-                                                            <td class="text-center text-capitalize">  {{ $item->get_paciente->name }} {{ $item->get_paciente->last_name }}</td>
-                                                            {{-- <td class="text-center">  {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_ci . '  (Rep)' : $item->get_paciente->ci }} </td> --}}
-                                                            <td class="text-center"> {{ date('d-m-Y', strtotime($item->get_paciente->birthdate)) }} </td>
-                                                            {{-- <td class="text-center text-capitalize">  {{ $item->get_paciente->genere }}</td>
-                                                            <td class="text-center"> {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_phone . '  (Rep)' : $item->get_paciente->phone }} </td>
-                                                            <td class="text-center"> {{ $item->get_paciente->is_minor === 'true' ? $item->get_paciente->get_reprensetative->re_email . '  (Rep)' : $item->get_paciente->email }} </td> --}}
-                                                            <td class="text-center"> {{ $item->get_center->description }} </td>
-                                                            <td class="text-center">
-                                                                <div class="d-flex">
-                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <button
-                                                                            onclick="editPatien({{ json_encode($item->get_paciente) }},true); "
-                                                                            type="button"
-                                                                            class="btn btn-iSecond rounded-circle"
-                                                                            data-bs-toggle="tooltip"
-                                                                            data-bs-placement="bottom" title="@lang('messages.tooltips.editar')">
-                                                                            <i class="bi bi-pencil"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a href="{{ route('MedicalRecord', $item->get_paciente->id) }}">
-                                                                            <button type="button"
-                                                                                class="btn btn-iPrimary rounded-circle"
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                title="@lang('messages.tooltips.consulta_medica')">
-                                                                                <i class="bi bi-file-earmark-text"></i>
-                                                                            </button>
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                        <a href="{{ route('ClinicalHistoryDetail', $item->get_paciente->id) }}">
-                                                                            <button type="button"
-                                                                                class="btn btn-iSecond rounded-circle"
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                title="@lang('messages.tooltips.historia')">
-                                                                                <i class="bi bi-file-earmark-text"></i>
-                                                                            </button>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
+                                                            <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.codigo_paciente')
+                                                            </th>
+                                                            <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')
+                                                            </th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_nacimiento')
+                                                            </th>
+                                                            <th class="text-center w-30" scope="col">@lang('messages.tabla.centro_salud')
+                                                            </th>
+                                                            <th class="text-center w-17" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
+
                                                         </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($patients as $item)
+                                                            <tr>
+                                                                <td class="table-avatar">
+                                                                    <img class="avatar"
+                                                                        src=" {{ $item->patient_img ? asset('/imgs/' . $item->patient_img) : ($item->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                                        alt="Imagen del paciente">
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <button
+                                                                        onclick="agendarCita({{ $item }},{{ $item->get_reprensetative }})"
+                                                                        type="button" class="btn btnSecond"
+                                                                        data-bs-toggle="tooltip"
+                                                                        data-bs-placement="bottom"
+                                                                        data-bs-custom-class="custom-tooltip"
+                                                                        data-html="true" title="@lang('messages.tooltips.agendar_cita')"
+                                                                        style="font-size: 13px; padding: 0px 11px 0px 11px; !important">{{ $item->patient_code }}</button>
+                                                                </td>
+                                                                <td class="text-center text-capitalize"> {{ $item->name }} {{ $item->last_name }}</td>
+                                                                <td class="text-center"> {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>
+                                                                <td class="text-center"> {{ $item->get_center->description }} </td>
+                                                                <td class="text-center">
+                                                                    <div class="d-flex">
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                            <button
+                                                                                onclick="editPatien({{ json_encode($item) }},true); "
+                                                                                type="button" data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="@lang('messages.tooltips.editar')">
+                                                                                <img width="40" height="auto"
+                                                                                    src="{{ asset('/img/icons/user-edit.png') }}"
+                                                                                    alt="avatar">
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                            <a href="{{ $item->age == '' ? '#' : route('MedicalRecord', $item->id) }}"
+                                                                                onclick='{{ $item->age == '' ? "alertInfoPaciente($item)"  : '' }}'>
+                                                                                <button type="button"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="bottom"
+                                                                                    title="@lang('messages.tooltips.consulta_medica')">
+                                                                                    <img width="40" height="auto"
+                                                                                        src="{{ asset('/img/icons/monitor.png') }}"
+                                                                                        alt="avatar">
+                                                                                </button>
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                            <a href="{{ $item->age == '' ? '#' : route('ClinicalHistoryDetail', $item->id) }}"
+                                                                                onclick='{{ $item->age == '' ? "alertInfoPaciente($item)"  : '' }}'>
+                                                                                <button type="button"
+                                                                                    data-bs-toggle="tooltip"
+                                                                                    data-bs-placement="bottom"
+                                                                                    title="@lang('messages.tooltips.historia')">
+                                                                                    <img width="40" height="auto" src="{{ asset('/img/icons/recipe.png') }}" alt="avatar">
+                                                                                </button>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
+
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -1192,14 +1272,16 @@
                             <span style="padding-left: 5px">
                                 @lang('messages.modal.titulo.agendar_cita')
                             </span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                style="font-size: 12px;"></button>
                         </div>
                         <div class="modal-body">
                             <div id="div-pat" style="display: none">
                                 <div class="d-flex" style="align-items: center;">
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 modal-d">
                                         <div class="img">
-                                            <img id="img-pat" src="" width="125" height="125" alt="Imagen del paciente">
+                                            <img id="img-pat" src="" width="125" height="125"
+                                                alt="Imagen del paciente">
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" style="font-size: 13px;">
@@ -1210,7 +1292,8 @@
                                             <br>
                                             <strong>@lang('messages.ficha_paciente.edad'): </strong><span id="age-pat"></span>
                                             <br>
-                                            <strong>@lang('messages.ficha_paciente.genero'): </strong><span class="text-capitalize" id="genere-pat"></span>
+                                            <strong>@lang('messages.ficha_paciente.genero'): </strong><span class="text-capitalize"
+                                                id="genere-pat"></span>
                                             <br>
                                             <strong>@lang('messages.ficha_paciente.correo'): </strong><span id="email-pat"></span>
                                             <br>
@@ -1228,10 +1311,12 @@
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="date" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                <label for="date" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                     @lang('messages.modal.form.fecha')
                                                 </label>
-                                                <input class="form-control date-diary" id="date_start" name="date_start" type="date" value="">
+                                                <input class="form-control date-diary" id="date_start" name="date_start"
+                                                    type="date" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -1239,7 +1324,8 @@
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.tiempo_horario')</label>
+                                                <label for="phone" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.tiempo_horario')</label>
                                                 <select id="timeIni" name="timeIni" onchange="handlerTime(event)"
                                                     class="form-control valid">
                                                     <option value="">@lang('messages.placeholder.seleccione')</option>
@@ -1254,45 +1340,54 @@
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                <label for="phone" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                     @lang('messages.modal.form.horarios_cita')
                                                 </label>
-                                                <select id="hour_start" name="hour_start" class="form-control valid"></select>
+                                                <select id="hour_start" name="hour_start"
+                                                    class="form-control valid"></select>
                                                 <i class="bi bi-stopwatch st-icon"></i>
                                             </div>
                                         </div>
                                     </div>
 
-                                    @if (Auth::user()->type_plane !=7)
-                                    <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" />
+                                    @if (Auth::user()->type_plane != 7)
+                                        <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" />
                                     @endif
 
                                     <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center">
                                         <div class="form-check form-switch">
-                                            <input onchange="handlerPrice(event);" style="width: 5em" class="form-check-input" type="checkbox" role="switch" id="showPrice" value="">
-                                            <label style="margin-left: -146px;margin-top: 8px; font-size: 15px" for="showPrice">
+                                            <input onchange="handlerPrice(event);" style="width: 5em"
+                                                class="form-check-input" type="checkbox" role="switch" id="showPrice"
+                                                value="">
+                                            <label style="margin-left: -146px;margin-top: 8px; font-size: 15px"
+                                                for="showPrice">
                                                 @lang('messages.modal.form.precio')
                                             </label>
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                        style="display: none" id="div-price">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: none"
+                                        id="div-price">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="searchPatients" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                <label for="searchPatients" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                     @lang('messages.modal.form.precio')
                                                 </label>
-                                                <input maxlength="8" type="text" class="form-control mask-input-price" id="price" name="price" id="searchPatients" value="">
+                                                <input maxlength="8" type="text"
+                                                    class="form-control mask-input-price" id="price" name="price"
+                                                    id="searchPatients" value="">
                                                 <i class="bi bi-cash st-icon"></i>
                                             </div>
                                         </div>
                                     </div>
-
+                                    {{-- btns --}}
                                     <div class="row text-center mt-2 mb-2">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4"
                                             style="margin-top: -4px" id="send">
-                                            <input class="btn btnSave" id="registrer-pac" value="@lang('messages.botton.agendar_cita')" type="submit" />
+                                            <input class="btn btnSave" id="registrer-pac" value="@lang('messages.botton.agendar_cita')"
+                                                type="submit" />
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-con"></div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell"></div>

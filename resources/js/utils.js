@@ -7,7 +7,7 @@ $('.mask-input-por').mask('000%', { reverse: true });
 $('.mask-only-number').mask('#', { reverse: true });
 $('.mask-only-breaths').mask('000/Min', { reverse: true });
 $('.mask-only-temperature').mask('00,00°', { reverse: true });
-$('.phone').mask('(0000) 000-00-00');
+$('.phone').mask('(000) 000-00-00');
 $('.mask-only-text').mask('Z', { translation: { 'Z': { pattern: /[a-zA-Z0-9 ]/, recursive: true } } });
 $('.mask-text').mask('Z', { translation: { 'Z': { pattern: /[áéíóúñüàèa-ñzA-Z\s]/, recursive: true } } });
 $('.mask-rif').mask('Z-0000000000000000', { translation: { 'Z': { pattern: /[G-J-C-F]/, recursive: true } } });
@@ -20,15 +20,15 @@ $('.alpha-no-spaces').mask("A", {
 $("#datepicker").datepicker({
   language: 'es',
 });
-$(document).ready(() => { 
+$(document).ready(() => {
   // selec dos
-  $(".select_dos").select2({    
+  $(".select_dos").select2({
     matcher: matchCustom
   });
   ////end
   new DataTable('.table', {
     language: {
-      url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+        url: url,
     },
     reponsive: true,
     "searching": false,
@@ -45,6 +45,14 @@ function calculateAge(e, id) {
     edad--;
   }
   $(`#${id}`).val(edad);
+  if (Number(edad) >= 18) {
+    $(`#is_minor`).val(false);
+
+  } else {
+    $(`#is_minor`).val(true)
+
+  }
+
   return edad;
 }
 
@@ -91,21 +99,21 @@ async function get_data(url) {
   });
 }
 
-async function triggerExample  (token)  {
+async function triggerExample(token) {
   let link = `${token}`;
   try {
-      await navigator.clipboard.writeText(link);
-      $("#icon-copy").css("background", "#04AA6D");
-      
-      $("#copied").text('Enlace copiado!');
+    await navigator.clipboard.writeText(link);
+    $("#icon-copy").css("background", "#04AA6D");
 
-      setTimeout(function() {
-          $('#copied').hide();
-      }, 2000);
+    $("#copied").text('Enlace copiado!');
+
+    setTimeout(function () {
+      $('#copied').hide();
+    }, 2000);
 
   } catch (err) {
-      console.error('Failed to copy: ', err);
-      $("#copied").text('Error al copiar enlace!');
+    console.error('Failed to copy: ', err);
+    $("#copied").text('Error al copiar enlace!');
   }
 }
 window.triggerExample = triggerExample;
