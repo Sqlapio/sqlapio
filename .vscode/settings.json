@@ -1,3 +1,10 @@
 {
-    "editor.inlineSuggest.showToolbar": "onHover"
+    "editor.inlineSuggest.showToolbar": "onHover",
+    "prettier.printWidth": 200,
+    "prettier.cssEnable": [
+
+        "css",
+        "less",
+        "scss"
+    ]
 }

@@ -37,6 +37,9 @@ return [
         'aceptar'             => 'Aceptar',
         'consulta_medica'     => 'Consulta Médica',
         'historia_medica'     => 'Historia Clínica',
+        'adquiere_plan'       => 'Adquiere tu plan',
+        'copiar_enlace'       => 'Copiar enlace de registro',
+        'enviar'              => 'Enviar',
     ],
 
     'form' => [
@@ -198,6 +201,7 @@ return [
             'observaciones'     => 'Observaciones',
             'informes_medico'   => 'Informe Médico',
             'resultado_ia'      => 'Resultado de la consulta con inteligencia artificial',
+            'renovar_plan'      => 'Renovar Plan',
         ],
 
         'form' => [
@@ -335,6 +339,8 @@ return [
         'consulta_ia'         => 'Consulta IA',
         'register_paciente'   => 'Registrar paciente',
         'tratamiento'         => 'Tratamiento',
+        'fecha_activacion'    => 'Fecha de activación',
+        'fecha_corte'         => 'Fecha de Corte',
     ],
 
     'select' => [
@@ -414,6 +420,21 @@ return [
         'nombre_centro_obligatorio'=> 'Nombre del centro es obligatorio',
         'cargar_archivo'           => 'Debe cargar un Archivo',
         'seleccionar_resultado'    => 'Debe selecionar un resultado',
+        'enlace_copiado'           => 'Enlace copiado!',
+        'error_copiar_enlace'      => 'Error al copiar enlace!',
+        'campo_6_caracteres'       => 'Campo debe ser de 6 caracteres',
+        'codigo_area_obligatorio'  => 'Código de area es obligatorio',
+        'nombre_lab_obligatorio'   => 'Nombre del laboratorio es obligatorio',
+        'rif_obligatorio'          => 'Rif es obligatorio',
+        'tipo_lab_obligatorio'     => 'Tipo de laboratorio es obligatorio',
+        'responsable_obligatorio'  => 'Responsable es obligatorio',
+        'num_licencia_obligatorio' => 'Número de lincencia es obligatorio',
+        'url_valida'               => 'Debe colocar una url valida',
+        'mpps_obligatorio'         => 'MPPS es obligatorio',
+        'especialidad_obligatorio' => 'Especialidad es obligatoria',
+        'num_tlf_obligatorio'      => 'Número teléfono del consultorio es obligatorio',
+        'pais_obligatorio'         => 'País es obligatorio',
+
 
         // sweet alert //
         'operacion_exitosa'   => 'Operación exitosa!',
@@ -435,7 +456,12 @@ return [
         'habilitar_centro'    => '¿Está seguro que desea habilitar este centro?',
         'registro_inicial'    => 'Debe completar su registro inicial!',
         'paciente_sin_info'   => 'El paciente no tiene información cargada en el sistema!',
-        'registro_inicial'    => 'Debe completar su registro inicial!',
+        'ingrese_codigo'      => 'Ingrese el código',
+        'envio_codigo'        => 'Se enviara un código de verifcación al correo ingresado!',
+        'perfil_actualizado'  => 'Perfil actualizado exitosamente!',
+
+
+
     ],
 
 ];
