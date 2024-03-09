@@ -62,8 +62,6 @@
 
                 handlerPlane(type_plan);
             }
-
-
         });
 
         function handlerPlane(type_plan) {
@@ -73,70 +71,31 @@
             switch (Number(type_plan)) {
                 case 1:
 
-                    // $("#amount").val('0');
-                    // $("#code_card").attr('disabled', true)
-                    // $("#number_card").attr('disabled', true)
-                    // $("#methodo_payment").attr('disabled', true)
-                    // $("#div-payment-metodo").hide();
-                    // $("#free").show();
-
                     break;
                 case 2:
-                    // $("#amount").val('$19.99');
                     $("#free").hide();
                     url = "https://buy.stripe.com/test_00g8zwgyv37Z7le6oo";
 
                     break;
                 case 3: //plan inlimitado
-                    // $("#amount").val('$39.99');
                     $("#free").hide();
                     url = "https://buy.stripe.com/test_bIY0309635g7eNG8wx";
 
                     break;
                 case 4:
-                    // $("#amount").val('$39.99');
-                    // $("#nombre").hide();
-                    // $("#apellidos").hide();
-                    // $("#cedula").hide();
-                    // $("#empresa").show();
-                    // $("#tipo_rif").show();
-                    // $("#Rif").show();
-                    // $("#free").hide();
+
 
                     break;
                 case 5:
-                    // $("#amount").val('$39.99');
-                    // $("#nombre").hide();
-                    // $("#apellidos").hide();
-                    // $("#cedula").hide();
-                    // $("#empresa").show();
-                    // $("#tipo_rif").show();
-                    // $("#Rif").show();
-                    // $("#free").hide();
-                    // $("#free").hide();
 
 
                     break;
                 case 6:
-                    // $("#amount").val('$39.99');
-                    // $("#nombre").hide();
-                    // $("#apellidos").hide();
-                    // $("#cedula").hide();
-                    // $("#empresa").show();
-                    // $("#tipo_rif").show();
-                    // $("#Rif").show();
+
 
                     break;
                 case 7:
-                    // $("#amount").val('$39.99');
-                    // $("#nombre").hide();
-                    // $("#apellidos").hide();
-                    // $("#cedula").hide();
-                    // $("#center").show();
-                    // $("#tipo_rif").show();
-                    // $("#Rif").show();
-                    // $("#div-payment-metodo").hide();
-                    // $("#free").hide()
+
 
                     break;
 
@@ -145,19 +104,17 @@
             }
         }
 
-        // function handlerSelectPlan(e) {
-        //     handlerPlane(e.target.value);
-        // }
-
-        // function handlerTypeDoc(e) {
-        //     $('#rif').val(e.target.value);
-        // }
 
         const handlerSubmit = () => {
 
             $('#form-payment').validate({
                 rules: {
-                    full_name: {
+                    name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    last_name: {
                         required: true,
                         minlength: 3,
                         maxlength: 50,
@@ -171,8 +128,11 @@
                     }
                 },
                 messages: {
-                    full_name: {
-                        required: "Nombres completo es obligatorio",
+                    name: {
+                        required: "Nombres es obligatorio",
+                    },
+                    last_name: {
+                        required: "Apellidos es obligatorio",
                     },
                     email: {
                         required: "Correo es obligatorio",
@@ -210,7 +170,9 @@
                             data: {
                                 "_token": "{{ csrf_token() }}",
                                 email: $('#email').val(),
-                                full_name: $('#full_name').val(),
+                                name: $('#name').val(),
+                                last_name: $('#last_name').val(),
+                                type_plan: type_plan
                             },
                             success: function(response) {
 
@@ -235,7 +197,7 @@
 
                                         }
                                     },
-                                    preConfirm: (login) => {                                        
+                                    preConfirm: (login) => {
 
                                         $.ajax({
                                             url: '{{ route('verify_otp_paymet') }}',
@@ -245,7 +207,10 @@
                                                 "_token": "{{ csrf_token() }}",
                                                 cod_update_pass: login,
                                                 email: $('#email').val(),
+                                                full_name: $('#full_name')
+                                                    .val(),
                                                 action: "rp",
+                                                type_plan: type_plan
                                             },
                                             headers: {
                                                 'X-CSRF-TOKEN': $(
@@ -270,6 +235,7 @@
                                                 });
                                             },
                                             error: function(error) {
+
                                                 Swal.fire({
                                                     icon: 'error',
                                                     title: error
@@ -288,7 +254,13 @@
                             },
                             error: function(error) {
                                 $('#spinner').hide();
-                                console.log(error.responseJSON.errors);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: error.responseJSON.errors,
+                                    allowOutsideClick: false,
+                                    confirmButtonColor: '#42ABE2',
+                                    confirmButtonText: 'Aceptar'
+                                })
 
                             }
                         });
@@ -390,130 +362,29 @@
                                 </div>
                                 {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment']) }}
                                 <div class="row">
-                                    {{-- <input type="hidden" name="type_plan" id="type_plan">
-                                    <input type="hidden" name="visitador_medico_id" id="visitador_medico_id"
-                                        value="">
-
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="select-plan"
-                                        style="display: none">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="center_id" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Seleccione
-                                                    tipo de plan</label>
-                                                <select onchange="handlerSelectPlan(event)" style="width:100% !important "
-                                                    name="center_id" id="center_id" placeholder="Seleccione"
-                                                    class="form-control combo-textbox-input select_dos">
-                                                    <option value="2">PROFESIONAL</option>
-                                                    <option value="3">INLIMITADO</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-
 
                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="nombre">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="full_name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombre
-                                                    Completo</label>
-                                                <input autocomplete="off" class="form-control mask-text" id="full_name"
-                                                    name="full_name" type="text" value="">
+                                                <label for="name" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
+                                                <input autocomplete="off" class="form-control mask-text" id="name"
+                                                    name="name" type="text" value="">
                                                 <i class="bi bi-person-circle st-icon"></i>
                                             </div>
                                         </diV>
                                     </div>
-                                    {{-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="apellidos"  style="display: none" >
+                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="nombre">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="name" class="form-label"
+                                                <label for="last_name" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
-                                                <input autocomplete="off"
-                                                    class="form-control mask-text @error('last_name') is-invalid @enderror"
-                                                    id="last_name" name="last_name" type="text" value="">
+                                                <input autocomplete="off" class="form-control mask-text" id="last_name"
+                                                    name="last_name" type="text" value="">
                                                 <i class="bi bi-person-circle st-icon"></i>
                                             </div>
                                         </diV>
-                                    </div> --}}
-                                    {{-- <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="cedula" style="display: none" >
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">C.I</label>
-                                                <input autocomplete="off" class="form-control" id="ci"
-                                                    name="ci" type="text" value="">
-                                                <i class="bi bi-person-vcard-fill st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div> --}}
-
-                                    {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="empresa"
-                                        style="display: none">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
-                                                    social</label>
-                                                <input autocomplete="off" class="form-control" id="business_name"
-                                                    name="business_name" type="text" value="">
-                                                <i class="bi bi-person-vcard-fill st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div> --}}
-
-                                    {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="center"
-                                        style="display: none">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="center_id" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Centro de
-                                                    salud</label>
-                                                <select style="width:100% !important " name="center_id" id="center_id"
-                                                    placeholder="Seleccione"
-                                                    class="form-control combo-textbox-input select_dos">
-                                                    <option value="">Seleccione...</option>
-                                                    @foreach ($centers as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->description }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-
-                                    {{-- <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="tipo_rif"
-                                        style="display: none">
-                                        <div class="form-group">
-                                            <label for="name" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">Tipo
-                                                de documento</label>
-                                            <select onchange="handlerTypeDoc(event)" name="type_rif" id="type_rif"
-                                                class="form-control">
-                                                <option value="">Seleccione</option>
-                                                <option value="F-">Firma personal</option>
-                                                <option value="J-">Jurídico</option>
-                                                <option value="C-">Comuna</option>
-                                                <option value="G-">Gubernamental</option>
-                                            </select>
-                                        </div>
                                     </div>
-
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2" id="Rif"
-                                        style="display: none">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
-                                                    de Identificación o RIF</label>
-                                                <input autocomplete="off" placeholder=""
-                                                    class="form-control mask-rif @error('rif') is-invalid @enderror"
-                                                    id="rif" name="rif" type="text" maxlength="17"
-                                                    value="">
-                                                <i class="bi bi-person-vcard st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div> --}}
 
                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="form-group">
@@ -522,118 +393,41 @@
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
                                                     eléctronico</label>
                                                 <input autocomplete="off" class="form-control" id="email" name="email"
-                                                    type="text" value="">
+                                                    type="text" value="kleynervillegas@gmial.com">
                                                 <i class="bi bi-envelope st-icon"></i>
                                             </div>
                                         </div>
                                     </div>
 
+
+
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <label for="name" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Ingrese su
+                                                    codigo</label>
+                                                <input onblur="validateCaptcha(event)" placeholder="" autocomplete="off"
+                                                    class="form-control" id="captcha" name="captcha" type="text"
+                                                    value="">
+                                                <i class="bi bi-envelope st-icon"></i>
+                                            </div>
+                                        </div>
+                                        <small id="samll-error" style="display: none" for=""
+                                            class="text-danger">Codigo Incorrecto</small style="display: none">
+                                    </div>
+                                </div>
+
+
+                                <div class="d-flex justify-content-center">
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
+                                        style="display: flex; justify-content: center;">
                                         <span id="span-captcha"> {!! Captcha::img('flat') !!}</span>
                                         <button type="button" id="reload" class="btn btn-danger reload"
                                             onclick="reloadCaptcha()">
                                             &#x21bb;
                                         </button>
                                     </div>
-
-
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                        <div class="form-group">
-                                            <input onblur="validateCaptcha(event)" placeholder="Ingrese su codigo"
-                                                autocomplete="off" class="form-control" id="captcha" name="captcha"
-                                                type="text" value="">
-                                            <small id="samll-error" style="display: none" for=""
-                                                class="text-danger">Codigo Incorrecto</small style="display: none">
-                                        </div>
-                                    </div>
-
-                                    {{-- <div class="row" id="div-payment-metodo" style="display: none">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="methodo_payment" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Método
-                                                        de
-                                                        pago</label>
-                                                    <select name="methodo_payment" id="methodo_payment"
-                                                        placeholder="Seleccione"class="form-control"
-                                                        class="form-control combo-textbox-input">
-                                                        <option value="">Seleccione...</option>
-                                                        <option value="1">Banco de Venezuela</option>
-                                                        <option value="2">Banco Mercantil</option>
-                                                        <option value="3">Banco Banesco</option>
-                                                        <option value="4">Bancamiga</option>
-                                                        <option value="5">Zelle</option>
-                                                    </select>
-                                                    <i class="bi bi-credit-card st-icon"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2" style="padding-right: 0">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                style="display: flex; align-items: center;
-                                            justify-content: flex-end; text-align: end; padding-right: 0">
-                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                    <img class="logo-bank" src="{{ asset('img/mercantil-icon.jpg') }}"
-                                                        alt="">
-                                                </div>
-                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                    <img class="logo-bank" src="{{ asset('img/banesco-icon.png') }}"
-                                                        alt="">
-                                                </div>
-
-
-                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                    <img class="logo-bank" src="{{ asset('img/zelle-icon.png') }}"
-                                                        alt="">
-                                                </div>
-
-                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                    <img class="logo-bank" src="{{ asset('img/bdv-icon.png') }}"
-                                                        alt="">
-                                                </div>
-                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                    <img class="logo-bank" src="{{ asset('img/bancamiga-icon.png') }}"
-                                                        alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
-                                                        de
-                                                        tarjeta</label>
-                                                    <input autocomplete="off" class="form-control" id="number_card"
-                                                        name="number_card" type="number" value="">
-                                                    <i class="bi bi-credit-card st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">CVC/CVV</label>
-                                                    <input autocomplete="off" class="form-control" id="code_card"
-                                                        name="code_card" type="number" value="">
-                                                    <i class="bi bi-credit-card st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Monto</label>
-                                                    <input readonly autocomplete="off" class="form-control"
-                                                        id="amount" name="amount" type="text" value="">
-                                                    <i class="bi bi-currency-dollar st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                    </div> --}}
 
                                 </div>
 

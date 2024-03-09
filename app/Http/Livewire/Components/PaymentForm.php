@@ -198,21 +198,55 @@ class PaymentForm extends Component
 
         try {
 
-            $code = random_int(111111, 999999);
-            
-            DB::table('users')
-                ->where('email', $request->email)
-                ->update(['cod_update_pass' => $code]);
+            $user = User::where('email', $request->email)->first();
 
-            $type = 'reset_pass';
-            $mailData = [
-                'dr_email'      => $request->email,
-                'dr_name'       => $request->full_name,
-                'code'          => $code
-            ];
-            UtilsController::notification_mail($mailData, $type);
+            if ($user == null) {
 
-            return true;
+                $date_today = Carbon::createFromFormat('Y-m-d', date('Y-m-d'));
+
+                $date_today = $date_today->addDay(30)->format('Y-m-d');
+
+                $code = random_int(111111, 999999);
+
+                $rol = 'medico';
+
+                $rol = ($request->type_plan == '4' || $request->type_plan == '5' || $request->type_plan == '6') ? 'laboratorio' : $rol;
+
+                $user = new User();
+                $user->name = $request->name;
+                $user->last_name = $request->last_name;
+                $user->email = $request->email;
+                $user->type_plane = $request->type_plan;
+                $user->role = $rol;
+                $user->date_start_plan = date('Y-m-d');
+                $user->date_end_plan = $date_today;
+                $user->cod_update_pass = $code;
+                $user->save();
+
+                $billed_plans = new BilledPlan();
+                $billed_plans->user_id = $user->id;
+                $billed_plans->type_plan = $request->type_plan;
+                $billed_plans->date = date('d-m-Y');
+                $billed_plans->save();
+
+                $type = 'reset_pass';
+                $mailData = [
+                    'dr_email'      => $request->email,
+                    'dr_name'       => $request->full_name,
+                    'code'          => $code
+                ];
+                UtilsController::notification_mail($mailData, $type);
+
+                return response()->json([
+                    'success' => 'true',
+                    'msj'  => 'Operacion exitosa!'
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'errors'  => "Email ya se encunetra registro"
+                ], 400);
+            }
         } catch (\Throwable $th) {
 
             return response()->json([
@@ -226,14 +260,20 @@ class PaymentForm extends Component
     {
         try {
 
+            $user = User::where('email', $request->email)->first();
 
+            if ($user->cod_update_pass == $request->cod_update_pass) {
 
-
-            return response()->json([
-                'success' => 'true',
-                'msj'  => 'Operacion exitosa!'
-            ], 200);       
-
+                return response()->json([
+                    'success' => 'true',
+                    'msj'  => 'Operacion exitosa!'
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'msj'  => 'Codigo incorrecto'
+                ], 400);
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => 'false',
