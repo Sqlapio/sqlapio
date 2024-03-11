@@ -361,6 +361,8 @@ return [
         'Femenino'       => 'Femenino',
         'am'             => 'AM',
         'pm'             => 'PM',
+        'cedula'        => 'cedula de identidad',
+        'pasaporte'     => 'Pasaporte',
         'firma_personal' => 'Firma Personal',
         'juridico'       => 'Jurídico',
         'comuna'         => 'Comuna',

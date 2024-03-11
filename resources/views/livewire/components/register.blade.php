@@ -176,7 +176,6 @@
 </style>
 @push('scripts')
     <script>
-
         $(document).ready(function() {
 
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -217,7 +216,9 @@
                     },
                     captcha: {
                         required: true,
-                        // validateCaptcha: true,
+                    },
+                    business_name: {
+                        required: true,
                     }
                 },
                 messages: {
@@ -251,6 +252,9 @@
                     },
                     captcha: {
                         required: "Codigo es obligatorio",
+                    },
+                    business_name: {
+                        required: "Campo es obligatorio",
                     }
                 },
                 invalidHandler: function(event, validator) {
@@ -273,7 +277,7 @@
                     validate = true;
                 }
                 return validate;
-            }, "Contraseña no coinciden");   
+            }, "Contraseña no coinciden");
 
         });
 
@@ -380,7 +384,8 @@
                                                     confirmButtonText: 'Aceptar'
                                                 }).then((result) => {
                                                     window
-                                                        .location = '{{route('Login_home')}}';
+                                                        .location =
+                                                        '{{ route('Login_home') }}';
 
                                                 });
                                             },
@@ -434,6 +439,107 @@
 
             });
         }
+
+        function handlerTypeDoc(e) {
+
+            switch (Number(e.target.value)) {
+                case 1:
+
+                    $('#ci').attr("placeholder", "Cedula de indentidad");
+                    $('#div_name').show();
+                    $('#div_last_name').show();
+                    $('#div_business_name').hide();
+
+                    $("#name").rules('add', {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    });
+
+                    $("#last_name").rules('add', {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    });
+
+                    break;
+
+                case 2:
+
+                    $('#ci').attr("placeholder", "Pasaporte");
+                    $('#div_name').show();
+                    $('#div_last_name').show();
+                    $('#div_business_name').hide();
+
+                    $("#name").rules('add', {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    });
+
+                    $("#last_name").rules('add', {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    });
+
+
+                    break;
+
+                case 3:
+
+                    $('#ci').attr("placeholder", "Firma Personal");
+
+                    $('#div_name').hide();
+                    $('#div_last_name').hide();
+                    $('#div_business_name').show();
+
+                    $("#name").rules('remove');
+                    $("#last_name").rules('remove');
+
+                    break;
+
+                case 4:
+
+                    $('#ci').attr("placeholder", "Juridico");
+                    $('#div_name').hide();
+                    $('#div_last_name').hide();
+                    $('#div_business_name').show();
+
+
+                    $("#name").rules('remove');
+                    $("#last_name").rules('remove');
+
+                    break;
+                case 5:
+
+                    $('#ci').attr("placeholder", "Comuna");
+                    $('#div_name').hide();
+                    $('#div_last_name').hide();
+                    $('#div_business_name').show();
+
+
+                    $("#name").rules('remove');
+                    $("#last_name").rules('remove');
+
+                    break;
+
+                case 6:
+
+                    $('#ci').attr("placeholder", "Gubernalmental");
+                    $('#div_name').hide();
+                    $('#div_last_name').hide();
+                    $('#div_business_name').show();
+
+
+                    $("#name").rules('remove');
+                    $("#last_name").rules('remove');
+
+                    break;
+            }
+
+
+        }
     </script>
 @endpush
 @section('content')
@@ -456,31 +562,24 @@
                             {{ Form::open(['method' => 'post', 'id' => 'form-register']) }}
                             {{ csrf_field() }}
                             <div class="row">
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-4">
                                     <div class="form-group">
-                                        <div class="Icon-inside">
-                                            <label for="name" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
-                                            <input autocomplete="off"
-                                                class="form-control mask-text @error('name') is-invalid @enderror"
-                                                id="name" name="name" type="text" value="">
-                                            <i class="bi bi-person-circle st-icon"></i>
-                                        </div>
-                                    </diV>
+                                        <label for="name" class="form-label"
+                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.tipo_documento')</label>
+                                        <select onchange="handlerTypeDoc(event)" name="type_rif" id="type_rif"
+                                            class="form-control">
+                                            <option value="">@lang('messages.placeholder.seleccione')</option>
+                                            <option value="1">@lang('messages.select.cedula')</option>
+                                            <option value="2">@lang('messages.select.pasaporte')</option>
+                                            <option value="3">@lang('messages.select.firma_personal')</option>
+                                            <option value="4">@lang('messages.select.juridico')</option>
+                                            <option value="5">@lang('messages.select.comuna')</option>
+                                            <option value="6">@lang('messages.select.gubernamental')</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                    <div class="form-group">
-                                        <div class="Icon-inside">
-                                            <label for="name" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
-                                            <input autocomplete="off"
-                                                class="form-control mask-text @error('last_name') is-invalid @enderror"
-                                                id="last_name" name="last_name" type="text" value="">
-                                            <i class="bi bi-person-circle st-icon"></i>
-                                        </div>
-                                    </diV>
-                                </div>
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-8">
                                     <div class="form-group">
                                         <div class="Icon-inside">
                                             <label for="name" class="form-label"
@@ -488,7 +587,44 @@
                                                 de
                                                 indentidad</label>
                                             <input autocomplete="off" class="form-control mask-only-number" id="ci"
-                                                name="ci" type="text" value="">
+                                                name="ci" type="text" value="" placeholder="">
+                                            <i class="bi bi-person-circle st-icon"></i>
+                                        </div>
+                                    </diV>
+                                </div>
+
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: none"
+                                    id="div_business_name">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <label for="name" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon_social')</label>
+                                            <input autocomplete="off" placeholder="" class="form-control mask-text"
+                                                id="business_name" name="business_name" type="text" value="">
+                                            <i class="bi bi-person-vcard st-icon"></i>
+                                        </div>
+                                    </diV>
+                                </div>
+
+
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="div_name">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <label for="name" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
+                                            <input autocomplete="off" class="form-control mask-text" id="name"
+                                                name="name" type="text" value="">
+                                            <i class="bi bi-person-circle st-icon"></i>
+                                        </div>
+                                    </diV>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="div_last_name">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <label for="name" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
+                                            <input autocomplete="off" class="form-control mask-text" id="last_name"
+                                                name="last_name" type="text" value="">
                                             <i class="bi bi-person-circle st-icon"></i>
                                         </div>
                                     </diV>
@@ -512,9 +648,8 @@
                                         <div class="Icon-inside">
                                             <label for="name" class="form-label"
                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Contraseña</label>
-                                            <input placeholder="Contraseña" autocomplete="off"
-                                                class="form-control @error('password') is-invalid @enderror" id="password"
-                                                name="password" type="password" value="">
+                                            <input placeholder="Contraseña" autocomplete="off" class="form-control"
+                                                id="password" name="password" type="password" value="">
                                             <i onclick="showPass();" class="bi bi-eye-fill st-icon"></i>
                                         </div>
                                     </diV>
@@ -526,9 +661,8 @@
                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Confirmar
                                                 Contraseña</label>
                                             <input autocomplete="off" placeholder="Confirmar Contraseña"
-                                                class="form-control @error('password_confrimation') is-invalid @enderror"
-                                                id="password_confrimation" name="password_confrimation" type="password"
-                                                value="">
+                                                class="form-control" id="password_confrimation"
+                                                name="password_confrimation" type="password" value="">
                                             <i onclick="showPassConfimation();" class="bi bi-eye-fill st-icon"></i>
                                         </div>
                                     </diV>

@@ -27,27 +27,52 @@ class Register extends Component
     public function store(Request $request)
     {
 
-        $rules = [
-            'name'      => 'required',
-            'last_name' => 'required',
-            'password'  => 'required',
-            'email'     => 'required|unique:users',
-            'ci'     => 'required',
-            'captcha'     => 'required',
-        ];
+        if (number_format($request->type_rif) >= 3) {
+            $rules = [
+                'business_name'      => 'required',
+                'password'  => 'required',
+                'email'     => 'required|unique:users',
+                'ci'     => 'required',
+                'captcha'     => 'required',
+            ];
 
-        $msj = [
-            'name'              => 'Campo name requerido',
-            'last_name'         => 'Campo last_name requerido',
-            'email.required'             => 'Campo email requerido',
-            'email.unique'              => 'Email ya se encunetra registro',
-            'password'          => 'Campo password requerido',
-            'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
-            'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
-            'password.regex'    => 'Formato de contraseña  incorrecto',
-            'ci'                => 'Campo ci requerido',
-            'captcha'           => 'Campo captcha requerido',
-        ];
+            $msj = [
+                'business_name'              => 'Campo name requerido',
+                'email.required'             => 'Campo email requerido',
+                'email.unique'              => 'Email ya se encunetra registro',
+                'password'          => 'Campo password requerido',
+                'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
+                'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
+                'password.regex'    => 'Formato de contraseña  incorrecto',
+                'ci'                => 'Campo ci requerido',
+                'captcha'           => 'Campo captcha requerido',
+            ];
+        } else {
+            $rules = [
+                'name'      => 'required',
+                'last_name' => 'required',
+                'password'  => 'required',
+                'email'     => 'required|unique:users',
+                'ci'     => 'required',
+                'captcha'     => 'required',
+            ];
+
+            $msj = [
+                'name'              => 'Campo name requerido',
+                'last_name'         => 'Campo last_name requerido',
+                'email.required'             => 'Campo email requerido',
+                'email.unique'              => 'Email ya se encunetra registro',
+                'password'          => 'Campo password requerido',
+                'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
+                'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
+                'password.regex'    => 'Formato de contraseña  incorrecto',
+                'ci'                => 'Campo ci requerido',
+                'captcha'           => 'Campo captcha requerido',
+            ];
+        }
+
+
+
 
         $validator = Validator::make($request->all(), $rules, $msj);
 
@@ -69,6 +94,7 @@ class Register extends Component
             $user = new User();
             $user->name = $request->name;
             $user->last_name = $request->last_name;
+            $user->business_name = $request->business_name;
             $user->ci = $request->ci;
             $user->email = $request->email;
             $user->password = $request->password;
