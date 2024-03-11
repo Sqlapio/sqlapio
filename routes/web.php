@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HandleOtpController;
 use App\Http\Controllers\MultilanguajeController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UtilsController;
@@ -66,8 +67,8 @@ Route::get('/recovery-password', [RecoveryPassword::class, 'render'])->name('rec
 Route::post('/create-password-temporary', [RecoveryPassword::class, 'create_password_temporary'])->name('create_password_temporary');
 Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp_rp');
 Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp_rp');
-Route::post('/send-otp-paymet', [PaymentForm::class, 'send_otp'])->name('send_otp_paymet');
-Route::post('/verify-otp-paymet', [PaymentForm::class, 'verify_otp'])->name('verify_otp_paymet');
+Route::post('/send_otp_global', [HandleOtpController::class, 'send_otp'])->name('send_otp_global');
+Route::post('/verify_otp_global', [HandleOtpController::class, 'verify_otp'])->name('verify_otp_global');
 
 //fuerzas de ventas
 Route::get('/register-user-force-sale/{hash?}', [RegisterUserSalesForces::class, 'render'])->name('register_user_force_sale');

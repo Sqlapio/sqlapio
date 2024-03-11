@@ -121,10 +121,10 @@ class UtilsController extends Controller
 		if ($value == '22') {
 			return 'initial registration of General Manager';
 		}
-        if ($value == '23') {
+		if ($value == '23') {
 			return 'dairy: pre-registration of patient';
 		}
-        if ($value == '24') {
+		if ($value == '24') {
 			return 'add physical exams';
 		}
 	}
@@ -170,9 +170,9 @@ class UtilsController extends Controller
 				$nameFile = $request->img;
 			}
 			$specialty =  $request->specialty;
-			
-			if($request->specialty_new!=null){
-				
+
+			if ($request->specialty_new != null) {
+
 				$specialty_new = Specialty::create(['description' => $request->specialty_new]);
 
 				$specialty =  $specialty_new->description;
@@ -1302,7 +1302,7 @@ class UtilsController extends Controller
 			// MedicalRecord::where('user_id', $user->id)->get()->unique('patient_id');
 
 			$medical_record = Patient::where('user_id', $user->id)
-			->with('get_patient_medical_record')->get();
+				->with('get_patient_medical_record')->get();
 			return $medical_record;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
@@ -1740,32 +1740,30 @@ class UtilsController extends Controller
 		}
 	}
 
-    static function color_dairy()
+	static function color_dairy()
 	{
 		try {
 
-            $colors = [
-                'rgb(128,0,0)',
-                'rgb(0,139,139)',
-                'rgb(70,130,180)',
-                'rgb(112,128,144)',
-                'rgb(250,128,114)'
-            ];
+			$colors = [
+				'rgb(128,0,0)',
+				'rgb(0,139,139)',
+				'rgb(70,130,180)',
+				'rgb(112,128,144)',
+				'rgb(250,128,114)'
+			];
 
 			/** Selecion aleatoria */
 			$n = count($colors);
 			$rand = mt_rand(0, $n - 1);
 			$color_appointments = $colors[$rand];
 
-            return $color_appointments;
-
+			return $color_appointments;
 		} catch (\Throwable $th) {
 
-            return response()->json([
+			return response()->json([
 				'success' => 'true',
 				'data'  =>  $th->getMessage()
 			], 400);
-
 		}
 	}
 
@@ -1775,8 +1773,8 @@ class UtilsController extends Controller
 	}
 
 	static function validateCapchat(Request $request)
-	{	
-		$rules = ['captcha' => 'required|captcha:'. request('key') . ',math'];
+	{
+		$rules = ['captcha' => 'required|captcha:' . request('key') . ',math'];
 
 		$msj = [
 			'captcha.required' => 'campo requerido',
@@ -1787,12 +1785,12 @@ class UtilsController extends Controller
 		$validator = Validator::make($request->all(), $rules, $msj);
 
 		if ($validator->fails()) {
-			return response()->json([
-				'success' => 'false',
-				'errors'  => "errors"
-			], 400);
-		}
 
-		return true;
+			return false;
+			
+		} else {
+
+			return true;
+		}
 	}
 }
