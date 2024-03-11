@@ -38,6 +38,7 @@ use App\Http\Livewire\Components\SalesForces\ProfileUser;
 use App\Http\Livewire\Components\SalesForces\RegisterUserSalesForces;
 use App\Http\Livewire\Components\Study;
 use App\Http\Middleware\VerifyPlans;
+use App\Http\Middleware\VerifyPlansActive;
 use App\Models\Center;
 use App\Models\Exam;
 use App\Models\Patient;
@@ -100,7 +101,7 @@ Route::get('/confirmation/dairy/{code}', [UtilsController::class, 'confirmation_
 // planes
 Route::post('/pay-plan-renew', [PaymentForm::class, 'pay_plan_renew'])->name("pay-plan-renew")->middleware(['auth', 'VerifySelloDigital', 'verify_email']);
 
-Route::middleware(['auth','AuthCheck'])->group(function () {
+Route::middleware(['auth','AuthCheck','VerifyPlansActive'])->group(function () {
 
     Route::group(array('prefix' => 'auth'), function () {
         Route::middleware(['VerifySelloDigital', 'verify_email'])->group(function () {
