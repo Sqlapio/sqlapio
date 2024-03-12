@@ -607,7 +607,7 @@
                                 </div>
 
 
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="div_name">
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" id="div_name">
                                     <div class="form-group">
                                         <div class="Icon-inside">
                                             <label for="name" class="form-label"
@@ -618,7 +618,7 @@
                                         </div>
                                     </diV>
                                 </div>
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="div_last_name">
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" id="div_last_name">
                                     <div class="form-group">
                                         <div class="Icon-inside">
                                             <label for="name" class="form-label"
@@ -643,7 +643,7 @@
                                     </diV>
                                 </div>
 
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                     <div class="form-group">
                                         <div class="Icon-inside">
                                             <label for="name" class="form-label"
@@ -654,7 +654,7 @@
                                         </div>
                                     </diV>
                                 </div>
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                     <div class="form-group">
                                         <div class="Icon-inside">
                                             <label for="name" class="form-label"
@@ -668,7 +668,7 @@
                                     </diV>
                                 </div>
 
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                     <div class="form-group">
                                         <div class="Icon-inside">
                                             <label for="name" class="form-label"
@@ -684,10 +684,8 @@
                                         class="text-danger">Codigo
                                         Incorrecto</small style="display: none">
                                 </div>
-                            </div>
 
-                            <div class="d-flex justify-content-center">
-                                <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl--6 mt-3"
                                     style="display: flex; justify-content: center;">
                                     <span id="span-captcha"> {!! Captcha::img('flat') !!}</span>
                                     <button type="button" id="reload" class="btn btn-danger reload"
@@ -696,6 +694,8 @@
                                     </button>
                                 </div>
                             </div>
+
+
 
                             <div class="d-flex justify-content-center">
                                 <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-3 mb-3"

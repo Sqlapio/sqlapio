@@ -27,7 +27,7 @@ class HandleOtpController extends Controller
 
 				$code = random_int(111111, 999999);
 
-				$type = 'verify_email';
+				$type = 'reset_pass';
 
 				$data = new TemporaryEmailVerification();
 				$data->email = $request->email;
@@ -39,7 +39,7 @@ class HandleOtpController extends Controller
 				$mailData = [
 					'dr_email'      => $request->email,
 					'dr_name'       => $request->name . " " . $request->last_name,
-					'code'          => $code
+                    'code'          => $code
 				];
 
 				UtilsController::notification_mail($mailData, $type);
@@ -56,7 +56,6 @@ class HandleOtpController extends Controller
 				], 400);
 			}
 		} catch (\Throwable $th) {
-			dd($th);
 
 			return response()->json([
 				'success' => 'false',
