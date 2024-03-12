@@ -108,8 +108,7 @@ class Register extends Component
 
             /**
              * Envio de notificacion por correo
-             */
-            $user_update = User::where('email', $request->email)->first();
+             */            
             $type = 'verify_email';
             $mailData = [
                 'dr_name' => $request->name . ' ' . $request->last_name,
