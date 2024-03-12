@@ -1,10 +1,21 @@
 import Chart from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
+$(document).ready(() => {
+    const lang = document.getElementById('lang').value
+
+    const langJson = JSON.parse(lang)
+
+    console.log(langJson.alert.campo_obligatorio, "lang")
+});
+
+
 function get_patient_register(countPatientRegister) {
 
+
   const labels = [
-    'Total de pacientes registrados',
+    // 'Total de pacientes registrados',
+    `$langJson.alert.campo_obligatorio`
   ];
 
   const data = {
@@ -33,7 +44,7 @@ function get_patient_register(countPatientRegister) {
         y: {
           beginAtZero: true,
           ticks: {
-            stepSize: 1 
+            stepSize: 1
           }
         }
       },
@@ -87,7 +98,7 @@ function get_medical_record(countMedicalRecordr) {
         y: {
           beginAtZero: true,
           ticks: {
-            stepSize: 1 
+            stepSize: 1
           }
         }
       },
@@ -142,7 +153,7 @@ function get_history_register(countHistoryRegister) {
         y: {
           beginAtZero: true,
           ticks: {
-            stepSize: 1 
+            stepSize: 1
           }
         }
       },
@@ -195,7 +206,7 @@ function get_genere(boy_girl, teen) {
       scales: {
         y: {
           ticks: {
-            stepSize: 1 
+            stepSize: 1
           }
         }
       },
@@ -242,7 +253,7 @@ function get_general(elderly, adult) {
       scales: {
         y: {
           ticks: {
-            stepSize: 1 
+            stepSize: 1
           }
         }
       },
@@ -256,7 +267,7 @@ function get_general(elderly, adult) {
         }
       }
     }
-  });  
+  });
 }
 
 window.get_patient_register = get_patient_register;

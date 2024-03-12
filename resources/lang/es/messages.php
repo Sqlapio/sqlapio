@@ -459,6 +459,7 @@ return [
         'ingrese_codigo'      => 'Ingrese el código',
         'envio_codigo'        => 'Se enviara un código de verifcación al correo ingresado!',
         'perfil_actualizado'  => 'Perfil actualizado exitosamente!',
+        'fecha_anterior'      => '¡Esta seleccionando una fecha anterior al dia actual!',
 
 
 

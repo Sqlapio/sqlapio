@@ -458,7 +458,8 @@ return [
         'paciente_sin_info'  => 'The patient does not have information loaded into the system!',
         'ingrese_codigo'     => 'Enter the code',
         'envio_codigo'       => 'A verification code will be sent to the email address entered!',
-        'perfil_actualizado'  => 'Perfil actualizado exitosamente!',
+        'perfil_actualizado' => 'Perfil actualizado exitosamente!',
+        'fecha_anterior'     => 'You are selecting a date earlier than the current day!',
 
     ],
 
