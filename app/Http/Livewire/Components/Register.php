@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Illuminate\Support\Carbon;
+use Laravel\Cashier\Cashier;
 
 class Register extends Component
 {
@@ -71,9 +72,6 @@ class Register extends Component
             ];
         }
 
-
-
-
         $validator = Validator::make($request->all(), $rules, $msj);
 
         if ($validator->fails()) {
@@ -101,22 +99,13 @@ class Register extends Component
             $user->verification_code = Str::random(30);
             $user->password = Hash::make($request->password);
             $user->email_verified_at = $date_today;
+            $user->role = "temporary";            
             $user->save();
-
             $action = '3';
+
             ActivityLogController::store_log($action);
 
-            /**
-             * Envio de notificacion por correo
-             */            
-            $type = 'verify_email';
-            $mailData = [
-                'dr_name' => $request->name . ' ' . $request->last_name,
-                'dr_email' => $request->email,
-                'verify_code' => $user->verification_code,
-            ];
-
-            UtilsController::notification_mail($mailData, $type);
+            $stripeCustomer = $user->createAsStripeCustomer();
 
             return response()->json([
                 'success' => true,
