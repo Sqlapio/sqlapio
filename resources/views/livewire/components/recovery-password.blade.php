@@ -332,7 +332,7 @@
                             </diV>
 
                             <div class="d-flex justify-content-center">
-                                <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
+                                <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 mb-3"
                                     style="display: flex; justify-content: space-around;">
                                     <input class="btn btnPrimary" value="Guardar" type="submit" />
                                 </div>
