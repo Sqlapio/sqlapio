@@ -22,7 +22,21 @@ class PaymentMethod extends Component
 
     public function newSubscription($plan)
     {
-        auth()->user()->newSubscription('Plan Ilimitado', $plan)->create($this->defaultPaymentMethod->id);
+        if(!$this->defaultPaymentMethod()) {
+
+            $this->emit('error', 'No tienes un metodo de pago por defecto');
+
+            return;
+        }
+
+        try {
+            auth()->user()->newSubscription('Plan Ilimitado', $plan)->create($this->defaultPaymentMethod->id);
+
+        } catch (\Exception $e) {
+            $this->emit('error', $e->getMessage())
+        }
+
+
     }
 
 

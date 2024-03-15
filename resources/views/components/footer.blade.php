@@ -5,7 +5,8 @@
         width: 100%;
         margin-top: 20%;
         position: fixed;
-        bottom: 0
+        bottom: 0;
+        z-index: 3;
     }
 
     .footer-margin {
