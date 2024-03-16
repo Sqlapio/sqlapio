@@ -3,7 +3,54 @@
         const handleSelectPlan = () => {
             $("#exampleModal").modal("show");
         }
+
+        const handleSelect = (section) => {
+
+            switch (section) {
+                case "medico":
+
+                    $("#div-content-medico").show();
+                    $("#div-content-laboratorio").hide();
+                    $("#div-content-corporativo").hide();
+
+                    $(".corporativo").prop("class", "img-icon-select-rol corporativo");
+                    $(".laboratorio").prop("class", "img-icon-select-rol laboratorio");
+                    $(".medico").prop("class", "img-icon-select-rol medico ico-check");
+
+                    break;
+                case "laboratorio":
+
+                    $("#div-content-laboratorio").show();
+                    $("#div-content-medico").hide();
+                    $("#div-content-corporativo").hide();
+
+                    $(".medico").prop("class", "img-icon-select-rol medico");
+                    $(".corporativo").prop("class", "img-icon-select-rol corporativo");
+                    $(".laboratorio").prop("class", "img-icon-select-rol laboratorio ico-check");
+
+
+                    break;
+                case "corporativo":
+
+                    $("#div-content-corporativo").show();
+                    $("#div-content-laboratorio").hide();
+                    $("#div-content-medico").hide();
+
+                    $(".medico").prop("class", "img-icon-select-rol medico");
+                    $(".laboratorio").prop("class", "img-icon-select-rol laboratorio");
+                    $(".corporativo").prop("class", "img-icon-select-rol corporativo ico-check");
+
+
+                    break;
+            }
+        }
     </script>
+
+
+
+
+
+
 
 
     <div class="container-fluid" style="padding: 0 3% 3%">
@@ -96,8 +143,15 @@
                                                         <span class="symbol">$</span> 29,<span class="cent">99</span>
                                                     </h4>
                                                     <span class="time">USD / mensual</span>
-                                                    <button class="btn btnSave" onclick="handleSelectPlan()" style="min-width: 70px; margin-top: 10px"> Suscribirse!!
+                                                    @if (auth()->user()->subscribedToPrice('price_1OfpJfLoqeBM9DtelZzLtCIe', 'Plan Ilimitado'))
+                                                    Suscrito
+                                                    <button class="btn btnSave" wire:click="cancelSubscription" wire:target="cancelSubscription" style="min-width: 70px; margin-top: 10px">
+                                                        Cancelar
                                                     </button>
+                                                @else
+                                                <button class="btn btnSave"  wire:click="newSubscription('price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px"> Suscribirse!! </button>
+
+                                                @endif
                                                 </div>
                                             </a>
                                         </div>
@@ -128,8 +182,12 @@
                                                     <span class="time">USD / Anual</span>
                                                 </h4>
 
+
                                                 @if (auth()->user()->subscribedToPrice('price_1OfpQ4LoqeBM9DteIhOpQOh8', 'Plan Ilimitado'))
                                                     Suscrito
+                                                    <button class="btn btnSave" wire:click="cancelSubscription" wire:target="cancelSubscription" style="min-width: 70px; margin-top: 10px">
+                                                        Cancelar
+                                                    </button>
                                                 @else
                                                     <button class="btn btnSave" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:target="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px">
                                                         Suscribirse
@@ -141,6 +199,9 @@
                                         </a>
                                     </div>
                                     <div id="spinner" wire:target="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:loading >
+                                           <x-load-spinner />
+                                    </div>
+                                    <div id="spinner" wire:target=cancelSubscription" wire:loading >
                                            <x-load-spinner />
                                     </div>
                                 </div>
@@ -201,10 +262,10 @@
                                                 <div class="ag-courses-item_bg"></div>
                                                 <div class="ag-courses-item_title">
                                                     <h4>
-                                                        <span class="symbol">$</span> 29,<span class="cent">99</span>
+                                                        <span class="symbol">$</span> 19,<span class="cent">99</span>
                                                         <span class="time">USD / mensual</span>
                                                     </h4>
-                                                    <button class="btn btnSave"  wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
+                                                    <button class="btn btnSave"  wire:click="newSubscription('price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
                                                 </div>
                                             </a>
                                         </div>
@@ -395,37 +456,41 @@
                     <div class="card-body">
                         <h4>Metodos de Pago</h4>
                         <hr style="margin-bottom: 0; margin-top: 5px">
-                        <div class="row">
-                            @foreach ($paymentMethods as $paymentMethod)
-                                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
-                                    <div class="credit-card {{ $paymentMethod->card->brand }} selectable">
-                                        <div class="credit-card-last4">
-                                            {{ $paymentMethod->card->last4 }}
-                                        </div>
-                                        <div class="credit-card-expiry">
-                                            Expira:
-                                            {{ $paymentMethod->card->exp_month }} / {{ $paymentMethod->card->exp_year }}
-                                            @if ($this->defaultPaymentMethod->id == $paymentMethod->id)
-                                                <br>
-                                                <span class="badge rounded-pill text-bg-secondary"
-                                                    style="margin-top: 10px">Predeterminado</span>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    {{-- <p>Tarjeta: {{ $paymentMethod->card->brand }} - xxxx -{{ $paymentMethod->card->last4 }} </p>
-                                        <p>Expira:  {{ $paymentMethod->card->exp_month }} / {{ $paymentMethod->card->exp_year }} </p>
-                                        @if ($this->defaultPaymentMethod->id == $paymentMethod->id)
-                                        <span class="badge rounded-pill text-bg-info">Predeterminado</span>
-                                        @endif --}}
+                        @if (count($paymentMethods))
+                            <div class="row">
+                                @foreach ($paymentMethods as $paymentMethod)
+                                <div id="spinner" wire:target="deletePaymentMethod('{{ $paymentMethod->id }}')" wire:loading >
+                                    <x-load-spinner />
                                 </div>
-                            @endforeach
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 mb-3"
-                                style="display: flex; justify-content: center;">
-                                <button class="btn btnSave send " onclick="handleSelectPlan();" style="margin-left: 20px"> Agregar metodo de pago </button>
+                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 col-xxl-3 mt-3" wire:key="{{ $paymentMethod->id }}">
+                                        <div class="credit-card {{ $paymentMethod->card->brand }} selectable">
+                                            <div class="credit-card-last4">
+                                                {{ $paymentMethod->card->last4 }}
+                                            </div>
+                                            <span class="text-capitalize" style="color: #ffffff">{{ $paymentMethod->billing_details->name }}</span>
+                                            <br>
+                                            <Button wire:click="deletePaymentMethod('{{ $paymentMethod->id }}')"><i class="bi bi-trash mt-2"></i></Button>
+                                            <div class="credit-card-expiry">
+                                                Expira:
+                                                {{ $paymentMethod->card->exp_month }} / {{ $paymentMethod->card->exp_year }}
+
+                                                @if (@$this->defaultPaymentMethod->id == $paymentMethod->id)
+                                                    <span class="badge rounded-pill text-bg-secondary" style="margin-top: 10px">Predeterminado</span>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                        {{-- <p>Tarjeta: {{ $paymentMethod->card->brand }} - xxxx -{{ $paymentMethod->card->last4 }} </p>
+                                            <p>Expira:  {{ $paymentMethod->card->exp_month }} / {{ $paymentMethod->card->exp_year }} </p> --}}
+                                            {{-- @if (@$this->defaultPaymentMethod->id == $paymentMethod->id)
+                                            <span class="badge rounded-pill text-bg-info">Predeterminado</span>
+                                            @endif --}}
+                                    </div>
+                                @endforeach
                             </div>
+                        @endif
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3" style="display: flex; justify-content: end;">
+                            <button class="btn btnSave send " onclick="handleSelectPlan();" style="margin-left: 20px"> Agregar metodo de pago </button>
                         </div>
                     </div>
                 </div>
@@ -450,19 +515,19 @@
 
                     <div class="row">
 
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-
-                            {{-- <input id="card-holder-name" type="text" wire:model="name"> --}}
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" wire:ignore>
+                            <label for="name" class="form-label mt-2" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombre titular de la tarjeta</label>
+                            <input class="form-control mt-2" id="card-holder-name" type="text">
 
                             <!-- Stripe Elements Placeholder -->
-                            <label for="name" class="form-label"
-                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Numero de tarjeta</label>
-                            <div class="form-control mt-2" id="card-element"></div>
+                            <label for="number-t" class="form-label mt-2" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Numero de tarjeta</label>
+                            <div class="form-control" id="card-element"></div>
                             <span id="card-error-message" style="color: red; font-size: 12px"></span>
 
-                            <button class="btn btnSave mt-3" id="card-button"
-                                data-secret="{{ $intent->client_secret }}">
-                                Update Payment Method
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                            <button class="btn btnSave mt-3" id="card-button" data-secret="{{ $intent->client_secret }}">
+                                Agregar
                             </button>
                         </div>
                     </div>
@@ -470,14 +535,19 @@
             </div>
         </div>
     </div>
+
     <script src="https://js.stripe.com/v3/"></script>
 
     <script>
-        // const cardHolderName = document.getElementById('card-holder-name');
+        const cardHolderName = document.getElementById('card-holder-name');
         const cardButton = document.getElementById('card-button');
-        const clientSecret = cardButton.dataset.secret;
 
         cardButton.addEventListener('click', async (e) => {
+
+            $('#spinner').show();
+
+            const clientSecret = cardButton.dataset.secret;
+
             const {
                 setupIntent,
                 error
@@ -485,13 +555,24 @@
                 clientSecret, {
                     payment_method: {
                         card: cardElement,
-                        // billing_details: { name: cardHolderName.value }
+                        billing_details: { name: cardHolderName.value }
                     }
                 }
             );
 
+            $('#spinner').hide();
+
+            Swal.fire({
+                icon: 'success',
+                title: '@lang('messages.alert.operacion_exitosa')',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: '@lang('messages.botton.aceptar')'
+            }).then((result) => {
+                $('#exampleModal').modal('toggle');
+            });
+
             if (error) {
-                // Display "error.message" to the user...
 
                 let span = document.getElementById('card-error-message');
 
@@ -500,11 +581,12 @@
             } else {
                 cardElemnt.clear();
 
+                @this.addPaymentMethod(setupIntent.payment_method);
+
                 let span = document.getElementById('card-error-message');
 
                 span.textContent = '';
 
-                @this.addPaymentMethod(setupIntent.payment_method);
             }
         });
     </script>
@@ -517,63 +599,19 @@
         cardElement.mount('#card-element');
     </script>
 
-    <script>
-        const handleSelect = (section) => {
 
-            switch (section) {
-                case "medico":
-
-                    $("#div-content-medico").show();
-                    $("#div-content-laboratorio").hide();
-                    $("#div-content-corporativo").hide();
-
-                    $(".corporativo").prop("class", "img-icon-select-rol corporativo");
-                    $(".laboratorio").prop("class", "img-icon-select-rol laboratorio");
-                    $(".medico").prop("class", "img-icon-select-rol medico ico-check");
-
-                    break;
-                case "laboratorio":
-
-                    $("#div-content-laboratorio").show();
-                    $("#div-content-medico").hide();
-                    $("#div-content-corporativo").hide();
-
-                    $(".medico").prop("class", "img-icon-select-rol medico");
-                    $(".corporativo").prop("class", "img-icon-select-rol corporativo");
-                    $(".laboratorio").prop("class", "img-icon-select-rol laboratorio ico-check");
-
-
-                    break;
-                case "corporativo":
-
-                    $("#div-content-corporativo").show();
-                    $("#div-content-laboratorio").hide();
-                    $("#div-content-medico").hide();
-
-                    $(".medico").prop("class", "img-icon-select-rol medico");
-                    $(".laboratorio").prop("class", "img-icon-select-rol laboratorio");
-                    $(".corporativo").prop("class", "img-icon-select-rol corporativo ico-check");
-
-
-                    break;
-            }
-        }
-
-
-
-        Livewire.on('error', funtion (message) {
-            Swal.fire({
-                icon: 'error',
-                title: message
-                allowOutsideClick: false,
-                confirmButtonColor: '#42ABE2',
-                confirmButtonText: 'Aceptar'
+    @push('js')
+        <script>
+            Livewire.on('error', function (message) {
+                Swal.fire({
+                    icon: 'error',
+                    title: message
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#42ABE2',
+                    confirmButtonText: 'Aceptar'
+                })
             })
-        })
+        </script>
+    @endpush
 
-
-
-
-
-    </script>
 </div>
