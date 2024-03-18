@@ -62,6 +62,8 @@
 
     @livewireScripts
 
+    @stack('js')
+
 </body>
     <script>
         var url = @json($url);

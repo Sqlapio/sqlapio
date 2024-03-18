@@ -433,20 +433,20 @@
             }
         }
 
-        const reloadCaptcha = () => {
+        // const reloadCaptcha = () => {
 
-            $.ajax({
-                url: "{{ route('reloadCapchat') }}",
-                type: 'GET',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    $('#span-captcha').html(response);
-                }
+        //     $.ajax({
+        //         url: "{{ route('reloadCapchat') }}",
+        //         type: 'GET',
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         },
+        //         success: function(response) {
+        //             $('#span-captcha').html(response);
+        //         }
 
-            });
-        }
+        //     });
+        // }
 
         function handlerTypeDoc(e) {
 
@@ -676,7 +676,7 @@
                                     </diV>
                                 </div>
 
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-21 col-xxl-12 mt-2">
+                                {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-21 col-xxl-12 mt-2">
                                     <div class="row mt-3" style="display: flex; justify-content: center;">
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" style="display: flex; justify-content: center;">
                                             <span id="span-captcha"> {!! Captcha::img('flat') !!}</span>
@@ -702,7 +702,7 @@
                                                 Incorrecto</small style="display: none">
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                             </div>
 

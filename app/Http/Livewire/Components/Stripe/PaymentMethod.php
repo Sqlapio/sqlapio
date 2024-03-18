@@ -2,16 +2,30 @@
 
 namespace App\Http\Livewire\Components\Stripe;
 
+use Illuminate\Queue\Listener;
 use Livewire\Component;
 
 class PaymentMethod extends Component
 {
+
+    protected $listeners = ['alerta', 'enAlert'];
+
+    public function alerta()
+    {
+        $this->alert();
+    }
+
+    public function enAlert()
+    {
+        $this->deletePaymentMethod($paymentMethod);
+    }
 
 
 
     public function addPaymentMethod($paymentMethod)
     {
         auth()->user()->addPaymentMethod($paymentMethod);
+
         // auth()->user()->updateDefaultPaymentMethod($paymentMethod);
 
         if (!auth()->user()->hasDefaultPaymentMethod()) {
@@ -28,11 +42,18 @@ class PaymentMethod extends Component
 
     }
 
+    public function alert() {
+
+        $this->emit('error2', 'No tienes un metodo de pago registrado!');
+
+    }
+
     public function deletePaymentMethod($paymentMethod) {
 
         auth()->user()->deletePaymentMethod($paymentMethod);
 
     }
+
 
     public function defaultPaymentMethod($paymentMethod) {
 
@@ -70,7 +91,8 @@ class PaymentMethod extends Component
     }
 
     public function cancelSubscription() {
-        auth()->user()->subscription('Plan Ilimitado')->cancel();
+
+        auth()->user()->subscription('Plan Ilimitado')->canceled();
     }
 
     public function resumeSubscription() {

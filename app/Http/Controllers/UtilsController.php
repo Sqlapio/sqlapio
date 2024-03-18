@@ -1767,30 +1767,30 @@ class UtilsController extends Controller
 		}
 	}
 
-	static function reloadCapchat()
-	{
-		return Captcha::img('flat');
-	}
+	// static function reloadCapchat()
+	// {
+	// 	return Captcha::img('flat');
+	// }
 
-	static function validateCapchat(Request $request)
-	{
-		$rules = ['captcha' => 'required|captcha:' . request('key') . ',math'];
+	// static function validateCapchat(Request $request)
+	// {
+	// 	$rules = ['captcha' => 'required|captcha:' . request('key') . ',math'];
 
-		$msj = [
-			'captcha.required' => 'campo requerido',
-			'captcha.captcha' => 'codigo invalida',
+	// 	$msj = [
+	// 		'captcha.required' => 'campo requerido',
+	// 		'captcha.captcha' => 'codigo invalida',
 
-		];
+	// 	];
 
-		$validator = Validator::make($request->all(), $rules, $msj);
+	// 	$validator = Validator::make($request->all(), $rules, $msj);
 
-		if ($validator->fails()) {
+	// 	if ($validator->fails()) {
 
-			return false;
-			
-		} else {
+	// 		return false;
 
-			return true;
-		}
-	}
+	// 	} else {
+
+	// 		return true;
+	// 	}
+	// }
 }

@@ -143,13 +143,13 @@
                                                         <span class="symbol">$</span> 29,<span class="cent">99</span>
                                                     </h4>
                                                     <span class="time">USD / mensual</span>
-                                                    @if (auth()->user()->subscribedToPrice('price_1OfpJfLoqeBM9DtelZzLtCIe', 'Plan Ilimitado'))
+                                                    @if (auth()->user()->subscribedToPrice('price_1OvmISLoqeBM9DteyJr9GA34', 'Plan Ilimitado'))
                                                     Suscrito
                                                     <button class="btn btnSave" wire:click="cancelSubscription" wire:target="cancelSubscription" style="min-width: 70px; margin-top: 10px">
                                                         Cancelar
                                                     </button>
                                                 @else
-                                                <button class="btn btnSave"  wire:click="newSubscription('price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px"> Suscribirse!! </button>
+                                                <button class="btn btnSave"  wire:click="newSubscription('price_1OvmISLoqeBM9DteyJr9GA34')" style="min-width: 70px; margin-top: 10px"> Suscribirse!! </button>
 
                                                 @endif
                                                 </div>
@@ -174,8 +174,8 @@
                                         <a href="#" class="ag-courses-item_link">
                                             <div class="ag-courses-item_bg2"></div>
                                             <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
-                                                <span class="text-center" style="font-size: 17px; color: red; text-transform: uppercase;">
-                                                    Ahorra 2 meses y cancela <br> (12 meses x 10 meses)
+                                                <span class="text-center" style="font-size: 15px; color: red; text-transform: uppercase;">
+                                                    ¡Oferta limitada! <br> 12 meses al precio de 10, suscríbete ahora!
                                                 </span>
                                                 <h4>
                                                     <span class="symbol">$</span> 399,<span class="cent">99</span>
@@ -184,7 +184,7 @@
 
 
                                                 @if (auth()->user()->subscribedToPrice('price_1OfpQ4LoqeBM9DteIhOpQOh8', 'Plan Ilimitado'))
-                                                    Suscrito
+                                                    {{-- Suscrito --}}
                                                     <button class="btn btnSave" wire:click="cancelSubscription" wire:target="cancelSubscription" style="min-width: 70px; margin-top: 10px">
                                                         Cancelar
                                                     </button>
@@ -198,7 +198,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div id="spinner" wire:target="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:loading >
+                                    <div id="spinner" wire:target="newSubscription('price_1OfpJfLoqeBM9DtelZzLtCIe')" wire:loading >
                                            <x-load-spinner />
                                     </div>
                                     <div id="spinner" wire:target=cancelSubscription" wire:loading >
@@ -469,7 +469,10 @@
                                             </div>
                                             <span class="text-capitalize" style="color: #ffffff">{{ $paymentMethod->billing_details->name }}</span>
                                             <br>
-                                            <Button wire:click="deletePaymentMethod('{{ $paymentMethod->id }}')"><i class="bi bi-trash mt-2"></i></Button>
+                                            @if (@$this->defaultPaymentMethod->id != $paymentMethod->id)
+                                                <Button wire:click="$emit('alerta')"><i class="bi bi-trash mt-2"></i></Button>
+                                                <Button wire:click="defaultPaymentMethod('{{ $paymentMethod->id }}')"><i class="bi bi-star mt-2"></i></Button>
+                                            @endif
                                             <div class="credit-card-expiry">
                                                 Expira:
                                                 {{ $paymentMethod->card->exp_month }} / {{ $paymentMethod->card->exp_year }}
@@ -503,15 +506,13 @@
         id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header title">
-                    <i class="bi bi-calendar-week"></i>
-                    <span style="padding-left: 5px">
-                        Pago
-                    </span>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        style="font-size: 12px;"></button>
-                </div>
                 <div class="modal-body">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px; justify-content: center"></button>
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                        <div class="text-center">
+                            <img class="img" src="{{ asset('img/V2/stripe.png') }}" style="width: 110px;">
+                        </div>
+                    </div>
 
                     <div class="row">
 
@@ -525,18 +526,33 @@
                             <span id="card-error-message" style="color: red; font-size: 12px"></span>
 
                         </div>
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                            <button class="btn btnSave mt-3" id="card-button" data-secret="{{ $intent->client_secret }}">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 text-center">
+                            <button class="btn btnPrimary mt-3 mb-3" id="card-button" data-secret="{{ $intent->client_secret }}">
                                 Agregar
                             </button>
+                            <p style="font-size: 11px">Si confirmas tu suscripción, permitirás que Sqlapio Technology LLC efectúe cargos de futuros pagos conforme a las condiciones estipuladas. Siempre puedes cancelar tu suscripción.</p>
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer" style="justify-content: center" >
+                    <a href="https://stripe.com/" target="_blank" style="text-decoration: none; color: #1a1a1a80; font-size:13px;"><span>Powered by </span><img class="img" src="{{ asset('img/V2/stripe2.png') }}" style="width: 45px;"></a>
+                    <a href="https://stripe.com/legal/end-users" target="_blank" style="text-decoration: none; color: #1a1a1a80; font-size:13px;"><span>Condiciones</span></a>
+                    <a href="https://stripe.com/privacy" target="_blank" style="text-decoration: none; color: #1a1a1a80; font-size:13px;"><span>Privacidad</span></a>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="https://js.stripe.com/v3/"></script>
+
+    <script>
+        // const stripe = Stripe( 'pk_live_51OfoXBLoqeBM9DteVzaKA9F5LvICIU43EWtpHoVfhTV1uIXRgY22Id66FvzKkaZd6veVgxblZsXQv5HSleJaIfJc00nqiRXhgF' );
+        const stripe = Stripe( 'pk_test_51OfoXBLoqeBM9Dte6ScqGxhnNKv3vxMr6i6sa0NU9ps9zLzjgbxN3eibXcrHIhqLjDl8ulSJ83TGkKMKxSFsC0rN00J6ZLm5us' );
+        const elements = stripe.elements();
+        const cardElement = elements.create('card');
+
+        cardElement.mount('#card-element');
+    </script>
 
     <script>
         const cardHolderName = document.getElementById('card-holder-name');
@@ -570,6 +586,7 @@
                 confirmButtonText: '@lang('messages.botton.aceptar')'
             }).then((result) => {
                 $('#exampleModal').modal('toggle');
+                cardElemnt.clear();
             });
 
             if (error) {
@@ -579,7 +596,7 @@
                 span.textContent = error.message;
 
             } else {
-                cardElemnt.clear();
+
 
                 @this.addPaymentMethod(setupIntent.payment_method);
 
@@ -589,29 +606,22 @@
 
             }
         });
-    </script>
-
-    <script>
-        const stripe = Stripe( 'pk_test_51OfoXBLoqeBM9Dte6ScqGxhnNKv3vxMr6i6sa0NU9ps9zLzjgbxN3eibXcrHIhqLjDl8ulSJ83TGkKMKxSFsC0rN00J6ZLm5us' );
-        const elements = stripe.elements();
-        const cardElement = elements.create('card');
-
-        cardElement.mount('#card-element');
-    </script>
-
-
-    @push('js')
-        <script>
-            Livewire.on('error', function (message) {
-                Swal.fire({
-                    icon: 'error',
-                    title: message
-                    allowOutsideClick: false,
-                    confirmButtonColor: '#42ABE2',
-                    confirmButtonText: 'Aceptar'
-                })
-            })
         </script>
+
+
+@push('js')
+<script>
+    Livewire.on('error', function (message) {
+        Swal.fire({
+            icon: 'error',
+            title: message,
+            allowOutsideClick: false,
+            confirmButtonColor: '#42ABE2',
+            confirmButtonText: 'Aceptar'
+        })
+    });
+    </script>
+
     @endpush
 
 </div>
