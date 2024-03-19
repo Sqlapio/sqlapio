@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
+
     @livewireStyles
     {{-- select dos --}}
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -40,22 +41,31 @@
     }
 </style>
 <body>
+
     @php
 
-    $lang = session()->get('locale');
-        if($lang == 'en')
-        {
+        $lang = session()->get('locale');
+
+        if($lang == 'en') {
             $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/en-EN.json';
-        }else{
+        } else{
             $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json';
         }
+
     @endphp
+
     <x-nav-bar />
+
     @stack('scripts')
+
     @yield('content')
+
     @livewireScripts
 
+    @stack('js')
+
     <input type="hidden" id="lang" value='@json(__('messages'))'>
+
 </body>
 <script>
         var url = @json($url);

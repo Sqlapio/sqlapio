@@ -34,7 +34,7 @@ class Register extends Component
                 'password'  => 'required',
                 'email'     => 'required|unique:users',
                 'ci'     => 'required',
-                'captcha'     => 'required',
+                // 'captcha'     => 'required',
             ];
 
             $msj = [
@@ -46,7 +46,8 @@ class Register extends Component
                 'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
                 'password.regex'    => 'Formato de contraseña  incorrecto',
                 'ci'                => 'Campo ci requerido',
-                'captcha'           => 'Campo captcha requerido',
+                'ci.unique'                => 'El numero de cedula esta duplicado',
+                // 'captcha'           => 'Campo captcha requerido',
             ];
         } else {
             $rules = [
@@ -55,7 +56,7 @@ class Register extends Component
                 'password'  => 'required',
                 'email'     => 'required|unique:users',
                 'ci'     => 'required',
-                'captcha'     => 'required',
+                // 'captcha'     => 'required',
             ];
 
             $msj = [
@@ -68,7 +69,8 @@ class Register extends Component
                 'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
                 'password.regex'    => 'Formato de contraseña  incorrecto',
                 'ci'                => 'Campo ci requerido',
-                'captcha'           => 'Campo captcha requerido',
+                'ci.unique'                => 'El numero de cedula esta duplicado',
+                // 'captcha'           => 'Campo captcha requerido',
             ];
         }
 
@@ -87,7 +89,8 @@ class Register extends Component
         $date_today = $date_today->addDay(30)->format('Y-m-d');
 
         // valdiar otp y capchat
-        if (HandleOtpController::verify_otp($request) && UtilsController::validateCapchat($request)) {
+        // if (HandleOtpController::verify_otp($request) && UtilsController::validateCapchat($request)) {
+            if (HandleOtpController::verify_otp($request)) {
 
             $user = new User();
             $user->name = $request->name;
@@ -99,7 +102,7 @@ class Register extends Component
             $user->verification_code = Str::random(30);
             $user->password = Hash::make($request->password);
             $user->email_verified_at = $date_today;
-            $user->role = "temporary";            
+            $user->role = "temporary";
             $user->save();
             $action = '3';
 

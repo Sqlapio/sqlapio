@@ -138,6 +138,10 @@
         .form-sq-mv {
             align-content: flex-start !important;
         }
+
+        .pad-mb {
+            padding: 0px 46px;
+        }
     }
 
     @media only screen and (max-width: 390px) {
@@ -171,6 +175,10 @@
 
         .btn-bg-lb img:last-of-type {
             display: none;
+        }
+
+        .pad-mb {
+            padding: 0px 46px;
         }
     }
 </style>
@@ -223,21 +231,21 @@
                 },
                 messages: {
                     name: {
-                        required: "Nombres es obligatorio",
-                        minlength: "Nombres debe ser mayor a 3 caracteres",
-                        maxlength: "Nombres debe ser menor a 50 caracteres",
+                        required: "@lang('messages.alert.nombre_obligatorio')",
+                        minlength: "@lang('messages.alert.nombre_3_caracteres')",
+                        maxlength: "@lang('messages.alert.nombre_50_caracteres')",
                     },
                     last_name: {
-                        required: "Apellidos es obligatorio",
-                        minlength: "Apellidos debe ser mayor a 6 caracteres",
-                        maxlength: "Apellidos debe ser menor a 8 caracteres",
+                        required: "@lang('messages.alert.apellido_obligatorio')",
+                        minlength: "@lang('messages.alert.apellido_6_caracteres')",
+                        maxlength: "@lang('messages.alert.apellido_8_caracteres')",
                     },
 
                     email: {
-                        required: "Correo Electrónico es obligatorio",
+                        required: "@lang('messages.alert.correo_obligatorio')",
                         minlength: "Correo Electrónico debe ser mayor a 6 caracteres",
                         maxlength: "Correo Electrónico debe ser menor a 8 caracteres",
-                        email: "Correo Electrónico incorrecto"
+                        email: "@lang('messages.alert.correo_incorrecto')"
                     },
                     password: {
                         required: "Contraseña es obligatoria",
@@ -248,13 +256,13 @@
                         minlength: "Confirmar Contraseña debe ser mayor a 6 caracteres",
                     },
                     ci: {
-                        required: "Campo es obligatorio",
+                        required: "@lang('messages.alert.cedula_obligatoria')",
                     },
                     captcha: {
                         required: "Codigo es obligatorio",
                     },
                     business_name: {
-                        required: "Campo es obligatorio",
+                        required: "@lang('messages.alert.campo_obligatorio')",
                     }
                 },
                 invalidHandler: function(event, validator) {
@@ -312,7 +320,7 @@
                     showCancelButton: true,
                     confirmButtonColor: '#42ABE2',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
                 }).then((result) => {
 
 
@@ -381,7 +389,7 @@
                                                         .msj,
                                                     allowOutsideClick: false,
                                                     confirmButtonColor: '#42ABE2',
-                                                    confirmButtonText: 'Aceptar'
+                                                    confirmButtonText: '@lang('messages.botton.aceptar')'
                                                 }).then((result) => {
                                                     window
                                                         .location =
@@ -398,7 +406,7 @@
                                                         .msj,
                                                     allowOutsideClick: false,
                                                     confirmButtonColor: '#42ABE2',
-                                                    confirmButtonText: 'Aceptar'
+                                                    confirmButtonText: '@lang('messages.botton.aceptar')'
                                                 })
                                             }
                                         });
@@ -414,7 +422,7 @@
                                     title: error.responseJSON.errors,
                                     allowOutsideClick: false,
                                     confirmButtonColor: '#42ABE2',
-                                    confirmButtonText: 'Aceptar'
+                                    confirmButtonText: '@lang('messages.botton.aceptar')'
                                 })
 
                             }
@@ -425,20 +433,20 @@
             }
         }
 
-        const reloadCaptcha = () => {
+        // const reloadCaptcha = () => {
 
-            $.ajax({
-                url: "{{ route('reloadCapchat') }}",
-                type: 'GET',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    $('#span-captcha').html(response);
-                }
+        //     $.ajax({
+        //         url: "{{ route('reloadCapchat') }}",
+        //         type: 'GET',
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         },
+        //         success: function(response) {
+        //             $('#span-captcha').html(response);
+        //         }
 
-            });
-        }
+        //     });
+        // }
 
         function handlerTypeDoc(e) {
 
@@ -548,10 +556,10 @@
             <div id="spinner" style="display: none">
                 <x-load-spinner />
             </div>
-            <div class="row form-sq form-sq-mv">
-                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
-                    <div class="card mb-3 mt-m3" id="div-form">
-                        <div class="card-body">
+            <div class="row form-sq pad-mb">
+                <div class="col-sm-10 col-md-5 col-lg-5 col-xl-4 col-xxl-3">
+                    {{-- <div class="card mb-3 mt-m3" id="div-form">
+                        <div class="card-body"> --}}
 
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                 <div class="text-center">
@@ -562,12 +570,33 @@
                             {{ Form::open(['method' => 'post', 'id' => 'form-register']) }}
                             {{ csrf_field() }}
                             <div class="row">
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-4">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="div_name">
                                     <div class="form-group">
-                                        <label for="name" class="form-label"
-                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.tipo_documento')</label>
-                                        <select onchange="handlerTypeDoc(event)" name="type_rif" id="type_rif"
-                                            class="form-control">
+                                        <div class="Icon-inside">
+                                            <label for="name" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
+                                            <input autocomplete="off" class="form-control mask-text" id="name"
+                                                name="name" type="text" value="">
+                                            <i class="bi bi-person-circle st-icon"></i>
+                                        </div>
+                                    </diV>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="div_last_name">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <label for="name" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
+                                            <input autocomplete="off" class="form-control mask-text" id="last_name"
+                                                name="last_name" type="text" value="">
+                                            <i class="bi bi-person-circle st-icon"></i>
+                                        </div>
+                                    </diV>
+                                </div>
+
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="form-group">
+                                        <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.tipo_documento')</label>
+                                        <select onchange="handlerTypeDoc(event)" name="type_rif" id="type_rif" class="form-control">
                                             <option value="">@lang('messages.placeholder.seleccione')</option>
                                             <option value="1">@lang('messages.select.cedula')</option>
                                             <option value="2">@lang('messages.select.pasaporte')</option>
@@ -579,11 +608,11 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-8">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="form-group">
                                         <div class="Icon-inside">
                                             <label for="name" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">documento
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Documento
                                                 de
                                                 indentidad</label>
                                             <input autocomplete="off" class="form-control mask-only-number" id="ci"
@@ -593,7 +622,7 @@
                                     </diV>
                                 </div>
 
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: none"
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="display: none"
                                     id="div_business_name">
                                     <div class="form-group">
                                         <div class="Icon-inside">
@@ -607,28 +636,7 @@
                                 </div>
 
 
-                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" id="div_name">
-                                    <div class="form-group">
-                                        <div class="Icon-inside">
-                                            <label for="name" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
-                                            <input autocomplete="off" class="form-control mask-text" id="name"
-                                                name="name" type="text" value="">
-                                            <i class="bi bi-person-circle st-icon"></i>
-                                        </div>
-                                    </diV>
-                                </div>
-                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6" id="div_last_name">
-                                    <div class="form-group">
-                                        <div class="Icon-inside">
-                                            <label for="name" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
-                                            <input autocomplete="off" class="form-control mask-text" id="last_name"
-                                                name="last_name" type="text" value="">
-                                            <i class="bi bi-person-circle st-icon"></i>
-                                        </div>
-                                    </diV>
-                                </div>
+
 
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="form-group">
@@ -668,47 +676,51 @@
                                     </diV>
                                 </div>
 
-                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                    <div class="form-group">
-                                        <div class="Icon-inside">
-                                            <label for="name" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Ingrese
-                                                su
-                                                codigo</label>
-                                            <input placeholder="" autocomplete="off" class="form-control" id="captcha"
-                                                name="captcha" type="text" value="">
-                                            <i class="bi bi-envelope st-icon"></i>
+                                {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-21 col-xxl-12 mt-2">
+                                    <div class="row mt-3" style="display: flex; justify-content: center;">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" style="display: flex; justify-content: center;">
+                                            <span id="span-captcha"> {!! Captcha::img('flat') !!}</span>
+                                            <button type="button" id="reload" class="btn btn-danger reload"
+                                                onclick="reloadCaptcha()">
+                                                &#x21bb;
+                                            </button>
+                                        </div>
+
+                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Ingrese
+                                                        su
+                                                        codigo</label>
+                                                    <input placeholder="" autocomplete="off" class="form-control" id="captcha"
+                                                        name="captcha" type="text" value="">
+                                                    <i class="bi bi-envelope st-icon"></i>
+                                                </div>
+                                            </div>
+                                            <small id="samll-error" style="display: none" for=""
+                                                class="text-danger">Codigo
+                                                Incorrecto</small style="display: none">
                                         </div>
                                     </div>
-                                    <small id="samll-error" style="display: none" for=""
-                                        class="text-danger">Codigo
-                                        Incorrecto</small style="display: none">
-                                </div>
+                                </div> --}}
 
-                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl--6 mt-3"
-                                    style="display: flex; justify-content: center;">
-                                    <span id="span-captcha"> {!! Captcha::img('flat') !!}</span>
-                                    <button type="button" id="reload" class="btn btn-danger reload"
-                                        onclick="reloadCaptcha()">
-                                        &#x21bb;
-                                    </button>
-                                </div>
                             </div>
 
 
 
                             <div class="d-flex justify-content-center">
-                                <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-3 mb-3"
-                                    style="display: flex; justify-content: space-around;">
-                                    <input class="btn btnPrimary" value="Registrar" onclick="handlerSubmit();"
-                                        style="margin-left: 20px" />
-                                    <a href="/"><button type="button"
-                                            class="btn btnSecond btn2">Cancelar</button></a>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-3" style="display: flex; justify-content: space-around;">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-center">
+                                        <input class="btn btnPrimary" value="Registrar" onclick="handlerSubmit();" style="margin-left: 20px" />
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-center">
+                                        <a href="/"><button type="button" class="btn btnSecond btn2">@lang('messages.botton.cancelar')</button></a>
+                                    </div>
                                 </div>
                             </div>
                             {{ Form::close() }}
-                        </div>
-                    </div>
+                        {{-- </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
