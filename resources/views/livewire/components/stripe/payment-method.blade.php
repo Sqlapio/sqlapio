@@ -102,16 +102,15 @@
                                         </div>
                                         <div class="card-wrap card-header one">
                                             <div class="card-content">
-                                                <h1 class="card-title">Plan Free</h1>
+                                                <h1 class="card-title">Plan @lang('messages.label.free')</h1>
                                                 <p class="card-text">
-
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 10 <b>Pacientes</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Consultas</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Exámenes</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Estudios</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Estudios con videos</b> </li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Consultas en IA</b> </li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Publicidad</b> </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 10 <b>@lang('messages.label.paciente')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>@lang('messages.label.consulta')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>@lang('messages.label.examenes')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>@lang('messages.label.estudios')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.estudios_video')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.consulta_ia')</b> </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b> @lang('messages.label.publicidad')</b> </li>
                                                 </p>
                                             </div>
                                         </div>
@@ -160,15 +159,15 @@
                                         </div>
                                         <div class="card-wrap card-header two">
                                             <div class="card-content">
-                                                <h1 class="card-title">Plan Profesional</h1>
+                                                <h1 class="card-title">Plan @lang('messages.label.profesional')</h1>
                                                 <p class="card-text">
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>Pacientes</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>Consultas</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>Exámenes</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>Estudios</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Estudios con videos</b> </li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Consultas en IA</b> </li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Publicidad</b> </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>@lang('messages.label.paciente')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>@lang('messages.label.consulta')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>@lang('messages.label.examenes')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>@lang('messages.label.estudios')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.estudios_video')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.consulta_ia')</b> </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.publicidad')</b> </li>
                                                 </p>
                                             </div>
                                         </div>
@@ -226,15 +225,15 @@
                                         </div>
                                         <div class="card-wrap card-header three">
                                             <div class="card-content">
-                                                <h1 class="card-title">Plan Ilimitado</h1>
+                                                <h1 class="card-title">Plan @lang('messages.label.ilimitado')</h1>
                                                 <p class="card-text">
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Pacientes</b> Ilimitados</li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Consultas</b> Ilimitados</li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Exámenes</b> Ilimitados</li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Estudios</b> Ilimitados</li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 0.1$ por Gb <b>Estudios con videos</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 300 <b>Consultas en IA</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i><b style="text-decoration: line-through;"> Publicidad</b> </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.paciente')</b> @lang('messages.label.ilimitado')</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.consulta')</b> @lang('messages.label.ilimitado')</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.examenes')</b> @lang('messages.label.ilimitado')</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.estudios')</b> @lang('messages.label.ilimitado')</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 0.10 por Gb <b>@lang('messages.label.estudios_video')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 300 <b>@lang('messages.label.consulta_ia')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.publicidad')</b>
                                                 </p>
                                             </div>
                                         </div>
