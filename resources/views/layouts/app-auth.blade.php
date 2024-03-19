@@ -41,6 +41,7 @@
 </style>
 <body>
     @php
+
     $lang = session()->get('locale');
         if($lang == 'en')
         {
@@ -53,8 +54,10 @@
     @stack('scripts')
     @yield('content')
     @livewireScripts
+
+    <input type="hidden" id="lang" value='@json(__('messages'))'>
 </body>
-    <script>
+<script>
         var url = @json($url);
     </script>
 <x-footer />

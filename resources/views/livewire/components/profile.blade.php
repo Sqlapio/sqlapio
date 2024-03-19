@@ -55,8 +55,6 @@
                     },
                     email: {
                         required: true,
-                        minlength: 3,
-                        maxlength: 50,
                         email: true
                     },
                     ci: {
@@ -116,92 +114,90 @@
                 },
                 messages: {
                     name: {
-                        required: "Nombres es obligatorio",
-                        minlength: "Nombres debe ser mayor a 3 caracteres",
-                        maxlength: "Nombres debe ser menor a 50 caracteres",
+                        required: "@lang('messages.alert.nombre_obligatorio')",
+                        minlength: "@lang('messages.alert.nombre_3_caracteres')",
+                        maxlength: "@lang('messages.alert.nombre_50_caracteres')",
                     },
                     last_name: {
-                        required: "Apellidos es obligatorio",
-                        minlength: "Apellidos debe ser mayor a 6 caracteres",
-                        maxlength: "Apellidos debe ser menor a 8 caracteres",
+                        required: "@lang('messages.alert.apellido_obligatorio')",
+                        minlength: "@lang('messages.alert.apellido_6_caracteres')",
+                        maxlength: "@lang('messages.alert.apellido_8_caracteres')",
                     },
 
                     email: {
-                        required: "Correo Electrónico es obligatorio",
-                        minlength: "Correo Electrónico debe ser mayor a 6 caracteres",
-                        maxlength: "Correo Electrónico debe ser menor a 8 caracteres",
-                        email: "Correo Electrónico incorrecto"
+                        required: "@lang('messages.alert.correo_obligatorio')",
+                        email: "@lang('messages.alert.correo_incorrecto')"
                     },
                     ci: {
-                        required: "Cédula de identidad es obligatoria",
-                        minlength: "Cédula de identidad  debe ser mayor a 5 caracteres",
-                        maxlength: "Cédula de identidad  debe ser menor a 8 caracteres",
+                        required: "@lang('messages.alert.cedula_obligatoria')",
+                        minlength: "@lang('messages.alert.cedula_5_caracteres')",
+                        maxlength: "@lang('messages.alert.cedula_8_caracteres')",
                     },
                     genere: {
-                        required: "Género es obligatorio",
+                        required: "@lang('messages.alert.genero_obligatorio')",
                     },
                     birthdate: {
-                        required: "Fecha de nacimiento es obligatorio",
+                        required: "@lang('messages.alert.fecha_obligatorio')",
                     },
                     state: {
-                        required: "Estado es obligatoria",
+                        required: "@lang('messages.alert.estado_obligatorio')",
                     },
                     city: {
-                        required: "Ciudad es obligatoria",
+                        required: "@lang('messages.alert.ciudad_obligatorio')",
                     },
                     address: {
-                        required: "Dirección es obligatoria",
+                        required: "@lang('messages.alert.direccion_obligatoria')",
                     },
                     zip_code: {
-                        required: "Código de area es obligatorio",
+                        required: "@lang('messages.alert.codigo_area_obligatorio')",
                     },
                     phone: {
-                        required: "Teléfono de area es obligatorio",
+                        required: "@lang('messages.alert.telefono_obligatorio')",
                     },
                     business_name: {
-                        required: "Nombre del laboratorio es obligatorio",
+                        required: "@lang('messages.alert.nombre_lab_obligatorio')",
                     },
                     rif: {
-                        required: "Rif es obligatorio",
+                        required: "@lang('messages.alert.rif_obligatorio')",
                     },
                     type_laboratory: {
-                        required: "Tipo de laboratorio es obligatorio",
+                        required: "@lang('messages.alert.tipo_lab_obligatorio')",
                     },
                     responsible: {
-                        required: "Responsable es obligatorio",
+                        required: "@lang('messages.alert.responsable_obligatorio')",
                     },
                     license: {
-                        required: "Número de lincencia es obligatorio",
+                        required: "@lang('messages.alert.num_licencia_obligatorio')",
                     },
                     website: {
-                        url: "Debe colocar una url valida"
+                        url: "@lang('messages.alert.url_valida')"
                     },
                     cod_mpps: {
-                        required: "MPPS es obligatorio"
+                        required: "@lang('messages.alert.mpps_obligatorio')"
                     },
                     specialty: {
-                        required: "Especialidad es obligatoria"
+                        required: "@lang('messages.alert.especialidad_obligatorio')"
                     },
                     number_consulting_phone: {
-                        required: "Número teléfono del consultorio es obligatorio"
+                        required: "@lang('messages.alert.num_tlf_obligatorio')"
                     },
                     number_floor: {
-                        required: "Número del piso del consultorio es obligatorio"
+                        required: "@lang('messages.alert.num_piso_obligatorio')"
                     },
                     number_consulting_room: {
-                        required: "Número del consultorio es obligatorio"
+                        required: "@lang('messages.alert.num_cons_obligatorio')"
                     },
                     contrie: {
-                        required: "País es obligatoria",
+                        required: "@lang('messages.alert.pais_obligatorio')",
                     },
                     state_contrie: {
-                        required: "Estado es obligatoria",
+                        required: "@lang('messages.alert.estado_obligatorio')",
                     },
                     city_contrie: {
-                        required: "Ciudad es obligatoria",
+                        required: "@lang('messages.alert.ciudad_obligatorio')",
                     },
                     specialty_new: {
-                        required: "Campo obligatorio",
+                        required: "@lang('messages.alert.campo_obligatorio')",
                     },
                 },
 
@@ -220,7 +216,7 @@
                 },
                 messages: {
                     seal: {
-                        required: "campo es obligatorio",
+                        required: "@lang('messages.alert.campo_obligatorio')",
                     }
                 }
             });
@@ -332,7 +328,7 @@
                                 title: 'Perfil actualizado exitosamente!',
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
                             }).then((result) => {
                                 window.location.href = (user.role == "corporativo") ?
                                     "{{ route('Dashboard-corporate') }}" :
@@ -348,7 +344,7 @@
                                     title: elm,
                                     allowOutsideClick: false,
                                     confirmButtonColor: '#42ABE2',
-                                    confirmButtonText: 'Aceptar'
+                                    confirmButtonText: '@lang('messages.botton.aceptar')'
                                 }).then((result) => {
                                     $('#btn-save').attr('disabled', false);
                                     $('#spinner2').hide();
@@ -382,10 +378,10 @@
                             $("#form-seal").trigger("reset");
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Operacion exitosa!',
+                                title: '@lang('messages.alert.operacion_exitosa')',
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
                             }).then((result) => {
                                 $('#div-seal-content').hide();
                             });
@@ -409,18 +405,17 @@
             if ($('#act-email').val() != "" && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test($('#act-email')
                     .val())) {
                 Swal.fire({
-                    title: 'Esta seguro de realizar esta acción?',
-                    text: "Se enviara un código de verifcación al correo ingresado!",
+                    title: '@lang('messages.alert.accion')',
+                    text: "@lang('messages.alert.envio_codigo')",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#42ABE2',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
                 }).then((result) => {
 
-                    $('#spinner').show();
-
                     if (result.isConfirmed) {
+                        $('#spinner').show();
                         ///solicitar otp
                         $.ajax({
                             url: '{{ route('send_otp') }}',
@@ -439,7 +434,7 @@
                                 $('#spinner').hide();
 
                                 Swal.fire({
-                                    title: 'Ingrese el código',
+                                    title: '@lang('messages.alert.ingrese_codigo')',
                                     input: 'number',
                                     inputAttributes: {
                                         autocorrect: 'on',
@@ -447,14 +442,14 @@
                                         maxlength: 6
                                     },
                                     showCancelButton: true,
-                                    confirmButtonText: 'Enviar',
+                                    confirmButtonText: '@lang('messages.botton.enviar')',
                                     showLoaderOnConfirm: true,
                                     inputValidator: (value) => {
                                         console.log(value.length);
                                         if (value === '') {
-                                            return "Campo obligatorio"
+                                            return "@lang('messages.alert.campo_obligatorio')"
                                         } else if (value.length > 6) {
-                                            return "Campo debe ser de 6 caracteres"
+                                            return "@lang('messages.alert.campo_6_caracteres')"
 
                                         }
                                     },
@@ -481,7 +476,7 @@
                                                     title: response.msj,
                                                     allowOutsideClick: false,
                                                     confirmButtonColor: '#42ABE2',
-                                                    confirmButtonText: 'Aceptar'
+                                                    confirmButtonText: '@lang('messages.botton.aceptar')'
                                                 }).then((result) => {
                                                     window.location
                                                         .href =
@@ -496,7 +491,7 @@
                                                         .msj,
                                                     allowOutsideClick: false,
                                                     confirmButtonColor: '#42ABE2',
-                                                    confirmButtonText: 'Aceptar'
+                                                    confirmButtonText: '@lang('messages.botton.aceptar')'
                                                 })
                                             }
                                         });
@@ -535,17 +530,17 @@
                 setTimeout(function() {
                     $('#copied').hide();
                 }, 2000);
-                $("#copied").text('Enlace copiado!');
+                $("#copied").text('@lang('messages.alert.enlace_copiado')');
 
             } catch (err) {
                 console.error('Failed to copy: ', err);
-                $("#copied").text('Error al copiar enlace!');
+                $("#copied").text('@lang('messages.alert.error_copiar_enlace')');
             }
         }
-    
+
 
         const refresh = () => {
-            
+
             $('#specialty').val('').change();
             $('#specialty-div').show();
             $('#div-otros').hide();
@@ -805,8 +800,7 @@
                                             <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="zip_code" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.codigo_postal')</label>
+                                                        <label for="zip_code" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.codigo_postal')</label>
                                                         <input autocomplete="off" placeholder=""
                                                             class="form-control mask-only-text @error('zip_code') is-invalid @enderror"
                                                             id="zip_code" name="zip_code" type="text"
@@ -819,11 +813,9 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         @if (Auth::user()->contrie == '81')
-                                                            <label for="cod_mpps" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps_rp')</label>
+                                                            <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps_rp')</label>
                                                         @else
-                                                            <label for="cod_mpps" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps')</label>
+                                                            <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps')</label>
                                                         @endif
                                                         <input autocomplete="off" placeholder="MPPS"
                                                             class="form-control mask-only-number @error('cod_mpps') is-invalid @enderror"
@@ -998,23 +990,18 @@
                                             </div>
                                         @endif
 
-                                        <div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl-2 mb-btn {{ Auth::user()->role == 'corporativo' ? 'mb-btnSve' : '' }}"
-                                            style="display: flex; align-items: flex-end;">
-                                            <input class="btn btnSave send" value="Guardar" type="submit"
-                                                style="margin-bottom: 1px; width: 100%;" />
+                                        <div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl-2 mb-btn {{ Auth::user()->role == 'corporativo' ? 'mb-btnSve' : '' }}" style="display: flex; align-items: flex-end;">
+                                            <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="margin-bottom: 1px; width: 100%;" />
                                         </div>
                                         @if (Auth::user()->role == 'corporativo')
                                             <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mb-btn mb-btnRtr"
                                                 style="display: flex; justify-content: space-around; align-items: flex-end; margin-bottom: 1px;">
-                                                <a id="Link-medicos"
-                                                    href="{{ Auth::user()->token_corporate }}"target="_blank"
-                                                    style="text-decoration: none;">
-                                                    <button type="button" class="btn btnPrimary"
-                                                        style="padding: 7px 20px">@lang('messages.botton.registrar_medico')</button>
+                                                <a id="Link-medicos" href="{{ Auth::user()->token_corporate }}"target="_blank" style="text-decoration: none;">
+                                                    <button type="button" class="btn btnPrimary" style="padding: 7px 20px">@lang('messages.botton.registrar_medico')</button>
                                                 </a>
                                                 <button type="button" id="icon-copy"
                                                     class="btn btn-iSecond rounded-circle" data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom" title="Copiar enlace de registro"
+                                                    data-bs-placement="bottom" title="@lang('messages.botton.copiar_enlace')"
                                                     onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
                                                     style="margin-left: 5%;">
                                                     <i class="bi bi-file-earmark-text"></i>
@@ -1052,19 +1039,15 @@
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 col-xxl-3" id="email-div">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
-                                                <input autocomplete="off" class="form-control alpha-no-spaces"
-                                                    id="act-email" name="act-email" type="text" value="">
+                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
+                                                <input autocomplete="off" class="form-control alpha-no-spaces" id="act-email" name="act-email" type="text" value="">
                                                 <i class="bi bi-envelope-at st-icon"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mt-2 justify-content-md-end">
-                                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                            style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                            <input class="btn btnSave send " onclick="handlerEmial()" value="Guardar"
-                                                type="submit" style="margin-left: 20px" />
+                                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                            <input class="btn btnSave send " onclick="handlerEmial()" value="@lang('messages.botton.guardar')" type="submit" style="margin-left: 20px" />
                                         </div>
                                     </div>
                                 </div>
@@ -1094,10 +1077,8 @@
                                             {{ csrf_field() }}
                                             <x-seal-component />
                                             <div class="row mt-2 justify-content-md-end">
-                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                                    <input class="btn btnSave send" value="Guardar" type="submit"
-                                                        style="margin-left: 20px" />
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                                    <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="margin-left: 20px" />
                                                 </div>
                                             </div>
                                         </form>

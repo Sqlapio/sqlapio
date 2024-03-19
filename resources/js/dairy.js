@@ -5,6 +5,15 @@ import esLocale from '@fullcalendar/core/locales/es';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 
+let langJson = {};
+
+
+$(document).ready(() => {
+    const lang = document.getElementById('lang').value
+
+    langJson = JSON.parse(lang)
+});
+
 let calendar;
 let data = [];
 let url;
@@ -333,7 +342,7 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
       } else {
         Swal.fire({
           icon: 'warning',
-          title: '¡Esta seleccionando una fecha anterior al dia actual!',
+          title: langJson.alert.fecha_anterior,
           allowOutsideClick: false,
           confirmButtonColor: '#42ABE2',
           confirmButtonText: 'Aceptar'
@@ -369,7 +378,7 @@ function clearInput(date) {
   $("#timeIni").attr("disabled", false);
   $('#registrer-pac').attr("disabled", false).show();
   $('#hour_start').attr("disabled", false);
-  $("#title-modal").text('Agendar Cita');
+  $("#title-modal").text(langJson.modal.titulo.agendar_cita);
   $("#appointment-data").hide();
 
   $("#FC").hide();

@@ -37,6 +37,9 @@ return [
         'aceptar'             => 'Accept',
         'consulta_medica'     => 'Medical Consultation',
         'historia_clinica'    => 'Clinic History',
+        'adquiere_plan'       => 'Get your plan',
+        'copiar_enlace'       => 'Copy Registration Link',
+        'enviar'              => 'Send',
     ],
 
     'form' => [
@@ -198,6 +201,7 @@ return [
             'observaciones'    => 'Observations',
             'informes_medico'  => 'Medical Reports',
             'resultado_ia'     => 'Artificial Intelligence Query Result',
+            'renovar_plan'     => 'Renew Plan',
         ],
 
         'form' => [
@@ -335,6 +339,9 @@ return [
         'consulta_ia'         => 'Query IA',
         'register_paciente'   => 'Register patient',
         'tratamiento'         => 'Treatment',
+        'fecha_activacion'    => 'Activation Date',
+        'fecha_corte'         => 'Cut-off date',
+
     ],
 
     'select' => [
@@ -416,6 +423,20 @@ return [
         'nombre_centro_obligatorio' => 'Name of the center is required',
         'cargar_archivo'            => 'You must upload a File',
         'seleccionar_resultado'     => 'You must select a result',
+        'enlace_copiado'            => 'Link copied!',
+        'error_copiar_enlace'       => 'Error copying link!',
+        'campo_6_caracteres'        => 'Field must be 6 characters long',
+        'codigo_area_obligatorio'   => 'Area code is required',
+        'nombre_lab_obligatorio'    => 'Lab name is required',
+        'rif_obligatorio'           => 'Rif is required',
+        'tipo_lab_obligatorio'      => 'Laboratory type is required',
+        'responsable_obligatorio'   => 'Responsible is required',
+        'num_licencia_obligatorio'  => 'Lyncence number is required',
+        'url_valida'                => 'You must place a valid url',
+        'mpps_obligatorio'          => 'MPPS is required',
+        'especialidad_obligatorio'  => 'Specialty is required',
+        'num_tlf_obligatorio'       => 'Clinic phone number is required',
+        'pais_obligatorio'          => 'Country is required',
 
         // sweet alert //
         'operacion_exitosa'  => 'Successful Operation!',
@@ -436,7 +457,12 @@ return [
         'deshabilitar_centro'=> 'Are you sure you want to disable this medical center?',
         'habilitar_centro'   => 'Are you sure you want to enable this medical center?',
         'registro_inicial'   => 'You must complete your initial registration!',
-        'paciente_sin_info'   => 'The patient does not have information loaded into the system!',
-        'registro_inicial'   => 'You must complete your initial registration!',
+        'paciente_sin_info'  => 'The patient does not have information loaded into the system!',
+        'ingrese_codigo'     => 'Enter the code',
+        'envio_codigo'       => 'A verification code will be sent to the email address entered!',
+        'perfil_actualizado' => 'Perfil actualizado exitosamente!',
+        'fecha_anterior'     => 'You are selecting a date earlier than the current day!',
+
     ],
+
 ];
