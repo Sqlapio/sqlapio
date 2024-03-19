@@ -1,3 +1,4 @@
+
 <div>
     <script>
         const handleSelectPlan = () => {
@@ -62,7 +63,7 @@
                 <div class="card mt-3" id="div-form">
                     <div class="card-body">
                         <div id="div-content">
-                            <div class="container">
+                            {{-- <div class="container">
                                 <div class="row" style="display: grid; justify-items: center;">
                                     <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-03.png') }}" alt="">
                                 </div>
@@ -75,377 +76,381 @@
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2 mb-3" onclick="handleSelect('laboratorio')">
                                         <img class="img-icon-select-rol laboratorio" src="{{ asset('img/V2/Boton-Lab.png') }}" alt="">
                                     </div>
-
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2 mb-3" onclick="handleSelect('corporativo')">
                                         <img class="img-icon-select-rol corporativo"  src="{{ asset('img/V2/Boton-Cor.png') }}" alt="">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row" id="div-content-medico">
-                                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                    <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
-                                        <div class="ag-courses_item" style="width: 150px;">
+                            </div> --}}
+                            {{ Auth::user()->role }}
+                            @if (Auth::user()->role == 'temporary')
+                                <div class="row" id="div-content-medico">
+                                    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                        <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
+                                            <div class="ag-courses_item" style="width: 150px;">
+                                                <a href="#" class="ag-courses-item_link">
+                                                    <div class="ag-courses-item_bg"></div>
+                                                    <div class="ag-courses-item_title">
+                                                        <h4>
+                                                            <span class="symbol">$</span> 29,<span class="cent">99</span>
+                                                            <span class="time">USD / mensual</span>
+                                                        </h4>
+                                                        <button class="btn btnSave"  wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
+                                                    </div>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                        <div class="card-wrap card-header one">
+                                            <div class="card-content">
+                                                <h1 class="card-title">Plan Free</h1>
+                                                <p class="card-text">
+
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 10 <b>Pacientes</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Consultas</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Exámenes</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Estudios</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Estudios con videos</b> </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Consultas en IA</b> </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Publicidad</b> </li>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="ag-courses_item" style="margin-top: -100px;">
                                             <a href="#" class="ag-courses-item_link">
                                                 <div class="ag-courses-item_bg"></div>
-                                                <div class="ag-courses-item_title">
+                                                <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
+                                                    <span class="text-center" style="font-size: 17px; color: red;">
+                                                        Ahorra 2 meses y cancela <br> (12 meses x 10 meses)
+                                                    </span>
                                                     <h4>
-                                                        <span class="symbol">$</span> 29,<span class="cent">99</span>
-                                                        <span class="time">USD / mensual</span>
+                                                        <span class="symbol">$</span> 399,<span class="cent">99</span>
+                                                        <span class="time">USD / Anual</span>
                                                     </h4>
-                                                    <button class="btn btnSave"  wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
+                                                    <button class="btn btnSave" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
                                                 </div>
                                             </a>
-                                        </div>
-
+                                        </div> --}}
                                     </div>
-                                    <div class="card-wrap card-header one">
-                                        <div class="card-content">
-                                            <h1 class="card-title">Plan Free</h1>
-                                            <p class="card-text">
+                                    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                        {{--
+                                                <button class="btn btnSave" style="margin-left: 20px" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')"> Adquiere tu plan mensual </button>
+                                                <button class="btn btnSave" style="margin-left: 20px" >  Adquiere tu plan Anual   </button>>
+                                                --}}
+                                        <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
+                                            <div class="ag-courses_item" style="width: 150px;">
+                                                <a href="#" class="ag-courses-item_link">
+                                                    <div class="ag-courses-item_bg2"></div>
+                                                    <div class="ag-courses-item_title">
+                                                        <h4>
+                                                            <span class="symbol">$</span> 29,<span class="cent">99</span>
+                                                        </h4>
+                                                        <span class="time">USD / mensual</span>
+                                                        @if (auth()->user()->subscribedToPrice('price_1OvmISLoqeBM9DteyJr9GA34', 'Plan Ilimitado'))
+                                                        Suscrito
+                                                        <button class="btn btnSave" wire:click="cancelSubscription" wire:target="cancelSubscription" style="min-width: 70px; margin-top: 10px">
+                                                            Cancelar
+                                                        </button>
+                                                    @else
+                                                    <button class="btn btnSave"  wire:click="newSubscription('price_1OvmISLoqeBM9DteyJr9GA34')" style="min-width: 70px; margin-top: 10px"> Suscribirse!! </button>
 
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 10 <b>Pacientes</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Consultas</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Exámenes</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Estudios</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Estudios con videos</b> </li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Consultas en IA</b> </li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Publicidad</b> </li>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    {{-- <div class="ag-courses_item" style="margin-top: -100px;">
-                                        <a href="#" class="ag-courses-item_link">
-                                            <div class="ag-courses-item_bg"></div>
-                                            <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
-                                                <span class="text-center" style="font-size: 17px; color: red;">
-                                                    Ahorra 2 meses y cancela <br> (12 meses x 10 meses)
-                                                </span>
-                                                <h4>
-                                                    <span class="symbol">$</span> 399,<span class="cent">99</span>
-                                                    <span class="time">USD / Anual</span>
-                                                </h4>
-                                                <button class="btn btnSave" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
+                                                    @endif
+                                                    </div>
+                                                </a>
                                             </div>
-                                        </a>
-                                    </div> --}}
-                                </div>
-                                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                    {{--
-                                            <button class="btn btnSave" style="margin-left: 20px" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')"> Adquiere tu plan mensual </button>
-                                            <button class="btn btnSave" style="margin-left: 20px" >  Adquiere tu plan Anual   </button>>
-                                            --}}
-                                    <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
-                                        <div class="ag-courses_item" style="width: 150px;">
+                                        </div>
+                                        <div class="card-wrap card-header two">
+                                            <div class="card-content">
+                                                <h1 class="card-title">Plan Profesional</h1>
+                                                <p class="card-text">
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>Pacientes</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>Consultas</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>Exámenes</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>Estudios</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Estudios con videos</b> </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Consultas en IA</b> </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Publicidad</b> </li>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="ag-courses_item" style="margin-top: -100px;">
                                             <a href="#" class="ag-courses-item_link">
                                                 <div class="ag-courses-item_bg2"></div>
-                                                <div class="ag-courses-item_title">
+                                                <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
+                                                    <span class="text-center" style="font-size: 15px; color: red; text-transform: uppercase;">
+                                                        ¡Oferta limitada! <br> 12 meses al precio de 10, suscríbete ahora!
+                                                    </span>
                                                     <h4>
-                                                        <span class="symbol">$</span> 29,<span class="cent">99</span>
+                                                        <span class="symbol">$</span> 399,<span class="cent">99</span>
+                                                        <span class="time">USD / Anual</span>
                                                     </h4>
-                                                    <span class="time">USD / mensual</span>
-                                                    @if (auth()->user()->subscribedToPrice('price_1OvmISLoqeBM9DteyJr9GA34', 'Plan Ilimitado'))
-                                                    Suscrito
-                                                    <button class="btn btnSave" wire:click="cancelSubscription" wire:target="cancelSubscription" style="min-width: 70px; margin-top: 10px">
-                                                        Cancelar
-                                                    </button>
-                                                @else
-                                                <button class="btn btnSave"  wire:click="newSubscription('price_1OvmISLoqeBM9DteyJr9GA34')" style="min-width: 70px; margin-top: 10px"> Suscribirse!! </button>
 
-                                                @endif
+
+                                                    @if (auth()->user()->subscribedToPrice('price_1OfpQ4LoqeBM9DteIhOpQOh8', 'Plan Ilimitado'))
+                                                        Suscrito
+                                                        {{-- <button class="btn btnSave" wire:click="cancelSubscription" wire:target="cancelSubscription" style="min-width: 70px; margin-top: 10px">
+                                                            Cancelar
+                                                        </button> --}}
+                                                    @else
+                                                        <button class="btn btnSave" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:target="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px">
+                                                            Suscribirse
+                                                        </button>
+                                                    @endif
+
+
                                                 </div>
                                             </a>
                                         </div>
-                                    </div>
-                                    <div class="card-wrap card-header two">
-                                        <div class="card-content">
-                                            <h1 class="card-title">Plan Profesional</h1>
-                                            <p class="card-text">
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>Pacientes</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>Consultas</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>Exámenes</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>Estudios</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Estudios con videos</b> </li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Consultas en IA</b> </li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Publicidad</b> </li>
-                                            </p>
+                                        <div id="spinner" wire:target="newSubscription('price_1OfpJfLoqeBM9DtelZzLtCIe')" wire:loading >
+                                            <x-load-spinner />
+                                        </div>
+                                        <div id="spinner" wire:target=cancelSubscription" wire:loading >
+                                            <x-load-spinner />
                                         </div>
                                     </div>
-                                    <div class="ag-courses_item" style="margin-top: -100px;">
-                                        <a href="#" class="ag-courses-item_link">
-                                            <div class="ag-courses-item_bg2"></div>
-                                            <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
-                                                <span class="text-center" style="font-size: 15px; color: red; text-transform: uppercase;">
-                                                    ¡Oferta limitada! <br> 12 meses al precio de 10, suscríbete ahora!
-                                                </span>
-                                                <h4>
-                                                    <span class="symbol">$</span> 399,<span class="cent">99</span>
-                                                    <span class="time">USD / Anual</span>
-                                                </h4>
-
-
-                                                @if (auth()->user()->subscribedToPrice('price_1OfpQ4LoqeBM9DteIhOpQOh8', 'Plan Ilimitado'))
-                                                    {{-- Suscrito --}}
-                                                    <button class="btn btnSave" wire:click="cancelSubscription" wire:target="cancelSubscription" style="min-width: 70px; margin-top: 10px">
-                                                        Cancelar
-                                                    </button>
-                                                @else
-                                                    <button class="btn btnSave" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:target="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px">
-                                                        Suscribirse
-                                                    </button>
-                                                @endif
-
-
+                                    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                        <div
+                                            style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
+                                            <div class="ag-courses_item" style="width: 150px;">
+                                                <a href="#" class="ag-courses-item_link">
+                                                    <div class="ag-courses-item_bg3"></div>
+                                                    <div class="ag-courses-item_title">
+                                                        <h4>
+                                                            <span class="symbol">$</span> 39,<span class="cent">99</span>
+                                                        </h4>
+                                                        <span class="time">USD / mensual</span>
+                                                        <button class="btn btnSave"  wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
+                                                    </div>
+                                                </a>
                                             </div>
-                                        </a>
-                                    </div>
-                                    <div id="spinner" wire:target="newSubscription('price_1OfpJfLoqeBM9DtelZzLtCIe')" wire:loading >
-                                           <x-load-spinner />
-                                    </div>
-                                    <div id="spinner" wire:target=cancelSubscription" wire:loading >
-                                           <x-load-spinner />
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                    <div
-                                        style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
-                                        <div class="ag-courses_item" style="width: 150px;">
+
+                                        </div>
+                                        <div class="card-wrap card-header three">
+                                            <div class="card-content">
+                                                <h1 class="card-title">Plan Ilimitado</h1>
+                                                <p class="card-text">
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Pacientes</b> Ilimitados</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Consultas</b> Ilimitados</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Exámenes</b> Ilimitados</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Estudios</b> Ilimitados</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 0.1$ por Gb <b>Estudios con videos</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 300 <b>Consultas en IA</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i><b style="text-decoration: line-through;"> Publicidad</b> </li>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="ag-courses_item" style="margin-top: -100px;">
                                             <a href="#" class="ag-courses-item_link">
                                                 <div class="ag-courses-item_bg3"></div>
-                                                <div class="ag-courses-item_title">
+                                                <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
+                                                    <span class="text-center" style="font-size: 15px; color: red; text-transform: uppercase;">
+                                                        ¡Oferta limitada! <br> 12 meses al precio de 10, suscríbete ahora!
+                                                    </span>
                                                     <h4>
-                                                        <span class="symbol">$</span> 39,<span class="cent">99</span>
+                                                        <span class="symbol">$</span> 399,<span class="cent">99</span>
+                                                        <span class="time">USD / Anual</span>
                                                     </h4>
-                                                    <span class="time">USD / mensual</span>
-                                                    <button class="btn btnSave"  wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
+                                                    <button class="btn btnSave" wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
                                                 </div>
                                             </a>
                                         </div>
-
-                                    </div>
-                                    <div class="card-wrap card-header three">
-                                        <div class="card-content">
-                                            <h1 class="card-title">Plan Ilimitado</h1>
-                                            <p class="card-text">
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Pacientes</b> Ilimitados</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Consultas</b> Ilimitados</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Exámenes</b> Ilimitados</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Estudios</b> Ilimitados</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 0.1$ por Gb <b>Estudios con videos</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 300 <b>Consultas en IA</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i><b style="text-decoration: line-through;"> Publicidad</b> </li>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="ag-courses_item" style="margin-top: -100px;">
-                                        <a href="#" class="ag-courses-item_link">
-                                            <div class="ag-courses-item_bg3"></div>
-                                            <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
-                                                <span class="text-center" style="font-size: 17px; color: red; text-transform: uppercase;">
-                                                    Ahorra 2 meses y cancela <br> (12 meses x 10 meses)
-                                                </span>
-                                                <h4>
-                                                    <span class="symbol">$</span> 399,<span class="cent">99</span>
-                                                    <span class="time">USD / Anual</span>
-                                                </h4>
-                                                <button class="btn btnSave" wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
-                                            </div>
-                                        </a>
                                     </div>
                                 </div>
-                            </div>
+                            @else
+                                <div class="row" id="div-content-laboratorio" style="display: none">
+                                    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                        <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
+                                            <div class="ag-courses_item" style="width: 150px;">
+                                                <a href="#" class="ag-courses-item_link">
+                                                    <div class="ag-courses-item_bg"></div>
+                                                    <div class="ag-courses-item_title">
+                                                        <h4>
+                                                            <span class="symbol">$</span> 19,<span class="cent">99</span>
+                                                            <span class="time">USD / mensual</span>
+                                                        </h4>
+                                                        <button class="btn btnSave"  wire:click="newSubscription('price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
+                                                    </div>
+                                                </a>
+                                            </div>
 
-                            <div class="row" id="div-content-laboratorio" style="display: none">
-                                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                    <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
-                                        <div class="ag-courses_item" style="width: 150px;">
+                                        </div>
+                                        <div class="card-wrap card-header one">
+                                            <div class="card-content">
+                                                <h1 class="card-title">Plan Free</h1>
+                                                <p class="card-text">
+
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 10 <b>Pacientes</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Consultas</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Exámenes</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Estudios</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Estudios con videos</b> </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Consultas en IA</b> </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Publicidad</b> </li>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="ag-courses_item" style="margin-top: -100px;">
                                             <a href="#" class="ag-courses-item_link">
                                                 <div class="ag-courses-item_bg"></div>
-                                                <div class="ag-courses-item_title">
+                                                <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
+                                                    <span class="text-center" style="font-size: 17px; color: red;">
+                                                        Ahorra 2 meses y cancela <br> (12 meses x 10 meses)
+                                                    </span>
                                                     <h4>
-                                                        <span class="symbol">$</span> 19,<span class="cent">99</span>
-                                                        <span class="time">USD / mensual</span>
+                                                        <span class="symbol">$</span> 399,<span class="cent">99</span>
+                                                        <span class="time">USD / Anual</span>
                                                     </h4>
-                                                    <button class="btn btnSave"  wire:click="newSubscription('price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
+                                                    <button class="btn btnSave" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
                                                 </div>
                                             </a>
-                                        </div>
-
+                                        </div> --}}
                                     </div>
-                                    <div class="card-wrap card-header one">
-                                        <div class="card-content">
-                                            <h1 class="card-title">Plan Free</h1>
-                                            <p class="card-text">
-
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 10 <b>Pacientes</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Consultas</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Exámenes</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>Estudios</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Estudios con videos</b> </li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Consultas en IA</b> </li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Publicidad</b> </li>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    {{-- <div class="ag-courses_item" style="margin-top: -100px;">
-                                        <a href="#" class="ag-courses-item_link">
-                                            <div class="ag-courses-item_bg"></div>
-                                            <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
-                                                <span class="text-center" style="font-size: 17px; color: red;">
-                                                    Ahorra 2 meses y cancela <br> (12 meses x 10 meses)
-                                                </span>
-                                                <h4>
-                                                    <span class="symbol">$</span> 399,<span class="cent">99</span>
-                                                    <span class="time">USD / Anual</span>
-                                                </h4>
-                                                <button class="btn btnSave" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
+                                    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                        {{--
+                                                <button class="btn btnSave" style="margin-left: 20px" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')"> Adquiere tu plan mensual </button>
+                                                <button class="btn btnSave" style="margin-left: 20px" >  Adquiere tu plan Anual   </button>>
+                                                --}}
+                                        <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
+                                            <div class="ag-courses_item" style="width: 150px;">
+                                                <a href="#" class="ag-courses-item_link">
+                                                    <div class="ag-courses-item_bg2"></div>
+                                                    <div class="ag-courses-item_title">
+                                                        <h4>
+                                                            <span class="symbol">$</span> 29,<span class="cent">99</span>
+                                                        </h4>
+                                                        <span class="time">USD / mensual</span>
+                                                        <button class="btn btnSave" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px"> Suscribirse
+                                                        </button>
+                                                    </div>
+                                                </a>
                                             </div>
-                                        </a>
-                                    </div> --}}
-                                </div>
-                                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                    {{--
-                                            <button class="btn btnSave" style="margin-left: 20px" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')"> Adquiere tu plan mensual </button>
-                                            <button class="btn btnSave" style="margin-left: 20px" >  Adquiere tu plan Anual   </button>>
-                                            --}}
-                                    <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
-                                        <div class="ag-courses_item" style="width: 150px;">
+                                        </div>
+                                        <div class="card-wrap card-header two">
+                                            <div class="card-content">
+                                                <h1 class="card-title">Plan Profesional</h1>
+                                                <p class="card-text">
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>Pacientes</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>Consultas</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>Exámenes</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>Estudios</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Estudios con videos</b> </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Consultas en IA</b> </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Publicidad</b> </li>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="ag-courses_item" style="margin-top: -100px;">
                                             <a href="#" class="ag-courses-item_link">
                                                 <div class="ag-courses-item_bg2"></div>
-                                                <div class="ag-courses-item_title">
+                                                <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
+                                                    <span class="text-center" style="font-size: 17px; color: red; text-transform: uppercase;">
+                                                        Ahorra 2 meses y cancela <br> (12 meses x 10 meses)
+                                                    </span>
                                                     <h4>
-                                                        <span class="symbol">$</span> 29,<span class="cent">99</span>
+                                                        <span class="symbol">$</span> 399,<span class="cent">99</span>
+                                                        <span class="time">USD / Anual</span>
                                                     </h4>
-                                                    <span class="time">USD / mensual</span>
-                                                    <button class="btn btnSave" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px"> Suscribirse
-                                                    </button>
+                                                    <button class="btn btnSave" wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
                                                 </div>
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="card-wrap card-header two">
-                                        <div class="card-content">
-                                            <h1 class="card-title">Plan Profesional</h1>
-                                            <p class="card-text">
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>Pacientes</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>Consultas</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>Exámenes</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>Estudios</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Estudios con videos</b> </li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Consultas en IA</b> </li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">Publicidad</b> </li>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="ag-courses_item" style="margin-top: -100px;">
-                                        <a href="#" class="ag-courses-item_link">
-                                            <div class="ag-courses-item_bg2"></div>
-                                            <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
-                                                <span class="text-center" style="font-size: 17px; color: red; text-transform: uppercase;">
-                                                    Ahorra 2 meses y cancela <br> (12 meses x 10 meses)
-                                                </span>
-                                                <h4>
-                                                    <span class="symbol">$</span> 399,<span class="cent">99</span>
-                                                    <span class="time">USD / Anual</span>
-                                                </h4>
-                                                <button class="btn btnSave" wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
+                                    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                        <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
+                                            <div class="ag-courses_item" style="width: 150px;">
+                                                <a href="#" class="ag-courses-item_link">
+                                                    <div class="ag-courses-item_bg3"></div>
+                                                    <div class="ag-courses-item_title">
+                                                        <h4>
+                                                            <span class="symbol">$</span> 39,<span class="cent">99</span>
+                                                        </h4>
+                                                        <span class="time">USD / mensual</span>
+                                                        <button class="btn btnSave"  wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
+                                                    </div>
+                                                </a>
                                             </div>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                    <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
-                                        <div class="ag-courses_item" style="width: 150px;">
+                                        </div>
+                                        <div class="card-wrap card-header three">
+                                            <div class="card-content">
+                                                <h1 class="card-title">Plan Ilimitado</h1>
+                                                <p class="card-text">
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Pacientes</b> Ilimitados</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Consultas</b> Ilimitados</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Exámenes</b> Ilimitados</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Estudios</b> Ilimitados</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 0.1$ por Gb <b>Estudios con videos</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 300 <b>Consultas en IA</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i><b style="text-decoration: line-through;"> Publicidad</b> </li>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="ag-courses_item" style="margin-top: -100px;">
                                             <a href="#" class="ag-courses-item_link">
                                                 <div class="ag-courses-item_bg3"></div>
-                                                <div class="ag-courses-item_title">
+                                                <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
+                                                    <span class="text-center" style="font-size: 17px; color: red; text-transform: uppercase;">
+                                                        Ahorra 2 meses y cancela <br> (12 meses x 10 meses)
+                                                    </span>
                                                     <h4>
-                                                        <span class="symbol">$</span> 39,<span class="cent">99</span>
+                                                        <span class="symbol">$</span> 399,<span class="cent">99</span>
+                                                        <span class="time">USD / Anual</span>
                                                     </h4>
-                                                    <span class="time">USD / mensual</span>
-                                                    <button class="btn btnSave"  wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
+                                                    <button class="btn btnSave" wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
                                                 </div>
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="card-wrap card-header three">
-                                        <div class="card-content">
-                                            <h1 class="card-title">Plan Ilimitado</h1>
-                                            <p class="card-text">
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Pacientes</b> Ilimitados</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Consultas</b> Ilimitados</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Exámenes</b> Ilimitados</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i><b>Estudios</b> Ilimitados</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 0.1$ por Gb <b>Estudios con videos</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 300 <b>Consultas en IA</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i><b style="text-decoration: line-through;"> Publicidad</b> </li>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="ag-courses_item" style="margin-top: -100px;">
-                                        <a href="#" class="ag-courses-item_link">
-                                            <div class="ag-courses-item_bg3"></div>
-                                            <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
-                                                <span class="text-center" style="font-size: 17px; color: red; text-transform: uppercase;">
-                                                    Ahorra 2 meses y cancela <br> (12 meses x 10 meses)
-                                                </span>
-                                                <h4>
-                                                    <span class="symbol">$</span> 399,<span class="cent">99</span>
-                                                    <span class="time">USD / Anual</span>
-                                                </h4>
-                                                <button class="btn btnSave" wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
-                                            </div>
-                                        </a>
-                                    </div>
                                 </div>
-                            </div>
+                            @endif
 
-                            <div class="row" id="div-content-corporativo" style="display: none">
-                                <div class="col-sm-10 col-md-10 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                    <div
-                                        style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
-                                        <div class="ag-courses_item" style="width: 150px;">
+                            @if (Auth::user()->role == 'corporativo') {
+                                <div class="row" id="div-content-corporativo" style="display: none">
+                                    <div class="col-sm-10 col-md-10 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                        <div
+                                            style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
+                                            <div class="ag-courses_item" style="width: 150px;">
+                                                <a href="#" class="ag-courses-item_link">
+                                                    <div class="ag-courses-item_bg4"></div>
+                                                    <div class="ag-courses-item_title">
+                                                        <h4>
+                                                            <span class="symbol">$</span> 29,<span
+                                                                class="cent">99</span>
+                                                            <span class="time">USD / mensual</span>
+                                                        </h4>
+                                                        <button class="btn btnSave" wire:click="newSubscription('')"  style="min-width: 70px; margin-top: 10px"> Suscribirse
+                                                        </button>
+                                                    </div>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                        <div class="card-wrap card-header four">
+                                            <div class="card-content">
+                                                <h1 class="card-title">Plan Corporativo</h1>
+                                                <p class="card-text">
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> Pacientes, Consultas, Exámenes y Estudios </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> Licencia a los profesionales </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> Administrar centros y médicos </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> Controlar y gestionar el suministro de medicamentos </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> Monetizar las consultas realizadas </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> Mostrar la información estadística en tiempo real </li>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="ag-courses_item" style="margin-top: -100px;">
                                             <a href="#" class="ag-courses-item_link">
                                                 <div class="ag-courses-item_bg4"></div>
                                                 <div class="ag-courses-item_title">
                                                     <h4>
-                                                        <span class="symbol">$</span> 29,<span
-                                                            class="cent">99</span>
-                                                        <span class="time">USD / mensual</span>
+                                                        <span class="symbol">$</span> 100<span class="cent"></span>
+                                                        <span class="time">USD / Anual</span>
                                                     </h4>
-                                                    <button class="btn btnSave" wire:click="newSubscription('')"  style="min-width: 70px; margin-top: 10px"> Suscribirse
-                                                    </button>
+                                                    <button class="btn btnSave" wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
                                                 </div>
                                             </a>
                                         </div>
-
                                     </div>
-                                    <div class="card-wrap card-header four">
-                                        <div class="card-content">
-                                            <h1 class="card-title">Plan Corporativo</h1>
-                                            <p class="card-text">
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> Pacientes, Consultas, Exámenes y Estudios </li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> Licencia a los profesionales </li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> Administrar centros y médicos </li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> Controlar y gestionar el suministro de medicamentos </li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> Monetizar las consultas realizadas </li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> Mostrar la información estadística en tiempo real </li>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="ag-courses_item" style="margin-top: -100px;">
-                                        <a href="#" class="ag-courses-item_link">
-                                            <div class="ag-courses-item_bg4"></div>
-                                            <div class="ag-courses-item_title">
-                                                <h4>
-                                                    <span class="symbol">$</span> 100<span class="cent"></span>
-                                                    <span class="time">USD / Anual</span>
-                                                </h4>
-                                                <button class="btn btnSave" wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                                </div> }
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -470,7 +475,7 @@
                                             <span class="text-capitalize" style="color: #ffffff">{{ $paymentMethod->billing_details->name }}</span>
                                             <br>
                                             @if (@$this->defaultPaymentMethod->id != $paymentMethod->id)
-                                                <Button wire:click="$emit('alerta')"><i class="bi bi-trash mt-2"></i></Button>
+                                                <Button wire:click="deletePaymentMethod('{{ $paymentMethod->id }}')"><i class="bi bi-trash mt-2"></i></Button>
                                                 <Button wire:click="defaultPaymentMethod('{{ $paymentMethod->id }}')"><i class="bi bi-star mt-2"></i></Button>
                                             @endif
                                             <div class="credit-card-expiry">
@@ -587,6 +592,7 @@
             }).then((result) => {
                 $('#exampleModal').modal('toggle');
                 cardElemnt.clear();
+                span.textContent = '';
             });
 
             if (error) {
@@ -599,6 +605,7 @@
 
 
                 @this.addPaymentMethod(setupIntent.payment_method);
+                cardElemnt.clear();
 
                 let span = document.getElementById('card-error-message');
 
