@@ -40,6 +40,9 @@ return [
         'adquiere_plan'       => 'Adquiere tu plan',
         'copiar_enlace'       => 'Copiar enlace de registro',
         'enviar'              => 'Enviar',
+        'suscribirse'         => 'Suscribirse',
+        'agregar_tarjeta'     => 'Agregar Método de Pago',
+
     ],
 
     'form' => [
@@ -116,6 +119,8 @@ return [
         'nro_licencia_salud'     => 'Nro. Licencia de Salud',
         'responsable_director'   => 'Responsable ó Director',
         'web'                    => 'Sitio web',
+        'nombre_titular'         => 'Nombre titular de la tarjeta',
+        'numero_tarjeta'         => 'Numero de tarjeta',
     ],
 
     'menu' => [
@@ -341,6 +346,13 @@ return [
         'tratamiento'         => 'Tratamiento',
         'fecha_activacion'    => 'Fecha de activación',
         'fecha_corte'         => 'Fecha de Corte',
+        'predeterminado'      => 'Predeterminado',
+        'expira'              => 'Expira',
+        'mes'                 => 'Mes',
+        'año'                 => 'Año',
+        'oferta_planes'       => '¡Oferta limitada! <br> 12 meses al precio de 10, suscríbete ahora!',
+        'mensaje_pago'        => 'Si confirmas tu suscripción, permitirás que Sqlapio Technology LLC efectúe cargos de futuros pagos conforme a las condiciones estipuladas. Siempre puedes cancelar tu suscripción.',
+        'metodos_de_pago'     => 'Métodos de Pago',
     ],
 
     'select' => [

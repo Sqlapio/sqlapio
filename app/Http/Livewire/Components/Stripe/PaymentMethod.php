@@ -20,8 +20,6 @@ class PaymentMethod extends Component
         $this->deletePaymentMethod($paymentMethod);
     }
 
-
-
     public function addPaymentMethod($paymentMethod)
     {
         auth()->user()->addPaymentMethod($paymentMethod);
@@ -54,13 +52,11 @@ class PaymentMethod extends Component
 
     }
 
-
     public function defaultPaymentMethod($paymentMethod) {
 
         auth()->user()->updateDefaultPaymentMethod($paymentMethod);
 
     }
-
 
     public function newSubscription($plan)
     {
@@ -73,11 +69,10 @@ class PaymentMethod extends Component
 
         try {
             if (auth()->user()->subscribed('Plan Ilimitado')) {
-                auth()->user()->subscription('Plan Ilimitado')->swap($plan);
 
+                auth()->user()->subscription('Plan Ilimitado')->swap($plan);
                 return;
             }
-
 
             auth()->user()->newSubscription('Plan Ilimitado', $plan)->create($this->defaultPaymentMethod->id);
 
@@ -98,7 +93,6 @@ class PaymentMethod extends Component
     public function resumeSubscription() {
         auth()->user()->subscription('Plan Ilimitado')->resume();
     }
-
 
     public function render()
     {

@@ -8,7 +8,7 @@ class ApiServicesController extends Controller
 {
     static public function sms_welcome($phone, $caption, $image)
     {
-        
+
         try {
             $params = array(
 
@@ -47,7 +47,7 @@ class ApiServicesController extends Controller
 
     static public function sms_info($phone, $body)
     {
-        
+
         try {
             $params = array(
 
@@ -85,7 +85,7 @@ class ApiServicesController extends Controller
 
     static public function sms_reference_info($phone, $body)
     {
-        
+
         try {
             $params = array(
 
@@ -123,7 +123,7 @@ class ApiServicesController extends Controller
 
     static public function sms_location_lab()
     {
-        
+
         try {
             $params=array(
                 'token' => 'ypb31pibjltlbdwo',
@@ -148,10 +148,10 @@ class ApiServicesController extends Controller
                     "content-type: application/x-www-form-urlencoded"
                   ),
                 ));
-                
+
                 $response = curl_exec($curl);
                 $err = curl_error($curl);
-                
+
                 curl_close($curl);
 
         } catch (\Throwable $th) {
@@ -159,4 +159,69 @@ class ApiServicesController extends Controller
 			dd('Error UtilsController.sms_info()', $message);
         }
     }
+
+    static function getDefaultPaymentMethodProperty()
+    {
+        return auth()->user()->defaultPaymentMethod();
+    }
+
+    static function addPaymentMethod($paymentMethod)
+    {
+        auth()->user()->addPaymentMethod($paymentMethod);
+
+        if (!auth()->user()->hasDefaultPaymentMethod()) {
+           return auth()->user()->updateDefaultPaymentMethod($paymentMethod);
+
+        }
+
+    }
+
+    static function deletePaymentMethod($paymentMethod) {
+
+        auth()->user()->deletePaymentMethod($paymentMethod);
+
+    }
+
+    static function defaultPaymentMethod($paymentMethod) {
+
+      auth()->user()->updateDefaultPaymentMethod($paymentMethod);
+
+    }
+
+    static function newSubscription($plan)
+    {
+
+        if(!auth()->user()->defaultPaymentMethod()) {
+
+            $this->emit('error', 'No tienes un metodo de pago registrado!');
+            return;
+        }
+
+        try {
+            if (auth()->user()->subscribed('Plan Ilimitado')) {
+
+                auth()->user()->subscription('Plan Ilimitado')->swap($plan);
+                return;
+            }
+
+            auth()->user()->newSubscription('Plan Ilimitado', $plan)->create($this->defaultPaymentMethod->id);
+
+            auth()->user()->refresh();
+
+        } catch (\Exception $e) {
+            $this->emit('error', $e->getMessage());
+        }
+
+
+    }
+
+    static function cancelSubscription() {
+
+        auth()->user()->subscription('Plan Ilimitado')->canceled();
+    }
+
+    static function resumeSubscription() {
+        auth()->user()->subscription('Plan Ilimitado')->resume();
+    }
+
 }

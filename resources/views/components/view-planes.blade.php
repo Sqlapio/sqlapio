@@ -483,7 +483,17 @@
                 break;
         }
     }
+
+    const handleSelectPlan = () => {
+        $("#exampleModal").modal("show");
+    }
 </script>
+@php
+use App\Http\Controllers\ApiServicesController;
+    $defaultPaymentMethod = ApiServicesController::getDefaultPaymentMethodProperty();
+    $paymentMethods = auth()->user()->paymentMethods();
+    $intent = auth()->user()->createSetupIntent();
+@endphp
 <div>
     <div class="row" style="padding: 20px;">
         <h2 class="title-card fw-bold tile-planes-dos card-title mb-3"></h2>
@@ -506,6 +516,7 @@
                         </div>
                        </div>
                     </div>
+                    {{-- {{ $paymentMethods }} --}}
 
                     {{-- <div class="card mt-3 card-plans">
                         <div class="card-body">
@@ -612,6 +623,87 @@
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-1 btn-plans" style="display: flex;">
             <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})" class="btn btnPrimary" id="renew-btn">@lang('messages.botton.renovar')</button>
             <button type="button" onclick="renew_plan(2,{{ Auth::user()->type_plane }})" class="btn btnSecond" id="change-btn" style="margin-left: 20px">@lang('messages.botton.cambiar_plan')</button>
+        </div>
+
+
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-1" style="display: flex;">
+            @foreach ($paymentMethods as $paymentMethod)
+            <div id="spinner" wire:target="deletePaymentMethod('{{ $paymentMethod->id }}')" wire:loading >
+                <x-load-spinner />
+            </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 col-xxl-3 mt-3" wire:key="{{ $paymentMethod->id }}">
+                    <div class="credit-card {{ $paymentMethod->card->brand }} selectable">
+                        <div class="credit-card-last4">
+                            {{ $paymentMethod->card->last4 }}
+                        </div>
+                        <span class="text-capitalize" style="color: #ffffff">{{ $paymentMethod->billing_details->name }}</span>
+                        <br>
+                        @if ($defaultPaymentMethod->id != $paymentMethod->id)
+                            <Button wire:click="deletePaymentMethod('{{ $paymentMethod->id }}')"><i class="bi bi-trash mt-2"></i></Button>
+                            <Button wire:click="defaultPaymentMethod('{{ $paymentMethod->id }}')"><i class="bi bi-star mt-2"></i></Button>
+                        @endif
+                        <div class="credit-card-expiry">
+                            @lang('messages.label.expira'):
+                            {{ $paymentMethod->card->exp_month }} / {{ $paymentMethod->card->exp_year }}
+
+                            @if ($defaultPaymentMethod->id == $paymentMethod->id)
+                                <span class="badge rounded-pill text-bg-secondary" style="margin-top: 10px">@lang('messages.label.predeterminado')</span>
+                            @endif
+                        </div>
+                    </div>
+
+                    {{-- <p>Tarjeta: {{ $paymentMethod->card->brand }} - xxxx -{{ $paymentMethod->card->last4 }} </p>
+                        <p>Expira:  {{ $paymentMethod->card->exp_month }} / {{ $paymentMethod->card->exp_year }} </p> --}}
+                        {{-- @if (@$this->defaultPaymentMethod->id == $paymentMethod->id)
+                        <span class="badge rounded-pill text-bg-info">Predeterminado</span>
+                        @endif --}}
+                </div>
+            @endforeach
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3" style="display: flex; justify-content: end;">
+            <button class="btn btnSave send " onclick="handleSelectPlan();" style="margin-left: 20px"> @lang('messages.botton.agregar_tarjeta') </button>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px; justify-content: center"></button>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                <div class="text-center">
+                    <img class="img" src="{{ asset('img/V2/stripe.png') }}" style="width: 110px;">
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" wire:ignore>
+                    <label for="name" class="form-label mt-2" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre_titular')</label>
+                    <input class="form-control mt-2" id="card-holder-name" type="text">
+
+                    <!-- Stripe Elements Placeholder -->
+                    <label for="number-t" class="form-label mt-2" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.numero_tarjeta')</label>
+                    <div class="form-control" id="card-element"></div>
+                    <span id="card-error-message" style="color: red; font-size: 12px"></span>
+
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 text-center">
+                    <button class="btn btnPrimary mt-3 mb-3" id="card-button" data-secret="{{ $intent->client_secret }}">
+                        @lang('messages.botton.guardar')
+                    </button>
+                    <p style="font-size: 11px"> @lang('messages.label.mensaje_pago')</p>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style="justify-content: center" >
+            <a href="https://stripe.com/" target="_blank" style="text-decoration: none; color: #1a1a1a80; font-size:13px;"><span>Powered by </span><img class="img" src="{{ asset('img/V2/stripe2.png') }}" style="width: 45px;"></a>
+            <a href="https://stripe.com/legal/end-users" target="_blank" style="text-decoration: none; color: #1a1a1a80; font-size:13px;"><span>Condiciones</span></a>
+            <a href="https://stripe.com/privacy" target="_blank" style="text-decoration: none; color: #1a1a1a80; font-size:13px;"><span>Privacidad</span></a>
         </div>
     </div>
 </div>
@@ -889,3 +981,5 @@
     </div>
 
 </div>
+
+

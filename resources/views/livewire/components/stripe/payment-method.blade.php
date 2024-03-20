@@ -86,19 +86,15 @@
                                 <div class="row" id="div-content-medico">
                                     <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                         <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
-                                            <div class="ag-courses_item" style="width: 150px;">
+                                            <button class="btn btnSave"  wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px; width: 120px; height: 80px; margin-right: 35px;"> @lang('messages.botton.suscribirse') </button>
+                                            {{-- <div class="ag-courses_item" >
                                                 <a href="#" class="ag-courses-item_link">
                                                     <div class="ag-courses-item_bg"></div>
                                                     <div class="ag-courses-item_title">
-                                                        <h4>
-                                                            <span class="symbol">$</span> 29,<span class="cent">99</span>
-                                                            <span class="time">USD / mensual</span>
-                                                        </h4>
-                                                        <button class="btn btnSave"  wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
+                                                        <span class="time"></span>
                                                     </div>
                                                 </a>
-                                            </div>
-
+                                            </div> --}}
                                         </div>
                                         <div class="card-wrap card-header one">
                                             <div class="card-content">
@@ -143,16 +139,15 @@
                                                         <h4>
                                                             <span class="symbol">$</span> 29,<span class="cent">99</span>
                                                         </h4>
-                                                        <span class="time">USD / mensual</span>
+                                                        <span class="time">USD / @lang('messages.label.mes')</span>
                                                         @if (auth()->user()->subscribedToPrice('price_1OvmISLoqeBM9DteyJr9GA34', 'Plan Ilimitado'))
-                                                        Suscrito
-                                                        <button class="btn btnSave" wire:click="cancelSubscription" wire:target="cancelSubscription" style="min-width: 70px; margin-top: 10px">
+                                                            Suscrito
+                                                        {{-- <button class="btn btnSave" wire:click="cancelSubscription" wire:target="cancelSubscription" style="min-width: 70px; margin-top: 10px">
                                                             Cancelar
-                                                        </button>
-                                                    @else
-                                                    <button class="btn btnSave"  wire:click="newSubscription('price_1OvmISLoqeBM9DteyJr9GA34')" style="min-width: 70px; margin-top: 10px"> Suscribirse!! </button>
-
-                                                    @endif
+                                                        </button> --}}
+                                                        @else
+                                                            <button class="btn btnSave"  wire:click="newSubscription('price_1OvmISLoqeBM9DteyJr9GA34')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                        @endif
                                                     </div>
                                                 </a>
                                             </div>
@@ -175,12 +170,12 @@
                                             <a href="#" class="ag-courses-item_link">
                                                 <div class="ag-courses-item_bg2"></div>
                                                 <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
-                                                    <span class="text-center" style="font-size: 15px; color: red; text-transform: uppercase;">
-                                                        ¡Oferta limitada! <br> 12 meses al precio de 10, suscríbete ahora!
+                                                    <span class="text-center" style="font-size: 14px; color: red; text-transform: uppercase;">
+                                                        @lang('messages.label.oferta_planes')
                                                     </span>
                                                     <h4>
                                                         <span class="symbol">$</span> 399,<span class="cent">99</span>
-                                                        <span class="time">USD / Anual</span>
+                                                        <span class="time">USD / @lang('messages.label.año')</span>
                                                     </h4>
 
 
@@ -191,7 +186,7 @@
                                                         </button> --}}
                                                     @else
                                                         <button class="btn btnSave" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:target="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px">
-                                                            Suscribirse
+                                                            @lang('messages.botton.suscribirse')
                                                         </button>
                                                     @endif
 
@@ -207,8 +202,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                        <div
-                                            style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
+                                        <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
                                             <div class="ag-courses_item" style="width: 150px;">
                                                 <a href="#" class="ag-courses-item_link">
                                                     <div class="ag-courses-item_bg3"></div>
@@ -216,8 +210,8 @@
                                                         <h4>
                                                             <span class="symbol">$</span> 39,<span class="cent">99</span>
                                                         </h4>
-                                                        <span class="time">USD / mensual</span>
-                                                        <button class="btn btnSave"  wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
+                                                        <span class="time">USD / @lang('messages.label.mes')</span>
+                                                        <button class="btn btnSave"  wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
                                                     </div>
                                                 </a>
                                             </div>
@@ -241,14 +235,14 @@
                                             <a href="#" class="ag-courses-item_link">
                                                 <div class="ag-courses-item_bg3"></div>
                                                 <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
-                                                    <span class="text-center" style="font-size: 15px; color: red; text-transform: uppercase;">
-                                                        ¡Oferta limitada! <br> 12 meses al precio de 10, suscríbete ahora!
+                                                    <span class="text-center" style="font-size: 14px; color: red; text-transform: uppercase;">
+                                                        @lang('messages.label.oferta_planes')
                                                     </span>
                                                     <h4>
                                                         <span class="symbol">$</span> 399,<span class="cent">99</span>
-                                                        <span class="time">USD / Anual</span>
+                                                        <span class="time" style="font-weight: 500">USD / @lang('messages.label.año')</span>
                                                     </h4>
-                                                    <button class="btn btnSave" wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
+                                                    <button class="btn btnSave" wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
                                                 </div>
                                             </a>
                                         </div>
@@ -404,8 +398,7 @@
                             @if (Auth::user()->role == 'corporativo') {
                                 <div class="row" id="div-content-corporativo" style="display: none">
                                     <div class="col-sm-10 col-md-10 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                        <div
-                                            style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
+                                        <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
                                             <div class="ag-courses_item" style="width: 150px;">
                                                 <a href="#" class="ag-courses-item_link">
                                                     <div class="ag-courses-item_bg4"></div>
@@ -420,7 +413,6 @@
                                                     </div>
                                                 </a>
                                             </div>
-
                                         </div>
                                         <div class="card-wrap card-header four">
                                             <div class="card-content">
@@ -457,8 +449,9 @@
 
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-cd">
                 <div class="card mb-3" id="div-form">
+
                     <div class="card-body">
-                        <h4>Metodos de Pago</h4>
+                        <h4>@lang('messages.label.metodos_de_pago')</h4>
                         <hr style="margin-bottom: 0; margin-top: 5px">
                         @if (count($paymentMethods))
                             <div class="row">
@@ -478,11 +471,11 @@
                                                 <Button wire:click="defaultPaymentMethod('{{ $paymentMethod->id }}')"><i class="bi bi-star mt-2"></i></Button>
                                             @endif
                                             <div class="credit-card-expiry">
-                                                Expira:
+                                                @lang('messages.label.expira'):
                                                 {{ $paymentMethod->card->exp_month }} / {{ $paymentMethod->card->exp_year }}
 
                                                 @if (@$this->defaultPaymentMethod->id == $paymentMethod->id)
-                                                    <span class="badge rounded-pill text-bg-secondary" style="margin-top: 10px">Predeterminado</span>
+                                                    <span class="badge rounded-pill text-bg-secondary" style="margin-top: 10px">@lang('messages.label.predeterminado')</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -497,7 +490,7 @@
                             </div>
                         @endif
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3" style="display: flex; justify-content: end;">
-                            <button class="btn btnSave send " onclick="handleSelectPlan();" style="margin-left: 20px"> Agregar metodo de pago </button>
+                            <button class="btn btnSave send " onclick="handleSelectPlan();" style="margin-left: 20px"> @lang('messages.botton.agregar_tarjeta') </button>
                         </div>
                     </div>
                 </div>
@@ -521,20 +514,20 @@
                     <div class="row">
 
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" wire:ignore>
-                            <label for="name" class="form-label mt-2" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombre titular de la tarjeta</label>
+                            <label for="name" class="form-label mt-2" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre_titular')</label>
                             <input class="form-control mt-2" id="card-holder-name" type="text">
 
                             <!-- Stripe Elements Placeholder -->
-                            <label for="number-t" class="form-label mt-2" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Numero de tarjeta</label>
+                            <label for="number-t" class="form-label mt-2" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.numero_tarjeta')</label>
                             <div class="form-control" id="card-element"></div>
                             <span id="card-error-message" style="color: red; font-size: 12px"></span>
 
                         </div>
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 text-center">
                             <button class="btn btnPrimary mt-3 mb-3" id="card-button" data-secret="{{ $intent->client_secret }}">
-                                Agregar
+                                @lang('messages.botton.guardar')
                             </button>
-                            <p style="font-size: 11px">Si confirmas tu suscripción, permitirás que Sqlapio Technology LLC efectúe cargos de futuros pagos conforme a las condiciones estipuladas. Siempre puedes cancelar tu suscripción.</p>
+                            <p style="font-size: 11px"> @lang('messages.label.mensaje_pago')</p>
                         </div>
                     </div>
                 </div>
@@ -612,7 +605,7 @@
 
             }
         });
-        </script>
+    </script>
 
 
 @push('js')
@@ -623,7 +616,7 @@
             title: message,
             allowOutsideClick: false,
             confirmButtonColor: '#42ABE2',
-            confirmButtonText: 'Aceptar'
+            confirmButtonText: '@lang('messages.botton.aceptar')'
         })
     });
     </script>
