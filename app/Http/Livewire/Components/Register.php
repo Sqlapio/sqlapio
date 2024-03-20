@@ -103,6 +103,7 @@ class Register extends Component
             $user->password = Hash::make($request->password);
             $user->email_verified_at = $date_today;
             $user->role = "temporary";
+            $user->type_plane = $request->type_plan;
             $user->save();
             $action = '3';
 
@@ -510,21 +511,21 @@ class Register extends Component
                     ['id' => $request->id],
                     [
 
-                        'code_lab'           => 'SQ-LAB-' . random_int(11111111, 99999999),
-                        'user_id'           => $laboratory->id,
-                        'business_name'   => $request->business_name,
-                        'email'           => $request->email,
-                        'rif'               => $request->rif,
-                        'state'           => $request->state,
-                        'city'               => $request->city,
-                        'address'           => $request->address,
-                        'phone_1'           => $request->phone,
-                        'license'           => $request->license,
-                        'type_laboratory' => $request->type_laboratory,
-                        'responsible'       => $request->responsible,
-                        'descripcion'       => $request->descripcion,
-                        'website'           => $request->website,
-                        'lab_img'           => $nameFile
+                        'code_lab'              => 'SQ-LAB-' . random_int(11111111, 99999999),
+                        'user_id'               => $laboratory->id,
+                        'business_name'         => $request->business_name,
+                        'email'                 => $request->email,
+                        'rif'                   => $request->rif,
+                        'state'                 => $request->state,
+                        'city'                  => $request->city,
+                        'address'               => $request->address,
+                        'phone_1'               => $request->phone,
+                        'license'               => $request->license,
+                        'type_laboratory'       => $request->type_laboratory,
+                        'responsible'           => $request->responsible,
+                        'descripcion'           => $request->descripcion,
+                        'website'               => $request->website,
+                        'lab_img'               => $nameFile
 
                     ]
                 );
@@ -560,9 +561,10 @@ class Register extends Component
         $bellied_plan = null;
 
         if ($id != null) {
-            $bellied_plan = BilledPlan::where('id', decrypt($id))->first();
+            $type_plan = $id;
+            // $bellied_plan = BilledPlan::where('id', decrypt($id))->first();
         }
         $show = true;
-        return view('livewire.components.register', compact('show', 'bellied_plan'));
+        return view('livewire.components.register', compact('show', 'bellied_plan', 'type_plan'));
     }
 }

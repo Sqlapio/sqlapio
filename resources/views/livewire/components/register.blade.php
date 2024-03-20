@@ -634,10 +634,6 @@
                                         </div>
                                     </diV>
                                 </div>
-
-
-
-
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="form-group">
                                         <div class="Icon-inside">
@@ -675,6 +671,9 @@
                                         </div>
                                     </diV>
                                 </div>
+
+                                {{-- Input hidden for type plan --}}
+                                <input id="type_plan" name="type_plan" type="hidden" value="{{ $type_plan }}">
 
                                 {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-21 col-xxl-12 mt-2">
                                     <div class="row mt-3" style="display: flex; justify-content: center;">
