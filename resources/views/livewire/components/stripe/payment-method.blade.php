@@ -82,7 +82,7 @@
                                                     @lang('messages.label.oferta_planes')
                                                 </span>
                                                 <h4>
-                                                    <span class="symbol">$</span> 399,<span class="cent">99</span>
+                                                    <span class="symbol">$</span> 199,<span class="cent">99</span>
                                                     <span class="time">USD / @lang('messages.label.año')</span>
                                                 </h4>
                                                 <button class="btn btnSave" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:target="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px">
@@ -91,10 +91,10 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div id="spinner" wire:target="newSubscription('price_1OfpJfLoqeBM9DtelZzLtCIe')" wire:loading >
+                                    <div id="spinner" wire:target="newSubscription('price_1OyKMhLoqeBM9DteVmOZwlrz')" wire:loading >
                                         <x-load-spinner />
                                     </div>
-                                    <div id="spinner" wire:target="newSubscription('price_1OyKMhLoqeBM9DteVmOZwlrz')" wire:loading >
+                                    <div id="spinner" wire:target="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:loading >
                                         <x-load-spinner />
                                     </div>
                                     <div id="spinner" wire:target=cancelSubscription" wire:loading >
@@ -145,11 +145,14 @@
                                                     <span class="symbol">$</span> 399,<span class="cent">99</span>
                                                     <span class="time" style="font-weight: 500">USD / @lang('messages.label.año')</span>
                                                 </h4>
-                                                <button class="btn btnSave" wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
+                                                <button class="btn btnSave" wire:click="newSubscription('price_1OyKN3LoqeBM9DtewtoXlP0H')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
                                             </div>
                                         </a>
                                     </div>
                                     <div id="spinner" wire:target="newSubscription('price_1OyKMhLoqeBM9DteVmOZwlrz')" wire:loading >
+                                        <x-load-spinner />
+                                    </div>
+                                    <div id="spinner" wire:target="newSubscription('')" wire:loading >
                                         <x-load-spinner />
                                     </div>
                                 </div>
