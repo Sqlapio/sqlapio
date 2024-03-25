@@ -42,8 +42,7 @@
                         {{-- Planes --}}
                         <div class="row" style="display: flex; justify-items: center; justify-content: center;" id="div-content-medico" >
                             @if (Auth::user()->type_plane == 2)
-
-                            {{-- profesional --}}
+                                {{-- profesional --}}
                                 <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4 col-xxl-4 mt-2" id="div-plan-2">
                                     {{-- mensual --}}
                                     <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
@@ -102,8 +101,7 @@
                                     </div>
                                 </div>
                             @else
-
-                            {{-- ilimitado --}}
+                                {{-- ilimitado --}}
                                 <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4 col-xxl-4 mt-2" id="div-plan-3">
                                     <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
                                         <div class="ag-courses_item_small" >
@@ -162,108 +160,117 @@
                         <div class="row" style="display: flex; justify-items: center; justify-content: center; display: none" id="div-content-medico2" >
 
                             {{-- profesional --}}
-                                <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4 col-xxl-4 mt-2" id="div-plan-2">
-                                    {{-- mensual --}}
-                                    <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
-                                        <div class="ag-courses_item_small">
-                                            <a href="#" class="ag-courses-item_link">
-                                                <div class="ag-courses-item_title">
-                                                    <h4>
-                                                        <span class="symbol">$</span> 19,<span class="cent">99</span>
-                                                    </h4>
-                                                    <span class="time">USD / @lang('messages.label.mes')</span>
-                                                    <button class="btn btnSave"  wire:click="newSubscription('price_1OvmISLoqeBM9DteyJr9GA34')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    {{-- card --}}
-                                    <div class="card-wrap card-header two">
-                                        <div class="card-content">
-                                            <h1 class="card-title">Plan @lang('messages.label.profesional')</h1>
-                                            <p class="card-text">
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>@lang('messages.label.paciente')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>@lang('messages.label.consulta')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>@lang('messages.label.examenes')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>@lang('messages.label.estudios')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.estudios_video')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.consulta_ia')</b> </li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.publicidad')</b> </li>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    {{-- anual --}}
-                                    <div class="ag-courses_item" style="margin-top: -100px;">
+                            <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4 col-xxl-4 mt-2" id="div-plan-2">
+                                {{-- mensual --}}
+                                <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
+                                    <div class="ag-courses_item_small" >
                                         <a href="#" class="ag-courses-item_link">
-                                            <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
-                                                <span class="text-center" style="font-size: 14px; color: red; text-transform: uppercase;">
-                                                    @lang('messages.label.oferta_planes')
-                                                </span>
+                                            <div class="ag-courses-item_title">
                                                 <h4>
-                                                    <span class="symbol">$</span> 399,<span class="cent">99</span>
-                                                    <span class="time">USD / @lang('messages.label.año')</span>
+                                                    <span class="symbol">$</span> 19,<span class="cent">99</span>
                                                 </h4>
-                                                <button class="btn btnSave" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:target="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px">
-                                                    @lang('messages.botton.suscribirse')
-                                                </button>
+                                                <span class="time">USD / @lang('messages.label.mes')</span>
+                                                <button class="btn btnSave"  wire:click="newSubscription('price_1OyKMhLoqeBM9DteVmOZwlrz')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                             </div>
                                         </a>
                                     </div>
-                                    <div id="spinner" wire:target="newSubscription('price_1OfpJfLoqeBM9DtelZzLtCIe')" wire:loading >
-                                        <x-load-spinner />
-                                    </div>
-                                    <div id="spinner" wire:target=cancelSubscription" wire:loading >
-                                        <x-load-spinner />
+                                </div>
+                                {{-- card --}}
+                                <div class="card-wrap card-header two">
+                                    <div class="card-content">
+                                        <h1 class="card-title">Plan @lang('messages.label.profesional')</h1>
+                                        <p class="card-text">
+                                            <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>@lang('messages.label.paciente')</b></li>
+                                            <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>@lang('messages.label.consulta')</b></li>
+                                            <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>@lang('messages.label.examenes')</b></li>
+                                            <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>@lang('messages.label.estudios')</b></li>
+                                            <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.estudios_video')</b></li>
+                                            <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.consulta_ia')</b> </li>
+                                            <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.publicidad')</b> </li>
+                                        </p>
                                     </div>
                                 </div>
+                                {{-- anual --}}
+                                <div class="ag-courses_item" style="margin-top: -100px;">
+                                    <a href="#" class="ag-courses-item_link">
+                                        <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
+                                            <span class="text-center" style="font-size: 14px; color: red; text-transform: uppercase;">
+                                                @lang('messages.label.oferta_planes')
+                                            </span>
+                                            <h4>
+                                                <span class="symbol">$</span> 199,<span class="cent">99</span>
+                                                <span class="time">USD / @lang('messages.label.año')</span>
+                                            </h4>
+                                            <button class="btn btnSave" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:target="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px">
+                                                @lang('messages.botton.suscribirse')
+                                            </button>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div id="spinner" wire:target="newSubscription('price_1OyKMhLoqeBM9DteVmOZwlrz')" wire:loading >
+                                    <x-load-spinner />
+                                </div>
+                                <div id="spinner" wire:target="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:loading >
+                                    <x-load-spinner />
+                                </div>
+                                <div id="spinner" wire:target=cancelSubscription" wire:loading >
+                                    <x-load-spinner />
+                                </div>
+                            </div>
 
                             {{-- ilimitado --}}
-                                <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4 col-xxl-4 mt-2" id="div-plan-3">
-                                    <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
-                                        <div class="ag-courses_item_small">
-                                            <a href="#" class="ag-courses-item_link">
-                                                <div class="ag-courses-item_bg3"></div>
-                                                <div class="ag-courses-item_title">
-                                                    <h4>
-                                                        <span class="symbol">$</span> 39,<span class="cent">99</span>
-                                                    </h4>
-                                                    <span class="time">USD / @lang('messages.label.mes')</span>
-                                                    <button class="btn btnSave"  wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                    </div>
-                                    <div class="card-wrap card-header three">
-                                        <div class="card-content">
-                                            <h1 class="card-title">Plan @lang('messages.label.ilimitado')</h1>
-                                            <p class="card-text">
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.paciente')</b> @lang('messages.label.ilimitado')</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.consulta')</b> @lang('messages.label.ilimitado')</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.examenes')</b> @lang('messages.label.ilimitado')</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.estudios')</b> @lang('messages.label.ilimitado')</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 0.10 por Gb <b>@lang('messages.label.estudios_video')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 300 <b>@lang('messages.label.consulta_ia')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.publicidad')</b>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="ag-courses_item" style="margin-top: -100px;">
+                            <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4 col-xxl-4 mt-2" id="div-plan-3">
+                                <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
+                                    <div class="ag-courses_item_small" >
                                         <a href="#" class="ag-courses-item_link">
                                             <div class="ag-courses-item_bg3"></div>
-                                            <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
-                                                <span class="text-center" style="font-size: 14px; color: red; text-transform: uppercase;">
-                                                    @lang('messages.label.oferta_planes')
-                                                </span>
+                                            <div class="ag-courses-item_title">
                                                 <h4>
-                                                    <span class="symbol">$</span> 399,<span class="cent">99</span>
-                                                    <span class="time" style="font-weight: 500">USD / @lang('messages.label.año')</span>
+                                                    <span class="symbol">$</span> 39,<span class="cent">99</span>
                                                 </h4>
-                                                <button class="btn btnSave" wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
+                                                <span class="time">USD / @lang('messages.label.mes')</span>
+                                                <button class="btn btnSave"  wire:click="newSubscription('price_1OyKMhLoqeBM9DteVmOZwlrz')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
                                             </div>
                                         </a>
                                     </div>
+
                                 </div>
+                                <div class="card-wrap card-header three">
+                                    <div class="card-content">
+                                        <h1 class="card-title">Plan @lang('messages.label.ilimitado')</h1>
+                                        <p class="card-text">
+                                            <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.paciente')</b> @lang('messages.label.ilimitado')</li>
+                                            <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.consulta')</b> @lang('messages.label.ilimitado')</li>
+                                            <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.examenes')</b> @lang('messages.label.ilimitado')</li>
+                                            <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.estudios')</b> @lang('messages.label.ilimitado')</li>
+                                            <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 0.10 por Gb <b>@lang('messages.label.estudios_video')</b></li>
+                                            <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 300 <b>@lang('messages.label.consulta_ia')</b></li>
+                                            <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.publicidad')</b>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="ag-courses_item" style="margin-top: -100px;">
+                                    <a href="#" class="ag-courses-item_link">
+                                        <div class="ag-courses-item_bg3"></div>
+                                        <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
+                                            <span class="text-center" style="font-size: 14px; color: red; text-transform: uppercase;">
+                                                @lang('messages.label.oferta_planes')
+                                            </span>
+                                            <h4>
+                                                <span class="symbol">$</span> 399,<span class="cent">99</span>
+                                                <span class="time" style="font-weight: 500">USD / @lang('messages.label.año')</span>
+                                            </h4>
+                                            <button class="btn btnSave" wire:click="newSubscription('price_1OyKN3LoqeBM9DtewtoXlP0H')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div id="spinner" wire:target="newSubscription('price_1OyKMhLoqeBM9DteVmOZwlrz')" wire:loading >
+                                    <x-load-spinner />
+                                </div>
+                                <div id="spinner" wire:target="newSubscription('')" wire:loading >
+                                    <x-load-spinner />
+                                </div>
+                            </div>
 
                         </div>
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3" style="display: flex; justify-content: end;">
