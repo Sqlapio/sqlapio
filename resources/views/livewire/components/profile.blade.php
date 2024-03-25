@@ -1101,7 +1101,8 @@
                             <div id="collapsePlanes" class="accordion-collapse collapse show"
                                 aria-labelledby="headingPlanes" data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <x-view-planes />
+                                    @livewire('components.view-planes')
+                                    {{-- <x-view-planes /> --}}
                                 </div>
                             </div>
                         </div>

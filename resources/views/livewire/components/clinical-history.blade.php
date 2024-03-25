@@ -91,9 +91,9 @@
         let arraymedications_supplements = (medications_supplements) ? medications_supplements : [];
 
         $(document).ready(() => {
-            $(".datePickert").datepicker({
-                language: 'es'
-            });
+            // $(".datePickert").datepicker({
+            //     language: 'es'
+            // });
             $('#form-mecal-histroy').validate({
                 ignore: [],
                 rules: {

@@ -42,7 +42,9 @@ return [
         'enviar'              => 'Enviar',
         'suscribirse'         => 'Suscribirse',
         'agregar_tarjeta'     => 'Agregar Método de Pago',
-
+        'ver_otros_planes'    => 'Ver otros planes',
+        'cancelar_cita'       => 'Cancelar Cita',
+        'actualizar_datos'    => 'Actualizar datos',
     ],
 
     'form' => [
@@ -207,6 +209,7 @@ return [
             'informes_medico'   => 'Informe Médico',
             'resultado_ia'      => 'Resultado de la consulta con inteligencia artificial',
             'renovar_plan'      => 'Renovar Plan',
+            'cita'              => 'Cita',
         ],
 
         'form' => [
@@ -353,6 +356,7 @@ return [
         'oferta_planes'       => '¡Oferta limitada! <br> 12 meses al precio de 10, suscríbete ahora!',
         'mensaje_pago'        => 'Si confirmas tu suscripción, permitirás que Sqlapio Technology LLC efectúe cargos de futuros pagos conforme a las condiciones estipuladas. Siempre puedes cancelar tu suscripción.',
         'metodos_de_pago'     => 'Métodos de Pago',
+        'citas_del_dia'       => 'Citas del dia',
     ],
 
     'select' => [
@@ -449,7 +453,6 @@ return [
         'num_tlf_obligatorio'      => 'Número teléfono del consultorio es obligatorio',
         'pais_obligatorio'         => 'País es obligatorio',
 
-
         // sweet alert //
         'operacion_exitosa'   => 'Operación exitosa!',
         'consulta_registrada' => 'Consulta registrada exitosamente!',
@@ -474,9 +477,28 @@ return [
         'envio_codigo'        => 'Se enviara un código de verifcación al correo ingresado!',
         'perfil_actualizado'  => 'Perfil actualizado exitosamente!',
         'fecha_anterior'      => '¡Esta seleccionando una fecha anterior al dia actual!',
+        'cambiar_fecha'       => 'Para realizar la consulta, debe cambiar la cita al dia de hoy!',
+        'finalizar_cita'      => '¿Confirma que desea FINALIZAR la cita?',
+        'cita_finalizada'     => 'Cita finalizada exitosamente!',
+        'cancelar_cita'       => '¿Confirma que desea CANCELAR la cita?',
+        'cita_cancelada'      => 'Cita cancelada exitosamente!',
+        'cita_actualizada'    => 'Cita actualizada exitosamente!',
+    ],
 
+    'graficas' => [
+        'total_pacientes'  => 'Total de pacientes registrados',
+        'num_pacientes'    => 'Nro. de Pacientes',
+        'total_consultas'  => 'Total de consultas realizadas',
+        'num_consultas'    => 'Nro. de Consultas',
+        'total_historias'  => 'Total de historias realizadas',
+        'num_historias'    => 'Nro. Historias',
 
-
+        'niños'            => 'Niños',
+        'jovenes'          => 'Jóvenes',
+        'femenino'         => 'Femenino',
+        'masculino'        => 'Masculino',
+        'adultos'          => 'Adultos',
+        'adultos_mayores'  => 'Adultos Mayores',
     ],
 
 ];

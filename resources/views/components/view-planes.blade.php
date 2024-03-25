@@ -497,13 +497,13 @@ use App\Http\Controllers\ApiServicesController;
 <div>
     <div class="row" style="padding: 20px;">
         <h2 class="title-card fw-bold tile-planes-dos card-title mb-3"></h2>
+        <hr style="margin-top: 5px">
         <strong>@lang('messages.label.fecha_activacion'): {{ \Carbon\Carbon::parse(auth()->user()->date_start_plan)->format('d-m-Y') }}</strong>
         <br>
         <strong class="{{ auth()->user()->expired_plan === 1 ? 'text-danger' : '' }} mt-2">@lang('messages.label.fecha_corte'): {{ \Carbon\Carbon::parse(auth()->user()->date_end_plan)->format('d-m-Y') }}</strong>
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
             <div class="row">
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3" style="display: flex; justify-content: center;">
-
                     <div class="card-wrap">
                         <div class="card-header one">
                             <img width="80" height="auto" src="{{ asset('/img/icons/patients.png') }}" alt="avatar">
@@ -517,7 +517,6 @@ use App\Http\Controllers\ApiServicesController;
                        </div>
                     </div>
                     {{-- {{ $paymentMethods }} --}}
-
                     {{-- <div class="card mt-3 card-plans">
                         <div class="card-body">
                             <div class="row">
@@ -620,12 +619,15 @@ use App\Http\Controllers\ApiServicesController;
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-1 btn-plans" style="display: flex;">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-3 btn-plans" style="display: flex;">
             <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})" class="btn btnPrimary" id="renew-btn">@lang('messages.botton.renovar')</button>
             <button type="button" onclick="renew_plan(2,{{ Auth::user()->type_plane }})" class="btn btnSecond" id="change-btn" style="margin-left: 20px">@lang('messages.botton.cambiar_plan')</button>
         </div>
 
 
+        <hr style="margin-top: 5px">
+        <h4>@lang('messages.label.metodos_de_pago')</h4>
+        <hr style="margin-bottom: 0; margin-top: 5px">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-1" style="display: flex;">
             @foreach ($paymentMethods as $paymentMethod)
             <div id="spinner" wire:target="deletePaymentMethod('{{ $paymentMethod->id }}')" wire:loading >
@@ -651,12 +653,6 @@ use App\Http\Controllers\ApiServicesController;
                             @endif
                         </div>
                     </div>
-
-                    {{-- <p>Tarjeta: {{ $paymentMethod->card->brand }} - xxxx -{{ $paymentMethod->card->last4 }} </p>
-                        <p>Expira:  {{ $paymentMethod->card->exp_month }} / {{ $paymentMethod->card->exp_year }} </p> --}}
-                        {{-- @if (@$this->defaultPaymentMethod->id == $paymentMethod->id)
-                        <span class="badge rounded-pill text-bg-info">Predeterminado</span>
-                        @endif --}}
                 </div>
             @endforeach
         </div>
@@ -737,17 +733,14 @@ id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
                             <div class="row justify-content-center mt-3" id="planes-content-revew-select">
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                     style="display: flex; justify-content: space-around;">
-                                    <button id="free-btn" type="button" onclick="handler_renew_plan(1)"
-                                        class="btn btnPrimary">@lang('messages.label.free')</button>
-                                    <button id="profesional-btn" type="button"
-                                        onclick="handler_renew_plan(2)"class="btn btnPrimary">@lang('messages.label.profesional')</button>
-                                    <button id="ILIMITADO"-bnt type="button"
-                                        onclick="handler_renew_plan(3)"class="btn btnPrimary">@lang('messages.label.ilimitado')</button>
+                                    <button id="free-btn" type="button" onclick="handler_renew_plan(1)" class="btn btnPrimary">@lang('messages.label.free')</button>
+                                    <button id="profesional-btn" type="button" onclick="handler_renew_plan(2)"class="btn btnPrimary">@lang('messages.label.profesional')</button>
+                                    <button id="ILIMITADO"-bnt type="button" onclick="handler_renew_plan(3)"class="btn btnPrimary">@lang('messages.label.ilimitado')</button>
                                 </div>
                             </div>
                             {{-- formulario de pago --}}
                             <div id="planes-content-revew" style="display: none">
-                                {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment-renew']) }}
+                                {{-- {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment-renew']) }} --}}
                                 <div class="row">
                                     <input type="hidden" name="type_plan" id="type_plan">
                                     <input type="hidden" name="change_plan" id="change_plan">
@@ -787,191 +780,15 @@ id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
                                             </ul>
                                         </diV>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="nombre">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
-                                                <input readonly autocomplete="off" class="form-control mask-text"
-                                                    id="name" name="name" type="text"
-                                                    value="{{ Auth::user()->name }}">
-                                                <i class="bi bi-person-circle st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="apellidos">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
-                                                <input readonly autocomplete="off" class="form-control mask-text"
-                                                    id="last_name" name="last_name" type="text"
-                                                    value="{{ Auth::user()->last_name }}">
-                                                <i class="bi bi-person-circle st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2"
-                                        id="cedula">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
-                                                <input readonly autocomplete="off" class="form-control"
-                                                    id="number_id" name="number_id" type="text"
-                                                    value="{{ Auth::user()->ci }}">
-                                                <i class="bi bi-person-vcard-fill st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
-
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                        id="empresa" style="display: none">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon_social')</label>
-                                                <input readonly autocomplete="off" class="form-control"
-                                                    id="business_name" name="business_name" type="text"
-                                                    value="{{ Auth::user()->business_name }}">
-                                                <i class="bi bi-person-vcard-fill st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
-
-
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="tipo_rif"
-                                        style="display: none">
-                                        <div class="form-group">
-                                            <label for="name" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.tipo_documento')</label>
-                                            <select readonly onchange="handlerTypeDoc(event)" name="type_rif_pay"
-                                                id="type_rif_pay" class="form-control">
-                                                <option value="">@lang('messages.placeholder.seleccione')</option>
-                                                <option value="F-">@lang('messages.select.firma_personal')</option>
-                                                <option value="J-">@lang('messages.select.juridico')</option>
-                                                <option value="C-">@lang('messages.select.comuna')</option>
-                                                <option value="G-">@lang('messages.select.gubernamental')</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2" id="Rif"
-                                        style="display: none">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nro_identificacion_rif')</label>
-                                                <input readonly autocomplete="off" placeholder=""
-                                                    class="form-control mask-rif" id="rif_pay" name="rif_pay"
-                                                    type="text" maxlength="17"
-                                                    value="{!! !empty(Auth::user()->get_laboratorio != null) ? Auth::user()->get_laboratorio->rif : '' !!}">
-                                                <i class="bi bi-person-vcard st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
-
-                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
-                                                <input readonly autocomplete="off" class="form-control"
-                                                    id="email" name="email" type="text"
-                                                    value="{{ Auth::user()->email }}">
-                                                <i class="bi bi-envelope-ats st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
-
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="methodo_payment" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Método
-                                                    de
-                                                    pago</label>
-                                                <select name="methodo_payment" id="methodo_payment"
-                                                    placeholder="Seleccione"class="form-control"
-                                                    class="form-control combo-textbox-input">
-                                                    <option value="">Seleccione...</option>
-                                                    <option value="1">Banco de Venezuela</option>
-                                                    <option value="2">Banco Mercantil</option>
-                                                    <option value="3">Banco Banesco</option>
-                                                    <option value="4">Bancamiga</option>
-                                                    <option value="5">Zelle</option>
-                                                </select>
-                                                <i class="bi bi-credit-card st-icon"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3" style="padding-right: 0">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; align-items: center; justify-content: flex-end; text-align: end; padding-right: 0">
-                                            <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                <img class="logo-bank"
-                                                    src="{{ asset('img/mercantil-icon.jpg') }}" alt="">
-                                            </div>
-                                            <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                <img class="logo-bank" src="{{ asset('img/banesco-icon.png') }}" alt="">
-                                            </div>
-
-                                            <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                <img class="logo-bank" src="{{ asset('img/zelle-icon.png') }}" alt="">
-                                            </div>
-
-                                            <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                <img class="logo-bank" src="{{ asset('img/bdv-icon.png') }}" alt="">
-                                            </div>
-                                            <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                <img class="logo-bank" src="{{ asset('img/bancamiga-icon.png') }}" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
-                                                    de
-                                                    tarjeta</label>
-                                                <input autocomplete="off" class="form-control" id="number_card"
-                                                    name="number_card" type="number" value="">
-                                                <i class="bi bi-credit-card st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">CVC/CVV</label>
-                                                <input autocomplete="off" class="form-control" id="code_card"
-                                                    name="code_card" type="number" value="">
-                                                <i class="bi bi-credit-card st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Monto</label>
-                                                <input readonly autocomplete="off" class="form-control"
-                                                    id="amount" name="amount" type="text" value="">
-                                                <i class="bi bi-currency-dollar st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
                                 </div>
-
+   
                                 <div class="d-flex justify-content-center">
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 mb-3"
-                                        style="display: flex; justify-content: center;">
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 mb-3" style="display: flex; justify-content: center;">
                                         <input class="btn btnSave send " value="@lang('messages.botton.adquiere_plan')" type="submit"
                                             style="margin-left: 20px" />
                                     </div>
                                 </div>
-                                {{ Form::close() }}
+                                {{-- {{ Form::close() }} --}}
                             </div>
                         </div>
                     </div>

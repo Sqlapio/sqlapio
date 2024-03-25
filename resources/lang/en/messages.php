@@ -42,7 +42,9 @@ return [
         'enviar'              => 'Send',
         'suscribirse'         => 'To Subscribe',
         'agregar_tarjeta'     => 'Add Payment Method',
-
+        'ver_otros_planes'    => 'See other plans',
+        'cancelar_cita'       => 'Cancel Appointment',
+        'actualizar_datos'    => 'Update data',
     ],
 
     'form' => [
@@ -207,6 +209,7 @@ return [
             'informes_medico'  => 'Medical Reports',
             'resultado_ia'     => 'Artificial Intelligence Query Result',
             'renovar_plan'     => 'Renew Plan',
+            'cita'             => 'Appointment',
         ],
 
         'form' => [
@@ -353,6 +356,7 @@ return [
         'oferta_planes'       => 'Limited offer! <br> 12 months for the price of 10, subscribe now!',
         'mensaje_pago'        => 'By confirming your subscription, you will allow Sqlapio Technology LLC to charge future payments in accordance with the stipulated conditions. You can always cancel your subscription.',
         'metodos_de_pago'     => 'Payment Methods',
+        'citas_del_dia'       => 'Quotes of the day',
     ],
 
     'select' => [
@@ -473,7 +477,28 @@ return [
         'envio_codigo'       => 'A verification code will be sent to the email address entered!',
         'perfil_actualizado' => 'Perfil actualizado exitosamente!',
         'fecha_anterior'     => 'You are selecting a date earlier than the current day!',
+        'cambiar_fecha'      => 'To make the consultation, you must change the appointment to today!',
+        'finalizar_cita'     => 'Do you confirm that you want to END the appointment?',
+        'cita_finalizada'    => 'Appointment completed successfully!',
+        'cancelar_cita'      => 'Do you confirm that you want to CANCEL the appointment?',
+        'cita_cancelada'     => 'Appointment canceled successfully!',
+        'cita_actualizada'     => 'Appointment updated successfully!',
+    ],
 
+    'graficas' => [
+        'total_pacientes'  => 'Total registered patients',
+        'num_pacientes'    => 'Number of Patients',
+        'total_consultas'  => 'Total queries made',
+        'num_consultas'    => 'Number of Consultations',
+        'total_historias'  => 'Total stories made',
+        'num_historias'    => 'Number of stories',
+
+        'niños'            => 'Children',
+        'jovenes'          => 'Youths',
+        'femenino'         => 'Female',
+        'masculino'        => 'Male',
+        'adultos'          => 'Adults',
+        'adultos_mayores'  => 'Older Adults',
     ],
 
 ];
