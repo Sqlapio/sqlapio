@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('type_plane');
             $table->integer('total_patient');
             $table->integer('total_medical_record');
+            $table->string('price_stripe');
+            $table->string('duration');
             $table->timestamps();
         });
     }

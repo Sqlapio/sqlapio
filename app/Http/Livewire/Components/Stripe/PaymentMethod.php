@@ -2,28 +2,17 @@
 
 namespace App\Http\Livewire\Components\Stripe;
 
+use App\Models\Plan;
+use App\Models\User;
 use Illuminate\Queue\Listener;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class PaymentMethod extends Component
 {
 
-    protected $listeners = ['alerta', 'enAlert'];
+    protected $listeners = ['deletePaymentMethod', 'defaultPaymentMethod'];
 
-    public function alerta() {
-
-        $this->alert();
-    }
-
-    public function enAlert() {
-
-        $this->deletePaymentMethod($paymentMethod);
-    }
-
-    public function alert() {
-
-        $this->emit('error2', 'No tienes un metodo de pago registrado!');
-    }
 
     public function addPaymentMethod($paymentMethod) {
 
@@ -52,6 +41,10 @@ class PaymentMethod extends Component
 
     public function newSubscription($plan) {
 
+        $user = Auth::user()->id;
+
+        $plan_name = Plan::where('price_stripe', $plan)->first()->type_plane;
+
         if(!auth()->user()->defaultPaymentMethod()) {
 
             $this->emit('error', 'No tienes un metodo de pago registrado!');
@@ -59,15 +52,36 @@ class PaymentMethod extends Component
         }
 
         try {
-            if (auth()->user()->subscribed('Plan Ilimitado')) {
 
-                auth()->user()->subscription('Plan Ilimitado')->swap($plan);
-                return;
+            if (auth()->user()->subscribed($plan_name)) {
+
+                auth()->user()->subscription($plan_name)->swap($plan);
+
+                User::where('id', $user)
+                ->update([
+                    'role' => 'medico',
+                    'duration' => Plan::where('price_stripe', $plan)->first()->duration
+                    ]);
+
+                auth()->user()->refresh();
+
+                return redirect()->route('Profile');
+
+                // return;
             }
 
-            auth()->user()->newSubscription('Plan Ilimitado', $plan)->create($this->defaultPaymentMethod->id);
+
+            auth()->user()->newSubscription($plan_name, $plan)->create($this->defaultPaymentMethod->id);
+
+            User::where('id', $user)
+            ->update([
+                'role' => 'medico',
+                'duration' => Plan::where('price_stripe', $plan)->first()->duration
+                ]);
 
             auth()->user()->refresh();
+
+            return redirect()->route('Profile');
 
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
@@ -79,9 +93,23 @@ class PaymentMethod extends Component
         auth()->user()->subscription('Plan Ilimitado')->canceled();
     }
 
-    public function resumeSubscription() {
+    public function resumeSubcription($plan) {
 
-        auth()->user()->subscription('Plan Ilimitado')->resume();
+        $plan_name = Plan::where('price_stripe', $plan)->first()->type_plane;
+
+        auth()->user()->subscription($plan_name)->resume();
+
+        $user = Auth::user()->id;
+
+        User::where('id', $user)
+        ->update([
+            'role' => 'medico',
+            'duration' => Plan::where('price_stripe', $plan)->first()->duration
+            ]);
+
+        auth()->user()->refresh();
+
+        return redirect()->route('Profile');
     }
 
     public function render() {
