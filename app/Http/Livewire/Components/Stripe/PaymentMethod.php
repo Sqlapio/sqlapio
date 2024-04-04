@@ -11,7 +11,7 @@ use Livewire\Component;
 class PaymentMethod extends Component
 {
 
-    protected $listeners = ['deletePaymentMethod', 'defaultPaymentMethod'];
+    protected $listeners = ['deletePaymentMethod', 'defaultPaymentMethod', 'newSubscription', 'resumeSubcription'];
 
 
     public function addPaymentMethod($paymentMethod) {

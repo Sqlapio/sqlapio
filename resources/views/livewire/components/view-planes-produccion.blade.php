@@ -132,8 +132,6 @@
     <script>
         let user = @json(Auth::user());
 
-        console.log('aqui', user);
-
         $(document).ready(() => {
 
             let data_palnes = [{
@@ -593,8 +591,8 @@
                         <br>
 
                         @if (@$this->defaultPaymentMethod->id != $paymentMethod->id)
-                        <Button wire:click="$emit('deletePaymentMethod', '{{ $paymentMethod->id }}')"><i class="bi bi-trash mt-2"></i></Button>
-                        <Button wire:click="$emit('defaultPaymentMethod', '{{ $paymentMethod->id }}')"><i class="bi bi-star mt-2"></i></Button>
+                            <Button wire:click="$emit('delete_PaymentMethod', '{{ $paymentMethod->id }}')"><i class="bi bi-trash mt-2"></i></Button>
+                            <Button wire:click="$emit('default_PaymentMethod', '{{ $paymentMethod->id }}')"><i class="bi bi-star mt-2"></i></Button>
                         @endif
                         <div class="credit-card-expiry">
                             @lang('messages.label.expira'):
@@ -628,7 +626,6 @@
                     </div>
 
                     <div class="row">
-
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" wire:ignore>
                             <label for="name" class="form-label mt-2" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre_titular')</label>
                             <input class="form-control mt-2" id="card-holder-name" type="text">
@@ -649,13 +646,16 @@
                     </div>
                 </div>
                 <div class="modal-footer" style="justify-content: center">
-                    <a href="https://stripe.com/" target="_blank"
-                        style="text-decoration: none; color: #1a1a1a80; font-size:13px;"><span>Powered by </span><img
-                            class="img" src="{{ asset('img/V2/stripe2.png') }}" style="width: 45px;"></a>
-                    <a href="https://stripe.com/legal/end-users" target="_blank"
-                        style="text-decoration: none; color: #1a1a1a80; font-size:13px;"><span>Condiciones</span></a>
-                    <a href="https://stripe.com/privacy" target="_blank"
-                        style="text-decoration: none; color: #1a1a1a80; font-size:13px;"><span>Privacidad</span></a>
+                    <a href="https://stripe.com/" target="_blank" style="text-decoration: none; color: #1a1a1a80; font-size:13px;">
+                        <span>Powered by </span>
+                        <img class="img" src="{{ asset('img/V2/stripe2.png') }}" style="width: 45px;">
+                    </a>
+                    <a href="https://stripe.com/legal/end-users" target="_blank" style="text-decoration: none; color: #1a1a1a80; font-size:13px;">
+                        <span>Condiciones</span>
+                    </a>
+                    <a href="https://stripe.com/privacy" target="_blank" style="text-decoration: none; color: #1a1a1a80; font-size:13px;">
+                        <span>Privacidad</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -676,7 +676,6 @@
                             <div id="div-content">
                                 <div class="container">
                                     <div class="row" style="display: grid; justify-items: center;">
-                                        <h4>Planes</h4>
                                         <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-03.png') }}" alt="">
                                     </div>
                                 </div>
@@ -696,6 +695,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                             {{-- profesional --}}
                                             <div id="profesional" style="display: none">
+                                                <h5 class="fw-bold tile-planes-dos mb-3 text-center">Plan @lang('messages.label.profesional')</h5>
                                                 <ul class="list-group list-group-flush">
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>@lang('messages.label.paciente')</b></li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>@lang('messages.label.consulta')</b></li>
@@ -710,52 +710,23 @@
                                                         {{-- mensual - 19,99 --}}
                                                         @if (auth()->user()->subscribedToPrice('price_1P0pQHLoqeBM9Dte329KfBtS', 'Plan Profesional'))
                                                             @if (auth()->user()->subscribedToPrice('price_1P0pQHLoqeBM9Dte329KfBtS', 'Plan Profesional'))
-                                                                @if (auth()->user()->subscription('Plan Profesional')->onGracePeriod())
-                                                                    <button class="btn btnSave" wire:click="resumeSubcription('price_1P0pQHLoqeBM9Dte329KfBtS')" wire:target="resumeSubcription('price_1P0pQHLoqeBM9Dte329KfBtS')" style="min-width: 70px; margin-top: 10px">
-                                                                        Reanudar
-                                                                    </button>
-                                                                @else
-                                                                    <button class="btn btnSave" wire:click="cancelSubscription('price_1P0pQHLoqeBM9Dte329KfBtS')" wire:target="cancelSubscription('price_1P0pQHLoqeBM9Dte329KfBtS')" style="min-width: 70px; margin-top: 10px">
-                                                                        Cancelar
-                                                                    </button>
-                                                                    <button class="btn btnSave"  wire:click="newSubscription('price_1P0pWxLoqeBM9DteJSDhjowR')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse') a plan anual</button>
-
-                                                                @endif
+                                                                <button class="btn btnSave" wire:click=" $emit('cancel_Subscription', 'price_1P0pQHLoqeBM9Dte329KfBtS')" wire:target=" $emit('cancel_Subscription', 'price_1P0pQHLoqeBM9Dte329KfBtS')" style="min-width: 70px; margin-top: 10px">
+                                                                        @lang('messages.botton.cancelar_plan')
+                                                                </button>
+                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1P0pWxLoqeBM9DteJSDhjowR')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse') a plan anual</button>
                                                             @else
-                                                                <button class="btn btnSave"  wire:click="newSubscription('price_1P0pQHLoqeBM9Dte329KfBtS')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1P0pQHLoqeBM9Dte329KfBtS')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                                             @endif
-                                                            <div id="spinner" wire:target="resumeSubcription('price_1P0pQHLoqeBM9Dte329KfBtS')" wire:loading >
-                                                                <x-load-spinner />
-                                                            </div>
-                                                            <div id="spinner" wire:target="cancelSubscription('price_1P0pQHLoqeBM9Dte329KfBtS')" wire:loading >
-                                                                <x-load-spinner />
-                                                            </div>
                                                         @endif
                                                         {{-- anual - 199,99 --}}
                                                         @if (auth()->user()->subscribedToPrice('price_1P0pWxLoqeBM9DteJSDhjowR', 'Plan Profesional'))
                                                             @if (auth()->user()->subscribedToPrice('price_1P0pWxLoqeBM9DteJSDhjowR', 'Plan Profesional'))
-                                                            {{-- Suscrito --}}
-                                                                @if (auth()->user()->subscription('Plan Profesional')->onGracePeriod())
-                                                                    <button class="btn btnSave" wire:click="resumeSubcription('price_1P0pWxLoqeBM9DteJSDhjowR')" wire:target="resumeSubcription('price_1P0pWxLoqeBM9DteJSDhjowR')" style="min-width: 70px; margin-top: 10px">
-                                                                        Reanudar
-                                                                    </button>
-                                                                @else
-                                                                    <button class="btn btnSave" wire:click="cancelSubscription('price_1P0pWxLoqeBM9DteJSDhjowR')" wire:target="cancelSubscription('price_1P0pWxLoqeBM9DteJSDhjowR')" style="min-width: 70px; margin-top: 10px">
-                                                                        Cancelar
-                                                                    </button>
-                                                                @endif
+                                                                <button class="btn btnSave" wire:click=" $emit('cancel_Subscription', 'price_1P0pWxLoqeBM9DteJSDhjowR')" wire:target=" $emit('cancel_Subscription', 'price_1P0pWxLoqeBM9DteJSDhjowR')" style="min-width: 70px; margin-top: 10px">
+                                                                        @lang('messages.botton.cancelar_plan')
+                                                                </button>
                                                             @else
-                                                                <button class="btn btnSave"  wire:click="newSubscription('price_1P0pWxLoqeBM9DteJSDhjowR')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1P0pWxLoqeBM9DteJSDhjowR')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                                             @endif
-                                                            <div id="spinner" wire:target="resumeSubcription('price_1P0pWxLoqeBM9DteJSDhjowR')" wire:loading >
-                                                                <x-load-spinner />
-                                                            </div>
-                                                            <div id="spinner" wire:target="cancelSubscription('price_1P0pWxLoqeBM9DteJSDhjowR')" wire:loading >
-                                                                <x-load-spinner />
-                                                            </div>
-                                                            <div id="spinner" wire:target="newSubscription('price_1P0pWxLoqeBM9DteJSDhjowR')" wire:loading >
-                                                                <x-load-spinner />
-                                                            </div>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -763,6 +734,7 @@
                                             </div>
                                             {{-- ilimitado --}}
                                             <div id="ilimitado" style="display: none">
+                                                <h5 class="fw-bold tile-planes-dos mb-3 text-center">Plan @lang('messages.label.ilimitado')</h5>
                                                 <ul class="list-group list-group-flush">
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.paciente')</b> @lang('messages.label.ilimitado')</li>
                                                     <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.consulta')</b>  @lang('messages.label.ilimitado')</li>
@@ -777,61 +749,34 @@
                                                         {{-- mensual - 39,99$ --}}
                                                         @if (auth()->user()->subscribedToPrice('price_1OyKMhLoqeBM9DteVmOZwlrz', 'Plan Ilimitado'))
                                                             @if (auth()->user()->subscribedToPrice('price_1OyKMhLoqeBM9DteVmOZwlrz', 'Plan Ilimitado'))
-                                                                @if (auth()->user()->subscription('Plan Ilimitado')->onGracePeriod())
-                                                                    <button class="btn btnSave" wire:click="resumeSubcription('price_1OyKMhLoqeBM9DteVmOZwlrz')" wire:target="resumeSubcription('price_1OyKMhLoqeBM9DteVmOZwlrz')" style="min-width: 70px; margin-top: 10px">
-                                                                            Reanudar
-                                                                    </button>
-                                                                @else
-                                                                    <button class="btn btnSave" wire:click="cancelSubscription('price_1OyKMhLoqeBM9DteVmOZwlrz')" wire:target="cancelSubscription('price_1OyKMhLoqeBM9DteVmOZwlrz')" style="min-width: 70px; margin-top: 10px">
-                                                                        Cancelar
-                                                                    </button>
-                                                                    <button class="btn btnSave"  wire:click="newSubscription('price_1OyKN3LoqeBM9DtewtoXlP0H')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse') a plan anual</button>
-
-                                                                @endif
+                                                                <button class="btn btnSave" wire:click=" $emit('cancel_Subscription', 'price_1OyKMhLoqeBM9DteVmOZwlrz')" wire:target=" $emit('cancel_Subscription', 'price_1OyKMhLoqeBM9DteVmOZwlrz')" style="min-width: 70px; margin-top: 10px">
+                                                                        @lang('messages.botton.cancelar_plan')
+                                                                </button>
+                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1OyKN3LoqeBM9DtewtoXlP0H')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_anual')</button>
                                                             @else
-                                                                <button class="btn btnSave"  wire:click="newSubscription('price_1OyKMhLoqeBM9DteVmOZwlrz')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1OyKMhLoqeBM9DteVmOZwlrz')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                                             @endif
-                                                            <div id="spinner" wire:target="newSubscription('price_1OyKN3LoqeBM9DtewtoXlP0H')" wire:loading >
-                                                                    <x-load-spinner />
-                                                            </div>
-                                                            <div id="spinner" wire:target="cancelSubscription('price_1OyKMhLoqeBM9DteVmOZwlrz')" wire:loading >
-                                                                <x-load-spinner />
-                                                            </div>
                                                         @endif
                                                         {{-- anual - 399.99$ --}}
+                                                        
                                                         @if (auth()->user()->subscribedToPrice('price_1OyKN3LoqeBM9DtewtoXlP0H', 'Plan Ilimitado'))
-                                                            @if (auth()->user()->subscribedToPrice('price_1OyKN3LoqeBM9DtewtoXlP0H', 'Plan Ilimitado'))
-                                                                @if (auth()->user()->subscription('Plan Ilimitado')->onGracePeriod())
-                                                                    @if (auth()->user()->subscribedToPrice('price_1P0pQHLoqeBM9Dte329KfBtS', 'Plan Profesional') || auth()->user()->subscribedToPrice('price_1P0pWxLoqeBM9DteJSDhjowR', 'Plan Profesional'))
-                                                                        {{-- mensual Ilimitado --}}
-                                                                        <button class="btn btnSave"  wire:click="newSubscription('price_1OyKMhLoqeBM9DteVmOZwlrz')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse') a plan mensual</button>
-                                                                        {{-- anual Ilimitado --}}
-                                                                        <button class="btn btnSave"  wire:click="newSubscription('price_1OyKN3LoqeBM9DtewtoXlP0H')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse') a plan anual</button>
-                                                                    @else
-                                                                        <button class="btn btnSave" wire:click="resumeSubcription('price_1OyKN3LoqeBM9DtewtoXlP0H')" wire:target="resumeSubcription('price_1OyKN3LoqeBM9DtewtoXlP0H')" style="min-width: 70px; margin-top: 10px">
-                                                                            Reanudar
-                                                                        </button>
-                                                                    @endif
-                                                                @else
-                                                                    <button class="btn btnSave" wire:click="cancelSubscription('price_1OyKN3LoqeBM9DtewtoXlP0H')" wire:target="cancelSubscription('price_1OyKN3LoqeBM9DtewtoXlP0H')" style="min-width: 70px; margin-top: 10px">
-                                                                        Cancelar
-                                                                    </button>
+                                                            @if (auth()->user()->subscribedToPrice('price_1OyKN3LoqeBM9DtewtoXlP0H', 'Plan Ilimitado') || auth()->user()->subscription('Plan Ilimitado')->ended())
+                                                                @if (auth()->user()->subscribedToPrice('price_1P0pQHLoqeBM9Dte329KfBtS', 'Plan Profesional') || auth()->user()->subscribedToPrice('price_1P0pWxLoqeBM9DteJSDhjowR', 'Plan Profesional'))
+                                                                    {{-- mensual Ilimitado --}}
+                                                                    <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1OyKMhLoqeBM9DteVmOZwlrz')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_mensual')</button>
+                                                                    {{-- anual Ilimitado --}}
+                                                                    <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1OyKN3LoqeBM9DtewtoXlP0H')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_anual')</button>
                                                                 @endif
+                                                                <button class="btn btnSave" wire:click=" $emit('cancel_Subscription', 'price_1OyKN3LoqeBM9DtewtoXlP0H')" wire:target=" $emit('cancel_Subscription', 'price_1OyKN3LoqeBM9DtewtoXlP0H')" style="min-width: 70px; margin-top: 10px">
+                                                                        @lang('messages.botton.cancelar_plan')
+                                                                </button>
                                                             @else
-                                                                <button class="btn btnSave"  wire:click="newSubscription('price_1OyKN3LoqeBM9DtewtoXlP0H')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1OyKN3LoqeBM9DtewtoXlP0H')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                                             @endif
-                                                            <div id="spinner" wire:target="resumeSubcription('price_1OyKN3LoqeBM9DtewtoXlP0H')" wire:loading >
-                                                                <x-load-spinner />
-                                                            </div>
-                                                            <div id="spinner" wire:target="cancelSubscription('price_1OyKN3LoqeBM9DtewtoXlP0H')" wire:loading >
-                                                                <x-load-spinner />
-                                                            </div>
                                                         @endif
                                                     </div>
                                                 </div>
-
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -917,60 +862,94 @@
 
 
 @push('js')
-<script>
-    Livewire.on('error', function (message) {
-        $('#spinner').hide();
-        Swal.fire({
-            icon: 'error',
-            title: message,
-            allowOutsideClick: false,
-            confirmButtonColor: '#42ABE2',
-            confirmButtonText: '@lang('messages.botton.aceptar')'
-        })
-    });
-
-    Livewire.on('deletePaymentMethod', paymentMethodId => {
+    <script>
+        Livewire.on('error', function (message) {
+            $('#spinner').hide();
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                icon: 'error',
+                title: message,
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: '@lang('messages.botton.aceptar')'
+            })
+        });
+
+        Livewire.on('delete_PaymentMethod', paymentMethodId => {
+            Swal.fire({
+                title: '@lang('messages.alert.eliminar_tarjeta')',
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
-                }).then((result) => {
+                confirmButtonColor: '#42ABE2',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '@lang('messages.botton.aceptar')',
+            }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.emitTo('payment-method', 'deletePaymentMethod', paymentMethodId)
+                    Livewire.emit('deletePaymentMethod', paymentMethodId)
                     Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
-                    icon: "success"
+                        title: '@lang('messages.alert.tarjeta_eliminada')',
+                        icon: "success"
                     });
                 }
             });
         });
 
-        Livewire.on('defaultPaymentMethod', paymentMethodId => {
+        Livewire.on('default_PaymentMethod', paymentMethodId => {
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: '@lang('messages.alert.predeterminar_tarjeta')',
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, predeterminada it!"
-                }).then((result) => {
+                confirmButtonColor: '#42ABE2',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '@lang('messages.botton.aceptar')'
+            }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.emitTo('payment-method', 'defaultPaymentMethod', paymentMethodId)
+                    Livewire.emit('defaultPaymentMethod', paymentMethodId)
                     Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been actualizada.",
-                    icon: "success"
+                        title: '@lang('messages.alert.tarjeta_predeterminada')',
+                        icon: "success"
                     });
                 }
             });
         });
+
+        Livewire.on('new_Subscription', priceId => {
+            Swal.fire({
+                title: '@lang('messages.alert.cambiar_plan')',
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#42ABE2',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '@lang('messages.botton.aceptar')'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emit('newSubscription', priceId)
+                    Swal.fire({
+                        title: '@lang('messages.alert.plan_cambiado')',
+                        icon: "success"
+                    });
+                }
+            });
+        });
+
+        Livewire.on('cancel_Subscription', priceId => {
+            Swal.fire({
+                title: '@lang('messages.botton.cancelar')',
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#42ABE2',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '@lang('messages.botton.aceptar')'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emit('cancelSubscription', priceId)
+                    Swal.fire({
+                        title: '@lang('messages.alert.plan_cancelado')',
+                        icon: "success"
+                    });
+                }
+            });
+        });
+
     </script>
-
 @endpush
 </div>

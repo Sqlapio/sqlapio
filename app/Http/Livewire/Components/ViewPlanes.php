@@ -10,7 +10,7 @@ use Livewire\Component;
 class ViewPlanes extends Component
 {
 
-    protected $listeners = ['deletePaymentMethod', 'defaultPaymentMethod'];
+    protected $listeners = ['deletePaymentMethod', 'defaultPaymentMethod', 'newSubscription', 'resumeSubcription', 'cancelSubscription'];
 
     public function addPaymentMethod($paymentMethod) {
 

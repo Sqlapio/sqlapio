@@ -56,22 +56,16 @@
                                                     <span class="time">USD / @lang('messages.label.mes')</span>
                                                     @if (auth()->user()->subscribedToPrice('price_1OfpJfLoqeBM9DtelZzLtCIe', 'Plan Profesional'))
                                                         @if (auth()->user()->subscription('Plan Profesional')->onGracePeriod())
-                                                            <button class="btn btnSave" wire:click="resumeSubcription('price_1OfpJfLoqeBM9DtelZzLtCIe')" wire:target="resumeSubcription('price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px">
-                                                                Reanudar
+                                                            <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" wire:target="$emit('resume_Subcription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px">
+                                                                @lang('messages.botton.reanudar_plan')
                                                             </button>
                                                         @endif
                                                     @else
-                                                        <button class="btn btnSave"  wire:click="newSubscription('price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                        <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                                     @endif
                                                 </div>
                                             </a>
                                         </div>
-                                    </div>
-                                    <div id="spinner" wire:target="newSubscription('price_1OfpJfLoqeBM9DtelZzLtCIe')" wire:loading >
-                                        <x-load-spinner />
-                                    </div>
-                                    <div id="spinner" wire:target="resumeSubcription('price_1OfpJfLoqeBM9DtelZzLtCIe')" wire:loading >
-                                        <x-load-spinner />
                                     </div>
                                     {{-- card --}}
                                     <div class="card-wrap card-header two">
@@ -102,21 +96,15 @@
                                                 </h4>
                                                 @if (auth()->user()->subscribedToPrice('price_1P0pNDLoqeBM9DteysOKp6Tl', 'Plan Profesional'))
                                                     @if (auth()->user()->subscription('Plan Profesional')->onGracePeriod())
-                                                        <button class="btn btnSave" wire:click="resumeSubcription('price_1P0pNDLoqeBM9DteysOKp6Tl')" wire:target="resumeSubcription('price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px">
-                                                            Reanudar
+                                                        <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" wire:target="$emit('resume_Subcription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px">
+                                                            @lang('messages.botton.reanudar_plan')
                                                         </button>
                                                     @endif
                                                 @else
-                                                    <button class="btn btnSave" wire:click="newSubscription('price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
+                                                    <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
                                                 @endif
                                             </div>
                                         </a>
-                                    </div>
-                                    <div id="spinner" wire:target="newSubscription('price_1P0pNDLoqeBM9DteysOKp6Tl')" wire:loading >
-                                        <x-load-spinner />
-                                    </div>
-                                    <div id="spinner" wire:target="resumeSubcription('price_1P0pNDLoqeBM9DteysOKp6Tl')" wire:loading >
-                                            <x-load-spinner />
                                     </div>
                                 </div>
                             @else
@@ -134,12 +122,12 @@
                                                     <span class="time">USD / @lang('messages.label.mes')</span>
                                                     @if (auth()->user()->subscribedToPrice('price_1OfpQ4LoqeBM9DteIhOpQOh8', 'Plan Ilimitado'))
                                                         @if (auth()->user()->subscription('Plan Ilimitado')->onGracePeriod())
-                                                            <button class="btn btnSave" wire:click="resumeSubcription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:target="resumeSubcription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px">
-                                                                Reanudar
+                                                            <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:target="$emit('resume_Subcription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px">
+                                                                @lang('messages.botton.reanudar_plan')
                                                             </button>
                                                         @endif
                                                     @else
-                                                        <button class="btn btnSave"  wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                        <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                                     @endif
                                                 </div>
                                             </a>
@@ -173,35 +161,16 @@
                                                     <span class="time" style="font-weight: 500">USD / @lang('messages.label.año')</span>
                                                 </h4>
                                                 @if (auth()->user()->subscribedToPrice('price_1OyaVZLoqeBM9DtemHG0ksbc', 'Plan Ilimitado'))
-                                                    {{-- @if (auth()->user()->subscribedToPrice('price_1OyKN3LoqeBM9DtewtoXlP0H', 'Plan Ilimitado')) --}}
                                                         @if (auth()->user()->subscription('Plan Ilimitado')->onGracePeriod())
-                                                            <button class="btn btnSave" wire:click="resumeSubcription('price_1OyaVZLoqeBM9DtemHG0ksbc')" wire:target="resumeSubcription('price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px">
-                                                            {{-- <button class="btn btnSave" wire:click="resumeSubcription('price_1OyKN3LoqeBM9DtewtoXlP0H')" wire:target="resumeSubcription('price_1OyKN3LoqeBM9DtewtoXlP0H')" style="min-width: 70px; margin-top: 10px"> --}}
-                                                                Reanudar
+                                                            <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" wire:target="$emit('resume_Subcription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px">
+                                                                @lang('messages.botton.reanudar_plan')
                                                             </button>
                                                         @endif
                                                     @else
-                                                        <button class="btn btnSave" wire:click="newSubscription('price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
-                                                        {{-- <button class="btn btnSave" wire:click="newSubscription('price_1OyKN3LoqeBM9DtewtoXlP0H')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button> --}}
+                                                        <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
                                                     @endif
                                             </div>
                                         </a>
-                                    </div>
-                                    <div id="spinner" wire:target="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:loading >
-                                    {{-- <div id="spinner" wire:target="newSubscription('price_1OyKMhLoqeBM9DteVmOZwlrz')" wire:loading > --}}
-                                        <x-load-spinner />
-                                    </div>
-                                    <div id="spinner" wire:target="newSubscription('price_1OyaVZLoqeBM9DtemHG0ksbc')" wire:loading >
-                                    {{-- <div id="spinner" wire:target="newSubscription('price_1OyKN3LoqeBM9DtewtoXlP0H')" wire:loading > --}}
-                                        <x-load-spinner />
-                                    </div>
-                                    <div id="spinner" wire:target="resumeSubcription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:loading >
-                                        {{-- <div id="spinner" wire:target="resumeSubcription('price_1OyKMhLoqeBM9DteVmOZwlrz')" wire:loading > --}}
-                                            <x-load-spinner />
-                                    </div>
-                                    <div id="spinner" wire:target="resumeSubcription('price_1OyaVZLoqeBM9DtemHG0ksbc')" wire:loading >
-                                        {{-- <div id="spinner" wire:target="resumeSubcription('price_1OyKN3LoqeBM9DtewtoXlP0H')" wire:loading > --}}
-                                            <x-load-spinner />
                                     </div>
                                 </div>
                             @endif
@@ -223,22 +192,16 @@
                                                 <span class="time">USD / @lang('messages.label.mes')</span>
                                                 @if (auth()->user()->subscribedToPrice('price_1OfpJfLoqeBM9DtelZzLtCIe', 'Plan Profesional'))
                                                     @if (auth()->user()->subscription('Plan Profesional')->onGracePeriod())
-                                                        <button class="btn btnSave" wire:click="resumeSubcription('price_1OfpJfLoqeBM9DtelZzLtCIe')" wire:target="resumeSubcription('price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px">
-                                                            Reanudar
+                                                        <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" wire:target="$emit('resume_Subcription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px">
+                                                            @lang('messages.botton.reanudar_plan')
                                                         </button>
                                                     @endif
                                                 @else
-                                                    <button class="btn btnSave"  wire:click="newSubscription('price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                    <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                                 @endif
                                             </div>
                                         </a>
                                     </div>
-                                </div>
-                                <div id="spinner" wire:target="newSubscription('price_1OfpJfLoqeBM9DtelZzLtCIe')" wire:loading >
-                                    <x-load-spinner />
-                                </div>
-                                <div id="spinner" wire:target="resumeSubcription('price_1OfpJfLoqeBM9DtelZzLtCIe')" wire:loading >
-                                    <x-load-spinner />
                                 </div>
                                 {{-- card --}}
                                 <div class="card-wrap card-header two">
@@ -269,21 +232,15 @@
                                             </h4>
                                             @if (auth()->user()->subscribedToPrice('price_1P0pNDLoqeBM9DteysOKp6Tl', 'Plan Profesional'))
                                                 @if (auth()->user()->subscription('Plan Profesional')->onGracePeriod())
-                                                    <button class="btn btnSave" wire:click="resumeSubcription('price_1P0pNDLoqeBM9DteysOKp6Tl')" wire:target="resumeSubcription('price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px">
-                                                        Reanudar
+                                                    <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" wire:target="$emit('resume_Subcription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px">
+                                                        @lang('messages.botton.reanudar_plan')
                                                     </button>
                                                 @endif
                                             @else
-                                                <button class="btn btnSave" wire:click="newSubscription('price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
+                                                <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
                                             @endif
                                         </div>
                                     </a>
-                                </div>
-                                <div id="spinner" wire:target="newSubscription('price_1P0pNDLoqeBM9DteysOKp6Tl')" wire:loading >
-                                    <x-load-spinner />
-                                </div>
-                                <div id="spinner" wire:target="resumeSubcription('price_1P0pNDLoqeBM9DteysOKp6Tl')" wire:loading >
-                                        <x-load-spinner />
                                 </div>
                             </div>
 
@@ -301,12 +258,12 @@
                                                 <span class="time">USD / @lang('messages.label.mes')</span>
                                                 @if (auth()->user()->subscribedToPrice('price_1OfpQ4LoqeBM9DteIhOpQOh8', 'Plan Ilimitado'))
                                                     @if (auth()->user()->subscription('Plan Ilimitado')->onGracePeriod())
-                                                        <button class="btn btnSave" wire:click="resumeSubcription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:target="resumeSubcription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px">
-                                                            Reanudar
+                                                        <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:target="$emit('resume_Subcription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px">
+                                                            @lang('messages.botton.reanudar_plan')
                                                         </button>
                                                     @endif
                                                 @else
-                                                    <button class="btn btnSave"  wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                    <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                                 @endif
                                             </div>
                                         </a>
@@ -340,35 +297,16 @@
                                                 <span class="time" style="font-weight: 500">USD / @lang('messages.label.año')</span>
                                             </h4>
                                             @if (auth()->user()->subscribedToPrice('price_1OyaVZLoqeBM9DtemHG0ksbc', 'Plan Ilimitado'))
-                                                {{-- @if (auth()->user()->subscribedToPrice('price_1OyKN3LoqeBM9DtewtoXlP0H', 'Plan Ilimitado')) --}}
                                                     @if (auth()->user()->subscription('Plan Ilimitado')->onGracePeriod())
-                                                        <button class="btn btnSave" wire:click="resumeSubcription('price_1OyaVZLoqeBM9DtemHG0ksbc')" wire:target="resumeSubcription('price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px">
-                                                        {{-- <button class="btn btnSave" wire:click="resumeSubcription('price_1OyKN3LoqeBM9DtewtoXlP0H')" wire:target="resumeSubcription('price_1OyKN3LoqeBM9DtewtoXlP0H')" style="min-width: 70px; margin-top: 10px"> --}}
-                                                            Reanudar
+                                                        <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" wire:target="$emit('resume_Subcription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px">
+                                                            @lang('messages.botton.reanudar_plan')
                                                         </button>
                                                     @endif
                                                 @else
-                                                    <button class="btn btnSave" wire:click="newSubscription('price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
-                                                    {{-- <button class="btn btnSave" wire:click="newSubscription('price_1OyKN3LoqeBM9DtewtoXlP0H')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button> --}}
+                                                    <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
                                                 @endif
                                         </div>
                                     </a>
-                                </div>
-                                <div id="spinner" wire:target="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:loading >
-                                {{-- <div id="spinner" wire:target="newSubscription('price_1OyKMhLoqeBM9DteVmOZwlrz')" wire:loading > --}}
-                                    <x-load-spinner />
-                                </div>
-                                <div id="spinner" wire:target="newSubscription('price_1OyaVZLoqeBM9DtemHG0ksbc')" wire:loading >
-                                {{-- <div id="spinner" wire:target="newSubscription('price_1OyKN3LoqeBM9DtewtoXlP0H')" wire:loading > --}}
-                                    <x-load-spinner />
-                                </div>
-                                <div id="spinner" wire:target="resumeSubcription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:loading >
-                                    {{-- <div id="spinner" wire:target="resumeSubcription('price_1OyKMhLoqeBM9DteVmOZwlrz')" wire:loading > --}}
-                                        <x-load-spinner />
-                                </div>
-                                <div id="spinner" wire:target="resumeSubcription('price_1OyaVZLoqeBM9DtemHG0ksbc')" wire:loading >
-                                    {{-- <div id="spinner" wire:target="resumeSubcription('price_1OyKN3LoqeBM9DtewtoXlP0H')" wire:loading > --}}
-                                        <x-load-spinner />
                                 </div>
                             </div>
 
@@ -385,127 +323,15 @@
                         {{-- Planes --}}
                         <div class="row" style="display: flex; justify-items: center; justify-content: center;" id="div-content-laboratorio" >
                             @if (Auth::user()->type_plane == 5)
-
-                            {{-- profesional --}}
+                                {{-- profesional --}}
                                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 mt-2" id="div-plan-5">
-                                    {{-- mensual --}}
-                                    <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
-                                        <div class="ag-courses_item_small" style="width: 150px;">
-                                            <a href="#" class="ag-courses-item_link">
-                                                <div class="ag-courses-item_title">
-                                                    <h4>
-                                                        <span class="symbol">$</span> 29,<span class="cent">99</span>
-                                                    </h4>
-                                                    <span class="time">USD / @lang('messages.label.mes')</span>
-                                                    @if (auth()->user()->subscribedToPrice('price_1OvmISLoqeBM9DteyJr9GA34', 'Plan Ilimitado'))
-                                                        Suscrito
-                                                    {{-- <button class="btn btnSave" wire:click="cancelSubscription" wire:target="cancelSubscription" style="min-width: 70px; margin-top: 10px">
-                                                        Cancelar
-                                                    </button> --}}
-                                                    @else
-                                                        <button class="btn btnSave"  wire:click="newSubscription('price_1OvmISLoqeBM9DteyJr9GA34')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
-                                                    @endif
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    {{-- card --}}
-                                    <div class="card-wrap card-header two">
-                                        <div class="card-content">
-                                            <h1 class="card-title">Plan @lang('messages.label.profesional')</h1>
-                                            <p class="card-text">
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>@lang('messages.label.paciente')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>@lang('messages.label.consulta')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>@lang('messages.label.examenes')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>@lang('messages.label.estudios')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.estudios_video')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.consulta_ia')</b> </li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.publicidad')</b> </li>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    {{-- anual --}}
-                                    <div class="ag-courses_item" style="margin-top: -100px;">
-                                        <a href="#" class="ag-courses-item_link">
-                                            <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
-                                                <span class="text-center" style="font-size: 14px; color: red; text-transform: uppercase;">
-                                                    @lang('messages.label.oferta_planes')
-                                                </span>
-                                                <h4>
-                                                    <span class="symbol">$</span> 399,<span class="cent">99</span>
-                                                    <span class="time">USD / @lang('messages.label.año')</span>
-                                                </h4>
-                                                @if (auth()->user()->subscribedToPrice('price_1OfpQ4LoqeBM9DteIhOpQOh8', 'Plan Ilimitado'))
-                                                    Suscrito
-                                                    {{-- <button class="btn btnSave" wire:click="cancelSubscription" wire:target="cancelSubscription" style="min-width: 70px; margin-top: 10px">
-                                                        Cancelar
-                                                    </button> --}}
-                                                @else
-                                                    <div class="bnt-cons" id="bnt-cons"></div>
-                                                    <button class="btn btnSave" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:target="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px">
-                                                        @lang('messages.botton.suscribirse')
-                                                </button>
-                                                @endif
 
-
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div id="spinner" wire:target="newSubscription('price_1OfpJfLoqeBM9DtelZzLtCIe')" wire:loading >
-                                        <x-load-spinner />
-                                    </div>
-                                    <div id="spinner" wire:target=cancelSubscription" wire:loading >
-                                        <x-load-spinner />
-                                    </div>
                                 </div>
                             @else
 
-                            {{-- ilimitado --}}
+                                {{-- ilimitado --}}
                                 <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 mt-2" id="div-plan-6">
-                                    <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
-                                        <div class="ag-courses_item" style="width: 150px;">
-                                            <a href="#" class="ag-courses-item_link">
-                                                <div class="ag-courses-item_bg3"></div>
-                                                <div class="ag-courses-item_title">
-                                                    <h4>
-                                                        <span class="symbol">$</span> 39,<span class="cent">99</span>
-                                                    </h4>
-                                                    <span class="time">USD / @lang('messages.label.mes')</span>
-                                                    <button class="btn btnSave"  wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
-                                                </div>
-                                            </a>
-                                        </div>
 
-                                    </div>
-                                    <div class="card-wrap card-header three">
-                                        <div class="card-content">
-                                            <h1 class="card-title">Plan @lang('messages.label.ilimitado')</h1>
-                                            <p class="card-text">
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.paciente')</b> @lang('messages.label.ilimitado')</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.consulta')</b> @lang('messages.label.ilimitado')</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.examenes')</b> @lang('messages.label.ilimitado')</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.estudios')</b> @lang('messages.label.ilimitado')</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 0.10 por Gb <b>@lang('messages.label.estudios_video')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 300 <b>@lang('messages.label.consulta_ia')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.publicidad')</b>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="ag-courses_item" style="margin-top: -100px;">
-                                        <a href="#" class="ag-courses-item_link">
-                                            <div class="ag-courses-item_bg3"></div>
-                                            <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
-                                                <span class="text-center" style="font-size: 14px; color: red; text-transform: uppercase;">
-                                                    @lang('messages.label.oferta_planes')
-                                                </span>
-                                                <h4>
-                                                    <span class="symbol">$</span> 399,<span class="cent">99</span>
-                                                    <span class="time" style="font-weight: 500">USD / @lang('messages.label.año')</span>
-                                                </h4>
-                                                <button class="btn btnSave" wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
-                                            </div>
-                                        </a>
-                                    </div>
                                 </div>
                             @endif
                         </div>
@@ -514,123 +340,12 @@
 
                             {{-- profesional --}}
                                 <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4 col-xxl-4 mt-2" id="div-plan-5">
-                                    {{-- mensual --}}
-                                    <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
-                                        <div class="ag-courses_item_small" style="width: 150px;">
-                                            <a href="#" class="ag-courses-item_link">
-                                                <div class="ag-courses-item_title">
-                                                    <h4>
-                                                        <span class="symbol">$</span> 29,<span class="cent">99</span>
-                                                    </h4>
-                                                    <span class="time">USD / @lang('messages.label.mes')</span>
-                                                    @if (auth()->user()->subscribedToPrice('price_1OvmISLoqeBM9DteyJr9GA34', 'Plan Ilimitado'))
-                                                        Suscrito
-                                                    {{-- <button class="btn btnSave" wire:click="cancelSubscription" wire:target="cancelSubscription" style="min-width: 70px; margin-top: 10px">
-                                                        Cancelar
-                                                    </button> --}}
-                                                    @else
-                                                        <button class="btn btnSave"  wire:click="newSubscription('price_1OvmISLoqeBM9DteyJr9GA34')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
-                                                    @endif
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    {{-- card --}}
-                                    <div class="card-wrap card-header two">
-                                        <div class="card-content">
-                                            <h1 class="card-title">Plan @lang('messages.label.profesional')</h1>
-                                            <p class="card-text">
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>@lang('messages.label.paciente')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>@lang('messages.label.consulta')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>@lang('messages.label.examenes')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>@lang('messages.label.estudios')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.estudios_video')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.consulta_ia')</b> </li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.publicidad')</b> </li>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    {{-- anual --}}
-                                    <div class="ag-courses_item" style="margin-top: -100px;">
-                                        <a href="#" class="ag-courses-item_link">
-                                            <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
-                                                <span class="text-center" style="font-size: 14px; color: red; text-transform: uppercase;">
-                                                    @lang('messages.label.oferta_planes')
-                                                </span>
-                                                <h4>
-                                                    <span class="symbol">$</span> 399,<span class="cent">99</span>
-                                                    <span class="time">USD / @lang('messages.label.año')</span>
-                                                </h4>
-                                                @if (auth()->user()->subscribedToPrice('price_1OfpQ4LoqeBM9DteIhOpQOh8', 'Plan Ilimitado'))
-                                                    Suscrito
-                                                    {{-- <button class="btn btnSave" wire:click="cancelSubscription" wire:target="cancelSubscription" style="min-width: 70px; margin-top: 10px">
-                                                        Cancelar
-                                                    </button> --}}
-                                                @else
-                                                    <div class="bnt-cons" id="bnt-cons"></div>
-                                                    <button class="btn btnSave" wire:click="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:target="newSubscription('price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px">
-                                                        @lang('messages.botton.suscribirse')
-                                                </button>
-                                                @endif
 
-
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div id="spinner" wire:target="newSubscription('price_1OfpJfLoqeBM9DtelZzLtCIe')" wire:loading >
-                                        <x-load-spinner />
-                                    </div>
-                                    <div id="spinner" wire:target=cancelSubscription" wire:loading >
-                                        <x-load-spinner />
-                                    </div>
                                 </div>
 
                             {{-- ilimitado --}}
                                 <div class="col-sm-12 col-md-8 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="div-plan-6">
-                                    <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
-                                        <div class="ag-courses_item" style="width: 150px;">
-                                            <a href="#" class="ag-courses-item_link">
-                                                <div class="ag-courses-item_bg3"></div>
-                                                <div class="ag-courses-item_title">
-                                                    <h4>
-                                                        <span class="symbol">$</span> 39,<span class="cent">99</span>
-                                                    </h4>
-                                                    <span class="time">USD / @lang('messages.label.mes')</span>
-                                                    <button class="btn btnSave"  wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
-                                                </div>
-                                            </a>
-                                        </div>
 
-                                    </div>
-                                    <div class="card-wrap card-header three">
-                                        <div class="card-content">
-                                            <h1 class="card-title">Plan @lang('messages.label.ilimitado')</h1>
-                                            <p class="card-text">
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.paciente')</b> @lang('messages.label.ilimitado')</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.consulta')</b> @lang('messages.label.ilimitado')</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.examenes')</b> @lang('messages.label.ilimitado')</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.estudios')</b> @lang('messages.label.ilimitado')</li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 0.10 por Gb <b>@lang('messages.label.estudios_video')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 300 <b>@lang('messages.label.consulta_ia')</b></li>
-                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.publicidad')</b>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="ag-courses_item" style="margin-top: -100px;">
-                                        <a href="#" class="ag-courses-item_link">
-                                            <div class="ag-courses-item_bg3"></div>
-                                            <div class="ag-courses-item_title" style="display: flex; flex-direction: column; align-items: center;">
-                                                <span class="text-center" style="font-size: 14px; color: red; text-transform: uppercase;">
-                                                    @lang('messages.label.oferta_planes')
-                                                </span>
-                                                <h4>
-                                                    <span class="symbol">$</span> 399,<span class="cent">99</span>
-                                                    <span class="time" style="font-weight: 500">USD / @lang('messages.label.año')</span>
-                                                </h4>
-                                                <button class="btn btnSave" wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
-                                            </div>
-                                        </a>
-                                    </div>
                                 </div>
 
                         </div>
@@ -653,7 +368,7 @@
                                                         class="cent">99</span>
                                                     <span class="time">USD / mensual</span>
                                                 </h4>
-                                                <button class="btn btnSave" wire:click="newSubscription('')"  style="min-width: 70px; margin-top: 10px"> Suscribirse
+                                                <button class="btn btnSave" wire:click="$emit('new_Subscription', '')"  style="min-width: 70px; margin-top: 10px"> Suscribirse
                                                 </button>
                                             </div>
                                         </a>
@@ -680,7 +395,7 @@
                                                 <span class="symbol">$</span> 100<span class="cent"></span>
                                                 <span class="time">USD / Anual</span>
                                             </h4>
-                                            <button class="btn btnSave" wire:click="newSubscription('')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
+                                            <button class="btn btnSave" wire:click="$emit('new_Subscription', '')" style="min-width: 70px; margin-top: 10px"> Suscribirse </button>
                                         </div>
                                     </a>
                                 </div>
@@ -709,8 +424,8 @@
                                         <span class="text-capitalize" style="color: #ffffff">{{ $paymentMethod->billing_details->name }}</span>
                                         <br>
                                         @if (@$this->defaultPaymentMethod->id != $paymentMethod->id)
-                                            <Button wire:click="$emit('deletePaymentMethod', '{{ $paymentMethod->id }}')"><i class="bi bi-trash mt-2"></i></Button>
-                                            <Button wire:click="$emit('defaultPaymentMethod', '{{ $paymentMethod->id }}')"><i class="bi bi-star mt-2"></i></Button>
+                                            <Button wire:click="$emit('delete_PaymentMethod', '{{ $paymentMethod->id }}')"><i class="bi bi-trash mt-2"></i></Button>
+                                            <Button wire:click="$emit('default_PaymentMethod', '{{ $paymentMethod->id }}')"><i class="bi bi-star mt-2"></i></Button>
                                         @endif
                                         <div class="credit-card-expiry">
                                             @lang('messages.label.expira'):
@@ -775,7 +490,6 @@
     <script src="https://js.stripe.com/v3/"></script>
 
     <script>
-        // const stripe = Stripe( 'pk_live_51OfoXBLoqeBM9DteVzaKA9F5LvICIU43EWtpHoVfhTV1uIXRgY22Id66FvzKkaZd6veVgxblZsXQv5HSleJaIfJc00nqiRXhgF' );
         const stripe = Stripe( 'pk_test_51OfoXBLoqeBM9Dte6ScqGxhnNKv3vxMr6i6sa0NU9ps9zLzjgbxN3eibXcrHIhqLjDl8ulSJ83TGkKMKxSFsC0rN00J6ZLm5us' );
         const elements = stripe.elements();
         const cardElement = elements.create('card');
@@ -820,6 +534,9 @@
                     confirmButtonText: '@lang('messages.botton.aceptar')'
                 })
 
+                cardElement.clear();
+                span.textContent = '';
+
             } else {
                 $('#spinner').hide();
 
@@ -835,12 +552,10 @@
                     confirmButtonText: '@lang('messages.botton.aceptar')'
                 }).then((result) => {
                     $('#exampleModal').modal('toggle');
+                    cardElement.clear();
+                    span.textContent = '';
                 });
 
-                // cardElemnt.clear();
-                $('#card-element').val('')
-                span.textContent = '';
-                // span.textContent = '';
 
             }
         });
@@ -861,48 +576,87 @@
             })
         });
 
-        Livewire.on('deletePaymentMethod', paymentMethodId => {
+        Livewire.on('delete_PaymentMethod', paymentMethodId => {
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: '@lang('messages.alert.eliminar_tarjeta')',
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
-                }).then((result) => {
+                confirmButtonColor: '#42ABE2',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '@lang('messages.botton.aceptar')',
+            }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.emitTo('payment-method', 'deletePaymentMethod', paymentMethodId)
+                    Livewire.emit('deletePaymentMethod', paymentMethodId)
                     Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
-                    icon: "success"
+                        title: '@lang('messages.alert.tarjeta_eliminada')',
+                        icon: "success"
                     });
                 }
             });
         });
 
-        Livewire.on('defaultPaymentMethod', paymentMethodId => {
+        Livewire.on('default_PaymentMethod', paymentMethodId => {
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: '@lang('messages.alert.predeterminar_tarjeta')',
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, predeterminada it!"
-                }).then((result) => {
+                confirmButtonColor: '#42ABE2',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '@lang('messages.botton.aceptar')'
+            }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.emitTo('payment-method', 'defaultPaymentMethod', paymentMethodId)
+                    Livewire.emit('defaultPaymentMethod', paymentMethodId)
                     Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been actualizada.",
-                    icon: "success"
+                        title: '@lang('messages.alert.tarjeta_predeterminada')',
+                        icon: "success"
                     });
                 }
             });
         });
 
+        Livewire.on('new_Subscription', priceId => {
+            Swal.fire({
+                title: '@lang('messages.alert.suscripcion')',
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#42ABE2',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '@lang('messages.botton.aceptar')'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emit('newSubscription', priceId)
+                    Swal.fire({
+                        title: '@lang('messages.alert.plan_subscrito')',
+                        icon: "success",
+                        timer: 2000,
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    });
+                }
+            });
+        });
+
+        Livewire.on('resume_Subcription', priceId => {
+            Swal.fire({
+                title: '@lang('messages.alert.reanudar')',
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#42ABE2',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '@lang('messages.botton.aceptar')'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emit('resumeSubcription', priceId)
+                    Swal.fire({
+                        title: '@lang('messages.alert.plan_reanudado')',
+                        icon: "success",
+                        timer: 2000,
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    });
+                }
+            });
+        });
 
     </script>
 
