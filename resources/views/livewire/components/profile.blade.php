@@ -60,8 +60,8 @@
                     ci: {
                         required: true,
                         minlength: 5,
-                        maxlength: 8,
-                        onlyNumber: true
+                        maxlength: 15,
+                        // onlyNumber: true
                     },
                     genere: {
                         required: true,
@@ -131,7 +131,7 @@
                     ci: {
                         required: "@lang('messages.alert.cedula_obligatoria')",
                         minlength: "@lang('messages.alert.cedula_5_caracteres')",
-                        maxlength: "@lang('messages.alert.cedula_8_caracteres')",
+                        maxlength: "@lang('messages.alert.cedula_15_caracteres')",
                     },
                     genere: {
                         required: "@lang('messages.alert.genero_obligatorio')",
@@ -204,7 +204,7 @@
 
             });
             $.validator.addMethod("onlyNumber", function(value, element) {
-                var pattern = /^\d+\.?\d*$/;
+                var pattern = /^[0-9-]*$/;
                 return pattern.test(value);
             }, "Campo numérico");
 
@@ -293,13 +293,14 @@
             }
 
             if (img != null) {
-                console.log(img)
+                console.log(img, '888')
                 $(".holder").show();
                 let ulrImge = `{{ URL::asset('/imgs/${img}') }}`;
                 $(".holder").find('img').attr('src', ulrImge);
                 $("#img").val(img);
             } else {
                 let img2 = '{{ URL::asset('/img/V2/combinado.png') }}';
+                console.log(img2, '5555')
                 $(".holder").find('img').attr('src', img2);
                 $("#img").val(img2);
             }
@@ -629,17 +630,15 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 @if (Auth::user()->contrie == '81')
-                                                                    <label for="ci" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.RCN')</label>
+                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.RCN')</label>
                                                                 @else
-                                                                    <label for="ci" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
+                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
                                                                 @endif
-                                                                <input autocomplete="off" placeholder="" type="number"
-                                                                    class="form-control @error('ci') is-invalid @enderror"
-                                                                    id="ci" name="ci" type="text"
-                                                                    value="{!! !empty($user) ? $user->ci : '' !!}">
-                                                                <i class="bi bi-person-vcard st-icon"></i>
+                                                                    <input autocomplete="off" placeholder=""
+                                                                        class="form-control @error('ci') is-invalid @enderror"
+                                                                        id="ci" name="ci" type="text"
+                                                                        value="{!! !empty($user) ? $user->ci : '' !!}">
+                                                                    <i class="bi bi-person-vcard st-icon"></i>
                                                             </div>
                                                         </diV>
                                                     </div>

@@ -361,6 +361,7 @@ return [
         'mensaje_pago'        => 'By confirming your subscription, you will allow Sqlapio Technology LLC to charge future payments in accordance with the stipulated conditions. You can always cancel your subscription.',
         'metodos_de_pago'     => 'Payment Methods',
         'citas_del_dia'       => 'Quotes of the day',
+        'documento_identidad' => 'Identification document',
     ],
 
     'select' => [
@@ -399,6 +400,7 @@ return [
         'centro_clinico'=> 'Clinical Center',
         'hospital'      => 'Hospital',
         'etc'           => 'Etc',
+        'RCN'           => 'RNC',
     ],
 
     'alert' => [
@@ -412,7 +414,7 @@ return [
         'correo_incorrecto'         => 'Incorrect Email',
         'cedula_obligatoria'        => 'Id is required',
         'cedula_5_caracteres'       => 'Id must be longer than 5 characters',
-        'cedula_8_caracteres'       => 'Id must be less than 8 characters',
+        'cedula_8_caracteres'       => 'Id must be less than 15 characters',
         'genero_obligatorio'        => 'Gender is required',
         'fecha_obligatorio'         => 'Date of birth is required',
         'direccion_obligatoria'     => 'Address is required',

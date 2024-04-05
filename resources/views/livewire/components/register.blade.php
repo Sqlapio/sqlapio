@@ -275,7 +275,7 @@
                 }
             });
             $.validator.addMethod("onlyNumber", function(value, element) {
-                var pattern = /^\d+\.?\d*$/;
+                var pattern = /^[0-9-]*$/;
                 return pattern.test(value);
             }, "Campo numérico");
 
@@ -474,7 +474,7 @@
 
                 case 2:
 
-                    $('#ci').attr("placeholder", "Pasaporte");
+                    $('#ci').attr("placeholder", "RCN").mask('000-0000000-0');
                     $('#div_name').show();
                     $('#div_last_name').show();
                     $('#div_business_name').hide();
@@ -496,8 +496,29 @@
 
                 case 3:
 
-                    $('#ci').attr("placeholder", "Firma Personal");
+                    $('#ci').attr("placeholder", "Pasaporte");
+                    $('#div_name').show();
+                    $('#div_last_name').show();
+                    $('#div_business_name').hide();
 
+                    $("#name").rules('add', {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    });
+
+                    $("#last_name").rules('add', {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    });
+
+
+                    break;
+
+                case 4:
+
+                    $('#ci').attr("placeholder", "Firma Personal");
                     $('#div_name').hide();
                     $('#div_last_name').hide();
                     $('#div_business_name').show();
@@ -507,7 +528,7 @@
 
                     break;
 
-                case 4:
+                case 5:
 
                     $('#ci').attr("placeholder", "Juridico");
                     $('#div_name').hide();
@@ -519,7 +540,7 @@
                     $("#last_name").rules('remove');
 
                     break;
-                case 5:
+                case 6:
 
                     $('#ci').attr("placeholder", "Comuna");
                     $('#div_name').hide();
@@ -532,7 +553,7 @@
 
                     break;
 
-                case 6:
+                case 7:
 
                     $('#ci').attr("placeholder", "Gubernalmental");
                     $('#div_name').hide();
@@ -599,11 +620,12 @@
                                         <select onchange="handlerTypeDoc(event)" name="type_rif" id="type_rif" class="form-control">
                                             <option value="">@lang('messages.placeholder.seleccione')</option>
                                             <option value="1">@lang('messages.select.cedula')</option>
-                                            <option value="2">@lang('messages.select.pasaporte')</option>
-                                            <option value="3">@lang('messages.select.firma_personal')</option>
-                                            <option value="4">@lang('messages.select.juridico')</option>
-                                            <option value="5">@lang('messages.select.comuna')</option>
-                                            <option value="6">@lang('messages.select.gubernamental')</option>
+                                            <option value="2">@lang('messages.select.RCN')</option>
+                                            <option value="3">@lang('messages.select.pasaporte')</option>
+                                            <option value="4">@lang('messages.select.firma_personal')</option>
+                                            <option value="5">@lang('messages.select.juridico')</option>
+                                            <option value="6">@lang('messages.select.comuna')</option>
+                                            <option value="7">@lang('messages.select.gubernamental')</option>
                                         </select>
                                     </div>
                                 </div>
@@ -611,12 +633,8 @@
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="form-group">
                                         <div class="Icon-inside">
-                                            <label for="name" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Documento
-                                                de
-                                                indentidad</label>
-                                            <input autocomplete="off" class="form-control mask-only-number" id="ci"
-                                                name="ci" type="text" value="" placeholder="">
+                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.documento_identidad')</label>
+                                            <input autocomplete="off" class="form-control mask-only-number" id="ci" name="ci" type="text" value="" placeholder="">
                                             <i class="bi bi-person-circle st-icon"></i>
                                         </div>
                                     </diV>
