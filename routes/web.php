@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HandleOtpController;
 use App\Http\Controllers\MultilanguajeController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UtilsController;
@@ -37,6 +38,7 @@ use App\Http\Livewire\Components\SalesForces\ProfileUser;
 use App\Http\Livewire\Components\SalesForces\RegisterUserSalesForces;
 use App\Http\Livewire\Components\Study;
 use App\Http\Middleware\VerifyPlans;
+use App\Http\Middleware\VerifyPlansActive;
 use App\Models\Center;
 use App\Models\Exam;
 use App\Models\Patient;
@@ -66,6 +68,8 @@ Route::get('/recovery-password', [RecoveryPassword::class, 'render'])->name('rec
 Route::post('/create-password-temporary', [RecoveryPassword::class, 'create_password_temporary'])->name('create_password_temporary');
 Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp_rp');
 Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp_rp');
+Route::post('/send_otp_global', [HandleOtpController::class, 'send_otp'])->name('send_otp_global');
+Route::post('/verify_otp_global', [HandleOtpController::class, 'verify_otp'])->name('verify_otp_global');
 
 //fuerzas de ventas
 Route::get('/register-user-force-sale/{hash?}', [RegisterUserSalesForces::class, 'render'])->name('register_user_force_sale');
@@ -97,7 +101,7 @@ Route::get('/confirmation/dairy/{code}', [UtilsController::class, 'confirmation_
 // planes
 Route::post('/pay-plan-renew', [PaymentForm::class, 'pay_plan_renew'])->name("pay-plan-renew")->middleware(['auth', 'VerifySelloDigital', 'verify_email']);
 
-Route::middleware(['auth','AuthCheck'])->group(function () {
+Route::middleware(['auth','AuthCheck','VerifyPlansActive'])->group(function () {
 
     Route::group(array('prefix' => 'auth'), function () {
         Route::middleware(['VerifySelloDigital', 'verify_email'])->group(function () {
@@ -311,6 +315,10 @@ Route::get('/res_exam', [Examen::class, 'res_exam'])->name('res_exam');
 Route::get('/res_exam_sin_resul', [Examen::class, 'res_exam_sin_resul'])->name('res_exam_sin_resul');
 Route::get('/res_study', [Study::class, 'res_study'])->name('res_study');
 Route::get('/res_study_sin_resul', [Study::class, 'res_study_sin_resul'])->name('res_study_sin_resul');
+
+Route::get('/reloadCapchat', [UtilsController::class, 'reloadCapchat'])->name('reloadCapchat');
+
+Route::post('/validateCapchat', [UtilsController::class, 'validateCapchat'])->name('validateCapchat');
 
 
 /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components;
 
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\UtilsController;
 use Illuminate\Http\Request;
 use Livewire\Component;
@@ -13,6 +14,8 @@ use App\Models\Center;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Mockery\Undefined;
 
 class PaymentForm extends Component
@@ -29,17 +32,15 @@ class PaymentForm extends Component
 
             $response = '200';
 
-            if($response == '200')
-            {
+            if ($response == '200') {
                 /**
                  * Asignar rol al usuario
                  */
 
-                 $date_today = Carbon::createFromFormat('Y-m-d', date('Y-m-d'));
-                 $date_today = $date_today->addDay(30)->format('Y-m-d');
+                $date_today = Carbon::createFromFormat('Y-m-d', date('Y-m-d'));
+                $date_today = $date_today->addDay(30)->format('Y-m-d');
 
-                if($request->type_plan == '1' || $request->type_plan == '2' || $request->type_plan == '3')
-                {
+                if ($request->type_plan == '1' || $request->type_plan == '2' || $request->type_plan == '3') {
                     $rules = [
                         'type_plan'         => 'required',
                         'ci'         => 'required|unique:users',
@@ -72,13 +73,11 @@ class PaymentForm extends Component
                     $user->role = $rol;
                     $user->date_start_plan = date('Y-m-d');
                     $user->date_end_plan = $date_today;
-                    $user->master_corporate_id = ($request->visitador_medico_id!==null)?Crypt::decryptString($request->visitador_medico_id) : null;
+                    $user->master_corporate_id = ($request->visitador_medico_id !== null) ? Crypt::decryptString($request->visitador_medico_id) : null;
                     $user->save();
-
                 }
 
-                if($request->type_plan == '4' || $request->type_plan == '5' || $request->type_plan == '6' || $request->type_plan == '7' )
-                {
+                if ($request->type_plan == '4' || $request->type_plan == '5' || $request->type_plan == '6' || $request->type_plan == '7') {
                     $rules = [
                         'type_plan'         => 'required',
                         'rif'               => 'required|unique:laboratories',
@@ -99,14 +98,12 @@ class PaymentForm extends Component
                             'success' => 'false',
                             'errors'  => $validator->errors()->all()
                         ], 400);
-
-
                     }
-                    $rol ='laboratorio';
+                    $rol = 'laboratorio';
                     $url_token = null;
-                    if($request->type_plan=="7"){
+                    if ($request->type_plan == "7") {
                         $rol = 'corporativo';
-                        $url_token = config('var.URL_CORPORATE').Crypt::encryptString($request->center_id);
+                        $url_token = config('var.URL_CORPORATE') . Crypt::encryptString($request->center_id);
                     }
                     $user = new User();
                     $user->business_name = $request->business_name;
@@ -131,11 +128,10 @@ class PaymentForm extends Component
                      */
                     Laboratory::create([
                         'user_id'           => $user->id,
-                        'business_name' 	=> $request->business_name,
-                        'rif' 	            => $request->rif,
-                        'email' 			=> $request->email,
+                        'business_name'     => $request->business_name,
+                        'rif'                 => $request->rif,
+                        'email'             => $request->email,
                     ]);
-
                 }
 
 
@@ -154,20 +150,16 @@ class PaymentForm extends Component
                     'mjs'  => 'El pago fue registrado de forma exitosa',
                     'data' => encrypt($billed_plans->id),
                 ], 200);
-
-
-            }else{
+            } else {
 
                 return response()->json([
                     'error' => 'true',
                     'errors'  => 'No se pudo realizar el pago, por favor intente mas tarde'
                 ], 400);
             }
-
         } catch (\Throwable $th) {
             dd($th);
         }
-
     }
 
     public function pay_plan_renew(Request $request)
@@ -199,19 +191,107 @@ class PaymentForm extends Component
             'success' => 'true',
             'mjs'  => 'Su plan fue renovado con éxito',
         ], 200);
-
     }
 
-    public function render($type_plan=null,$token=null)
+    public function send_otp(Request $request)
+    {
+
+        try {
+
+            $user = User::where('email', $request->email)->first();
+
+            if ($user == null) {
+
+                $date_today = Carbon::createFromFormat('Y-m-d', date('Y-m-d'));
+
+                $date_today = $date_today->addDay(30)->format('Y-m-d');
+
+                $code = random_int(111111, 999999);
+
+                $rol = 'medico';
+
+                $rol = ($request->type_plan == '4' || $request->type_plan == '5' || $request->type_plan == '6') ? 'laboratorio' : $rol;
+
+                $user = new User();
+                $user->name = $request->name;
+                $user->last_name = $request->last_name;
+                $user->email = $request->email;
+                $user->type_plane = $request->type_plan;
+                $user->role = $rol;
+                $user->date_start_plan = date('Y-m-d');
+                $user->date_end_plan = $date_today;
+                $user->cod_update_pass = $code;
+                $user->save();
+
+                $billed_plans = new BilledPlan();
+                $billed_plans->user_id = $user->id;
+                $billed_plans->type_plan = $request->type_plan;
+                $billed_plans->date = date('d-m-Y');
+                $billed_plans->save();
+
+                $type = 'reset_pass';
+                $mailData = [
+                    'dr_email'      => $request->email,
+                    'dr_name'       => $request->full_name,
+                    'code'          => $code
+                ];
+                UtilsController::notification_mail($mailData, $type);
+
+                return response()->json([
+                    'success' => 'true',
+                    'msj'  => 'Operacion exitosa!'
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'errors'  => "Email ya se encunetra registro"
+                ], 400);
+            }
+        } catch (\Throwable $th) {
+
+            return response()->json([
+                'success' => 'false',
+                'errors'  => "Error interno"
+            ], 500);
+        }
+    }
+
+    public function verify_otp(Request $request)
+    {
+        try {
+
+            $user = User::where('email', $request->email)->first();
+
+            if ($user->cod_update_pass == $request->cod_update_pass) {
+
+                return response()->json([
+                    'success' => 'true',
+                    'msj'  => 'Operacion exitosa!'
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'msj'  => 'Codigo incorrecto'
+                ], 400);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => 'false',
+                'msj'  => 'Error interno'
+            ], 500);
+        }
+    }
+
+    public function render($type_plan = null, $token = null)
     {
 
         $active = false;
 
-        if($type_plan=="null" && $token!==null){
+        if ($type_plan == "null" && $token !== null) {
             $active = true;
         }
-        
-        $centers= UtilsController::get_centers();
-        return view('livewire.components.payment-form',compact('type_plan','centers','active','token'));
+
+        $centers = UtilsController::get_centers();
+        return view('livewire.components.payment-form', compact('type_plan', 'centers', 'active', 'token'));
     }
 }

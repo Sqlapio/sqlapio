@@ -201,11 +201,14 @@ class Profile extends Component
         return true;
     }
 
+    
+
     public function render()
     {
         $user = Auth::user();
         $laboratory = $user->get_laboratorio;
         $speciality = Specialty::all();
+
         return view('livewire.components.profile', compact('user', 'laboratory', 'speciality'));
     }
 }

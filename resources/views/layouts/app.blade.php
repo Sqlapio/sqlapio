@@ -51,10 +51,11 @@
 </style>
 
 <body>
-    @stack('scripts')
     @yield('content')
 
     @livewireScripts
+    
+    @stack('scripts')
 </body>
 
 </html>

@@ -656,7 +656,7 @@
                             <div class="collapse navbar-collapse mt-icon" id="navbarText">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                     {{-- menu segun rol del usuario --}}
-                                    @if (Auth::user()->role == 'medico')
+                                    @if (Auth::user()->role == 'medico' || Auth::user()->role == 'temporary')
                                         <li>
                                             <a class="nav-item" href="{{ route('DashboardComponent') }}"
                                                 title="Dashboard">

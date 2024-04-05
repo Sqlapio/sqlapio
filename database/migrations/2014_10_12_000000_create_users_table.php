@@ -58,6 +58,7 @@ return new class extends Migration
             $table->string('date_end_plan')->nullable();
             $table->boolean('expired_plan')->nullable()->default(false);
             $table->string('contrie')->nullable();
+            $table->string('duration')->nullable();
 
             $table->rememberToken();
             $table->timestamps();
