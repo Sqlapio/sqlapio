@@ -464,11 +464,13 @@ class Patients extends Component
 
     public function search($ci)
     {
+
         try {
 
             $array = explode('-', $ci);
 
             $ci = $array[0];
+
 
             $tablePat =  Patient::where('ci', "=", $ci);
 
