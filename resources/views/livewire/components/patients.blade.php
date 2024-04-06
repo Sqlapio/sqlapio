@@ -224,8 +224,7 @@
                     ci: {
                         required: true,
                         minlength: 5,
-                        maxlength: 8,
-                        onlyNumber: true
+                        // onlyNumber: true
                     },
                     genere: {
                         required: true,
@@ -264,8 +263,7 @@
                     re_ci: {
                         required: true,
                         minlength: 5,
-                        maxlength: 8,
-                        onlyNumber: true
+                        // onlyNumber: true
                     },
                     re_phone: {
                         required: true,
@@ -299,7 +297,7 @@
                     ci: {
                         required: "@lang('messages.alert.cedula_obligatoria')",
                         minlength: "@lang('messages.alert.cedula_5_caracteres')",
-                        maxlength: "@lang('messages.alert.cedula_8_caracteres')",
+                        maxlength: "@lang('messages.alert.cedula_15_caracteres')",
                     },
                     genere: {
                         required: "@lang('messages.alert.genero_obligatorio')",
@@ -336,7 +334,7 @@
                     re_ci: {
                         required: "@lang('messages.alert.cedula_obligatoria')",
                         minlength: "@lang('messages.alert.cedula_5_caracteres')",
-                        maxlength: "@lang('messages.alert.cedula_8_caracteres')",
+                        maxlength: "@lang('messages.alert.cedula_15_caracteres')",
                     },
                     re_phone: {
                         required: "@lang('messages.alert.telefono_obligatorio')",
@@ -355,7 +353,7 @@
             });
 
             $.validator.addMethod("onlyNumber", function(value, element) {
-                var pattern = /^\d+\.?\d*$/;
+                var pattern = /^[0-9-]*$/;
                 return pattern.test(value);
             }, "Campo numérico");
 
@@ -424,7 +422,6 @@
                 $("#ci").rules('add', {
                     required: true,
                     minlength: 5,
-                    maxlength: 8,
                     onlyNumber: true
                 });
                 $('#data-rep').hide();
@@ -919,13 +916,13 @@
                                                             id="ci-div">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
-                                                                    <label for="ci" class="form-label"
-                                                                        type="number"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                        @lang('messages.form.cedula_identidad')
-                                                                    </label>
+                                                                    @if (Auth::user()->contrie == '81')
+                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.RCN')</label>
+                                                                @else
+                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.cedula_identidad') </label>
+                                                                @endif
                                                                     <input autocomplete="off"
-                                                                        class="form-control @error('ci') is-invalid @enderror"
+                                                                        class="form-control @error('ci') is-invalid @enderror {{ Auth::user()->contrie == '81' ? 'mask-id-dom' : '' }}"
                                                                         id="ci" name="ci" type="text"
                                                                         value="">
                                                                     <i class="bi bi-person-vcard st-icon"></i>
@@ -1151,7 +1148,7 @@
                                                     class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">
                                                     @lang('messages.form.cedula_identidad')
                                                 </label>
-                                                <input maxlength="10" type="text"
+                                                <input type="text"
                                                     class="form-control mask-only-number" id="search_patient"
                                                     name="search_patient" placeholder="" value="">
                                             </div>
@@ -1375,7 +1372,7 @@
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                     @lang('messages.modal.form.precio')
                                                 </label>
-                                                <input maxlength="8" type="text"
+                                                <input type="text"
                                                     class="form-control mask-input-price" id="price" name="price"
                                                     id="searchPatients" value="">
                                                 <i class="bi bi-cash st-icon"></i>
