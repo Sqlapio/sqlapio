@@ -614,6 +614,7 @@
                         // });
                     },
                     error: function(error) {
+                        $('#spinner2').hide();
                         Swal.fire({
                             icon: 'error',
                             title: error.responseJSON.errors,
@@ -621,8 +622,8 @@
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: '@lang('messages.botton.aceptar')'
                         }).then((result) => {
+
                             $('#send').show();
-                            $('#spinner2').hide();
                             // $(".holder").hide();
                         });
                     }
@@ -788,7 +789,7 @@
 @endpush
 @section('content')
     <div>
-        <div id="spinner2" style="display: none">
+        <div id="spinner2" style="display: none" >
             <x-load-spinner show="true" />
         </div>
         <div class="container-fluid body" style="padding: 0 3% 3%">
@@ -917,12 +918,12 @@
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     @if (Auth::user()->contrie == '81')
-                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.RCN')</label>
-                                                                @else
-                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.cedula_identidad') </label>
-                                                                @endif
+                                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.RCN')</label>
+                                                                    @else
+                                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.cedula_identidad') </label>
+                                                                    @endif
                                                                     <input autocomplete="off"
-                                                                        class="form-control @error('ci') is-invalid @enderror {{ Auth::user()->contrie == '81' ? 'mask-id-dom' : '' }}"
+                                                                        class="form-control @error('ci') is-invalid @enderror"
                                                                         id="ci" name="ci" type="text"
                                                                         value="">
                                                                     <i class="bi bi-person-vcard st-icon"></i>
@@ -1030,8 +1031,11 @@
                                                     <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="ci" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
+                                                                @if (Auth::user()->contrie == '81')
+                                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.RCN')</label>
+                                                                    @else
+                                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.cedula_identidad') </label>
+                                                                    @endif
                                                                 <input autocomplete="off"
                                                                     class="form-control @error('re_ci') is-invalid @enderror"
                                                                     id="re_ci" name="re_ci" type="text"
@@ -1144,16 +1148,17 @@
                                     <div class="row mt-3" {{-- id="content-search-pat" --}}>
                                         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group" style="margin-top: 5px;">
-                                                <label for="search_patient"
-                                                    class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: -23px">
-                                                    @lang('messages.form.cedula_identidad')
-                                                </label>
+                                                @if (Auth::user()->contrie == '81')
+                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.RCN')</label>
+                                                @else
+                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.cedula_identidad') </label>
+                                                @endif
                                                 <input type="text"
-                                                    class="form-control mask-only-number" id="search_patient"
+                                                    class="form-control mask-only-number}" id="search_patient"
                                                     name="search_patient" placeholder="" value="">
                                             </div>
                                         </div>
-                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-3" style='display: flex; align-items: flex-end;'>
+                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-3" style="display: flex; align-items: flex-end;">
                                             <button style="margin-top: 2px;" onclick="searchPat()" class="btn btnSave">
                                                 @lang('messages.botton.buscar')
                                             </button>
