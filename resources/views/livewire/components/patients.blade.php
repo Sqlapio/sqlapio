@@ -923,7 +923,7 @@
                                                                         <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.cedula_identidad') </label>
                                                                     @endif
                                                                     <input autocomplete="off"
-                                                                        class="form-control @error('ci') is-invalid @enderror"
+                                                                        class="form-control @error('ci') is-invalid @enderror {{ Auth::user()->contrie == '81' ? 'mask-id-dom' : '' ;}}"
                                                                         id="ci" name="ci" type="text"
                                                                         value="">
                                                                     <i class="bi bi-person-vcard st-icon"></i>
@@ -1037,7 +1037,7 @@
                                                                         <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.cedula_identidad') </label>
                                                                     @endif
                                                                 <input autocomplete="off"
-                                                                    class="form-control @error('re_ci') is-invalid @enderror"
+                                                                    class="form-control @error('re_ci') is-invalid @enderror {{ Auth::user()->contrie == '81' ? 'mask-id-dom' : '' ;}}"
                                                                     id="re_ci" name="re_ci" type="text"
                                                                     value="">
                                                                 <i class="bi bi-person-vcard st-icon"></i>
@@ -1154,7 +1154,7 @@
                                                     <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.cedula_identidad') </label>
                                                 @endif
                                                 <input type="text"
-                                                    class="form-control mask-only-number}" id="search_patient"
+                                                    class="form-control mask-only-number} {{ Auth::user()->contrie == '81' ? 'mask-id-dom' : '' ;}}" id="search_patient"
                                                     name="search_patient" placeholder="" value="">
                                             </div>
                                         </div>
