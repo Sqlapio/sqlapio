@@ -15,10 +15,12 @@ class QueryDetalyPatient extends Component
 	{
 
 		$data=[];
-		
+
 		$medicard_record=[];
 
-		$tablePat =  Patient::where('ci', $request->ci)->where('birthdate', $request->birthdate);
+        $ci_maks = str_replace('-', '', $request->ci);
+
+		$tablePat =  Patient::where('ci',$ci_maks)->where('birthdate', $request->birthdate);
 
 		$tableRep =  Patient::where('birthdate', $request->birthdate)
 			->whereHas('get_reprensetative', function ($q) use ($request) {

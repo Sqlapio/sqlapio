@@ -36,7 +36,7 @@ return [
         'consultar'           => 'Consultar',
         'aceptar'             => 'Aceptar',
         'consulta_medica'     => 'Consulta Médica',
-        'historia_medica'     => 'Historia Clínica',
+        'historia_clinica'    => 'Historia Clínica',
         'adquiere_plan'       => 'Adquiere tu plan',
         'copiar_enlace'       => 'Copiar enlace de registro',
         'enviar'              => 'Enviar',
