@@ -545,7 +545,7 @@
                     e.ci = (e.get_patient.is_minor == "true") ? `${e.get_reprensetative.re_ci} (Rep)` : e
                         .get_patient.ci;
 
-                    e.date = `${e.date}--->${e.id}`
+                    e.date = `${e.date}`
 
                     dataRef.push(e);
 

@@ -12,7 +12,7 @@
     }
 
     .logoSq {
-        width: 50% !important;
+        width: 30% !important;
         height: auto;
     }
 
@@ -42,361 +42,200 @@
         }
 
     }
+
+
+
+/* card */
+
+    .ag-courses_item {
+        width: 90%;
+        left: 20px;
+        height: 170px;
+        margin: 0 15px 30px;
+        overflow: hidden;
+        border-radius: 28px;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+                rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        border: 5px solid #6c757d69 !important;
+    }
+
+    .ag-courses_item_small {
+        width: 30%;
+        left: 20px;
+        height: 170px;
+        margin: 0 15px 30px;
+        overflow: hidden;
+        border-radius: 28px;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+                rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        border: 5px solid #6c757d69 !important;
+    }
+
+    .ag-courses-item_link {
+        display: block;
+        padding: 24px 20px;
+        background-color: #ffffff;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .ag-courses-item_title {
+        min-height: 87px;
+        margin: 0 0 25px;
+        overflow: hidden;
+        font-weight: bold;
+        font-size: 25px;
+        color: #050303;
+        z-index: 2;
+        position: relative;
+    }
+
+    a {
+        text-decoration: none !important;
+    }
+
+
+@media only screen and (max-width: 979px) {
+  .ag-courses_item {
+    -ms-flex-preferred-size: calc(50% - 30px);
+    flex-basis: calc(50% - 30px);
+  }
+  .ag-courses-item_title {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .ag-format-container {
+    width: 96%;
+  }
+
+}
+@media only screen and (max-width: 639px) {
+  .ag-courses_item {
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+  }
+  .ag-courses-item_title {
+    min-height: 72px;
+    line-height: 1;
+
+    font-size: 24px;
+  }
+  .ag-courses-item_link {
+    padding: 24px 13px;
+  }
+  .ag-courses-item_date-box {
+    font-size: 16px;
+  }
+}
+
+.card-wrap{
+  width: 100%;
+  border-radius: 20px;
+  border: 5px solid #fff;
+  overflow: hidden;
+  color: var(--color-text);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px,
+              rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  margin-top: -100px
+}
+
+.card-content{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 100px auto 100px;
+
+}
+.card-title{
+  text-transform: uppercase;
+  font-size: 18px;
+  margin-top: -50px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  color: #ffffff !important;
+
+}
+.card-text{
+  text-align: center;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.card-header {
+    border-bottom: 5px solid #fff !important;
+}
+
+:root {
+  --color-text: #616161;
+  --color-text-btn: #ffffff;
+  --card1-gradient-color1: #42abe1;
+  --card1-gradient-color2: #b8e0f4;
+  --card2-gradient-color1: #459594;
+  --card2-gradient-color2: #95cecd;
+  --card3-gradient-color1: #ed8060;
+  --card3-gradient-color2: #fbe3db;
+  --card4-gradient-color1: #225294;
+  --card4-gradient-color2: #6496db;
+
+}
+
+  .card-header.one {
+    background: linear-gradient(
+      to bottom left,
+      var(--card1-gradient-color1),
+      var(--card1-gradient-color2)
+    );
+  }
+  .card-header.two {
+    background: linear-gradient(
+      to bottom left,
+      var(--card2-gradient-color1),
+      var(--card2-gradient-color2)
+    );
+  }
+  .card-header.three {
+    background: linear-gradient(
+      to bottom left,
+      var(--card3-gradient-color1),
+      var(--card3-gradient-color2)
+    );
+  }
+  .card-header.four {
+    background: linear-gradient(
+      to bottom left,
+      var(--card4-gradient-color1),
+      var(--card4-gradient-color2)
+    );
+  }
+
+
+/* fin prueba card */
+
+.symbol {
+  font-size: 15px;
+}
+
+.cent {
+    font-size: 17px;
+    vertical-align: text-top;
+}
+
+.time {
+    font-size: 13px;
+}
+
+
+
 </style>
 @push('scripts')
-    <script>
-        const handleSelect = (section) => {
 
-            switch (section) {
-                case "medico":
-
-                    $("#div-content-medico").show();
-                    $("#div-content-laboratorio").hide();
-                    $("#div-content-corporativo").hide();
-
-                    $(".corporativo").prop("class", "img-icon-select-rol corporativo");
-                    $(".laboratorio").prop("class", "img-icon-select-rol laboratorio");
-                    $(".medico").prop("class", "img-icon-select-rol medico ico-check");
-
-                    break;
-                case "laboratorio":
-
-                    $("#div-content-laboratorio").show();
-                    $("#div-content-medico").hide();
-                    $("#div-content-corporativo").hide();
-
-                    $(".medico").prop("class", "img-icon-select-rol medico");
-                    $(".corporativo").prop("class", "img-icon-select-rol corporativo");
-                    $(".laboratorio").prop("class", "img-icon-select-rol laboratorio ico-check");
-
-
-                    break;
-                case "corporativo":
-
-                    $("#div-content-corporativo").show();
-                    $("#div-content-laboratorio").hide();
-                    $("#div-content-medico").hide();
-
-                    $(".medico").prop("class", "img-icon-select-rol medico");
-                    $(".laboratorio").prop("class", "img-icon-select-rol laboratorio");
-                    $(".corporativo").prop("class", "img-icon-select-rol corporativo ico-check");
-
-
-                    break;
-            }
-        }
-
-        const handleSelectPlan = (type_plane) => {
-
-            $("#exampleModal").modal("show");
-        }
-    </script>
 @endpush
 @section('content')
     <div>
-        <div class="container-fluid">
-            <div id="spinner" style="display: none">
-                <x-load-spinner />
-            </div>
-            <div class="row form-sq form-sq-mv">
-                <div class="col-sm-10 col-md-10 col-lg-6 col-xl-6 col-xxl-6">
-                    <div class="card mb-3 mt-m3" id="div-form">
-                        <div class="card-body">
-                            <div id="div-content">
-                                <div class="container">
-                                    <div class="row" style="display: grid; justify-items: center;">
-                                        <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-03.png') }}"
-                                            alt="">
-                                    </div>
-
-                                    <div class="d-flex justify-content-center">
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl--4 mt-2 mb-3"
-                                            onclick="handleSelect('medico')">
-                                            <img class="img-icon-select-rol ico-check medico"
-                                                src="{{ asset('img/V2/Boton_medico.png') }}" alt="">
-                                        </div>
-
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl--4 mt-2 mb-3"
-                                            onclick="handleSelect('laboratorio')">
-                                            <img class="img-icon-select-rol laboratorio"
-                                                src="{{ asset('img/V2/Boton_laboratorio.png') }}" alt="">
-                                        </div>
-
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl--4 mt-2 mb-3"
-                                            onclick="handleSelect('corporativo')">
-                                            <img class="img-icon-select-rol corporativo"
-                                                src="{{ asset('img/V2/Boton_laboratorio_bg.png') }}" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                                {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment']) }}
-                                <div class="row" id="div-content-medico">
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl--4 mt-2">
-                                        <ul class="list-group">
-                                            <li class="list-group-item" style="background-color: #6f6f6e; color: white;">
-                                                <h5>Plan Free</h5></b>
-                                            </li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 10 <b>Pacientes</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Consultas</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Exámenes</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Estudios</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                    style="color: red;"></i> <b
-                                                    style="text-decoration: line-through;">Estudios con
-                                                    videos</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                    style="color: red;"></i> <b
-                                                    style="text-decoration: line-through;">Consultas en IA</b>
-                                            </li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i><b>Publicidad</b>
-                                            </li>
-                                        </ul>
-                                        <div class="d-flex justify-content-center">
-                                            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
-                                                style="display: flex; justify-content: center;">
-                                                <input class="btn btnSave send " value="Adquiere tu plan"
-                                                    onclick="handleSelectPlan(1);" style="margin-left: 20px" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl--4 mt-2">
-                                        <ul class="list-group">
-                                            <li class="list-group-item" style="background-color: #6f6f6e; color: white;">
-                                                <h5>Plan Profesional</h5></b>
-                                            </li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 10 <b>Pacientes</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Consultas</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Exámenes</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Estudios</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                    style="color: red;"></i> <b
-                                                    style="text-decoration: line-through;">Estudios con
-                                                    videos</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                    style="color: red;"></i> <b
-                                                    style="text-decoration: line-through;">Consultas en IA</b>
-                                            </li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i><b>Publicidad</b>
-                                            </li>
-                                        </ul>
-                                        <div class="d-flex justify-content-center">
-                                            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
-                                                style="display: flex; justify-content: center;">
-                                                <input class="btn btnSave send " value="Adquiere tu plan"
-                                                    onclick="handleSelectPlan(2);" style="margin-left: 20px" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl--4 mt-2">
-                                        <ul class="list-group">
-                                            <li class="list-group-item" style="background-color: #6f6f6e; color: white;">
-                                                <h5>Plan Ilimitado</h5></b>
-                                            </li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 10 <b>Pacientes</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Consultas</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Exámenes</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Estudios</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                    style="color: red;"></i> <b
-                                                    style="text-decoration: line-through;">Estudios con
-                                                    videos</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                    style="color: red;"></i> <b
-                                                    style="text-decoration: line-through;">Consultas en IA</b>
-                                            </li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i><b>Publicidad</b>
-                                            </li>
-                                        </ul>
-                                        <div class="d-flex justify-content-center">
-                                            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
-                                                style="display: flex; justify-content: center;">
-                                                <input class="btn btnSave send " value="Adquiere tu plan"
-                                                    onclick="handleSelectPlan(3);" style="margin-left: 20px" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row" id="div-content-laboratorio" style="display: none">
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl--4 mt-2">
-                                        <ul class="list-group">
-                                            <li class="list-group-item" style="background-color: #6f6f6e; color: white;">
-                                                <h5>Plan Free</h5></b>
-                                            </li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 10 <b>Pacientes</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Consultas</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Exámenes</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Estudios</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                    style="color: red;"></i> <b
-                                                    style="text-decoration: line-through;">Estudios con
-                                                    videos</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                    style="color: red;"></i> <b
-                                                    style="text-decoration: line-through;">Consultas en IA</b>
-                                            </li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i><b>Publicidad</b>
-                                            </li>
-                                        </ul>
-                                        <div class="d-flex justify-content-center">
-                                            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
-                                                style="display: flex; justify-content: center;">
-                                                <input class="btn btnSave send " value="Adquiere tu plan"
-                                                    onclick="handleSelectPlan(4);" style="margin-left: 20px" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl--4 mt-2">
-                                        <ul class="list-group">
-                                            <li class="list-group-item" style="background-color: #6f6f6e; color: white;">
-                                                <h5>Plan Profesional</h5></b>
-                                            </li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 10 <b>Pacientes</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Consultas</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Exámenes</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Estudios</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                    style="color: red;"></i> <b
-                                                    style="text-decoration: line-through;">Estudios con
-                                                    videos</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                    style="color: red;"></i> <b
-                                                    style="text-decoration: line-through;">Consultas en IA</b>
-                                            </li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i><b>Publicidad</b>
-                                            </li>
-                                        </ul>
-                                        <div class="d-flex justify-content-center">
-                                            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
-                                                style="display: flex; justify-content: center;">
-                                                <input class="btn btnSave send " value="Adquiere tu plan"
-                                                    onclick="handleSelectPlan(5);" style="margin-left: 20px" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl--4 mt-2">
-                                        <ul class="list-group">
-                                            <li class="list-group-item" style="background-color: #6f6f6e; color: white;">
-                                                <h5>Plan Ilimitado</h5></b>
-                                            </li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 10 <b>Pacientes</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Consultas</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Exámenes</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Estudios</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                    style="color: red;"></i> <b
-                                                    style="text-decoration: line-through;">Estudios con
-                                                    videos</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                    style="color: red;"></i> <b
-                                                    style="text-decoration: line-through;">Consultas en IA</b>
-                                            </li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i><b>Publicidad</b>
-                                            </li>
-                                        </ul>
-                                        <div class="d-flex justify-content-center">
-                                            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
-                                                style="display: flex; justify-content: center;">
-                                                <input class="btn btnSave send " value="Adquiere tu plan"
-                                                    onclick="handleSelectPlan(6);" style="margin-left: 20px" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row" id="div-content-corporativo" style="display: none">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl--12 mt-2">
-                                        <ul class="list-group">
-                                            <li class="list-group-item" style="background-color: #6f6f6e; color: white;">
-                                                <h5>Plan Ilimitado</h5></b>
-                                            </li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 10 <b>Pacientes</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Consultas</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Exámenes</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i> 20 <b>Estudios</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                    style="color: red;"></i> <b
-                                                    style="text-decoration: line-through;">Estudios con
-                                                    videos</b></li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                    style="color: red;"></i> <b
-                                                    style="text-decoration: line-through;">Consultas en IA</b>
-                                            </li>
-                                            <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                    style="color: green;"></i><b>Publicidad</b>
-                                            </li>
-                                        </ul>
-                                        <div class="d-flex justify-content-center">
-                                            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
-                                                style="display: flex; justify-content: center;">
-                                                <input class="btn btnSave send " value="Adquiere tu plan"
-                                                    onclick="handleSelectPlan(7);" style="margin-left: 20px" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{ Form::close() }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-            id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header title">
-                            <i class="bi bi-calendar-week"></i>
-                            <span style="padding-left: 5px">
-                                @lang('messages.modal.titulo.agendar_cita')
-                            </span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                style="font-size: 12px;"></button>
-                        </div>
-                        <div class="modal-body">
-                            <H1>Integrar pasarela de pago</H1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @livewire('components.stripe.payment-method')
     </div>
 @endsection

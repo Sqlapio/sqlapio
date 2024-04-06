@@ -269,7 +269,7 @@ class Patients extends Component
 
                     'name'          => 'required|min:3|max:50',
                     'last_name'     => 'required|min:3|max:50',
-                    'ci'            => "required|min:5|max:8|unique:patients,ci,$request->id",
+                    'ci'            => "required|min:5|max:15|unique:patients,ci,$request->id",
                     'email'         => "required|email|unique:patients,email,$request->id",
                     // 'phone'         => 'required',
                     'profession'    => 'required',
@@ -334,6 +334,8 @@ class Patients extends Component
                     $profession = $request->profession;
                 }
 
+                $ci = str_replace('-', '', $request->ci);
+
                 $patient =  Patient::updateOrCreate(
                     ['id' => $request->id],
                     [
@@ -341,7 +343,7 @@ class Patients extends Component
                         'patient_code'  => UtilsController::get_patient_code($request->ci),
                         'name'          => $request->name,
                         'last_name'     => $request->last_name,
-                        'ci'            => $request->ci,
+                        'ci'            => $ci,
                         'email'         => $request->email,
                         'phone'         => $request->phone,
                         'profession'    => $profession,
@@ -464,16 +466,19 @@ class Patients extends Component
 
     public function search($ci)
     {
+
+        $ci_maks = str_replace('-', '', $ci);
+
         try {
 
-            $array = explode('-', $ci);
+            $array = explode('-', $ci_maks);
 
-            $ci = $array[0];
+            $ci_maks = $array[0];
 
-            $tablePat =  Patient::where('ci', "=", $ci);
+            $tablePat =  Patient::where('ci', "=", $ci_maks);
 
-            $tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($ci) {
-                $q->where('re_ci', "=", $ci);
+            $tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($ci_maks) {
+                $q->where('re_ci', "=", $ci_maks);
             });
 
             $patient = $tablePat->union($tableRep)->with('get_reprensetative')->get();

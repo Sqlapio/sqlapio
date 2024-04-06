@@ -18,7 +18,7 @@ class VerifyPlansActive
     {
         if (auth()->user()) {
 
-            if (auth()->user()->type_plane == null) {
+            if (auth()->user()->role == 'temporary') {
 
                 return response()->view('livewire.components.payment-form');
             } else {

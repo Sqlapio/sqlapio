@@ -101,22 +101,22 @@
     .btn-plans {
         justify-content: flex-end;
     }
-    
+
     @media only screen and (max-width: 576px) {
         .mt-m3 {
             margin-top: 100px
         }
-        
+
         .logoSq {
             width: 30%;
             height: auto;
         }
-        
+
         .logo-bank {
             width: 20px;
             margin-left: 20px;
         }
-        
+
         .btn-plans {
             justify-content: center;
         }
@@ -129,7 +129,7 @@
 
         let data_palnes = [{
                 type_plan: 1,
-                description: "Plan - FREE",
+                description: "Plan - @lang('messages.label.free')",
                 count_patients: 10,
                 count_ref: 20,
                 count_exam: 20,
@@ -137,7 +137,7 @@
             },
             {
                 type_plan: 2,
-                description: "Plan - PROFESIONAL",
+                description: "Plan - @lang('messages.label.profesional')",
                 count_patients: 40,
                 count_ref: 40,
                 count_exam: 80,
@@ -145,11 +145,11 @@
             },
             {
                 type_plan: 3,
-                description: "Plan - ILIMITADO",
-                count_patients: 'ILIMITADO',
-                count_ref: 'ILIMITADO',
-                count_exam: 'ILIMITADO',
-                count_study: 'ILIMITADO',
+                description: "Plan - @lang('messages.label.ilimitado')",
+                count_patients: '@lang('messages.label.ilimitado')',
+                count_ref: '@lang('messages.label.ilimitado')',
+                count_exam: '@lang('messages.label.ilimitado')',
+                count_study: '@lang('messages.label.ilimitado')',
             },
             {
                 type_plan: 4,
@@ -308,7 +308,7 @@
                             title: response.mjs,
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         }).then((result) => {
                             let url = "{{ route('DashboardComponent') }}";
                             window.location.href = url;
@@ -322,7 +322,7 @@
                                 title: elm,
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
                             }).then((result) => {
                                 $('#send').show().attr('disabled', true);;
                                 $('#spinner2').hide();
@@ -483,17 +483,27 @@
                 break;
         }
     }
+
+    const handleSelectPlan = () => {
+        $("#exampleModal").modal("show");
+    }
 </script>
+@php
+use App\Http\Controllers\ApiServicesController;
+    $defaultPaymentMethod = ApiServicesController::getDefaultPaymentMethodProperty();
+    $paymentMethods = auth()->user()->paymentMethods();
+    $intent = auth()->user()->createSetupIntent();
+@endphp
 <div>
     <div class="row" style="padding: 20px;">
         <h2 class="title-card fw-bold tile-planes-dos card-title mb-3"></h2>
-        <strong>{{ 'Fecha de activación: ' . \Carbon\Carbon::parse(auth()->user()->date_start_plan)->format('d-m-Y') }}</strong>
+        <hr style="margin-top: 5px">
+        <strong>@lang('messages.label.fecha_activacion'): {{ \Carbon\Carbon::parse(auth()->user()->date_start_plan)->format('d-m-Y') }}</strong>
         <br>
-        <strong class="{{ auth()->user()->expired_plan === 1 ? 'text-danger' : '' }} mt-2">{{ 'Fecha de corte: ' . \Carbon\Carbon::parse(auth()->user()->date_end_plan)->format('d-m-Y') }}</strong>
+        <strong class="{{ auth()->user()->expired_plan === 1 ? 'text-danger' : '' }} mt-2">@lang('messages.label.fecha_corte'): {{ \Carbon\Carbon::parse(auth()->user()->date_end_plan)->format('d-m-Y') }}</strong>
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
             <div class="row">
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3" style="display: flex; justify-content: center;">
-                   
                     <div class="card-wrap">
                         <div class="card-header one">
                             <img width="80" height="auto" src="{{ asset('/img/icons/patients.png') }}" alt="avatar">
@@ -506,7 +516,7 @@
                         </div>
                        </div>
                     </div>
-                      
+                    {{-- {{ $paymentMethods }} --}}
                     {{-- <div class="card mt-3 card-plans">
                         <div class="card-body">
                             <div class="row">
@@ -609,11 +619,87 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-1 btn-plans" style="display: flex;">
-            <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})" class="btn btnPrimary"
-                id="renew-btn">Renovar</button>
-            <button type="button" onclick="renew_plan(2,{{ Auth::user()->type_plane }})" class="btn btnSecond"
-                id="change-btn" style='margin-left: 20px'>@lang('messages.label.cambiar_plan')</button>
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-3 btn-plans" style="display: flex;">
+            <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})" class="btn btnPrimary" id="renew-btn">@lang('messages.botton.renovar')</button>
+            <button type="button" onclick="renew_plan(2,{{ Auth::user()->type_plane }})" class="btn btnSecond" id="change-btn" style="margin-left: 20px">@lang('messages.botton.cambiar_plan')</button>
+        </div>
+
+
+        <hr style="margin-top: 5px">
+        <h4>@lang('messages.label.metodos_de_pago')</h4>
+        <hr style="margin-bottom: 0; margin-top: 5px">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-1" style="display: flex;">
+            @foreach ($paymentMethods as $paymentMethod)
+            <div id="spinner" wire:target="deletePaymentMethod('{{ $paymentMethod->id }}')" wire:loading >
+                <x-load-spinner />
+            </div>
+                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 col-xxl-3 mt-3" wire:key="{{ $paymentMethod->id }}">
+                    <div class="credit-card {{ $paymentMethod->card->brand }} selectable">
+                        <div class="credit-card-last4">
+                            {{ $paymentMethod->card->last4 }}
+                        </div>
+                        <span class="text-capitalize" style="color: #ffffff">{{ $paymentMethod->billing_details->name }}</span>
+                        <br>
+                        @if ($defaultPaymentMethod->id != $paymentMethod->id)
+                            <Button wire:click="deletePaymentMethod('{{ $paymentMethod->id }}')"><i class="bi bi-trash mt-2"></i></Button>
+                            <Button wire:click="defaultPaymentMethod('{{ $paymentMethod->id }}')"><i class="bi bi-star mt-2"></i></Button>
+                        @endif
+                        <div class="credit-card-expiry">
+                            @lang('messages.label.expira'):
+                            {{ $paymentMethod->card->exp_month }} / {{ $paymentMethod->card->exp_year }}
+
+                            @if ($defaultPaymentMethod->id == $paymentMethod->id)
+                                <span class="badge rounded-pill text-bg-secondary" style="margin-top: 10px">@lang('messages.label.predeterminado')</span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3" style="display: flex; justify-content: end;">
+            <button class="btn btnSave send " onclick="handleSelectPlan();" style="margin-left: 20px"> @lang('messages.botton.agregar_tarjeta') </button>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px; justify-content: center"></button>
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                <div class="text-center">
+                    <img class="img" src="{{ asset('img/V2/stripe.png') }}" style="width: 110px;">
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" wire:ignore>
+                    <label for="name" class="form-label mt-2" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre_titular')</label>
+                    <input class="form-control mt-2" id="card-holder-name" type="text">
+
+                    <!-- Stripe Elements Placeholder -->
+                    <label for="number-t" class="form-label mt-2" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.numero_tarjeta')</label>
+                    <div class="form-control" id="card-element"></div>
+                    <span id="card-error-message" style="color: red; font-size: 12px"></span>
+
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 text-center">
+                    <button class="btn btnPrimary mt-3 mb-3" id="card-button" data-secret="{{ $intent->client_secret }}">
+                        @lang('messages.botton.guardar')
+                    </button>
+                    <p style="font-size: 11px"> @lang('messages.label.mensaje_pago')</p>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style="justify-content: center" >
+            <a href="https://stripe.com/" target="_blank" style="text-decoration: none; color: #1a1a1a80; font-size:13px;"><span>Powered by </span><img class="img" src="{{ asset('img/V2/stripe2.png') }}" style="width: 45px;"></a>
+            <a href="https://stripe.com/legal/end-users" target="_blank" style="text-decoration: none; color: #1a1a1a80; font-size:13px;"><span>Condiciones</span></a>
+            <a href="https://stripe.com/privacy" target="_blank" style="text-decoration: none; color: #1a1a1a80; font-size:13px;"><span>Privacidad</span></a>
         </div>
     </div>
 </div>
@@ -626,306 +712,83 @@
         <x-load-spinner show="true" />
     </div>
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header title">
-                    <i class="bi bi-repeat"></i>
-                    <span style="padding-left: 5px">@lang('messages.label.revonar_plan')</span>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        style="font-size: 12px;"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row form-sq">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="div-form">
-                            <div id="div-content">
-                                <div class="container">
-                                    <div class="row" style="display: grid; justify-items: center;">
-                                        <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-03.png') }}"
-                                            alt="">
+        <div class="modal-content">
+            <div class="modal-header title">
+                <i class="bi bi-repeat"></i>
+                <span style="padding-left: 5px">@lang('messages.modal.titulo.renovar_plan')</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    style="font-size: 12px;"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row form-sq">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="div-form">
+                        <div id="div-content">
+                            <div class="container">
+                                <div class="row" style="display: grid; justify-items: center;">
+                                    <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-03.png') }}"
+                                        alt="">
+                                </div>
+                            </div>
+                            {{-- seleccionar planes --}}
+                            <div class="row justify-content-center mt-3" id="planes-content-revew-select">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                    style="display: flex; justify-content: space-around;">
+                                    <button id="free-btn" type="button" onclick="handler_renew_plan(1)" class="btn btnPrimary">@lang('messages.label.free')</button>
+                                    <button id="profesional-btn" type="button" onclick="handler_renew_plan(2)"class="btn btnPrimary">@lang('messages.label.profesional')</button>
+                                    <button id="ILIMITADO"-bnt type="button" onclick="handler_renew_plan(3)"class="btn btnPrimary">@lang('messages.label.ilimitado')</button>
+                                </div>
+                            </div>
+                            {{-- formulario de pago --}}
+                            <div id="planes-content-revew" style="display: none">
+                                {{-- {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment-renew']) }} --}}
+                                <div class="row">
+                                    <input type="hidden" name="type_plan" id="type_plan">
+                                    <input type="hidden" name="change_plan" id="change_plan">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div id="free" style="display: none">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 10 <b>@lang('messages.label.paciente')</b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>@lang('messages.label.consulta')</b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>@lang('messages.label.examenes')</b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 20 <b>@lang('messages.label.estudios')</b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.estudios_video')</b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.consulta_ia')</b> </li>
+                                                <li class="list-group-item text-capitalize"><i class="fa fa-check" aria-hidden="true" style="color: green;"></i><b>@lang('messages.label.publicidad')</b> </li>
+                                            </ul>
+                                        </diV>
+                                        <div id="profesional" style="display: none">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>@lang('messages.label.paciente')</b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>@lang('messages.label.consulta')</b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>@lang('messages.label.examenes')</b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>@lang('messages.label.estudios')</b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.estudios_video')</b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.consulta_ia')</b> </li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.publicidad')</b> </li>
+                                            </ul>
+                                        </diV>
+                                        <div id="ilimitado" style="display: none">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.paciente')</b> @lang('messages.label.ilimitado')</li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.consulta')</b> @lang('messages.label.ilimitado')</li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.examenes')</b> @lang('messages.label.ilimitado')</li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.estudios')</b> @lang('messages.label.ilimitado')</li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 0.10 por Gb <b>@lang('messages.label.estudios_video')</b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 300 <b>@lang('messages.label.consulta_ia')</b></li>
+                                                <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.publicidad')</b>
+                                                </li>
+                                            </ul>
+                                        </diV>
                                     </div>
                                 </div>
-                                {{-- seleccionar planes --}}
-                                <div class="row justify-content-center mt-3" id="planes-content-revew-select">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                        style="display: flex; justify-content: space-around;">
-                                        <button id="free-btn" type="button" onclick="handler_renew_plan(1)"
-                                            class="btn btnPrimary">@lang('messages.label.free')</button>
-                                        <button id="profesional-btn" type="button"
-                                            onclick="handler_renew_plan(2)"class="btn btnPrimary">@lang('messages.label.profesional')</button>
-                                        <button id="ILIMITADO"-bnt type="button"
-                                            onclick="handler_renew_plan(3)"class="btn btnPrimary">@lang('messages.label.ilimitado')</button>
+   
+                                <div class="d-flex justify-content-center">
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 mb-3" style="display: flex; justify-content: center;">
+                                        <input class="btn btnSave send " value="@lang('messages.botton.adquiere_plan')" type="submit"
+                                            style="margin-left: 20px" />
                                     </div>
                                 </div>
-                                {{-- formulario de pago --}}
-                                <div id="planes-content-revew" style="display: none">
-                                    {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-payment-renew']) }}
-                                    <div class="row">
-                                        <input type="hidden" name="type_plan" id="type_plan">
-                                        <input type="hidden" name="change_plan" id="change_plan">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                            <div id="free" style="display: none">
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 10 <b>@lang('messages.label.paciente')</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 20 <b>@lang('messages.label.consulta')</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 20 <b>@lang('messages.label.examenes')</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 20 <b>@lang('messages.label.estudios')</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                            style="color: red;"></i> <b
-                                                            style="text-decoration: line-through;">@lang('messages.label.estudios_video')</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                            style="color: red;"></i> <b
-                                                            style="text-decoration: line-through;">@lang('messages.label.consulta_ia')</b>
-                                                    </li>
-                                                    <li class="list-group-item text-capitalize"><i class="fa fa-check"
-                                                            aria-hidden="true"
-                                                            style="color: green;"></i><b>@lang('messages.label.publicidad')</b>
-                                                    </li>
-
-                                                </ul>
-                                            </diV>
-                                            <div id="profesional" style="display: none">
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 40 <b>@lang('messages.label.paciente')</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 40 <b>@lang('messages.label.consulta')</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 80 <b>@lang('messages.label.examenes')</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 80 <b>@lang('messages.label.estudios')</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                            style="color: red;"></i> <b
-                                                            style="text-decoration: line-through;">@lang('messages.label.estudios_video')</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                            style="color: red;"></i> <b
-                                                            style="text-decoration: line-through;">@lang('messages.label.consulta_ia')</b>
-                                                    </li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                            style="color: red;"></i> <b
-                                                            style="text-decoration: line-through;">@lang('messages.label.publicidad')</b>
-                                                    </li>
-                                                </ul>
-                                            </diV>
-                                            <div id="ilimitado" style="display: none">
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> <b>@lang('messages.label.paciente')</b> @lang('messages.label.ilimitado')</li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> <b>@lang('messages.label.consulta')</b> @lang('messages.label.ilimitado')</li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> <b>@lang('messages.label.examenes')</b> @lang('messages.label.ilimitado')</li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> <b>@lang('messages.label.estudios')</b> @lang('messages.label.ilimitado')</li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 0.10 por Gb <b>@lang('messages.label.estudios_video')</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"
-                                                            style="color: green;"></i> 300 <b>@lang('messages.label.consulta_ia')</b></li>
-                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x"
-                                                            style="color: red;"></i> <b
-                                                            style="text-decoration: line-through;">@lang('messages.label.publicidad')</b>
-                                                    </li>
-                                                </ul>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2"
-                                            id="nombre">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
-                                                    <input readonly autocomplete="off" class="form-control mask-text"
-                                                        id="name" name="name" type="text"
-                                                        value="{{ Auth::user()->name }}">
-                                                    <i class="bi bi-person-circle st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2"
-                                            id="apellidos">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
-                                                    <input readonly autocomplete="off" class="form-control mask-text"
-                                                        id="last_name" name="last_name" type="text"
-                                                        value="{{ Auth::user()->last_name }}">
-                                                    <i class="bi bi-person-circle st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2"
-                                            id="cedula">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
-                                                    <input readonly autocomplete="off" class="form-control"
-                                                        id="number_id" name="number_id" type="text"
-                                                        value="{{ Auth::user()->ci }}">
-                                                    <i class="bi bi-person-vcard-fill st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                            id="empresa" style="display: none">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon_social')</label>
-                                                    <input readonly autocomplete="off" class="form-control"
-                                                        id="business_name" name="business_name" type="text"
-                                                        value="{{ Auth::user()->business_name }}">
-                                                    <i class="bi bi-person-vcard-fill st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-
-
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="tipo_rif"
-                                            style="display: none">
-                                            <div class="form-group">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.tipo_documento')</label>
-                                                <select readonly onchange="handlerTypeDoc(event)" name="type_rif_pay"
-                                                    id="type_rif_pay" class="form-control">
-                                                    <option value="">@lang('messages.placeholder.seleccione')</option>
-                                                    <option value="F-">@lang('messages.select.firma_personal')</option>
-                                                    <option value="J-">@lang('messages.select.juridico')</option>
-                                                    <option value="C-">@lang('messages.select.comuna')</option>
-                                                    <option value="G-">@lang('messages.select.gubernamental')</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2" id="Rif"
-                                            style="display: none">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nro_identificacion_rif')</label>
-                                                    <input readonly autocomplete="off" placeholder=""
-                                                        class="form-control mask-rif" id="rif_pay" name="rif_pay"
-                                                        type="text" maxlength="17"
-                                                        value="{!! !empty(Auth::user()->get_laboratorio != null) ? Auth::user()->get_laboratorio->rif : '' !!}">
-                                                    <i class="bi bi-person-vcard st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
-                                                    <input readonly autocomplete="off" class="form-control"
-                                                        id="email" name="email" type="text"
-                                                        value="{{ Auth::user()->email }}">
-                                                    <i class="bi bi-envelope-ats st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="methodo_payment" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Método
-                                                        de
-                                                        pago</label>
-                                                    <select name="methodo_payment" id="methodo_payment"
-                                                        placeholder="Seleccione"class="form-control"
-                                                        class="form-control combo-textbox-input">
-                                                        <option value="">Seleccione...</option>
-                                                        <option value="1">Banco de Venezuela</option>
-                                                        <option value="2">Banco Mercantil</option>
-                                                        <option value="3">Banco Banesco</option>
-                                                        <option value="4">Bancamiga</option>
-                                                        <option value="5">Zelle</option>
-                                                    </select>
-                                                    <i class="bi bi-credit-card st-icon"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-3" style="padding-right: 0">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                style="display: flex; align-items: center;
-                                            justify-content: flex-end; text-align: end; padding-right: 0">
-                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                    <img class="logo-bank"
-                                                        src="{{ asset('img/mercantil-icon.jpg') }}" alt="">
-                                                </div>
-                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                    <img class="logo-bank" src="{{ asset('img/banesco-icon.png') }}"
-                                                        alt="">
-                                                </div>
-
-
-                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                    <img class="logo-bank" src="{{ asset('img/zelle-icon.png') }}"
-                                                        alt="">
-                                                </div>
-
-                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                    <img class="logo-bank" src="{{ asset('img/bdv-icon.png') }}"
-                                                        alt="">
-                                                </div>
-                                                <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
-                                                    <img class="logo-bank"
-                                                        src="{{ asset('img/bancamiga-icon.png') }}" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Número
-                                                        de
-                                                        tarjeta</label>
-                                                    <input autocomplete="off" class="form-control" id="number_card"
-                                                        name="number_card" type="number" value="">
-                                                    <i class="bi bi-credit-card st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">CVC/CVV</label>
-                                                    <input autocomplete="off" class="form-control" id="code_card"
-                                                        name="code_card" type="number" value="">
-                                                    <i class="bi bi-credit-card st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Monto</label>
-                                                    <input readonly autocomplete="off" class="form-control"
-                                                        id="amount" name="amount" type="text" value="">
-                                                    <i class="bi bi-currency-dollar st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-flex justify-content-center">
-                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 mb-3"
-                                            style="display: flex; justify-content: center;">
-                                            <input class="btn btnSave send " value="Adquiere tu plan" type="submit"
-                                                style="margin-left: 20px" />
-                                        </div>
-                                    </div>
-                                    {{ Form::close() }}
-                                </div>
+                                {{-- {{ Form::close() }} --}}
                             </div>
                         </div>
                     </div>
@@ -935,3 +798,5 @@
     </div>
 
 </div>
+
+

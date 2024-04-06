@@ -34,7 +34,7 @@ class Register extends Component
                 'password'  => 'required',
                 'email'     => 'required|unique:users',
                 'ci'     => 'required',
-                'captcha'     => 'required',
+                // 'captcha'     => 'required',
             ];
 
             $msj = [
@@ -46,7 +46,8 @@ class Register extends Component
                 'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
                 'password.regex'    => 'Formato de contraseña  incorrecto',
                 'ci'                => 'Campo ci requerido',
-                'captcha'           => 'Campo captcha requerido',
+                'ci.unique'                => 'El numero de cedula esta duplicado',
+                // 'captcha'           => 'Campo captcha requerido',
             ];
         } else {
             $rules = [
@@ -55,7 +56,7 @@ class Register extends Component
                 'password'  => 'required',
                 'email'     => 'required|unique:users',
                 'ci'     => 'required',
-                'captcha'     => 'required',
+                // 'captcha'     => 'required',
             ];
 
             $msj = [
@@ -68,7 +69,8 @@ class Register extends Component
                 'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
                 'password.regex'    => 'Formato de contraseña  incorrecto',
                 'ci'                => 'Campo ci requerido',
-                'captcha'           => 'Campo captcha requerido',
+                'ci.unique'                => 'El numero de cedula esta duplicado',
+                // 'captcha'           => 'Campo captcha requerido',
             ];
         }
 
@@ -87,7 +89,8 @@ class Register extends Component
         $date_today = $date_today->addDay(30)->format('Y-m-d');
 
         // valdiar otp y capchat
-        if (HandleOtpController::verify_otp($request) && UtilsController::validateCapchat($request)) {
+        // if (HandleOtpController::verify_otp($request) && UtilsController::validateCapchat($request)) {
+            if (HandleOtpController::verify_otp($request)) {
 
             $user = new User();
             $user->name = $request->name;
@@ -99,7 +102,8 @@ class Register extends Component
             $user->verification_code = Str::random(30);
             $user->password = Hash::make($request->password);
             $user->email_verified_at = $date_today;
-            $user->role = "temporary";            
+            $user->role = "temporary";
+            $user->type_plane = $request->type_plan;
             $user->save();
             $action = '3';
 
@@ -507,21 +511,21 @@ class Register extends Component
                     ['id' => $request->id],
                     [
 
-                        'code_lab'           => 'SQ-LAB-' . random_int(11111111, 99999999),
-                        'user_id'           => $laboratory->id,
-                        'business_name'   => $request->business_name,
-                        'email'           => $request->email,
-                        'rif'               => $request->rif,
-                        'state'           => $request->state,
-                        'city'               => $request->city,
-                        'address'           => $request->address,
-                        'phone_1'           => $request->phone,
-                        'license'           => $request->license,
-                        'type_laboratory' => $request->type_laboratory,
-                        'responsible'       => $request->responsible,
-                        'descripcion'       => $request->descripcion,
-                        'website'           => $request->website,
-                        'lab_img'           => $nameFile
+                        'code_lab'              => 'SQ-LAB-' . random_int(11111111, 99999999),
+                        'user_id'               => $laboratory->id,
+                        'business_name'         => $request->business_name,
+                        'email'                 => $request->email,
+                        'rif'                   => $request->rif,
+                        'state'                 => $request->state,
+                        'city'                  => $request->city,
+                        'address'               => $request->address,
+                        'phone_1'               => $request->phone,
+                        'license'               => $request->license,
+                        'type_laboratory'       => $request->type_laboratory,
+                        'responsible'           => $request->responsible,
+                        'descripcion'           => $request->descripcion,
+                        'website'               => $request->website,
+                        'lab_img'               => $nameFile
 
                     ]
                 );
@@ -557,9 +561,10 @@ class Register extends Component
         $bellied_plan = null;
 
         if ($id != null) {
-            $bellied_plan = BilledPlan::where('id', decrypt($id))->first();
+            $type_plan = $id;
+            // $bellied_plan = BilledPlan::where('id', decrypt($id))->first();
         }
         $show = true;
-        return view('livewire.components.register', compact('show', 'bellied_plan'));
+        return view('livewire.components.register', compact('show', 'bellied_plan', 'type_plan'));
     }
 }
