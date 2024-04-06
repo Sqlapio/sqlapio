@@ -19,7 +19,7 @@ $('.alpha-no-spaces').mask("A", {
   }
 });
 $("#datepicker").datepicker({
-//   language: 'es',
+  language: 'es',
 });
 $(document).ready(() => {
   // selec dos

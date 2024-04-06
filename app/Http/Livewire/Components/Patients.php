@@ -269,7 +269,7 @@ class Patients extends Component
 
                     'name'          => 'required|min:3|max:50',
                     'last_name'     => 'required|min:3|max:50',
-                    'ci'            => "required|min:5|max:8|unique:patients,ci,$request->id",
+                    'ci'            => "required|min:5|max:15|unique:patients,ci,$request->id",
                     'email'         => "required|email|unique:patients,email,$request->id",
                     // 'phone'         => 'required',
                     'profession'    => 'required',
