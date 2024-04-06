@@ -264,7 +264,7 @@
                 $("#license").rules('add', {
                     required: true,
                     minlength: 5,
-                    maxlength: 8,
+                    maxlength: 15,
                     onlyNumber: true
                 });
 

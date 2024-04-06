@@ -35,7 +35,7 @@
     }
 
     .wizard > .steps > ul > li {
-        width: 20% !important; 
+        width: 20% !important;
     }
 
     .wizard>.content>.body ul>li {
@@ -71,19 +71,19 @@
         }
     } */
 
-    @media (min-width: 577px) and (max-width: 768px) { 
+    @media (min-width: 577px) and (max-width: 768px) {
         .wizard > .steps > ul > li {
             width: 100% !important;
         }
     }
-        
+
     @media screen and (max-width: 576px) {
 
         .wizard>.steps>ul>li {
             width: 100% !important;
 
         }
-        
+
         .wizard>.steps a,
         .wizard>.steps a:hover,
         .wizard>.steps a:active {
@@ -129,7 +129,7 @@
                     ci: {
                         required: true,
                         minlength: 5,
-                        maxlength: 8,
+                        maxlength: 15,
                         onlyNumber: true
                     },
 
@@ -143,7 +143,7 @@
                     ci: {
                         required: "Cédula de identidad es obligatoria",
                         minlength: "Cédula de identidad  debe ser mayor a 5 caracteres",
-                        maxlength: "Cédula de identidad  debe ser menor a 8 caracteres",
+                        maxlength: "Cédula de identidad  debe ser menor a 15 caracteres",
                     },
 
                     birthdate: {
@@ -200,7 +200,7 @@
                                             "{{ URL::asset('/img/avatar/avatar hombre.png') }}";
 
                                     }
-                                    let e = ` 
+                                    let e = `
                                         <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 135px;" >
                                             <img src="${img}" width="125" height="125" alt="Imagen del paciente" class="img-medical">
                                         </div>
@@ -214,12 +214,12 @@
                                             <br>
                                             <strong>C.I:</strong><span> ${response.patient.ci} </span>
                                             <br>
-                                            <strong>Genero:</strong><span class="text-capitalize"> ${response.patient.genere} </span>  
+                                            <strong>Genero:</strong><span class="text-capitalize"> ${response.patient.genere} </span>
                                             <br>
-                                            <strong>Nº Historial:</strong><span class="text-capitalize"> ${(response.patient.get_history)? response.patient.get_history.cod_history:""} </span>                                          
+                                            <strong>Nº Historial:</strong><span class="text-capitalize"> ${(response.patient.get_history)? response.patient.get_history.cod_history:""} </span>
                                         </div>`;
                                     $('#div-content').find('#info-pat').append(e);
-                                    // end 
+                                    // end
 
                                     // limpiar item
                                     $('.family_back').empty();
@@ -241,7 +241,7 @@
                                     // end
 
                                     if (response.patient.get_history != null) {
-                                        // Antecedentes Personales y Familiares                                     
+                                        // Antecedentes Personales y Familiares
 
                                         family_back.map((value, keyy) => {
                                             for (const [key, val] of Object
@@ -254,7 +254,7 @@
                                                     if (val != null) {
                                                         $('.family_back')
                                                             .append(
-                                                                `<li class="${key} list-group-item" aria-current="true" > 
+                                                                `<li class="${key} list-group-item" aria-current="true" >
                                                                     <div class="d-flex w-100 justify-content-between">
                                                                         <small>${value.text}</small>
                                                                     </div>
@@ -273,7 +273,7 @@
                                                             <br>
                                                             <br>
                                                             ${response.patient.get_history.observations_back_family}
-                                                        </span> 
+                                                        </span>
                                                     </div>
                                                 </li>`
                                             );
@@ -281,7 +281,7 @@
                                         // end
 
                                         // Antecedentes personales patológicos
-                                  
+
                                         pathology_back.map((value, keyy) => {
                                             for (const [key, val] of Object
                                                 .entries(
@@ -293,7 +293,7 @@
 
                                                         $('.pathology_back')
                                                             .append(
-                                                                `<li class="list-group-item" aria-current="true"j> 
+                                                                `<li class="list-group-item" aria-current="true"j>
                                                                     <div class="d-flex w-100 justify-content-between">
                                                                         <small>${value.text}</small>
                                                                     </div>
@@ -314,7 +314,7 @@
                                                             <br>
                                                             <br>
                                                             ${response.patient.get_history.observations_diagnosis}
-                                                        </span> 
+                                                        </span>
                                                     </div>
                                                 </li>`
                                             );
@@ -322,7 +322,7 @@
                                         // end
 
                                         // historia Antecedentes personales no patológicos
-                               
+
                                         non_pathology_back.map((value, keyy) => {
                                             for (const [key, val] of Object
                                                 .entries(
@@ -353,7 +353,7 @@
                                                             <br>
                                                             <br>
                                                             ${response.patient.get_history.observations_not_pathological}
-                                                        </span> 
+                                                        </span>
                                                     </div>
                                                 </li>`
                                             );
@@ -371,10 +371,10 @@
                                                         <ul class="list-group" style="border-radius: 8px;">
                                                             <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Antecedentes ginecologicos </h5>                                   
+                                                                    <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Antecedentes ginecologicos </h5>
                                                                 </div>
                                                             </li>
-    
+
                                                             <li class="list-group-item" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
                                                                     <span ><strong>Edad de primera menstruación:</strong> ${ response.patient.get_history.edad_primera_menstruation}</span>
@@ -382,7 +382,7 @@
                                                             </li>
                                                             <li class="list-group-item" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                <span ><strong>Fecha último periodo :</strong> ${ response.patient.get_history.fecha_ultima_regla}</span>   
+                                                                <span ><strong>Fecha último periodo :</strong> ${ response.patient.get_history.fecha_ultima_regla}</span>
                                                                 </div>
                                                             </li>
                                                             <li class="list-group-item" aria-current="true">
@@ -392,22 +392,22 @@
                                                             </li>
                                                             <li class="list-group-item" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <span ><strong>Número de partos:</strong> ${ response.patient.get_history.numero_partos}</span>   
+                                                                    <span ><strong>Número de partos:</strong> ${ response.patient.get_history.numero_partos}</span>
                                                                 </div>
                                                             </li>
                                                             <li class="list-group-item" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <span><strong>Número de cesáreas:</strong> ${response.patient.get_history.cesareas}</span>   
+                                                                    <span><strong>Número de cesáreas:</strong> ${response.patient.get_history.cesareas}</span>
                                                                 </div>
                                                             </li>
                                                             <li class="list-group-item" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <span><strong>Número de abortos:</strong> ${response.patient.get_history.numero_abortos}</span>   
+                                                                    <span><strong>Número de abortos:</strong> ${response.patient.get_history.numero_abortos}</span>
                                                                 </div>
                                                             </li>
                                                             <li class="list-group-item" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <span><strong>Utiliza algún método anticonceptivo, ¿Cual?:</strong> ${response.patient.get_history.pregunta}</span>   
+                                                                    <span><strong>Utiliza algún método anticonceptivo, ¿Cual?:</strong> ${response.patient.get_history.pregunta}</span>
                                                                 </div>
                                                             </li>
                                                             <li class="list-group-item">
@@ -417,12 +417,12 @@
                                                                         <br>
                                                                         <br>
                                                                         ${response.patient.get_history.observations_ginecologica}
-                                                                    </span> 
+                                                                    </span>
                                                                 </div>
-                                                            </li>     
+                                                            </li>
                                                         </ul>
                                                     </div>`
-    
+
                                             $('.gilecologico').append(gine)
                                         }
 
@@ -430,12 +430,12 @@
                                         // end
 
                                         // alegias
-                                   
+
                                         if (response.allergies.length != 0) {
 
                                             response.allergies.map((e, key) => {
                                                 $('.list-alergias').append(
-                                                    `<li class=" ${key} list-group-item" aria-current="true"> 
+                                                    `<li class=" ${key} list-group-item" aria-current="true">
                                                         <div class="d-flex w-100 justify-content-between">
                                                             <span class="text-capitalize">
                                                                 <strong>Tipo de Alergia:</strong> ${e.type_alergia},
@@ -447,7 +447,7 @@
                                                 );
                                             });
 
-                                            
+
                                         } if (response.patient.get_history.observations_allergies) {
                                                 $('.ob-alergias').append(
                                                     `<li class="list-group-item">
@@ -457,22 +457,22 @@
                                                                 <br>
                                                                 <br>
                                                                 ${ response.patient.get_history.observations_allergies}
-                                                            </span> 
+                                                            </span>
                                                         </div>
                                                     </li>`
                                                 );
                                             } else {
-                                                
+
                                                 $('#not-alergias').show();
                                             }
                                         // end
 
                                         // cirugias
-                                 
+
                                         if (response.patient.get_history.history_surgical != null) {
                                             response.history_surgical.map((e, key) => {
                                                 $('.list-cirugias').append(
-                                                    `<li class=" ${key} list-group-item" aria-current="true"> 
+                                                    `<li class=" ${key} list-group-item" aria-current="true">
                                                         <div class="d-flex w-100 justify-content-between">
                                                             <span class="text-capitalize">
                                                                 <strong>Tipo de cirugía:</strong> ${e.cirugia},
@@ -494,7 +494,7 @@
                                                             <br>
                                                             <br>
                                                             ${ response.patient.get_history.observations_quirurgicas}
-                                                        </span> 
+                                                        </span>
                                                     </div>
                                                 </li>`
                                             );
@@ -505,12 +505,12 @@
                                         // end
 
                                         // medicamentos
-                                    
+
                                         if (response.medications_supplements != null) {
                                             response.medications_supplements.map((e,
                                                 key) => {
                                                 $('.list-medicamentos').append(
-                                                    `<li class=" ${key} list-group-item" aria-current="true"> 
+                                                    `<li class=" ${key} list-group-item" aria-current="true">
                                                         <div class="d-flex w-100 justify-content-between">
                                                             <span class="text-capitalize" >
                                                                 <strong>Medicamento:</strong> ${e.medicine},
@@ -520,7 +520,7 @@
                                                                 <strong>Patología:</strong> ${e.patologi},
                                                                 <br>
                                                                 <strong>Duración del tratamiento:</strong> ${e.treatmentDuration}
-                                                            </span>  
+                                                            </span>
                                                         </div>
                                                     </li>`
                                                 );
@@ -535,7 +535,7 @@
                                                             <br>
                                                             <br>
                                                             ${response.patient.get_history.observations_medication}
-                                                        </span>   
+                                                        </span>
                                                     </div>
                                                 </li>`
                                             );
@@ -600,7 +600,7 @@
                                             }
                                             $('.list-con').append(element);
 
-                                            // data estudios                                        
+                                            // data estudios
                                             e.study_medical.map((item, i) => {
 
                                                 let et = '';
@@ -609,17 +609,17 @@
                                                 if ((i % 2) == 0) {
                                                     et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
                                                                     justify-content: space-between;" class="list-group-item  ${i}" aria-current="true"> ${item.description} ${item.record_code}
-                                                                    <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;"> 
+                                                                    <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;">
                                                                         <button type="button"
                                                                             class="refresf btn-idanger rounded-circle">
                                                                             <i class="bi bi-filetype-pdf"></i>
                                                                         </button>
-                                                                    </a>   
+                                                                    </a>
                                                                 </li>`
                                                 } else {
                                                     et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
                                                                     justify-content: space-between;"  class="list-group-item ${i}"" aria-current="true">${item.description} ${item.record_code}
-                                                                    <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;"> 
+                                                                    <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;">
                                                                         <button type="button"
                                                                             class="refresf btn-idanger rounded-circle">
                                                                             <i class="bi bi-filetype-pdf"></i>
@@ -648,7 +648,7 @@
                                                     ett =
                                                         `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
                                                                 justify-content: space-between;" class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}
-                                                                <a target="_blank" href="${target}"  style="color: white; text-decoration: none; font-size: 20px;"> 
+                                                                <a target="_blank" href="${target}"  style="color: white; text-decoration: none; font-size: 20px;">
                                                                     <button type="button"
                                                                         class="refresf btn-idanger rounded-circle"
                                                                         data-bs-container="body"
@@ -664,7 +664,7 @@
                                                     ett =
                                                         `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
                                                                 justify-content: space-between;" class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}
-                                                                <a target="_blank" href="${target}"  style="color: white; text-decoration: none; font-size: 20px;"> 
+                                                                <a target="_blank" href="${target}"  style="color: white; text-decoration: none; font-size: 20px;">
                                                                     <button type="button"
                                                                         class="refresf btn-idanger rounded-circle"
                                                                         data-bs-container="body"
