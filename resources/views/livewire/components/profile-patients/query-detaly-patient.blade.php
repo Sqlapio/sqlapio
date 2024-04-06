@@ -153,7 +153,7 @@
             });
 
             $.validator.addMethod("onlyNumber", function(value, element) {
-                var pattern = /^\d+\.?\d*$/;
+                var pattern = /^[0-9-]*$/;
                 return pattern.test(value);
             }, "Campo numérico");
 
@@ -838,7 +838,7 @@
                                             <label for="ci"
                                                 class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Ingrese
                                                 número de cédula</label>
-                                            <input maxlength="10" type="text" class="form-control mask-only-number"
+                                            <input type="text" class="form-control mask-only-number"
                                                 id="ci" name="ci" placeholder="" value="">
                                         </div>
                                     </div>
