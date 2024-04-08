@@ -125,6 +125,8 @@ class Patients extends Component
 
                 // Guardamos la informacion del paciente menor de edad
 
+                $ci = str_replace('-', '', $request->re_ci);
+
                 $patient = Patient::updateOrCreate(
                     ['id' => $request->id],
                     [
@@ -157,7 +159,7 @@ class Patients extends Component
                 $re_patient = new Representative();
                 $re_patient->re_name = $request->re_name;
                 $re_patient->re_last_name = $request->re_last_name;
-                $re_patient->re_ci = $request->re_ci;
+                $re_patient->re_ci = $ci;
                 $re_patient->re_email = $request->re_email;
                 $re_patient->re_phone = $request->re_phone;
                 $re_patient->patient_id = $patient_id;

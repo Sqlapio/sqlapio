@@ -90,7 +90,9 @@
         let arrayhistory_surgical = (history_surgical) ? history_surgical : [];
         let arraymedications_supplements = (medications_supplements) ? medications_supplements : [];
 
+
         $(document).ready(() => {
+
             $(".datePickert").datepicker({
                 language: 'es'
             });
@@ -740,6 +742,7 @@
                     break;
             }
         }
+
     </script>
 @endpush
 @section('content')
@@ -780,9 +783,13 @@
                                                 <span> {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.edad'):</strong>
-                                                <span> {{ $Patient->age }} @lang('messages.ficha_paciente.anios')</span>
+                                                <span> {{ $Patient->age }} @lang('messages.ficha_paciente.años')</span>
                                                 <br>
-                                                <strong>@lang('messages.ficha_paciente.ci') {{ $Patient->is_minor === 'true' ? '(Rep)' : '' }}:</strong>
+                                                @if (Auth::user()->contrie == '81')
+                                                    <strong>@lang('messages.form.CIE') {{ $Patient->is_minor === 'true' ? '(Rep)' : '' }}:</strong>
+                                                @else
+                                                    <strong>@lang('messages.ficha_paciente.ci') {{ $Patient->is_minor === 'true' ? '(Rep)' : '' }}:</strong>
+                                                @endif
                                                 <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.genero'):</strong>

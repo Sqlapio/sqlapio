@@ -143,10 +143,12 @@
             let ulrImge = "{{ URL::asset('/imgs/') }}";
             let imge_avatar = "{{ URL::asset('/img/avatar/') }}";
             let ulrPaciente = "{{ route('Patients', ':id_patient') }}";
+            let user = @json(Auth::user());
 
             let urlPostCreateAppointment = '{{ route('CreateAppointment') }}';
             getUrl(urlPostCreateAppointment, url2);
-            getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments, imge_avatar,ulrPaciente);
+            getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments, imge_avatar,ulrPaciente, user);
+
         });
 
         const handlerPetientRegister = (e) => {
@@ -176,6 +178,7 @@
 
 
                 $(".form-patient-register").hide();
+
             }
         }
     </script>
@@ -208,7 +211,9 @@
                                 style="font-size: 12px;"></button>
                         </div>
                         <div class="modal-body">
-                            <strong>@lang('messages.modal.form.fecha'): </strong><span id="date"></span>
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="date-lb">
+                                <strong>@lang('messages.modal.form.fecha'): </strong><span id="date"></span>
+                            </div>
 
                             <div id="handlerPetientRegister" class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mb-3 mt-3" style="width: 318px;">
                                 <div class="form-check form-switch ">
@@ -240,7 +245,7 @@
                                                     <strong>@lang('messages.ficha_paciente.ci'): </strong><span id="ci"></span>
                                                 @endif
                                                 <br>
-                                                <strong>@lang('messages.ficha_paciente.edad'): </strong><span id="age"></span> años
+                                                <strong>@lang('messages.ficha_paciente.edad'): </strong><span id="age"></span> @lang('messages.ficha_paciente.años')
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.genero'): </strong><span class="text-capitalize" id="genere"></span>
                                                 <br>
@@ -291,10 +296,8 @@
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="TH">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.tiempo_horario')</label>
-                                                <select id="timeIni" name="timeIni" onchange="handlerTime(event)"
-                                                    class="form-control valid">
+                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.tiempo_horario')</label>
+                                                <select id="timeIni" name="timeIni" onchange="handlerTime(event)" class="form-control valid">
                                                     <option value="">@lang('messages.placeholder.seleccione')</option>
                                                     <option value="am">@lang('messages.select.am')</option>
                                                     <option value="pm">@lang('messages.select.pm')</option>
@@ -307,10 +310,8 @@
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="HS">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.horarios_cita')</label>
-                                                <select id="hour_start" name="hour_start"
-                                                    class="form-control valid"></select>
+                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.horarios_cita')</label>
+                                                <select id="hour_start" name="hour_start" class="form-control valid"></select>
                                                 <i class="bi bi-stopwatch st-icon"></i>
                                             </div>
                                         </div>
@@ -320,22 +321,17 @@
                                         <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="CM" />
                                     @endif
 
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center"
-                                        id="check-price">
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center" id="check-price">
                                         <div class="form-check form-switch">
-                                            <input onchange="handlerPrice(event);" style="width: 5em"
-                                                class="form-check-input" type="checkbox" role="switch"
-                                                id="showPrice" value="">
-                                            <label style="margin-left: -146px;margin-top: 8px; font-size: 13px"
-                                                for="showPrice">@lang('messages.modal.form.precio')</label>
+                                            <input onchange="handlerPrice(event);" style="width: 5em" class="form-check-input" type="checkbox" role="switch" id="showPrice" value="">
+                                            <label style="margin-left: -146px;margin-top: 8px; font-size: 13px" for="showPrice">@lang('messages.modal.form.precio')</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
                                         style="display: none" id="div-price">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="searchPatients" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.precio')</label>
+                                                <label for="searchPatients" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.precio')</label>
                                                 <input maxlength="8" type="text"
                                                     class="form-control mask-input-price" id="price"
                                                     name="price" id="searchPatients" value="">
@@ -348,14 +344,11 @@
                                     <x-load-spinner show="true" />
                                 </div>
                                 <div class="row text-center mt-2">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                        style="display: flex; justify-content: center; align-items: center;">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="display: flex; justify-content: center; align-items: center;">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 " id="send">
-                                            <input class="btn btnSave" id="registrer-pac" value="Registrar" disabled
-                                                type="submit" />
+                                            <input class="btn btnSave" id="registrer-pac" value="Registrar" disabled  type="submit" />
                                         </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 m-xs"
-                                            id="btn-con"></div>
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 m-xs" id="btn-con"></div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell">
                                         </div>
                                     </div>

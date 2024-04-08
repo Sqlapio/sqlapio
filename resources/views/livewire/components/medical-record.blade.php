@@ -1791,7 +1791,7 @@
                                                 <span> {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.edad'):</strong>
-                                                <span> {{ $Patient->age }} @lang('messages.ficha_paciente.anios')</span>
+                                                <span> {{ $Patient->age }} @lang('messages.ficha_paciente.años')</span>
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.ci') {{ $Patient->is_minor === 'true' ? '(Rep)' : '' }}:</strong>
                                                 <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
@@ -2801,7 +2801,7 @@
                                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical" style="margin-left: 20px;">
                                     <strong>@lang('messages.ficha_paciente.nombre'):</strong><span class="text-capitalize"> {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                     <br>
-                                    <strong>@lang('messages.ficha_paciente.edad'):</strong><span> {{ $Patient->age }} @lang('messages.ficha_paciente.anios')</span>
+                                    <strong>@lang('messages.ficha_paciente.edad'):</strong><span> {{ $Patient->age }} @lang('messages.ficha_paciente.años')</span>
                                     <br>
                                     <strong>@lang('messages.ficha_paciente.ci') {{ $Patient->is_minor === 'true' ? '(Rep)' : '' }}:</strong>
                                     <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>

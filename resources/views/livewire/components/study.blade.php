@@ -140,6 +140,8 @@
 
         $(document).ready(function() {
 
+            let user = @json(Auth::user());
+
             countTable = data.count;
 
             countTableDos = estudios_sin_resul.count
@@ -276,8 +278,9 @@
 
             if ($('#search_person').val() != '') {
                 $('#spinner2').show();
+                let msk_id= $('#search_person').val().replaceAll('-', '',);
                 let route = '{{ route('search_studio', [':value', ':row']) }}';
-                route = route.replace(':value', $('#search_person').val());
+                route = route.replace(':value', msk_id);
                 route = route.replace(':row', 'ci');
                 $.ajax({
                     url: route,
@@ -287,7 +290,7 @@
                     },
                     success: function(response) {
                         $('#spinner2').hide();
-                        if (response.length === 0) {
+                        if (response.data.data.length === 0 || response.reference.data.length === 0) {
                             Swal.fire({
                                 icon: 'warning',
                                 title: '@lang('messages.alert.paciente_sin_info')',
@@ -434,8 +437,13 @@
 
                 elem.img = `<img class="avatar" src="${imagen}" alt="Imagen del paciente">`;
 
-                elem.ci = (elem.get_patient.is_minor == "true") ? `${elem.get_reprensetative.re_ci} (Rep)` : elem
-                    .get_patient.ci;
+                if (user.contrie == '81') {
+                    elem.ci = (elem.get_patient.is_minor == "true") ? elem.get_reprensetative.re_ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3') + ' ' + '(Rep)' :  elem.get_patient.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
+                } else {
+                    elem.ci = (elem.get_patient.is_minor == "true") ? elem.get_reprensetative.re_ci + ' ' + '(Rep)' :  elem.get_patient.ci;
+                }
+
+                // elem.ci = (elem.get_patient.is_minor == "true") ? `${elem.get_reprensetative.re_ci} (Rep)` : elem.get_patient.ci;
 
                 elem.description = `${elem.description}`
 
@@ -490,7 +498,7 @@
                     },
                     {
                         data: 'ci',
-                        title: '@lang('messages.tabla.cedula')',
+                        title: user.contrie === '81' ? 'CIE' : '@lang('messages.tabla.cedula')',
                         className: "text-center text-capitalize w-10",
                     },
                     {
@@ -542,8 +550,13 @@
 
                     e.img = `<img class="avatar" src="${imagen}" alt="Imagen del paciente">`;
 
-                    e.ci = (e.get_patient.is_minor == "true") ? `${e.get_reprensetative.re_ci} (Rep)` : e
-                        .get_patient.ci;
+                    if (user.contrie == '81') {
+                        e.ci = (e.get_patient.is_minor == "true") ? e.get_reprensetative.re_ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3') + ' ' + '(Rep)' :  e.get_patient.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
+                    } else {
+                        e.ci = (e.get_patient.is_minor == "true") ? e.get_reprensetative.re_ci + ' ' + '(Rep)' :  e.get_patient.ci;
+                    }
+
+                    // e.ci = (e.get_patient.is_minor == "true") ? `${e.get_reprensetative.re_ci} (Rep)` : e.get_patient.ci;
 
                     e.date = `${e.date}`
 
@@ -601,7 +614,7 @@
                     },
                     {
                         data: 'ci',
-                        title: '@lang('messages.tabla.cedula')',
+                        title: user.contrie === '81' ? 'CIE' : '@lang('messages.tabla.cedula')',
                         className: "text-center text-capitalize w-10",
                     },
                     {
@@ -688,6 +701,7 @@
     <div class="container-fluid" style="padding: 0 3% 3%">
         <div class="accordion" id="accordionExample">
             {{-- datos del paciente --}}
+
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2">
                     <div class="accordion-item">
@@ -713,13 +727,19 @@
                                                     <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
                                                     <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_resultado')</th>
                                                     <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                    @if (Auth::user()->contrie == '81')
+                                                        <th class="text-center w-10" scope="col">@lang('messages.form.CIE')</th>
+                                                    @else
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                    @endif
                                                     <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
                                                     <th class="text-center w-5"scope="col" data-orderable="false"> @lang('messages.tabla.resultado')</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($data['data'] as $item)
+
+                                                {{ $item->get_patient->ci }}
                                                     <tr>
                                                         <td class="table-avatar">
                                                             <img class="avatar"
@@ -768,7 +788,11 @@
                                                     <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
                                                     <th class="text-center" scope="col">@lang('messages.tabla.referencia')</th>
                                                     <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                    @if (Auth::user()->contrie == '81')
+                                                        <th class="text-center w-10" scope="col">@lang('messages.form.CIE')</th>
+                                                    @else
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                    @endif
                                                     <th class="text-center w-10" scope="col" data-orderable="false"> @lang('messages.tabla.cargar_res')</th>
                                                 </tr>
                                             </thead>
@@ -784,7 +808,9 @@
                                                             <td class="text-center"> {{ $item->date }} </td>
                                                             <td class="text-center"> {{ $item->cod_ref }} </td>
                                                             <td class="text-center">  {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }} </td>
-                                                            <td class="text-center">  {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }} </td>
+                                                            <td class="text-center">
+                                                                    {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }}
+                                                            </td>
                                                             <td class="text-center">
                                                                 <div class="d-flex" style="justify-content: center;">
                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">

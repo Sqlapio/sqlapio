@@ -28,7 +28,7 @@ const data = {
             above: 'rgb(56,172,227)',   // Area will be red above the origin
             below: 'rgb(56,172,227)'    // And blue below the origin
           }
-        
+
     }]
 };
 

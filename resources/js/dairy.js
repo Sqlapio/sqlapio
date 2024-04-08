@@ -10,7 +10,6 @@ let langJson = {};
 
 
 $(document).ready(() => {
-    console.log(lang_session);
 
     const lang = document.getElementById("lang").value;
 
@@ -29,6 +28,7 @@ let ulrUpdate;
 let urlPost;
 let dataDos;
 let urlPaciente;
+let user;
 let arrayAm = [
     {
         value: "",
@@ -251,7 +251,7 @@ $(document).ready(() => {
     });
 });
 
-function getAppointments(appointments, route, routeCancelled, url2, ulrImge, updateAppointments, ulr_imge_avatar, ulrPaciente) {
+function getAppointments(appointments, route, routeCancelled, url2, ulrImge, updateAppointments, ulr_imge_avatar, ulrPaciente, users) {
     data = appointments;
     url = route;
     urlDairy = url2;
@@ -260,6 +260,7 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
     ulrUpdate = updateAppointments;
     avatar_imge = ulr_imge_avatar;
     urlPaciente = ulrPaciente;
+    user = users;
 
     const calendarEl = document.getElementById("calendar");
     calendar = new Calendar(calendarEl, {
@@ -384,6 +385,7 @@ function clearInput(date) {
 }
 
 function setValue(data, info) {
+
     let img_url = `${ulrimge}/${info.event.extendedProps.img}`;
 
     if (info.event.extendedProps.img === null) {
@@ -415,7 +417,11 @@ function setValue(data, info) {
     $("#name").text(info.event.extendedProps.name + " " + info.event.extendedProps.last_name);
     $("#email").text(info.event.extendedProps.email);
     $("#phone").text(info.event.extendedProps.phone);
-    $("#ci").text(info.event.extendedProps.ci);
+    if (user.contrie == '81') {
+        $("#ci").text(info.event.extendedProps.ci).mask('000-0000000-0');
+    } else {
+        $("#ci").text(info.event.extendedProps.ci);
+    }
     $("#hour_start").val(info.event.extendedProps.data).change().attr("disabled", true);
     $("#genere").text(info.event.extendedProps.genere);
     $("#age").text(info.event.extendedProps.age);
@@ -424,6 +430,7 @@ function setValue(data, info) {
     $("#price").val(info.event.extendedProps.price);
     $("#div-pat").show();
     $("#img-pat").attr("src", `${img_url}`);
+
 
     $("#registrer-pac").attr("disabled", false).hide();
 
@@ -437,6 +444,7 @@ function setValue(data, info) {
     $("#hour").text(info.event.extendedProps.data + " " + info.event.extendedProps.time_zone_start);
     $("#center").text(info.event.extendedProps.center);
 
+    $("#date-lb").hide();
     $("#FC").hide();
     $("#TH").hide();
     $("#HS").hide();
@@ -448,10 +456,14 @@ function setValue(data, info) {
 
 function searchPatients(res) {
     if (res.is_minor) {
+        if (user.contrie == '81') {
+            $("#ci").text(res.ci).mask('000-0000000-0');
+        } else {
+            $("#ci").text(res.ci);
+        }
         $("#name").text(res.name + " " + res.last_name);
         $("#email").text(res.email);
         $("#phone").text(res.phone);
-        $("#ci").text(res.ci);
         $("#genere").text(res.genere);
         $("#age").text(res.age);
         $("#patient_id").val(res.id);

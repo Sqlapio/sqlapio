@@ -28,6 +28,7 @@ class Register extends Component
     public function store(Request $request)
     {
 
+
         if (number_format($request->type_rif) >= 3) {
             $rules = [
                 'business_name'      => 'required',
@@ -102,7 +103,14 @@ class Register extends Component
             $user->verification_code = Str::random(30);
             $user->password = Hash::make($request->password);
             $user->email_verified_at = $date_today;
-            $user->role = "temporary";
+            if($request->type_plan == '1') {
+                $user->role = "medico";
+            } elseif($request->type_plan == '4'){
+                $user->role = "laboratorio";
+            } else{
+                $user->role = "temporary";
+
+            }
             $user->type_plane = $request->type_plan;
             $user->save();
             $action = '3';
