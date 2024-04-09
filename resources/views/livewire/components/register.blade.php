@@ -474,7 +474,7 @@
 
                 case 2:
 
-                    $('#ci').attr("placeholder", "RCN").mask('000-0000000-0');
+                    $('#ci').attr("placeholder", "CIE").mask('000-0000000-0');
                     $('#div_name').show();
                     $('#div_last_name').show();
                     $('#div_business_name').hide();
@@ -620,7 +620,7 @@
                                         <select onchange="handlerTypeDoc(event)" name="type_rif" id="type_rif" class="form-control">
                                             <option value="">@lang('messages.placeholder.seleccione')</option>
                                             <option value="1">@lang('messages.select.cedula')</option>
-                                            <option value="2">@lang('messages.select.RCN')</option>
+                                            <option value="2">@lang('messages.select.CIE')</option>
                                             <option value="3">@lang('messages.select.pasaporte')</option>
                                             <option value="4">@lang('messages.select.firma_personal')</option>
                                             <option value="5">@lang('messages.select.juridico')</option>

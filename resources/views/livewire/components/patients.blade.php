@@ -450,6 +450,7 @@
 
         //seteiar data en el formalario para su edicion
         function editPatien(item, active = true) {
+
             if (active) {
                 $(".accordion-collapseOne").collapse('show')
             }
@@ -458,7 +459,13 @@
             $("#name").val(item.name);
             $("#name").val(item.name);
             $("#last_name").val(item.last_name);
-            $("#ci").val(item.ci);
+            if (item.is_minor !== 'true' && user.contrie == '81') {
+                let ci_dom = item.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
+
+                $("#ci").val(ci_dom);
+            } else {
+                $("#ci").val(item.ci);
+            }
             $("#address").val(item.address);
             $("#genere").val(item.genere).change();
             $("#email").val(item.email);
@@ -472,9 +479,17 @@
             $('#btn-save').attr('disabled', false);
             $(".holder").show();
             if (item.is_minor === 'true') {
+
                 $("#re_name").val(item.get_reprensetative.re_name);
                 $("#re_last_name").val(item.get_reprensetative.re_last_name);
-                $("#re_ci").val(item.get_reprensetative.re_ci);
+                if (user.contrie == '81') {
+
+                    let ci_dom_re = item.get_reprensetative.re_ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
+
+                    $("#re_ci").val(ci_dom_re);
+                } else {
+                    $("#re_ci").val(item.get_reprensetative.re_ci);
+                }
                 $("#re_email").val(item.get_reprensetative.re_email);
                 $("#re_phone").val(item.get_reprensetative.re_phone);
             }
@@ -554,18 +569,19 @@
 
                             response.map((elem) => {
 
-                                elem.name_full = (elem.is_minor == "true") ?
-                                    `${elem.get_reprensetative.re_name} ${elem.get_reprensetative.re_last_name}` :
-                                    `${elem.name} ${elem.last_name}`;
+                                elem.name_full = `${elem.name} ${elem.last_name}`;
 
-                                elem.ci = (elem.is_minor == "true") ? elem.get_reprensetative.re_ci :
-                                    elem.ci;
+                                if (user.contrie === '81') {
+                                    elem.ci = (elem.is_minor == "true") ? elem.get_reprensetative.re_ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3') + ' ' + '(Rep)' :  elem.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
+                                } else {
+                                    elem.ci = (elem.is_minor == "true") ? elem.get_reprensetative.re_ci + ' ' + '(Rep)' :  elem.ci;
+                                }
 
                                 let elemData = JSON.stringify(elem);
-                                elem.btn = `
-                                                <button onclick='setValue(${elemData})' type="button" class="btn-2 btnSecond">
-                                                    @lang('messages.botton.consultar')
-                                                </button>`;
+
+                                elem.btn = `<button onclick='setValue(${elemData})' type="button" class="btn-2 btnSecond">
+                                                @lang('messages.botton.consultar')
+                                            </button>`;
                                 data.push(elem);
 
                             })
@@ -583,7 +599,7 @@
                                     },
                                     {
                                         data: 'ci',
-                                        title: '@lang('messages.tabla.cedula')',
+                                        title: user.contrie === '81' ? 'CIE' : '@lang('messages.tabla.cedula')',
                                         className: "text-center w-10",
                                     },
 
@@ -661,12 +677,17 @@
 
         function agendarCita(item, info) {
 
+
             $('#exampleModal').modal('show');
             if (item.is_minor == 'true') {
                 $("#name-pat").text(item.name + ' ' + item.last_name);
                 $("#email-pat").text(`${info.re_email} (Rep)`);
                 $("#phone-pat").text(`${info.re_phone} (Rep)`);
-                $("#ci-pat").text(`${info.re_ci} (Rep)`);
+                if (user.contrie == '81') {
+                    $("#ci-pat").text(`${info.re_ci} (Rep)`).mask('000-0000000-0');
+                } else {
+                    $("#ci-pat").text(`${info.re_ci} (Rep)`);
+                }
                 $("#genere-pat").text(item.genere);
                 $("#age-pat").text(item.age);
                 $("#patient_id").val(item.id);
@@ -674,7 +695,11 @@
                 $("#name-pat").text(item.name + ' ' + item.last_name);
                 $("#email-pat").text(item.email);
                 $("#phone-pat").text(item.phone);
-                $("#ci-pat").text(item.ci);
+                if (user.contrie == '81') {
+                    $("#ci-pat").text(item.ci).mask('000-0000000-0');
+                } else {
+                    $("#ci-pat").text(item.ci);
+                }
                 $("#genere-pat").text(item.genere);
                 $("#age-pat").text(item.age);
                 $("#patient_id").val(item.id);
@@ -918,7 +943,7 @@
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     @if (Auth::user()->contrie == '81')
-                                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.RCN')</label>
+                                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
                                                                     @else
                                                                         <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.cedula_identidad') </label>
                                                                     @endif
@@ -1032,7 +1057,7 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 @if (Auth::user()->contrie == '81')
-                                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.RCN')</label>
+                                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
                                                                     @else
                                                                         <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.cedula_identidad') </label>
                                                                     @endif
@@ -1149,7 +1174,7 @@
                                         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group" style="margin-top: 5px;">
                                                 @if (Auth::user()->contrie == '81')
-                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.RCN')</label>
+                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
                                                 @else
                                                     <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.cedula_identidad') </label>
                                                 @endif
@@ -1290,12 +1315,16 @@
                                         <div>
                                             <strong><span class="text-capitalize" id="name-pat"></span></strong>
                                             <br>
-                                            <strong>@lang('messages.ficha_paciente.ci') </strong><span id="ci-pat"></span>
+                                            @if (Auth::user()->contrie == '81')
+                                                <strong>@lang('messages.form.CIE'): </strong>
+                                            @else
+                                                <strong>@lang('messages.ficha_paciente.ci'): </strong>
+                                            @endif
+                                            <span id="ci-pat"></span>
                                             <br>
                                             <strong>@lang('messages.ficha_paciente.edad'): </strong><span id="age-pat"></span>
                                             <br>
-                                            <strong>@lang('messages.ficha_paciente.genero'): </strong><span class="text-capitalize"
-                                                id="genere-pat"></span>
+                                            <strong>@lang('messages.ficha_paciente.genero'): </strong><span class="text-capitalize" id="genere-pat"></span>
                                             <br>
                                             <strong>@lang('messages.ficha_paciente.correo'): </strong><span id="email-pat"></span>
                                             <br>

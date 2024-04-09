@@ -120,7 +120,7 @@ return [
         'num_tel_consultorio'    => 'Teléfono',
         'mpps'                   => 'MPPS',
         'mpps_rp'                => 'Nro. De Colegiatura',
-        'RCN'                    => 'RNC',
+        'CIE'                    => 'CIE',
         'provincia'              => 'Provincia',
         'nro_licencia_salud'     => 'Nro. Licencia de Salud',
         'responsable_director'   => 'Responsable ó Director',
@@ -192,13 +192,13 @@ return [
         'nombre'            => 'Nombre',
         'fecha_nacimiento'  => 'Fecha de Nacimiento',
         'ci'                => 'C.I',
-        'ci_rd'             => 'RNC',
+        'ci_rd'             => 'CIE',
         'genero'            => 'Genero',
         'nro_historias'     => 'Nro. Historia',
         'edad'              => 'Edad',
         'correo'            => 'Correo',
         'telefono'          => 'Teléfono',
-        'anios'             => 'Años',
+        'años'              => 'Años',
     ],
 
     'modal' => [
@@ -236,6 +236,7 @@ return [
             'carga_resultado'      => 'Carga de Resultados',
             'hora'                 => 'Hora',
             'centro'               => 'Centro',
+            'CIE'                  => 'CIE',
         ],
     ],
 
@@ -362,6 +363,7 @@ return [
         'metodos_de_pago'     => 'Métodos de Pago',
         'citas_del_dia'       => 'Citas del dia',
         'documento_identidad' => 'Documento de Identidad',
+
     ],
 
     'select' => [
@@ -400,7 +402,7 @@ return [
         'centro_clinico' => 'Centro clinico',
         'hospital'       => 'Hospital',
         'etc'            => 'Etc',
-        'RCN'            => 'RNC',
+        'CIE'            => 'CIE',
     ],
 
     'alert' => [

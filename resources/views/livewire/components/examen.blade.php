@@ -275,8 +275,9 @@
         function searchPerson() {
             if ($('#search_person').val() != '') {
                 $('#spinner2').show();
+                let msk_id= $('#search_person').val().replaceAll('-', '',);
                 let route = '{{ route('search_person', [':value', ':row']) }}';
-                route = route.replace(':value', $('#search_person').val());
+                route = route.replace(':value', msk_id);
                 route = route.replace(':row', 'ci');
                 $.ajax({
                     url: route,
@@ -286,7 +287,7 @@
                     },
                     success: function(response) {
                         $('#spinner2').hide();
-                        if (response.length === 0) {
+                        if (response.data.data.length === 0 || response.reference.data.length === 0) {
                             Swal.fire({
                                 icon: 'warning',
                                 title: '@lang('messages.alert.paciente_sin_info')',
@@ -295,7 +296,6 @@
                                 confirmButtonText: '@lang('messages.botton.aceptar')'
                             });
                             return false;
-
                         }
                         Swal.fire({
                             icon: 'success',
@@ -587,7 +587,6 @@
                         className: "text-center text-capitalize w-image",
                     },
                     {
-
                         data: 'date',
                         title: '@lang('messages.tabla.fecha_solicitud')',
                         className: "text-center w-10",

@@ -191,8 +191,9 @@
                                     $('#div-content').find('#info-pat').empty();
                                     let ulr_img = "{{ URL::asset('/imgs/') }}";
                                     let img = ''
-                                    if (response.patient.img != null) {
-                                        img = `${ulr_img}/${response.patient.img}`;
+                                    console.log(response)
+                                    if (response.patient_img != null) {
+                                        img = `${ulr_img}/${response.patient_img}`;
                                     } else {
 
                                         img = (response.patient.genere == 'femenino') ?

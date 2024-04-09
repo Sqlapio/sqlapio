@@ -120,7 +120,7 @@ return [
         'num_tel_consultorio'    => 'Phone',
         'mpps'                   => 'Tuition Number',
         'mpps_rp'                => 'Tuition Number',
-        'RCN'                    => 'RNC',
+        'CIE'                    => 'CIE',
         'provincia'              => 'State',
         'nro_licencia_salud'     => 'Health License',
         'responsable_director'   => 'Responsible or Director',
@@ -198,7 +198,7 @@ return [
         'edad'              => 'Age',
         'correo'            => 'Email',
         'telefono'          => 'Phone',
-        'anios'             => 'Years Old',
+        'años'              => 'Years Old',
     ],
 
     'modal' => [
@@ -236,6 +236,7 @@ return [
             'carga_resultado'      => 'Upload Result',
             'hora'                 => 'Hours',
             'centro'               => 'Center',
+            'CIE'                  => 'CIE',
         ],
     ],
 
@@ -400,7 +401,7 @@ return [
         'centro_clinico'=> 'Clinical Center',
         'hospital'      => 'Hospital',
         'etc'           => 'Etc',
-        'RCN'           => 'RNC',
+        'CIE'           => 'CIE',
     ],
 
     'alert' => [
