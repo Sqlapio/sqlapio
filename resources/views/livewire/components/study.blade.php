@@ -739,7 +739,8 @@
                                             <tbody>
                                                 @foreach ($data['data'] as $item)
 
-                                                {{ $item->get_patient->ci }}
+
+
                                                     <tr>
                                                         <td class="table-avatar">
                                                             <img class="avatar"
@@ -749,7 +750,11 @@
                                                         <td class="text-center"> {{ $item->date }} </td>
                                                         <td class="text-center"> {{ $item->date_result }} </td>
                                                         <td class="text-center text-capitalize"> {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }} </td>
-                                                        <td class="text-center"> {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }} </td>
+                                                        @if (Auth::user()->contrie == '81')
+                                                            <td class="text-center"> {{ $item->get_patient->is_minor === 'true' ? preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item->get_patient->get_reprensetative->re_ci) . '  (Rep)' : preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item->get_patient->ci) }} </td>
+                                                        @else
+                                                            <td class="text-center"> {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }} </td>
+                                                        @endif
                                                         <td class="text-center"> {{ $item->description }} </td>
                                                         <td class="text-center">
                                                             <div class="d-flex" style="justify-content: center;">
@@ -808,9 +813,11 @@
                                                             <td class="text-center"> {{ $item->date }} </td>
                                                             <td class="text-center"> {{ $item->cod_ref }} </td>
                                                             <td class="text-center">  {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }} </td>
-                                                            <td class="text-center">
-                                                                    {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }}
-                                                            </td>
+                                                            @if (Auth::user()->contrie == '81')
+                                                                <td class="text-center"> {{ $item->get_patient->is_minor === 'true' ? preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item->get_patient->get_reprensetative->re_ci) . '  (Rep)' : preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item->get_patient->ci) }} </td>
+                                                            @else
+                                                                <td class="text-center"> {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }} </td>
+                                                            @endif
                                                             <td class="text-center">
                                                                 <div class="d-flex" style="justify-content: center;">
                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">

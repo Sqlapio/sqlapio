@@ -581,49 +581,44 @@
                                                     <thead>
                                                         <tr>
                                                             {{-- <th class="text-center" scope="col">Fecha</th> --}}
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.hora')
-                                                            </th>
-                                                            <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')
-                                                            </th>
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')
-                                                            </th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.hora') </th>
+                                                            <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido') </th>
+                                                            @if (Auth::user()->contrie == '81')
+                                                                <th class="text-center w-10" scope="col">@lang('messages.form.CIE')</th>
+                                                            @else
+                                                                <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                            @endif
                                                             {{-- <th class="text-center" scope="col">Género</th> --}}
                                                             {{-- <th class="text-center" scope="col">Teléfono</th> --}}
                                                             {{-- <th class="text-center" scope="col">Email</th> --}}
                                                             <th class="text-center" scope="col">@lang('messages.tabla.centro_salud')</th>
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.estatus')
-                                                            </th>
-                                                            <th class="text-center w-10" scope="col"
-                                                                data-orderable="false">@lang('messages.tabla.acciones')</th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.estatus')</th>
+                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($appointments as $item)
                                                             <tr>
                                                                 {{-- <td class="text-center td-pad"> {{ date('d-m-Y', strtotime($item['extendedProps']['data_app'])) }}  </td> --}}
-                                                                <td class="text-center td-pad">
-                                                                    {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }}
-                                                                </td>
-                                                                <td class="text-center td-pad text-capitalize">
-                                                                    {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }}
-                                                                </td>
-                                                                <td class="text-center td-pad">
-                                                                    {{ $item['extendedProps']['ci'] }}</td>
+                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }} </td>
+                                                                <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }} </td>
+                                                                @if (Auth::user()->contrie == '81')
+                                                                    <td class="text-center td-pad"> {{  preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item['extendedProps']['ci'])  }}</td>
+                                                                @else
+                                                                    <td class="text-center td-pad"> {{ $item['extendedProps']['ci'] }}</td>
+                                                                @endif
                                                                 {{-- <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['genere'] }}</td>
                                                                 <td class="text-center td-pad"> {{ $item['extendedProps']['phone'] }}</td>
                                                                 <td class="text-center td-pad"> {{ $item['extendedProps']['email'] }}</td> --}}
-                                                                <td class="text-center td-pad">
-                                                                    {{ $item['extendedProps']['center'] }}</td>
-                                                                <td class="text-center td-pad"> <span
-                                                                        class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">{{ $item['extendedProps']['status'] }}</span>
-                                                                </td>
+                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['center'] }}</td>
+                                                                <td class="text-center td-pad"> <span class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">{{ $item['extendedProps']['status'] }}</span> </td>
                                                                 <td>
                                                                     <div class="d-flex" style="justify-content: center;">
-                                                                        <div
-                                                                            class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                                                                             <a href="{{ $item['extendedProps']['age'] == '' ? '#' : route('MedicalRecord', $item['extendedProps']['patient_id']) }}"
                                                                                 @php
-$id_patient =  $item["extendedProps"]["patient_id"]; @endphp
+                                                                                    $id_patient =  $item["extendedProps"]["patient_id"];
+                                                                                @endphp
                                                                                 onclick='{{ $item['extendedProps']['age'] == '' ? "alertInfoPaciente($id_patient )" : '' }}'>
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
@@ -669,6 +664,7 @@ $id_patient =  $item["extendedProps"]["patient_id"]; @endphp
                             </div>
                         </div>
                     </div>
+                    {{-- estadisticas Medico --}}
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2">
                             <div class="accordion-item">
@@ -1034,7 +1030,8 @@ $id_patient =  $item["extendedProps"]["patient_id"]; @endphp
                                                 <th class="text-center" scope="col">@lang('messages.modal.tabla.codigo')</th>
                                                 <th class="text-center" scope="col">@lang('messages.modal.tabla.descripcion')</th>
                                                 <th class="text-center" scope="col" data-orderable="false">
-                                                    @lang('messages.modal.tabla.carga_resultado')</th>
+                                                    @lang('messages.modal.tabla.carga_resultado')
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>

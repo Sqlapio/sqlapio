@@ -417,8 +417,8 @@ function setValue(data, info) {
     $("#name").text(info.event.extendedProps.name + " " + info.event.extendedProps.last_name);
     $("#email").text(info.event.extendedProps.email);
     $("#phone").text(info.event.extendedProps.phone);
-    if (user.contrie == '81') {
-        $("#ci").text(info.event.extendedProps.ci).mask('000-0000000-0');
+    if (info.event.extendedProps.ci && user.contrie == '81') {
+        $("#ci").text(info.event.extendedProps.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3'));
     } else {
         $("#ci").text(info.event.extendedProps.ci);
     }
@@ -430,7 +430,6 @@ function setValue(data, info) {
     $("#price").val(info.event.extendedProps.price);
     $("#div-pat").show();
     $("#img-pat").attr("src", `${img_url}`);
-
 
     $("#registrer-pac").attr("disabled", false).hide();
 
@@ -455,9 +454,9 @@ function setValue(data, info) {
 }
 
 function searchPatients(res) {
-    if (res.is_minor) {
+    if (res.is_minor === 'false') {
         if (user.contrie == '81') {
-            $("#ci").text(res.ci).mask('000-0000000-0');
+            $("#ci").text(res.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3'));
         } else {
             $("#ci").text(res.ci);
         }
@@ -468,10 +467,10 @@ function searchPatients(res) {
         $("#age").text(res.age);
         $("#patient_id").val(res.id);
     } else {
-        $("#name").text(res.re_name + " " + res.re_last_name);
-        $("#email").text(res.re_email);
-        $("#phone").text(res.re_phone);
-        $("#ci").text(res.re_ci);
+        $("#name").text(res.name + " " + res.last_name);
+        $("#email").text('***');
+        $("#phone").text('***');
+        $("#ci").text('***') ;
         $("#genere").text(res.genere);
         $("#age").text(res.age);
         $("#patient_id").val(res.id);

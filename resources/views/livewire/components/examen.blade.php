@@ -438,8 +438,13 @@
 
                 elem.img = `<img class="avatar" src="${imagen}" alt="Imagen del paciente">`;
 
-                elem.ci = (elem.get_patients.is_minor == "true") ? `${elem.get_reprensetative.re_ci} (Rep)` : elem
-                    .get_patients.ci;
+                if (user.contrie == '81') {
+                    elem.ci = (elem.get_patients.is_minor == "true") ? elem.get_reprensetative.re_ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3') + ' ' + '(Rep)' :  elem.get_patients.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
+                } else {
+                    elem.ci = (elem.get_patients.is_minor == "true") ? `${elem.get_reprensetative.re_ci} (Rep)` : elem.get_patients.ci;
+                }
+
+
 
                 elem.description = `${elem.description}`
 
@@ -494,7 +499,7 @@
                     },
                     {
                         data: 'ci',
-                        title: '@lang('messages.tabla.cedula')',
+                        title: user.contrie === '81' ? 'CIE' : '@lang('messages.tabla.cedula')',
                         className: "text-center text-capitalize",
                     },
                     {
@@ -546,8 +551,11 @@
 
                     e.img = `<img class="avatar" src="${imagen}" alt="Imagen del paciente">`;
 
-                    e.ci = (e.get_patient.is_minor == "true") ? `${e.get_reprensetative.re_ci} (Rep)` : e
-                        .get_patient.ci;
+                    if (user.contrie == '81') {
+                        e.ci = (e.get_patient.is_minor == "true") ? e.get_reprensetative.re_ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3') + ' ' + '(Rep)' :  e.get_patient.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
+                    } else {
+                        e.ci = (e.get_patient.is_minor == "true") ? `${e.get_reprensetative.re_ci} (Rep)` : e.get_patient.ci;
+                    }
 
                     e.date = `${e.date}`
 
@@ -581,7 +589,6 @@
                 },
                 data: dataRef,
                 columns: [{
-
                         data: 'img',
                         title: '@lang('messages.tabla.foto')',
                         className: "text-center text-capitalize w-image",
@@ -592,7 +599,6 @@
                         className: "text-center w-10",
                     },
                     {
-
                         data: 'cod_ref',
                         title: '@lang('messages.tabla.referencia')',
                         className: "text-center",
@@ -717,7 +723,11 @@
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_resultado')</th>
                                                         <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                        @if (Auth::user()->contrie == '81')
+                                                            <th class="text-center w-10" scope="col">@lang('messages.form.CIE')</th>
+                                                        @else
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                        @endif
                                                         <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
                                                         <th class="text-center w-5"scope="col" data-orderable="false"> @lang('messages.tabla.resultado')</th>
                                                     </tr>
@@ -733,7 +743,11 @@
                                                             <td class="text-center"> {{ $item->date }} </td>
                                                             <td class="text-center"> {{ $item->date_result }} </td>
                                                             <td class="text-center text-capitalize"> {{ $item->get_patients->name . ' ' . $item->get_patients->last_name }} </td>
-                                                            <td class="text-center"> {{ $item->get_patients->is_minor === 'true' ? $item->get_patients->get_reprensetative->re_ci . '  (Rep)' : $item->get_patients->ci }} </td>
+                                                            @if (Auth::user()->contrie == '81')
+                                                                <td class="text-center"> {{ $item->get_patients->is_minor === 'true' ? preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item->get_patients->get_reprensetative->re_ci) . '  (Rep)' : preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item->get_patients->ci) }} </td>
+                                                            @else
+                                                                <td class="text-center"> {{ $item->get_patients->is_minor === 'true' ? $item->get_patients->get_reprensetative->re_ci . '  (Rep)' : $item->get_patients->ci }} </td>
+                                                            @endif
                                                             <td class="text-center"> {{ $item->description }} </td>
                                                             <td class="text-center">
                                                                 <div class="d-flex" style="justify-content: center;">
@@ -775,7 +789,11 @@
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.referencia')</th>
                                                         <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                        @if (Auth::user()->contrie == '81')
+                                                            <th class="text-center w-10" scope="col">@lang('messages.form.CIE')</th>
+                                                        @else
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                        @endif
                                                         <th class="text-center w-10" scope="col" data-orderable="false"> @lang('messages.tabla.cargar_res')</th>
                                                     </tr>
                                                 </thead>
@@ -791,7 +809,11 @@
                                                                 <td class="text-center"> {{ $item->date }} </td>
                                                                 <td class="text-center"> {{ $item->cod_ref }} </td>
                                                                 <td class="text-center text-capitalize"> {{ $item->get_patient->name . ' ' . $item->get_patient->last_name }} </td>
-                                                                <td class="text-center"> {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }} </td>
+                                                                @if (Auth::user()->contrie == '81')
+                                                                    <td class="text-center"> {{ $item->get_patient->is_minor === 'true' ? preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item->get_patient->get_reprensetative->re_ci) . '  (Rep)' : preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item->get_patient->ci) }} </td>
+                                                                @else
+                                                                    <td class="text-center"> {{ $item->get_patient->is_minor === 'true' ? $item->get_patient->get_reprensetative->re_ci . '  (Rep)' : $item->get_patient->ci }} </td>
+                                                                @endif
                                                                 <td>
                                                                     <div class="d-flex" style="justify-content: center;">
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
