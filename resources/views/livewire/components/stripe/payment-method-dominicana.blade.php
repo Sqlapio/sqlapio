@@ -34,6 +34,9 @@
     </script>
 
     <div class="container-fluid" style="padding: 0 3% 3%">
+        <div id="spinner" style="display: none">
+            <x-load-spinner />
+        </div>
         <div class="row mt-2">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                 <div id="div-content">
@@ -44,24 +47,24 @@
                             @if (Auth::user()->type_plane == 2)
                                 {{-- profesional --}}
                                 <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4 col-xxl-4 mt-2" id="div-plan-2">
-                                    {{-- mensual - 19,99$ --}}
+                                    {{-- mensual - 39,99$ --}}
                                     <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
                                         <div class="ag-courses_item_small" >
                                             <a href="#" class="ag-courses-item_link">
                                                 <div class="ag-courses-item_bg3"></div>
                                                 <div class="ag-courses-item_title">
                                                     <h4>
-                                                        <span class="symbol">$</span> 19,<span class="cent">99</span>
+                                                        <span class="symbol">$</span> 39,<span class="cent">99</span>
                                                     </h4>
                                                     <span class="time">USD / @lang('messages.label.mes')</span>
-                                                    @if (auth()->user()->subscribedToPrice('price_1OfpJfLoqeBM9DtelZzLtCIe', 'Plan Profesional'))
-                                                        @if (auth()->user()->subscription('Plan Profesional')->onGracePeriod())
-                                                            <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" wire:target="$emit('resume_Subcription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px">
+                                                    @if (auth()->user()->subscribedToPrice('price_1P1tB9LoqeBM9DteoS1Jugk5', 'Plan Profesional Dominicana'))
+                                                        @if (auth()->user()->subscription('Plan Profesional Dominicana')->onGracePeriod())
+                                                            <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1P1tB9LoqeBM9DteoS1Jugk5')" wire:target="$emit('resume_Subcription', 'price_1P1tB9LoqeBM9DteoS1Jugk5')" style="min-width: 70px; margin-top: 10px">
                                                                 @lang('messages.botton.reanudar_plan')
                                                             </button>
                                                         @endif
                                                     @else
-                                                        <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                        <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1P1tB9LoqeBM9DteoS1Jugk5')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                                     @endif
                                                 </div>
                                             </a>
@@ -82,7 +85,7 @@
                                             </p>
                                         </div>
                                     </div>
-                                    {{-- anual - 199.99$ --}}
+                                    {{-- anual - 399.99$ --}}
                                     <div class="ag-courses_item" style="margin-top: -100px;">
                                         <a href="#" class="ag-courses-item_link">
                                             <div class="ag-courses-item_bg3"></div>
@@ -91,17 +94,17 @@
                                                     @lang('messages.label.oferta_planes')
                                                 </span>
                                                 <h4>
-                                                    <span class="symbol">$</span> 199,<span class="cent">99</span>
+                                                    <span class="symbol">$</span> 399,<span class="cent">99</span>
                                                     <span class="time" style="font-weight: 500">USD / @lang('messages.label.año')</span>
                                                 </h4>
-                                                @if (auth()->user()->subscribedToPrice('price_1P0pNDLoqeBM9DteysOKp6Tl', 'Plan Profesional'))
-                                                    @if (auth()->user()->subscription('Plan Profesional')->onGracePeriod())
-                                                        <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" wire:target="$emit('resume_Subcription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px">
+                                                @if (auth()->user()->subscribedToPrice('price_1P1tBWLoqeBM9DteeCt1Znzv', 'Plan Profesional Dominicana'))
+                                                    @if (auth()->user()->subscription('Plan Profesional Dominicana')->onGracePeriod())
+                                                        <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1P1tBWLoqeBM9DteeCt1Znzv')" wire:target="$emit('resume_Subcription', 'price_1P1tBWLoqeBM9DteeCt1Znzv')" style="min-width: 70px; margin-top: 10px">
                                                             @lang('messages.botton.reanudar_plan')
                                                         </button>
                                                     @endif
                                                 @else
-                                                    <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
+                                                    <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1P1tBWLoqeBM9DteeCt1Znzv')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
                                                 @endif
                                             </div>
                                         </a>
@@ -110,24 +113,24 @@
                             @else
                                 {{-- ilimitado --}}
                                 <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4 col-xxl-4 mt-2" id="div-plan-3">
-                                    {{-- mensual - 39,99$ --}}
+                                    {{-- mensual - 49,99$ --}}
                                     <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
                                         <div class="ag-courses_item_small" >
                                             <a href="#" class="ag-courses-item_link">
                                                 <div class="ag-courses-item_bg3"></div>
                                                 <div class="ag-courses-item_title">
                                                     <h4>
-                                                        <span class="symbol">$</span> 39,<span class="cent">99</span>
+                                                        <span class="symbol">$</span> 49,<span class="cent">99</span>
                                                     </h4>
                                                     <span class="time">USD / @lang('messages.label.mes')</span>
-                                                    @if (auth()->user()->subscribedToPrice('price_1OfpQ4LoqeBM9DteIhOpQOh8', 'Plan Ilimitado'))
-                                                        @if (auth()->user()->subscription('Plan Ilimitado')->onGracePeriod())
-                                                            <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:target="$emit('resume_Subcription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px">
+                                                    @if (auth()->user()->subscribedToPrice('price_1P1t9GLoqeBM9DteLj26w7am', 'Plan Ilimitado Dominicana'))
+                                                        @if (auth()->user()->subscription('Plan Ilimitado Dominicana')->onGracePeriod())
+                                                            <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1P1t9GLoqeBM9DteLj26w7am')" wire:target="$emit('resume_Subcription', 'price_1P1t9GLoqeBM9DteLj26w7am')" style="min-width: 70px; margin-top: 10px">
                                                                 @lang('messages.botton.reanudar_plan')
                                                             </button>
                                                         @endif
                                                     @else
-                                                        <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                        <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1P1t9GLoqeBM9DteLj26w7am')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                                     @endif
                                                 </div>
                                             </a>
@@ -157,17 +160,17 @@
                                                     @lang('messages.label.oferta_planes')
                                                 </span>
                                                 <h4>
-                                                    <span class="symbol">$</span> 399,<span class="cent">99</span>
+                                                    <span class="symbol">$</span> 499,<span class="cent">99</span>
                                                     <span class="time" style="font-weight: 500">USD / @lang('messages.label.año')</span>
                                                 </h4>
-                                                @if (auth()->user()->subscribedToPrice('price_1OyaVZLoqeBM9DtemHG0ksbc', 'Plan Ilimitado'))
-                                                        @if (auth()->user()->subscription('Plan Ilimitado')->onGracePeriod())
-                                                            <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" wire:target="$emit('resume_Subcription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px">
+                                                @if (auth()->user()->subscribedToPrice('price_1P1tARLoqeBM9DteX67CjA7U', 'Plan Ilimitado Dominicana'))
+                                                        @if (auth()->user()->subscription('Plan Ilimitado Dominicana')->onGracePeriod())
+                                                            <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1P1tARLoqeBM9DteX67CjA7U')" wire:target="$emit('resume_Subcription', 'price_1P1tARLoqeBM9DteX67CjA7U')" style="min-width: 70px; margin-top: 10px">
                                                                 @lang('messages.botton.reanudar_plan')
                                                             </button>
                                                         @endif
                                                     @else
-                                                        <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
+                                                        <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1P1tARLoqeBM9DteX67CjA7U')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
                                                     @endif
                                             </div>
                                         </a>
@@ -180,24 +183,24 @@
 
                             {{-- profesional --}}
                             <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4 col-xxl-4 mt-2" id="div-plan-2">
-                                {{-- mensual - 19,99$ --}}
+                                {{-- mensual - 39,99$ --}}
                                 <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
                                     <div class="ag-courses_item_small" >
                                         <a href="#" class="ag-courses-item_link">
                                             <div class="ag-courses-item_bg3"></div>
                                             <div class="ag-courses-item_title">
                                                 <h4>
-                                                    <span class="symbol">$</span> 19,<span class="cent">99</span>
+                                                    <span class="symbol">$</span> 39,<span class="cent">99</span>
                                                 </h4>
                                                 <span class="time">USD / @lang('messages.label.mes')</span>
-                                                @if (auth()->user()->subscribedToPrice('price_1OfpJfLoqeBM9DtelZzLtCIe', 'Plan Profesional'))
-                                                    @if (auth()->user()->subscription('Plan Profesional')->onGracePeriod())
-                                                        <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" wire:target="$emit('resume_Subcription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px">
+                                                @if (auth()->user()->subscribedToPrice('price_1P1tB9LoqeBM9DteoS1Jugk5', 'Plan Profesional Dominicana'))
+                                                    @if (auth()->user()->subscription('Plan Profesional Dominicana')->onGracePeriod())
+                                                        <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1P1tB9LoqeBM9DteoS1Jugk5')" wire:target="$emit('resume_Subcription', 'price_1P1tB9LoqeBM9DteoS1Jugk5')" style="min-width: 70px; margin-top: 10px">
                                                             @lang('messages.botton.reanudar_plan')
                                                         </button>
                                                     @endif
                                                 @else
-                                                    <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                    <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1P1tB9LoqeBM9DteoS1Jugk5')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                                 @endif
                                             </div>
                                         </a>
@@ -218,7 +221,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                {{-- anual - 199.99$ --}}
+                                {{-- anual - 399.99$ --}}
                                 <div class="ag-courses_item" style="margin-top: -100px;">
                                     <a href="#" class="ag-courses-item_link">
                                         <div class="ag-courses-item_bg3"></div>
@@ -227,17 +230,17 @@
                                                 @lang('messages.label.oferta_planes')
                                             </span>
                                             <h4>
-                                                <span class="symbol">$</span> 199,<span class="cent">99</span>
+                                                <span class="symbol">$</span> 399,<span class="cent">99</span>
                                                 <span class="time" style="font-weight: 500">USD / @lang('messages.label.año')</span>
                                             </h4>
-                                            @if (auth()->user()->subscribedToPrice('price_1P0pNDLoqeBM9DteysOKp6Tl', 'Plan Profesional'))
-                                                @if (auth()->user()->subscription('Plan Profesional')->onGracePeriod())
-                                                    <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" wire:target="$emit('resume_Subcription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px">
+                                            @if (auth()->user()->subscribedToPrice('price_1P1tBWLoqeBM9DteeCt1Znzv', 'Plan Profesional Dominicana'))
+                                                @if (auth()->user()->subscription('Plan Profesional Dominicana')->onGracePeriod())
+                                                    <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1P1tBWLoqeBM9DteeCt1Znzv')" wire:target="$emit('resume_Subcription', 'price_1P1tBWLoqeBM9DteeCt1Znzv')" style="min-width: 70px; margin-top: 10px">
                                                         @lang('messages.botton.reanudar_plan')
                                                     </button>
                                                 @endif
                                             @else
-                                                <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
+                                                <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1P1tBWLoqeBM9DteeCt1Znzv')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
                                             @endif
                                         </div>
                                     </a>
@@ -246,24 +249,24 @@
 
                             {{-- ilimitado --}}
                             <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4 col-xxl-4 mt-2" id="div-plan-3">
-                                {{-- mensual - 39,99$ --}}
+                                {{-- mensual - 49,99$ --}}
                                 <div style="height: 150px; display: flex; justify-content: flex-end; margin-top: 20px">
                                     <div class="ag-courses_item_small" >
                                         <a href="#" class="ag-courses-item_link">
                                             <div class="ag-courses-item_bg3"></div>
                                             <div class="ag-courses-item_title">
                                                 <h4>
-                                                    <span class="symbol">$</span> 39,<span class="cent">99</span>
+                                                    <span class="symbol">$</span> 49,<span class="cent">99</span>
                                                 </h4>
                                                 <span class="time">USD / @lang('messages.label.mes')</span>
-                                                @if (auth()->user()->subscribedToPrice('price_1OfpQ4LoqeBM9DteIhOpQOh8', 'Plan Ilimitado'))
-                                                    @if (auth()->user()->subscription('Plan Ilimitado')->onGracePeriod())
-                                                        <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" wire:target="$emit('resume_Subcription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px">
+                                                @if (auth()->user()->subscribedToPrice('price_1P1t9GLoqeBM9DteLj26w7am', 'Plan Ilimitado Dominicana'))
+                                                    @if (auth()->user()->subscription('Plan Ilimitado Dominicana')->onGracePeriod())
+                                                        <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1P1t9GLoqeBM9DteLj26w7am')" wire:target="$emit('resume_Subcription', 'price_1P1t9GLoqeBM9DteLj26w7am')" style="min-width: 70px; margin-top: 10px">
                                                             @lang('messages.botton.reanudar_plan')
                                                         </button>
                                                     @endif
                                                 @else
-                                                    <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                    <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1P1t9GLoqeBM9DteLj26w7am')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                                 @endif
                                             </div>
                                         </a>
@@ -284,7 +287,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                {{-- anual - 399.99$ --}}
+                                {{-- anual - 499.99$ --}}
                                 <div class="ag-courses_item" style="margin-top: -100px;">
                                     <a href="#" class="ag-courses-item_link">
                                         <div class="ag-courses-item_bg3"></div>
@@ -293,17 +296,17 @@
                                                 @lang('messages.label.oferta_planes')
                                             </span>
                                             <h4>
-                                                <span class="symbol">$</span> 399,<span class="cent">99</span>
+                                                <span class="symbol">$</span> 499,<span class="cent">99</span>
                                                 <span class="time" style="font-weight: 500">USD / @lang('messages.label.año')</span>
                                             </h4>
-                                            @if (auth()->user()->subscribedToPrice('price_1OyaVZLoqeBM9DtemHG0ksbc', 'Plan Ilimitado'))
-                                                    @if (auth()->user()->subscription('Plan Ilimitado')->onGracePeriod())
-                                                        <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" wire:target="$emit('resume_Subcription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px">
+                                            @if (auth()->user()->subscribedToPrice('price_1P1tARLoqeBM9DteX67CjA7U', 'Plan Ilimitado Dominicana'))
+                                                    @if (auth()->user()->subscription('Plan Ilimitado Dominicana')->onGracePeriod())
+                                                        <button class="btn btnSave" wire:click="$emit('resume_Subcription', 'price_1P1tARLoqeBM9DteX67CjA7U')" wire:target="$emit('resume_Subcription', 'price_1P1tARLoqeBM9DteX67CjA7U')" style="min-width: 70px; margin-top: 10px">
                                                             @lang('messages.botton.reanudar_plan')
                                                         </button>
                                                     @endif
                                                 @else
-                                                    <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
+                                                    <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1P1tARLoqeBM9DteX67CjA7U')" style="min-width: 70px; margin-top: 10px">@lang('messages.botton.suscribirse')</button>
                                                 @endif
                                         </div>
                                     </a>
@@ -587,9 +590,17 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Livewire.emit('deletePaymentMethod', paymentMethodId)
-                    Swal.fire({
-                        title: '@lang('messages.alert.tarjeta_eliminada')',
-                        icon: "success"
+
+                    $('#spinner').show();
+
+                    Livewire.on('success', function (message) {
+                        Swal.fire({
+                            title: message,
+                            icon: "success",
+                            timer: 2000,
+                            timerProgressBar: true,
+                            showConfirmButton: false
+                        })
                     });
                 }
             });
@@ -606,9 +617,17 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Livewire.emit('defaultPaymentMethod', paymentMethodId)
-                    Swal.fire({
-                        title: '@lang('messages.alert.tarjeta_predeterminada')',
-                        icon: "success"
+
+                    $('#spinner').show();
+
+                    Livewire.on('success', function (message) {
+                        Swal.fire({
+                            title: message,
+                            icon: "success",
+                            timer: 2000,
+                            timerProgressBar: true,
+                            showConfirmButton: false
+                        })
                     });
                 }
             });
@@ -625,12 +644,17 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Livewire.emit('newSubscription', priceId)
-                    Swal.fire({
-                        title: '@lang('messages.alert.plan_subscrito')',
-                        icon: "success",
-                        timer: 2000,
-                        timerProgressBar: true,
-                        showConfirmButton: false
+
+                    $('#spinner').show();
+
+                    Livewire.on('success', function (message) {
+                        Swal.fire({
+                            title: message,
+                            icon: "success",
+                            timer: 2000,
+                            timerProgressBar: true,
+                            showConfirmButton: false
+                        })
                     });
                 }
             });
@@ -647,12 +671,17 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Livewire.emit('resumeSubcription', priceId)
-                    Swal.fire({
-                        title: '@lang('messages.alert.plan_reanudado')',
-                        icon: "success",
-                        timer: 2000,
-                        timerProgressBar: true,
-                        showConfirmButton: false
+
+                    $('#spinner').show();
+
+                    Livewire.on('success', function (message) {
+                        Swal.fire({
+                            title: message,
+                            icon: "success",
+                            timer: 2000,
+                            timerProgressBar: true,
+                            showConfirmButton: false
+                        })
                     });
                 }
             });

@@ -189,11 +189,11 @@
                                     //mostar datos el paciente
 
                                     $('#div-content').find('#info-pat').empty();
-                                    let ulr_img = "{{ URL::asset('/imgs/') }}";
-                                    let img = ''
-                                    console.log(response)
-                                    if (response.patient_img != null) {
-                                        img = `${ulr_img}/${response.patient_img}`;
+                                        let ulr_img = "{{ URL::asset('/imgs/') }}";
+                                        let img = ''
+
+                                    if (response.patient.patient_img != null) {
+                                        img = `${ulr_img}/${response.patient.patient_img}`;
                                     } else {
 
                                         img = (response.patient.genere == 'femenino') ?
@@ -839,7 +839,7 @@
                                             <label for="ci"
                                                 class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Ingrese
                                                 documento de identidad</label>
-                                            <input type="text" class="form-control mask-only-number {{ Auth::user()->contrie == '81' ? 'mask-id-dom' : '' ;}}"
+                                            <input type="text" class="form-control mask-only-number "
                                                 id="ci" name="ci" placeholder="" value="">
                                         </div>
                                     </div>

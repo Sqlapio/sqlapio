@@ -293,14 +293,12 @@
             }
 
             if (img != null) {
-                console.log(img, '888')
                 $(".holder").show();
                 let ulrImge = `{{ URL::asset('/imgs/${img}') }}`;
                 $(".holder").find('img').attr('src', ulrImge);
                 $("#img").val(img);
             } else {
                 let img2 = '{{ URL::asset('/img/V2/combinado.png') }}';
-                console.log(img2, '5555')
                 $(".holder").find('img').attr('src', img2);
                 $("#img").val(img2);
             }
@@ -716,17 +714,13 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2"
-                                                        id='div-otros' style="display: none">
+                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2" id='div-otros' style="display: none">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="specialty" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                <label for="specialty" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                     @lang('messages.label.nueva_especialidad')
                                                                 </label>
-                                                                <input autocomplete="off" class="form-control mask-text"
-                                                                    id="specialty_new" name="specialty_new"
-                                                                    type="text" value="">
+                                                                <input autocomplete="off" class="form-control mask-text" id="specialty_new" name="specialty_new" type="text" value="">
                                                                 <i data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                                     data-bs-custom-class="custom-tooltip" data-html="true"
                                                                     title="Refrescar"

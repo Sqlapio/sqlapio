@@ -2,12 +2,14 @@
     use App\Models\Contries;
     use App\Models\State;
     use App\Models\Cities;
+
     $active = false;
     if (Request::path() == 'auth/setting/profile') {
         $active = true;
 
         $contrie = Contries::where('enable', true)->get();
     } else {
+
         $contrie = Contries::where('id', Auth::user()->contrie)->first();
     }
 
