@@ -707,25 +707,25 @@
                                                 </ul>
                                                 <div class="d-flex justify-content-center">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3" style="display: flex; justify-content: center;">
-                                                        {{-- mensual - 39,99 --}}
-                                                        @if (auth()->user()->subscribedToPrice('price_1P1tB9LoqeBM9DteoS1Jugk5', 'Plan Profesional Dominicana'))
-                                                            @if (auth()->user()->subscribedToPrice('price_1P1tB9LoqeBM9DteoS1Jugk5', 'Plan Profesional Dominicana'))
-                                                                <button class="btn btnSave" wire:click="$emit('cancel_Subscription', 'price_1P1tB9LoqeBM9DteoS1Jugk5')" style="min-width: 70px; margin-top: 10px">
+                                                        {{-- mensual - 19,99 --}}
+                                                        @if (auth()->user()->subscribedToPrice('price_1OfpJfLoqeBM9DtelZzLtCIe', 'Plan Profesional'))
+                                                            @if (auth()->user()->subscribedToPrice('price_1OfpJfLoqeBM9DtelZzLtCIe', 'Plan Profesional'))
+                                                                <button class="btn btnSave" wire:click="$emit('cancel_Subscription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px">
                                                                     @lang('messages.botton.cancelar_plan')
                                                                 </button>
-                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1P1tBWLoqeBM9DteeCt1Znzv')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_anual')</button>
+                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_anual')</button>
                                                             @else
-                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1P1tB9LoqeBM9DteoS1Jugk5')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                                             @endif
                                                         @endif
-                                                        {{-- anual - 399,99 --}}
-                                                        @if (auth()->user()->subscribedToPrice('price_1P1tBWLoqeBM9DteeCt1Znzv', 'Plan Profesional Dominicana'))
-                                                            @if (auth()->user()->subscribedToPrice('price_1P1tBWLoqeBM9DteeCt1Znzv', 'Plan Profesional Dominicana'))
-                                                                <button class="btn btnSave" wire:click="$emit('cancel_Subscription', 'price_1P1tBWLoqeBM9DteeCt1Znzv')" style="min-width: 70px; margin-top: 10px">
+                                                        {{-- anual - 199,99 --}}
+                                                        @if (auth()->user()->subscribedToPrice('price_1P0pNDLoqeBM9DteysOKp6Tl', 'Plan Profesional'))
+                                                            @if (auth()->user()->subscribedToPrice('price_1P0pNDLoqeBM9DteysOKp6Tl', 'Plan Profesional'))
+                                                                <button class="btn btnSave" wire:click="$emit('cancel_Subscription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px">
                                                                     @lang('messages.botton.cancelar_plan')
                                                                 </button>
                                                             @else
-                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1P1tBWLoqeBM9DteeCt1Znzv')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                                             @endif
                                                         @endif
                                                     </div>
@@ -746,31 +746,31 @@
                                                 </ul>
                                                 <div class="d-flex justify-content-center">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3" style="display: flex; justify-content: center;">
-                                                        @if (auth()->user()->subscribedToPrice('price_1P1tB9LoqeBM9DteoS1Jugk5', 'Plan Profesional Dominicana') || auth()->user()->subscribedToPrice('price_1P1tBWLoqeBM9DteeCt1Znzv', 'Plan Profesional Dominicana'))
+                                                        @if (auth()->user()->subscribedToPrice('price_1OfpJfLoqeBM9DtelZzLtCIe', 'Plan Profesional') || auth()->user()->subscribedToPrice('price_1P0pNDLoqeBM9DteysOKp6Tl', 'Plan Profesional'))
                                                             {{-- mensual ilimitado --}}
-                                                            <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1P1t9GLoqeBM9DteLj26w7am')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_mensual')</button>
+                                                            <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_mensual')</button>
                                                             {{-- anual ilimitado --}}
-                                                            <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1P1tARLoqeBM9DteX67CjA7U')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_anual')</button>
+                                                            <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_anual')</button>
                                                         @endif
-                                                        {{-- mensual - 49,99$ --}}
-                                                        @if (auth()->user()->subscribedToPrice('price_1P1t9GLoqeBM9DteLj26w7am', 'Plan Ilimitado Dominicana'))
-                                                            @if (auth()->user()->subscribedToPrice('price_1P1t9GLoqeBM9DteLj26w7am', 'Plan Ilimitado Dominicana'))
-                                                                <button class="btn btnSave" wire:click=" $emit('cancel_Subscription', 'price_1P1t9GLoqeBM9DteLj26w7am')" style="min-width: 70px; margin-top: 10px">
+                                                        {{-- mensual - 39,99$ --}}
+                                                        @if (auth()->user()->subscribedToPrice('price_1OfpQ4LoqeBM9DteIhOpQOh8', 'Plan Ilimitado'))
+                                                            @if (auth()->user()->subscribedToPrice('price_1OfpQ4LoqeBM9DteIhOpQOh8', 'Plan Ilimitado'))
+                                                                <button class="btn btnSave" wire:click=" $emit('cancel_Subscription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px">
                                                                     @lang('messages.botton.cancelar_plan')
                                                                 </button>
-                                                                <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1P1tARLoqeBM9DteX67CjA7U')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_anual')</button>
+                                                                <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_anual')</button>
                                                             @else
-                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1P1t9GLoqeBM9DteLj26w7am')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                                             @endif
                                                         @endif
-                                                        {{-- anual - 499.99$ --}}
-                                                        @if (auth()->user()->subscribedToPrice('price_1P1tARLoqeBM9DteX67CjA7U', 'Plan Ilimitado Dominicana'))
-                                                            @if (auth()->user()->subscribedToPrice('price_1P1tARLoqeBM9DteX67CjA7U', 'Plan Ilimitado Dominicana'))
-                                                                <button class="btn btnSave" wire:click=" $emit('cancel_Subscription', 'price_1P1tARLoqeBM9DteX67CjA7U')" style="min-width: 70px; margin-top: 10px">
+                                                        {{-- anual - 399.99$ --}}
+                                                        @if (auth()->user()->subscribedToPrice('price_1OyaVZLoqeBM9DtemHG0ksbc', 'Plan Ilimitado'))
+                                                            @if (auth()->user()->subscribedToPrice('price_1OyaVZLoqeBM9DtemHG0ksbc', 'Plan Ilimitado'))
+                                                                <button class="btn btnSave" wire:click=" $emit('cancel_Subscription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px">
                                                                     @lang('messages.botton.cancelar_plan')
                                                                 </button>
                                                             @else
-                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1P1tARLoqeBM9DteX67CjA7U')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                                             @endif
                                                         @endif
                                                     </div>
