@@ -355,6 +355,10 @@
             }
         }
 
+        function opcion_plan(action, type_plan) {
+            $('#ModalOpcionsPlanes').modal('show');
+        }
+
         function handler_renew_plan(type_plan) {
             $('#planes-content-revew').show();
             $("#change_plan").val(true);
@@ -571,8 +575,8 @@
             </div>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-3 btn-plans" style="display: flex;">
-            <button type="button" onclick="renew_plan(1,{{ Auth::user()->type_plane }})" class="btn btnPrimary" id="renew-btn">@lang('messages.botton.renovar')</button>
-            <button type="button" onclick="renew_plan(2,{{ Auth::user()->type_plane }})" class="btn btnSecond" id="change-btn" style="margin-left: 20px">@lang('messages.botton.cambiar_plan')</button>
+            <button type="button" onclick="opcion_plan(1,{{ Auth::user()->type_plane }})" class="btn btnPrimary" id="renew-btn">@lang('messages.botton.renovar')</button>
+            <button type="button" onclick="renew_plan()" class="btn btnSecond" id="change-btn" style="margin-left: 20px">@lang('messages.botton.cambiar_plan')</button>
         </div>
         <hr style="margin-top: 5px">
         <h4>@lang('messages.label.metodos_de_pago')</h4>
@@ -661,6 +665,118 @@
         </div>
     </div>
 
+    <!-- Modal para opciones del plan-->
+    <div class="modal fade" id="ModalOpcionsPlanes" tabindex="-1" aria-labelledby="ModalRenewPlanesLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header title">
+                    <i class="bi bi-repeat"></i>
+                    <span style="padding-left: 5px">@lang('messages.modal.titulo.renovar_plan')</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row form-sq">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="div-form">
+                            <div id="div-content">
+                                <div class="container">
+                                    <div class="row" style="display: grid; justify-items: center;">
+                                        <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-03.png') }}" alt="">
+                                    </div>
+                                </div>
+                                {{-- formulario de pago --}}
+                                <div id="planes-content-revew">
+                                    <div class="row">
+                                        <input type="hidden" name="type_plan" id="type_plan">
+                                        <input type="hidden" name="change_plan" id="change_plan">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            {{-- profesional --}}
+                                            @if (Auth::user()->type_plane == 2)
+                                                <h5 class="fw-bold tile-planes-dos mb-3 text-center">Plan @lang('messages.label.profesional')</h5>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>@lang('messages.label.paciente')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 40 <b>@lang('messages.label.consulta')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 80 <b>@lang('messages.label.examenes')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check"  style="color: green;"></i> 80 <b>@lang('messages.label.estudios')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.estudios_video')</b> </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.consulta_ia')</b> </li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.publicidad')</b> </li>
+                                                </ul>
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3" style="display: flex; justify-content: center;">
+                                                        {{-- mensual - 19,99 --}}
+                                                        @if (auth()->user()->subscribedToPrice('price_1OfpJfLoqeBM9DtelZzLtCIe', 'Plan Profesional'))
+                                                            @if (auth()->user()->subscribedToPrice('price_1OfpJfLoqeBM9DtelZzLtCIe', 'Plan Profesional'))
+                                                                <button class="btn btnSave" wire:click="$emit('cancel_Subscription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px">
+                                                                    @lang('messages.botton.cancelar_plan')
+                                                                </button>
+                                                                <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_anual')</button>
+                                                            @else
+                                                                <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                            @endif
+                                                        @endif
+                                                        {{-- anual - 199,99 --}}
+                                                        @if (auth()->user()->subscribedToPrice('price_1P0pNDLoqeBM9DteysOKp6Tl', 'Plan Profesional'))
+                                                            @if (auth()->user()->subscribedToPrice('price_1P0pNDLoqeBM9DteysOKp6Tl', 'Plan Profesional'))
+                                                                <button class="btn btnSave" wire:click="$emit('cancel_Subscription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px">
+                                                                    @lang('messages.botton.cancelar_plan')
+                                                                </button>
+                                                            @else
+                                                                <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                            @endif
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            {{-- ilimitado --}}
+                                            @if (Auth::user()->type_plane == 3)
+                                                <h5 class="fw-bold tile-planes-dos mb-3 text-center">Plan @lang('messages.label.ilimitado')</h5>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.paciente')</b> @lang('messages.label.ilimitado')</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.consulta')</b>  @lang('messages.label.ilimitado')</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.examenes')</b>  @lang('messages.label.ilimitado')</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> <b>@lang('messages.label.estudios')</b> @lang('messages.label.ilimitado')</li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 0.10 por Gb <b>@lang('messages.label.estudios_video')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-check" style="color: green;"></i> 300 <b>@lang('messages.label.consulta_ia')</b></li>
+                                                    <li class="list-group-item text-capitalize"><i class="bi bi-x" style="color: red;"></i> <b style="text-decoration: line-through;">@lang('messages.label.publicidad')</b> </li>
+                                                </ul>
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3" style="display: flex; justify-content: center;">
+                                                        {{-- mensual - 39,99$ --}}
+                                                        @if (auth()->user()->subscribedToPrice('price_1OfpQ4LoqeBM9DteIhOpQOh8', 'Plan Ilimitado'))
+                                                            @if (auth()->user()->subscribedToPrice('price_1OfpQ4LoqeBM9DteIhOpQOh8', 'Plan Ilimitado'))
+                                                                <button class="btn btnSave" wire:click="$emit('cancel_Subscription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px">
+                                                                    @lang('messages.botton.cancelar_plan')
+                                                                </button>
+                                                                <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_anual')</button>
+                                                            @else
+                                                                <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                            @endif
+                                                        @endif
+                                                        {{-- anual - 399.99$ --}}
+                                                        @if (auth()->user()->subscribedToPrice('price_1OyaVZLoqeBM9DtemHG0ksbc', 'Plan Ilimitado'))
+                                                            @if (auth()->user()->subscribedToPrice('price_1OyaVZLoqeBM9DtemHG0ksbc', 'Plan Ilimitado'))
+                                                                <button class="btn btnSave" wire:click="$emit('cancel_Subscription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px">
+                                                                    @lang('messages.botton.cancelar_plan')
+                                                                </button>
+                                                            @else
+                                                                <button class="btn btnSave" wire:click="$emit('new_Subscription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
+                                                            @endif
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal para renovar el plan-->
     <div class="modal fade" id="ModalRenewPlanes" tabindex="-1" aria-labelledby="ModalRenewPlanesLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
@@ -710,10 +826,10 @@
                                                         {{-- mensual - 19,99 --}}
                                                         @if (auth()->user()->subscribedToPrice('price_1OfpJfLoqeBM9DtelZzLtCIe', 'Plan Profesional'))
                                                             @if (auth()->user()->subscribedToPrice('price_1OfpJfLoqeBM9DtelZzLtCIe', 'Plan Profesional'))
-                                                                <button class="btn btnSave" wire:click="$emit('cancel_Subscription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px">
+                                                                <button class="btn btnSave" id="cancel_Subscription" wire:click="$emit('cancel_Subscription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px">
                                                                     @lang('messages.botton.cancelar_plan')
                                                                 </button>
-                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_anual')</button>
+                                                                <button class="btn btnSave" id="new_Subscription" wire:click="$emit('new_Subscription', 'price_1P0pNDLoqeBM9DteysOKp6Tl')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_anual')</button>
                                                             @else
                                                                 <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1OfpJfLoqeBM9DtelZzLtCIe')" style="min-width: 70px; margin-top: 10px"> @lang('messages.botton.suscribirse') </button>
                                                             @endif
@@ -746,12 +862,14 @@
                                                 </ul>
                                                 <div class="d-flex justify-content-center">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3" style="display: flex; justify-content: center;">
-                                                        @if (auth()->user()->subscribedToPrice('price_1OfpJfLoqeBM9DtelZzLtCIe', 'Plan Profesional') || auth()->user()->subscribedToPrice('price_1P0pNDLoqeBM9DteysOKp6Tl', 'Plan Profesional'))
-                                                            {{-- mensual ilimitado --}}
-                                                            <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_mensual')</button>
-                                                            {{-- anual ilimitado --}}
-                                                            <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_anual')</button>
-                                                        @endif
+                                                        <div id="profesional" style="display: none">
+                                                            @if (auth()->user()->subscribedToPrice('price_1OfpJfLoqeBM9DtelZzLtCIe', 'Plan Profesional') || auth()->user()->subscribedToPrice('price_1P0pNDLoqeBM9DteysOKp6Tl', 'Plan Profesional'))
+                                                                {{-- mensual ilimitado --}}
+                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1OfpQ4LoqeBM9DteIhOpQOh8')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_mensual')</button>
+                                                                {{-- anual ilimitado --}}
+                                                                <button class="btn btnSave"  wire:click="$emit('new_Subscription', 'price_1OyaVZLoqeBM9DtemHG0ksbc')" style="min-width: 70px; margin-top: 10px; margin-left: 10px"> @lang('messages.botton.suscribirse_anual')</button>
+                                                            @endif
+                                                        </div>
                                                         {{-- mensual - 39,99$ --}}
                                                         @if (auth()->user()->subscribedToPrice('price_1OfpQ4LoqeBM9DteIhOpQOh8', 'Plan Ilimitado'))
                                                             @if (auth()->user()->subscribedToPrice('price_1OfpQ4LoqeBM9DteIhOpQOh8', 'Plan Ilimitado'))
@@ -779,6 +897,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

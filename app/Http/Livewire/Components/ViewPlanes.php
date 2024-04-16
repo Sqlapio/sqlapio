@@ -134,8 +134,6 @@ class ViewPlanes extends Component
 
     public function cancelSubscription($plan)
     {
-
-
         try {
 
             $plan_name = Plan::where('price_stripe', $plan)->first()->type_plane;
