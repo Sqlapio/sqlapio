@@ -33,6 +33,11 @@
         width: 10% !important;
     }
 
+    .pl-1 {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+
     form {
         margin-block-end: 0;
     }
@@ -393,9 +398,11 @@
                                         <x-centers_doctors class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" />
                                     @endif
 
-                                    <div class="row" id="div-new-center" style="display: none">
+                                    <div id="div-new-center" style="display: none">
 
-                                        <x-ubigeo_contries class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" />
+                                        <div style="display:flex">
+                                            <x-ubigeo_contries class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2 pl-1"/>
+                                        </div>
 
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
