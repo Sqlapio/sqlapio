@@ -887,9 +887,17 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Livewire.emit('deletePaymentMethod', paymentMethodId)
-                    Swal.fire({
-                        title: '@lang('messages.alert.tarjeta_eliminada')',
-                        icon: "success"
+
+                    $('#spinner').show();
+
+                    Livewire.on('success', function (message) {
+                        Swal.fire({
+                            title: message,
+                            icon: "success",
+                            timer: 2000,
+                            timerProgressBar: true,
+                            showConfirmButton: false
+                        })
                     });
                 }
             });
@@ -906,9 +914,17 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Livewire.emit('defaultPaymentMethod', paymentMethodId)
-                    Swal.fire({
-                        title: '@lang('messages.alert.tarjeta_predeterminada')',
-                        icon: "success"
+
+                    $('#spinner').show();
+
+                    Livewire.on('success', function (message) {
+                        Swal.fire({
+                            title: message,
+                            icon: "success",
+                            timer: 2000,
+                            timerProgressBar: true,
+                            showConfirmButton: false
+                        })
                     });
                 }
             });
@@ -925,12 +941,17 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Livewire.emit('newSubscription', priceId)
-                    Swal.fire({
-                        title: '@lang('messages.alert.plan_cambiado')',
-                        icon: "success",
-                        timer: 2000,
-                        timerProgressBar: true,
-                        showConfirmButton: false
+
+                    $('#spinner').show();
+
+                    Livewire.on('success', function (message) {
+                        Swal.fire({
+                            title: message,
+                            icon: "success",
+                            timer: 2000,
+                            timerProgressBar: true,
+                            showConfirmButton: false
+                        })
                     });
                 }
             });
@@ -946,13 +967,18 @@
                 confirmButtonText: '@lang('messages.botton.aceptar')'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.emit('cancelSubscription', priceId)
-                    Swal.fire({
-                        title: '@lang('messages.alert.plan_cancelado')',
-                        icon: "success",
-                        timer: 2000,
-                        timerProgressBar: true,
-                        showConfirmButton: false
+                    Livewire.emit('resumeSubcription', priceId)
+
+                    $('#spinner').show();
+
+                    Livewire.on('success', function (message) {
+                        Swal.fire({
+                            title: message,
+                            icon: "success",
+                            timer: 2000,
+                            timerProgressBar: true,
+                            showConfirmButton: false
+                        })
                     });
                 }
             });
