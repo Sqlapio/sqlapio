@@ -496,7 +496,7 @@
             if (item.patient_img === null) {
                 let ulrImge = `{{ URL::asset('/img/V2/combinado.png') }}`;
                 $(".holder").find('img').attr('src', ulrImge);
-                $("#img").val(ulrImge);
+                // $("#img").val(ulrImge);
             } else {
                 let ulrImge = `{{ URL::asset('/imgs/${item.patient_img}') }}`;
                 $(".holder").find('img').attr('src', ulrImge);
