@@ -300,7 +300,7 @@
             } else {
                 let img2 = '{{ URL::asset('/img/V2/combinado.png') }}';
                 $(".holder").find('img').attr('src', img2);
-                $("#img").val(img2);
+                // $("#img").val(img2);
             }
 
             //envio del formulario
