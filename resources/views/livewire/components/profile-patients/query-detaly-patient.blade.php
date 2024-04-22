@@ -836,27 +836,18 @@
                                     </div>
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                         <div class="form-group">
-                                            <label for="ci"
-                                                class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Ingrese
-                                                documento de identidad</label>
-                                            <input type="text" class="form-control mask-only-number "
-                                                id="ci" name="ci" placeholder="" value="">
+                                            <label for="ci" class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Ingrese documento de identidad</label>
+                                            <input type="text" class="form-control mask-only-number " id="ci" name="ci" placeholder="" value="">
                                         </div>
                                     </div>
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                         <div class="form-group">
-                                            <label for="phone" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha de
-                                                Nacimiento</label>
-                                            <input class="form-control date-bd" id="birthdate" name="birthdate"
-                                                style="padding: 0.375rem 5px 0.375rem 0.75rem;" type="date"
-                                                value="">
+                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha de Nacimiento</label>
+                                            <input class="form-control date-bd" id="birthdate" name="birthdate" style="padding: 0.375rem 5px 0.375rem 0.75rem;" type="date" value="">
                                         </div>
                                     </div>
-                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2"
-                                        style="display: flex; align-items: flex-end;">
-                                        <input class="btn btnSave send" id="btn-save" value="Consultar" type="submit"
-                                            style="margin-left: 10px; margin-bottom: 4px;" />
+                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" style="display: flex; align-items: flex-end;">
+                                        <input class="btn btnSave send" id="btn-save" value="Consultar" type="submit" style="margin-left: 10px; margin-bottom: 4px;" />
                                     </div>
                                 </div>
                             </form>
