@@ -1456,10 +1456,12 @@
             await navigator.clipboard.writeText(response_data);
             $("#icon-copy").css("background", "#04AA6D");
 
+            $('#copied').show();
             $("#copied").text('@lang('messages.alert.copiado')');
 
             setTimeout(function() {
                 $('#copied').hide();
+                $("#icon-copy").css("background", "#44525f");
             }, 2000);
 
         } catch (err) {
@@ -1838,9 +1840,9 @@
                                                 </div>
 
                                                 @if (Auth::user()->type_plane !== '7')
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                        <div class="form-group">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                        <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" />
+                                                        {{-- <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
                                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.centro_salud')</label>
@@ -1856,7 +1858,7 @@
                                                                 <i class="bi bi-hospital st-icon"></i>
                                                                 <span id="type_alergia_span" class="text-danger"></span>
                                                             </div>
-                                                        </div>
+                                                        </div> --}}
                                                     </div>
                                                 @endif
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
@@ -2158,9 +2160,9 @@
                                         <div id="input-array"></div>
                                         <div class="row mt-2" style="margin: 0px 16px;">
                                             @if (Auth::user()->type_plane !== '7')
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
-                                                    <div class="form-group">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" />
+                                                    {{-- <div class="form-group">
                                                         <div class="Icon-inside">
                                                             <label for="phone" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.centro_salud')</label>
@@ -2176,7 +2178,7 @@
                                                             <i class="bi bi-hospital st-icon"></i>
                                                             <span id="type_alergia_span" class="text-danger"></span>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             @endif
                                             <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style'
@@ -2731,7 +2733,7 @@
             </div>
         @endif
 
-        <!-- Modal -->
+        <!-- Modal COnsulta IA-->
         <div class="modal fade" id="modalIA" tabindex="-1" aria-labelledby="modalIALabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
@@ -2740,8 +2742,15 @@
                         <span style="padding-left: 5px">@lang('messages.modal.titulo.resultado_ia')</span>
                         <button type="button" id="icon-copy" class="btn btn-iSecond rounded-circle"
                             data-bs-toggle="tooltip" data-bs-placement="bottom" title="@lang('messages.tooltips.copiar_diagnostico')"
-                            onclick="triggerExample();" style="margin-left: 5%;">
-                            <i class="bi bi-file-earmark-text"></i>
+                            onclick="triggerExample();" style="margin-left: 5%; font-size: 14px;">
+                                <img width="20" height="auto"
+                                    src="{{ asset('/img/icons/copy-files.png') }}"
+                                    alt="avatar"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom"
+                                    data-bs-custom-class="custom-tooltip"
+                                    data-html="true">
+                            {{-- <i class="bi bi-file-earmark-text"></i> --}}
                         </button> <span style="padding-left: 5px" id="copied"></span>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                             style="font-size: 12px;"></button>
