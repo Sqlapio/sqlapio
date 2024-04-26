@@ -127,6 +127,17 @@ return [
         'web'                    => 'Sitio web',
         'nombre_titular'         => 'Nombre titular de la tarjeta',
         'numero_tarjeta'         => 'Numero de tarjeta',
+        'medico'                 => 'Médico',
+        'codigo_consulta'        => 'Código de consulta',
+        'fecha_consulta'         => 'Fecha de consulta',
+        'razon_consulta'         => 'Razón de la consulta',
+        'peso_1'                 => 'Peso',
+        'altura_1'               => 'Altura',
+        'presion_arterial_1'     => 'Presión arterial',
+        'temperatura_1'          => 'Temperatura',
+        'respiraciones_1'        => 'Respiraciones',
+        'pulso_1'                => 'Pulso',
+        'saturacion_1'           => 'Saturación',
     ],
 
     'menu' => [
@@ -363,7 +374,6 @@ return [
         'metodos_de_pago'     => 'Métodos de Pago',
         'citas_del_dia'       => 'Citas del dia',
         'documento_identidad' => 'Documento de Identidad',
-
     ],
 
     'select' => [
@@ -460,10 +470,21 @@ return [
         'especialidad_obligatorio' => 'Especialidad es obligatoria',
         'num_tlf_obligatorio'      => 'Número teléfono del consultorio es obligatorio',
         'pais_obligatorio'         => 'País es obligatorio',
+        'autenticacion_incorrecta' => 'Autenticación incorrecta',
+        'verificacion_correo'      => 'Debe verificar su correo electrónico!',
+        'usuario_no_existe'        => 'El usuario no existe o se encuentra deshabilitado. Por favor valide la información y vuelva a intentarlo',
+        'contraseña_obligatorio'   => 'Contraseña es obligatorio',
+        'usuario_3_caracteres'     => 'Usuario debe ser mayor a 3 caracteres',
+        'usuario_50_caracteres'    => 'Usuario debe ser menor a 50 caracteres',
+        'seleccionar_paciente'     => 'Debe seleccionar un paciente',
+        'cita_agendada'            => 'Ya usted tiene una cita agendada en la fecha seleccionada',
+        'cita_otro_paciente'       => 'Ya usted tiene una cita agendada en la fecha seleccionada con otro paciente',
+        'centro_asociado'          => 'El centro ya se encuentra asociado a su usuario. Favor intente con uno diferente',
 
         // sweet alert //
         'operacion_exitosa'      => 'Operación exitosa!',
         'consulta_registrada'    => 'Consulta registrada exitosamente!',
+        'usuario_registrado'     => 'Usuario registrado exitosamente!',
         'accion'                 => 'Desea realizar esta acción?',
         'no_examenes'            => 'No hay exámenes cargados',
         'no_estudios'            => 'No hay estudios cargados',
@@ -503,6 +524,10 @@ return [
         'plan_reanudado'         => 'Se ha reanudado el plan exitosamente!',
         'cancelar'               => '¿Está seguro que desea cancelar este plan?',
         'plan_cancelado'         => 'Se ha cancelado el plan exitosamente!',
+        'paciente_no_encotrado'  => 'Paciente no encontrado!!',
+        'no_metodo_de_pago'      => 'No tienes un método de pago registrado!!',
+        'paciente_no_registrado' => 'El paciente que esta buscando no se encuentra registrado!!',
+        'cita_registrada'        => 'Cita registrada exitosamente!',
     ],
 
     'graficas' => [
@@ -519,6 +544,10 @@ return [
         'masculino'        => 'Masculino',
         'adultos'          => 'Adultos',
         'adultos_mayores'  => 'Adultos Mayores',
+    ],
+
+    'pacientes' => [
+        'historia_paciente'  => 'Historia del paciente',
     ],
 
 ];

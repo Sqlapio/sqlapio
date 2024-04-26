@@ -103,7 +103,7 @@ class Patients extends Component
                     // 'city'            => 'Campo requerido',
                     'address'         => 'Campo requerido',
                     'zip_code'        => 'Campo requerido',
-                    'img.image'     => 'El archvio debe ser en formato png, jpg, jpeg',
+                    'img.image'       => 'El archvio debe ser en formato png, jpg, jpeg',
                     // 'patient_img.max'       => 'La imagen debe ser menor a 1024',
 
                 ];
@@ -131,20 +131,20 @@ class Patients extends Component
                     ['id' => $request->id],
                     [
 
-                        'patient_code'  => UtilsController::get_patient_code($request->re_ci),
-                        'name'          => $request->name,
-                        'last_name'     => $request->last_name,
-                        'genere'        => $request->genere,
-                        'birthdate'     => $request->birthdate,
-                        'is_minor'      => 'true',
-                        'age'           => $request->age,
-                        // 'state'         => $request->state,
-                        // 'city'          => $request->city,
-                        'address'       => $request->address,
-                        'zip_code'      => $request->zip_code,
-                        'user_id'       => $user_id,
-                        'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
-                        'patient_img'   => $nameFile,
+                        'patient_code'      => UtilsController::get_patient_code($request->re_ci),
+                        'name'              => $request->name,
+                        'last_name'         => $request->last_name,
+                        'genere'            => $request->genere,
+                        'birthdate'         => $request->birthdate,
+                        'is_minor'          => 'true',
+                        'age'               => $request->age,
+                        // 'state'          => $request->state,
+                        // 'city'           => $request->city,
+                        'address'           => $request->address,
+                        'zip_code'          => $request->zip_code,
+                        'user_id'           => $user_id,
+                        'center_id'         => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
+                        'patient_img'       => $nameFile,
                         'verification_code' => Str::random(30)
 
                     ]
@@ -192,10 +192,10 @@ class Patients extends Component
                 if ($user->email_verified_at != null) {
                     $type = 'register_patient';
                     $mailData = [
-                        'dr_name' => $user->name . ' ' . $user->last_name,
-                        'dr_email' => $user->email,
-                        'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
-                        'patient_code' => $patient['patient_code'],
+                        'dr_name'       => $user->name . ' ' . $user->last_name,
+                        'dr_email'      => $user->email,
+                        'patient_name'  => $patient['name'] . ' ' . $patient['last_name'],
+                        'patient_code'  => $patient['patient_code'],
                         'patient_email' => $re_patient->re_email,
                         'patient_phone' => $re_patient->re_phone,
                     ];
@@ -214,17 +214,17 @@ class Patients extends Component
                     $type = 'patient_minor';
                     $center_info = Center::where('id', $center_id_corporativo)->first();
                     $mailData = [
-                        'dr_name' => $user->name . ' ' . $user->last_name,
-                        'center' => $center_info->description,
-                        'center_piso' => 'prueba piso 1',
+                        'dr_name'                => $user->name . ' ' . $user->last_name,
+                        'center'                 => $center_info->description,
+                        'center_piso'            => 'prueba piso 1',
                         'center_consulting_room' => 'prueba consultorio 1',
-                        'center_phone' => 'prueba tef 02125478596',
-                        'center_address' => 'prueba dir chacao',
-                        'patient_email' => $user->email,
-                        'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
-                        'patient_code' => $patient['patient_code'],
-                        'patient_email' => $re_patient->re_email,
-                        'patient_phone' => $re_patient->re_phone,
+                        'center_phone'           => 'prueba tef 02125478596',
+                        'center_address'         => 'prueba dir chacao',
+                        'patient_email'          => $user->email,
+                        'patient_name'           => $patient['name'] . ' ' . $patient['last_name'],
+                        'patient_code'           => $patient['patient_code'],
+                        'patient_email'          => $re_patient->re_email,
+                        'patient_phone'          => $re_patient->re_phone,
                     ];
                     UtilsController::notification_mail($mailData, $type);
                 } else
@@ -233,17 +233,17 @@ class Patients extends Component
                     $type = 'patient_minor';
                     $center_info = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
                     $mailData = [
-                        'dr_name' => $user->name . ' ' . $user->last_name,
-                        'center' => Center::where('id', $request->center_id)->first()->description,
-                        'center_piso' => $center_info->number_floor,
+                        'dr_name'                => $user->name . ' ' . $user->last_name,
+                        'center'                 => Center::where('id', $request->center_id)->first()->description,
+                        'center_piso'            => $center_info->number_floor,
                         'center_consulting_room' => $center_info->number_consulting_room,
-                        'center_phone' => $center_info->phone_consulting_room,
-                        'center_address' => $center_info->address,
-                        'patient_email' => $user->email,
-                        'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
-                        'patient_code' => $patient['patient_code'],
-                        'patient_email' => $re_patient->re_email,
-                        'patient_phone' => $re_patient->re_phone,
+                        'center_phone'           => $center_info->phone_consulting_room,
+                        'center_address'         => $center_info->address,
+                        'patient_email'          => $user->email,
+                        'patient_name'           => $patient['name'] . ' ' . $patient['last_name'],
+                        'patient_code'           => $patient['patient_code'],
+                        'patient_email'          => $re_patient->re_email,
+                        'patient_phone'          => $re_patient->re_phone,
                     ];
                     UtilsController::notification_mail($mailData, $type);
                 }
@@ -287,27 +287,27 @@ class Patients extends Component
 
                 $msj = [
 
-                    'name'         => 'Campo requerido',
-                    'name.min'     => 'Debe ser mayor de 3 caracteres',
-                    'name.max'     => 'Debe ser menor de 50 caracteres',
-                    'last_name'    => 'Campo requerido',
-                    'ci'           => 'Campo requerido',
-                    'ci.min'       => 'La cédula debe ser mayor a 5 caracteres',
-                    'ci.max'       => 'Cédula invalida.',
-                    'ci.unique'    => 'La cédula ya se encuentra registrada en el sistema.',
-                    'email'        => 'Campo requerido',
-                    'email.unique' => 'El correo ya se encuentra registrado en el sistema',
-                    'profession'   => 'Campo requerido',
-                    'genere'       => 'Campo requerido',
-                    'birthdate'    => 'Campo requerido',
-                    'age'          => 'Campo requerido',
-                    'age.min'      => 'La edad debe ser un número valido',
-                    'age.max'      => 'La edad es incorrecta',
-                    'estate'       => 'Campo requerido',
-                    'city'         => 'Campo requerido',
-                    'address'      => 'Campo requerido',
-                    'zip_code'     => 'Campo requerido',
-                    'patient_img.image'     => 'El archvio debe estar en formato png, jpg, jpeg',
+                    'name'              => 'Campo requerido',
+                    'name.min'          => 'Debe ser mayor de 3 caracteres',
+                    'name.max'          => 'Debe ser menor de 50 caracteres',
+                    'last_name'         => 'Campo requerido',
+                    'ci'                => 'Campo requerido',
+                    'ci.min'            => 'La cédula debe ser mayor a 5 caracteres',
+                    'ci.max'            => 'Cédula invalida.',
+                    'ci.unique'         => 'La cédula ya se encuentra registrada en el sistema.',
+                    'email'             => 'Campo requerido',
+                    'email.unique'      => 'El correo ya se encuentra registrado en el sistema',
+                    'profession'        => 'Campo requerido',
+                    'genere'            => 'Campo requerido',
+                    'birthdate'         => 'Campo requerido',
+                    'age'               => 'Campo requerido',
+                    'age.min'           => 'La edad debe ser un número valido',
+                    'age.max'           => 'La edad es incorrecta',
+                    'estate'            => 'Campo requerido',
+                    'city'              => 'Campo requerido',
+                    'address'           => 'Campo requerido',
+                    'zip_code'          => 'Campo requerido',
+                    'patient_img.image' => 'El archvio debe estar en formato png, jpg, jpeg',
 
                 ];
 
@@ -342,23 +342,23 @@ class Patients extends Component
                     ['id' => $request->id],
                     [
 
-                        'patient_code'  => UtilsController::get_patient_code($request->ci),
-                        'name'          => $request->name,
-                        'last_name'     => $request->last_name,
-                        'ci'            => $ci,
-                        'email'         => $request->email,
-                        'phone'         => $request->phone,
-                        'profession'    => $profession,
-                        'genere'        => $request->genere,
-                        'birthdate'     => $request->birthdate,
-                        'age'           => $request->age,
-                        'state'         => $request->state,
-                        'city'          => $request->city,
-                        'address'       => $request->address,
-                        'zip_code'      => $request->zip_code,
-                        'user_id'       => $user_id,
-                        'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
-                        'patient_img'   => $nameFile,
+                        'patient_code'      => UtilsController::get_patient_code($request->ci),
+                        'name'              => $request->name,
+                        'last_name'         => $request->last_name,
+                        'ci'                => $ci,
+                        'email'             => $request->email,
+                        'phone'             => $request->phone,
+                        'profession'        => $profession,
+                        'genere'            => $request->genere,
+                        'birthdate'         => $request->birthdate,
+                        'age'               => $request->age,
+                        'state'             => $request->state,
+                        'city'              => $request->city,
+                        'address'           => $request->address,
+                        'zip_code'          => $request->zip_code,
+                        'user_id'           => $user_id,
+                        'center_id'         => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
+                        'patient_img'       => $nameFile,
                         'verification_code' => Str::random(30)
 
                     ]
@@ -386,10 +386,10 @@ class Patients extends Component
                 if ($user->email_verified_at != null) {
                     $type = 'register_patient';
                     $mailData = [
-                        'dr_name' => $user->name . ' ' . $user->last_name,
-                        'dr_email' => $user->email,
-                        'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
-                        'patient_code' => $patient['patient_code'],
+                        'dr_name'       => $user->name . ' ' . $user->last_name,
+                        'dr_email'      => $user->email,
+                        'patient_name'  => $patient['name'] . ' ' . $patient['last_name'],
+                        'patient_code'  => $patient['patient_code'],
                         'patient_email' => $patient['email'],
                         'patient_phone' => $patient['phone'],
                     ];
@@ -407,17 +407,17 @@ class Patients extends Component
                     $type = 'patient';
                     $center_info = Center::where('id', $center_id_corporativo)->first();
                     $mailData = [
-                        'dr_name' => $user->name . ' ' . $user->last_name,
-                        'center' => $center_info->description,
-                        'center_piso' => 'prueba piso 1',
+                        'dr_name'                => $user->name . ' ' . $user->last_name,
+                        'center'                 => $center_info->description,
+                        'center_piso'            => 'prueba piso 1',
                         'center_consulting_room' => 'prueba consultorio 1',
-                        'center_phone' => 'prueba tef 02125478596',
-                        'center_address' => 'prueba dir chacao',
-                        'patient_email' => $user->email,
-                        'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
-                        'patient_code' => $patient['patient_code'],
-                        'patient_email' => $patient['email'],
-                        'patient_phone' => $patient['phone'],
+                        'center_phone'           => 'prueba tef 02125478596',
+                        'center_address'         => 'prueba dir chacao',
+                        'patient_email'          => $user->email,
+                        'patient_name'           => $patient['name'] . ' ' . $patient['last_name'],
+                        'patient_code'           => $patient['patient_code'],
+                        'patient_email'          => $patient['email'],
+                        'patient_phone'          => $patient['phone'],
                     ];
                     UtilsController::notification_mail($mailData, $type);
                 } else
@@ -426,16 +426,16 @@ class Patients extends Component
                     $type = 'patient';
                     $center_info = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
                     $mailData = [
-                        'dr_name' => $user->name . ' ' . $user->last_name,
-                        'center' => Center::where('id', $request->center_id)->first()->description,
-                        'center_piso' => $center_info->number_floor,
+                        'dr_name'                => $user->name . ' ' . $user->last_name,
+                        'center'                 => Center::where('id', $request->center_id)->first()->description,
+                        'center_piso'            => $center_info->number_floor,
                         'center_consulting_room' => $center_info->number_consulting_room,
-                        'center_phone' => $center_info->phone_consulting_room,
-                        'center_address' => $center_info->address,
-                        'patient_name' => $patient['name'] . ' ' . $patient['last_name'],
-                        'patient_code' => $patient['patient_code'],
-                        'patient_email' => $patient['email'],
-                        'patient_phone' => $patient['phone'],
+                        'center_phone'           => $center_info->phone_consulting_room,
+                        'center_address'         => $center_info->address,
+                        'patient_name'           => $patient['name'] . ' ' . $patient['last_name'],
+                        'patient_code'           => $patient['patient_code'],
+                        'patient_email'          => $patient['email'],
+                        'patient_phone'          => $patient['phone'],
                     ];
                     UtilsController::notification_mail($mailData, $type);
                 }
@@ -488,7 +488,7 @@ class Patients extends Component
             if (count($patient)==0) {
                 return response()->json([
                     'success' => 'false',
-                    'errors'  => 'El paciente no existe debe registrarlo'
+                    'errors'  => __('messages.alert.paciente_no_registrado')
                 ], 400);
             }
 

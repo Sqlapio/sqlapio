@@ -27,15 +27,15 @@ class Diary extends Component
                 return $patient;
             } else {
                 $patient_re = [
-                    "re_name" => $patient->get_reprensetative->re_name,
+                    "re_name"      => $patient->get_reprensetative->re_name,
                     "re_last_name" => $patient->get_reprensetative->re_last_name,
-                    "re_email"  => $patient->get_reprensetative->re_email,
-                    "re_phone" => $patient->get_reprensetative->re_phone,
-                    "re_ci" =>  $patient->get_reprensetative->re_ci,
-                    "genere" =>  $patient->genere,
-                    "age" => $patient->age,
-                    "id" =>  $patient->id,
-                    "patient_img" => $patient->patient_img,
+                    "re_email"     => $patient->get_reprensetative->re_email,
+                    "re_phone"     => $patient->get_reprensetative->re_phone,
+                    "re_ci"        =>  $patient->get_reprensetative->re_ci,
+                    "genere"       =>  $patient->genere,
+                    "age"          => $patient->age,
+                    "id"           =>  $patient->id,
+                    "patient_img"  => $patient->patient_img,
                 ];
                 return $patient_re;
             }
@@ -91,7 +91,7 @@ class Diary extends Component
                         'user_id'       => Auth::user()->id,
                         'verification_code' => Str::random(30)
                     ]
-                );        
+                );
 
                 $action = '23';
                 ActivityLogController::store_log($action);
@@ -135,7 +135,7 @@ class Diary extends Component
             if (isset($validate_dairy)) {
                 return response()->json([
                     'success' => 'false',
-                    'errors'  => 'Ya usted tiene una cita agendada en la fecha seleccionada con otro paciente'
+                    'errors'  => __('messages.alert.cita_otro_paciente')
                 ], 400);
             } else {
 
@@ -177,7 +177,7 @@ class Diary extends Component
                     'piso'          => $data_center->number_floor,
                     'consultorio'   => $data_center->number_consulting_room,
                     'telefono'      => $data_center->phone_consulting_room,
-                    'ubication' => $ubication,
+                    'ubication'     => $ubication,
                     'link'          => 'https://system.sqlapio.com/confirmation/dairy/' . $appointment->code,
                 ];
 
@@ -196,7 +196,7 @@ class Diary extends Component
                     'piso'          => $data_center->number_floor,
                     'consultorio'   => $data_center->number_consulting_room,
                     'telefono'      => $data_center->phone_consulting_room,
-                    'ubication' => $ubication,
+                    'ubication'     => $ubication,
                     'link'          => 'https://system.sqlapio.com/confirmation/dairy/' . $appointment->code,
                 ];
 
@@ -243,7 +243,7 @@ class Diary extends Component
                 if ($request)
                     return response()->json([
                         'success' => 'false',
-                        'errors'  => 'Ya usted tiene una cita agendada en la fecha seleccionada'
+                        'errors'  => __('messages.alert.cita_agendada')
                     ], 400);
             } else {
 

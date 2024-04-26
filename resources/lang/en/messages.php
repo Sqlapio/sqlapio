@@ -127,6 +127,17 @@ return [
         'web'                    => 'Web Sitie',
         'nombre_titular'         => 'Card holder name',
         'numero_tarjeta'         => 'Card number',
+        'medico'                 => 'Doctor',
+        'codigo_consulta'        => 'Query code',
+        'fecha_consulta'         => 'Consultation date',
+        'razon_consulta'         => 'Reason for the consultation',
+        'peso_1'                 => 'Weight',
+        'altura_1'               => 'Height',
+        'presion_arterial_1'     => 'Blood pressure',
+        'temperatura_1'          => 'Temperature',
+        'respiraciones_1'        => 'Breaths',
+        'pulso_1'                => 'Pulse',
+        'saturacion_1'           => 'Saturation',
     ],
 
     'menu' => [
@@ -459,10 +470,20 @@ return [
         'especialidad_obligatorio'  => 'Specialty is required',
         'num_tlf_obligatorio'       => 'Clinic phone number is required',
         'pais_obligatorio'          => 'Country is required',
+        'autenticacion_incorrecta'  => 'Incorrect authentication',
+        'verificacion_correo'       => 'You must verify your email!',
+        'usuario_no_existe'         => 'The user does not exist or is disabled. Please validate the information and try again',
+        'contraseña_obligatorio'    => 'Password is required',
+        'usuario_3_caracteres'      => 'User must be longer than 3 characters',
+        'usuario_50_caracteres'     => 'User must be less than 50 characters',
+        'seleccionar_paciente'      => 'You must select a patient',
+        'cita_agendada'             => 'You already have an appointment scheduled on the selected date',
+        'cita_otro_paciente'        => 'You already have an appointment scheduled on the selected date with another patient',
 
         // sweet alert //
         'operacion_exitosa'      => 'Successful Operation!',
         'consulta_registrada'    => 'Successfully registered consultation',
+        'usuario_registrado'     => 'User successfully registered!',
         'accion'                 => 'Do you want to do this?',
         'no_examenes'            => 'No Exams loaded',
         'no_estudios'            => 'No Studies loaded',
@@ -502,6 +523,11 @@ return [
         'plan_reanudado'         => 'The plan has been successfully resumed!',
         'cancelar'               => 'Are you sure you want to cancel this plan?',
         'plan_cancelado'         => 'The plan has been canceled successfully!',
+        'paciente_no_encotrado'  => 'Patient not found!!',
+        'no_metodo_de_pago'      => 'You do not have a registered payment method!!',
+        'paciente_no_registrado' => 'The patient you are looking for is not registered!!',
+        'cita_registrada'        => 'Appointment successfully registered',
+        'centro_asociado'        => 'The center is already associated with its user. Please try a different one',
     ],
 
     'graficas' => [
@@ -518,6 +544,10 @@ return [
         'masculino'        => 'Male',
         'adultos'          => 'Adults',
         'adultos_mayores'  => 'Older Adults',
+    ],
+
+    'pacientes' => [
+        'historia_paciente'  => 'Patient history',
     ],
 
 ];

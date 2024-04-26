@@ -25,16 +25,16 @@ class Centers extends Component
             $user = Auth::user();
 
             $rules = [
-                'center_id' => 'required',
-                'address' => 'required',
-                'number_floor' => 'required',
+                'center_id'              => 'required',
+                'address'                => 'required',
+                'number_floor'           => 'required',
                 'number_consulting_room' => 'required',
             ];
 
             $msj = [
-                'center_id.required' => 'Campo requerido',
-                'name.required' => 'Campo requerido',
-                'number_floor.required' => 'Campo requerido',
+                'center_id.required'              => 'Campo requerido',
+                'name.required'                   => 'Campo requerido',
+                'number_floor.required'           => 'Campo requerido',
                 'number_consulting_room.required' => 'Campo requerido',
 
             ];
@@ -81,7 +81,7 @@ class Centers extends Component
                 if ($center != null) {
                     return response()->json([
                         'success' => 'false',
-                        'errors'  => ['El centro ya se encuentra asociado a su usuario. Favor intente con uno diferente']
+                        'errors'  => [__('messages.alert.centro_asociado')]
                     ], 400);
                 }
 

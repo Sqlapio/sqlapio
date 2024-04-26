@@ -114,8 +114,6 @@
                 enableAllSteps: true,
                 enablePagination: false,
             });
-            ////
-
 
             let family_back = @json($family_back);
             let get_condition = @json($get_condition);
@@ -155,7 +153,7 @@
             $.validator.addMethod("onlyNumber", function(value, element) {
                 var pattern = /^[0-9-]*$/;
                 return pattern.test(value);
-            }, "Campo numérico");
+            }, "@lang('messages.alert.campo_numerico')");
 
 
             //envio del formulario
@@ -179,10 +177,10 @@
                                 $('#spinner').hide();
                                 Swal.fire({
                                     icon: 'success',
-                                    title: 'Resultado exitoso!',
+                                    title: '@lang('messages.alert.operacion_exitosa')',
                                     allowOutsideClick: false,
                                     confirmButtonColor: '#42ABE2',
-                                    confirmButtonText: 'Aceptar'
+                                    confirmButtonText: '@lang('messages.botton.aceptar')'
                                 }).then((result) => {
 
 
@@ -207,17 +205,17 @@
                                         </div>
 
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
-                                            <strong>Nombre Completo:</strong><span class="text-capitalize"> ${response.patient.name} ${response.patient.last_name}</span>
+                                            <strong>@lang('messages.ficha_paciente.nombre'):</strong><span class="text-capitalize"> ${response.patient.name} ${response.patient.last_name}</span>
                                             <br>
-                                            <strong>Fecha de Nacimiento:</strong><span> ${response.patient.birthdate }</span>
+                                            <strong>@lang('messages.ficha_paciente.fecha_nacimiento'):</strong><span> ${response.patient.birthdate }</span>
                                             <br>
-                                            <strong>Edad:</strong><span> ${response.patient.age } años</span>
+                                            <strong>@lang('messages.ficha_paciente.edad'):</strong><span> ${response.patient.age } años</span>
                                             <br>
-                                            <strong>C.I:</strong><span> ${response.patient.ci} </span>
+                                            <strong>@lang('messages.ficha_paciente.ci'):</strong><span> ${response.patient.ci} </span>
                                             <br>
-                                            <strong>Genero:</strong><span class="text-capitalize"> ${response.patient.genere} </span>
+                                            <strong>@lang('messages.ficha_paciente.genero'):</strong><span class="text-capitalize"> ${response.patient.genere} </span>
                                             <br>
-                                            <strong>Nº Historial:</strong><span class="text-capitalize"> ${(response.patient.get_history)? response.patient.get_history.cod_history:""} </span>
+                                            <strong>@lang('messages.ficha_paciente.nro_historias'):</strong><span class="text-capitalize"> ${(response.patient.get_history)? response.patient.get_history.cod_history:""} </span>
                                         </div>`;
                                     $('#div-content').find('#info-pat').append(e);
                                     // end
@@ -270,7 +268,7 @@
                                                 `<li class="list-group-item">
                                                     <div class="d-flex w-100 justify-content-between">
                                                         <span class="text-justify">
-                                                            <strong>Observaciones:</strong>
+                                                            <strong>@lang('messages.label.observaciones'):</strong>
                                                             <br>
                                                             <br>
                                                             ${response.patient.get_history.observations_back_family}
@@ -311,7 +309,7 @@
                                                 `<li class="list-group-item">
                                                     <div class="d-flex w-100 justify-content-between">
                                                         <span class="text-justify">
-                                                            <strong>Observaciones:</strong>
+                                                            <strong>@lang('messages.label.observaciones'):</strong>
                                                             <br>
                                                             <br>
                                                             ${response.patient.get_history.observations_diagnosis}
@@ -350,7 +348,7 @@
                                                 `<li class="list-group-item">
                                                     <div class="d-flex w-100 justify-content-between">
                                                         <span class="text-justify">
-                                                            <strong>Observaciones:</strong>
+                                                            <strong>@lang('messages.label.observaciones'):</strong>
                                                             <br>
                                                             <br>
                                                             ${response.patient.get_history.observations_not_pathological}
@@ -378,43 +376,43 @@
 
                                                             <li class="list-group-item" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <span ><strong>Edad de primera menstruación:</strong> ${ response.patient.get_history.edad_primera_menstruation}</span>
+                                                                    <span><strong>@lang('messages.form.edad_mestruacion'):</strong> ${ response.patient.get_history.edad_primera_menstruation}</span>
                                                                 </div>
                                                             </li>
                                                             <li class="list-group-item" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                <span ><strong>Fecha último periodo :</strong> ${ response.patient.get_history.fecha_ultima_regla}</span>
+                                                                <span><strong>@lang('messages.form.fecha_periodo'):</strong> ${ response.patient.get_history.fecha_ultima_regla}</span>
                                                                 </div>
                                                             </li>
                                                             <li class="list-group-item" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <span ><strong>Número de embarazos:</strong> ${ response.patient.get_history.numero_embarazos}</span>
+                                                                    <span><strong>@lang('messages.form.nro_embarazos'):</strong> ${ response.patient.get_history.numero_embarazos}</span>
                                                                 </div>
                                                             </li>
                                                             <li class="list-group-item" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <span ><strong>Número de partos:</strong> ${ response.patient.get_history.numero_partos}</span>
+                                                                    <span><strong>@lang('messages.form.nro_partos'):</strong> ${ response.patient.get_history.numero_partos}</span>
                                                                 </div>
                                                             </li>
                                                             <li class="list-group-item" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <span><strong>Número de cesáreas:</strong> ${response.patient.get_history.cesareas}</span>
+                                                                    <span><strong>@lang('messages.form.nro_cesareas'):</strong> ${response.patient.get_history.cesareas}</span>
                                                                 </div>
                                                             </li>
                                                             <li class="list-group-item" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <span><strong>Número de abortos:</strong> ${response.patient.get_history.numero_abortos}</span>
+                                                                    <span><strong>@lang('messages.form.nro_abortos'):</strong> ${response.patient.get_history.numero_abortos}</span>
                                                                 </div>
                                                             </li>
                                                             <li class="list-group-item" aria-current="true">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <span><strong>Utiliza algún método anticonceptivo, ¿Cual?:</strong> ${response.patient.get_history.pregunta}</span>
+                                                                    <span><strong>@lang('messages.form.anticonceptivo'):</strong> ${response.patient.get_history.pregunta}</span>
                                                                 </div>
                                                             </li>
                                                             <li class="list-group-item">
                                                                 <div class="d-flex w-100 justify-content-between">
                                                                     <span class="text-justify">
-                                                                        <strong>Observaciones:</strong>
+                                                                        <strong>@lang('messages.label.observaciones'):</strong>
                                                                         <br>
                                                                         <br>
                                                                         ${response.patient.get_history.observations_ginecologica}
@@ -439,9 +437,9 @@
                                                     `<li class=" ${key} list-group-item" aria-current="true">
                                                         <div class="d-flex w-100 justify-content-between">
                                                             <span class="text-capitalize">
-                                                                <strong>Tipo de Alergia:</strong> ${e.type_alergia},
+                                                                <strong>@lang('messages.form.tipo_alergia'):</strong> ${e.type_alergia},
                                                                 <br>
-                                                                <strong>Detalle:</strong> ${e.detalle_alergia}
+                                                                <strong>@lang('messages.form.detalle'):</strong> ${e.detalle_alergia}
                                                             </span>
                                                         </div>
                                                     </li>`
@@ -454,7 +452,7 @@
                                                     `<li class="list-group-item">
                                                         <div class="d-flex w-100 justify-content-between">
                                                             <span class="text-justify">
-                                                                <strong>Observaciones:</strong>
+                                                                <strong>@lang('messages.label.observaciones'):</strong>
                                                                 <br>
                                                                 <br>
                                                                 ${ response.patient.get_history.observations_allergies}
@@ -476,9 +474,9 @@
                                                     `<li class=" ${key} list-group-item" aria-current="true">
                                                         <div class="d-flex w-100 justify-content-between">
                                                             <span class="text-capitalize">
-                                                                <strong>Tipo de cirugía:</strong> ${e.cirugia},
+                                                                <strong>@lang('messages.form.tipo_cirugia'):</strong> ${e.cirugia},
                                                                 <br>
-                                                                <strong>Fecha:</strong> ${e.datecirugia}
+                                                                <strong>@lang('messages.form.fecha'):</strong> ${e.datecirugia}
                                                             </span>
                                                         </div>
                                                     </li>`
@@ -491,7 +489,7 @@
                                                 `<li class="list-group-item">
                                                     <div class="d-flex w-100 justify-content-between">
                                                         <span class="text-justify">
-                                                            <strong>Observaciones:</strong>
+                                                            <strong>@lang('messages.label.observaciones'):</strong>
                                                             <br>
                                                             <br>
                                                             ${ response.patient.get_history.observations_quirurgicas}
@@ -514,13 +512,13 @@
                                                     `<li class=" ${key} list-group-item" aria-current="true">
                                                         <div class="d-flex w-100 justify-content-between">
                                                             <span class="text-capitalize" >
-                                                                <strong>Medicamento:</strong> ${e.medicine},
+                                                                <strong>@lang('messages.form.medicamento'):</strong> ${e.medicine},
                                                                 <br>
-                                                                <strong>Dosis:</strong> ${e.dose},
+                                                                <strong>@lang('messages.form.dosis'):</strong> ${e.dose},
                                                                 <br>
-                                                                <strong>Patología:</strong> ${e.patologi},
+                                                                <strong>@lang('messages.form.patologia'):</strong> ${e.patologi},
                                                                 <br>
-                                                                <strong>Duración del tratamiento:</strong> ${e.treatmentDuration}
+                                                                <strong>@lang('messages.form.duracion_tratamiento'):</strong> ${e.treatmentDuration}
                                                             </span>
                                                         </div>
                                                     </li>`
@@ -532,7 +530,7 @@
                                                 `<li class="list-group-item">
                                                     <div class="d-flex w-100 justify-content-between">
                                                         <span class="text-justify">
-                                                            <strong>Observaciones:</strong>
+                                                            <strong>@lang('messages.label.observaciones'):</strong>
                                                             <br>
                                                             <br>
                                                             ${response.patient.get_history.observations_medication}
@@ -562,41 +560,41 @@
                                                 element =
                                                     `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px; z-index: 0;">
                                                         <div class="d-flex w-100 justify-content-between">
-                                                            <h5 class="text-capitalize">Médico: ${e.doctor} </h5><br>
+                                                            <h5 class="text-capitalize">@lang('messages.form.medico'): ${e.doctor} </h5><br>
                                                         </div>
-                                                        <span><strong>Especialidad:</strong> ${e.specialty}</span>
+                                                        <span><strong>@lang('messages.form.especialidad'):</strong> ${e.specialty}</span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Código de consulta:</strong> ${e.record_code}</span>
+                                                        <span><strong>@lang('messages.form.codigo_consulta'):</strong> ${e.record_code}</span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Fecha de consulta:</strong> ${e.record_date}</span>
+                                                        <span><strong>@lang('messages.form.fecha_consulta'):</strong> ${e.record_date}</span>
                                                         <br>
                                                         <br>
-                                                        <span class="text-justify"><strong>Razón de la consulta:</strong> ${e.razon}</span>
+                                                        <span class="text-justify"><strong>@lang('messages.form.razon_consulta'):</strong> ${e.razon}</span>
                                                         <br>
                                                         <br>
-                                                        <span class="text-justify"><strong>Diagnostico:</strong> ${e.diagnosis}</span>
+                                                        <span class="text-justify"><strong>@lang('messages.form.diagnostico'):</strong> ${e.diagnosis}</span>
                                                     </li>`
                                             } else {
                                                 element =
                                                     `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px;">
                                                         <div class="d-flex w-100 justify-content-between">
-                                                            <h5 class="text-capitalize">Médico: ${e.doctor} </h5><br>
+                                                            <h5 class="text-capitalize">@lang('messages.form.medico'): ${e.doctor} </h5><br>
                                                         </div>
-                                                        <span><strong>Especialidad:</strong> ${e.specialty}</span>
+                                                        <span><strong>@lang('messages.form.especialidad'):</strong> ${e.specialty}</span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Código de consulta:</strong> ${e.record_code}</span>
+                                                        <span><strong>@lang('messages.form.codigo_consulta'):</strong> ${e.record_code}</span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Fecha de consulta:</strong> ${e.record_date}</span>
+                                                        <span><strong>@lang('messages.form.fecha_consulta'):</strong> ${e.record_date}</span>
                                                         <br>
                                                         <br>
-                                                        <span class="text-justify"><strong>Razón de la consulta:</strong> ${e.razon}</span>
+                                                        <span class="text-justify"><strong>@lang('messages.form.razon_consulta'):</strong> ${e.razon}</span>
                                                         <br>
                                                         <br>
-                                                        <span class="text-justify"><strong>Diagnostico:</strong> ${e.diagnosis}</span>
+                                                        <span class="text-justify"><strong>@lang('messages.form.diagnostico'):</strong> ${e.diagnosis}</span>
                                                     </li>`
                                             }
                                             $('.list-con').append(element);
@@ -656,7 +654,7 @@
                                                                         data-bs-toggle="popover"
                                                                         data-bs-custom-class="custom-popover"
                                                                         data-bs-placement="bottom"
-                                                                        data-bs-content="No hay estudios cargados">
+                                                                        data-bs-content="@lang('messages.alert.no_examenes')">
                                                                         <i class="bi bi-filetype-pdf"></i>
                                                                     </button>
                                                                 </a>
@@ -672,7 +670,7 @@
                                                                         data-bs-toggle="popover"
                                                                         data-bs-custom-class="custom-popover"
                                                                         data-bs-placement="bottom"
-                                                                        data-bs-content="No hay estudios cargados">
+                                                                        data-bs-content="@lang('messages.alert.no_estudios')">
                                                                         <i class="bi bi-filetype-pdf"></i>
                                                                     </button>
                                                                 </a>
@@ -705,32 +703,32 @@
                                             if ((key % 2) == 0) {
                                                 element =
                                                     `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px; z-index: 0;">
-                                                        <span><strong>Peso:</strong> ${e.weight} Kg</span>
+                                                        <span><strong>@lang('messages.form.peso_1'):</strong> ${e.weight} Kg</span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Altura:</strong> ${e.height}</span>
+                                                        <span><strong>@lang('messages.form.altura_1'):</strong> ${e.height}</span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Presión arterial:</strong> ${e.strain} </span>
+                                                        <span><strong>@lang('messages.form.presion_arterial_1'):</strong> ${e.strain} </span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Temperatura:</strong> ${e.temperature}</span>
+                                                        <span><strong>@lang('messages.form.temperatura_1'):</strong> ${e.temperature}</span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Respiraciones:</strong> ${e.breaths}</span>
+                                                        <span><strong>@lang('messages.form.respiraciones_1'):</strong> ${e.breaths}</span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Pulso:</strong> ${e.pulse}</span>
+                                                        <span><strong>@lang('messages.form.pulso_1'):</strong> ${e.pulse}</span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Saturación:</strong> ${e.saturation}</span>
+                                                        <span><strong>@lang('messages.form.saturacion_1'):</strong> ${e.saturation}</span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Condición General:</strong> ${e.condition}</span>
+                                                        <span><strong>@lang('messages.form.condicion'):</strong> ${e.condition}</span>
                                                         <br>
                                                         <br>
                                                         <span class="text-justify">
-                                                            <strong>Observaciones:</strong>
+                                                            <strong>@lang('messages.label.observaciones'):</strong>
                                                             <br>
                                                             <br>
                                                             ${e.observations}
@@ -739,32 +737,32 @@
                                             } else {
                                                 element =
                                                     `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px;">
-                                                        <span><strong>Peso:</strong> ${e.weight} Kg</span>
+                                                        <span><strong>@lang('messages.form.peso_1'):</strong> ${e.weight} Kg</span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Altura:</strong> ${e.height}</span>
+                                                        <span><strong>@lang('messages.form.altura_1'):</strong> ${e.height}</span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Presión arterial:</strong> ${e.strain}/${e.strain_two} </span>
+                                                        <span><strong>@lang('messages.form.presion_arterial_1'):</strong> ${e.strain}/${e.strain_two} </span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Temperatura:</strong> ${e.temperature}</span>
+                                                        <span><strong>@lang('messages.form.temperatura_1'):</strong> ${e.temperature}</span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Respiraciones:</strong> ${e.breaths}</span>
+                                                        <span><strong>@lang('messages.form.respiraciones_1'):</strong> ${e.breaths}</span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Pulso:</strong> ${e.pulse}</span>
+                                                        <span><strong>@lang('messages.form.pulso_1'):</strong> ${e.pulse}</span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Saturación:</strong> ${e.saturation}</span>
+                                                        <span><strong>@lang('messages.form.saturacion_1'):</strong> ${e.saturation}</span>
                                                         <br>
                                                         <br>
-                                                        <span><strong>Condición General:</strong> ${e.condition}</span>
+                                                        <span><strong>@lang('messages.form.condicion'):</strong> ${e.condition}</span>
                                                         <br>
                                                         <br>
                                                         <span class="text-justify">
-                                                            <strong>Observaciones:</strong>
+                                                            <strong>@lang('messages.label.observaciones'):</strong>
                                                             <br>
                                                             <br>
                                                             ${e.observations}
@@ -789,10 +787,10 @@
                                 $('#spinner').hide();
                                 Swal.fire({
                                     icon: 'warning',
-                                    title: 'Paciente no encontrado!',
+                                    title: '@lang('messages.alert.paciente_no_encotrado')',
                                     allowOutsideClick: false,
                                     confirmButtonColor: '#42ABE2',
-                                    confirmButtonText: 'Aceptar'
+                                    confirmButtonText: '@lang('messages.botton.aceptar')'
                                 });
                             }
                         },
@@ -803,7 +801,7 @@
                                     title: elm,
                                     allowOutsideClick: false,
                                     confirmButtonColor: '#42ABE2',
-                                    confirmButtonText: 'Aceptar'
+                                    confirmButtonText: '@lang('messages.botton.aceptar')'
                                 }).then((result) => {
                                     $('#btn-save').attr('disabled', false);
                                     $('#spinner').hide();
@@ -832,7 +830,7 @@
 
                                 <div class="row mt-2">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <h5 style="font-size: 15px;">Historia del paciente</h5>
+                                        <h5 style="font-size: 15px;">@lang('messages.pacientes.historia_paciente')</h5>
                                     </div>
                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                         <div class="form-group">
@@ -870,7 +868,7 @@
                                                             <li class="list-group-item active aa" aria-current="true"
                                                                 style="z-index: 0;">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 style='font-size: 15px;'
+                                                                    <h5 style="font-size: 15px;"
                                                                         class="mb-0 text-capitalize">Antecedentes Personales
                                                                     </h5>
                                                                 </div>

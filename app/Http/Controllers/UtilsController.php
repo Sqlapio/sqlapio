@@ -301,7 +301,7 @@ class UtilsController extends Controller
 			foreach ($appointments as $key => $val) {
 				$data[$key] = [
 					'id' => $val->id,
-					'title' => substr($val->hour_start, 2) . "," . $val->get_patients->name . "," . $val->get_patients->last_name,
+					'title' => $val->hour_start . " - " . $val->get_patients->name . " " . $val->get_patients->last_name,
 					'start' => date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 0, -9),
 					'end' =>  date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 6, -3),
 					// 'allDay'=> true,
@@ -345,7 +345,7 @@ class UtilsController extends Controller
 			foreach ($appointments as $key => $val) {
 				$data[$key] = [
 					'id' => $val->id,
-					'title' => substr($val->hour_start, 2) . "," . $val->get_patients->name . "," . $val->get_patients->last_name,
+					'title' => $val->hour_start . " - " . $val->get_patients->name . " " . $val->get_patients->last_name,
 					'start' => date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 0, -9),
 					'end' =>  date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 6, -3),
 					// 'allDay'=> true,
