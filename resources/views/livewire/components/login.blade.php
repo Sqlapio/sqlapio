@@ -34,7 +34,7 @@
                     title: error,
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
                 }).then((result) => {
                     window.location.href = '{{ route('Login_home') }}';
 
@@ -44,10 +44,10 @@
             if (success) {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Usuario regitrado exitosamente!',
+                    title: '@lang('messages.alert.ususario_registrado')',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
                 });
             }
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -59,27 +59,27 @@
                 rules: {
                     username: {
                         required: true,
-                        minlength: 3,
-                        maxlength: 50,
+                        // minlength: 3,
+                        // maxlength: 50,
                         email: true
                     },
                     password: {
                         required: true,
-                        minlength: 6,
+                        // minlength: 6,
                         // maxlength: 8,
                     },
                 },
                 messages: {
                     username: {
-                        required: "Usuario es obligatorio",
-                        minlength: "Usuario debe ser mayor a 3 caracteres",
-                        maxlength: "Usuario debe ser menor a 50 caracteres",
-                        email: "Usuario Formato incorrecto"
+                        required: "@lang('messages.alert.correo_obligatorio')",
+                        // minlength: "@lang('messages.alert.usuario_3_caracteres')",
+                        // maxlength: "@lang('messages.alert.usuario_50_caracteres')",
+                        email: "@lang('messages.alert.correo_incorrecto')"
 
                     },
                     password: {
-                        required: "Contraseña es obligatoria",
-                        minlength: "Contraseña debe ser mayor a 6 caracteres",
+                        required: "@lang('messages.alert.contraseña_obligatorio')",
+                        // minlength: "Contraseña debe ser mayor a 6 caracteres",
                         //maxlength: "Contraseña debe ser menor a 8 caracteres",
                     },
                 },

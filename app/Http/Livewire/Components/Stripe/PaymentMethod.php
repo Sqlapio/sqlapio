@@ -35,7 +35,7 @@ class PaymentMethod extends Component
         try {
             return auth()->user()->defaultPaymentMethod();
 
-            $this->emit('success', 'Operación Exitosa');
+            $this->emit('success', __('messages.alert.operacion_exitosa'));
 
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
@@ -47,7 +47,7 @@ class PaymentMethod extends Component
         try {
             auth()->user()->deletePaymentMethod($paymentMethod);
 
-            $this->emit('success', 'Operación Exitosa');
+            $this->emit('success', __('messages.alert.operacion_exitosa'));
 
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
@@ -60,7 +60,7 @@ class PaymentMethod extends Component
         try {
             auth()->user()->updateDefaultPaymentMethod($paymentMethod);
 
-            $this->emit('success', 'Operación Exitosa');
+            $this->emit('success',  __('messages.alert.operacion_exitosa'));
 
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
@@ -74,7 +74,7 @@ class PaymentMethod extends Component
 
         if (!auth()->user()->defaultPaymentMethod()) {
 
-            $this->emit('error', 'No tienes un metodo de pago registrado!');
+            $this->emit('error',  __('messages.alert.no_metodo_de_pago'));
             return;
         }
 
@@ -93,7 +93,7 @@ class PaymentMethod extends Component
 
                 auth()->user()->refresh();
 
-                $this->emit('success', 'Operación Exitosa');
+                $this->emit('success',  __('messages.alert.operacion_exitosa'));
 
                 return redirect()->route('Profile');
             }
@@ -109,7 +109,7 @@ class PaymentMethod extends Component
 
             auth()->user()->refresh();
 
-            $this->emit('success', 'Operación Exitosa');
+            $this->emit('success',  __('messages.alert.operacion_exitosa'));
 
             return redirect()->route('Profile');
         } catch (\Exception $e) {
@@ -141,10 +141,10 @@ class PaymentMethod extends Component
 
             auth()->user()->refresh();
 
-            $this->emit('success', 'Operación Exitosa');
+            $this->emit('success',  __('messages.alert.operacion_exitosa'));
 
             return redirect()->route('Profile');
-            
+
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
         }

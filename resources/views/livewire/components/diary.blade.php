@@ -346,7 +346,7 @@
                                 <div class="row text-center mt-2">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="display: flex; justify-content: center; align-items: center;">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 " id="send">
-                                            <input class="btn btnSave" id="registrer-pac" value="Registrar" disabled  type="submit" />
+                                            <input class="btn btnSave" id="registrer-pac" value="@lang('messages.botton.agendar_cita')" disabled  type="submit" />
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 m-xs" id="btn-con"></div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell">

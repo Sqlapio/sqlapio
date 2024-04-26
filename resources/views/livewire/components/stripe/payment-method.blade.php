@@ -591,6 +591,7 @@
                     $('#spinner').show();
 
                     Livewire.on('success', function (message) {
+                        $('#spinner').hide();
                         Swal.fire({
                             title: message,
                             icon: "success",
@@ -618,6 +619,7 @@
                     $('#spinner').show();
 
                     Livewire.on('success', function (message) {
+                        $('#spinner').hide();
                         Swal.fire({
                             title: message,
                             icon: "success",
@@ -645,6 +647,7 @@
                     $('#spinner').show();
 
                     Livewire.on('success', function (message) {
+                        $('#spinner').hide();
                         Swal.fire({
                             title: message,
                             icon: "success",
@@ -668,10 +671,10 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Livewire.emit('resumeSubcription', priceId)
-
                     $('#spinner').show();
 
                     Livewire.on('success', function (message) {
+                        $('#spinner').hide();
                         Swal.fire({
                             title: message,
                             icon: "success",

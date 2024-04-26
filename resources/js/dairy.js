@@ -159,43 +159,43 @@ $(document).ready(() => {
         },
         messages: {
             center_id: {
-                required: "Campo es obligatorio"
+                required: langJson.alert.campo_obligatorio
             },
             date_start: {
-                required: "Campo es obligatorio"
+                required: langJson.alert.campo_obligatorio
             },
             hour_start: {
-                required: "Campo es obligatorio"
+                required: langJson.alert.campo_obligatorio
             },
             minFin: {
-                required: "Campo es obligatorio"
+                required: langJson.alert.campo_obligatorio
             },
             hour_end: {
-                required: "Campo es obligatorio"
+                required: langJson.alert.campo_obligatorio
             },
             minFin: {
-                required: "Campo es obligatorio"
+                required: langJson.alert.campo_obligatorio
             },
             timeIni: {
-                required: "Campo es obligatorio"
+                required: langJson.alert.campo_obligatorio
             },
             timeFin: {
-                required: "Campo es obligatorio"
+                required: langJson.alert.campo_obligatorio
             },
             id_select: {
-                required: "Debe Seleccionar un paciente"
+                required: langJson.alert.seleccionar_paciente
             },
             name_patient: {
-                required: "Campo es obligatorio"
+                required: langJson.alert.campo_obligatorio
             },
             last_name_patient: {
-                required: "Campo es obligatorio"
+                required: langJson.alert.campo_obligatorio
             },
             phone: {
-                required: "Campo es obligatorio"
+                required: langJson.alert.campo_obligatorio
             },
             email_patient: {
-                required: "Campo es obligatorio"
+                required: langJson.alert.campo_obligatorio
             }
             // birthdate_patient: {
             //   required: "Campo es obligatorio",
@@ -223,7 +223,7 @@ $(document).ready(() => {
                     $("#form-appointment").trigger("reset");
                     Swal.fire({
                         icon: "success",
-                        title: "Cita registrada exitosamente!",
+                        title: langJson.alert.cita_registrada,
                         allowOutsideClick: false,
                         confirmButtonColor: "#42ABE2",
                         confirmButtonText: langJson.botton.aceptar
@@ -270,6 +270,7 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
         initialView: "dayGridMonth",
         views: {
             timeGrid: {
+
                 // allDayText: "Citas del dia",
                 allDaySlot: false,
                 slotLabelFormat: {
@@ -293,6 +294,7 @@ function getAppointments(appointments, route, routeCancelled, url2, ulrImge, upd
             month: "short",
             year: "numeric"
         },
+        displayEventTime: false,
         events: data,
         eventClick: function (info) {
             setValue(info.event._def.title, info);
@@ -451,6 +453,7 @@ function setValue(data, info) {
     $("#check-price").hide();
     $("#inlineRadio1").hide();
     $("#date").hide();
+    $(".form-patient-register").hide();
 }
 
 function searchPatients(res) {
