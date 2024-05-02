@@ -202,6 +202,7 @@
                                 'content')
                         },
                         success: function(response) {
+                            $('#spinner').hide();
                             Swal.fire({
                                 icon: 'success',
                                 title: response.msj,
