@@ -32,10 +32,10 @@ class Centers extends Component
             ];
 
             $msj = [
-                'center_id.required'              => 'Campo requerido',
-                'name.required'                   => 'Campo requerido',
-                'number_floor.required'           => 'Campo requerido',
-                'number_consulting_room.required' => 'Campo requerido',
+                'center_id.required'              => __('messages.alert.centro_obligatorio'),
+                'address.required'                => __('messages.alert.direccion_obligatoria'),
+                'number_floor.required'           => __('messages.alert.num_piso_obligatorio'),
+                'number_consulting_room.required' => __('messages.alert.num_cons_obligatorio'),
 
             ];
 
@@ -113,13 +113,13 @@ class Centers extends Component
                     $centers = Center::where('id', $request->center_id)->first();
                     $type = 'center';
                     $mailData = [
-                        'dr_name' => $user->name . ' ' . $user->last_name,
-                        'dr_email' => $user->email,
-                        'center_name' => $centers->description,
-                        'center_address' => $doctor_centers->address,
-                        'center_floor' => $doctor_centers->number_floor,
+                        'dr_name'                => $user->name . ' ' . $user->last_name,
+                        'dr_email'               => $user->email,
+                        'center_name'            => $centers->description,
+                        'center_address'         => $doctor_centers->address,
+                        'center_floor'           => $doctor_centers->number_floor,
                         'center_consulting_room' => $doctor_centers->number_consulting_room,
-                        'center_phone' => $doctor_centers->phone_consulting_room,
+                        'center_phone'           => $doctor_centers->phone_consulting_room,
                     ];
 
                     UtilsController::notification_mail($mailData, $type);
@@ -167,18 +167,18 @@ class Centers extends Component
 
             $rules = [
                 // 'contrie' => 'required',
-                'address' => 'required',
+                'address'       => 'required',
                 'state_contrie' => 'required',
-                'city_contrie' => 'required',
-                'full_name' => 'required',
+                'city_contrie'  => 'required',
+                'full_name'     => 'required',
             ];
 
             $msj = [
                 // 'contrie.required' => 'Campo requerido',
-                'address.required' => 'Campo requerido',
-                'state_contrie.required' => 'Campo requerido',
-                'city_contrie.required' => 'Campo requerido',
-                'full_name.required' => 'Campo requerido',
+                'address.required'       => __('messages.alert.direccion_obligatoria'),
+                'state_contrie.required' => __('messages.alert.estado_obligatorio'),
+                'city_contrie.required'  => __('messages.alert.ciudad_obligatorio'),
+                'full_name.required'     => __('messages.alert.nombre_obligatorio'),
             ];
 
             $validator = Validator::make($request->all(), $rules, $msj);

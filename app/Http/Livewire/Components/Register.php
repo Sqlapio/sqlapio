@@ -39,15 +39,15 @@ class Register extends Component
             ];
 
             $msj = [
-                'business_name'    => 'Campo name requerido',
-                'email.required'   => 'Campo email requerido',
-                'email.unique'     => 'Email ya se encunetra registro',
-                'password'         => 'Campo password requerido',
-                'password.min'     => 'Contraseña debe ser mayor a 6 caracteres',
-                'password.max'     => 'Contraseña debe ser menor a 8 caracteres',
-                'password.regex'   => 'Formato de contraseña  incorrecto',
-                'ci.required'      => 'Campo ci requerido',
-                'ci.unique'        => 'El numero de cedula esta duplicado',
+                'business_name'    => __('messages.alert.nombre_obligatorio'),
+                'email.required'   => __('messages.alert.correo_obligatorio'),
+                'email.unique'     => __('messages.alert.correo_existente'),
+                'password'         => __('messages.alert.contraseña_obligatorio'),
+                // 'password.min'     => 'Contraseña debe ser mayor a 6 caracteres',
+                // 'password.max'     => 'Contraseña debe ser menor a 8 caracteres',
+                // 'password.regex'   => 'Formato de contraseña  incorrecto',
+                'ci.required'      =>  __('messages.alert.cedula_obligatoria'),
+                'ci.unique'        => __('messages.alert.cedula_existente'),
                 // 'captcha'           => 'Campo captcha requerido',
             ];
         } else {
@@ -61,16 +61,16 @@ class Register extends Component
             ];
 
             $msj = [
-                'name'              => 'Campo name requerido',
-                'last_name'         => 'Campo last_name requerido',
-                'email.required'    => 'Campo email requerido',
-                'email.unique'      => 'Email ya se encunetra registro',
-                'password'          => 'Campo password requerido',
-                'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
-                'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
-                'password.regex'    => 'Formato de contraseña  incorrecto',
-                'ci.required'       => 'Campo ci requerido',
-                'ci.unique'         => 'El numero de cedula esta duplicado',
+                'name'              => __('messages.alert.nombre_obligatorio'),
+                'last_name'         => __('messages.alert.apellido_obligatorio'),
+                'email.required'    => __('messages.alert.correo_obligatorio'),
+                'email.unique'      => __('messages.alert.correo_existente'),
+                'password'          => __('messages.alert.contraseña_obligatorio'),
+                // 'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
+                // 'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
+                // 'password.regex'    => 'Formato de contraseña  incorrecto',
+                'ci.required'       =>  __('messages.alert.cedula_obligatoria'),
+                'ci.unique'         => __('messages.alert.cedula_existente'),
                 // 'captcha'           => 'Campo captcha requerido',
             ];
         }
@@ -121,13 +121,13 @@ class Register extends Component
 
             return response()->json([
                 'success' => true,
-                'msj'  => "El registro inicial satisfactorio"
+                'msj'  => __('messages.alert.registro_inicial')
             ], 200);
         } else {
 
             return response()->json([
                 'success' => false,
-                'msj'  => "Codigo incorrecto"
+                'msj'  => __('messages.alert.codigov_incorrecto')
             ], 400);
         }
 
@@ -356,23 +356,23 @@ class Register extends Component
                     ];
 
                     $msj = [
-                        'name'                    => 'Campo requerido',
-                        'last_name'               => 'Campo requerido',
-                        'ci'                      => 'Campo requerido',
-                        'birthdate'               => 'Campo requerido',
-                        'genere'                  => 'Campo requerido',
-                        'specialty'               => 'Campo requerido',
-                        'age'                     => 'Campo requerido',
-                        'phone'                   => 'Campo requerido',
-                        'state_contrie'           => 'Campo requerido',
-                        'city_contrie'            => 'Campo requerido',
-                        'contrie'                 => 'Campo requerido',
-                        'address'                 => 'Campo requerido',
-                        'zip_code'                => 'Campo requerido',
-                        'cod_mpps'                => 'Campo requerido',
-                        'number_floor'            => 'Campo requerido',
-                        'number_consulting_room'  => 'Campo requerido',
-                        'number_consulting_phone' => 'Campo requerido',
+                        'name'                    => __('messages.alert.nombre_obligatorio'),
+                        'last_name'               => __('messages.alert.apellido_obligatorio'),
+                        'ci'                      => __('messages.alert.cedula_obligatoria'),
+                        'birthdate'               => __('messages.alert.fecha_obligatorio'),
+                        'genere'                  => __('messages.alert.genero_obligatorio'),
+                        'specialty'               => __('messages.alert.especialidad_obligatorio'),
+                        'age'                     => __('messages.alert.edad_obligatorio'),
+                        'phone'                   => __('messages.alert.telefono_obligatorio'),
+                        'state_contrie'           => __('messages.alert.estado_obligatorio'),
+                        'city_contrie'            => __('messages.alert.ciudad_obligatorio'),
+                        'contrie'                 => __('messages.alert.pais_obligatorio'),
+                        'address'                 => __('messages.alert.direccion_obligatoria'),
+                        'zip_code'                => __('messages.alert.codigo_obligatorio'),
+                        'cod_mpps'                => __('messages.alert.mpps_obligatorio'),
+                        'number_floor'            => __('messages.alert.num_piso_obligatorio'),
+                        'number_consulting_room'  => __('messages.alert.num_cons_obligatorio'),
+                        'number_consulting_phone' => __('messages.alert.num_tlf_obligatorio'),
                     ];
                 } else {
 
@@ -395,20 +395,20 @@ class Register extends Component
                     ];
 
                     $msj = [
-                        'name'          => 'Campo requerido',
-                        'last_name'     => 'Campo requerido',
-                        'ci'            => 'Campo requerido',
-                        'birthdate'     => 'Campo requerido',
-                        'genere'        => 'Campo requerido',
-                        'specialty'     => 'Campo requerido',
-                        'age'           => 'Campo requerido',
-                        'phone'         => 'Campo requerido',
-                        'state_contrie' => 'Campo requerido',
-                        'city_contrie'  => 'Campo requerido',
-                        'contrie'       => 'Campo requerido',
-                        'address'       => 'Campo requerido',
-                        'zip_code'      => 'Campo requerido',
-                        'cod_mpps'      => 'Campo requerido',
+                        'name'                    => __('messages.alert.nombre_obligatorio'),
+                        'last_name'               => __('messages.alert.apellido_obligatorio'),
+                        'ci'                      => __('messages.alert.cedula_obligatoria'),
+                        'birthdate'               => __('messages.alert.fecha_obligatorio'),
+                        'genere'                  => __('messages.alert.genero_obligatorio'),
+                        'specialty'               => __('messages.alert.especialidad_obligatorio'),
+                        'age'                     => __('messages.alert.edad_obligatorio'),
+                        'phone'                   => __('messages.alert.telefono_obligatorio'),
+                        'state_contrie'           => __('messages.alert.estado_obligatorio'),
+                        'city_contrie'            => __('messages.alert.ciudad_obligatorio'),
+                        'contrie'                 => __('messages.alert.pais_obligatorio'),
+                        'address'                 => __('messages.alert.direccion_obligatoria'),
+                        'zip_code'                => __('messages.alert.codigo_obligatorio'),
+                        'cod_mpps'                => __('messages.alert.mpps_obligatorio'),
                     ];
                 }
 
@@ -460,14 +460,14 @@ class Register extends Component
                 ];
 
                 $msj = [
-                    'rif'             => 'Campo requerido',
-                    'state'           => 'Campo requerido',
-                    'city'            => 'Campo requerido',
-                    'address'         => 'Campo requerido',
-                    'phone'           => 'Campo requerido',
-                    'license'         => 'Campo requerido',
-                    'type_laboratory' => 'Campo requerido',
-                    'responsible'     => 'Campo requerido',
+                    'rif'             => __('messages.alert.rif_obligatorio'),
+                    'state'           => __('messages.alert.estado_obligatorio'),
+                    'city'            => __('messages.alert.ciudad_obligatorio'),
+                    'address'         => __('messages.alert.direccion_obligatoria'),
+                    'phone'           => __('messages.alert.telefono_obligatorio'),
+                    'license'         => __('messages.alert.num_licencia_obligatorio'),
+                    'type_laboratory' => __('messages.alert.tipo_lab_obligatorio'),
+                    'responsible'     => __('messages.alert.responsable_obligatorio'),
                 ];
 
 

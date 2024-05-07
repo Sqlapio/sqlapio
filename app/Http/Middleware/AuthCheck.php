@@ -17,15 +17,15 @@ class AuthCheck
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {           
+    {
         $user = DB::table('sessions')
         ->where('user_id', Auth::user()->id)->get();
-     
-        if(count($user)>1){               
+
+        if(count($user)>1){
             $user = DB::table('sessions')
             ->where('user_id', Auth::user()->id)->delete();
-            $error = "Tiene una sesión duplicada. Por intente nuevamente";      
-            return response()->view('livewire.components.login', compact('error'));     
+            $error = __('messages.alert.sesion_duplicada');
+            return response()->view('livewire.components.login', compact('error'));
 
         }else{
             return $next($request);

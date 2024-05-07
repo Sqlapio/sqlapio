@@ -584,6 +584,7 @@
                 title: '@lang('messages.alert.eliminar_tarjeta')',
                 icon: "warning",
                 showCancelButton: true,
+                cancelButtonText: '@lang('messages.botton.cancelar')',
                 confirmButtonColor: '#42ABE2',
                 cancelButtonColor: '#d33',
                 confirmButtonText: '@lang('messages.botton.aceptar')',
@@ -611,6 +612,7 @@
                 title: '@lang('messages.alert.predeterminar_tarjeta')',
                 icon: "warning",
                 showCancelButton: true,
+                cancelButtonText: '@lang('messages.botton.cancelar')',
                 confirmButtonColor: '#42ABE2',
                 cancelButtonColor: '#d33',
                 confirmButtonText: '@lang('messages.botton.aceptar')'
@@ -638,6 +640,7 @@
                 title: '@lang('messages.alert.suscripcion')',
                 icon: "warning",
                 showCancelButton: true,
+                cancelButtonText: '@lang('messages.botton.cancelar')',
                 confirmButtonColor: '#42ABE2',
                 cancelButtonColor: '#d33',
                 confirmButtonText: '@lang('messages.botton.aceptar')'
@@ -665,6 +668,7 @@
                 title: '@lang('messages.alert.reanudar')',
                 icon: "warning",
                 showCancelButton: true,
+                cancelButtonText: '@lang('messages.botton.cancelar')',
                 confirmButtonColor: '#42ABE2',
                 cancelButtonColor: '#d33',
                 confirmButtonText: '@lang('messages.botton.aceptar')'

@@ -324,7 +324,7 @@
                             $("#form-profile").trigger("reset");
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Perfil actualizado exitosamente!',
+                                title: '@lang('messages.alert.perfil_actualizado')',
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: '@lang('messages.botton.aceptar')'
@@ -408,6 +408,7 @@
                     text: "@lang('messages.alert.envio_codigo')",
                     icon: 'warning',
                     showCancelButton: true,
+                    cancelButtonText: '@lang('messages.botton.cancelar')',
                     confirmButtonColor: '#42ABE2',
                     cancelButtonColor: '#d33',
                     confirmButtonText: '@lang('messages.botton.aceptar')'
@@ -441,6 +442,7 @@
                                         maxlength: 6
                                     },
                                     showCancelButton: true,
+                                    cancelButtonText: '@lang('messages.botton.cancelar')',
                                     confirmButtonText: '@lang('messages.botton.enviar')',
                                     showLoaderOnConfirm: true,
                                     inputValidator: (value) => {

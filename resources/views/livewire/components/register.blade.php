@@ -318,6 +318,7 @@
                     text: "Se enviara un código de verifcación al correo ingresado!",
                     icon: 'warning',
                     showCancelButton: true,
+                    cancelButtonText: '@lang('messages.botton.cancelar')',
                     confirmButtonColor: '#42ABE2',
                     cancelButtonColor: '#d33',
                     confirmButtonText: '@lang('messages.botton.aceptar')'
@@ -353,6 +354,7 @@
                                         maxlength: 6
                                     },
                                     showCancelButton: true,
+                                    cancelButtonText: '@lang('messages.botton.cancelar')',
                                     confirmButtonText: 'Enviar',
                                     showLoaderOnConfirm: true,
                                     inputValidator: (value) => {

@@ -31,10 +31,10 @@ class Diary extends Component
                     "re_last_name" => $patient->get_reprensetative->re_last_name,
                     "re_email"     => $patient->get_reprensetative->re_email,
                     "re_phone"     => $patient->get_reprensetative->re_phone,
-                    "re_ci"        =>  $patient->get_reprensetative->re_ci,
-                    "genere"       =>  $patient->genere,
+                    "re_ci"        => $patient->get_reprensetative->re_ci,
+                    "genere"       => $patient->genere,
                     "age"          => $patient->age,
-                    "id"           =>  $patient->id,
+                    "id"           => $patient->id,
                     "patient_img"  => $patient->patient_img,
                 ];
                 return $patient_re;
@@ -53,8 +53,8 @@ class Diary extends Component
             ];
 
             $msj = [
-                'date_start.required' => 'Campo requerido',
-                'hour_start.required' => 'Campo requerido',
+                'date_start.required' => __('messages.alert.fecha_cita_requerida'),
+                'hour_start.required' => __('messages.alert.hora_cita_requerida'),
             ];
 
             $validator = Validator::make($request->all(), $rules, $msj);

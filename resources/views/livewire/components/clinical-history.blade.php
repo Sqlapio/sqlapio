@@ -600,6 +600,7 @@
                 confirmButtonColor: '#42ABE2',
                 confirmButtonText: '@lang('messages.botton.aceptar')',
                 showCancelButton: true,
+                cancelButtonText: '@lang('messages.botton.cancelar')'
             }).then((result) => {
                 if (result.isConfirmed) {
 
@@ -620,6 +621,7 @@
                 confirmButtonColor: '#42ABE2',
                 confirmButtonText: '@lang('messages.botton.aceptar')',
                 showCancelButton: true,
+                cancelButtonText: '@lang('messages.botton.cancelar')'
             }).then((result) => {
                 if (result.isConfirmed) {
 
@@ -641,6 +643,7 @@
                 confirmButtonColor: '#42ABE2',
                 confirmButtonText: '@lang('messages.botton.aceptar')',
                 showCancelButton: true,
+                cancelButtonText: '@lang('messages.botton.cancelar')'
             }).then((result) => {
                 if (result.isConfirmed) {
 
