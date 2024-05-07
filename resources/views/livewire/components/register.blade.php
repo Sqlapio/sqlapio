@@ -205,8 +205,6 @@
                     },
                     email: {
                         required: true,
-                        minlength: 3,
-                        maxlength: 50,
                         email: true
                     },
                     password: {
@@ -243,17 +241,15 @@
 
                     email: {
                         required: "@lang('messages.alert.correo_obligatorio')",
-                        minlength: "Correo Electrónico debe ser mayor a 6 caracteres",
-                        maxlength: "Correo Electrónico debe ser menor a 8 caracteres",
                         email: "@lang('messages.alert.correo_incorrecto')"
                     },
                     password: {
-                        required: "Contraseña es obligatoria",
-                        minlength: "Contraseña debe ser mayor a 6 caracteres",
+                        required: "@lang('messages.alert.contraseña_obligatorio')",
+                        minlength: "@lang('messages.alert.contraseña_6_caracteres')",
                     },
                     password_confrimation: {
-                        required: "Confirmar Contraseña es obligatoria",
-                        minlength: "Confirmar Contraseña debe ser mayor a 6 caracteres",
+                        required: "@lang('messages.alert.ccontraseña_obligatorio')",
+                        minlength: "@lang('messages.alert.ccontraseña_6_caracteres')",
                     },
                     ci: {
                         required: "@lang('messages.alert.cedula_obligatoria')",
@@ -315,7 +311,7 @@
 
                 Swal.fire({
                     title: 'Informacion',
-                    text: "Se enviara un código de verifcación al correo ingresado!",
+                    text: '@lang('messages.alert.envio_codigo')',
                     icon: 'warning',
                     showCancelButton: true,
                     cancelButtonText: '@lang('messages.botton.cancelar')',
@@ -346,7 +342,7 @@
                                 $('#spinner').hide();
 
                                 Swal.fire({
-                                    title: 'Ingrese el código',
+                                    title: '@lang('messages.alert.ingrese_codigo')',
                                     input: 'number',
                                     inputAttributes: {
                                         autocorrect: 'on',
@@ -359,9 +355,9 @@
                                     showLoaderOnConfirm: true,
                                     inputValidator: (value) => {
                                         if (value === '') {
-                                            return "Campo obligatorio"
+                                            return '@lang('messages.alert.campo_obligatorio')'
                                         } else if (value.length > 6) {
-                                            return "Campo debe ser de 6 caracteres"
+                                            return '@lang('messages.alert.campo_6_caracteres')'
 
                                         }
                                     },
@@ -455,7 +451,7 @@
             switch (Number(e.target.value)) {
                 case 1:
 
-                    $('#ci').attr("placeholder", "Cedula de indentidad");
+                    $('#ci').attr("placeholder", '@lang('messages.select.cedula_identidad')');
                     $('#div_name').show();
                     $('#div_last_name').show();
                     $('#div_business_name').hide();
@@ -498,7 +494,7 @@
 
                 case 3:
 
-                    $('#ci').attr("placeholder", "Pasaporte");
+                    $('#ci').attr("placeholder", '@lang('messages.select.pasaporte')');
                     $('#div_name').show();
                     $('#div_last_name').show();
                     $('#div_business_name').hide();
@@ -520,7 +516,7 @@
 
                 case 4:
 
-                    $('#ci').attr("placeholder", "Firma Personal");
+                    $('#ci').attr("placeholder", '@lang('messages.select.firma_personal')');
                     $('#div_name').hide();
                     $('#div_last_name').hide();
                     $('#div_business_name').show();
@@ -532,7 +528,7 @@
 
                 case 5:
 
-                    $('#ci').attr("placeholder", "Juridico");
+                    $('#ci').attr("placeholder", '@lang('messages.select.juridico')');
                     $('#div_name').hide();
                     $('#div_last_name').hide();
                     $('#div_business_name').show();
@@ -544,7 +540,7 @@
                     break;
                 case 6:
 
-                    $('#ci').attr("placeholder", "Comuna");
+                    $('#ci').attr("placeholder", '@lang('messages.select.comuna')');
                     $('#div_name').hide();
                     $('#div_last_name').hide();
                     $('#div_business_name').show();
@@ -557,7 +553,7 @@
 
                 case 7:
 
-                    $('#ci').attr("placeholder", "Gubernalmental");
+                    $('#ci').attr("placeholder", '@lang('messages.select.gubernamental')');
                     $('#div_name').hide();
                     $('#div_last_name').hide();
                     $('#div_business_name').show();
@@ -607,7 +603,7 @@
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="div_last_name">
                                     <div class="form-group">
                                         <div class="Icon-inside">
-                                            <label for="name" class="form-label"
+                                            <label for="last_name" class="form-label"
                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
                                             <input autocomplete="off" class="form-control mask-text" id="last_name"
                                                 name="last_name" type="text" value="">
@@ -618,7 +614,7 @@
 
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="form-group">
-                                        <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.tipo_documento')</label>
+                                        <label for="type_rif" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.tipo_documento')</label>
                                         <select onchange="handlerTypeDoc(event)" name="type_rif" id="type_rif" class="form-control">
                                             <option value="">@lang('messages.placeholder.seleccione')</option>
                                             <option value="1">@lang('messages.select.cedula')</option>
@@ -635,7 +631,7 @@
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="form-group">
                                         <div class="Icon-inside">
-                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.documento_identidad')</label>
+                                            <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.documento_identidad')</label>
                                             <input autocomplete="off" class="form-control mask-only-number" id="ci" name="ci" type="text" value="" placeholder="">
                                             <i class="bi bi-person-circle st-icon"></i>
                                         </div>
@@ -646,7 +642,7 @@
                                     id="div_business_name">
                                     <div class="form-group">
                                         <div class="Icon-inside">
-                                            <label for="name" class="form-label"
+                                            <label for="business_name" class="form-label"
                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon_social')</label>
                                             <input autocomplete="off" placeholder="" class="form-control mask-text"
                                                 id="business_name" name="business_name" type="text" value="">
@@ -657,9 +653,8 @@
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="form-group">
                                         <div class="Icon-inside">
-                                            <label for="name" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
-                                                Electrónico</label>
+                                            <label for="email" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
                                             <input autocomplete="off" class="form-control" id="email" name="email"
                                                 type="text" value="">
                                             <i class="bi bi-envelope st-icon"></i>
@@ -670,9 +665,9 @@
                                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                     <div class="form-group">
                                         <div class="Icon-inside">
-                                            <label for="name" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Contraseña</label>
-                                            <input placeholder="Contraseña" autocomplete="off" class="form-control"
+                                            <label for="password" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.contraseña')</label>
+                                            <input autocomplete="off" class="form-control"
                                                 id="password" name="password" type="password" value="">
                                             <i onclick="showPass();" class="bi bi-eye-fill st-icon"></i>
                                         </div>
@@ -681,10 +676,9 @@
                                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                     <div class="form-group">
                                         <div class="Icon-inside">
-                                            <label for="name" class="form-label"
-                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Confirmar
-                                                Contraseña</label>
-                                            <input autocomplete="off" placeholder="Confirmar Contraseña"
+                                            <label for="password_confrimation" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.confirmar_contraseña')</label>
+                                            <input autocomplete="off"
                                                 class="form-control" id="password_confrimation"
                                                 name="password_confrimation" type="password" value="">
                                             <i onclick="showPassConfimation();" class="bi bi-eye-fill st-icon"></i>
@@ -730,7 +724,7 @@
                             <div class="d-flex justify-content-center">
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-3" style="display: flex; justify-content: space-around;">
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-center">
-                                        <input class="btn btnPrimary" value="Registrar" onclick="handlerSubmit();" style="margin-left: 20px" />
+                                        <input class="btn btnPrimary" value="@lang('messages.botton.registrar')" onclick="handlerSubmit();" style="margin-left: 20px" />
                                     </div>
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-center">
                                         <a href="/"><button type="button" class="btn btnSecond btn2">@lang('messages.botton.cancelar')</button></a>

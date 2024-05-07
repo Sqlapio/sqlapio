@@ -49,6 +49,8 @@ return [
         'suscribirse_mensual' => 'Subscribe to the Monthly Plan',
         'suscribirse_anual'   => 'Subscribe to the Annual Plan',
         'cancelar_plan'       => 'Cancel Plan',
+        'registrar'           => 'Register',
+
     ],
 
     'form' => [
@@ -138,6 +140,8 @@ return [
         'respiraciones_1'        => 'Breaths',
         'pulso_1'                => 'Pulse',
         'saturacion_1'           => 'Saturation',
+        'contraseña'             => 'Password',
+        'confirmar_contraseña'   => 'Confirm password',
     ],
 
     'menu' => [
@@ -373,7 +377,7 @@ return [
         'mensaje_pago'        => 'By confirming your subscription, you will allow Sqlapio Technology LLC to charge future payments in accordance with the stipulated conditions. You can always cancel your subscription.',
         'metodos_de_pago'     => 'Payment Methods',
         'citas_del_dia'       => 'Quotes of the day',
-        'documento_identidad' => 'Identification document',
+        'documento_identidad' => 'ID',
     ],
 
     'select' => [
