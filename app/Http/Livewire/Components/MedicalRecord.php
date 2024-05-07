@@ -37,14 +37,14 @@ class MedicalRecord extends Component
 
             $symptom_array = json_decode($data->symptom_array,true);
 
-            $symptom_strig ='';          
+            $symptom_strig ='';
 
-            foreach ( $symptom_array as $valor){ 
+            foreach ( $symptom_array as $valor){
 
                 $symptom_strig = ($symptom_strig=='')? $valor["description"] : $symptom_strig.",".$valor["description"];
 
             }
-            
+
             $symptom_strig = (count( $symptom_array)==0)? $data->sintomas :  $symptom_strig.",".$data->sintomas;
 
             $user = Auth::user()->id;
@@ -66,17 +66,17 @@ class MedicalRecord extends Component
             }
 
             $rules = [
-                'background'  => 'required',
-                'razon'       => 'required',
-                'diagnosis'   => 'required',
+                'background'              => 'required',
+                'razon'                   => 'required',
+                'diagnosis'               => 'required',
                 'medications_supplements' => 'required',
             ];
 
             $msj = [
-                'background'  => 'Campo requerido',
-                'razon'       => 'Campo requerido',
-                'diagnosis'   => 'Campo requerido',
-                'medications_supplements' => 'Campo requerido',
+                'background'              => __('messages.alert.antecedentes_obligatorio'),
+                'razon'                   => __('messages.alert.razon_obligatorio'),
+                'diagnosis'               => __('messages.alert.diagnostico_obligatorio'),
+                'medications_supplements' => __('messages.alert.tratamiento_obligatorio'),
             ];
 
             /** Validacion para cargar el centro correcto cuando el medico
@@ -94,15 +94,15 @@ class MedicalRecord extends Component
                  * Este metodo recibe como llaves principales el id del medico, id del paciente y el
                  * id del centro.
                  */
-                'user_id'       => $user,
-                'patient_id'    => $data->id,
-                'center_id'     => isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id,
-                'record_code'   => 'SQ-C-'.random_int(11111111, 99999999),
-                'record_date'   => date('d-m-Y'),
-                'background'    => $data->background,
-                'razon'         => $data->razon,
-                'diagnosis'     => $data->diagnosis,
-                'sintomas'     => strtolower($symptom_strig),
+                'user_id'                 => $user,
+                'patient_id'              => $data->id,
+                'center_id'               => isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id,
+                'record_code'             => 'SQ-C-'.random_int(11111111, 99999999),
+                'record_date'             => date('d-m-Y'),
+                'background'              => $data->background,
+                'razon'                   => $data->razon,
+                'diagnosis'               => $data->diagnosis,
+                'sintomas'                => strtolower($symptom_strig),
                 'medications_supplements' => $data->medications_supplements,
             ]);
 
@@ -165,14 +165,14 @@ class MedicalRecord extends Component
             ];
 
             $msj = [
-                'weight'        => 'Campo requerido',
-                'height'        => 'Campo requerido',
-                'strain'        => 'Campo requerido',
-                'temperature'   => 'Campo requerido',
-                'breaths'       => 'Campo requerido',
-                'pulse'         => 'Campo requerido',
-                'saturation'    => 'Campo requerido',
-                'condition'     => 'Campo requerido',
+                'weight'        => __('messages.alert.peso_requerido'),
+                'height'        => __('messages.alert.altura_requerido'),
+                'strain'        => __('messages.alert.presion_arterial_requerido'),
+                'temperature'   => __('messages.alert.temperatura_requerido'),
+                'breaths'       => __('messages.alert.respiraciones_requerido'),
+                'pulse'         => __('messages.alert.pulso_requerido'),
+                'saturation'    => __('messages.alert.saturacion_requerido'),
+                'condition'     => __('messages.alert.condicion_requerido'),
             ];
 
             $validator = Validator::make($request->all(), $rules, $msj);
@@ -203,7 +203,7 @@ class MedicalRecord extends Component
             $physical_exams->breaths = $request->breaths;
             $physical_exams->pulse = $request->pulse;
             $physical_exams->saturation = $request->saturation;
-            $physical_exams->condition = $request->condition;      
+            $physical_exams->condition = $request->condition;
             $physical_exams->observations = $request->observations;
             $physical_exams->save();
 
@@ -228,7 +228,7 @@ class MedicalRecord extends Component
         ];
 
         $msj = [
-            'TextInforme'  => 'Debe relleñar el text area para poder crear un informe válido',
+            'TextInforme'  => __('messages.alert.text_informe_requerido'),
         ];
 
         $validator = Validator::make($request->all(), $rules, $msj);

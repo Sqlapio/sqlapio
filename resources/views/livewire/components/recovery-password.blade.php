@@ -46,18 +46,14 @@
                 rules: {
                     email: {
                         required: true,
-                        minlength: 3,
-                        maxlength: 50,
                         email: true
                     },
                 },
                 messages: {
 
                     email: {
-                        required: "Correo Electrónico es obligatorio",
-                        minlength: "Correo Electrónico debe ser mayor a 6 caracteres",
-                        maxlength: "Correo Electrónico debe ser menor a 8 caracteres",
-                        email: "Correo Electrónico incorrecto"
+                        required: "@lang('messages.alert.correo_obligatorio')",
+                        email: "@lang('messages.alert.correo_obligatorio')",
                     }
 
                 }
@@ -69,13 +65,14 @@
                 $("#form-recovery").validate();
                 if ($("#form-recovery").valid()) {
                     Swal.fire({
-                        title: 'Esta seguro de realizar esta acción?',
-                        text: "Se enviara un código de verifcación al correo ingresado!",
+                        title: '@lang('messages.alert.accion')',
+                        text: '@lang('messages.alert.envio_codigo')',
                         icon: 'warning',
                         showCancelButton: true,
+                        cancelButtonText: '@lang('messages.botton.cancelar')',
                         confirmButtonColor: '#42ABE2',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Aceptar'
+                        confirmButtonText: '@lang('messages.botton.aceptar')'
 
                     }).then((result) => {
 
@@ -100,7 +97,7 @@
                                     $('#spinner').hide();
 
                                     Swal.fire({
-                                        title: 'Ingrese el código',
+                                        title: '@lang('messages.alert.ingrese_codigo')',
                                         input: 'number',
                                         inputAttributes: {
                                             autocorrect: 'on',
@@ -108,13 +105,14 @@
                                             maxlength: 6
                                         },
                                         showCancelButton: true,
-                                        confirmButtonText: 'Enviar',
+                                        cancelButtonText: '@lang('messages.botton.cancelar')',
+                                        confirmButtonText: '@lang('messages.botton.enviar')',
                                         showLoaderOnConfirm: true,
                                         inputValidator: (value) => {
                                             if (value === '') {
-                                                return "Campo obligatorio"
+                                                return '@lang('messages.alert.campo_obligatorio')'
                                             } else if (value.length > 6) {
-                                                return "Campo debe ser de 6 caracteres"
+                                                return '@lang('messages.alert.campo_6_caracteres')'
 
                                             }
                                         },
@@ -139,7 +137,7 @@
                                             .msj,
                                         allowOutsideClick: false,
                                         confirmButtonColor: '#42ABE2',
-                                        confirmButtonText: 'Aceptar'
+                                        confirmButtonText: '@lang('messages.botton.aceptar')'
                                     })
 
                                 }
@@ -168,14 +166,14 @@
                 },
                 messages: {
                     password: {
-                        required: "Contraseña es obligatoria",
-                        minlength: "Contraseña debe ser mayor a 6 caracteres",
-                        maxlength: "Contraseña debe ser menor a 8 caracteres",
+                        required: "@lang('messages.alert.contraseña_obligatorio')",
+                        minlength: "@lang('messages.alert.contraseña_6_caracteres')",
+                        maxlength: "@lang('messages.alert.contraseña_8_caracteres')",
                     },
                     password_confrimation: {
-                        required: "Confirmar Contraseña es obligatoria",
-                        minlength: "Confirmar Contraseña debe ser mayor a 6 caracteres",
-                        maxlength: "Confirmar Contraseña debe ser menor a 8 caracteres",
+                        required: "@lang('messages.alert.ccontraseña_obligatorio')",
+                        minlength: "@lang('messages.alert.ccontraseña_6_caracteres')",
+                        maxlength: "@lang('messages.alert.ccontraseña_8_caracteres')",
                     }
                 }
             });
@@ -208,7 +206,7 @@
                                 title: response.msj,
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
                             }).then((result) => {
                                 let url = "/";
                                 window.location.href = url;
@@ -225,7 +223,7 @@
                                     .msj,
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
                             })
 
                         }
@@ -241,7 +239,7 @@
                     validate = true;
                 }
                 return validate;
-            }, "Contraseña no coinciden");
+            }, "@lang('messages.alert.contraseña_no_coincide')");
 
         });
 

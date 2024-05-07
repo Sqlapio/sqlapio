@@ -32,12 +32,12 @@ class Login extends Component
 	public function messages()
 	{
 		$messages = [
-			'username.required' => 'Usuario requerido',
-			'password.required' => 'Contraseña requerida',
-			'username.min' => 'Usuario debe ser mayor a 3 caracteres',
-			'username.max' => 'Usuario debe ser menor a 50 caracteres',
-			'password.min' => 'Contraseña debe ser mayor a 6 caracteres',
-			'password.regex' => 'Formato de contraseña incorrecto',
+			'username.required' => __('messages.alert.usuario_requerido'),
+			'password.required' => __('messages.alert.contraseña_obligatorio'),
+			'username.min'      => __('messages.alert.usuario_3_caracteres'),
+			'username.max'      =>  __('messages.alert.usuario_50_caracteres'),
+			'password.min'      => __('messages.alert.campo_6_caracteres'),
+			'password.regex'    => 'Formato de contraseña incorrecto',
 
 		];
 		return $messages;

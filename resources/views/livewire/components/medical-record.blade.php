@@ -781,6 +781,7 @@
             confirmButtonColor: '#42ABE2',
             confirmButtonText: '@lang('messages.botton.aceptar')',
             showCancelButton: true,
+            cancelButtonText: '@lang('messages.botton.cancelar')'
         }).then((result) => {
             if (result.isConfirmed) {
                 $("#medical_record_id").val('');
@@ -1298,6 +1299,7 @@
             confirmButtonColor: '#42ABE2',
             confirmButtonText: '@lang('messages.botton.aceptar')',
             showCancelButton: true,
+            cancelButtonText: '@lang('messages.botton.cancelar')'
         }).then((result) => {
 
             if (result.isConfirmed) {

@@ -65,7 +65,7 @@ class Profile extends Component
             if ($user == null) {
                 return response()->json([
                     'error' => 'true',
-                    'msj'  => 'El correo introducido no exite en el sistema.'
+                    'msj'  => __('messages.alert.correo_no_existe')
                 ], 400);
             } else {
                 $code = random_int(111111, 999999);
@@ -116,7 +116,7 @@ class Profile extends Component
             if ($user->cod_update_email != $request->cod_update_email) {
                 return response()->json([
                     'success' => 'false',
-                    'msj'  => 'El codigo de autorizacion es incorrecto.'
+                    'msj'  => __('messages.alert.codigo_incorrecto')
                 ], 400);
             } else {
 
@@ -126,7 +126,7 @@ class Profile extends Component
 
                 return response()->json([
                     'success' => 'true',
-                    'msj'  => 'Su direccion de correo fue actualizada de forma exitosa.'
+                    'msj'  => __('messages.alert.correo_actualizado')
                 ], 200);
 
                 /**
@@ -149,12 +149,12 @@ class Profile extends Component
 
                 return response()->json([
                     'success' => 'true',
-                    'msj'  => 'Su contraseña fue actualizada de forma exitosa.'
+                    'msj'  => __('messages.alert.clave_actualizada')
                 ], 200);
             } else {
                 return response()->json([
                     'error' => 'true',
-                    'msj'  => 'Su codigo de verificacion es incorrecto.'
+                    'msj'  => __('messages.alert.codigov_incorrecto')
                 ], 400);
             }
         }
@@ -201,7 +201,7 @@ class Profile extends Component
         return true;
     }
 
-    
+
 
     public function render()
     {
