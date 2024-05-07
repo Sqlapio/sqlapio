@@ -42,6 +42,14 @@
         margin-block-end: 0;
     }
 </style>
+@php
+    $lang = session()->get('locale');
+    if ($lang == 'en') {
+        $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/en-EN.json';
+    } else{
+        $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json';
+    }
+@endphp
 @push('scripts')
     @vite(['resources/js/centers.js'])
     <script>
@@ -230,7 +238,7 @@
                     });
                     new DataTable('#table-centers', {
                         language: {
-                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                            url: url,
                         },
                         reponsive: true,
                         bDestroy: true,

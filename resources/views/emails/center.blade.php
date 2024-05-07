@@ -25,6 +25,11 @@
 
             <p style="text-align: justify; margin-left: 20px;">
                 <h3 style="text-align: justify; margin-left: 20px;">
+                    @lang('messages.emails.centro_salud'): {{ $mailData['center_name'] }}
+                    <br>
+                    @lang('messages.emails.direccion'): {{ $mailData['center_address'] }}
+                    <br>
+                    @lang('messages.emails.piso'): {{ $mailData['center_floor'] }}
                     <br>
                     @lang('messages.emails.num_consultorio'): {{ $mailData['center_consulting_room'] }}
                     <br>
