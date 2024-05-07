@@ -586,7 +586,7 @@ return [
 
     'emails' => [
         'centro_titulo'   => 'Centro asociado de forma exitosa.',
-        'centro_salud'    => 'Centro',
+        'centro_salud'    => 'HOla',
         'direccion'       => 'Dirección',
         'piso'            => 'Piso',
         'num_consultorio' => 'Nro. de consultorio',
