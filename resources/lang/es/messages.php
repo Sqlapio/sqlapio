@@ -49,6 +49,7 @@ return [
         'suscribirse_mensual' => 'Suscribirse al Plan Mensual',
         'suscribirse_anual'   => 'Suscribirse al Plan Anual',
         'cancelar_plan'       => 'Cancelar Plan',
+        'registrar'           => 'Registar',
     ],
 
     'form' => [
@@ -138,6 +139,8 @@ return [
         'respiraciones_1'        => 'Respiraciones',
         'pulso_1'                => 'Pulso',
         'saturacion_1'           => 'Saturación',
+        'contraseña'             => 'Contraseña',
+        'confirmar_contraseña'   => 'Confirmar Contraseña',
     ],
 
     'menu' => [
@@ -400,7 +403,7 @@ return [
         'Femenino'       => 'Femenino',
         'am'             => 'AM',
         'pm'             => 'PM',
-        'cedula'         => 'Cédula de identidad',
+        'cedula'         => 'Documento de Identidad',
         'pasaporte'      => 'Pasaporte',
         'firma_personal' => 'Firma Personal',
         'juridico'       => 'Jurídico',
@@ -579,6 +582,18 @@ return [
 
     'pacientes' => [
         'historia_paciente'  => 'Historia del paciente',
+    ],
+
+    'emails' => [
+        'centro_titulo'   => 'Centro asociado de forma exitosa.',
+        'centro_salud'    => 'Centro',
+        'direccion'       => 'Dirección',
+        'piso'            => 'Piso',
+        'num_consultorio' => 'Nro. de consultorio',
+        'telefono'        => 'Teléfono',
+        'gracias'         => 'Gracias por ser parte de nosotros, Sqlapio.com, innovando para el futuro.',
+        'atentamente'     => 'Atentamente',
+        'comunicate'      => 'Para mayor información puede comunicarse 24/7 con nuestro equipo a través de',
     ],
 
 ];
