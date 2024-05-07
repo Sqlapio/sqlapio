@@ -585,4 +585,16 @@ return [
         'historia_paciente'  => 'Patient history',
     ],
 
+    'emails' => [
+        'centro_titulo'   => 'Successfully associated center.',
+        'centro_salud'    => 'Center',
+        'direccion'       => 'Address',
+        'piso'            => 'Floor',
+        'num_consultorio' => 'No. office',
+        'telefono'        => 'Phone',
+        'gracias'         => 'Thank you for being part of us, Sqlapio.com, innovating for the future.',
+        'atentamente'     => 'Sincerely',
+        'comunicate'      => 'For more information you can contact our team 24/7 through',
+    ],
+
 ];
