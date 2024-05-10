@@ -73,6 +73,32 @@ class Centers extends Component
                 $doctor_centers->center_id = $new_centers->id;
                 $doctor_centers->save();
 
+                /**
+                 * Logica para el envio de la notificacion
+                 * via correo electronico
+                 */
+
+                 $email_verified_at = Auth::user()->email_verified_at;
+
+                 if ($email_verified_at != null) {
+                     /**
+                      * Notificacion al Doctor
+                      */
+                     $centers = Center::where('id', $request->center_id)->first();
+                     $type = 'center';
+                     $mailData = [
+                         'dr_name'                => $user->name . ' ' . $user->last_name,
+                         'dr_email'               => $user->email,
+                         'center_name'            => $new_centers->description,
+                         'center_address'         => $doctor_centers->address,
+                         'center_floor'           => $doctor_centers->number_floor,
+                         'center_consulting_room' => $doctor_centers->number_consulting_room,
+                         'center_phone'           => $doctor_centers->phone_consulting_room,
+                     ];
+
+                     UtilsController::notification_mail($mailData, $type);
+                 }
+
                 return true;
             } else {
 

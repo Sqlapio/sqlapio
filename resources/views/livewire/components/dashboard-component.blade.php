@@ -611,7 +611,10 @@
                                                                 <td class="text-center td-pad"> {{ $item['extendedProps']['phone'] }}</td>
                                                                 <td class="text-center td-pad"> {{ $item['extendedProps']['email'] }}</td> --}}
                                                                 <td class="text-center td-pad"> {{ $item['extendedProps']['center'] }}</td>
-                                                                <td class="text-center td-pad"> <span class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">{{ $item['extendedProps']['status'] }}</span> </td>
+                                                                @php
+                                                                    $status2 =  $item['extendedProps']['status'];
+                                                                @endphp
+                                                                <td class="text-center td-pad"> <span class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">@lang('messages.tabla.' . $status2)</span> </td>
                                                                 <td>
                                                                     <div class="d-flex" style="justify-content: center;">
                                                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">

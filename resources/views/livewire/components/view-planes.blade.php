@@ -890,17 +890,28 @@
                 }
             );
 
+            const lang = document.getElementById("lang").value;
+
+            const langJson = JSON.parse(lang);
+
 
             if (error) {
                 $('#spinner').hide();
 
+                let codeStripe = error.code;
+                let langStripe = langJson
+
+                const errorMessage = langStripe.stripe[`${codeStripe}`];
+
                 let span = document.getElementById('card-error-message');
 
-                span.textContent = error.message;
+                span.textContent = errorMessage;
+
+
 
                 Swal.fire({
                     icon: 'error',
-                    title: error.message,
+                    title: errorMessage,
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
                     confirmButtonText: '@lang('messages.botton.aceptar')'
