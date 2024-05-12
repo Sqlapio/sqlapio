@@ -311,6 +311,7 @@ Route::group(array('prefix' => 'public'), function () {
  * Logout
  */
 Route::get('/logout', [Login::class, 'logout'])->name('logout');
+Route::get('/logout-patient', [LoginPatient::class, 'logout'])->name('logout-patient');
 Route::get('/res_exam', [Examen::class, 'res_exam'])->name('res_exam');
 Route::get('/res_exam_sin_resul', [Examen::class, 'res_exam_sin_resul'])->name('res_exam_sin_resul');
 Route::get('/res_study', [Study::class, 'res_study'])->name('res_study');

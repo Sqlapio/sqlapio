@@ -766,6 +766,11 @@
             });
 
         }
+
+        function logout() {
+            var url = "{{ route('logout-patient') }}";
+            location.href = url;
+        }
     </script>
 @endpush
 @section('content')
@@ -779,12 +784,23 @@
                     <div class="card mt-2 card-ex">
                         <div class="card-body">
 
+                            <div class="row justify-content-end mt-3">
+                                <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2">
+                                    <button onclick="logout()" class="mt-text">
+                                        Salir
+                                        <i class="bi bi-box-arrow-right"
+                                            style="color: black; font-size: 30px; position: relative"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+
                             <div class="row  justify-content-center mt-3" id="content-table-patient=portal">
                                 <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 table-responsive">
                                     <hr>
                                     <h5 class="mb-4">@lang('messages.subtitulos.pacientes_registrados')</h5>
-                                    <table id="table-info-pacientes-portal" class="table table-pag table-striped table-bordered"
-                                        style="width:100%; ">
+                                    <table id="table-info-pacientes-portal"
+                                        class="table table-pag table-striped table-bordered" style="width:100%; ">
                                         <thead>
                                             <tr>
                                                 <th class="text-center w-image" scope="col" data-orderable="false">

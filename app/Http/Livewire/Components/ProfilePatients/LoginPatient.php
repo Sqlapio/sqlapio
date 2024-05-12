@@ -4,9 +4,11 @@ namespace App\Http\Livewire\Components\ProfilePatients;
 
 use App\Http\Controllers\ActivityLogController;
 use App\Models\UserPatients;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 use Livewire\Component;
@@ -71,6 +73,15 @@ class LoginPatient extends Component
                 'msj'  => "usuario no exitesa"
             ], 400);
         }
+    }
+
+
+    public function logout()
+    {
+        Session::flush();
+        Auth::logout();
+        return Redirect::route("query-detaly-patient");
+
     }
 
     public function render()
