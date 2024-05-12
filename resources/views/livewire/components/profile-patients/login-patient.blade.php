@@ -61,6 +61,7 @@
         }
 
         const handlerSubmit = () => {
+            $('#spinner').show();
 
             $("#form-login-patient").validate();
 
@@ -76,26 +77,25 @@
                         "password": $("#password").val()
                     },
                     success: function(response) {
-
-                        console.log(@json(auth()->user()));
+                        $('#spinner').hide();
 
                         window
                             .location =
                             '{{ route('view-patient') }}';
                     },
                     error: function(error) {
-                        console.log(@json(auth()->user()));
+                        $('#spinner').hide();
 
 
-                        // Swal.fire({
-                        //     icon: 'error',
-                        //     title: error
-                        //         .responseJSON
-                        //         .msj,
-                        //     allowOutsideClick: false,
-                        //     confirmButtonColor: '#42ABE2',
-                        //     confirmButtonText: '@lang('messages.botton.aceptar')'
-                        // })
+                        Swal.fire({
+                            icon: 'error',
+                            title: error
+                                .responseJSON
+                                .msj,
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
+                        })
                     }
                 });
             }
@@ -104,10 +104,10 @@
 @endpush
 @section('content')
     <div>
-        <div class="container-fluid text-center">
-            <div id="spinner" style="display: none">
-                <x-load-spinner />
-            </div>
+        <div id="spinner" style="display: none" class="spinner-md">
+            <x-load-spinner show="true" />
+        </div>
+        <div class="container-fluid text-center">           
             <div class="row form-sq" style="position: relative">
                 <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-xxxl loginDric">
                     <div class="">

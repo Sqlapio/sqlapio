@@ -747,9 +747,8 @@
         }
 
         const searchPatien = (id) => {
-            
-            $('#spinner').show();
 
+            $('#spinner').show();
 
             let url = "{{ route('search-detaly-patient', ':id') }}";
             url = url.replace(':id', id);
@@ -780,11 +779,11 @@
                     <div class="card mt-2 card-ex">
                         <div class="card-body">
 
-                            <div class="row" id="content-table-patient=portal">
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                            <div class="row  justify-content-center mt-3" id="content-table-patient=portal">
+                                <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 table-responsive">
                                     <hr>
                                     <h5 class="mb-4">@lang('messages.subtitulos.pacientes_registrados')</h5>
-                                    <table id="table-info-pacientes-portal" class="table-pag table-striped table-bordered"
+                                    <table id="table-info-pacientes-portal" class="table table-pag table-striped table-bordered"
                                         style="width:100%; ">
                                         <thead>
                                             <tr>
