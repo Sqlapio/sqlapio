@@ -259,6 +259,8 @@ return [
         'estudios_sin_res' => 'Estudios sin Resultados',
         'examenes_res'     => 'Exámenes con Resultados',
         'examenes_sin_res' => 'Exámenes sin Resultados',
+        'pacientes_registrados' => 'Pacientes Registrado en Sistema',
+
     ],
 
     'tabla' => [
@@ -312,6 +314,8 @@ return [
         'observaciones'       => 'Observaciones',
         'historial_examenes'  => 'Historial de Exámenes Fisicos',
         'codigo_informe'      => 'Código del informe',
+        'selecionar'      => 'selecionar',
+
     ],
 
     'placeholder' => [

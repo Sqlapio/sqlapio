@@ -59,6 +59,18 @@ class QueryDetalyPatient extends Component
 		}
 	}
 
+	public function search_detaly_all($patient_id)
+	{
+		$tablePat =  Patient::where('ci', $patient_id);
+
+		$tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($patient_id) {
+			$q->where('re_ci', $patient_id);
+		});
+		$patient = $tablePat->union($tableRep)->get();
+
+		return $patient;
+	}
+
 	public function render()
 	{
 		return view(
@@ -68,14 +80,16 @@ class QueryDetalyPatient extends Component
 
 	public function toviewPatient()
 	{
-		$data =  $this->search_detaly(auth()->guard("users_patients")->user()->patient_id);
+		$patients =  $this->search_detaly_all(auth()->guard("users_patients")->user()->username);
+		
+		// $data = ($patients->count()>0)? []: $this->search_detaly(auth()->guard("users_patients")->user()->patient_id);
 
 		$vital_sing = UtilsController::get_history_vital_sing();
 		$family_back = UtilsController::get_history_family_back();
 		$pathology_back = UtilsController::get_history_pathology_back();
 		$non_pathology_back = UtilsController::get_history_non_pathology_back();
 		$get_condition = UtilsController::get_condition();
-		
+
 
 		return view(
 			'livewire.components.profile-patients.query-detaly-patient',
@@ -85,7 +99,7 @@ class QueryDetalyPatient extends Component
 				'pathology_back',
 				'non_pathology_back',
 				'get_condition',
-				"data"
+				"patients"
 			)
 		);
 	}

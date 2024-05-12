@@ -303,7 +303,7 @@ Route::group(array('prefix' => 'public'), function () {
 
     Route::group(array('prefix' => 'patient'), function () {
         Route::get('/query-detaly-patient', [QueryDetalyPatient::class, 'render'])->name("query-detaly-patient");
-        Route::post('/search-detaly-patient', [QueryDetalyPatient::class, 'search_detaly'])->name("search-detaly-patient");
+        Route::get('/search-detaly-patient/{id}', [QueryDetalyPatient::class, 'search_detaly'])->name("search-detaly-patient");
     });
 });
 
