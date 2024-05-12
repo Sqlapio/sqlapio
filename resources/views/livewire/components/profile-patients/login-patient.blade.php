@@ -42,7 +42,7 @@
                 },
                 messages: {
                     username: {
-                        required: "@lang('messages.alert.correo_obligatorio')",
+                        required: "@lang('messages.alert.campo_obligatorio')",
                     },
                     password: {
                         required: "@lang('messages.alert.contraseña_obligatorio')",
