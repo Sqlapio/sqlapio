@@ -75,6 +75,7 @@ class QueryDetalyPatient extends Component
 		$pathology_back = UtilsController::get_history_pathology_back();
 		$non_pathology_back = UtilsController::get_history_non_pathology_back();
 		$get_condition = UtilsController::get_condition();
+		
 
 		return view(
 			'livewire.components.profile-patients.query-detaly-patient',

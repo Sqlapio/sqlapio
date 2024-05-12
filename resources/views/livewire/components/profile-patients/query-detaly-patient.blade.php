@@ -115,24 +115,18 @@
                 enablePagination: false,
             });
 
-            let family_back = @json($family_back);
-            let get_condition = @json($get_condition);
-            let non_pathology_back = @json($non_pathology_back);
-            let vital_sing = @json($vital_sing);
-            let pathology_back = @json($pathology_back);
-
-
             $.validator.addMethod("onlyNumber", function(value, element) {
                 var pattern = /^[0-9-]*$/;
                 return pattern.test(value);
             }, "@lang('messages.alert.campo_numerico')");
 
-            showData(@json($data));
+            showData(@json($data), @json($family_back), @json($get_condition),
+                @json($non_pathology_back), @json($vital_sing),
+                @json($pathology_back));
 
         })
 
-        const showData = (response) => {
-
+        const showData = (response, family_back, get_condition, non_pathology_back, vital_sing, pathology_back) => {
 
             //mostar datos el paciente
 
@@ -549,6 +543,7 @@
                                                     </li>`
                     }
                     $('.list-con').append(element);
+
 
                     // data estudios
                     e.study_medical.map((item, i) => {
