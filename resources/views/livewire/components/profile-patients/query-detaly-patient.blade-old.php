@@ -34,7 +34,7 @@
         height: 100% !important;
     }
 
-    .wizard>.steps>ul>li {
+    .wizard > .steps > ul > li {
         width: 20% !important;
     }
 
@@ -72,7 +72,7 @@
     } */
 
     @media (min-width: 577px) and (max-width: 768px) {
-        .wizard>.steps>ul>li {
+        .wizard > .steps > ul > li {
             width: 100% !important;
         }
     }
@@ -122,34 +122,84 @@
             let pathology_back = @json($pathology_back);
 
 
+            $('#form-detaly-patient').validate({
+                rules: {
+                    ci: {
+                        required: true,
+                        minlength: 5,
+                        maxlength: 15,
+                        onlyNumber: true
+                    },
+
+                    birthdate: {
+                        required: true,
+                    },
+
+                },
+                messages: {
+
+                    ci: {
+                        required: "Cédula de identidad es obligatoria",
+                        minlength: "Cédula de identidad  debe ser mayor a 5 caracteres",
+                        maxlength: "Cédula de identidad  debe ser menor a 15 caracteres",
+                    },
+
+                    birthdate: {
+                        required: "Fecha de nacimiento es obligatorio",
+                    }
+                }
+            });
+
             $.validator.addMethod("onlyNumber", function(value, element) {
                 var pattern = /^[0-9-]*$/;
                 return pattern.test(value);
             }, "@lang('messages.alert.campo_numerico')");
 
-            showData(@json($data));
 
-        })
+            //envio del formulario
+            $("#form-detaly-patient").submit(function(event) {
+                event.preventDefault();
+                $("#form-detaly-patient").validate();
+                if ($("#form-detaly-patient").valid()) {
 
-        const showData = (response) => {
+                    var data = $('#form-detaly-patient').serialize();
+                    $('#spinner').show();
+                    $.ajax({
+                        url: "{{ route('search-detaly-patient') }}",
+                        type: 'POST',
+                        data: data,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+
+                            if (response) {
+                                $('#spinner').hide();
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '@lang('messages.alert.operacion_exitosa')',
+                                    allowOutsideClick: false,
+                                    confirmButtonColor: '#42ABE2',
+                                    confirmButtonText: '@lang('messages.botton.aceptar')'
+                                }).then((result) => {
 
 
-            //mostar datos el paciente
+                                    //mostar datos el paciente
 
-            $('#div-content').find('#info-pat').empty();
-            let ulr_img = "{{ URL::asset('/imgs/') }}";
-            let img = ''
+                                    $('#div-content').find('#info-pat').empty();
+                                        let ulr_img = "{{ URL::asset('/imgs/') }}";
+                                        let img = ''
 
-            if (response.patient.patient_img != null) {
-                img = `${ulr_img}/${response.patient.patient_img}`;
-            } else {
+                                    if (response.patient.patient_img != null) {
+                                        img = `${ulr_img}/${response.patient.patient_img}`;
+                                    } else {
 
-                img = (response.patient.genere == 'femenino') ?
-                    "{{ URL::asset('/img/avatar/avatar mujer.png') }}" :
-                    "{{ URL::asset('/img/avatar/avatar hombre.png') }}";
+                                        img = (response.patient.genere == 'femenino') ?
+                                            "{{ URL::asset('/img/avatar/avatar mujer.png') }}" :
+                                            "{{ URL::asset('/img/avatar/avatar hombre.png') }}";
 
-            }
-            let e = `
+                                    }
+                                    let e = `
                                         <div class="col-sm-2 col-md-3 col-lg-2 col-xl-2 col-xxl-2" style="width: 135px;" >
                                             <img src="${img}" width="125" height="125" alt="Imagen del paciente" class="img-medical">
                                         </div>
@@ -167,55 +217,55 @@
                                             <br>
                                             <strong>@lang('messages.ficha_paciente.nro_historias'):</strong><span class="text-capitalize"> ${(response.patient.get_history)? response.patient.get_history.cod_history:""} </span>
                                         </div>`;
-            $('#div-content').find('#info-pat').append(e);
-            // end
+                                    $('#div-content').find('#info-pat').append(e);
+                                    // end
 
-            // limpiar item
-            $('.family_back').empty();
-            $('.ob_family_back').empty();
-            $('.pathology_back').empty();
-            $('.ob_pathology_back').empty();
-            $('.non_pathology_back').empty();
-            $('.ob_non_pathology_back').empty();
-            $('.gilecologico').empty();
-            $('#not-alergias').hide();
-            $('.list-alergias').empty();
-            $('.ob-alergias').empty();
-            $('#not-cirugias').hide();
-            $('.list-cirugias').empty();
-            $('.ob-cirugias').empty();
-            $('#not-medications').hide();
-            $('.list-medicamentos').empty();
-            $('.ob-medicamentos').empty();
-            // end
+                                    // limpiar item
+                                    $('.family_back').empty();
+                                    $('.ob_family_back').empty();
+                                    $('.pathology_back').empty();
+                                    $('.ob_pathology_back').empty();
+                                    $('.non_pathology_back').empty();
+                                    $('.ob_non_pathology_back').empty();
+                                    $('.gilecologico').empty();
+                                    $('#not-alergias').hide();
+                                    $('.list-alergias').empty();
+                                    $('.ob-alergias').empty();
+                                    $('#not-cirugias').hide();
+                                    $('.list-cirugias').empty();
+                                    $('.ob-cirugias').empty();
+                                    $('#not-medications').hide();
+                                    $('.list-medicamentos').empty();
+                                    $('.ob-medicamentos').empty();
+                                    // end
 
-            if (response.patient.get_history != null) {
-                // Antecedentes Personales y Familiares
+                                    if (response.patient.get_history != null) {
+                                        // Antecedentes Personales y Familiares
 
-                family_back.map((value, keyy) => {
-                    for (const [key, val] of Object
-                        .entries(
-                            response.patient.get_history
-                        )) {
+                                        family_back.map((value, keyy) => {
+                                            for (const [key, val] of Object
+                                                .entries(
+                                                    response.patient.get_history
+                                                )) {
 
-                        if (key == value.name) {
+                                                if (key == value.name) {
 
-                            if (val != null) {
-                                $('.family_back')
-                                    .append(
-                                        `<li class="${key} list-group-item" aria-current="true" >
+                                                    if (val != null) {
+                                                        $('.family_back')
+                                                            .append(
+                                                                `<li class="${key} list-group-item" aria-current="true" >
                                                                     <div class="d-flex w-100 justify-content-between">
                                                                         <small>${value.text}</small>
                                                                     </div>
                                                                 </li>`
-                                    );
-                            }
-                        };
-                    }
-                });
-                if (response.patient.get_history.observations_back_family) {
-                    $('.ob_family_back').append(
-                        `<li class="list-group-item">
+                                                            );
+                                                    }
+                                                };
+                                            }
+                                        });
+                                        if (response.patient.get_history.observations_back_family) {
+                                            $('.ob_family_back').append(
+                                                `<li class="list-group-item">
                                                     <div class="d-flex w-100 justify-content-between">
                                                         <span class="text-justify">
                                                             <strong>@lang('messages.label.observaciones'):</strong>
@@ -225,38 +275,38 @@
                                                         </span>
                                                     </div>
                                                 </li>`
-                    );
-                }
-                // end
+                                            );
+                                        }
+                                        // end
 
-                // Antecedentes personales patológicos
+                                        // Antecedentes personales patológicos
 
-                pathology_back.map((value, keyy) => {
-                    for (const [key, val] of Object
-                        .entries(
-                            response.patient.get_history
-                        )) {
+                                        pathology_back.map((value, keyy) => {
+                                            for (const [key, val] of Object
+                                                .entries(
+                                                    response.patient.get_history
+                                                )) {
 
-                        if (key == value.name) {
-                            if (val != null) {
+                                                if (key == value.name) {
+                                                    if (val != null) {
 
-                                $('.pathology_back')
-                                    .append(
-                                        `<li class="list-group-item" aria-current="true"j>
+                                                        $('.pathology_back')
+                                                            .append(
+                                                                `<li class="list-group-item" aria-current="true"j>
                                                                     <div class="d-flex w-100 justify-content-between">
                                                                         <small>${value.text}</small>
                                                                     </div>
                                                                 </li>`
-                                    );
-                            }
+                                                            );
+                                                    }
 
-                        };
-                    }
-                });
+                                                };
+                                            }
+                                        });
 
-                if (response.patient.get_history.observations_diagnosis) {
-                    $('.ob_pathology_back').append(
-                        `<li class="list-group-item">
+                                        if (response.patient.get_history.observations_diagnosis) {
+                                            $('.ob_pathology_back').append(
+                                                `<li class="list-group-item">
                                                     <div class="d-flex w-100 justify-content-between">
                                                         <span class="text-justify">
                                                             <strong>@lang('messages.label.observaciones'):</strong>
@@ -266,36 +316,36 @@
                                                         </span>
                                                     </div>
                                                 </li>`
-                    );
-                }
-                // end
+                                            );
+                                        }
+                                        // end
 
-                // historia Antecedentes personales no patológicos
+                                        // historia Antecedentes personales no patológicos
 
-                non_pathology_back.map((value, keyy) => {
-                    for (const [key, val] of Object
-                        .entries(
-                            response.patient.get_history
-                        )) {
+                                        non_pathology_back.map((value, keyy) => {
+                                            for (const [key, val] of Object
+                                                .entries(
+                                                    response.patient.get_history
+                                                )) {
 
-                        if (key == value.name) {
-                            if (val != null) {
-                                $('.non_pathology_back')
-                                    .append(
-                                        `<li class="list-group-item" aria-current="true">
+                                                if (key == value.name) {
+                                                    if (val != null) {
+                                                        $('.non_pathology_back')
+                                                            .append(
+                                                                `<li class="list-group-item" aria-current="true">
                                                                     <div class="d-flex w-100 justify-content-between">
                                                                         <small>${value.text}</small>
                                                                     </div>
                                                                 </li>`
-                                    );
-                            }
-                        };
-                    }
-                });
+                                                            );
+                                                    }
+                                                };
+                                            }
+                                        });
 
-                if (response.patient.get_history.observations_not_pathological) {
-                    $('.ob_non_pathology_back').append(
-                        `<li class="list-group-item">
+                                        if (response.patient.get_history.observations_not_pathological) {
+                                            $('.ob_non_pathology_back').append(
+                                                `<li class="list-group-item">
                                                     <div class="d-flex w-100 justify-content-between">
                                                         <span class="text-justify">
                                                             <strong>@lang('messages.label.observaciones'):</strong>
@@ -305,17 +355,17 @@
                                                         </span>
                                                     </div>
                                                 </li>`
-                    );
-                }
+                                            );
+                                        }
 
 
-                // end
+                                        // end
 
-                // gilecologico
+                                        // gilecologico
 
-                if (response.patient.genere === 'femenino') {
+                                        if (response.patient.genere === 'femenino') {
 
-                    let gine = `<div class="row p-3">
+                                            let gine = `<div class="row p-3">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                         <ul class="list-group" style="border-radius: 8px;">
                                                             <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
@@ -372,19 +422,19 @@
                                                         </ul>
                                                     </div>`
 
-                    $('.gilecologico').append(gine)
-                }
+                                            $('.gilecologico').append(gine)
+                                        }
 
 
-                // end
+                                        // end
 
-                // alegias
+                                        // alegias
 
-                if (response.allergies.length != 0) {
+                                        if (response.allergies.length != 0) {
 
-                    response.allergies.map((e, key) => {
-                        $('.list-alergias').append(
-                            `<li class=" ${key} list-group-item" aria-current="true">
+                                            response.allergies.map((e, key) => {
+                                                $('.list-alergias').append(
+                                                    `<li class=" ${key} list-group-item" aria-current="true">
                                                         <div class="d-flex w-100 justify-content-between">
                                                             <span class="text-capitalize">
                                                                 <strong>@lang('messages.form.tipo_alergia'):</strong> ${e.type_alergia},
@@ -393,14 +443,13 @@
                                                             </span>
                                                         </div>
                                                     </li>`
-                        );
-                    });
+                                                );
+                                            });
 
 
-                }
-                if (response.patient.get_history.observations_allergies) {
-                    $('.ob-alergias').append(
-                        `<li class="list-group-item">
+                                        } if (response.patient.get_history.observations_allergies) {
+                                                $('.ob-alergias').append(
+                                                    `<li class="list-group-item">
                                                         <div class="d-flex w-100 justify-content-between">
                                                             <span class="text-justify">
                                                                 <strong>@lang('messages.label.observaciones'):</strong>
@@ -410,19 +459,19 @@
                                                             </span>
                                                         </div>
                                                     </li>`
-                    );
-                } else {
+                                                );
+                                            } else {
 
-                    $('#not-alergias').show();
-                }
-                // end
+                                                $('#not-alergias').show();
+                                            }
+                                        // end
 
-                // cirugias
+                                        // cirugias
 
-                if (response.patient.get_history.history_surgical != null) {
-                    response.history_surgical.map((e, key) => {
-                        $('.list-cirugias').append(
-                            `<li class=" ${key} list-group-item" aria-current="true">
+                                        if (response.patient.get_history.history_surgical != null) {
+                                            response.history_surgical.map((e, key) => {
+                                                $('.list-cirugias').append(
+                                                    `<li class=" ${key} list-group-item" aria-current="true">
                                                         <div class="d-flex w-100 justify-content-between">
                                                             <span class="text-capitalize">
                                                                 <strong>@lang('messages.form.tipo_cirugia'):</strong> ${e.cirugia},
@@ -431,14 +480,13 @@
                                                             </span>
                                                         </div>
                                                     </li>`
-                        );
+                                                );
 
-                    });
+                                            });
 
-                }
-                if (response.patient.get_history.observations_quirurgicas) {
-                    $('.ob-cirugias').append(
-                        `<li class="list-group-item">
+                                        } if (response.patient.get_history.observations_quirurgicas) {
+                                            $('.ob-cirugias').append(
+                                                `<li class="list-group-item">
                                                     <div class="d-flex w-100 justify-content-between">
                                                         <span class="text-justify">
                                                             <strong>@lang('messages.label.observaciones'):</strong>
@@ -448,19 +496,20 @@
                                                         </span>
                                                     </div>
                                                 </li>`
-                    );
-                } else {
-                    $('#not-cirugias').show();
-                }
-                // end
+                                            );
+                                        }
+                                        else {
+                                            $('#not-cirugias').show();
+                                        }
+                                        // end
 
-                // medicamentos
+                                        // medicamentos
 
-                if (response.medications_supplements != null) {
-                    response.medications_supplements.map((e,
-                        key) => {
-                        $('.list-medicamentos').append(
-                            `<li class=" ${key} list-group-item" aria-current="true">
+                                        if (response.medications_supplements != null) {
+                                            response.medications_supplements.map((e,
+                                                key) => {
+                                                $('.list-medicamentos').append(
+                                                    `<li class=" ${key} list-group-item" aria-current="true">
                                                         <div class="d-flex w-100 justify-content-between">
                                                             <span class="text-capitalize" >
                                                                 <strong>@lang('messages.form.medicamento'):</strong> ${e.medicine},
@@ -473,13 +522,12 @@
                                                             </span>
                                                         </div>
                                                     </li>`
-                        );
-                    });
+                                                );
+                                            });
 
-                }
-                if (response.patient.get_history.observations_medication) {
-                    $('.ob-medicamentos').append(
-                        `<li class="list-group-item">
+                                        }  if (response.patient.get_history.observations_medication) {
+                                            $('.ob-medicamentos').append(
+                                                `<li class="list-group-item">
                                                     <div class="d-flex w-100 justify-content-between">
                                                         <span class="text-justify">
                                                             <strong>@lang('messages.label.observaciones'):</strong>
@@ -489,27 +537,28 @@
                                                         </span>
                                                     </div>
                                                 </li>`
-                    );
-                } else {
-                    $('#not-medications').show();
+                                            );
+                                        }
+                                        else {
+                                            $('#not-medications').show();
 
-                }
-            }
-            //end
+                                        }
+                                    }
+                                    //end
 
 
-            // mostrar consultas
-            $('#not-medical-record').hide();
-            $('.list-con').empty();
-            $('.ul-exmen').empty();
-            $('.ul-study').empty();
-            if (response.medicard_record.length > 0) {
+                                    // mostrar consultas
+                                    $('#not-medical-record').hide();
+                                    $('.list-con').empty();
+                                    $('.ul-exmen').empty();
+                                    $('.ul-study').empty();
+                                    if (response.medicard_record.length > 0) {
 
-                response.medicard_record.map((e, key) => {
-                    let element = '';
-                    if ((key % 2) == 0) {
-                        element =
-                            `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px; z-index: 0;">
+                                        response.medicard_record.map((e, key) => {
+                                            let element = '';
+                                            if ((key % 2) == 0) {
+                                                element =
+                                                    `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px; z-index: 0;">
                                                         <div class="d-flex w-100 justify-content-between">
                                                             <h5 class="text-capitalize">@lang('messages.form.medico'): ${e.doctor} </h5><br>
                                                         </div>
@@ -527,9 +576,9 @@
                                                         <br>
                                                         <span class="text-justify"><strong>@lang('messages.form.diagnostico'):</strong> ${e.diagnosis}</span>
                                                     </li>`
-                    } else {
-                        element =
-                            `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px;">
+                                            } else {
+                                                element =
+                                                    `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px;">
                                                         <div class="d-flex w-100 justify-content-between">
                                                             <h5 class="text-capitalize">@lang('messages.form.medico'): ${e.doctor} </h5><br>
                                                         </div>
@@ -547,17 +596,17 @@
                                                         <br>
                                                         <span class="text-justify"><strong>@lang('messages.form.diagnostico'):</strong> ${e.diagnosis}</span>
                                                     </li>`
-                    }
-                    $('.list-con').append(element);
+                                            }
+                                            $('.list-con').append(element);
 
-                    // data estudios
-                    e.study_medical.map((item, i) => {
+                                            // data estudios
+                                            e.study_medical.map((item, i) => {
 
-                        let et = '';
-                        let target =
-                            `{{ URL::asset('/imgs/${item.file}') }}`;
-                        if ((i % 2) == 0) {
-                            et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
+                                                let et = '';
+                                                let target =
+                                                    `{{ URL::asset('/imgs/${item.file}') }}`;
+                                                if ((i % 2) == 0) {
+                                                    et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
                                                                     justify-content: space-between;" class="list-group-item  ${i}" aria-current="true"> ${item.description} ${item.record_code}
                                                                     <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;">
                                                                         <button type="button"
@@ -566,8 +615,8 @@
                                                                         </button>
                                                                     </a>
                                                                 </li>`
-                        } else {
-                            et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
+                                                } else {
+                                                    et = `<li style="padding: 10px 24px 10px 24px; background-color: #02bdbb; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
                                                                     justify-content: space-between;"  class="list-group-item ${i}"" aria-current="true">${item.description} ${item.record_code}
                                                                     <a target="_blank" href="${target}" style="color: white; text-decoration: none; font-size: 20px;">
                                                                         <button type="button"
@@ -576,27 +625,27 @@
                                                                         </button>
                                                                     </a>
                                                                 </li>`
-                        }
-                        $('.ul-study').append(
-                            et);
+                                                }
+                                                $('.ul-study').append(
+                                                    et);
 
-                        if (et) {
-                            $('#not-studie')
-                                .hide();
-                        }
-                    });
+                                                if (et) {
+                                                    $('#not-studie')
+                                                        .hide();
+                                                }
+                                            });
 
-                    // end
+                                            // end
 
-                    // data examenes
-                    e.exam_medical.map((item, e) => {
+                                            // data examenes
+                                            e.exam_medical.map((item, e) => {
 
-                        let ett = '';
-                        let target =
-                            `{{ URL::asset('/imgs/${item.file}') }}`;
-                        if ((e % 2) == 0) {
-                            ett =
-                                `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
+                                                let ett = '';
+                                                let target =
+                                                    `{{ URL::asset('/imgs/${item.file}') }}`;
+                                                if ((e % 2) == 0) {
+                                                    ett =
+                                                        `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
                                                                 justify-content: space-between;" class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}
                                                                 <a target="_blank" href="${target}"  style="color: white; text-decoration: none; font-size: 20px;">
                                                                     <button type="button"
@@ -610,9 +659,9 @@
                                                                     </button>
                                                                 </a>
                                                             </li>`
-                        } else {
-                            ett =
-                                `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
+                                                } else {
+                                                    ett =
+                                                        `<li style="padding: 10px 24px 10px 24px; background-color: #4eb6b4; color: white; border-radius: 35px; margin-bottom: 3px; display: flex;
                                                                 justify-content: space-between;" class="list-group-item ${e}" aria-current="true">${item.description} ${item.record_code}
                                                                 <a target="_blank" href="${target}"  style="color: white; text-decoration: none; font-size: 20px;">
                                                                     <button type="button"
@@ -626,34 +675,34 @@
                                                                     </button>
                                                                 </a>
                                                             </li>`
-                        }
-                        $('.ul-exmen').append(
-                            ett);
+                                                }
+                                                $('.ul-exmen').append(
+                                                    ett);
 
-                        if (ett) {
-                            $('#not-exam')
-                                .hide();
-                        }
-                    });
-                    // end
-                });
-            } else {
+                                                if (ett) {
+                                                    $('#not-exam')
+                                                        .hide();
+                                                }
+                                            });
+                                            // end
+                                        });
+                                    } else {
 
-                $('#not-medical-record').show();
+                                        $('#not-medical-record').show();
 
-            }
-            // end
+                                    }
+                                    // end
 
-            // mostrar examnes fisicos
-            $('.list-examenes-fisicos').empty();
-            $("#not-examenes-fisicos").hide();
-            if (response.get_physical_exams.length > 0) {
-                response.get_physical_exams.map((e, key) => {
+                                    // mostrar examnes fisicos
+                                    $('.list-examenes-fisicos').empty();
+                                    $("#not-examenes-fisicos").hide();
+                                    if (response.get_physical_exams.length > 0) {
+                                        response.get_physical_exams.map((e, key) => {
 
-                    let element = '';
-                    if ((key % 2) == 0) {
-                        element =
-                            `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px; z-index: 0;">
+                                            let element = '';
+                                            if ((key % 2) == 0) {
+                                                element =
+                                                    `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px; z-index: 0;">
                                                         <span><strong>@lang('messages.form.peso_1'):</strong> ${e.weight} Kg</span>
                                                         <br>
                                                         <br>
@@ -685,9 +734,9 @@
                                                             ${e.observations}
                                                         </span>
                                                     </li>`
-                    } else {
-                        element =
-                            `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px;">
+                                            } else {
+                                                element =
+                                                    `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px;">
                                                         <span><strong>@lang('messages.form.peso_1'):</strong> ${e.weight} Kg</span>
                                                         <br>
                                                         <br>
@@ -719,20 +768,51 @@
                                                             ${e.observations}
                                                         </span>
                                                     </li`
-                    }
-                    $('.list-examenes-fisicos').append(
-                        element);
+                                            }
+                                            $('.list-examenes-fisicos').append(
+                                                element);
 
 
-                    // end
-                });
-            } else {
-                $("#not-examenes-fisicos").show();
-            }
+                                            // end
+                                        });
+                                    } else {
+                                        $("#not-examenes-fisicos").show();
+                                    }
 
-            // end
-            $('#div-content').show();
-        }
+                                    // end
+                                    $('#div-content').show();
+
+                                });
+                            } else {
+                                $('#spinner').hide();
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: '@lang('messages.alert.paciente_no_encotrado')',
+                                    allowOutsideClick: false,
+                                    confirmButtonColor: '#42ABE2',
+                                    confirmButtonText: '@lang('messages.botton.aceptar')'
+                                });
+                            }
+                        },
+                        error: function(error) {
+                            error.responseJSON.errors.map((elm) => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: elm,
+                                    allowOutsideClick: false,
+                                    confirmButtonColor: '#42ABE2',
+                                    confirmButtonText: '@lang('messages.botton.aceptar')'
+                                }).then((result) => {
+                                    $('#btn-save').attr('disabled', false);
+                                    $('#spinner').hide();
+                                    $(".holder").hide();
+                                });
+                            });
+                        }
+                    });
+                }
+            });
+        })
     </script>
 @endpush
 @section('content')
@@ -741,11 +821,35 @@
             <x-load-spinner show="true" />
         </div>
         <div class="container-fluid body" style="padding: 0 3% 3%">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center" >
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-11 col-xxl-10">
                     <div class="card mt-2 card-ex">
                         <div class="card-body">
-                            <div class="row mt-5" id="div-content">
+                            <form id="form-detaly-patient" method="post" action="">
+                                {{ csrf_field() }}
+
+                                <div class="row mt-2">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                        <h5 style="font-size: 15px;">@lang('messages.pacientes.historia_paciente')</h5>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                        <div class="form-group">
+                                            <label for="ci" class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Ingrese documento de identidad</label>
+                                            <input type="text" class="form-control mask-only-number " id="ci" name="ci" placeholder="" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                        <div class="form-group">
+                                            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha de Nacimiento</label>
+                                            <input class="form-control date-bd" id="birthdate" name="birthdate" style="padding: 0.375rem 5px 0.375rem 0.75rem;" type="date" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" style="display: flex; align-items: flex-end;">
+                                        <input class="btn btnSave send" id="btn-save" value="Consultar" type="submit" style="margin-left: 10px; margin-bottom: 4px;" />
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row mt-5" id="div-content" style="display: none">
                                 <hr>
                                 <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8">
                                     <div class="d-flex" style="align-items: center;" id="info-pat"></div>
@@ -803,9 +907,7 @@
                                                             <li class="list-group-item active aa" aria-current="true"
                                                                 style="z-index: 0;">
                                                                 <div class="d-flex w-100 justify-content-between">
-                                                                    <h5 style='font-size: 15px;'
-                                                                        class="mb-0 text-capitalize">Antecedentes no
-                                                                        patológicos</h5>
+                                                                    <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Antecedentes no patológicos</h5>
                                                                 </div>
                                                             </li>
                                                             <div class="non_pathology_back ">
@@ -967,8 +1069,7 @@
                                             <div style="display: none" id='not-examenes-fisicos'
                                                 class="row justify-content-center mt-2">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                    <h5 class="card-title" style="text-align: center;">¡Paciente sin
-                                                        examenes fisicos!</h5>
+                                                    <h5 class="card-title" style="text-align: center;">¡Paciente sin examenes fisicos!</h5>
                                                 </div>
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                     style="display: flex; margin-bottom: 10px; justify-content: center;">

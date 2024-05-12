@@ -69,6 +69,9 @@ class Kernel extends HttpKernel
         'VerifySelloDigital' => \App\Http\Middleware\VerifySelloDigital::class,
         'VerifyPlanExpiredPlan' => \App\Http\Middleware\VerifyPlanExpiredPlan::class,
         'AuthCheck' => \App\Http\Middleware\AuthCheck::class,
-        'VerifyPlansActive' => \App\Http\Middleware\VerifyPlansActive::class,        
+        'VerifyPlansActive' => \App\Http\Middleware\VerifyPlansActive::class,
+        'authUserPatient' => \App\Http\Middleware\AuthUserPatient::class,
+
+        
     ];
 }
