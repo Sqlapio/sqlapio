@@ -11,21 +11,19 @@ use Livewire\Component;
 
 class QueryDetalyPatient extends Component
 {
-	public function search_detaly(Request $request)
+	public function search_detaly($patient_id)
 	{
 
-		$data=[];
+		$data = [];
 
-		$medicard_record=[];
+		$medicard_record = [];
 
-        $ci_maks = str_replace('-', '', $request->ci);
 
-		$tablePat =  Patient::where('ci',$ci_maks)->where('birthdate', $request->birthdate);
+		$tablePat =  Patient::where('id', $patient_id);
 
-		$tableRep =  Patient::where('birthdate', $request->birthdate)
-			->whereHas('get_reprensetative', function ($q) use ($request) {
-				$q->where('re_ci', $request->ci);
-			});
+		$tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($patient_id) {
+			$q->where('patient_id', $patient_id);
+		});
 		$patient = $tablePat->union($tableRep)->first();
 
 		if ($patient) {
@@ -49,28 +47,49 @@ class QueryDetalyPatient extends Component
 				//datos del paciente
 				'patient' => $patient,
 				'get_physical_exams' => $patient->get_physical_exams,
-				"allergies" => ($patient->get_history)?json_decode($patient->get_history->allergies, true):null,
-				"history_surgical" => ($patient->get_history)?json_decode($patient->get_history->history_surgical, true):null,
-				"medications_supplements" => ($patient->get_history)?json_decode($patient->get_history->medications_supplements, true):null,
+				"allergies" => ($patient->get_history) ? json_decode($patient->get_history->allergies, true) : null,
+				"history_surgical" => ($patient->get_history) ? json_decode($patient->get_history->history_surgical, true) : null,
+				"medications_supplements" => ($patient->get_history) ? json_decode($patient->get_history->medications_supplements, true) : null,
 				'medicard_record' =>  $medicard_record,
 			];
-
 			return $data;
-
 		} else {
 
 			return false;
 		}
 	}
 
+	public function search_detaly_all($patient_id)
+	{
+		$tablePat =  Patient::where('ci', $patient_id);
+
+		$tableRep =  Patient::whereHas('get_reprensetative', function ($q) use ($patient_id) {
+			$q->where('re_ci', $patient_id);
+		});
+		$patient = $tablePat->union($tableRep)->get();
+
+		return $patient;
+	}
+
 	public function render()
 	{
+		return view(
+			'livewire.components.profile-patients.login-patient'
+		);
+	}
+
+	public function toviewPatient()
+	{
+		$patients =  $this->search_detaly_all(auth()->guard("users_patients")->user()->username);
+		
+		// $data = ($patients->count()>0)? []: $this->search_detaly(auth()->guard("users_patients")->user()->patient_id);
 
 		$vital_sing = UtilsController::get_history_vital_sing();
 		$family_back = UtilsController::get_history_family_back();
 		$pathology_back = UtilsController::get_history_pathology_back();
 		$non_pathology_back = UtilsController::get_history_non_pathology_back();
 		$get_condition = UtilsController::get_condition();
+
 
 		return view(
 			'livewire.components.profile-patients.query-detaly-patient',
@@ -79,7 +98,8 @@ class QueryDetalyPatient extends Component
 				'family_back',
 				'pathology_back',
 				'non_pathology_back',
-				'get_condition'
+				'get_condition',
+				"patients"
 			)
 		);
 	}

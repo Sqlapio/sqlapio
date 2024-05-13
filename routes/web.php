@@ -26,6 +26,7 @@ use App\Http\Livewire\Components\Examen;
 use App\Http\Livewire\Components\Laboratory;
 use App\Http\Livewire\Components\PaymentForm;
 use App\Http\Livewire\Components\PlansVerify;
+use App\Http\Livewire\Components\ProfilePatients\LoginPatient;
 use App\Http\Livewire\Components\ProfilePatients\QueryDetalyPatient;
 use App\Http\Livewire\Components\Statistics;
 use App\Http\Livewire\Components\Register;
@@ -61,6 +62,7 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/', [Login::class, 'render'])->name("Login_home");
 Route::post('/login', [Login::class, 'login'])->name('login');
+Route::post('/login-patient', [LoginPatient::class, 'login'])->name('login-patient');
 Route::get('/register-user/{id?}', [Register::class, 'render'])->name('Register');
 Route::get('/register-user-corporate/{hash}', [Register::class, 'register_doctor_corporate'])->name('register_doctor_corporate');
 Route::post('/register', [Register::class, 'store'])->name('Register-create');
@@ -101,7 +103,7 @@ Route::get('/confirmation/dairy/{code}', [UtilsController::class, 'confirmation_
 // planes
 Route::post('/pay-plan-renew', [PaymentForm::class, 'pay_plan_renew'])->name("pay-plan-renew")->middleware(['auth', 'VerifySelloDigital', 'verify_email']);
 
-Route::middleware(['auth','AuthCheck','VerifyPlansActive'])->group(function () {
+Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function () {
 
     Route::group(array('prefix' => 'auth'), function () {
         Route::middleware(['VerifySelloDigital', 'verify_email'])->group(function () {
@@ -201,9 +203,7 @@ Route::middleware(['auth','AuthCheck','VerifyPlansActive'])->group(function () {
             Route::group(array('prefix' => 'setting'), function () {
                 Route::get('/profile', [ProfileUser::class, 'render'])->name('profile-user-force-sale');
                 Route::post('/profile-update', [ProfileUser::class, 'updateProfile'])->name('update-profile-force-sale');
-
             });
-
         });
     });
 
@@ -303,7 +303,7 @@ Route::group(array('prefix' => 'public'), function () {
 
     Route::group(array('prefix' => 'patient'), function () {
         Route::get('/query-detaly-patient', [QueryDetalyPatient::class, 'render'])->name("query-detaly-patient");
-        Route::post('/search-detaly-patient', [QueryDetalyPatient::class, 'search_detaly'])->name("search-detaly-patient");
+        Route::get('/search-detaly-patient/{id}', [QueryDetalyPatient::class, 'search_detaly'])->name("search-detaly-patient");
     });
 });
 
@@ -311,6 +311,7 @@ Route::group(array('prefix' => 'public'), function () {
  * Logout
  */
 Route::get('/logout', [Login::class, 'logout'])->name('logout');
+Route::get('/logout-patient', [LoginPatient::class, 'logout'])->name('logout-patient');
 Route::get('/res_exam', [Examen::class, 'res_exam'])->name('res_exam');
 Route::get('/res_exam_sin_resul', [Examen::class, 'res_exam_sin_resul'])->name('res_exam_sin_resul');
 Route::get('/res_study', [Study::class, 'res_study'])->name('res_study');
@@ -328,9 +329,20 @@ Route::get('/lang/{lang}', [MultilanguajeController::class, 'lang'])->name('lang
 
 Route::get('/prueba', function () {
     $users = DB::table('users')
-            ->offset(5) // Starting position of records
-            ->limit(2) // Number of records to retrieve
-            ->get();
-            dd($users);
+        ->offset(5) // Starting position of records
+        ->limit(2) // Number of records to retrieve
+        ->get();
+    dd($users);
     return view('barcode', compact('barcode'));
+});
+
+
+
+///grupo de rutas pacientes modulo
+Route::middleware(['authUserPatient'])->group(function () {
+    Route::group(array('prefix' => 'public'), function () {
+        Route::group(array('prefix' => 'patient'), function () {
+            Route::get('/view-patient', [QueryDetalyPatient::class, 'toviewPatient'])->name("view-patient");
+        });
+    });
 });

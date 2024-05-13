@@ -259,6 +259,7 @@ return [
         'estudios_sin_res' => 'Studies without Results',
         'examenes_res'     => 'Exams with Results',
         'examenes_sin_res' => 'Exams without Results',
+        'pacientes_registrados' => 'Patients Registered in System',
     ],
 
     'tabla' => [

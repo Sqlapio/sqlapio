@@ -11,6 +11,7 @@ use App\Models\DoctorCenter;
 use App\Models\Patient;
 use App\Models\Profession;
 use App\Models\Representative;
+use App\Models\UserPatients;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -18,7 +19,7 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Validator;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Hash;
 
 class Patients extends Component
 {
@@ -29,7 +30,9 @@ class Patients extends Component
     {
         try {
 
+
             $user_id = Auth::user()->id;
+            $user_name = "";
 
             if (Str::contains($request->img, 'base64')) {
                 $file =  $request->img;
@@ -59,6 +62,8 @@ class Patients extends Component
             }
 
             if ($request->is_minor == "true") {
+
+                $user_name = $request->re_ci;
                 /** Paciente menor de edad */
                 $rules = [
 
@@ -266,6 +271,7 @@ class Patients extends Component
 
                 ApiServicesController::sms_info($phone, $body);
             } else {
+                $user_name = $request->ci;
                 /** Paciente mayor de edad */
                 $rules = [
 
@@ -452,6 +458,17 @@ class Patients extends Component
                 ApiServicesController::sms_info($phone, $body);
             }
 
+            // registrar datos del pacientes en la table users_patients
+
+            if (UserPatients::where("user_name", $user_name)->first() == null) {
+
+                $UserPatients = new UserPatients();
+                $UserPatients->user_name = $user_name;
+                $UserPatients->patient_id = $patient->id;
+                $UserPatients->password =  Hash::make(UtilsController::generete_pass($user_name));;
+                $UserPatients->save();
+            }
+
             $action = '5';
             ActivityLogController::store_log($action);
 
@@ -485,7 +502,7 @@ class Patients extends Component
 
             $patient = $tablePat->union($tableRep)->with('get_reprensetative')->get();
 
-            if (count($patient)==0) {
+            if (count($patient) == 0) {
                 return response()->json([
                     'success' => 'false',
                     'errors'  => __('messages.alert.paciente_no_registrado')
@@ -493,22 +510,21 @@ class Patients extends Component
             }
 
             return $patient;
-
         } catch (\Throwable $th) {
             $message = $th->getMessage();
             dd('Error Livewire.Components.Patient.search()', $message);
         }
     }
-    public function render($id=null)
+    public function render($id = null)
     {
 
-        $patient = ($id)? Patient::where('id',$id)->first(): [];
+        $patient = ($id) ? Patient::where('id', $id)->first() : [];
         $patients = UtilsController::get_table_medical_record();
         $cities = UtilsController::get_cities();
         $states = UtilsController::get_states();
         $centers = DoctorCenter::where('user_id', Auth::user()->id)->where('status', 1)->get();
         $user = Auth::user();
 
-        return view('livewire.components.patients', compact('patients', 'cities', 'states', 'centers', 'user','patient'));
+        return view('livewire.components.patients', compact('patients', 'cities', 'states', 'centers', 'user', 'patient'));
     }
 }

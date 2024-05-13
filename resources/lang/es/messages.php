@@ -259,6 +259,8 @@ return [
         'estudios_sin_res' => 'Estudios sin Resultados',
         'examenes_res'     => 'Exámenes con Resultados',
         'examenes_sin_res' => 'Exámenes sin Resultados',
+        'pacientes_registrados' => 'Pacientes Registrado en Sistema',
+
     ],
 
     'tabla' => [
@@ -316,6 +318,8 @@ return [
         'Confirmada'          => 'Confirmada',
         'Finalizada'          => 'Finalizada',
         'Cancelada'           => 'Cancelada',
+        'selecionar'          => 'selecionar',
+
     ],
 
     'placeholder' => [

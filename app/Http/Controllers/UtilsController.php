@@ -1793,4 +1793,15 @@ class UtilsController extends Controller
 	// 		return true;
 	// 	}
 	// }
+
+	static function generete_pass($ci)
+	{
+		try {
+			$pass = substr(md5(mt_rand()), 0, 7)."/".substr($ci, 0, 3);
+			return $pass;
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_image_patient()', $message);
+		}
+	}
 }
