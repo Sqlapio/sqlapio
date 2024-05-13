@@ -205,7 +205,7 @@ return [
     'ficha_paciente' => [
         'nombre'            => 'Nombre',
         'fecha_nacimiento'  => 'Fecha de Nacimiento',
-        'ci'                => 'C.I',
+        'ci'                => 'Documento de identidad',
         'ci_rd'             => 'CIE',
         'genero'            => 'Genero',
         'nro_historias'     => 'Nro. Historia',
@@ -318,7 +318,7 @@ return [
         'Confirmada'          => 'Confirmada',
         'Finalizada'          => 'Finalizada',
         'Cancelada'           => 'Cancelada',
-        'selecionar'          => 'selecionar',
+        'seleccionar'         => 'Seleccionar',
 
     ],
 

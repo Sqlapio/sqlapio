@@ -317,6 +317,7 @@ return [
         'Confirmada'           => 'Confirmed',
         'Finalizada'           => 'Finished',
         'Cancelada'            => 'Cancelled',
+        'seleccionar'          => 'Select',
     ],
 
     'placeholder' => [

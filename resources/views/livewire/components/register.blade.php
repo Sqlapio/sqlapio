@@ -451,7 +451,7 @@
             switch (Number(e.target.value)) {
                 case 1:
 
-                    $('#ci').attr("placeholder", '@lang('messages.select.cedula_identidad')');
+                    $('#ci').attr("placeholder", '@lang('messages.select.cedula')');
                     $('#div_name').show();
                     $('#div_last_name').show();
                     $('#div_business_name').hide();
