@@ -79,7 +79,7 @@ class MedicalRecord extends Model
 
     public function  get_study_medical_status_two(): HasMany
     {
-        return $this->hasMany(StudyPatient::class, 'medical_record_id', 'id');
+        return $this->hasMany(StudyPatient::class, 'medical_record_id', 'id')->where('status','2');
     }   
 
 }
