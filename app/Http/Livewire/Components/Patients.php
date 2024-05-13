@@ -465,7 +465,7 @@ class Patients extends Component
                 $UserPatients = new UserPatients();
                 $UserPatients->username = $user_name;
                 $UserPatients->patient_id = $patient->id;
-                $UserPatients->password =  Hash::make(UtilsController::generete_pass($user_name));;
+                $UserPatients->password =  Hash::make(UtilsController::generete_pass($user_name));
                 $UserPatients->save();
             }
 

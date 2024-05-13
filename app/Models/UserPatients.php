@@ -30,4 +30,10 @@ class UserPatients extends Authenticatable {
 	protected $casts = [
 		'password' => 'hashed',
 	];
+
+
+	public function patients(): HasOne
+    {
+        return $this->hasOne(Patient::class, 'id', 'patient_id');
+    }
 }

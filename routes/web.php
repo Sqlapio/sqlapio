@@ -28,6 +28,7 @@ use App\Http\Livewire\Components\PaymentForm;
 use App\Http\Livewire\Components\PlansVerify;
 use App\Http\Livewire\Components\ProfilePatients\LoginPatient;
 use App\Http\Livewire\Components\ProfilePatients\QueryDetalyPatient;
+use App\Http\Livewire\Components\ProfilePatients\RecoveryPassword as ProfilePatientsRecoveryPassword;
 use App\Http\Livewire\Components\Statistics;
 use App\Http\Livewire\Components\Register;
 use App\Http\Livewire\Components\SalesForces\GeneralManager\Dashboard as GeneralManagerDashboard;
@@ -62,7 +63,6 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/', [Login::class, 'render'])->name("Login_home");
 Route::post('/login', [Login::class, 'login'])->name('login');
-Route::post('/login-patient', [LoginPatient::class, 'login'])->name('login-patient');
 Route::get('/register-user/{id?}', [Register::class, 'render'])->name('Register');
 Route::get('/register-user-corporate/{hash}', [Register::class, 'register_doctor_corporate'])->name('register_doctor_corporate');
 Route::post('/register', [Register::class, 'store'])->name('Register-create');
@@ -296,12 +296,16 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
     });
 });
 
+Route::post('/login-patient', [LoginPatient::class, 'login'])->name('login-patient');
 
 Route::group(array('prefix' => 'public'), function () {
     Route::get('/payment-form/{type_plan?}/{token?}', [PaymentForm::class, 'render'])->name("payment-form");
     Route::post('/pay-plan', [PaymentForm::class, 'pay_plan'])->name("pay-plan");
 
     Route::group(array('prefix' => 'patient'), function () {
+        Route::get('/recovery-pass', [ProfilePatientsRecoveryPassword::class, 'render'])->name('recovery-pass-pat');
+        Route::post('/recovery-pass', [ProfilePatientsRecoveryPassword::class, 'handleRecoveryPass'])->name('handleRecoveryPass');
+
         Route::get('/query-detaly-patient', [QueryDetalyPatient::class, 'render'])->name("query-detaly-patient");
         Route::get('/search-detaly-patient/{id}', [QueryDetalyPatient::class, 'search_detaly'])->name("search-detaly-patient");
     });

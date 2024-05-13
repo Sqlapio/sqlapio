@@ -61,11 +61,12 @@
         }
 
         const handlerSubmit = () => {
-            $('#spinner').show();
 
             $("#form-login-patient").validate();
 
             if ($("#form-login-patient").valid()) {
+
+                $('#spinner').show();
 
                 $.ajax({
                     url: '{{ route('login-patient') }}',
@@ -137,6 +138,9 @@
                         </div>
                     </div>
                     <input class="btn btnPrimary" value="@lang('messages.login.entrar')" onclick="handlerSubmit();" />
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-bottom: 4px;">
+                    <a class="links" href="{{ route('recovery-pass-pat') }}">@lang('messages.login.recuperar_clave')</a>
                 </div>
                 {{ Form::close() }}
 

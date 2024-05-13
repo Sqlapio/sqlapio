@@ -683,6 +683,10 @@ class UtilsController extends Controller
 				$view = 'emails.verify_email_general_manager';
 				Mail::to($mailData['gm_email'])->send(new NotificationEmail($mailData, $view));
 			}
+			if ($type == 'recovery_pass_pat') {
+				$view = 'emails.recovery_pass_pat';
+				Mail::to($mailData['email'])->send(new NotificationEmail($mailData, $view));
+			}
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.send_mail()', $message);
@@ -1797,7 +1801,7 @@ class UtilsController extends Controller
 	static function generete_pass($ci)
 	{
 		try {
-			$pass = substr(md5(mt_rand()), 0, 7)."/".substr($ci, 0, 3);
+			$pass = substr(md5(mt_rand()), 0, 7) . "/" . substr($ci, 0, 3);
 			return $pass;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
