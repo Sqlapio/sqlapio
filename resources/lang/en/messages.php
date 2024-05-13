@@ -50,7 +50,6 @@ return [
         'suscribirse_anual'   => 'Subscribe to the Annual Plan',
         'cancelar_plan'       => 'Cancel Plan',
         'registrar'           => 'Register',
-
     ],
 
     'form' => [
@@ -314,6 +313,11 @@ return [
         'observaciones'        => 'Observations',
         'historial_examenes'   => 'History of Physical Examinations',
         'codigo_informe'       => 'Report Code',
+        'Sin confirmar'        => 'Unconfirmed',
+        'Confirmada'           => 'Confirmed',
+        'Finalizada'           => 'Finished',
+        'Cancelada'            => 'Cancelled',
+        'seleccionar'          => 'Select',
     ],
 
     'placeholder' => [
@@ -573,7 +577,6 @@ return [
         'num_consultas'    => 'Number of Consultations',
         'total_historias'  => 'Total stories made',
         'num_historias'    => 'Number of stories',
-
         'niños'            => 'Children',
         'jovenes'          => 'Youths',
         'femenino'         => 'Female',
@@ -584,6 +587,49 @@ return [
 
     'pacientes' => [
         'historia_paciente'  => 'Patient history',
+    ],
+
+    'stripe' => [
+        'incorrect_number'                =>  "The card number is incorrect.",
+        'incomplete_number'               =>  "The card number is incomplete.",
+        'invalid_number'                  =>  "The card number is not a valid card number.",
+        'invalid_expiry_month'            =>  "The card expiration month is not valid.",
+        'invalid_expiry_year'             =>  "The card expiration year is not valid.",
+        'invalid_cvc'                     =>  "The card security code is invalid.",
+        'expired_card'                    =>  "The card has expired.",
+        'incorrect_cvc'                   =>  "The card security code is incorrect.",
+        'incorrect_zip'                   =>  "Card zip code validation failed.",
+        'card_declined'                   =>  "The card was declined.",
+        'missing'                         =>  "The customer being charged does not have a card",
+        'processing_error'                =>  "An error occurred processing the card.",
+        'rate_limit'                      =>  "An error occurred due to querying the API too quickly. Please let us know if you continually receive this error.",
+        'expired_card'                    => "The card has expired.",
+        'approve_with_id'                 => "The payment cannot be authorized.",
+        'call_issuer'                     => "The card was rejected for an unknown reason.",
+        'card_not_supported'              => "The card does not support this type of purchases.",
+        'card_velocity_exceeded'          => "The customer exceeded the balance, credit or transaction amount limit available on their card.",
+        'currency_not_supported'          => "The card does not support the specified currency.",
+        'do_not_honor'                    => "The card was declined for an unknown reason.",
+        'do_not_try_again'                => "The card was declined for an unknown reason.",
+        'no_action_taken'                 => "The card was declined for an unknown reason.",
+        'revocation_of_all_authorizations'=> "The card was rejected for an unknown reason.",
+        'revocation_of_authorization'     => "The card was rejected for an unknown reason.",
+        'security_violation'              => "The card was declined for an unknown reason.",
+        'service_not_allowed'             => "The card was declined for an unknown reason.",
+        'stop_payment_order'              => "The card was declined for an unknown reason.",
+        'transaction_not_allowed'         => "The card was declined for an unknown reason.",
+        'try_again_later'                 => "The card was declined for an unknown reason.",
+        'duplicate_transaction'           => "Another transaction for the same amount was recently made with the same credit card information.",
+        'fraudulent'                      => "The payment was declined because Stripe suspects it to be fraudulent.",
+        'insufficient_funds'              => "There are not enough funds on the card to make the purchase.",
+        'issuer_not_available'            => "The card issuer could not be contacted, so the payment could not be authorized.",
+        'lost_card'                       => "The payment was declined because the card was reported lost.",
+        'merchant_blacklist'              => "The payment was declined because it matches a value on the Stripe user's block list.",
+        'not_permitted'                   => "The payment is not allowed.",
+        'pickup_card'                     => "The customer cannot use this card to make this payment (it may have been reported lost or stolen).",
+        'restricted_card'                 => "The customer cannot use this card to make this payment (it may have been reported lost or stolen).",
+        'stolen_card'                     => "The payment was declined because the card was reported stolen.",
+        'withdrawal_count_limit_exceeded' => "The customer exceeded the balance or credit limit available on their card.",
     ],
 
     'emails' => [
