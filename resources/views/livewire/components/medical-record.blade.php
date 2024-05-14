@@ -338,6 +338,14 @@
         padding: 10px;
     }
 </style>
+@php
+    $lang = session()->get('locale');
+    if ($lang == 'en') {
+        $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/en-EN.json';
+    } else{
+        $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json';
+    }
+@endphp
 @push('scripts')
 <script>
     let valExams = '';
@@ -1246,7 +1254,7 @@
             new DataTable(
                 '#table-medicamento', {
                     language: {
-                        url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                        url: url,
                     },
                     // reponsive: true,
                     bDestroy: true,

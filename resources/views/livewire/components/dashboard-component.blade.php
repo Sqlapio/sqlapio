@@ -14,12 +14,41 @@
         width: 5% !important;
     }
 
+    .pr-5 {
+        padding: 0 5px 0 0;
+    }
+
+    .pl-5 {
+        padding: 0 0 0 5px;
+    }
+
+    .avatar {
+        border-radius: 50%;
+        width: 40px !important;
+        height: 40px !important;
+        border: 2px solid #44525f;
+        object-fit: cover;
+    }
+
+    .table-avatar {
+        text-align: center;
+        vertical-align: middle;
+    }
+
     @media screen and (max-width: 576px) {
         .mt-gf {
             margin-top: 0 !important;
         }
     }
 </style>
+@php
+    $lang = session()->get('locale');
+    if ($lang == 'en') {
+        $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/en-EN.json';
+    } else{
+        $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json';
+    }
+@endphp
 @push('scripts')
     <script>
         let countPatientRegister = @json($count_patient_register);
@@ -32,6 +61,7 @@
         let boy_girl = @json($boy_girl);
         let teen = @json($teen);
         let adult = @json($adult);
+        let patients = @json($patients);
         let urlPost;
         let count = 0;
         let exams_array = [];
@@ -40,15 +70,19 @@
 
 
         $(document).ready(() => {
+
+            console.log(patients)
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             tooltipTriggerList.forEach(element => {
                 new bootstrap.Tooltip(element)
             });
-            get_patient_register(countPatientRegister);
+            // get_patient_register(countPatientRegister);
+            // get_general(elderly, adult);
+            get_quotes();
             get_medical_record(countMedicalRecordr);
             get_history_register(countHistoryRegister);
             get_genere(boy_girl, teen);
-            get_general(elderly, adult);
+            get_general(elderly, adult, boy_girl, teen);
             get_study(count_study),
                 get_examen(count_examen),
                 //validar formulario
@@ -286,7 +320,7 @@
 
             new DataTable('#table-ref', {
                 language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                    url: url,
                 },
                 reponsive: true,
                 bDestroy: true,
@@ -422,7 +456,7 @@
                     ///refrezcar table examenes
                     new DataTable('#table-ref-examenes', {
                         language: {
-                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                            url: url,
                         },
                         reponsive: true,
                         bDestroy: true,
@@ -474,7 +508,7 @@
                     ///refrezcar table estudios
                     new DataTable('#table-ref-estudios', {
                         language: {
-                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                            url: url,
                         },
                         reponsive: true,
                         bDestroy: true,
@@ -554,11 +588,234 @@
     <div>
         {{-- rol medico --}}
         @if (Auth::user()->role == 'medico')
-            <div id="spinner" style="display: none" class="spinner-md">
+            <div id="spinner" style="display: none" class="spinner-md"> 
                 <x-load-spinner show="true" />
             </div>
-            <div class="container-fluid body" style="padding: 0 3% 3%">
-                <div class="accordion" id="accordion">
+            <div class="container-fluid body" style="padding: 2% 3% 3%">
+                <div class="row mt-2">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
+                        <div class="card bg-4">
+                            <div class="card-body" style="position: sticky">
+                                <h4 class="mb-4 mt-2" style="color: #ffff">Dashboard Sqlapio</h4>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="row">
+                                        <div class="col-xl-3 col-lg-3">
+                                            <div class="card l-bg-cherry">
+                                                <div class="card-statistic-3 p-4">
+                                                    <div class="card-icon card-icon-large"><img width="120" height="auto" src="{{ asset('/img/icons/patients-w.png') }}" alt="avatar"></div>
+                                                    <div class="mb-4">
+                                                        <h5 class="card-title mb-0">@lang('messages.label.paciente')</h5>
+                                                    </div>
+                                                    <div class="row align-items-center mb-2 d-flex">
+                                                        <div class="col-8">
+                                                            <h2 class="d-flex align-items-center mb-0">
+                                                                10/50
+                                                            </h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3">
+                                            <div class="card l-bg-blue-dark">
+                                                <div class="card-statistic-3 p-4">
+                                                    <div class="card-icon card-icon-large"> <img width="120" height="auto" src="{{ asset('/img/icons/medical-report3-w.png') }}" alt="avatar"></div>
+                                                    <div class="mb-4">
+                                                        <h5 class="card-title mb-0">@lang('messages.label.consulta')</h5>
+                                                    </div>
+                                                    <div class="row align-items-center mb-2 d-flex">
+                                                        <div class="col-8">
+                                                            <h2 class="d-flex align-items-center mb-0">
+                                                                10/50
+                                                            </h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3">
+                                            <div class="card l-bg-green-dark">
+                                                <div class="card-statistic-3 p-4">
+                                                    <div class="card-icon card-icon-large"> <img width="120" height="auto" src="{{ asset('/img/icons/medical-report-w.png') }}" alt="avatar"></div>
+                                                    <div class="mb-4">
+                                                        <h5 class="card-title mb-0">@lang('messages.label.examenes')</h5>
+                                                    </div>
+                                                    <div class="row align-items-center mb-2 d-flex">
+                                                        <div class="col-8">
+                                                            <h2 class="d-flex align-items-center mb-0">
+                                                                10/50
+                                                            </h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3">
+                                            <div class="card l-bg-orange-dark">
+                                                <div class="card-statistic-3 p-4">
+                                                    <div class="card-icon card-icon-large"><img width="120" height="auto" src="{{ asset('/img/icons/medical1-w.png') }}" alt="avatar"></div>
+                                                    <div class="mb-4">
+                                                        <h5 class="card-title mb-0">@lang('messages.label.estudios')</h5>
+                                                    </div>
+                                                    <div class="row align-items-center mb-2 d-flex">
+                                                        <div class="col-8">
+                                                            <h2 class="d-flex align-items-center mb-0">
+                                                                10/50
+                                                            </h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-6">
+                                            <div class="card">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;" >
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:800">
+                                                        <canvas id="countGereral2"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6">
+                                            <div class="card ">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:400">
+                                                        <canvas id="quotes"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="row">
+                                        <div class="col-xl-5 col-lg-5">
+                                            <div class="card">
+                                                <div class="card-body p-4">
+                                                    <div class="row" id="table-patients">
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                            <table id="table-patient" class="table table-striped table-bordered" style="width:100%; ">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.nombre_apellido')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.email')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.telefono')</th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($patients as $item)
+                                                                        <tr>
+                                                                            <td class="table-avatar">
+                                                                                <img class="avatar"
+                                                                                    src=" {{ $item->patient_img ? asset('/imgs/' . $item->patient_img) : ($item->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                                                    alt="Imagen del paciente">
+                                                                            </td>
+                                                                            <td class="text-center text-capitalize">{{ $item->name }} {{ $item->last_name }}</td>
+                                                                            <td class="text-center text-capitalize">{{ $item->email }}</td>
+                                                                            <td class="text-center text-capitalize">{{ $item->phone }}</td>
+
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-7 col-lg-7">
+                                            <div class="card ">
+                                                <div class="card-body p-4">
+                                                    <div class="row" id="table-patients">
+                                                        <h5><i class="bi bi-calendar2-check"></i> @lang('messages.acordion.citas')</h5>
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                            <table id="table-patient" class="table table-striped table-bordered" style="width:100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.hora') </th>
+                                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido') </th>
+                                                                        @if (Auth::user()->contrie == '81')
+                                                                            <th class="text-center w-10" scope="col">@lang('messages.form.CIE')</th>
+                                                                        @else
+                                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                                        @endif
+                                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.centro_salud')</th>
+                                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.estatus')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($appointments as $item)
+                                                                        <tr>
+                                                                            <td class="text-center td-pad"> {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }} </td>
+                                                                            <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }} </td>
+                                                                            @if (Auth::user()->contrie == '81')
+                                                                                <td class="text-center td-pad"> {{  preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item['extendedProps']['ci'])  }}</td>
+                                                                            @else
+                                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['ci'] }}</td>
+                                                                            @endif
+                                                                            <td class="text-center td-pad"> {{ $item['extendedProps']['center'] }}</td>
+                                                                            @php
+                                                                                $status2 =  $item['extendedProps']['status'];
+                                                                            @endphp
+                                                                            <td class="text-center td-pad"> <span class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">@lang('messages.tabla.' . $status2)</span> </td>
+                                                                            <td>
+                                                                                <div class="d-flex" style="justify-content: center;">
+                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                        <a href="{{ $item['extendedProps']['age'] == '' ? '#' : route('MedicalRecord', $item['extendedProps']['patient_id']) }}"
+                                                                                            @php
+                                                                                                $id_patient =  $item["extendedProps"]["patient_id"];
+                                                                                            @endphp
+                                                                                            onclick='{{ $item['extendedProps']['age'] == '' ? "alertInfoPaciente($id_patient )" : '' }}'>
+                                                                                            <button type="button"
+                                                                                                data-bs-toggle="tooltip"
+                                                                                                data-bs-placement="bottom"
+                                                                                                title="@lang('messages.tooltips.consulta_medica')">
+                                                                                                <img width="35" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
+                                                                                            </button>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                        <button type="button" data-bs-toggle="tooltip"
+                                                                                            data-bs-placement="bottom"
+                                                                                            title="@lang('messages.tooltips.cancelar_cita')"
+                                                                                            onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
+                                                                                            <img width="33" height="auto" src="{{ asset('/img/icons/canceled.png') }}" alt="avatar">
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                        <button type="button" data-bs-toggle="tooltip"
+                                                                                            data-bs-placement="bottom"
+                                                                                            title="Enviar Recordatorio"
+                                                                                            {{-- onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')" --}}
+                                                                                            >
+                                                                                            <img width="35" height="auto" src="{{ asset('/img/icons/send.png') }}" alt="avatar">
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- <div class="accordion" id="accordion">
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                             <div class="accordion-item">
@@ -573,14 +830,10 @@
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <div class="row"id="table-patients">
-                                            <div
-                                                class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-
-                                                <table id="table-patient" class="table table-striped table-bordered"
-                                                    style="width:100%">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                <table id="table-patient" class="table table-striped table-bordered" style="width:100%">
                                                     <thead>
                                                         <tr>
-                                                            {{-- <th class="text-center" scope="col">Fecha</th> --}}
                                                             <th class="text-center w-10" scope="col">@lang('messages.tabla.hora') </th>
                                                             <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido') </th>
                                                             @if (Auth::user()->contrie == '81')
@@ -588,9 +841,6 @@
                                                             @else
                                                                 <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
                                                             @endif
-                                                            {{-- <th class="text-center" scope="col">Género</th> --}}
-                                                            {{-- <th class="text-center" scope="col">Teléfono</th> --}}
-                                                            {{-- <th class="text-center" scope="col">Email</th> --}}
                                                             <th class="text-center" scope="col">@lang('messages.tabla.centro_salud')</th>
                                                             <th class="text-center w-10" scope="col">@lang('messages.tabla.estatus')</th>
                                                             <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
@@ -599,7 +849,6 @@
                                                     <tbody>
                                                         @foreach ($appointments as $item)
                                                             <tr>
-                                                                {{-- <td class="text-center td-pad"> {{ date('d-m-Y', strtotime($item['extendedProps']['data_app'])) }}  </td> --}}
                                                                 <td class="text-center td-pad"> {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }} </td>
                                                                 <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }} </td>
                                                                 @if (Auth::user()->contrie == '81')
@@ -607,10 +856,7 @@
                                                                 @else
                                                                     <td class="text-center td-pad"> {{ $item['extendedProps']['ci'] }}</td>
                                                                 @endif
-                                                                {{-- <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['genere'] }}</td>
-                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['phone'] }}</td>
-                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['email'] }}</td> --}}
-                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['center'] }}</td>
+                                                                    <td class="text-center td-pad"> {{ $item['extendedProps']['center'] }}</td>
                                                                 @php
                                                                     $status2 =  $item['extendedProps']['status'];
                                                                 @endphp
@@ -633,28 +879,15 @@
                                                                                 </button>
                                                                             </a>
                                                                         </div>
-                                                                        <div
-                                                                            class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                                                                             <button type="button" data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
                                                                                 title="@lang('messages.tooltips.cancelar_cita')"
                                                                                 onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
-                                                                                <img width="40" height="auto"
-                                                                                    src="{{ asset('/img/icons/canceled.png') }}"
-                                                                                    alt="avatar">
+                                                                                <img width="40" height="auto" src="{{ asset('/img/icons/canceled.png') }}" alt="avatar">
                                                                             </button>
-
                                                                         </div>
-                                                                        {{-- <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
-                                                                            style="margin-left: 10px; width: 32px;">
-                                                                            <button type="button"
-                                                                                class="btn btn-iSecond rounded-circle"
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                title="Finalizar Cita"
-                                                                                onclick="finalizar_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('finalizar_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
-                                                                                <i class="bi bi-clipboard-x"></i>
-                                                                        </div> --}}
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -667,7 +900,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- estadisticas Medico --}}
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2">
                             <div class="accordion-item">
@@ -732,7 +964,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         @elseif (Auth::user()->role == 'laboratorio')
             {{-- rol laboratorio --}}

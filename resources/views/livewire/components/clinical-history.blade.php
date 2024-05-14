@@ -69,6 +69,14 @@
         border-bottom-left-radius: 0px !important;
     }
 </style>
+@php
+    $lang = session()->get('locale');
+    if ($lang == 'en') {
+        $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/en-EN.json';
+    } else{
+        $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json';
+    }
+@endphp
 @push('scripts')
     <script>
         let valueAllergies = '';
