@@ -55,15 +55,16 @@
                     }
 
                 }
-            });        
+            });
         });
-
 
         const handlerSubmit = () => {
 
             $("#form-recovery-pat").validate();
 
             if ($("#form-recovery-pat").valid()) {
+                
+                $('#btnPrimary').attr("disabled",true);
 
                 $('#spinner').show();
 
@@ -78,9 +79,17 @@
                     success: function(response) {
                         $('#spinner').hide();
 
-                        // window
-                        //     .location =
-                        //     '{{ route('view-patient') }}';
+                        Swal.fire({
+                            icon: 'success',
+                            title: "Operación exitosa, le hemos enviado su contraseña al correo por favor verifique la información!",
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#42ABE2',
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
+                        }).then((result) => {
+                            window
+                                .location =
+                                '{{ route('query-detaly-patient') }}';
+                        });
                     },
                     error: function(error) {
                         $('#spinner').hide();
@@ -99,7 +108,6 @@
                 });
             }
         }
-
     </script>
 @endpush
 @section('content')
@@ -120,15 +128,20 @@
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <div class="form-group">
                                 <div class="Icon-inside">
-                                    <input autocomplete="off" class="form-control alpha-no-spaces" id="document_number" name="document_number" type="text" value="" placeholder="@lang('messages.form.cedula_identidad')">
+                                    <input autocomplete="off" class="form-control alpha-no-spaces" id="document_number"
+                                        name="document_number" type="text" value=""
+                                        placeholder="@lang('messages.form.cedula_identidad')">
                                     <i class="bi bi-envelope" style="top: 2px !important;"></i>
                                 </div>
                             </diV>
                         </div>
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-3" style="display: flex; justify-content: space-around;">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-3"
+                            style="display: flex; justify-content: space-around;">
                             <div class="d-flex justify-content-center">
-                                <input class="btn btnPrimary" value="@lang('messages.botton.recuperar')" onclick="handlerSubmit()" type="text" style="margin-top: 0px; margin-right: 20px; "/>
-                                <a href="/"><button type="button" class="btn btnSecond btn2">@lang('messages.botton.cancelar')</button></a>
+                                <input class="btn btnPrimary" value="@lang('messages.botton.recuperar')" onclick="handlerSubmit()"
+                                    type="text" style="margin-top: 0px; margin-right: 20px; " />
+                                <a href="{{ route('query-detaly-patient') }}"><button type="button"
+                                        class="btn btnSecond btn2">@lang('messages.botton.cancelar')</button></a>
                             </div>
                         </div>
                     </div>

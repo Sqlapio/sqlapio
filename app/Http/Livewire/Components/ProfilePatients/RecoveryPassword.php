@@ -14,26 +14,37 @@ class RecoveryPassword extends Component
     public function handleRecoveryPass(Request $request)
     {
 
-        $user = UserPatients::where("username", $request->document_number)->first();
+        try {
+            $user = UserPatients::where("username", $request->document_number)->first();
 
-        if ($user) {
+            if ($user) {
 
-            $email = ($user->patients->is_minor == "true") ?  $user->patients->get_reprensetative->re_email : $user->patients->email;
-            $mailData = [
-                'email' => $email,
-                'password' =>  $user->password,
-            ];
+                $email = ($user->patients->is_minor == "true") ?  $user->patients->get_reprensetative->re_email : $user->patients->email;
+                $mailData = [
+                    'email' => $email,
+                    'password' =>  $user->pass_tem,
+                ];
 
-            UtilsController::notification_mail($mailData, "recovery_pass_pat");
+                UtilsController::notification_mail($mailData, "recovery_pass_pat");
 
+                return response()->json([
+                    'success' => true,
+                    'msj'  => "operacion exitosa"
+                ], 200);
+            } else {
 
-            return true;
-        } else {
-
-            dd("no");
+                return response()->json([
+                    'success' => false,
+                    'msj'  => "no autorizado"
+                ], 401);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'msj'  => "Error interno"
+            ], 500);
         }
     }
-
 
     public function render()
     {

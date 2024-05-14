@@ -33,6 +33,7 @@ class Patients extends Component
 
             $user_id = Auth::user()->id;
             $user_name = "";
+            $email = '';
 
             if (Str::contains($request->img, 'base64')) {
                 $file =  $request->img;
@@ -64,6 +65,7 @@ class Patients extends Component
             if ($request->is_minor == "true") {
 
                 $user_name = $request->re_ci;
+                $email = $request->re_email;
                 /** Paciente menor de edad */
                 $rules = [
 
@@ -272,6 +274,7 @@ class Patients extends Component
                 ApiServicesController::sms_info($phone, $body);
             } else {
                 $user_name = $request->ci;
+                $email = $request->email;
                 /** Paciente mayor de edad */
                 $rules = [
 
@@ -462,11 +465,22 @@ class Patients extends Component
 
             if (UserPatients::where("username", $user_name)->first() == null) {
 
+                $pass = UtilsController::generete_pass($user_name);
+
                 $UserPatients = new UserPatients();
                 $UserPatients->username = $user_name;
                 $UserPatients->patient_id = $patient->id;
-                $UserPatients->password =  Hash::make(UtilsController::generete_pass($user_name));
+                $UserPatients->password =  Hash::make($pass);
+                $UserPatients->pass_tem =  $pass;                
                 $UserPatients->save();
+
+                //enviar notificaion con el password                
+                $mailData = [
+                    'email' => $email,
+                    'password' =>  $pass,
+                ];
+
+                UtilsController::notification_mail($mailData, "recovery_pass_pat");
             }
 
             $action = '5';

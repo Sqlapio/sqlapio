@@ -20,6 +20,8 @@ class UserPatients extends Authenticatable {
 		'patient_id',
 		'username',
 		'password',
+		'pass_tem',
+
 	];
 
 	protected $hidden = [
