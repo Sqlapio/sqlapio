@@ -290,7 +290,7 @@
                     },
                     success: function(response) {
                         $('#spinner2').hide();
-                        if (response.data.data.length === 0 || response.reference.data.length === 0) {
+                        if (response.data.data.length === 0 && response.reference.data.length === 0) {
                             Swal.fire({
                                 icon: 'warning',
                                 title: '@lang('messages.alert.paciente_sin_info')',
