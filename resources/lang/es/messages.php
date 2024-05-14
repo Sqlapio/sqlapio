@@ -266,7 +266,7 @@ return [
     'tabla' => [
         'hora'                => 'Hora',
         'nombre_apellido'     => 'Nombre y Apellido',
-        'cedula'              => 'Cédula',
+        'cedula'              => 'Documento de Identidad',
         'centro_salud'        => 'Centro de Salud',
         'estatus'             => 'Estatus',
         'acciones'            => 'Acciones',
