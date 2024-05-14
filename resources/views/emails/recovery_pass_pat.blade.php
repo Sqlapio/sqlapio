@@ -16,11 +16,11 @@
                     width: 600px;
                     padding: 10px;">
             <p style="text-align: justify; margin-left: 20px;">
-                <h2 style="text-align: justify; margin-left: 20px;">Dr(a). {{ 'kleyner villegas' }}</h2>
+                <h2 style="text-align: justify; margin-left: 20px;"> {{ $mailData['title'] }}</h2>
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
-                    Su contrasena es la siguiente:
+                    Su contraseña es la siguiente:
                 <br>
                 {{ $mailData['password'] }}
             </p>

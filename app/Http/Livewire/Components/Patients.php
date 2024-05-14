@@ -478,6 +478,7 @@ class Patients extends Component
                 $mailData = [
                     'email' => $email,
                     'password' =>  $pass,
+                    "title" => "Contraseña establecida exitosamente"
                 ];
 
                 UtilsController::notification_mail($mailData, "recovery_pass_pat");

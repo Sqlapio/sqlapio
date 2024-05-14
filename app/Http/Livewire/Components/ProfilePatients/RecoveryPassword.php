@@ -23,13 +23,14 @@ class RecoveryPassword extends Component
                 $mailData = [
                     'email' => $email,
                     'password' =>  $user->pass_tem,
+                    "title" => "Recuperación de contraseña exitosa"
                 ];
 
                 UtilsController::notification_mail($mailData, "recovery_pass_pat");
 
                 return response()->json([
                     'success' => true,
-                    'msj'  => "operacion exitosa"
+                    'msj'  => "operacion exitosa"                   
                 ], 200);
             } else {
 
