@@ -524,6 +524,7 @@ return [
         'habilitar_centro'          => 'Are you sure you want to enable this medical center?',
         'registro_inicial'          => 'You must complete your initial registration!',
         'paciente_sin_info'         => 'The patient does not have information loaded into the system!',
+        'paciente_no'               => 'patient not found!',
         'ingrese_codigo'            => 'Enter the code',
         'envio_codigo'              => 'A verification code will be sent to the email address entered!',
         'perfil_actualizado'        => 'Profile updated successfully!',

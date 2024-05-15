@@ -288,6 +288,17 @@
                     success: function(response) {
                         $('#spinner2').hide();
 
+                        if (response.pat.length === 0) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: '@lang('messages.alert.paciente_no')',
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
+                            });
+                            return false;
+                        }
+
                         if (response.data.data.length === 0 && response.reference.data.length === 0) {
                             Swal.fire({
                                 icon: 'warning',
