@@ -32,12 +32,12 @@ class Login extends Component
 	public function messages()
 	{
 		$messages = [
-			'username.required' => 'Usuario requerido',
-			'password.required' => 'Contraseña requerida',
-			'username.min' => 'Usuario debe ser mayor a 3 caracteres',
-			'username.max' => 'Usuario debe ser menor a 50 caracteres',
-			'password.min' => 'Contraseña debe ser mayor a 6 caracteres',
-			'password.regex' => 'Formato de contraseña  incorrecto',
+			'username.required' => __('messages.alert.usuario_requerido'),
+			'password.required' => __('messages.alert.contraseña_obligatorio'),
+			'username.min'      => __('messages.alert.usuario_3_caracteres'),
+			'username.max'      =>  __('messages.alert.usuario_50_caracteres'),
+			'password.min'      => __('messages.alert.campo_6_caracteres'),
+			'password.regex'    => 'Formato de contraseña incorrecto',
 
 		];
 		return $messages;
@@ -76,28 +76,28 @@ class Login extends Component
 
 							// verificar si vlaido el correo
 							if ($user->email_verified_at === null) {
-								return Redirect::to('/')->withErrors('Debe verificar su correo electronico!');
-							}							
+								return Redirect::to('/')->withErrors(__('messages.alert.verificacion_correo'));
+							}
 
-							// Redireccion segun status de registro	y rol						
+							// Redireccion segun status de registro	y rol
 							$url = $this->redirecUser($user);
 
 							return Redirect::route($url);
 							/////////END///////////////////
 						} else { // credenciales incorrectas
-							return Redirect::to('/')->withErrors('Autenticación incorrecta');
+							return Redirect::to('/')->withErrors(__('messages.alert.autenticacion_incorrecta'));
 						}
 					} else { // usuario desahabilitado
-						return Redirect::to('/')->withErrors('El usuario no existe o se encuentra deshabilitado. Por favor valide la información y vuelva a intentarlo');
+						return Redirect::to('/')->withErrors(__('messages.alert.usuario_no_existe'));
 					}
 				} else { //no exite usuario
-					return Redirect::to('/')->withErrors('Autenticación incorrecta');
+					return Redirect::to('/')->withErrors(__('messages.alert.autenticacion_incorrecta'));
 				}
 			} catch (\Throwable $th) {
 				$message = $th->getMessage();
-				return Redirect::to('/')->withErrors('Autenticación incorrecta');
+				return Redirect::to('/')->withErrors(__('messages.alert.autenticacion_incorrecta'));
 			}
-			return Redirect::to('/')->withErrors('Autenticación incorrecta');
+			return Redirect::to('/')->withErrors(__('messages.alert.autenticacion_incorrecta'));
 		}
 	}
 
@@ -109,7 +109,7 @@ class Login extends Component
 	}
 
 	public function redirecUser($user){
-		// Redireccion segun status de registro	y rol					
+		// Redireccion segun status de registro	y rol
 		switch ($user->role) {
 			case 'corporativo':
 				if ($user->status_register == 1) {

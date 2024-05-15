@@ -5,7 +5,8 @@
         width: 100%;
         margin-top: 20%;
         position: fixed;
-        bottom: 0
+        bottom: 0;
+        z-index: 3;
     }
 
     .footer-margin {
@@ -19,7 +20,7 @@
             <div class="container-fluid">
                 <div class="row text-center">
                     <div class="col-md-12 footer-margin">
-                        <span style="font-size: 14px">Copyright © 2023 SqLapioTechnology LLC. <i class="bi bi-r-circle"></i>
+                        <span style="font-size: 14px">Copyright © 2024 SqLapioTechnology LLC. <i class="bi bi-r-circle"></i>
                         </span>
                     </div>
                 </div>

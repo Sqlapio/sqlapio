@@ -70,6 +70,10 @@
         max-width: 500px !important;
     }
 
+    body {
+        padding-right: 0px !important;
+    }
+
     @media screen and (max-width: 390px) {
         #img-pat {
             margin: 4px 20px 0 0;
@@ -130,7 +134,7 @@
 @push('scripts')
     @vite(['resources/js/dairy.js'])
     <script>
-        $(document).ready(() => {          
+        $(document).ready(() => {
             let route = "{{ route('MedicalRecord', ':id') }}";
             let routeCancelled = "{{ route('cancelled_appointments', ':id') }}";
             let url2 = "{{ route('Diary') }}";
@@ -138,15 +142,53 @@
             let appointments = @json($appointments);
             let ulrImge = "{{ URL::asset('/imgs/') }}";
             let imge_avatar = "{{ URL::asset('/img/avatar/') }}";
+            let ulrPaciente = "{{ route('Patients', ':id_patient') }}";
+            let user = @json(Auth::user());
+
             let urlPostCreateAppointment = '{{ route('CreateAppointment') }}';
             getUrl(urlPostCreateAppointment, url2);
-            getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments, imge_avatar);
-        });       
+            getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments, imge_avatar,ulrPaciente, user);
+
+        });
+
+        const handlerPetientRegister = (e) => {
+
+            if ($(`#${e.target.id}`).is(':checked')) {
+
+                $(".form-patient-register").show();
+
+                $("#search-patients-show").hide();
+
+                $("#div-pat").hide();
+
+                $("#patient_new").val(true);
+
+            } else {
+
+                $("#name_patient").val('');
+                $("#last_name_patient").val('');
+                $("#phone_patient").val('');
+                $("#email_patient").val('');
+                // $("#birthdate_patient").val('');
+
+                $("#patient_new").val(false);
+
+
+                $("#search-patients-show").show();
+
+
+                $(".form-patient-register").hide();
+
+            }
+        }
     </script>
 @endpush
 @section('content')
-    <div>
-        <div class="container-fluid" style="padding: 3%">
+<div>
+    <div id="spinner2" style="display: none" class="spinner-md">
+        <x-load-spinner show="true" />
+    </div>
+    <div class="container-fluid" style="padding: 3%">
             <div class="row mt-2">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
                     <div class="card accordion-diary">
@@ -159,42 +201,57 @@
                 </div>
             </div>
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-            id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-dialog">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header title">
                             <i class="bi bi-calendar-week"></i>
                             <span style="padding-left: 5px" id="title-modal"></span>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                 style="font-size: 12px;"></button>
-                        </div> 
+                        </div>
                         <div class="modal-body">
-                            <x-select-dos :data="$patient" />
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="date-lb">
+                                <strong>@lang('messages.modal.form.fecha'): </strong><span id="date"></span>
+                            </div>
+
+                            <div id="handlerPetientRegister" class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mb-3 mt-3" style="width: 318px;">
+                                <div class="form-check form-switch ">
+                                    <input onchange="handlerPetientRegister(event);" style="width: 5em"
+                                        class="form-check-input" type="checkbox" role="switch"
+                                        id="flexSwitchCheckChecked" value="">
+                                    <label style="margin-top: 9px; font-size: 15px" class="form-check-label" for="inlineRadio1">
+                                        @lang('messages.label.register_paciente')
+                                    </label>
+                                </div>
+                            </div>
+
+                            {{-- datos del paciente --}}
                             <div class="row mt-2">
                                 <div id="div-pat" style="display: none">
                                     <div class="d-flex" style="align-items: center;">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 modal-d">
                                             <div class="img">
-                                                <img id="img-pat" src="" width="125" height="125"
-                                                    alt="Imagen del paciente">
+                                                <img id="img-pat" src="" width="125" height="125" alt="Imagen del paciente">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 modal-text" style="font-size: 13px;">
                                             <div>
-                                                <strong>Nombre: </strong><span class="text-capitalize" id="name"></span>
+                                                <strong>@lang('messages.ficha_paciente.nombre'): </strong><span class="text-capitalize" id="name"></span>
                                                 <br>
-                                                {{-- <strong>Cédula: </strong><span id="ci"></span> --}}
-                                                <strong>Cédula: </strong><span id="ci"></span>
+                                                @if (Auth::user()->contrie = '81')
+                                                    <strong>@lang('messages.ficha_paciente.ci_rd'): </strong><span id="ci"></span>
+                                                @else
+                                                    <strong>@lang('messages.ficha_paciente.ci'): </strong><span id="ci"></span>
+                                                @endif
                                                 <br>
-                                                <strong>Edad: </strong><span id="age"></span> años
+                                                <strong>@lang('messages.ficha_paciente.edad'): </strong><span id="age"></span> @lang('messages.ficha_paciente.años')
                                                 <br>
-                                                <strong>Genero: </strong><span class="text-capitalize" id="genere"></span>
+                                                <strong>@lang('messages.ficha_paciente.genero'): </strong><span class="text-capitalize" id="genere"></span>
                                                 <br>
-                                                <strong>Correo: </strong><span id="email"></span>
+                                                <strong>@lang('messages.ficha_paciente.correo'): </strong><span id="email"></span>
                                                 <br>
-                                                <strong>Telefono: </strong><span id="phone"></span>
+                                                <strong>@lang('messages.ficha_paciente.telefono'): </strong><span id="phone"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -202,12 +259,12 @@
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1" id="appointment-data" style="font-size: 13px;">
                                     <div>
                                         <hr>
-                                        <h5>Información de la cita</h5>
-                                        <strong>Fecha: </strong><span id="fecha"></span>
+                                        <h5>@lang('messages.modal.titulo.info')</h5>
+                                        <strong>@lang('messages.modal.form.fecha'): </strong><span id="fecha"></span>
                                         <br>
-                                        <strong>Hora: </strong><span id="hour"></span>
+                                        <strong>@lang('messages.modal.tabla.hora'): </strong><span id="hour"></span>
                                         <br>
-                                        <strong>Centro: </strong><span id="center"></span>
+                                        <strong>@lang('messages.modal.tabla.centro'): </strong><span id="center"></span>
                                     </div>
                                 </div>
                                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
@@ -216,14 +273,18 @@
                             <form action="" id="form-appointment">
                                 {{ csrf_field() }}
 
+                                <x-patient-create />
+
+                                <input type="hidden" name="patient_new" id="patient_new" value="">
+
+                                <x-select-dos :data="$patient" />
 
                                 <div class="row mt-1">
                                     <input type="hidden" id="patient_id" name="patient_id" value="">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="FC">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="date" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Fecha</label>
+                                                <label for="date" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.fecha')</label>
                                                 <input autocomplete="off" placeholder="" class="form-control"
                                                     id="date_start" readonly name="date_start" type="text"
                                                     value="">
@@ -235,14 +296,11 @@
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="TH">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Tiempo
-                                                    Horario</label>
-                                                <select id="timeIni" name="timeIni" onchange="handlerTime(event)"
-                                                    class="form-control valid">
-                                                    <option value="">Seleccione</option>
-                                                    <option value="am">AM</option>
-                                                    <option value="pm">PM</option>
+                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.tiempo_horario')</label>
+                                                <select id="timeIni" name="timeIni" onchange="handlerTime(event)" class="form-control valid">
+                                                    <option value="">@lang('messages.placeholder.seleccione')</option>
+                                                    <option value="am">@lang('messages.select.am')</option>
+                                                    <option value="pm">@lang('messages.select.pm')</option>
                                                 </select>
                                                 <i class="bi bi-stopwatch st-icon"></i>
                                             </div>
@@ -252,39 +310,28 @@
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2" id="HS">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="phone" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Horarios
-                                                    de cita</label>
-                                                <select id="hour_start" name="hour_start"
-                                                    class="form-control valid"></select>
+                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.horarios_cita')</label>
+                                                <select id="hour_start" name="hour_start" class="form-control valid"></select>
                                                 <i class="bi bi-stopwatch st-icon"></i>
                                             </div>
                                         </div>
                                     </div>
 
                                     @if (Auth::user()->type_plane != '7')
-                                        <x-centers_user
-                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" />
+                                        <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="CM" />
                                     @endif
 
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center"
-                                        id="check-price">
+                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 text-center" id="check-price">
                                         <div class="form-check form-switch">
-                                            <input onchange="handlerPrice(event);" style="width: 5em"
-                                                class="form-check-input" type="checkbox" role="switch"
-                                                id="showPrice" value="">
-                                            <label style="margin-left: -146px;margin-top: 8px; font-size: 13px"
-                                                for="showPrice">Precio
-                                                de
-                                                la cita</label>
+                                            <input onchange="handlerPrice(event);" style="width: 5em" class="form-check-input" type="checkbox" role="switch" id="showPrice" value="">
+                                            <label style="margin-left: -146px;margin-top: 8px; font-size: 13px" for="showPrice">@lang('messages.modal.form.precio')</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
                                         style="display: none" id="div-price">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="searchPatients" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Precio</label>
+                                                <label for="searchPatients" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.precio')</label>
                                                 <input maxlength="8" type="text"
                                                     class="form-control mask-input-price" id="price"
                                                     name="price" id="searchPatients" value="">
@@ -297,14 +344,11 @@
                                     <x-load-spinner show="true" />
                                 </div>
                                 <div class="row text-center mt-2">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                        style="display: flex; justify-content: center; align-items: center;">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="display: flex; justify-content: center; align-items: center;">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 " id="send">
-                                            <input class="btn btnSave" id="registrer-pac" value="Registrar" disabled
-                                                type="submit" />
+                                            <input class="btn btnSave" id="registrer-pac" value="@lang('messages.botton.agendar_cita')" disabled  type="submit" />
                                         </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 m-xs"
-                                            id="btn-con"></div>
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 m-xs" id="btn-con"></div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell">
                                         </div>
                                     </div>
@@ -314,7 +358,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 @endsection

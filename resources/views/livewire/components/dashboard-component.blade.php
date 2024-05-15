@@ -6,12 +6,49 @@
         margin-top: 1rem !important;
     }
 
+    .w-10 {
+        width: 10% !important;
+    }
+
+    .w-5 {
+        width: 5% !important;
+    }
+
+    .pr-5 {
+        padding: 0 5px 0 0;
+    }
+
+    .pl-5 {
+        padding: 0 0 0 5px;
+    }
+
+    .avatar {
+        border-radius: 50%;
+        width: 40px !important;
+        height: 40px !important;
+        border: 2px solid #44525f;
+        object-fit: cover;
+    }
+
+    .table-avatar {
+        text-align: center;
+        vertical-align: middle;
+    }
+
     @media screen and (max-width: 576px) {
         .mt-gf {
             margin-top: 0 !important;
         }
     }
 </style>
+@php
+    $lang = session()->get('locale');
+    if ($lang == 'en') {
+        $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/en-EN.json';
+    } else{
+        $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json';
+    }
+@endphp
 @push('scripts')
     <script>
         let countPatientRegister = @json($count_patient_register);
@@ -24,22 +61,31 @@
         let boy_girl = @json($boy_girl);
         let teen = @json($teen);
         let adult = @json($adult);
+        let patients = @json($patients);
         let urlPost;
         let count = 0;
         let exams_array = [];
         let studies_array = [];
-        let row = ""
+        let row = "";
+
 
         $(document).ready(() => {
+
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             tooltipTriggerList.forEach(element => {
                 new bootstrap.Tooltip(element)
             });
-            get_patient_register(countPatientRegister);
-            get_medical_record(countMedicalRecordr);
-            get_history_register(countHistoryRegister);
-            get_genere(boy_girl, teen);
-            get_general(elderly, adult);
+            // get_patient_register(countPatientRegister);
+            // get_general(elderly, adult);
+            // get_medical_record(countMedicalRecordr);
+            // get_history_register(countHistoryRegister);
+            // get_genere(boy_girl, teen);
+            get_general(elderly, adult, boy_girl, teen);
+            get_quotes();
+            get_queries_month();
+            get_appointments_attended();
+            get_appointments_canceled();
+            get_appointments_confirmed();
             get_study(count_study),
                 get_examen(count_examen),
                 //validar formulario
@@ -125,80 +171,82 @@
         function showModal(item, active, info) {
             if (info.length > 0) {
                 count = 0;
-            $('#count').val('');
-            $('.holder').hide();
-            $('#code_ref').val(item.cod_ref);
-            $('#img').val('');
-            $('#ModalLoadResult').modal('show');
-            $('#table-info').find('tbody').empty();
+                $('#count').val('');
+                $('.holder').hide();
+                $('#code_ref').val(item.cod_ref);
+                $('#img').val('');
+                $('#ModalLoadResult').modal('show');
+                $('#table-info').find('tbody').empty();
 
-            if (active == 0) {
-                urlPost = '{{ route('upload_result_exam') }}';
-                $('.modal-title').text('Examen del Paciente');
-                info.map((elemt, index) => {
-                    let elemData = JSON.stringify(elemt);   
-                    let label =
-                        `<label><input type="checkbox" id="cod_exam_${index}" onclick='cuontResul(event,${elemData},0,${index});'></label>`
-                    if (Number(elemt.status) === 2) {
-                        $('#div-result').hide();
-                        $('#div-btn').hide();
-                        label =
-                        `<div  class="pad"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
-                    }
-                    if (Number(elemt.status) === 1) {;
-                        $('#div-result').show();
-                        $('#div-btn').show();
-                    }
-                    let row = `
-                    <tr>
-                        <td class="text-center">${elemt.cod_exam}</td>
-                        <td class="text-center">${elemt.description}</td>     
-                        <td class="text-center">${label}</td>                
+                if (active == 0) {
+                    urlPost = '{{ route('upload_result_exam') }}';
+                    $('.modal-title').text('Examen del Paciente');
+                    info.map((elemt, index) => {
+                        let elemData = JSON.stringify(elemt);
+                        let label =
+                            `<label><input type="checkbox" id="cod_exam_${index}" onclick='cuontResul(event,${elemData},0,${index});'></label>`
+                        if (Number(elemt.status) === 2) {
+                            $('#div-result').hide();
+                            $('#div-btn').hide();
+                            label =
+                                `<div  class="pad"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
+                        }
+                        if (Number(elemt.status) === 1) {
+                            ;
+                            $('#div-result').show();
+                            $('#div-btn').show();
+                        }
+                        let row = `
+                        <tr>
+                            <td class="text-center">${elemt.cod_exam}</td>
+                            <td class="text-center">${elemt.description}</td>
+                            <td class="text-center">${label}</td>
                         </tr>`;
                         $('#table-info').find('tbody').append(row);
-                        
+
                     });
-            } else {
-                urlPost = '{{ route('upload_result_study') }}';
-                $('.modal-title').text('Información del Estudio');
-                info.map((elemt, index) => {
-                    
-                    let elemData = JSON.stringify(elemt);
-                    let label =
-                    `<label><input type="checkbox"  id="cod_exam_${index}" onclick='cuontResul(event,${elemData},1,${index});'></label>`
-                    if (Number(elemt.status) === 2) {
-                        label =
-                            `<div  class="prueba"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
-                        $('#div-result').hide();
-                        $('#div-btn').hide();
-                    }
-                    if (Number(elemt.status) === 1) {;
-                        $('#div-result').show();
-                        $('#div-btn').show();
-                    }
-                    let row = `
+                } else {
+                    urlPost = '{{ route('upload_result_study') }}';
+                    $('.modal-title').text('Información del Estudio');
+                    info.map((elemt, index) => {
+
+                        let elemData = JSON.stringify(elemt);
+                        let label =
+                            `<label><input type="checkbox"  id="cod_exam_${index}" onclick='cuontResul(event,${elemData},1,${index});'></label>`
+                        if (Number(elemt.status) === 2) {
+                            label =
+                                `<div  class="prueba"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
+                            $('#div-result').hide();
+                            $('#div-btn').hide();
+                        }
+                        if (Number(elemt.status) === 1) {
+                            ;
+                            $('#div-result').show();
+                            $('#div-btn').show();
+                        }
+                        let row = `
                         <tr>
-                        <td class="text-center">${elemt.cod_study}</td>
-                        <td class="text-center">${elemt.description}</td>     
-                        <td class="text-center">${label}</label></td>                
+                            <td class="text-center">${elemt.cod_study}</td>
+                            <td class="text-center">${elemt.description}</td>
+                            <td class="text-center">${label}</label></td>
                         </tr>`;
-                    $('#table-info').find('tbody').append(row);
-                    
-                });
-            }
-            $('#ref').text(item.cod_ref);
-            $('#id').val(item.id);
-            $('#ref-pat').text(`${item.get_patient.name} ${item.get_patient.last_name}`);
+                        $('#table-info').find('tbody').append(row);
+
+                    });
+                }
+                $('#ref').text(item.cod_ref);
+                $('#id').val(item.id);
+                $('#ref-pat').text(`${item.get_patient.name} ${item.get_patient.last_name}`);
             } else {
                 Swal.fire({
-                            icon: 'warning',
-                            title: 'Paciente sin exámenes/estudios solicitados por el médico!',
-                            allowOutsideClick: false,
-                            confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
-                        });
+                    icon: 'warning',
+                    title: 'Paciente sin exámenes/estudios solicitados por el médico!',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#42ABE2',
+                    confirmButtonText: 'Aceptar'
+                });
             }
-            
+
         }
 
         function cuontResul(e, item, type, key) {
@@ -242,28 +290,32 @@
                 let get_studie = JSON.stringify(elem.get_studie);
                 let elemetData = JSON.stringify(elem);
                 elem.btn =
-                    `<button  onclick='showModal(${ elemetData },0,${ get_exam })'                         
-                                    data-bs-toggle='tooltip' data-bs-placement='right'
-                                    data-bs-custom-class='custom-tooltip' data-html='true'
-                                    title='Ver examenes' type='button' class='btn btn-iPrimary rounded-circle'>
-                                    <i class='bi bi-info-circle-fill'></i>
-                                    </button>`;
+                    `<button onclick='showModal(${ elemetData },0,${ get_exam })'
+                        data-bs-toggle='tooltip' data-bs-placement='right'
+                        data-bs-custom-class='custom-tooltip' data-html='true'
+                        title='Ver exámenes' type='button' class='btn btn-iPrimary rounded-circle'
+                        style="margin-right: 0px">
+                        <i class='bi bi-info-circle-fill'></i>
+                    </button>`;
                 elem.btn1 =
-                    `<button onclick='showModal(${ elemetData },1,${ get_studie } )' 
-                                data-bs-toggle='tooltip' data-bs-placement='right'
-                                data-bs-custom-class='custom-tooltip' data-html='true'
-                                title='Ver estudios' type='button' class='btn btn-iPrimary rounded-circle'>
-                                <i class='bi bi-info-circle-fill'></i>
-                        </button>`;
+                    `<button onclick='showModal(${ elemetData },1,${ get_studie } )'
+                        data-bs-toggle='tooltip' data-bs-placement='right'
+                        data-bs-custom-class='custom-tooltip' data-html='true'
+                        title='Ver estudios' type='button' class='btn btn-iPrimary rounded-circle'
+                        style="margin-right: 0px">
+                        <i class='bi bi-info-circle-fill'></i>
+                    </button>`;
 
                 elem.btn2 =
-                    ` <a target='_blank' href='${route}'>
-                            <button type='button' data-bs-toggle='tooltip'
+                    `<a target='_blank' href='${route}'>
+                        <button type='button' data-bs-toggle='tooltip'
                             data-bs-placement='right'
                             data-bs-custom-class='custom-tooltip' data-html='true'
-                            title='Ver pdf' class='btn refresf btn-iSecond rounded-circle'><i
-                            class='bi bi-filetype-pdf'></i></button>
-                            </a>`;
+                            title='Ver pdf' class='btn refresf btn-iSecond rounded-circle'
+                            style="margin-right: 0px">
+                            <i class='bi bi-filetype-pdf'></i>
+                        </button>
+                    </a>`;
 
                 data.push(elem);
 
@@ -271,7 +323,7 @@
 
             new DataTable('#table-ref', {
                 language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                    url: url,
                 },
                 reponsive: true,
                 bDestroy: true,
@@ -280,53 +332,53 @@
                 "bLengthChange": false,
                 columns: [{
                         data: 'date',
-                        title: 'Fecha',
-                        className: "text-center",
+                        title: 'Fecha Solicitud',
+                        className: "text-center w-10",
                     },
                     {
                         data: 'cod_ref',
                         title: 'Referencia',
-                        className: "text-center",
+                        className: "text-center w-10",
                     },
-                    {
-                        data: 'cod_medical_record',
-                        title: 'Referencia consulta medica',
-                        className: "text-center",
-                    },
+                    // {
+                    //     data: 'cod_medical_record',
+                    //     title: 'Referencia consulta medica',
+                    //     className: "text-center",
+                    // },
                     {
                         data: 'get_patient.name',
-                        title: 'Nombre',
-                        className: "text-center text-capitalize",
+                        title: 'Nombre y Apellido',
+                        className: "text-center text-capitalize w-17",
                     },
                     {
                         data: 'get_patient.ci',
                         title: 'Cédula',
-                        className: "text-center",
+                        className: "text-center w-10",
                     },
-                    {
-                        data: 'get_patient.genere',
-                        title: 'Género',
-                        className: "text-center text-capitalize",
-                    },
+                    // {
+                    //     data: 'get_patient.genere',
+                    //     title: 'Género',
+                    //     className: "text-center text-capitalize",
+                    // },
                     {
                         data: 'get_patient.phone',
                         title: 'Teléfono',
-                        className: "text-center",
+                        className: "text-center w-10",
                     },
                     {
                         data: 'btn',
-                        title: 'Examenes',
-                        className: "text-center",
+                        title: 'Exámenes',
+                        className: "text-center w-5",
                     },
                     {
                         data: 'btn1',
                         title: 'Estudios',
-                        className: "text-center",
+                        className: "text-center w-5",
                     },
                     {
                         data: 'btn2',
                         title: 'Acciones',
-                        className: "text-center",
+                        className: "text-center w-5",
                     },
                 ],
             });
@@ -344,7 +396,7 @@
 
         function searchPerson() {
             if ($('#search_person').val() != '') {
-
+                $('#spinner2').show();
                 let route = '{{ route('search_person', [':value', ':row']) }}';
                 route = route.replace(':value', $('#search_person').val());
                 route = route.replace(':row', 'cod_ref');
@@ -363,6 +415,7 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: 'Aceptar'
                             })
+                            $('#spinner2').hide();
                             $("#content-table-ref").hide();
                             return false;
                         }
@@ -373,6 +426,7 @@
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: 'Aceptar'
                         }).then((result) => {
+                            $('#spinner2').hide();
                             $("#content-table-ref").show();
                             refreshTable(response);
                         });
@@ -386,7 +440,7 @@
                             confirmButtonText: 'Aceptar'
                         }).then((result) => {
                             $('#send').show();
-                            $('#spinner').hide();
+                            $('#spinner2').hide();
                             $(".holder").hide();
                         });
                     }
@@ -405,7 +459,7 @@
                     ///refrezcar table examenes
                     new DataTable('#table-ref-examenes', {
                         language: {
-                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                            url: url,
                         },
                         reponsive: true,
                         bDestroy: true,
@@ -414,19 +468,29 @@
                         "bLengthChange": false,
                         columns: [{
                                 data: 'date_ref',
-                                title: 'Fecha referencia',
-                                className: "text-center",
+                                title: 'Fecha Solicitud',
+                                className: "text-center w-10",
+                            },
+                            {
+                                data: 'patient_info.full_name',
+                                title: 'Nombre y Apellido',
+                                className: "text-center w-17",
+                            },
+                            {
+                                data: 'patient_info.ci',
+                                title: 'Cédula',
+                                className: "text-center w-10",
                             },
                             {
                                 data: 'cod_ref',
                                 title: 'Referencia',
-                                className: "text-center",
+                                className: "text-center w-10",
                             },
-                            {
-                                data: 'cod_exam',
-                                title: 'código Examen',
-                                className: "text-center",
-                            },
+                            // {
+                            //     data: 'cod_exam',
+                            //     title: 'código Examen',
+                            //     className: "text-center",
+                            // },
                             {
                                 data: 'description',
                                 title: 'Descripción',
@@ -435,29 +499,19 @@
                             {
                                 data: 'date_upload_res',
                                 title: 'Fecha resultado',
-                                className: "text-center",
+                                className: "text-center w-10",
                             },
-                            {
-                                data: 'patient_info.full_name',
-                                title: 'Nombres',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'patient_info.ci',
-                                title: 'Cédula',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'patient_info.genere',
-                                title: 'Género',
-                                className: "text-center",
-                            }
+                            // {
+                            //     data: 'patient_info.genere',
+                            //     title: 'Género',
+                            //     className: "text-center",
+                            // }
                         ],
                     });
                     ///refrezcar table estudios
                     new DataTable('#table-ref-estudios', {
                         language: {
-                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                            url: url,
                         },
                         reponsive: true,
                         bDestroy: true,
@@ -466,19 +520,29 @@
                         "bLengthChange": false,
                         columns: [{
                                 data: 'date_ref',
-                                title: 'Fecha referencia',
-                                className: "text-center",
+                                title: 'Fecha Solicitud',
+                                className: "text-center w-10",
+                            },
+                            {
+                                data: 'patient_info.full_name',
+                                title: 'Nombre y Apellido',
+                                className: "text-center w-17",
+                            },
+                            {
+                                data: 'patient_info.ci',
+                                title: 'Cédula',
+                                className: "text-center w-10",
                             },
                             {
                                 data: 'cod_ref',
                                 title: 'Referencia',
-                                className: "text-center",
+                                className: "text-center w-10",
                             },
-                            {
-                                data: 'cod_study',
-                                title: 'código Examen',
-                                className: "text-center",
-                            },
+                            // {
+                            //     data: 'cod_study',
+                            //     title: 'código Examen',
+                            //     className: "text-center",
+                            // },
                             {
                                 data: 'description',
                                 title: 'Descripción',
@@ -486,24 +550,14 @@
                             },
                             {
                                 data: 'date_upload_res',
-                                title: 'Fecha resultado',
-                                className: "text-center",
+                                title: 'Fecha Resultado',
+                                className: "text-center w-10",
                             },
-                            {
-                                data: 'patient_info.full_name',
-                                title: 'Nombres',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'patient_info.ci',
-                                title: 'Cédula',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'patient_info.genere',
-                                title: 'Género',
-                                className: "text-center",
-                            }
+                            // {
+                            //     data: 'patient_info.genere',
+                            //     title: 'Género',
+                            //     className: "text-center",
+                            // }
                         ],
                     });
 
@@ -514,6 +568,23 @@
             });
 
         }
+
+        const alertInfoPaciente = (id_patient) => {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Debe actualizar la información del paciente!',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+
+                let url = "{{ route('Patients', ':id_patient') }}";
+
+                url = url.replace(':id_patient', id_patient);
+
+                window.location.href = url;
+            });
+        }
     </script>
 @endpush
 @section('content')
@@ -523,8 +594,275 @@
             <div id="spinner" style="display: none" class="spinner-md">
                 <x-load-spinner show="true" />
             </div>
-            <div class="container-fluid body" style="padding: 0 3% 3%">
-                <div class="accordion" id="accordion">
+            <div class="container-fluid body" style="padding: 2% 3% 3%">
+                <div class="row mt-2">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
+                        <div class="card bg-4">
+                            <div class="card-body" style="position: sticky; padding: 1% 2%;">
+                                <h4 class="mb-4 mt-2" style="color: #ffff">Dashboard Sqlapio</h4>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="card" style="background-color: #222f3e">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;" >
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:350px; width:100%">
+                                                        <canvas id="queries_month"  style="height:40vh; width:100vw"</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="row">
+                                        <div class="col-xl-3 col-lg-3">
+                                            <div class="card l-bg-cherry">
+                                                <div class="card-statistic-3 p-4">
+                                                    <div class="card-icon card-icon-large"><img width="120" height="auto" src="{{ asset('/img/icons/patients-w.png') }}" alt="avatar"></div>
+                                                    <div class="mb-4">
+                                                        <h5 class="card-title mb-0">@lang('messages.label.paciente')</h5>
+                                                    </div>
+                                                    <div class="row align-items-center mb-2 d-flex">
+                                                        <div class="col-8">
+                                                            <h2 class="d-flex align-items-center mb-0">
+                                                                10/50
+                                                            </h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3">
+                                            <div class="card l-bg-blue-dark">
+                                                <div class="card-statistic-3 p-4">
+                                                    <div class="card-icon card-icon-large"> <img width="120" height="auto" src="{{ asset('/img/icons/medical-report3-w.png') }}" alt="avatar"></div>
+                                                    <div class="mb-4">
+                                                        <h5 class="card-title mb-0">@lang('messages.label.consulta')</h5>
+                                                    </div>
+                                                    <div class="row align-items-center mb-2 d-flex">
+                                                        <div class="col-8">
+                                                            <h2 class="d-flex align-items-center mb-0">
+                                                                10/50
+                                                            </h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3">
+                                            <div class="card l-bg-green-dark">
+                                                <div class="card-statistic-3 p-4">
+                                                    <div class="card-icon card-icon-large"> <img width="120" height="auto" src="{{ asset('/img/icons/medical-report-w.png') }}" alt="avatar"></div>
+                                                    <div class="mb-4">
+                                                        <h5 class="card-title mb-0">@lang('messages.label.examenes')</h5>
+                                                    </div>
+                                                    <div class="row align-items-center mb-2 d-flex">
+                                                        <div class="col-8">
+                                                            <h2 class="d-flex align-items-center mb-0">
+                                                                10/50
+                                                            </h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3">
+                                            <div class="card l-bg-orange-dark">
+                                                <div class="card-statistic-3 p-4">
+                                                    <div class="card-icon card-icon-large"><img width="120" height="auto" src="{{ asset('/img/icons/medical1-w.png') }}" alt="avatar"></div>
+                                                    <div class="mb-4">
+                                                        <h5 class="card-title mb-0">@lang('messages.label.estudios')</h5>
+                                                    </div>
+                                                    <div class="row align-items-center mb-2 d-flex">
+                                                        <div class="col-8">
+                                                            <h2 class="d-flex align-items-center mb-0">
+                                                                10/50
+                                                            </h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-4">
+                                            <div class="card" style="background-color: #222f3e">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;" >
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
+                                                        <canvas id="appointments_attended" style="height:100vh; width:100vw"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4">
+                                            <div class="card " style="background-color: #222f3e">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
+                                                        <canvas id="appointments_confirmed" style="height:100vh; width:100vw"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4">
+                                            <div class="card " style="background-color: #222f3e">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
+                                                        <canvas id="appointments_canceled" style="height:100vh; width:100vw"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="row">
+                                        <div class="col-xl-5 col-lg-5">
+                                            <div class="card" style="background-color: #222f3e">
+                                                <div class="card-body p-4">
+                                                    <div class="row" id="table-patients" style="color: #b3b3b3">
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                            <table id="table-patient" class="table table-striped table-bordered table-dark" style="width:100%;">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.nombre_apellido')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.email')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.telefono')</th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($patients as $item)
+                                                                        <tr>
+                                                                            <td class="table-avatar">
+                                                                                <img class="avatar"
+                                                                                    src=" {{ $item->patient_img ? asset('/imgs/' . $item->patient_img) : ($item->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                                                    alt="Imagen del paciente">
+                                                                            </td>
+                                                                            <td class="text-center text-capitalize">{{ $item->name }} {{ $item->last_name }}</td>
+                                                                            <td class="text-center text-capitalize">{{ $item->email }}</td>
+                                                                            <td class="text-center text-capitalize">{{ $item->phone }}</td>
+
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-7 col-lg-7">
+                                            <div class="card" style="background-color: #222f3e">
+                                                <div class="card-body p-4">
+                                                    <div class="row" id="table-patients" style="color: #b3b3b3">
+                                                        <h5><i class="bi bi-calendar2-check" style="color: #fffff"></i> @lang('messages.acordion.citas')</h5>
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                            <table id="table-patient" class="table table-striped table-bordered table-dark" style="width:100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.hora') </th>
+                                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido') </th>
+                                                                        @if (Auth::user()->contrie == '81')
+                                                                            <th class="text-center w-10" scope="col">@lang('messages.form.CIE')</th>
+                                                                        @else
+                                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                                        @endif
+                                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.centro_salud')</th>
+                                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.estatus')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($appointments as $item)
+                                                                        <tr>
+                                                                            <td class="text-center td-pad"> {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }} </td>
+                                                                            <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }} </td>
+                                                                            @if (Auth::user()->contrie == '81')
+                                                                                <td class="text-center td-pad"> {{  preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item['extendedProps']['ci'])  }}</td>
+                                                                            @else
+                                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['ci'] }}</td>
+                                                                            @endif
+                                                                            <td class="text-center td-pad"> {{ $item['extendedProps']['center'] }}</td>
+                                                                            @php
+                                                                                $status2 =  $item['extendedProps']['status'];
+                                                                            @endphp
+                                                                            <td class="text-center td-pad"> <span class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">@lang('messages.tabla.' . $status2)</span> </td>
+                                                                            <td>
+                                                                                <div class="d-flex" style="justify-content: center;">
+                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                        <a href="{{ $item['extendedProps']['age'] == '' ? '#' : route('MedicalRecord', $item['extendedProps']['patient_id']) }}"
+                                                                                            @php
+                                                                                                $id_patient =  $item["extendedProps"]["patient_id"];
+                                                                                            @endphp
+                                                                                            onclick='{{ $item['extendedProps']['age'] == '' ? "alertInfoPaciente($id_patient )" : '' }}'>
+                                                                                            <button type="button"
+                                                                                                data-bs-toggle="tooltip"
+                                                                                                data-bs-placement="bottom"
+                                                                                                title="@lang('messages.tooltips.consulta_medica')">
+                                                                                                <img width="35" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
+                                                                                            </button>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                        <button type="button" data-bs-toggle="tooltip"
+                                                                                            data-bs-placement="bottom"
+                                                                                            title="@lang('messages.tooltips.cancelar_cita')"
+                                                                                            onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
+                                                                                            <img width="33" height="auto" src="{{ asset('/img/icons/canceled.png') }}" alt="avatar">
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                        <button type="button" data-bs-toggle="tooltip"
+                                                                                            data-bs-placement="bottom"
+                                                                                            title="Enviar Recordatorio"
+                                                                                            {{-- onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')" --}}
+                                                                                            >
+                                                                                            <img width="35" height="auto" src="{{ asset('/img/icons/send.png') }}" alt="avatar">
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="row">
+                                        <div class="col-xl-9 col-lg-9">
+                                            <div class="card" style="background-color: #222f3e">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;" >
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:350px; width:100%">
+                                                        <canvas id="countGereral2" style="height:60vh; width:100vw"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3">
+                                            <div class="card " style="background-color: #222f3e">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:350px; width:100%">
+                                                        <canvas id="quotes" style="height:50vh; width:100vw"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- <div class="accordion" id="accordion">
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                             <div class="accordion-item">
@@ -532,7 +870,7 @@
                                     <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-calendar2-check"></i> Citas del día
+                                        <i class="bi bi-calendar2-check"></i>@lang('messages.acordion.citas')
                                     </button>
                                 </span>
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
@@ -540,68 +878,63 @@
                                     <div class="accordion-body">
                                         <div class="row"id="table-patients">
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-
-                                                <table id="table-patient" class="table table-striped table-bordered"
-                                                    style="width:100%">
+                                                <table id="table-patient" class="table table-striped table-bordered" style="width:100%">
                                                     <thead>
                                                         <tr>
-                                                            {{-- <th class="text-center" scope="col">Fecha</th> --}}
-                                                            <th class="text-center" scope="col">Hora</th>
-                                                            <th class="text-center" scope="col">Nombre</th>
-                                                            <th class="text-center" scope="col">Cédula</th>
-                                                            {{-- <th class="text-center" scope="col">Género</th> --}}
-                                                            {{-- <th class="text-center" scope="col">Teléfono</th> --}}
-                                                            {{-- <th class="text-center" scope="col">Email</th> --}}
-                                                            <th class="text-center" scope="col">Centro de salud</th>
-                                                            <th class="text-center" scope="col">Estatus</th>
-                                                            <th class="text-center" scope="col" data-orderable="false">Acciones</th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.hora') </th>
+                                                            <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido') </th>
+                                                            @if (Auth::user()->contrie == '81')
+                                                                <th class="text-center w-10" scope="col">@lang('messages.form.CIE')</th>
+                                                            @else
+                                                                <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                            @endif
+                                                            <th class="text-center" scope="col">@lang('messages.tabla.centro_salud')</th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.estatus')</th>
+                                                            <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($appointments as $item)
                                                             <tr>
-                                                                {{-- <td class="text-center td-pad"> {{ date('d-m-Y', strtotime($item['extendedProps']['data_app'])) }}  </td> --}}
-                                                                <td class="text-center td-pad">  {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }} </td>
+                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }} </td>
                                                                 <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }} </td>
-                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['ci'] }}</td>
-                                                                {{-- <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['genere'] }}</td>
-                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['phone'] }}</td>
-                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['email'] }}</td>--}}
-                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['center'] }}</td>
-                                                                <td class="text-center td-pad"> <span class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">{{ $item['extendedProps']['status'] }}</span> </td>
+                                                                @if (Auth::user()->contrie == '81')
+                                                                    <td class="text-center td-pad"> {{  preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item['extendedProps']['ci'])  }}</td>
+                                                                @else
+                                                                    <td class="text-center td-pad"> {{ $item['extendedProps']['ci'] }}</td>
+                                                                @endif
+                                                                    <td class="text-center td-pad"> {{ $item['extendedProps']['center'] }}</td>
+                                                                @php
+                                                                    $status2 =  $item['extendedProps']['status'];
+                                                                @endphp
+                                                                <td class="text-center td-pad"> <span class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">@lang('messages.tabla.' . $status2)</span> </td>
                                                                 <td>
                                                                     <div class="d-flex" style="justify-content: center;">
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="width: 32px;">
-                                                                            <a href="{{ route('MedicalRecord', $item['extendedProps']['patient_id']) }}">
+                                                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                                            <a href="{{ $item['extendedProps']['age'] == '' ? '#' : route('MedicalRecord', $item['extendedProps']['patient_id']) }}"
+                                                                                @php
+                                                                                    $id_patient =  $item["extendedProps"]["patient_id"];
+                                                                                @endphp
+                                                                                onclick='{{ $item['extendedProps']['age'] == '' ? "alertInfoPaciente($id_patient )" : '' }}'>
                                                                                 <button type="button"
-                                                                                    class="btn btn-iPrimary rounded-circle"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
-                                                                                    title="Consulta médica">
-                                                                                    <i class="bi bi-file-earmark-text"></i>
+                                                                                    title="@lang('messages.tooltips.consulta_medica')">
+                                                                                    <img width="40" height="auto"
+                                                                                        src="{{ asset('/img/icons/monitor.png') }}"
+                                                                                        alt="avatar">
                                                                                 </button>
                                                                             </a>
                                                                         </div>
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3" style="margin-left: 10px; width: 32px;">
-                                                                            <button type="button"
-                                                                                class="btn btn-iSecond rounded-circle"
-                                                                                data-bs-toggle="tooltip"
+                                                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                                            <button type="button" data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
-                                                                                title="Cancelar Cita"
+                                                                                title="@lang('messages.tooltips.cancelar_cita')"
                                                                                 onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
-                                                                                <i class="bi bi-calendar-x"></i>
+                                                                                <img width="40" height="auto" src="{{ asset('/img/icons/canceled.png') }}" alt="avatar">
                                                                             </button>
                                                                         </div>
-                                                                        {{-- <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3"
-                                                                            style="margin-left: 10px; width: 32px;">
-                                                                            <button type="button"
-                                                                                class="btn btn-iSecond rounded-circle"
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="bottom"
-                                                                                title="Finalizar Cita"
-                                                                                onclick="finalizar_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('finalizar_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
-                                                                                <i class="bi bi-clipboard-x"></i>
-                                                                        </div> --}}
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         @endforeach
@@ -615,13 +948,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2" >
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingTwo">
                                     <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-graph-up"></i> Estadísticas
+                                        <i class="bi bi-graph-up"></i>@lang('messages.acordion.estadisticas')
                                     </button>
                                 </span>
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
@@ -630,8 +963,7 @@
                                         <div class="row">
                                             <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                                 <div class="card text-white" style="background-color: rgb(251,220,226)">
-                                                    <div class="c-chart-wrapper mt-2 mx-3"
-                                                        style="height:auto; width:auto">
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:auto">
                                                         <canvas id="countPatientRegister"></canvas>
                                                     </div>
                                                 </div>
@@ -679,10 +1011,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         @elseif (Auth::user()->role == 'laboratorio')
             {{-- rol laboratorio --}}
+            <div id="spinner2" style="display: none" class="spinner-md">
+                <x-load-spinner show="true" />
+            </div>
             <div class="container-fluid body" style="padding: 0 3% 3%">
                 <div class="accordion" id="accordion">
                     <div class="row">
@@ -692,7 +1027,7 @@
                                     <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-graph-up"></i> Estadisticas
+                                        <i class="bi bi-graph-up"></i> @lang('messages.acordion.estadisticas')
                                     </button>
                                 </span>
                                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
@@ -730,7 +1065,7 @@
                                     <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-file-text"></i> Pacientes con referencias
+                                        <i class="bi bi-file-text"></i> @lang('messages.acordion.paciente_referencia')
                                     </button>
                                 </span>
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
@@ -738,21 +1073,30 @@
                                     <div class="accordion-body">
                                         <x-search-person />
                                         <div class="row mt-2" id="content-table-ref" style="display: none">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive" >
+                                            <div
+                                                class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                                 <table id="table-ref" class="table table-striped table-bordered"
                                                     style="width:100%">
                                                     <thead>
                                                         <tr>
-                                                            <th class="text-center" scope="col">Fecha</th>
-                                                            <th class="text-center" scope="col">Referencia</th>
-                                                            <th class="text-center" scope="col">Referencia consulta médica </th>
-                                                            <th class="text-center" scope="col">Nombres</th>
-                                                            <th class="text-center" scope="col">Cédula</th>
-                                                            <th class="text-center" scope="col">Género</th>
-                                                            <th class="text-center" scope="col">Teléfono</th>
-                                                            <th class="text-center" scope="col">Examenes</th>
-                                                            <th class="text-center" scope="col">Estudios</th>
-                                                            <th class="text-center" scope="col" data-orderable="false">Acciones</th>
+                                                            <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_solicitud')
+                                                            </th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.referencia')
+                                                            </th>
+                                                            {{-- <th class="text-center" scope="col">Referencia consulta médica </th> --}}
+                                                            <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')
+                                                            </th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')
+                                                            </th>
+                                                            {{-- <th class="text-center" scope="col">Género</th> --}}
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.telefono')
+                                                            </th>
+                                                            <th class="text-center w-5" scope="col"
+                                                                data-orderable="false">@lang('messages.tabla.examenes')</th>
+                                                            <th class="text-center w-5" scope="col"
+                                                                data-orderable="false">@lang('messages.tabla.estudios')</th>
+                                                            <th class="text-center w-5" scope="col"
+                                                                data-orderable="false">@lang('messages.tabla.acciones')</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -774,38 +1118,46 @@
                                         data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
                                         aria-controls="collapseThree"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-card-list"></i> Examenes cargados
+                                        <i class="bi bi-card-list"></i> @lang('messages.acordion.examenes_cargados')
                                     </button>
                                 </span>
                                 <div id="collapseThree" class="accordion-collapse collapse"
                                     aria-labelledby="headingThree" data-bs-parent="#accordion">
                                     <div class="accordion-body">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive" >
+                                        <div
+                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <table id="table-ref-examenes" class="table table-striped table-bordered"
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">Fecha referencia</th>
-                                                        <th class="text-center" scope="col">Referencia</th>
-                                                        <th class="text-center" scope="col">Código Examen</th>
-                                                        <th class="text-center" scope="col">Descripción</th>
-                                                        <th class="text-center" scope="col">Fecha resultado</th>
-                                                        <th class="text-center" scope="col">Nombre</th>
-                                                        <th class="text-center" scope="col">Cédula</th>
-                                                        <th class="text-center" scope="col">Género</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')
+                                                        </th>
+                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')
+                                                        </th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')
+                                                        </th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.referencia')
+                                                        </th>
+                                                        {{-- <th class="text-center" scope="col">Código Examen</th> --}}
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
+                                                        <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_resultado')</th>
+                                                        {{-- <th class="text-center" scope="col">Género</th> --}}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($res_exams as $key => $item)
                                                         <tr>
                                                             <td class="text-center"> {{ $item['date_ref'] }}</td>
+                                                            <td class="text-center text-capitalize">
+                                                                {{ $item['patient_info']['full_name'] }} </td>
+                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }}
+                                                            </td>
                                                             <td class="text-center"> {{ $item['cod_ref'] }}</td>
-                                                            <td class="text-center"> {{ $item['cod_exam'] }}</td>
-                                                            <td class="text-center text-capitalize"> {{ $item['description'] }}</td>
+                                                            {{-- <td class="text-center"> {{ $item['cod_exam'] }}</td> --}}
+                                                            <td class="text-center text-capitalize">
+                                                                {{ $item['description'] }}</td>
                                                             <td class="text-center"> {{ $item['date_upload_res'] }}</td>
-                                                            <td class="text-center text-capitalize"> {{ $item['patient_info']['full_name'] }} </td>
-                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }} </td>
-                                                            <td class="text-center text-capitalize"> {{ $item['patient_info']['genere'] }} </td>
+                                                            {{-- <td class="text-center text-capitalize"> {{ $item['patient_info']['genere'] }} </td> --}}
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -818,51 +1170,53 @@
                     </div>
                     {{-- Estudios atendidos --}}
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2" >
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-2">
                             <div class="accordion-item accordion-dashboard">
                                 <span class="accordion-header title" id="headingFour">
                                     <button class="accordion-button collapsed bg-1" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false"
                                         aria-controls="collapseFour"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-card-list"></i> Estudios cargados
+                                        <i class="bi bi-card-list"></i> @lang('messages.acordion.estudios_cargados')
                                     </button>
                                 </span>
                                 <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                        <div
+                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                             <table id="table-ref-estudios" class="table table-striped table-bordered"
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center" scope="col">Fecha referencia</th>
-                                                        <th class="text-center" scope="col">Referencia</th>
-                                                        <th class="text-center" scope="col">Código Estudios</th>
-                                                        <th class="text-center" scope="col">Descripción</th>
-                                                        <th class="text-center" scope="col">Fecha resultado</th>
-                                                        <th class="text-center" scope="col">Nombre</th>
-                                                        <th class="text-center" scope="col">Cédula</th>
-                                                        <th class="text-center" scope="col">Género</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_solicitud')
+                                                        </th>
+                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')
+                                                        </th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')
+                                                        </th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.referencia')
+                                                        </th>
+                                                        {{-- <th class="text-center" scope="col">Código Estudios</th> --}}
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.descripcion')</th>
+                                                        <th class="text-center w-7" scope="col">@lang('messages.tabla.fecha_resultado')</th>
+                                                        {{-- <th class="text-center" scope="col">Género</th> --}}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($res_studies as $key => $item)
                                                         <tr>
                                                             <td class="text-center"> {{ $item['date_ref'] }}</td>
+                                                            <td class="text-center text-capitalize">
+                                                                {{ $item['patient_info']['full_name'] }} </td>
+                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }}
+                                                            </td>
                                                             <td class="text-center"> {{ $item['cod_ref'] }}</td>
-                                                            <td class="text-center"> {{ $item['cod_study'] }}</td>
+                                                            {{-- <td class="text-center"> {{ $item['cod_study'] }}</td> --}}
                                                             <td class="text-center text-capitalize">
                                                                 {{ $item['description'] }}</td>
                                                             <td class="text-center"> {{ $item['date_upload_res'] }}</td>
-                                                            <td class="text-center text-capitalize">
-                                                                {{ $item['patient_info']['full_name'] }}
-                                                            </td>
-                                                            <td class="text-center"> {{ $item['patient_info']['ci'] }}
-                                                            </td>
-                                                            <td class="text-center text-capitalize">
-                                                                {{ $item['patient_info']['genere'] }}
-                                                            </td>
+                                                            {{-- <td class="text-center text-capitalize"> {{ $item['patient_info']['genere'] }} </td> --}}
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -887,7 +1241,7 @@
                                     <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                         style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-graph-up"></i> Estadisticas
+                                        <i class="bi bi-graph-up"></i> @lang('messages.acordion.estadisticas')
                                     </button>
                                 </span>
                                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
@@ -936,7 +1290,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header title">
-                        <span style="padding-left: 5px">Carga de resultados</span>
+                        <span style="padding-left: 5px">@lang('messages.modal.titulo.carga_resultados')</span>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                             style="font-size: 12px;"></button>
                     </div>
@@ -946,18 +1300,20 @@
                             <input type="hidden" id="id" name="id" value="">
                             <input type="hidden" id="code_ref" name="code_ref" value="">
                             <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                <strong>Referencia: </strong><span id="ref"></span>
+                                <strong>@lang('messages.modal.titulo.referencia'): </strong><span id="ref"></span>
                                 <br>
-                                <strong>Paciente: </strong><span class="text-capitalize" id="ref-pat"></span>
+                                <strong>@lang('messages.modal.titulo.paciente'): </strong><span class="text-capitalize" id="ref-pat"></span>
                             </div>
                             <div class="row mt-2">
                                 <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="info-show">
                                     <table class="table table-striped table-bordered" id="table-info">
                                         <thead>
                                             <tr>
-                                                <th class="text-center" scope="col">Código</th>
-                                                <th class="text-center" scope="col">Descripción</th>
-                                                <th class="text-center" scope="col">Cargar Resultado</th>
+                                                <th class="text-center" scope="col">@lang('messages.modal.tabla.codigo')</th>
+                                                <th class="text-center" scope="col">@lang('messages.modal.tabla.descripcion')</th>
+                                                <th class="text-center" scope="col" data-orderable="false">
+                                                    @lang('messages.modal.tabla.carga_resultado')
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -978,12 +1334,12 @@
                             <div id="div-btn">
                                 <div class="row mt-2 div-result">
                                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                        <x-upload-image title="Cargar Resultados" />
+                                        <x-upload-image title="@lang('messages.modal.tabla.carga_resultado')" />
                                     </div>
                                 </div>
                                 <div class="row text-center">
                                     <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                        <input class="btn btnPrimary send " value="Guardar" type="submit" />
+                                        <input class="btn btnPrimary send " value="@lang('messages.botton.guardar')" type="submit" />
                                     </div>
                                 </div>
                             </div>

@@ -36,6 +36,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\Multilanguaje::class,
         ],
 
         'api' => [
@@ -64,9 +65,13 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'verify_email' => \App\Http\Middleware\verifyEmail::class,
-        'VerifyPlans' => \App\Http\Middleware\VerifyPlans::class,    
+        'VerifyPlans' => \App\Http\Middleware\VerifyPlans::class,
         'VerifySelloDigital' => \App\Http\Middleware\VerifySelloDigital::class,
         'VerifyPlanExpiredPlan' => \App\Http\Middleware\VerifyPlanExpiredPlan::class,
         'AuthCheck' => \App\Http\Middleware\AuthCheck::class,
+        'VerifyPlansActive' => \App\Http\Middleware\VerifyPlansActive::class,
+        'authUserPatient' => \App\Http\Middleware\AuthUserPatient::class,
+
+        
     ];
 }

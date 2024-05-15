@@ -40,20 +40,17 @@ class MedicalHistory extends Component
                 'user_id'           => $user_id,
                 'cod_patient'       => $cod_patient,
                 'history_date'      => date('d-m-Y'),
-                'weight'            => $data->weight,
-                'height'            => $data->height,
-                'reason'            => $data->reason,
-                'current_illness'   => $data->current_illness,
-
-                'strain'            => $data->strain.'/'.$data->strain_two,
-
-                'temperature'       => $data->temperature,
-                'breaths'           => $data->breaths,
-                'pulse'             => $data->pulse,
-                'saturation'        => $data->saturation,
-                'condition'         => $data->condition,
-                'applied_studies'   => $data->applied_studies,
-
+                // 'weight'            => $data->weight,
+                // 'height'            => $data->height,
+                // 'reason'            => $data->reason,
+                // 'current_illness'   => $data->current_illness,
+                // 'strain'            => $data->strain.'/'.$data->strain_two,
+                // 'temperature'       => $data->temperature,
+                // 'breaths'           => $data->breaths,
+                // 'pulse'             => $data->pulse,
+                // 'saturation'        => $data->saturation,
+                // 'condition'         => $data->condition,
+                'observations_quirurgicas'   => $data->observations_quirurgicas,
                 //Signos vitales
                 'hidratado'             => (isset($data->hidratado) ? $data->hidratado : null),
                 'febril'                => (isset($data->febril) ? $data->febril : null),
@@ -64,6 +61,7 @@ class MedicalHistory extends Component
                 'esfera_abdominal'      => (isset($data->esfera_abdominal) ? $data->esfera_abdominal : null),
                 'extremidades'          => (isset($data->extremidades) ? $data->extremidades : null),
                 'trombosis_embolas'          => (isset($data->trombosis_embolas) ? $data->trombosis_embolas : null),
+                'no_aplica_back'          => (isset($data->no_aplica_back) ? $data->no_aplica_back : null),
 
                 //Antecedentes Personales y Familiares
                 'cancer'                    => (isset($data->cancer) ? $data->cancer : null),
@@ -75,8 +73,9 @@ class MedicalHistory extends Component
                 'tranfusiones_sanguineas'   => (isset($data->tranfusiones_sanguineas) ? $data->tranfusiones_sanguineas : null),
                 'COVID19'                   => (isset($data->COVID19) ? $data->COVID19 : null),
                 'no_aplica'                 => (isset($data->no_aplica) ? $data->no_aplica : null),
-
-
+                'tabaco'                    => (isset($data->tabaco) ? $data->tabaco : null),
+                'sangrado_cirugias_previas' => (isset($data->sangrado_cirugias_previas) ? $data->sangrado_cirugias_previas : null),
+                
                 //Antecedentes patologicos
                 'hepatitis'                 => (isset($data->hepatitis) ? $data->hepatitis : null),
                 'VIH_SIDA'                  => (isset($data->VIH_SIDA) ? $data->VIH_SIDA : null),
@@ -85,7 +84,7 @@ class MedicalHistory extends Component
                 'ansiedad_angustia'         => (isset($data->ansiedad_angustia) ? $data->ansiedad_angustia : null),
                 'tiroides'                  => (isset($data->tiroides) ? $data->tiroides : null),
                 'lupus'                     => (isset($data->lupus) ? $data->lupus : null),
-                'enfermedad_autoimmune'     => (isset($data->denfermedad_autoimmune) ? $data->COVID19 : null),
+                'enfermedad_autoimmune'     => (isset($data->enfermedad_autoimmune) ? $data->enfermedad_autoimmune : null),
                 'diabetes_mellitus'         => (isset($data->diabetes_mellitus) ? $data->diabetes_mellitus : null),
                 'presion_arterial_alta'     => (isset($data->presion_arterial_alta) ? $data->presion_arterial_alta : null),
                 'tiene_cateter_venoso'      => (isset($data->tiene_cateter_venoso) ? $data->tiene_cateter_venoso : null),
@@ -94,7 +93,7 @@ class MedicalHistory extends Component
                 'embolia_pulmonar'          => (isset($data->embolia_pulmonar) ? $data->embolia_pulmonar : null),
                 'varices_piernas'           => (isset($data->varices_piernas) ? $data->varices_piernas : null),
                 'insuficiencia_arterial'    => (isset($data->varices_piernas) ? $data->varices_piernas : null),
-                'coagulación_anormal'       => (isset($data->hepacoagulación_anormaltitis) ? $data->hepacoagulación_anormaltitis : null),
+                'coagulacion_anormal'       => (isset($data->coagulacion_anormal) ? $data->coagulacion_anormal : null),
                 'moretones_frecuentes'      => (isset($data->moretones_frecuentes) ? $data->moretones_frecuentes : null),
                 'sangrado_cirugías_previas' => (isset($data->sangrado_cirugías_previas) ? $data->sangrado_cirugías_previas : null),
                 'sangrado_cepillado_dental' => (isset($data->sangrado_cepillado_dental) ? $data->sangrado_cepillado_dental : null),
@@ -119,7 +118,7 @@ class MedicalHistory extends Component
                 'history_surgical'          => $data->arrayhistory_surgical,
                 'medications_supplements'   => $data->arraymedications_supplements,
                 //observaciones
-                'observations_ginecologica'   => $data->observations_ginecologica,
+                'observations_ginecologica'   =>(isset($data->observations_ginecologica) ? $data->observations_ginecologica : null) ,
                 'observations_medication'   => $data->observations_medication,
                 'observations_not_pathological'=>  $data->observations_not_pathological,
                 'observations_diagnosis'    => $data->observations_diagnosis,

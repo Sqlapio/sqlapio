@@ -24,6 +24,12 @@ class Center extends Model
 
         'description',
         'state',
+        'country',
+        'address',
+        'user_id',
+        'city_contrie',
+        'state_id',
+
     ];
 
     public function get_interviews(): HasMany

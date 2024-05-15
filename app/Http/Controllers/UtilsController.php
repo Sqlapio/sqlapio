@@ -27,6 +27,7 @@ use App\Models\NonPathologicalBackground;
 use App\Models\PathologicalBackground;
 use App\Models\Reference;
 use App\Models\Representative;
+use App\Models\Specialty;
 use App\Models\Study;
 use App\Models\StudyPatient;
 use App\Models\Token;
@@ -44,7 +45,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Log;
+use Mews\Captcha\Facades\Captcha;
 use Svg\CssLength;
+use Illuminate\Support\Facades\Validator;
+
 
 class UtilsController extends Controller
 {
@@ -117,6 +121,12 @@ class UtilsController extends Controller
 		if ($value == '22') {
 			return 'initial registration of General Manager';
 		}
+		if ($value == '23') {
+			return 'dairy: pre-registration of patient';
+		}
+		if ($value == '24') {
+			return 'add physical exams';
+		}
 	}
 
 	/**
@@ -159,6 +169,14 @@ class UtilsController extends Controller
 			} else {
 				$nameFile = $request->img;
 			}
+			$specialty =  $request->specialty;
+
+			if ($request->specialty_new != null) {
+
+				$specialty_new = Specialty::create(['description' => $request->specialty_new]);
+
+				$specialty =  $specialty_new->description;
+			}
 
 			$update = DB::table('users')
 				->where('id', $id)
@@ -168,11 +186,12 @@ class UtilsController extends Controller
 					'ci' 		=> $request->ci,
 					'birthdate' => $request->birthdate,
 					'genere'    => $request->genere,
-					'specialty' => $request->specialty,
+					'specialty' => $specialty,
 					'age' 		=> $request->age,
 					'phone' 	=> $request->phone,
-					'state' 	=> $request->state,
-					'city' 		=> $request->city,
+					'state' 	=> $request->state_contrie,
+					'city' 		=> $request->city_contrie,
+					'contrie' 		=> $request->contrie,
 					'address' 	=> $request->address,
 					'zip_code' 	=> $request->zip_code,
 					'cod_mpps' 	=> $request->cod_mpps,
@@ -282,7 +301,7 @@ class UtilsController extends Controller
 			foreach ($appointments as $key => $val) {
 				$data[$key] = [
 					'id' => $val->id,
-					'title' => substr($val->hour_start, 2) . "," . $val->get_patients->name . "," . $val->get_patients->last_name,
+					'title' => $val->hour_start . " - " . $val->get_patients->name . " " . $val->get_patients->last_name,
 					'start' => date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 0, -9),
 					'end' =>  date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 6, -3),
 					// 'allDay'=> true,
@@ -326,7 +345,7 @@ class UtilsController extends Controller
 			foreach ($appointments as $key => $val) {
 				$data[$key] = [
 					'id' => $val->id,
-					'title' => substr($val->hour_start, 2) . "," . $val->get_patients->name . "," . $val->get_patients->last_name,
+					'title' => $val->hour_start . " - " . $val->get_patients->name . " " . $val->get_patients->last_name,
 					'start' => date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 0, -9),
 					'end' =>  date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 6, -3),
 					// 'allDay'=> true,
@@ -663,6 +682,10 @@ class UtilsController extends Controller
 			if ($type == 'verify_email_general_manager') {
 				$view = 'emails.verify_email_general_manager';
 				Mail::to($mailData['gm_email'])->send(new NotificationEmail($mailData, $view));
+			}
+			if ($type == 'recovery_pass_pat') {
+				$view = 'emails.recovery_pass_pat';
+				Mail::to($mailData['email'])->send(new NotificationEmail($mailData, $view));
 			}
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
@@ -1078,34 +1101,30 @@ class UtilsController extends Controller
 
 			$data_exams = json_decode($data->exams_array);
 
-			for ($i = 0; $i < count($data_exams); $i++)
-            {
-                if(isset($data->doctor_id))
-                {
-                    $update = DB::table('exam_patients')
-					->where('cod_ref', $data->code_ref)
-					->where('cod_exam', $data_exams[$i]->cod_exam)
-					->update([
-						'upload_user_id' => $data->doctor_id,
-						'file' => $nameFile,
-						'status' => 2,
-						'date_result' => date('d-m-Y'),
-					]);
+			for ($i = 0; $i < count($data_exams); $i++) {
+				if (isset($data->doctor_id)) {
+					$update = DB::table('exam_patients')
+						->where('cod_ref', $data->code_ref)
+						->where('cod_exam', $data_exams[$i]->cod_exam)
+						->update([
+							'upload_user_id' => $data->doctor_id,
+							'file' => $nameFile,
+							'status' => 2,
+							'date_result' => date('d-m-Y'),
+						]);
+				} else {
 
-                }else{
-
-                    $update = DB::table('exam_patients')
-					->where('cod_ref', $data->code_ref)
-					->where('cod_exam', $data_exams[$i]->cod_exam)
-					->update([
-						'laboratory_id' => $laboratory->id,
-						'cod_lab' => $laboratory->code_lab,
-						'file' => $nameFile,
-						'status' => 2,
-						'date_result' => date('d-m-Y'),
-					]);
-                }
-
+					$update = DB::table('exam_patients')
+						->where('cod_ref', $data->code_ref)
+						->where('cod_exam', $data_exams[$i]->cod_exam)
+						->update([
+							'laboratory_id' => $laboratory->id,
+							'cod_lab' => $laboratory->code_lab,
+							'file' => $nameFile,
+							'status' => 2,
+							'date_result' => date('d-m-Y'),
+						]);
+				}
 			}
 
 			$medical_record_code = Reference::where('cod_ref', $data->code_ref)->first()->cod_medical_record;
@@ -1164,33 +1183,30 @@ class UtilsController extends Controller
 
 			$data_studies = json_decode($data->studies_array);
 
-			for ($i = 0; $i < count($data_studies); $i++)
-            {
-                if(isset($data->doctor_id))
-                {
-                    $update = DB::table('study_patients')
-					->where('cod_ref', $data->code_ref)
-					->where('cod_study', $data_studies[$i]->cod_study)
-					->update([
-						'upload_user_id' => $data->doctor_id,
-						'file' => $nameFile,
-						'status' => 2,
-						'date_result' => date('d-m-Y'),
-					]);
+			for ($i = 0; $i < count($data_studies); $i++) {
+				if (isset($data->doctor_id)) {
+					$update = DB::table('study_patients')
+						->where('cod_ref', $data->code_ref)
+						->where('cod_study', $data_studies[$i]->cod_study)
+						->update([
+							'upload_user_id' => $data->doctor_id,
+							'file' => $nameFile,
+							'status' => 2,
+							'date_result' => date('d-m-Y'),
+						]);
+				} else {
 
-                }else{
-
-                    $update = DB::table('study_patients')
-                        ->where('cod_ref', $data->code_ref)
-                        ->where('cod_study', $data_studies[$i]->cod_study)
-                        ->update([
-                            'laboratory_id' => $laboratory->id,
-                            'cod_lab' => $laboratory->code_lab,
-                            'file' => $nameFile,
-                            'status' => 2,
-                            'date_result' => date('d-m-Y'),
-                        ]);
-                }
+					$update = DB::table('study_patients')
+						->where('cod_ref', $data->code_ref)
+						->where('cod_study', $data_studies[$i]->cod_study)
+						->update([
+							'laboratory_id' => $laboratory->id,
+							'cod_lab' => $laboratory->code_lab,
+							'file' => $nameFile,
+							'status' => 2,
+							'date_result' => date('d-m-Y'),
+						]);
+				}
 			}
 
 			$medical_record_code = Reference::where('cod_ref', $data->code_ref)->first()->cod_medical_record;
@@ -1287,7 +1303,10 @@ class UtilsController extends Controller
 		try {
 
 			$user = Auth::user();
-			$medical_record = MedicalRecord::where('user_id', $user->id)->get()->unique('patient_id');
+			// MedicalRecord::where('user_id', $user->id)->get()->unique('patient_id');
+
+			$medical_record = Patient::where('user_id', $user->id)
+				->with('get_patient_medical_record')->get();
 			return $medical_record;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
@@ -1314,7 +1333,20 @@ class UtilsController extends Controller
 					});
 				});
 
-			$data = $tablePat->union($tableRep)->with(['get_laboratory', 'get_patients', 'get_reprensetative'])->get();
+			$data = $tablePat->union($tableRep)
+				->with(['get_laboratory', 'get_patients', 'get_reprensetative'])
+				->skip(0)     // punto de partida
+				->take(10)   // limite de resgistro
+				->get();
+
+			$count = $data = $tablePat->union($tableRep)->get();
+
+			$data = [
+				"data" => $data,
+				"count" => count($count),
+				"skip" => 0,
+				"limit" => 10,
+			];
 
 			///buscar las referencias sin resultados cargados
 
@@ -1328,10 +1360,24 @@ class UtilsController extends Controller
 				});
 			});
 
-			$reference = $Reference_pat->union($Reference_reo)->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])->get();
+
+
+			$reference = $Reference_pat->union($Reference_reo)
+				->with(['get_patient', 'get_examne_stutus_uno', 'get_reprensetative'])
+				->skip(0)     // punto de partida
+				->take(10)   // limite de resgistro
+				->get();
+
+			$countDos = $Reference_pat->union($Reference_reo)->get();
+
+			$reference = [
+				"data" => $reference,
+				"count" => count($countDos),
+				"skip" => 0,
+				"limit" => 10,
+			];
 
 			return ["data" => $data, "reference" => $reference];
-
 		} else {
 
 			$tablePat =  Reference::whereHas('get_patient', function ($q) use ($value) {
@@ -1366,7 +1412,7 @@ class UtilsController extends Controller
 	{
 
 		$data = [];
-		if ($row != 'cod_ref') {			
+		if ($row != 'cod_ref') {
 
 			$tablePat =  StudyPatient::where('status', 2)
 				->whereHas('get_patient', function ($q) use ($value) {
@@ -1380,7 +1426,20 @@ class UtilsController extends Controller
 					});
 				});
 
-			$data = $tablePat->union($tableRep)->with(['get_laboratory', 'get_patient', 'get_reprensetative'])->get();
+			$data = $tablePat->union($tableRep)
+				->with(['get_laboratory', 'get_patient', 'get_reprensetative'])
+				->skip(0)     // punto de partida
+				->take(10)   // limite de resgistro
+				->get();
+
+			$count = $data = $tablePat->union($tableRep)->get();
+
+			$data = [
+				"data" => $data,
+				"count" => count($count),
+				"skip" => 0,
+				"limit" => 10,
+			];
 
 			//buscar las referencias sin resultados cargados
 
@@ -1394,7 +1453,20 @@ class UtilsController extends Controller
 				});
 			});
 
-			$reference = $Reference_pat->union($Reference_reo)->with(['get_patient', 'get_estudio_stutus_uno', 'get_reprensetative'])->get();
+			$reference = $Reference_pat->union($Reference_reo)
+				->with(['get_patient', 'get_estudio_stutus_uno', 'get_reprensetative'])
+				->skip(0)     // punto de partida
+				->take(10)   // limite de resgistro
+				->get();
+
+			$countDos = $Reference_pat->union($Reference_reo)->get();
+
+			$reference = [
+				"data" => $reference,
+				"count" => count($countDos),
+				"skip" => 0,
+				"limit" => 10,
+			];
 
 			return ["data" => $data, "reference" => $reference];
 		}
@@ -1669,6 +1741,71 @@ class UtilsController extends Controller
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_medical_record_user()', $message);
+		}
+	}
+
+	static function color_dairy()
+	{
+		try {
+
+			$colors = [
+				'rgb(128,0,0)',
+				'rgb(0,139,139)',
+				'rgb(70,130,180)',
+				'rgb(112,128,144)',
+				'rgb(250,128,114)'
+			];
+
+			/** Selecion aleatoria */
+			$n = count($colors);
+			$rand = mt_rand(0, $n - 1);
+			$color_appointments = $colors[$rand];
+
+			return $color_appointments;
+		} catch (\Throwable $th) {
+
+			return response()->json([
+				'success' => 'true',
+				'data'  =>  $th->getMessage()
+			], 400);
+		}
+	}
+
+	// static function reloadCapchat()
+	// {
+	// 	return Captcha::img('flat');
+	// }
+
+	// static function validateCapchat(Request $request)
+	// {
+	// 	$rules = ['captcha' => 'required|captcha:' . request('key') . ',math'];
+
+	// 	$msj = [
+	// 		'captcha.required' => 'campo requerido',
+	// 		'captcha.captcha' => 'codigo invalida',
+
+	// 	];
+
+	// 	$validator = Validator::make($request->all(), $rules, $msj);
+
+	// 	if ($validator->fails()) {
+
+	// 		return false;
+
+	// 	} else {
+
+	// 		return true;
+	// 	}
+	// }
+
+	static function generete_pass($ci)
+	{
+		try {
+			$pass = substr(md5(mt_rand()), 0, 7) . "/" . substr($ci, 0, 3);
+			return $pass;
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_image_patient()', $message);
 		}
 	}
 }

@@ -8,15 +8,19 @@
 <div class="{{ $class }}">
     <div class="form-group">
         <div class="Icon-inside">
-            <label for="state" class="form-label" style="font-size: 13px; margin-bottom: 7px">Seleccione el estado</label>
+            @if (Auth::user()->contrie == '81')
+            <label for="state" class="form-label" style="font-size: 13px; margin-bottom: 7px">@lang('messages.form.provincia')</label>
+            @else
+            <label for="state" class="form-label" style="font-size: 13px; margin-bottom: 7px">@lang('messages.form.selecion_estado')</label>
+            @endif
             <select name="state" id="state" class="form-control"
                 onchange="handlerState(event,{{ $cities }})">
-                <option value="">Seleccione</option>
+                <option value="">@lang('messages.placeholder.seleccione')</option>
                 @foreach ($states as $item)
                     <option value={{ $item->id }}>{{ $item->description }}</option>
                 @endforeach
             </select>
-            <i class="bi bi-flag" style="top: 30px"></i>
+            <i class="bi bi-flag st-icon"></i>
         </div>
     </div>
 </div>
@@ -24,11 +28,11 @@
 <div class="{{ $class }}">
     <div class="form-group">
         <div class="Icon-inside">
-            <label for="city" class="form-label" style="font-size: 13px; margin-bottom: 7px">Seleccione la ciudad</label>
+            <label for="city" class="form-label" style="font-size: 13px; margin-bottom: 7px">@lang('messages.form.selecion_ciudad')</label>
             <select name="city" id="city" class="form-control">
-                <option value="">Seleccione</option>
+                <option value="">@lang('messages.placeholder.seleccione')</option>
             </select>
-            <i class="bi bi-flag" style="top: 30px"></i>
+            <i class="bi bi-flag st-icon"></i>
         </div>
     </div>
 </div>

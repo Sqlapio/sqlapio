@@ -25,14 +25,14 @@ class ClinicalHistory extends Component
                     'image_exam'    => 'required',
                     'image_other'   => 'required',
                 ],[
-                    'reason_visit.required'     => 'Campo requerido',
-                    'physical_exam.required'    => 'Campo requerido',
-                    'diagnosis.required'    => 'Campo requerido',
-                    'medication.required'   => 'Campo requerido',
-                    'image_exam.required'   => 'Campo requerido',
-                    'image_other.required'  => 'Campo requerido',
+                    'reason_visit.required' => __('messages.alert.razon_obligatorio'),
+                    'physical_exam.required'=> __('messages.alert.examen_fisico_requerido'),
+                    'diagnosis.required'    => __('messages.alert.diagnostico_obligatorio'),
+                    'medication.required'   => __('messages.alert.tratamiento_obligatorio'),
+                    'image_exam.required'   => __('messages.alert.img_exam_requerido'),
+                    'image_other.required'  => __('messages.alert.img_other_requerido'),
                 ]);
-        
+
                 $interview = new Interview();
                 $interview->user_id = Auth::user()->id;
                 $interview->patient_id = $request->patient_id;
@@ -44,26 +44,26 @@ class ClinicalHistory extends Component
                 $interview->image_exam = $request->image_exam;
                 $interview->image_other = $request->image_other;
                 $interview->save();
-        
+
                 $action = '8';
                 ActivityLogController::store_log($action);
 
                 /**
-                 * Logica para el envio de la notificacion 
+                 * Logica para el envio de la notificacion
                  * via correo electronico
-                 * 
+                 *
                  * @uses
                  * Esta logica solo sera aplicada si el usuario
                  * realizo la confirmacion del correo electronico
                  */
 
                 $doctor_email = Auth::user()->email;
-                
+
                 if($doctor_email != null)
                 {
                     $patient = Patient::where('id', $request->patient_id)->get();
 
-                    foreach ($patient as $item) 
+                    foreach ($patient as $item)
                     {
                         $name = $item->name;
                         $last_name = $item->last_name;
@@ -71,21 +71,21 @@ class ClinicalHistory extends Component
 
                     $title = 'Mail de SqlapioTechnology';
                     $body = [
-                        'cuerpo' => 'Usted acaba de registrar la hsitoria clinica del paciente: ',
+                        'cuerpo' => __('messages.alert.registro_historia'),
                         'name' => $name.' '.$last_name,
                         'name' => $name.' '.$last_name,
                     ];
-                    
+
                     UtilsController::notification_email($doctor_email, $title, $body);
                 }
-        
+
                 return true;
-            
+
         } catch (\Throwable $th) {
             $message = $th->getMessage();
 			dd('Error Livewire.Components.ClinicalHistory.store()', $message);
         }
-        
+
     }
 
     public function render(Request $request,$id)
@@ -98,7 +98,7 @@ class ClinicalHistory extends Component
         $pathology_back = UtilsController::get_history_pathology_back();
         $non_pathology_back = UtilsController::get_history_non_pathology_back();
         $get_condition = UtilsController::get_condition();
-        return view('livewire.components.clinical-history', 
+        return view('livewire.components.clinical-history',
         compact(
             'history',
             'Patient',

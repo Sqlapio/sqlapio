@@ -12,6 +12,7 @@
         margin-bottom: -15% !important;
 
     }
+
     .logoCorp {
         width: 50% !important;
         height: auto;
@@ -79,11 +80,20 @@
         width: 715px !important;
     }
 
-    
 
+    @media only screen and (min-width: 1800px) {
+        .col-xxxl {
+            width: 20% !important;
+        }
 
+    }
 
+    @media only screen and (min-width: 1400px) {
+        .col-xxxl {
+            width: 21% !important;
+        }
 
+    }
 
     @media only screen and (max-width: 768px) {
 
@@ -126,8 +136,12 @@
         }
 
         .form-sq-mv {
-        align-content: flex-start !important;
-    }
+            align-content: flex-start !important;
+        }
+
+        .pad-mb {
+            padding: 0px 46px;
+        }
     }
 
     @media only screen and (max-width: 390px) {
@@ -162,6 +176,10 @@
         .btn-bg-lb img:last-of-type {
             display: none;
         }
+
+        .pad-mb {
+            padding: 0px 46px;
+        }
     }
 </style>
 @push('scripts')
@@ -172,7 +190,6 @@
             tooltipTriggerList.forEach(element => {
                 new bootstrap.Tooltip(element)
             });
-
 
             $('#form-register').validate({
                 rules: {
@@ -188,57 +205,61 @@
                     },
                     email: {
                         required: true,
-                        minlength: 3,
-                        maxlength: 50,
                         email: true
                     },
                     password: {
                         required: true,
                         minlength: 6,
-                        //maxlength: 8,
                     },
                     password_confrimation: {
                         required: true,
                         minlength: 6,
-                        //maxlength: 8,
                         handlerPass: true
                     },
-                    // rol: {
-                    //     required: true,
-                    // },
+                    ci: {
+                        required: true,
+                        onlyNumber: true
+                    },
+                    captcha: {
+                        required: true,
+                    },
+                    business_name: {
+                        required: true,
+                    }
                 },
                 messages: {
                     name: {
-                        required: "Nombres es obligatorio",
-                        minlength: "Nombres debe ser mayor a 3 caracteres",
-                        maxlength: "Nombres debe ser menor a 50 caracteres",
+                        required: "@lang('messages.alert.nombre_obligatorio')",
+                        minlength: "@lang('messages.alert.nombre_3_caracteres')",
+                        maxlength: "@lang('messages.alert.nombre_50_caracteres')",
                     },
                     last_name: {
-                        required: "Apellidos es obligatorio",
-                        minlength: "Apellidos debe ser mayor a 6 caracteres",
-                        maxlength: "Apellidos debe ser menor a 8 caracteres",
-                        // pattern: "pattern",
+                        required: "@lang('messages.alert.apellido_obligatorio')",
+                        minlength: "@lang('messages.alert.apellido_6_caracteres')",
+                        maxlength: "@lang('messages.alert.apellido_8_caracteres')",
                     },
 
                     email: {
-                        required: "Correo Electrónico es obligatorio",
-                        minlength: "Correo Electrónico debe ser mayor a 6 caracteres",
-                        maxlength: "Correo Electrónico debe ser menor a 8 caracteres",
-                        email: "Correo Electrónico incorrecto"
+                        required: "@lang('messages.alert.correo_obligatorio')",
+                        email: "@lang('messages.alert.correo_incorrecto')"
                     },
                     password: {
-                        required: "Contraseña es obligatoria",
-                        minlength: "Contraseña debe ser mayor a 6 caracteres",
-                        // maxlength: "Contraseña debe ser menor a 8 caracteres",
+                        required: "@lang('messages.alert.contraseña_obligatorio')",
+                        minlength: "@lang('messages.alert.contraseña_6_caracteres')",
                     },
                     password_confrimation: {
-                        required: "Confirmar Contraseña es obligatoria",
-                        minlength: "Confirmar Contraseña debe ser mayor a 6 caracteres",
-                        //maxlength: "Confirmar Contraseña debe ser menor a 8 caracteres",
+                        required: "@lang('messages.alert.ccontraseña_obligatorio')",
+                        minlength: "@lang('messages.alert.ccontraseña_6_caracteres')",
                     },
-                    // rol: {
-                    //     required: "Rol es obligatorio",
-                    // },
+                    ci: {
+                        required: "@lang('messages.alert.cedula_obligatoria')",
+                    },
+                    captcha: {
+                        required: "Codigo es obligatorio",
+                    },
+                    business_name: {
+                        required: "@lang('messages.alert.campo_obligatorio')",
+                    }
                 },
                 invalidHandler: function(event, validator) {
 
@@ -249,6 +270,10 @@
                     form.submit();
                 }
             });
+            $.validator.addMethod("onlyNumber", function(value, element) {
+                var pattern = /^[0-9-]*$/;
+                return pattern.test(value);
+            }, "Campo numérico");
 
             $.validator.addMethod("handlerPass", function(value, element) {
                 let validate = false;
@@ -257,6 +282,7 @@
                 }
                 return validate;
             }, "Contraseña no coinciden");
+
         });
 
         function showPass() {
@@ -276,216 +302,438 @@
                 input[0].type = "password";
             }
         }
+
+        const handlerSubmit = () => {
+
+            $("#form-register").validate();
+
+            if ($("#form-register").valid()) {
+
+                Swal.fire({
+                    title: 'Informacion',
+                    text: '@lang('messages.alert.envio_codigo')',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    cancelButtonText: '@lang('messages.botton.cancelar')',
+                    confirmButtonColor: '#42ABE2',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
+                }).then((result) => {
+
+
+                    if (result.isConfirmed) {
+
+                        $('#spinner').show();
+
+                        ///solicitar otp
+                        $.ajax({
+                            url: '{{ route('send_otp_global') }}',
+                            type: 'POST',
+                            dataType: "json",
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                                email: $('#email').val(),
+                                name: $('#name').val(),
+                                last_name: $('#last_name').val(),
+                                document_number: $('#ci').val(),
+                            },
+                            success: function(response) {
+
+                                $('#spinner').hide();
+
+                                Swal.fire({
+                                    title: '@lang('messages.alert.ingrese_codigo')',
+                                    input: 'number',
+                                    inputAttributes: {
+                                        autocorrect: 'on',
+                                        max: 6,
+                                        maxlength: 6
+                                    },
+                                    showCancelButton: true,
+                                    cancelButtonText: '@lang('messages.botton.cancelar')',
+                                    confirmButtonText: 'Enviar',
+                                    showLoaderOnConfirm: true,
+                                    inputValidator: (value) => {
+                                        if (value === '') {
+                                            return '@lang('messages.alert.campo_obligatorio')'
+                                        } else if (value.length > 6) {
+                                            return '@lang('messages.alert.campo_6_caracteres')'
+
+                                        }
+                                    },
+                                    preConfirm: (login) => {
+
+                                        let formData = $('#form-register')
+                                            .serializeArray();
+                                        let data = {};
+                                        formData.map((item) => {
+                                            data[item.name] = item.value
+                                        });
+                                        data.code = login;
+                                        $.ajax({
+                                            url: '{{ route('Register-create') }}',
+                                            type: 'POST',
+                                            dataType: "json",
+                                            data: data,
+                                            headers: {
+                                                'X-CSRF-TOKEN': $(
+                                                    'meta[name="csrf-token"]'
+                                                ).attr('content')
+                                            },
+                                            success: function(response) {
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: response
+                                                        .msj,
+                                                    allowOutsideClick: false,
+                                                    confirmButtonColor: '#42ABE2',
+                                                    confirmButtonText: '@lang('messages.botton.aceptar')'
+                                                }).then((result) => {
+                                                    window
+                                                        .location =
+                                                        '{{ route('Login_home') }}';
+
+                                                });
+                                            },
+                                            error: function(error) {
+
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: error
+                                                        .responseJSON
+                                                        .msj,
+                                                    allowOutsideClick: false,
+                                                    confirmButtonColor: '#42ABE2',
+                                                    confirmButtonText: '@lang('messages.botton.aceptar')'
+                                                })
+                                            }
+                                        });
+
+                                    },
+                                    allowOutsideClick: () => !Swal.isLoading()
+                                })
+                            },
+                            error: function(error) {
+                                $('#spinner').hide();
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: error.responseJSON.errors,
+                                    allowOutsideClick: false,
+                                    confirmButtonColor: '#42ABE2',
+                                    confirmButtonText: '@lang('messages.botton.aceptar')'
+                                })
+
+                            }
+                        });
+                        //end
+                    }
+                });
+            }
+        }
+
+        // const reloadCaptcha = () => {
+
+        //     $.ajax({
+        //         url: "{{ route('reloadCapchat') }}",
+        //         type: 'GET',
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         },
+        //         success: function(response) {
+        //             $('#span-captcha').html(response);
+        //         }
+
+        //     });
+        // }
+
+        function handlerTypeDoc(e) {
+
+            switch (Number(e.target.value)) {
+                case 1:
+
+                    $('#ci').attr("placeholder", '@lang('messages.select.cedula')');
+                    $('#div_name').show();
+                    $('#div_last_name').show();
+                    $('#div_business_name').hide();
+
+                    $("#name").rules('add', {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    });
+
+                    $("#last_name").rules('add', {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    });
+
+                    break;
+
+                case 2:
+
+                    $('#ci').attr("placeholder", "CIE").mask('000-0000000-0');
+                    $('#div_name').show();
+                    $('#div_last_name').show();
+                    $('#div_business_name').hide();
+
+                    $("#name").rules('add', {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    });
+
+                    $("#last_name").rules('add', {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    });
+
+
+                    break;
+
+                case 3:
+
+                    $('#ci').attr("placeholder", '@lang('messages.select.pasaporte')');
+                    $('#div_name').show();
+                    $('#div_last_name').show();
+                    $('#div_business_name').hide();
+
+                    $("#name").rules('add', {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    });
+
+                    $("#last_name").rules('add', {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    });
+
+
+                    break;
+
+                case 4:
+
+                    $('#ci').attr("placeholder", '@lang('messages.select.firma_personal')');
+                    $('#div_name').hide();
+                    $('#div_last_name').hide();
+                    $('#div_business_name').show();
+
+                    $("#name").rules('remove');
+                    $("#last_name").rules('remove');
+
+                    break;
+
+                case 5:
+
+                    $('#ci').attr("placeholder", '@lang('messages.select.juridico')');
+                    $('#div_name').hide();
+                    $('#div_last_name').hide();
+                    $('#div_business_name').show();
+
+
+                    $("#name").rules('remove');
+                    $("#last_name").rules('remove');
+
+                    break;
+                case 6:
+
+                    $('#ci').attr("placeholder", '@lang('messages.select.comuna')');
+                    $('#div_name').hide();
+                    $('#div_last_name').hide();
+                    $('#div_business_name').show();
+
+
+                    $("#name").rules('remove');
+                    $("#last_name").rules('remove');
+
+                    break;
+
+                case 7:
+
+                    $('#ci').attr("placeholder", '@lang('messages.select.gubernamental')');
+                    $('#div_name').hide();
+                    $('#div_last_name').hide();
+                    $('#div_business_name').show();
+
+
+                    $("#name").rules('remove');
+                    $("#last_name").rules('remove');
+
+                    break;
+            }
+
+
+        }
     </script>
 @endpush
 @section('content')
     <div>
         <div class="container-fluid">
-            <div class="row form-sq form-sq-mv">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                    <div class="text-center">
-                        <img class="img" src="{{ asset('img/registro.png') }}" style="width: 200px;">
-                    </div>
-                </div>
+            <div id="spinner" style="display: none">
+                <x-load-spinner />
+            </div>
+            <div class="row form-sq pad-mb">
+                <div class="col-sm-10 col-md-5 col-lg-5 col-xl-4 col-xxl-3">
+                    {{-- <div class="card mb-3 mt-m3" id="div-form">
+                        <div class="card-body"> --}}
 
-                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
-                    <div class="card" id="div-form">
-                        <div class="card-body">
-                            <div>
-                                    
-                                {{ Form::open(['url' => 'register', 'method' => 'post', 'id' => 'form-register']) }}
-                                {{ csrf_field() }}
-                                <div class="row">
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            @foreach ($errors->all() as $message)
-                                                <span class="text-danger error-span"> {{ $message }}</span><br />
-                                            @endforeach
-                                        </div>
-                                    @endif
-                                    {{-- registro normal  --}}
-                                    @if ($bellied_plan !== null)
-                                        @if ($bellied_plan->get_user->role == 'medico')
-                                            <div class="container">
-                                                <div class="row mt-2" style="display: grid; justify-items: center;">
-                                                    <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-02.png') }}"
-                                                        alt="">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
-                                                        <input autocomplete="off"
-                                                            class="form-control mask-text @error('name') is-invalid @enderror"
-                                                            id="name" name="name" type="text" readonly
-                                                            value="{!! !empty($bellied_plan) ? $bellied_plan->get_user->name : '' !!}">
-                                                        <i class="bi bi-person-circle st-icon"></i>
-                                                    </div>
-                                                </diV>
-                                            </div>
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
-                                                        <input autocomplete="off"
-                                                            class="form-control mask-text @error('last_name') is-invalid @enderror"
-                                                            id="last_name" name="last_name" readonly type="text"
-                                                            value="{!! !empty($bellied_plan) ? $bellied_plan->get_user->last_name : '' !!}">
-                                                        <i class="bi bi-person-circle st-icon"></i>
-                                                    </div>
-                                                </diV>
-                                            </div>
-                                        @endif
-                                        @if ($bellied_plan->get_user->role == 'laboratorio' || $bellied_plan->get_user->role == 'corporativo')
-                                            <div id="business-name"
-                                                class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Razón
-                                                            social</label>
-                                                        <input readonly autocomplete="off"
-                                                            class="form-control mask-text @error('business_name') is-invalid @enderror"
-                                                            id="business_name" name="business_name"
-                                                            value="{!! !empty($bellied_plan)
-                                                                ? ($bellied_plan->get_user->role == 'corporativo'
-                                                                    ? $bellied_plan->get_user->get_center->description
-                                                                    : $bellied_plan->get_user->business_name)
-                                                                : '' !!}" type="text" value="">
-                                                        <i class="bi bi-person-circle st-icon"></i>
-                                                    </div>
-                                                </diV>
-                                            </div>
-                                        @endif
-                                        <input type="hidden" name="doctor_corporate" value="false">
-
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
-                                                        Electrónico</label>
-                                                    <input readonly autocomplete="off" class="form-control" id="email"
-                                                        name="email" type="text" value="{!! !empty($bellied_plan) ? $bellied_plan->get_user->email : '' !!}">
-                                                    <i class="bi bi-envelope st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                    @else
-                                        {{-- registro medico con plan corporativco  --}}
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: grid; justify-items: center;">
-                                            @if ($corporate->get_laboratorio->lab_img == null)
-                                                <img class="logoCorp" src="{{ asset('/img/logo sqlapio variaciones-03.png') }}" alt="Chris Wood">
-                                            @else
-                                                <img class="logoCorp" src="{{ asset('imgs/' . $corporate->get_laboratorio->lab_img) }}" alt="">
-                                            @endif
-                                        </div>
-
-
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="display: grid; justify-items: center;"  >
-                                            <strong>{{ $corporate->get_center->description }}</strong>
-                                        </div>
-
-
-                                      
-
-                                        <input type="hidden" name="doctor_corporate" value="true">
-                                        <input type="hidden" name="user_corp_id" value="{{ $corporate->id }}">
-                                        <input type="hidden" name="center_id" value="{{ $corporate->center_id }}">
-
-
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
-                                                    <input autocomplete="off"
-                                                        class="form-control mask-text @error('name') is-invalid @enderror"
-                                                        id="name" name="name" type="text" value="">
-                                                    <i class="bi bi-person-circle st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
-                                                    <input autocomplete="off"
-                                                        class="form-control mask-text @error('last_name') is-invalid @enderror"
-                                                        id="last_name" name="last_name" type="text" value="">
-                                                    <i class="bi bi-person-circle st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
-                                                        Electrónico</label>
-                                                    <input autocomplete="off" class="form-control" id="email"
-                                                        name="email" type="text" value="">
-                                                    <i class="bi bi-envelope st-icon"></i>
-                                                </div>
-                                            </diV>
-                                        </div>
-                                    @endif
-
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Contraseña</label>
-                                                <input placeholder="Contraseña" autocomplete="off" {{-- data-bs-toggle="tooltip" data-bs-placement="right"
-                                                    data-bs-custom-class="custom-tooltip tooltip-ps" data-html="true"
-                                                    title="La contraseña debe contener:
-                                                            Al menos una letra mayúscula.
-                                                            Al menos una letra minúscula. 
-                                                            Al menos un número.
-                                                            Mínimo 6 carácteres.
-                                                            Máximo 8 carácteres" --}}
-                                                    class="form-control @error('password') is-invalid @enderror"
-                                                    id="password" name="password" type="password" value="">
-                                                <i onclick="showPass();" class="bi bi-eye-fill st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Confirmar
-                                                    Contraseña</label>
-                                                <input autocomplete="off" placeholder="Confirmar Contraseña"
-                                                    class="form-control @error('password_confrimation') is-invalid @enderror"
-                                                    id="password_confrimation" name="password_confrimation"
-                                                    type="password" value="">
-                                                <i onclick="showPassConfimation();" class="bi bi-eye-fill st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <div id="spinner" style="display: none" class="spinner-md">
-                                            <x-load-spinner show="{{ $show }}" />
-                                        </div>
-                                    </div>
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                <div class="text-center">
+                                    <img class="img" src="{{ asset('img/registro.png') }}" style="width: 200px;">
                                 </div>
-                                <div class="d-flex justify-content-center">
-                                    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
-                                        style="display: flex; justify-content: space-around;">
-                                        <button type="" class="btn btnPrimary">Registrar</button>
-                                        <a href="/"><button type="button"
-                                                class="btn btnSecond btn2">Cancelar</button></a>
-                                    </div>
-                                </div>
-                                {{ Form::close() }}
                             </div>
-                        </div>
-                    </div>
+
+                            {{ Form::open(['method' => 'post', 'id' => 'form-register']) }}
+                            {{ csrf_field() }}
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="div_name">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <label for="name" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
+                                            <input autocomplete="off" class="form-control mask-text" id="name"
+                                                name="name" type="text" value="">
+                                            <i class="bi bi-person-circle st-icon"></i>
+                                        </div>
+                                    </diV>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="div_last_name">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <label for="last_name" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
+                                            <input autocomplete="off" class="form-control mask-text" id="last_name"
+                                                name="last_name" type="text" value="">
+                                            <i class="bi bi-person-circle st-icon"></i>
+                                        </div>
+                                    </diV>
+                                </div>
+
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="form-group">
+                                        <label for="type_rif" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.tipo_documento')</label>
+                                        <select onchange="handlerTypeDoc(event)" name="type_rif" id="type_rif" class="form-control">
+                                            <option value="">@lang('messages.placeholder.seleccione')</option>
+                                            <option value="1">@lang('messages.select.cedula')</option>
+                                            <option value="2">@lang('messages.select.CIE')</option>
+                                            <option value="3">@lang('messages.select.pasaporte')</option>
+                                            <option value="4">@lang('messages.select.firma_personal')</option>
+                                            <option value="5">@lang('messages.select.juridico')</option>
+                                            <option value="6">@lang('messages.select.comuna')</option>
+                                            <option value="7">@lang('messages.select.gubernamental')</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.documento_identidad')</label>
+                                            <input autocomplete="off" class="form-control mask-only-number" id="ci" name="ci" type="text" value="" placeholder="">
+                                            <i class="bi bi-person-circle st-icon"></i>
+                                        </div>
+                                    </diV>
+                                </div>
+
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="display: none"
+                                    id="div_business_name">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <label for="business_name" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon_social')</label>
+                                            <input autocomplete="off" placeholder="" class="form-control mask-text"
+                                                id="business_name" name="business_name" type="text" value="">
+                                            <i class="bi bi-person-vcard st-icon"></i>
+                                        </div>
+                                    </diV>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <label for="email" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
+                                            <input autocomplete="off" class="form-control" id="email" name="email"
+                                                type="text" value="">
+                                            <i class="bi bi-envelope st-icon"></i>
+                                        </div>
+                                    </diV>
+                                </div>
+
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <label for="password" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.contraseña')</label>
+                                            <input autocomplete="off" class="form-control"
+                                                id="password" name="password" type="password" value="">
+                                            <i onclick="showPass();" class="bi bi-eye-fill st-icon"></i>
+                                        </div>
+                                    </diV>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                    <div class="form-group">
+                                        <div class="Icon-inside">
+                                            <label for="password_confrimation" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.confirmar_contraseña')</label>
+                                            <input autocomplete="off"
+                                                class="form-control" id="password_confrimation"
+                                                name="password_confrimation" type="password" value="">
+                                            <i onclick="showPassConfimation();" class="bi bi-eye-fill st-icon"></i>
+                                        </div>
+                                    </diV>
+                                </div>
+
+                                {{-- Input hidden for type plan --}}
+                                <input id="type_plan" name="type_plan" type="hidden" value="{{ $type_plan }}">
+
+                                {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-21 col-xxl-12 mt-2">
+                                    <div class="row mt-3" style="display: flex; justify-content: center;">
+                                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" style="display: flex; justify-content: center;">
+                                            <span id="span-captcha"> {!! Captcha::img('flat') !!}</span>
+                                            <button type="button" id="reload" class="btn btn-danger reload"
+                                                onclick="reloadCaptcha()">
+                                                &#x21bb;
+                                            </button>
+                                        </div>
+
+                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Ingrese
+                                                        su
+                                                        codigo</label>
+                                                    <input placeholder="" autocomplete="off" class="form-control" id="captcha"
+                                                        name="captcha" type="text" value="">
+                                                    <i class="bi bi-envelope st-icon"></i>
+                                                </div>
+                                            </div>
+                                            <small id="samll-error" style="display: none" for=""
+                                                class="text-danger">Codigo
+                                                Incorrecto</small style="display: none">
+                                        </div>
+                                    </div>
+                                </div> --}}
+
+                            </div>
+
+
+
+                            <div class="d-flex justify-content-center">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-3" style="display: flex; justify-content: space-around;">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-center">
+                                        <input class="btn btnPrimary" value="@lang('messages.botton.registrar')" onclick="handlerSubmit();" style="margin-left: 20px" />
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-center">
+                                        <a href="/"><button type="button" class="btn btnSecond btn2">@lang('messages.botton.cancelar')</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ Form::close() }}
+                        {{-- </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

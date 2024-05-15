@@ -11,7 +11,7 @@
             margin-right: auto;
             width: 600px;
             height: auto;"
-        src="{{ asset('img/notification_email/newsletter-header.png') }}">
+        src="{{ asset('img/notification_email/notificaciones_img_1.png') }}">
         <div style="margin: auto;
                     width: 600px;
                     padding: 10px;">
@@ -22,13 +22,13 @@
             <p style="text-align: justify; margin-left: 20px;">
                 Gracias por ser parte de nuestra familia Sqlapio.com, usted acaba de registrarse en nuestro sistema.
                 <br>
-                Es importate para nosotro que realize la confirmación de su correo electrónico a través del siguiente link:
+                Es importante para nosotros que realice la confirmación de su correo electrónico a través del siguiente link:
                 <br>
                 {{ env('APP_URL') }}/verify/{{ $mailData['verify_code'] }}
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
-                Gracias por ser parte de nosotro, Sqlapio.com, innovando para el futuro.
+                Gracias por ser parte de nosotros, Sqlapio.com, innovando para el futuro.
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">

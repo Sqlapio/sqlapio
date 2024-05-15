@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HandleOtpController;
+use App\Http\Controllers\MultilanguajeController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UtilsController;
 use App\Http\Livewire\Components\AdminPatients;
@@ -24,7 +26,9 @@ use App\Http\Livewire\Components\Examen;
 use App\Http\Livewire\Components\Laboratory;
 use App\Http\Livewire\Components\PaymentForm;
 use App\Http\Livewire\Components\PlansVerify;
+use App\Http\Livewire\Components\ProfilePatients\LoginPatient;
 use App\Http\Livewire\Components\ProfilePatients\QueryDetalyPatient;
+use App\Http\Livewire\Components\ProfilePatients\RecoveryPassword as ProfilePatientsRecoveryPassword;
 use App\Http\Livewire\Components\Statistics;
 use App\Http\Livewire\Components\Register;
 use App\Http\Livewire\Components\SalesForces\GeneralManager\Dashboard as GeneralManagerDashboard;
@@ -36,6 +40,7 @@ use App\Http\Livewire\Components\SalesForces\ProfileUser;
 use App\Http\Livewire\Components\SalesForces\RegisterUserSalesForces;
 use App\Http\Livewire\Components\Study;
 use App\Http\Middleware\VerifyPlans;
+use App\Http\Middleware\VerifyPlansActive;
 use App\Models\Center;
 use App\Models\Exam;
 use App\Models\Patient;
@@ -65,6 +70,8 @@ Route::get('/recovery-password', [RecoveryPassword::class, 'render'])->name('rec
 Route::post('/create-password-temporary', [RecoveryPassword::class, 'create_password_temporary'])->name('create_password_temporary');
 Route::post('/send-otp', [Profile::class, 'send_otp'])->name('send_otp_rp');
 Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp_rp');
+Route::post('/send_otp_global', [HandleOtpController::class, 'send_otp'])->name('send_otp_global');
+Route::post('/verify_otp_global', [HandleOtpController::class, 'verify_otp'])->name('verify_otp_global');
 
 //fuerzas de ventas
 Route::get('/register-user-force-sale/{hash?}', [RegisterUserSalesForces::class, 'render'])->name('register_user_force_sale');
@@ -96,19 +103,20 @@ Route::get('/confirmation/dairy/{code}', [UtilsController::class, 'confirmation_
 // planes
 Route::post('/pay-plan-renew', [PaymentForm::class, 'pay_plan_renew'])->name("pay-plan-renew")->middleware(['auth', 'VerifySelloDigital', 'verify_email']);
 
-Route::middleware(['auth','AuthCheck'])->group(function () {
+Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function () {
 
     Route::group(array('prefix' => 'auth'), function () {
         Route::middleware(['VerifySelloDigital', 'verify_email'])->group(function () {
             Route::get('/home', [Home::class, 'render'])->name('home');
             Route::get('/dashboard', [DashboardComponent::class, 'render'])->name('DashboardComponent');
-            Route::get('/patients', [Patients::class, 'render'])->name('Patients')->middleware(['VerifyPlanExpiredPlan']);
+            Route::get('/patients/{id_patient?}', [Patients::class, 'render'])->name('Patients')->middleware(['VerifyPlanExpiredPlan']);
             Route::get('/setting', [setting::class, 'render'])->name('Setting');
             Route::get('/diary', [Diary::class, 'render'])->name('Diary');
             Route::post('/create-appointment', [Diary::class, 'store'])->name('CreateAppointment')->middleware(['VerifyPlanExpiredPlan']);
             Route::get('/clinical-history', [ClinicalHistory::class, 'render'])->name('ClinicalHistory');
             Route::get('/centers', [Centers::class, 'render'])->name('Centers');
             Route::post('/register-centers', [Centers::class, 'store'])->name('register-centers');
+            Route::post('/register-new-centers', [Centers::class, 'regiter_center'])->name('register-new-centers');
             Route::get('/statistics', [Statistics::class, 'render'])->name('Statistics');
             Route::get('/study', [Study::class, 'render'])->name('Study');
             Route::get('/examen', [Examen::class, 'render'])->name('Examen');
@@ -117,6 +125,8 @@ Route::middleware(['auth','AuthCheck'])->group(function () {
                 Route::get('/medical-record/{id}', [MedicalRecord::class, 'render'])->name('MedicalRecord')->middleware(['VerifyPlans']);
                 Route::post('/medical-consultation-create', [MedicalRecord::class, 'store'])->name('MedicalRecordCreate')->middleware(['VerifyPlans']);
                 Route::post('/create-informe-medico', [MedicalRecord::class, 'informe_medico'])->name('create-informe-medico')->middleware(['VerifyPlans']);
+                Route::post('/create-examen-fisico', [MedicalRecord::class, 'store_physical_exams'])->name('create-examen-fisico')->middleware(['VerifyPlans']);
+
                 Route::get('/medical-history', [MedicalHistory::class, 'render'])->name('MedicalHistory');
                 Route::post('/register-patients', [Patients::class, 'store'])->name('register-patients');
                 Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail')->middleware(['VerifyPlans', 'VerifyPlanExpiredPlan']);
@@ -193,9 +203,7 @@ Route::middleware(['auth','AuthCheck'])->group(function () {
             Route::group(array('prefix' => 'setting'), function () {
                 Route::get('/profile', [ProfileUser::class, 'render'])->name('profile-user-force-sale');
                 Route::post('/profile-update', [ProfileUser::class, 'updateProfile'])->name('update-profile-force-sale');
-
             });
-
         });
     });
 
@@ -233,7 +241,12 @@ Route::middleware(['auth','AuthCheck'])->group(function () {
      */
     Route::get('/pdf/history/{id}', [PDFController::class, 'PDF_history'])->name('PDF_history');
     Route::get('/pdf/medical_prescription/{id}', [PDFController::class, 'PDF_medical_prescription'])->name('pdf_medical_prescription');
-
+    /**
+     * @method PDF
+     * @param id
+     * Genera el pdf para las consultas de los pacientes
+     */
+    Route::get('/pdf/informe_medico/{id}', [PDFController::class, 'PDF_informe_medico'])->name('PDF_informe_medico');
 
     /**
      * @method search
@@ -283,14 +296,18 @@ Route::middleware(['auth','AuthCheck'])->group(function () {
     });
 });
 
+Route::post('/login-patient', [LoginPatient::class, 'login'])->name('login-patient');
 
 Route::group(array('prefix' => 'public'), function () {
     Route::get('/payment-form/{type_plan?}/{token?}', [PaymentForm::class, 'render'])->name("payment-form");
     Route::post('/pay-plan', [PaymentForm::class, 'pay_plan'])->name("pay-plan");
 
     Route::group(array('prefix' => 'patient'), function () {
+        Route::get('/recovery-pass', [ProfilePatientsRecoveryPassword::class, 'render'])->name('recovery-pass-pat');
+        Route::post('/recovery-pass', [ProfilePatientsRecoveryPassword::class, 'handleRecoveryPass'])->name('handleRecoveryPass');
+
         Route::get('/query-detaly-patient', [QueryDetalyPatient::class, 'render'])->name("query-detaly-patient");
-        Route::post('/search-detaly-patient', [QueryDetalyPatient::class, 'search_detaly'])->name("search-detaly-patient");
+        Route::get('/search-detaly-patient/{id}', [QueryDetalyPatient::class, 'search_detaly'])->name("search-detaly-patient");
     });
 });
 
@@ -298,12 +315,38 @@ Route::group(array('prefix' => 'public'), function () {
  * Logout
  */
 Route::get('/logout', [Login::class, 'logout'])->name('logout');
+Route::get('/logout-patient', [LoginPatient::class, 'logout'])->name('logout-patient');
+Route::get('/res_exam', [Examen::class, 'res_exam'])->name('res_exam');
+Route::get('/res_exam_sin_resul', [Examen::class, 'res_exam_sin_resul'])->name('res_exam_sin_resul');
+Route::get('/res_study', [Study::class, 'res_study'])->name('res_study');
+Route::get('/res_study_sin_resul', [Study::class, 'res_study_sin_resul'])->name('res_study_sin_resul');
+
+Route::get('/reloadCapchat', [UtilsController::class, 'reloadCapchat'])->name('reloadCapchat');
+
+Route::post('/validateCapchat', [UtilsController::class, 'validateCapchat'])->name('validateCapchat');
+
+
+/**
+ * Languaje
+ */
+Route::get('/lang/{lang}', [MultilanguajeController::class, 'lang'])->name('lang');
 
 Route::get('/prueba', function () {
     $users = DB::table('users')
-            ->offset(5) // Starting position of records
-            ->limit(2) // Number of records to retrieve
-            ->get();
-            dd($users);
+        ->offset(5) // Starting position of records
+        ->limit(2) // Number of records to retrieve
+        ->get();
+    dd($users);
     return view('barcode', compact('barcode'));
+});
+
+
+
+///grupo de rutas pacientes modulo
+Route::middleware(['authUserPatient'])->group(function () {
+    Route::group(array('prefix' => 'public'), function () {
+        Route::group(array('prefix' => 'patient'), function () {
+            Route::get('/view-patient', [QueryDetalyPatient::class, 'toviewPatient'])->name("view-patient");
+        });
+    });
 });

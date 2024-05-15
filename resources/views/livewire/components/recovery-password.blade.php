@@ -46,18 +46,14 @@
                 rules: {
                     email: {
                         required: true,
-                        minlength: 3,
-                        maxlength: 50,
                         email: true
                     },
                 },
                 messages: {
 
                     email: {
-                        required: "Correo Electrónico es obligatorio",
-                        minlength: "Correo Electrónico debe ser mayor a 6 caracteres",
-                        maxlength: "Correo Electrónico debe ser menor a 8 caracteres",
-                        email: "Correo Electrónico incorrecto"
+                        required: "@lang('messages.alert.correo_obligatorio')",
+                        email: "@lang('messages.alert.correo_obligatorio')",
                     }
 
                 }
@@ -69,13 +65,14 @@
                 $("#form-recovery").validate();
                 if ($("#form-recovery").valid()) {
                     Swal.fire({
-                        title: 'Esta seguro de realizar esta acción?',
-                        text: "Se enviara un código de verifcación al correo ingresado!",
+                        title: '@lang('messages.alert.accion')',
+                        text: '@lang('messages.alert.envio_codigo')',
                         icon: 'warning',
                         showCancelButton: true,
+                        cancelButtonText: '@lang('messages.botton.cancelar')',
                         confirmButtonColor: '#42ABE2',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Aceptar'
+                        confirmButtonText: '@lang('messages.botton.aceptar')'
 
                     }).then((result) => {
 
@@ -100,7 +97,7 @@
                                     $('#spinner').hide();
 
                                     Swal.fire({
-                                        title: 'Ingrese el código',
+                                        title: '@lang('messages.alert.ingrese_codigo')',
                                         input: 'number',
                                         inputAttributes: {
                                             autocorrect: 'on',
@@ -108,13 +105,14 @@
                                             maxlength: 6
                                         },
                                         showCancelButton: true,
-                                        confirmButtonText: 'Enviar',
+                                        cancelButtonText: '@lang('messages.botton.cancelar')',
+                                        confirmButtonText: '@lang('messages.botton.enviar')',
                                         showLoaderOnConfirm: true,
                                         inputValidator: (value) => {
                                             if (value === '') {
-                                                return "Campo obligatorio"
+                                                return '@lang('messages.alert.campo_obligatorio')'
                                             } else if (value.length > 6) {
-                                                return "Campo debe ser de 6 caracteres"
+                                                return '@lang('messages.alert.campo_6_caracteres')'
 
                                             }
                                         },
@@ -139,12 +137,12 @@
                                             .msj,
                                         allowOutsideClick: false,
                                         confirmButtonColor: '#42ABE2',
-                                        confirmButtonText: 'Aceptar'
+                                        confirmButtonText: '@lang('messages.botton.aceptar')'
                                     })
 
                                 }
                             });
-                            //end               
+                            //end
                         }
                     });
                 }
@@ -168,14 +166,14 @@
                 },
                 messages: {
                     password: {
-                        required: "Contraseña es obligatoria",
-                        minlength: "Contraseña debe ser mayor a 6 caracteres",
-                        maxlength: "Contraseña debe ser menor a 8 caracteres",
+                        required: "@lang('messages.alert.contraseña_obligatorio')",
+                        minlength: "@lang('messages.alert.contraseña_6_caracteres')",
+                        maxlength: "@lang('messages.alert.contraseña_8_caracteres')",
                     },
                     password_confrimation: {
-                        required: "Confirmar Contraseña es obligatoria",
-                        minlength: "Confirmar Contraseña debe ser mayor a 6 caracteres",
-                        maxlength: "Confirmar Contraseña debe ser menor a 8 caracteres",
+                        required: "@lang('messages.alert.ccontraseña_obligatorio')",
+                        minlength: "@lang('messages.alert.ccontraseña_6_caracteres')",
+                        maxlength: "@lang('messages.alert.ccontraseña_8_caracteres')",
                     }
                 }
             });
@@ -202,12 +200,13 @@
                                 'content')
                         },
                         success: function(response) {
+                            $('#spinner').hide();
                             Swal.fire({
                                 icon: 'success',
                                 title: response.msj,
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
                             }).then((result) => {
                                 let url = "/";
                                 window.location.href = url;
@@ -224,12 +223,12 @@
                                     .msj,
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
                             })
 
                         }
                     });
-                    //end    
+                    //end
 
                 }
             });
@@ -240,7 +239,7 @@
                     validate = true;
                 }
                 return validate;
-            }, "Contraseña no coinciden");
+            }, "@lang('messages.alert.contraseña_no_coincide')");
 
         });
 
@@ -270,96 +269,76 @@
                 <x-load-spinner />
             </div>
             <div class="row form-sq" style="position: relative">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                    <div class="text-center">
-                        <img class="img" src="{{ asset('img/recuperar.png') }}" style="width: 355px;">
+                <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-xxxl loginDric">
+                    <div class="">
+                        <div class="row mt-2" style="display: grid; justify-items: center;">
+                            <img class="img" src="{{ asset('img/recuperar.png') }}" style="width: 355px;">
+                        </div>
                     </div>
-                </div>
-            
-                <div class="row justify-content-center">
-                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4 col-xxl-4">
-                        <div class="card" id="div-form">
-                            <div class="card-body">
-                                <div class="container">
-                                    <div class="row mt-2" style="display: grid; justify-items: center;">
-                                        <img class="logoSq" src="{{ asset('img/logo sqlapio variaciones-02.png') }}"
-                                            alt="">
-                                    </div>
+                    {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-recovery']) }}
+                    <div class="row" id="content-recovery-email">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                            <div class="form-group">
+                                <div class="Icon-inside">
+                                    <!-- <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label> -->
+                                    <input autocomplete="off" class="form-control" id="email" name="email" type="text" value="" placeholder="@lang('messages.form.email')">
+                                    <i class="bi bi-envelope" style="top: 2px !important;"></i>
                                 </div>
-                                {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-recovery']) }}
-                                <div class="row" id="content-recovery-email">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
-                                                    Electrónico</label>
-                                                <input autocomplete="off" class="form-control" id="email" name="email"
-                                                    type="text" value="">
-                                                <i class="bi bi-envelope st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
-                                    <div class="d-flex justify-content-center">
-                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
-                                            style="display: flex; justify-content: space-around;">
-                                            <input class="btn btnPrimary" value="Recuperar" type="submit" />
-                                            <a href="/"><button type="button"
-                                                    class="btn btnSecond btn2">Cancelar</button></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{ Form::close() }}
-
-                                {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-recovery-password']) }}
-                                <div class="row" id="content-recovery" style="display: none">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Contraseña</label>
-                                                <input placeholder="Contraseña" autocomplete="off" 
-                                                    {{-- data-bs-toggle="tooltip" data-bs-placement="right" 
-                                                    data-bs-custom-class="custom-tooltip" data-html="true"
-                                                    title="La contraseña debe contener:
-                                                            Al menos una letra mayúscula.
-                                                            Al menos una letra minúscula. 
-                                                            Al menos un número.
-                                                            Mínimo 6 carácteres.
-                                                            Máximo 8 carácteres" --}}
-                                                    class="form-control @error('password') is-invalid @enderror" id="password"
-                                                    name="password" type="password" value="">
-                                                <i onclick="showPass();" class="bi bi-eye-fill st-icon"></i>
-                                            </div>
-                                        </diV>
-                                    </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="name" class="form-label"
-                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Confirmar
-                                                    Contraseña</label>
-                                                <input autocomplete="off" placeholder="Confirmar Contraseña"
-                                                    class="form-control @error('password_confrimation') is-invalid @enderror"
-                                                    id="password_confrimation" name="password_confrimation" type="password"
-                                                    value="">
-                                                <i onclick="showPassConfimation();" class="bi bi-eye-fill st-icon"></i>
-                                            </div>
-                                        </diV>
-
-                                        <div class="d-flex justify-content-center">
-                                            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl--8 mt-2 mb-3"
-                                                style="display: flex; justify-content: space-around;">
-                                                <input class="btn btnPrimary" value="Guardar" type="submit" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{ Form::close() }}
-
+                            </diV>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3 mb-3" style="display: flex; justify-content: space-around;">
+                            <div class="d-flex justify-content-center">
+                                <input class="btn btnPrimary" value="@lang('messages.botton.recuperar')" type="submit" style="margin-top: 0px; margin-right: 20px; "/>
+                                <a href="/"><button type="button" class="btn btnSecond btn2">@lang('messages.botton.cancelar')</button></a>
                             </div>
                         </div>
                     </div>
+                    {{ Form::close() }}
+
+                    {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-recovery-password']) }}
+                    <div class="row" id="content-recovery" style="display: none">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                            <div class="form-group">
+                                <div class="Icon-inside">
+                                    <label for="name" class="form-label"
+                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.login.contraseña')</label>
+                                    <input placeholder="@lang('messages.login.contraseña')" autocomplete="off"
+                                        {{-- data-bs-toggle="tooltip" data-bs-placement="right"
+                                        data-bs-custom-class="custom-tooltip" data-html="true"
+                                        title="La contraseña debe contener:
+                                                Al menos una letra mayúscula.
+                                                Al menos una letra minúscula.
+                                                Al menos un número.
+                                                Mínimo 6 carácteres.
+                                                Máximo 8 carácteres" --}}
+                                        class="form-control @error('password') is-invalid @enderror" id="password"
+                                        name="password" type="password" value="">
+                                    <i onclick="showPass();" class="bi bi-eye-fill st-icon"></i>
+                                </div>
+                            </diV>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                            <div class="form-group">
+                                <div class="Icon-inside">
+                                    <label for="name" class="form-label"
+                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.login.confirmar')</label>
+                                    <input autocomplete="off" placeholder="@lang('messages.login.confirmar')"
+                                        class="form-control @error('password_confrimation') is-invalid @enderror"
+                                        id="password_confrimation" name="password_confrimation" type="password"
+                                        value="">
+                                    <i onclick="showPassConfimation();" class="bi bi-eye-fill st-icon"></i>
+                                </div>
+                            </diV>
+
+                            <div class="d-flex justify-content-center">
+                                <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 mb-3"
+                                    style="display: flex; justify-content: space-around;">
+                                    <input class="btn btnPrimary" value="Guardar" type="submit" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{ Form::close() }}
                 </div>
             </div>
         </div>

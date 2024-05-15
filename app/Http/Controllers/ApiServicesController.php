@@ -8,7 +8,7 @@ class ApiServicesController extends Controller
 {
     static public function sms_welcome($phone, $caption, $image)
     {
-        
+
         try {
             $params = array(
 
@@ -47,7 +47,7 @@ class ApiServicesController extends Controller
 
     static public function sms_info($phone, $body)
     {
-        
+
         try {
             $params = array(
 
@@ -85,7 +85,7 @@ class ApiServicesController extends Controller
 
     static public function sms_reference_info($phone, $body)
     {
-        
+
         try {
             $params = array(
 
@@ -123,7 +123,7 @@ class ApiServicesController extends Controller
 
     static public function sms_location_lab()
     {
-        
+
         try {
             $params=array(
                 'token' => 'ypb31pibjltlbdwo',
@@ -148,10 +148,10 @@ class ApiServicesController extends Controller
                     "content-type: application/x-www-form-urlencoded"
                   ),
                 ));
-                
+
                 $response = curl_exec($curl);
                 $err = curl_error($curl);
-                
+
                 curl_close($curl);
 
         } catch (\Throwable $th) {
