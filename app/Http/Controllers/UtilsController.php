@@ -284,7 +284,7 @@ class UtilsController extends Controller
 	static function get_patients()
 	{
 		try {
-			$patients = Patient::all();
+			$patients = Patient::where("contrie_doc",auth()->user()->contrie)->get();
 			return $patients;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();

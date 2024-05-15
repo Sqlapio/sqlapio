@@ -44,7 +44,8 @@ class Patient extends Model
         'zip_code',
         'is_minor',
         'patient_img',
-        'verification_code',
+        'verification_code',        
+        "contrie_doc"
 
     ];
 
