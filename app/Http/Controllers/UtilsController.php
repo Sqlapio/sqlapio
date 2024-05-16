@@ -189,7 +189,7 @@ class UtilsController extends Controller
 					'genere'    => $request->genere,
 					'specialty' => $specialty,
 					'age' 		=> $request->age,
-					'phone' 	=> $request->phone,
+					'phone' 	=> $request->phonenumber_prefix."-".$request->phone,
 					'state' 	=> $request->state_contrie,
 					'city' 		=> $request->city_contrie,
 					'contrie' 		=> $request->contrie,

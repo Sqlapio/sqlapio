@@ -29,8 +29,6 @@ class Patients extends Component
     public function store(Request $request)
     {
         try {
-
-
             $user_id = Auth::user()->id;
             $user_name = "";
             $email = '';
@@ -356,7 +354,7 @@ class Patients extends Component
                         'last_name'         => $request->last_name,
                         'ci'                => $ci,
                         'email'             => $request->email,
-                        'phone'             => $request->phone,
+                        'phone'             => $request->phonenumber_prefix."-".$request->phone,
                         'profession'        => $profession,
                         'genere'            => $request->genere,
                         'birthdate'         => $request->birthdate,

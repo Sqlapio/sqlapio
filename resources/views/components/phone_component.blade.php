@@ -18,6 +18,16 @@
 
     $(document).ready(() => {
         createList();
+
+        let phone = @json($phone);
+
+        // setiar valores componente telefono
+        let prefix = phone.substring(0, phone.lastIndexOf("-("));
+        let contrie = countries.find((e) => e.prefix == Number(prefix.replace('+', '')));
+        $('#phone').val(phone.substring(phone.indexOf("-") + 1));
+        $('#pn-input__prefix').val(prefix);
+        $("#js_selected-flag").attr('src', contrie.url_img);
+        //end
     });
 
     const createList = () => {
@@ -75,27 +85,29 @@
         padding: 5px 15px !important;
     }
 
-.pn-select {
-    font-size: 1rem !important;
-    border-radius: 30px !important;
-    padding: 0.375rem 30px 0.375rem 15px !important;
-    box-shadow: 2px 3px 9px -4px rgba(0, 0, 0, 0.77);
-    -webkit-box-shadow: 2px 3px 9px -4px rgba(0, 0, 0, 0.77);
-    -moz-box-shadow: 2px 3px 9px -4px rgba(0, 0, 0, 0.77);
-    padding: 3px !important;
-    max-width: 100% !important;
-}
+    .pn-select {
+        font-size: 1rem !important;
+        border-radius: 30px !important;
+        padding: 0.375rem 30px 0.375rem 15px !important;
+        box-shadow: 2px 3px 9px -4px rgba(0, 0, 0, 0.77);
+        -webkit-box-shadow: 2px 3px 9px -4px rgba(0, 0, 0, 0.77);
+        -moz-box-shadow: 2px 3px 9px -4px rgba(0, 0, 0, 0.77);
+        padding: 3px !important;
+        max-width: 100% !important;
+    }
 
-.pn-select:focus, .pn-select:focus-within {
-    color: var(--bs-body-color);
-    background-color: var(--bs-body-bg);
-    border-color: #86b7fe;
-    outline: 0;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-}
-    </style>
+    .pn-select:focus,
+    .pn-select:focus-within {
+        color: var(--bs-body-color);
+        background-color: var(--bs-body-bg);
+        border-color: #86b7fe;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+</style>
 <div>
-    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
+    <label for="phone" class="form-label"
+        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
     <div class="pn-select" id="js_pn-select" style="--prefix-length: 2">
         <button class="pn-selected-prefix" aria-label="Select phonenumber prefix" id="js_trigger-dropdown"
             onclick="openDropdownNew();" tabindex="1" type="button">
@@ -104,23 +116,13 @@
         <div class="pn-input">
             <div class="pn-input__container">
                 <input class="pn-input__prefix input-telelfono-class" id="pn-input__prefix" value="+58"
-                    type="text" name="phonenumber-prefix" id="js_number-prefix" />
+                    type="text" name="phonenumber_prefix" id="js_number-prefix" />
                 <input class="pn-input__phonenumber input-telelfono-class phone input-phone-class" id="phone"
-                    type="tel" name="phone" value="" max="10"
-                    onclick="closeDropdown();" autocomplete="nope" />
+                    type="tel" name="phone" value="" max="10" onclick="closeDropdown();"
+                    autocomplete="nope" />
             </div>
         </div>
         <div class="pn-dropdown" id="js_dropdown">
-            {{-- <div class="pn-search">
-                <svg class="pn-search__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    viewBox="0 0 24 24" fill="none" stroke="#103155" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-                <input placeholder="Buscar pais" class="pn-search__input search input-telelfono-class" type="search"
-                    id="jj" autocomplete="nope" />
-            </div> --}}
             <ul class="pn-list list" id="js_list"></ul>
         </div>
     </div>
