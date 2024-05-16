@@ -71,18 +71,21 @@
 
         $(document).ready(() => {
 
-            console.log(patients)
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             tooltipTriggerList.forEach(element => {
                 new bootstrap.Tooltip(element)
             });
             // get_patient_register(countPatientRegister);
             // get_general(elderly, adult);
-            get_quotes();
-            get_medical_record(countMedicalRecordr);
-            get_history_register(countHistoryRegister);
-            get_genere(boy_girl, teen);
+            // get_medical_record(countMedicalRecordr);
+            // get_history_register(countHistoryRegister);
+            // get_genere(boy_girl, teen);
             get_general(elderly, adult, boy_girl, teen);
+            get_quotes();
+            get_queries_month();
+            get_appointments_attended();
+            get_appointments_canceled();
+            get_appointments_confirmed();
             get_study(count_study),
                 get_examen(count_examen),
                 //validar formulario
@@ -588,15 +591,28 @@
     <div>
         {{-- rol medico --}}
         @if (Auth::user()->role == 'medico')
-            <div id="spinner" style="display: none" class="spinner-md"> 
+            <div id="spinner" style="display: none" class="spinner-md">
                 <x-load-spinner show="true" />
             </div>
             <div class="container-fluid body" style="padding: 2% 3% 3%">
                 <div class="row mt-2">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
                         <div class="card bg-4">
-                            <div class="card-body" style="position: sticky">
+                            <div class="card-body" style="position: sticky; padding: 1% 2%;">
                                 <h4 class="mb-4 mt-2" style="color: #ffff">Dashboard Sqlapio</h4>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12">
+                                            <div class="card" style="background-color: #222f3e">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;" >
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:350px; width:100%">
+                                                        <canvas id="queries_month"  style="height:40vh; width:100vw"</canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row">
                                         <div class="col-xl-3 col-lg-3">
@@ -671,20 +687,29 @@
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row">
-                                        <div class="col-xl-6 col-lg-6">
-                                            <div class="card">
+                                        <div class="col-xl-4 col-lg-4">
+                                            <div class="card" style="background-color: #222f3e">
                                                 <div class="card-body p-4" style="display: flex; justify-content: center;" >
-                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:800">
-                                                        <canvas id="countGereral2"></canvas>
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
+                                                        <canvas id="appointments_attended" style="height:100vh; width:100vw"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-6 col-lg-6">
-                                            <div class="card ">
+                                        <div class="col-xl-4 col-lg-4">
+                                            <div class="card " style="background-color: #222f3e">
                                                 <div class="card-body p-4" style="display: flex; justify-content: center;">
-                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:400">
-                                                        <canvas id="quotes"></canvas>
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
+                                                        <canvas id="appointments_confirmed" style="height:100vh; width:100vw"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4">
+                                            <div class="card " style="background-color: #222f3e">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
+                                                        <canvas id="appointments_canceled" style="height:100vh; width:100vw"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -694,11 +719,11 @@
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row">
                                         <div class="col-xl-5 col-lg-5">
-                                            <div class="card">
+                                            <div class="card" style="background-color: #222f3e">
                                                 <div class="card-body p-4">
-                                                    <div class="row" id="table-patients">
+                                                    <div class="row" id="table-patients" style="color: #b3b3b3">
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-                                                            <table id="table-patient" class="table table-striped table-bordered" style="width:100%; ">
+                                                            <table id="table-patient" class="table table-striped table-bordered table-dark" style="width:100%;">
                                                                 <thead>
                                                                     <tr>
                                                                         <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
@@ -730,12 +755,12 @@
                                             </div>
                                         </div>
                                         <div class="col-xl-7 col-lg-7">
-                                            <div class="card ">
+                                            <div class="card" style="background-color: #222f3e">
                                                 <div class="card-body p-4">
-                                                    <div class="row" id="table-patients">
-                                                        <h5><i class="bi bi-calendar2-check"></i> @lang('messages.acordion.citas')</h5>
+                                                    <div class="row" id="table-patients" style="color: #b3b3b3">
+                                                        <h5><i class="bi bi-calendar2-check" style="color: #fffff"></i> @lang('messages.acordion.citas')</h5>
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-                                                            <table id="table-patient" class="table table-striped table-bordered" style="width:100%">
+                                                            <table id="table-patient" class="table table-striped table-bordered table-dark" style="width:100%">
                                                                 <thead>
                                                                     <tr>
                                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.hora') </th>
@@ -805,6 +830,28 @@
                                                                 </tbody>
                                                             </table>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="row">
+                                        <div class="col-xl-9 col-lg-9">
+                                            <div class="card" style="background-color: #222f3e">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;" >
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:350px; width:100%">
+                                                        <canvas id="countGereral2" style="height:60vh; width:100vw"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3">
+                                            <div class="card " style="background-color: #222f3e">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:350px; width:100%">
+                                                        <canvas id="quotes" style="height:50vh; width:100vw"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
