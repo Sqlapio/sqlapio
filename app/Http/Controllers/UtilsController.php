@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Livewire\Components\Laboratory as ComponentsLaboratory;
+use App\Http\Livewire\Components\Patients;
 use App\Mail\NotificationDairy;
 use App\Mail\NotificationEmail;
 use App\Mail\NotificationPatient;
@@ -188,7 +189,7 @@ class UtilsController extends Controller
 					'genere'    => $request->genere,
 					'specialty' => $specialty,
 					'age' 		=> $request->age,
-					'phone' 	=> $request->phone,
+					'phone' 	=> $request->phonenumber_prefix."-".$request->phone,
 					'state' 	=> $request->state_contrie,
 					'city' 		=> $request->city_contrie,
 					'contrie' 		=> $request->contrie,
@@ -284,7 +285,7 @@ class UtilsController extends Controller
 	static function get_patients()
 	{
 		try {
-			$patients = Patient::all();
+			$patients = Patient::where("contrie_doc",auth()->user()->contrie)->get();
 			return $patients;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
@@ -1320,7 +1321,12 @@ class UtilsController extends Controller
 		$data = [];
 
 		if ($row != 'cod_ref') {
-
+			
+			$pat = Patient::where("ci",$value)
+			->whereHas('get_reprensetative', function ($q) use ($value) {
+				$q->orWhere('re_ci', $value);
+			})->get();
+	
 			$tablePat =  ExamPatient::where('status', 2)
 				->whereHas('get_patients', function ($q) use ($value) {
 					$q->where('ci', $value);
@@ -1339,7 +1345,7 @@ class UtilsController extends Controller
 				->take(10)   // limite de resgistro
 				->get();
 
-			$count = $data = $tablePat->union($tableRep)->get();
+			$count =  $tablePat->union($tableRep)->get();
 
 			$data = [
 				"data" => $data,
@@ -1377,7 +1383,7 @@ class UtilsController extends Controller
 				"limit" => 10,
 			];
 
-			return ["data" => $data, "reference" => $reference];
+			return ["data" => $data, "reference" => $reference, "pat"=>$pat];
 		} else {
 
 			$tablePat =  Reference::whereHas('get_patient', function ($q) use ($value) {
@@ -1413,6 +1419,12 @@ class UtilsController extends Controller
 
 		$data = [];
 		if ($row != 'cod_ref') {
+
+			
+			$pat = Patient::where("ci",$value)
+			->whereHas('get_reprensetative', function ($q) use ($value) {
+				$q->orWhere('re_ci', $value);
+			})->get();
 
 			$tablePat =  StudyPatient::where('status', 2)
 				->whereHas('get_patient', function ($q) use ($value) {
@@ -1468,7 +1480,8 @@ class UtilsController extends Controller
 				"limit" => 10,
 			];
 
-			return ["data" => $data, "reference" => $reference];
+			return ["data" => $data, "reference" => $reference, "pat"=>$pat];
+
 		}
 	}
 

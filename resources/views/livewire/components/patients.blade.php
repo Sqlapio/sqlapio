@@ -470,6 +470,15 @@
             $("#genere").val(item.genere).change();
             $("#email").val(item.email);
             $("#phone").val(item.phone);
+
+            // setiar valores componente telefono
+            let prefix = item.phone.substring(0, item.phone.lastIndexOf("-("));
+      
+            $('#phone').val(item.phone.substring(item.phone.indexOf("-") + 1));
+            $('#pn-input__prefix').val(prefix);
+            // $("#js_selected-flag").attr('src', contrie.url_img);
+            //end
+
             $("#profession").val(item.profession);
             $("#birthdate").val(item.birthdate).change();
             $("#zip_code").val(item.zip_code);

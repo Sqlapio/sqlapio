@@ -526,6 +526,7 @@ return [
         'habilitar_centro'          => '¿Está seguro que desea habilitar este centro?',
         'registro_inicial'          => 'Debe completar su registro inicial!',
         'paciente_sin_info'         => 'El paciente no tiene información cargada en el sistema!',
+        'paciente_no'               => 'Paciente no existe!',
         'ingrese_codigo'            => 'Ingrese el código',
         'envio_codigo'              => 'Se enviara un código de verifcación al correo ingresado!',
         'perfil_actualizado'        => 'Perfil actualizado exitosamente!',

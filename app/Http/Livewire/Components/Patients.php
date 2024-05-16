@@ -29,8 +29,6 @@ class Patients extends Component
     public function store(Request $request)
     {
         try {
-
-
             $user_id = Auth::user()->id;
             $user_name = "";
             $email = '';
@@ -145,7 +143,7 @@ class Patients extends Component
                         'birthdate'         => $request->birthdate,
                         'is_minor'          => 'true',
                         'age'               => $request->age,
-                        // 'state'          => $request->state,
+                        'contrie_doc'          => auth()->user()->contrie,
                         // 'city'           => $request->city,
                         'address'           => $request->address,
                         'zip_code'          => $request->zip_code,
@@ -356,11 +354,12 @@ class Patients extends Component
                         'last_name'         => $request->last_name,
                         'ci'                => $ci,
                         'email'             => $request->email,
-                        'phone'             => $request->phone,
+                        'phone'             => $request->phonenumber_prefix."-".$request->phone,
                         'profession'        => $profession,
                         'genere'            => $request->genere,
                         'birthdate'         => $request->birthdate,
                         'age'               => $request->age,
+                        'contrie_doc'          => auth()->user()->contrie,
                         'state'             => $request->state,
                         'city'              => $request->city,
                         'address'           => $request->address,

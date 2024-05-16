@@ -33,7 +33,7 @@
 </style>
 @push('scripts')
     <script>
-        let link = ''
+        let link = '';
         $(document).ready(() => {
 
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -108,7 +108,7 @@
                     city_contrie: {
                         required: true,
                     },
-                    specialty_new:{
+                    specialty_new: {
                         required: true,
                     }
                 },
@@ -237,6 +237,7 @@
                 $('#genere').val(user.genere).change();
                 $('#specialty').val(user.specialty).change();
                 $(".holder").find('img').attr('src', img);
+
                 if (seal_img != null) {
                     $(".holder_seal").show();
                     let ulr_seal_img = `{{ URL::asset('/imgs/seal/${seal_img}') }}`;
@@ -329,7 +330,8 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: '@lang('messages.botton.aceptar')'
                             }).then((result) => {
-                                window.location.href = (user.role == "corporativo") ?
+                                window.location.href = (user.role ==
+                                        "corporativo") ?
                                     "{{ route('Dashboard-corporate') }}" :
                                     "{{ route('DashboardComponent') }}";
                             });
@@ -462,24 +464,29 @@
                                             data: {
                                                 "_token": "{{ csrf_token() }}",
                                                 cod_update_email: login,
-                                                email: $('#act-email').val(),
+                                                email: $('#act-email')
+                                                    .val(),
                                                 action: "up",
                                             },
                                             headers: {
                                                 'X-CSRF-TOKEN': $(
-                                                        'meta[name="csrf-token"]')
+                                                        'meta[name="csrf-token"]'
+                                                    )
                                                     .attr(
                                                         'content')
                                             },
                                             success: function(response) {
                                                 Swal.fire({
                                                     icon: 'success',
-                                                    title: response.msj,
+                                                    title: response
+                                                        .msj,
                                                     allowOutsideClick: false,
                                                     confirmButtonColor: '#42ABE2',
                                                     confirmButtonText: '@lang('messages.botton.aceptar')'
-                                                }).then((result) => {
-                                                    window.location
+                                                }).then((
+                                                    result) => {
+                                                    window
+                                                        .location
                                                         .href =
                                                         "{{ route('Profile') }}";
                                                 });
@@ -549,7 +556,7 @@
 
         }
 
-        const handleSpeciality= (e) => {
+        const handleSpeciality = (e) => {
 
             if (e.target.value === "Otros") {
                 $('#specialty-div').hide();
@@ -587,8 +594,10 @@
                                 <i class="bi bi-person"></i> @lang('messages.acordion.datos_personales')
                             </button>
                         </span>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
-                            <div class="accordion-body" style="{{ Auth::user()->role == 'corporativo' ? 'padding: 0px 16px' : '' }}">
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            data-bs-parent="#accordion">
+                            <div class="accordion-body"
+                                style="{{ Auth::user()->role == 'corporativo' ? 'padding: 0px 16px' : '' }}">
                                 <form id="form-profile" method="post" action="/">
                                     {{ csrf_field() }}
                                     <input type="hidden" id="rol" name="rol" value="{{ Auth::user()->role }}">
@@ -630,15 +639,17 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 @if (Auth::user()->contrie == '81')
-                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
+                                                                    <label for="ci" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
                                                                 @else
-                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
+                                                                    <label for="ci" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
                                                                 @endif
-                                                                    <input autocomplete="off" placeholder=""
-                                                                        class="form-control @error('ci') is-invalid @enderror"
-                                                                        id="ci" name="ci" type="text"
-                                                                        value="{!! !empty($user) ? $user->ci : '' !!}">
-                                                                    <i class="bi bi-person-vcard st-icon"></i>
+                                                                <input autocomplete="off" placeholder=""
+                                                                    class="form-control @error('ci') is-invalid @enderror"
+                                                                    id="ci" name="ci" type="text"
+                                                                    value="{!! !empty($user) ? $user->ci : '' !!}">
+                                                                <i class="bi bi-person-vcard st-icon"></i>
                                                             </div>
                                                         </diV>
                                                     </div>
@@ -684,7 +695,8 @@
                                                         </diV>
                                                     </div>
                                                     <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                        <div class="form-group">
+                                                        <x-phone_component :phone="$user->phone"/>
+                                                        {{-- <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
                                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
@@ -694,7 +706,7 @@
                                                                     value="{!! !empty($user) ? $user->phone : '' !!}">
                                                                 <i class="bi bi-telephone-forward st-icon"></i>
                                                             </div>
-                                                        </diV>
+                                                        </diV> --}}
                                                     </div>
                                                     <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2"
                                                         id="specialty-div">
@@ -702,7 +714,8 @@
                                                             <div class="Icon-inside">
                                                                 <label for="specialty" class="form-label"
                                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.especialidad')</label>
-                                                                <select onchange="handleSpeciality(event)" name="specialty" id="specialty"
+                                                                <select onchange="handleSpeciality(event)"
+                                                                    name="specialty" id="specialty"
                                                                     placeholder="Seleccione"class="form-control @error('specialty') is-invalid @enderror"
                                                                     class="form-control combo-textbox-input">
                                                                     <option value="">@lang('messages.placeholder.seleccione')</option>
@@ -716,13 +729,17 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2" id='div-otros' style="display: none">
+                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2"
+                                                        id='div-otros' style="display: none">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="specialty" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                <label for="specialty" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                     @lang('messages.label.nueva_especialidad')
                                                                 </label>
-                                                                <input autocomplete="off" class="form-control mask-text" id="specialty_new" name="specialty_new" type="text" value="">
+                                                                <input autocomplete="off" class="form-control mask-text"
+                                                                    id="specialty_new" name="specialty_new"
+                                                                    type="text" value="">
                                                                 <i data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                                     data-bs-custom-class="custom-tooltip" data-html="true"
                                                                     title="Refrescar"
@@ -793,7 +810,8 @@
                                             <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="zip_code" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.codigo_postal')</label>
+                                                        <label for="zip_code" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.codigo_postal')</label>
                                                         <input autocomplete="off" placeholder=""
                                                             class="form-control mask-only-text @error('zip_code') is-invalid @enderror"
                                                             id="zip_code" name="zip_code" type="text"
@@ -806,9 +824,11 @@
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         @if (Auth::user()->contrie == '81')
-                                                            <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps_rp')</label>
+                                                            <label for="cod_mpps" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps_rp')</label>
                                                         @else
-                                                            <label for="cod_mpps" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps')</label>
+                                                            <label for="cod_mpps" class="form-label"
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps')</label>
                                                         @endif
                                                         <input autocomplete="off" placeholder="MPPS"
                                                             class="form-control mask-only-number @error('cod_mpps') is-invalid @enderror"
@@ -983,14 +1003,19 @@
                                             </div>
                                         @endif
 
-                                        <div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl-2 mb-btn {{ Auth::user()->role == 'corporativo' ? 'mb-btnSve' : '' }}" style="display: flex; align-items: flex-end;">
-                                            <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="margin-bottom: 1px; width: 100%;" />
+                                        <div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl-2 mb-btn {{ Auth::user()->role == 'corporativo' ? 'mb-btnSve' : '' }}"
+                                            style="display: flex; align-items: flex-end;">
+                                            <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit"
+                                                style="margin-bottom: 1px; width: 100%;" />
                                         </div>
                                         @if (Auth::user()->role == 'corporativo')
                                             <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mb-btn mb-btnRtr"
                                                 style="display: flex; justify-content: space-around; align-items: flex-end; margin-bottom: 1px;">
-                                                <a id="Link-medicos" href="{{ Auth::user()->token_corporate }}"target="_blank" style="text-decoration: none;">
-                                                    <button type="button" class="btn btnPrimary" style="padding: 7px 20px">@lang('messages.botton.registrar_medico')</button>
+                                                <a id="Link-medicos"
+                                                    href="{{ Auth::user()->token_corporate }}"target="_blank"
+                                                    style="text-decoration: none;">
+                                                    <button type="button" class="btn btnPrimary"
+                                                        style="padding: 7px 20px">@lang('messages.botton.registrar_medico')</button>
                                                 </a>
                                                 <button type="button" id="icon-copy"
                                                     class="btn btn-iSecond rounded-circle" data-bs-toggle="tooltip"
@@ -1032,15 +1057,19 @@
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 col-xxl-3" id="email-div">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
-                                                <input autocomplete="off" class="form-control alpha-no-spaces" id="act-email" name="act-email" type="text" value="">
+                                                <label for="phone" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
+                                                <input autocomplete="off" class="form-control alpha-no-spaces"
+                                                    id="act-email" name="act-email" type="text" value="">
                                                 <i class="bi bi-envelope-at st-icon"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mt-2 justify-content-md-end">
-                                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                            <input class="btn btnSave send " onclick="handlerEmial()" value="@lang('messages.botton.guardar')" type="submit" style="margin-left: 20px" />
+                                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                            style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                            <input class="btn btnSave send " onclick="handlerEmial()"
+                                                value="@lang('messages.botton.guardar')" type="submit" style="margin-left: 20px" />
                                         </div>
                                     </div>
                                 </div>
@@ -1070,8 +1099,10 @@
                                             {{ csrf_field() }}
                                             <x-seal-component />
                                             <div class="row mt-2 justify-content-md-end">
-                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                                    <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="margin-left: 20px" />
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                                    style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                                    <input class="btn btnSave send" value="@lang('messages.botton.guardar')"
+                                                        type="submit" style="margin-left: 20px" />
                                                 </div>
                                             </div>
                                         </form>
