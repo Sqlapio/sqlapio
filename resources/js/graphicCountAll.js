@@ -275,7 +275,8 @@ function get_general(boy_girl, teen, elderly, adult) {
       },
       plugins: {
         legend: {
-          position: "top",
+            position: "bottom",
+            align: "start",
           labels: {
             color: "#b3b3b3"
           }
