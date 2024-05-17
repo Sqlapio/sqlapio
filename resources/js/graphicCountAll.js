@@ -561,6 +561,41 @@ function get_quotes() {
   });
 }
 
+function get_quotes2() {
+  const data = {
+    labels: ["Canceladas", "Atendidas", "Confirmadas"],
+    datasets: [
+      {
+        label: "Dataset 1",
+        data: [8, 5, 10],
+        backgroundColor: ["#ed6c6c", "#ffba56", "#36e97b"]
+      }
+    ]
+  };
+
+  new Chart($("#quotes2"), {
+    type: "pie",
+    data: data,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "bottom",
+          align: "start",
+          labels: {
+            color: "#b3b3b3"
+          }
+        },
+        title: {
+          display: true,
+          text: "Citas",
+          color: "#b3b3b3"
+        }
+      }
+    }
+  });
+}
+
 // window.get_patient_register = get_patient_register;
 // window.get_medical_record = get_medical_record;
 // window.get_history_register = get_history_register;
@@ -571,3 +606,4 @@ window.get_appointments_attended = get_appointments_attended;
 window.get_appointments_canceled = get_appointments_canceled;
 window.get_appointments_confirmed = get_appointments_confirmed;
 window.get_quotes = get_quotes;
+window.get_quotes2 = get_quotes2;
