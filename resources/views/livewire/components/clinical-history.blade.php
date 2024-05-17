@@ -295,7 +295,7 @@
                 new DataTable(
                     '#table-alergias', {
                         language: {
-                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                            url: url,
                         },
                         bDestroy: true,
                         data: arrayAllergies,
@@ -473,7 +473,7 @@
                 new DataTable(
                     '#table-medicamento', {
                         language: {
-                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                            url: url,
                         },
                         bDestroy: true,
                         data: arraymedications_supplements,
@@ -562,7 +562,7 @@
                 new DataTable(
                     '#table-cirugia', {
                         language: {
-                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                            url: url,
                         },
                         bDestroy: true,
                         data: arrayhistory_surgical,

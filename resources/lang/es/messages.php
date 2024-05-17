@@ -571,6 +571,7 @@ return [
         'ccontraseña_8_caracteres'  => 'Contraseña debe ser menor a 8 caracteres',
         'ccontraseña_obligatorio'   => 'Confirmar contraseña es obligatoria',
         'contraseña_no_coincide'    => 'Contraseña no coinciden',
+        'recuperar_contraseña'      => 'Operación exitosa, le hemos enviado su contraseña al correo por favor verifique la información!'
     ],
 
     'graficas' => [

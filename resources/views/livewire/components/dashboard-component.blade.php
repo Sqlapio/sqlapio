@@ -35,6 +35,14 @@
         vertical-align: middle;
     }
 
+
+    @media screen and (max-width: 1200px) {
+        .graficas-3 canvas {
+            height:auto !important;
+            width:100% !important;
+        }
+    }
+
     @media screen and (max-width: 576px) {
         .mt-gf {
             margin-top: 0 !important;
@@ -68,7 +76,6 @@
         let studies_array = [];
         let row = "";
 
-
         $(document).ready(() => {
 
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -82,6 +89,7 @@
             // get_genere(boy_girl, teen);
             get_general(elderly, adult, boy_girl, teen);
             get_quotes();
+            get_quotes2();
             get_queries_month();
             get_appointments_attended();
             get_appointments_canceled();
@@ -165,6 +173,14 @@
                     });
                 }
             })
+
+            $('#table-patients').DataTable( {
+                pageLength: 5,
+                paging: true,
+                scroller: true,
+                scrollY: '200px',
+            } );
+
 
         });
 
@@ -585,6 +601,7 @@
                 window.location.href = url;
             });
         }
+
     </script>
 @endpush
 @section('content')
@@ -602,11 +619,11 @@
                                 <h4 class="mb-4 mt-2" style="color: #ffff">Dashboard Sqlapio</h4>
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row">
-                                        <div class="col-xl-12 col-lg-12">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">
                                             <div class="card" style="background-color: #222f3e">
                                                 <div class="card-body p-4" style="display: flex; justify-content: center;" >
                                                     <div class="c-chart-wrapper mt-2 mx-3" style="height:350px; width:100%">
-                                                        <canvas id="queries_month"  style="height:40vh; width:100vw"</canvas>
+                                                        <canvas id="queries_month" style="height:40vh; width:100vw"</canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -615,7 +632,7 @@
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row">
-                                        <div class="col-xl-3 col-lg-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
                                             <div class="card l-bg-cherry">
                                                 <div class="card-statistic-3 p-4">
                                                     <div class="card-icon card-icon-large"><img width="120" height="auto" src="{{ asset('/img/icons/patients-w.png') }}" alt="avatar"></div>
@@ -632,7 +649,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-3 col-lg-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
                                             <div class="card l-bg-blue-dark">
                                                 <div class="card-statistic-3 p-4">
                                                     <div class="card-icon card-icon-large"> <img width="120" height="auto" src="{{ asset('/img/icons/medical-report3-w.png') }}" alt="avatar"></div>
@@ -649,7 +666,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-3 col-lg-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
                                             <div class="card l-bg-green-dark">
                                                 <div class="card-statistic-3 p-4">
                                                     <div class="card-icon card-icon-large"> <img width="120" height="auto" src="{{ asset('/img/icons/medical-report-w.png') }}" alt="avatar"></div>
@@ -666,7 +683,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-3 col-lg-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
                                             <div class="card l-bg-orange-dark">
                                                 <div class="card-statistic-3 p-4">
                                                     <div class="card-icon card-icon-large"><img width="120" height="auto" src="{{ asset('/img/icons/medical1-w.png') }}" alt="avatar"></div>
@@ -687,29 +704,29 @@
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row">
-                                        <div class="col-xl-4 col-lg-4">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-lg-4">
                                             <div class="card" style="background-color: #222f3e">
                                                 <div class="card-body p-4" style="display: flex; justify-content: center;" >
-                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
-                                                        <canvas id="appointments_attended" style="height:100vh; width:100vw"></canvas>
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                        <canvas id="appointments_attended"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-4 col-lg-4">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-lg-4">
                                             <div class="card " style="background-color: #222f3e">
                                                 <div class="card-body p-4" style="display: flex; justify-content: center;">
-                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
-                                                        <canvas id="appointments_confirmed" style="height:100vh; width:100vw"></canvas>
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                        <canvas id="appointments_confirmed" ></canvas>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-4 col-lg-4">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-lg-4">
                                             <div class="card " style="background-color: #222f3e">
                                                 <div class="card-body p-4" style="display: flex; justify-content: center;">
-                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
-                                                        <canvas id="appointments_canceled" style="height:100vh; width:100vw"></canvas>
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                        <canvas id="appointments_canceled"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -718,43 +735,7 @@
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row">
-                                        <div class="col-xl-5 col-lg-5">
-                                            <div class="card" style="background-color: #222f3e">
-                                                <div class="card-body p-4">
-                                                    <div class="row" id="table-patients" style="color: #b3b3b3">
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-                                                            <table id="table-patient" class="table table-striped table-bordered table-dark" style="width:100%;">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
-                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.nombre_apellido')</th>
-                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.email')</th>
-                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.telefono')</th>
-
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach ($patients as $item)
-                                                                        <tr>
-                                                                            <td class="table-avatar">
-                                                                                <img class="avatar"
-                                                                                    src=" {{ $item->patient_img ? asset('/imgs/' . $item->patient_img) : ($item->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
-                                                                                    alt="Imagen del paciente">
-                                                                            </td>
-                                                                            <td class="text-center text-capitalize">{{ $item->name }} {{ $item->last_name }}</td>
-                                                                            <td class="text-center text-capitalize">{{ $item->email }}</td>
-                                                                            <td class="text-center text-capitalize">{{ $item->phone }}</td>
-
-                                                                        </tr>
-                                                                    @endforeach
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-7 col-lg-7">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">
                                             <div class="card" style="background-color: #222f3e">
                                                 <div class="card-body p-4">
                                                     <div class="row" id="table-patients" style="color: #b3b3b3">
@@ -838,20 +819,70 @@
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row">
-                                        <div class="col-xl-9 col-lg-9">
-                                            <div class="card" style="background-color: #222f3e">
-                                                <div class="card-body p-4" style="display: flex; justify-content: center;" >
-                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:350px; width:100%">
-                                                        <canvas id="countGereral2" style="height:60vh; width:100vw"></canvas>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 col-lg-7">
+                                            <div class="card" style="background-color: #222f3e;">
+                                                <div class="card-body p-4">
+                                                    <div class="row" id="table-patients" style="color: #b3b3b3">
+                                                        <h5><i class="bi bi-calendar2-check" style="color: #fffff"></i> Pacientes</h5>
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                            <table id="table-patient" class="table table-striped table-bordered table-dark" style="width:100%;">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.nombre_apellido')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.email')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.telefono')</th>
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($patients as $item)
+                                                                        <tr>
+                                                                            <td class="table-avatar">
+                                                                                <img class="avatar"
+                                                                                    src=" {{ $item->patient_img ? asset('/imgs/' . $item->patient_img) : ($item->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                                                    alt="Imagen del paciente">
+                                                                            </td>
+                                                                            <td class="text-center text-capitalize">{{ $item->name }} {{ $item->last_name }}</td>
+                                                                            <td class="text-center text-capitalize">{{ $item->email }}</td>
+                                                                            <td class="text-center text-capitalize">{{ $item->phone }}</td>
+
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-3 col-lg-3">
-                                            <div class="card " style="background-color: #222f3e">
-                                                <div class="card-body p-4" style="display: flex; justify-content: center;">
-                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:350px; width:100%">
-                                                        <canvas id="quotes" style="height:50vh; width:100vw"></canvas>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 col-xxl-5">
+                                            <div class="row">
+                                                <div class="col-xl-12 col-lg-12">
+                                                    <div class="card" style="background-color: #222f3e; margin-bottom: 25px;">
+                                                        <div class="card-body p-4" style="display: flex; justify-content: center;" >
+                                                            <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                                <canvas id="countGereral2" ></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6">
+                                                    <div class="card " style="background-color: #222f3e;">
+                                                        <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                            <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
+                                                                <canvas id="quotes" style="height:auto; width:100vw"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6">
+                                                    <div class="card " style="background-color: #222f3e;">
+                                                        <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                            <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
+                                                                <canvas id="quotes2" style="height:auto; width:100vw"></canvas>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
