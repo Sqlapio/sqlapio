@@ -21,13 +21,15 @@
 
         let phone = @json($phone);
 
-        // setiar valores componente telefono
-        let prefix = phone.substring(0, phone.lastIndexOf("-("));
-        let contrie = countries.find((e) => e.prefix == Number(prefix.replace('+', '')));
-        $('#phone').val(phone.substring(phone.indexOf("-") + 1));
-        $('#pn-input__prefix').val(prefix);
-        $("#js_selected-flag").attr('src', contrie.url_img);
-        //end
+        if(phone){
+            // setiar valores componente telefono
+            let prefix = phone.substring(0, phone.lastIndexOf("-("));
+            let contrie = countries.find((e) => e.prefix == Number(prefix.replace('+', '')));
+            $('#phone').val(phone.substring(phone.indexOf("-") + 1));
+            $('#pn-input__prefix').val(prefix);
+            $("#js_selected-flag").attr('src', contrie.url_img);
+            //end
+        }
     });
 
     const createList = () => {
