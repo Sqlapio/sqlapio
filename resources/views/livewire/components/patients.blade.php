@@ -113,9 +113,9 @@
 
         $(document).ready(() => {
 
-            if(patient.length==undefined){
+            if (patient.length == undefined) {
 
-                editPatien(patient,true);
+                editPatien(patient, true);
 
             }
 
@@ -473,10 +473,10 @@
 
             // setiar valores componente telefono
             let prefix = item.phone.substring(0, item.phone.lastIndexOf("-("));
-      
+            let cont = countries.find((e) => e.prefix == Number(prefix.replace('+', '')));
             $('#phone').val(item.phone.substring(item.phone.indexOf("-") + 1));
             $('#pn-input__prefix').val(prefix);
-            // $("#js_selected-flag").attr('src', contrie.url_img);
+            $("#js_selected-flag").attr('src', cont.url_img);
             //end
 
             $("#profession").val(item.profession);
@@ -581,9 +581,13 @@
                                 elem.name_full = `${elem.name} ${elem.last_name}`;
 
                                 if (user.contrie === '81') {
-                                    elem.ci = (elem.is_minor == "true") ? elem.get_reprensetative.re_ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3') + ' ' + '(Rep)' :  elem.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
+                                    elem.ci = (elem.is_minor == "true") ? elem.get_reprensetative.re_ci
+                                        .replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3') + ' ' +
+                                        '(Rep)' : elem.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/,
+                                            '$1-$2-$3');
                                 } else {
-                                    elem.ci = (elem.is_minor == "true") ? elem.get_reprensetative.re_ci + ' ' + '(Rep)' :  elem.ci;
+                                    elem.ci = (elem.is_minor == "true") ? elem.get_reprensetative
+                                        .re_ci + ' ' + '(Rep)' : elem.ci;
                                 }
 
                                 let elemData = JSON.stringify(elem);
@@ -815,7 +819,7 @@
                 confirmButtonColor: '#42ABE2',
                 confirmButtonText: '@lang('messages.botton.aceptar')'
             }).then((result) => {
-                editPatien(item,true);
+                editPatien(item, true);
 
             });
         }
@@ -823,7 +827,7 @@
 @endpush
 @section('content')
     <div>
-        <div id="spinner2" style="display: none" >
+        <div id="spinner2" style="display: none">
             <x-load-spinner show="true" />
         </div>
         <div class="container-fluid body" style="padding: 0 3% 3%">
@@ -838,7 +842,8 @@
                                     <i class="bi bi-person-add"></i> @lang('messages.acordion.nuevo_paciente')
                                 </button>
                             </span>
-                            <div id="collapseOne" class="accordion-collapseOne accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                            <div id="collapseOne" class="accordion-collapseOne accordion-collapse collapse"
+                                aria-labelledby="headingOne" data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row mt-3 justify-content-center" id="paciente-warnig" style="display: none">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
@@ -952,12 +957,15 @@
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     @if (Auth::user()->contrie == '81')
-                                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
+                                                                        <label for="ci" class="form-label"
+                                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
                                                                     @else
-                                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.cedula_identidad') </label>
+                                                                        <label for="ci" class="form-label"
+                                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                            @lang('messages.form.cedula_identidad') </label>
                                                                     @endif
                                                                     <input autocomplete="off"
-                                                                        class="form-control @error('ci') is-invalid @enderror {{ Auth::user()->contrie == '81' ? 'mask-id-dom' : '' ;}}"
+                                                                        class="form-control @error('ci') is-invalid @enderror {{ Auth::user()->contrie == '81' ? 'mask-id-dom' : '' }}"
                                                                         id="ci" name="ci" type="text"
                                                                         value="">
                                                                     <i class="bi bi-person-vcard st-icon"></i>
@@ -966,7 +974,7 @@
                                                         </div>
                                                         <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2"
                                                             id="div-phone">
-                                                            <x-phone_component/>
+                                                            <x-phone_component />
 
                                                             {{-- <div class="form-group">
                                                                 <div class="Icon-inside">
@@ -1025,11 +1033,13 @@
                                                 </div>
 
                                                 <input id="age" name="age" type="hidden" value="">
-                                                <x-professions class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3" />
+                                                <x-professions
+                                                    class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3" />
 
 
                                                 @if (Auth::user()->type_plane !== '7')
-                                                    <x-centers_user class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2" />
+                                                    <x-centers_user
+                                                        class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2" />
                                                 @endif
                                                 {{-- data del representante --}}
                                                 <div class="row mt-3" id="data-rep"
@@ -1053,7 +1063,8 @@
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="re_last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
+                                                                <label for="re_last_name" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-text @error('re_last_name') is-invalid @enderror"
                                                                     id="re_last_name" name="re_last_name" type="text"
@@ -1066,12 +1077,15 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 @if (Auth::user()->contrie == '81')
-                                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
-                                                                    @else
-                                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.cedula_identidad') </label>
-                                                                    @endif
+                                                                    <label for="ci" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
+                                                                @else
+                                                                    <label for="ci" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                        @lang('messages.form.cedula_identidad') </label>
+                                                                @endif
                                                                 <input autocomplete="off"
-                                                                    class="form-control @error('re_ci') is-invalid @enderror {{ Auth::user()->contrie == '81' ? 'mask-id-dom' : '' ;}}"
+                                                                    class="form-control @error('re_ci') is-invalid @enderror {{ Auth::user()->contrie == '81' ? 'mask-id-dom' : '' }}"
                                                                     id="re_ci" name="re_ci" type="text"
                                                                     value="">
                                                                 <i class="bi bi-person-vcard st-icon"></i>
@@ -1081,7 +1095,8 @@
                                                     <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="telefono" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
+                                                                <label for="telefono" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control phone @error('re_phone') is-invalid @enderror"
                                                                     id="re_phone" name="re_phone" type="text"
@@ -1094,7 +1109,8 @@
                                                         style="padding-right: 0;">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="email" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
+                                                                <label for="email" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
                                                                 <input autocomplete="off"
                                                                     onchange='handlerEmail(event,@json($email))'
                                                                     class="form-control @error('re_email') is-invalid @enderror"
@@ -1183,16 +1199,21 @@
                                         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group" style="margin-top: 5px;">
                                                 @if (Auth::user()->contrie == '81')
-                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
+                                                    <label for="ci" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
                                                 @else
-                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px"> @lang('messages.form.cedula_identidad') </label>
+                                                    <label for="ci" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                        @lang('messages.form.cedula_identidad') </label>
                                                 @endif
                                                 <input type="text"
-                                                    class="form-control mask-only-number} {{ Auth::user()->contrie == '81' ? 'mask-id-dom' : '' ;}}" id="search_patient"
-                                                    name="search_patient" placeholder="" value="">
+                                                    class="form-control mask-only-number} {{ Auth::user()->contrie == '81' ? 'mask-id-dom' : '' }}"
+                                                    id="search_patient" name="search_patient" placeholder=""
+                                                    value="">
                                             </div>
                                         </div>
-                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-3" style="display: flex; align-items: flex-end;">
+                                        <div class="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-xxl-1 mt-3"
+                                            style="display: flex; align-items: flex-end;">
                                             <button style="margin-top: 2px;" onclick="searchPat()" class="btn btnSave">
                                                 @lang('messages.botton.buscar')
                                             </button>
@@ -1200,20 +1221,27 @@
                                     </div>
                                     <div class="row mt-2">
                                         <div class="row" id="table-patients">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-                                                <table id="table-patient" class="table table-striped table-bordered" style="width:100%; ">
+                                            <div
+                                                class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                <table id="table-patient" class="table table-striped table-bordered"
+                                                    style="width:100%; ">
                                                     <thead>
                                                         <tr>
-                                                            <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
+                                                            <th class="text-center w-image" scope="col"
+                                                                data-orderable="false">@lang('messages.tabla.foto')</th>
                                                             <th class="text-center w-10" scope="col">@lang('messages.tabla.codigo_paciente')
                                                             </th>
-                                                            <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')
+                                                            <th class="text-center w-17" scope="col">
+                                                                @lang('messages.tabla.nombre_apellido')
                                                             </th>
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_nacimiento')
+                                                            <th class="text-center w-10" scope="col">
+                                                                @lang('messages.tabla.fecha_nacimiento')
                                                             </th>
-                                                            <th class="text-center w-30" scope="col">@lang('messages.tabla.centro_salud')
+                                                            <th class="text-center w-30" scope="col">
+                                                                @lang('messages.tabla.centro_salud')
                                                             </th>
-                                                            <th class="text-center w-17" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
+                                                            <th class="text-center w-17" scope="col"
+                                                                data-orderable="false">@lang('messages.tabla.acciones')</th>
 
                                                         </tr>
                                                     </thead>
@@ -1235,12 +1263,16 @@
                                                                         data-html="true" title="@lang('messages.tooltips.agendar_cita')"
                                                                         style="font-size: 13px; padding: 0px 11px 0px 11px; !important">{{ $item->patient_code }}</button>
                                                                 </td>
-                                                                <td class="text-center text-capitalize"> {{ $item->name }} {{ $item->last_name }}</td>
-                                                                <td class="text-center"> {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>
-                                                                <td class="text-center"> {{ $item->get_center->description }} </td>
+                                                                <td class="text-center text-capitalize">
+                                                                    {{ $item->name }} {{ $item->last_name }}</td>
+                                                                <td class="text-center">
+                                                                    {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>
+                                                                <td class="text-center">
+                                                                    {{ $item->get_center->description }} </td>
                                                                 <td class="text-center">
                                                                     <div class="d-flex">
-                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <div
+                                                                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <button
                                                                                 onclick="editPatien({{ json_encode($item) }},true); "
                                                                                 type="button" data-bs-toggle="tooltip"
@@ -1251,9 +1283,10 @@
                                                                                     alt="avatar">
                                                                             </button>
                                                                         </div>
-                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <div
+                                                                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <a href="{{ $item->age == '' ? '#' : route('MedicalRecord', $item->id) }}"
-                                                                                onclick='{{ $item->age == '' ? "alertInfoPaciente($item)"  : '' }}'>
+                                                                                onclick='{{ $item->age == '' ? "alertInfoPaciente($item)" : '' }}'>
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
@@ -1264,14 +1297,17 @@
                                                                                 </button>
                                                                             </a>
                                                                         </div>
-                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <div
+                                                                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <a href="{{ $item->age == '' ? '#' : route('ClinicalHistoryDetail', $item->id) }}"
-                                                                                onclick='{{ $item->age == '' ? "alertInfoPaciente($item)"  : '' }}'>
+                                                                                onclick='{{ $item->age == '' ? "alertInfoPaciente($item)" : '' }}'>
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     title="@lang('messages.tooltips.historia')">
-                                                                                    <img width="40" height="auto" src="{{ asset('/img/icons/recipe.png') }}" alt="avatar">
+                                                                                    <img width="40" height="auto"
+                                                                                        src="{{ asset('/img/icons/recipe.png') }}"
+                                                                                        alt="avatar">
                                                                                 </button>
                                                                             </a>
                                                                         </div>
@@ -1331,7 +1367,8 @@
                                             <br>
                                             <strong>@lang('messages.ficha_paciente.edad'): </strong><span id="age-pat"></span>
                                             <br>
-                                            <strong>@lang('messages.ficha_paciente.genero'): </strong><span class="text-capitalize" id="genere-pat"></span>
+                                            <strong>@lang('messages.ficha_paciente.genero'): </strong><span class="text-capitalize"
+                                                id="genere-pat"></span>
                                             <br>
                                             <strong>@lang('messages.ficha_paciente.correo'): </strong><span id="email-pat"></span>
                                             <br>
@@ -1413,9 +1450,8 @@
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                     @lang('messages.modal.form.precio')
                                                 </label>
-                                                <input type="text"
-                                                    class="form-control mask-input-price" id="price" name="price"
-                                                    id="searchPatients" value="">
+                                                <input type="text" class="form-control mask-input-price"
+                                                    id="price" name="price" id="searchPatients" value="">
                                                 <i class="bi bi-cash st-icon"></i>
                                             </div>
                                         </div>
