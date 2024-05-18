@@ -974,7 +974,7 @@
                                                         </div>
                                                         <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2"
                                                             id="div-phone">
-                                                            <x-phone_component />
+                                                            <x-phone_component :phone="null"/>
 
                                                             {{-- <div class="form-group">
                                                                 <div class="Icon-inside">
