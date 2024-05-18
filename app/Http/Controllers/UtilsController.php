@@ -1821,4 +1821,51 @@ class UtilsController extends Controller
 			dd('Error UtilsController.get_image_patient()', $message);
 		}
 	}
+
+	static function get_queries_month()
+	{
+		try {
+		
+			$January = MedicalRecord::where("user_id",auth()->user()->id)
+			->whereMonth("created_at","01")->count();
+			
+			$February = MedicalRecord::where("user_id",auth()->user()->id)
+			->whereMonth("created_at","02")->count();
+			
+			$March = MedicalRecord::where("user_id",auth()->user()->id)
+			->whereMonth("created_at","03")->count();
+			
+			$April = MedicalRecord::where("user_id",auth()->user()->id)
+			->whereMonth("created_at","04")->count();
+			
+			$May = MedicalRecord::where("user_id",auth()->user()->id)
+			->whereMonth("created_at","05")->count();
+			
+			$June = MedicalRecord::where("user_id",auth()->user()->id)
+			->whereMonth("created_at","06")->count();
+			
+			$julio  = MedicalRecord::where("user_id",auth()->user()->id)
+			->whereMonth("created_at","07")->count();
+			
+			$agosto = MedicalRecord::where("user_id",auth()->user()->id)
+			->whereMonth("created_at","08")->count();
+			
+			$septiembre = MedicalRecord::where("user_id",auth()->user()->id)
+			->whereMonth("created_at","09")->count();
+			
+			$October = MedicalRecord::where("user_id",auth()->user()->id)
+			->whereMonth("created_at","10")->count();
+			
+			$November = MedicalRecord::where("user_id",auth()->user()->id)
+			->whereMonth("created_at","11")->count();
+			
+			$December = MedicalRecord::where("user_id",auth()->user()->id)
+			->whereMonth("created_at","12")->count();
+			
+			return [$January,$February,$March,$April];
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_image_patient()', $message);
+		}
+	}
 }

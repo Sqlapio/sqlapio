@@ -279,6 +279,7 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
     Route::get('/get_patient_teen', [UtilsController::class, 'get_patient_teen'])->name("get_patient_teen");
     Route::get('/get_patient_adult', [UtilsController::class, 'get_patient_adult'])->name("get_patient_adult");
     Route::get('/get_patient_elderly', [UtilsController::class, 'get_patient_elderly'])->name("get_patient_elderly");
+    Route::get('/get_queries_month', [UtilsController::class, 'get_queries_month'])->name("get_queries_month");
 
     //grupos de rutas de laboratorio
     Route::group(array('prefix' => 'laboratoy'), function () {

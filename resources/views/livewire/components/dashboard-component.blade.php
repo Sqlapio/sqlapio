@@ -63,6 +63,10 @@
         let countMedicalRecordr = @json($count_medical_recordr);
         let countHistoryRegister = @json($count_history_register);
         let count_patient_genero = @json($count_patient_genero);
+        let queries_month = @json($queries_month);
+
+        console.log(queries_month);
+
         let count_study = @json($count_study);
         let count_examen = @json($count_examen);
         let elderly = @json($elderly);
@@ -90,7 +94,7 @@
             get_general(elderly, adult, boy_girl, teen);
             get_quotes();
             get_quotes2();
-            get_queries_month();
+            get_queries_month(queries_month);
             get_appointments_attended();
             get_appointments_canceled();
             get_appointments_confirmed();
