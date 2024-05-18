@@ -89,7 +89,7 @@
             // get_genere(boy_girl, teen);
             get_general(elderly, adult, boy_girl, teen);
             get_quotes();
-            get_quotes2();
+            get_consultas_history(countMedicalRecordr, countHistoryRegister);
             get_queries_month();
             get_appointments_attended();
             get_appointments_canceled();
@@ -880,7 +880,7 @@
                                                     <div class="card " style="background-color: #222f3e;">
                                                         <div class="card-body p-4" style="display: flex; justify-content: center;">
                                                             <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
-                                                                <canvas id="quotes2" style="height:auto; width:100vw"></canvas>
+                                                                <canvas id="consultas_history" style="height:auto; width:100vw"></canvas>
                                                             </div>
                                                         </div>
                                                     </div>
