@@ -706,7 +706,7 @@
                                                             <h2 class="d-flex align-items-center mb-0">
                                                                 {{auth()->user()->patient_counter}}/
                                                             </h2>
-                                                            <h2 id="pacientes" class="count-plan"></h2>
+                                                            <h2 class="d-flex align-items-center mb-0"  id="pacientes" class="count-plan"></h2>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -724,7 +724,7 @@
                                                             <h2 class="d-flex align-items-center mb-0">
                                                                 {{auth()->user()->medical_record_counter}}/
                                                             </h2>
-                                                            <h3 id="consultas" class="count-plan"></h3>
+                                                            <h2 class="d-flex align-items-center mb-0" id="consultas" class="count-plan"></h2>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -741,8 +741,8 @@
                                                         <div class="col-8"  style="display: flex">
                                                             <h2 class="d-flex align-items-center mb-0">
                                                                 {{auth()->user()->ref_counter}}/
-                                                                <h3 id="examenes" class="count-plan"></h3>
                                                             </h2>
+                                                            <h2 class="d-flex align-items-center mb-0" id="examenes" class="count-plan"></h2>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -760,7 +760,7 @@
                                                             <h2 class="d-flex align-items-center mb-0">
                                                                 {{auth()->user()->ref_counter}}/
                                                             </h2>
-                                                            <h3 id="estudios" class="count-plan"></h3>
+                                                            <h2  class="d-flex align-items-center mb-0"  id="estudios" class="count-plan"></h2>
                                                         </div>
                                                     </div>
                                                 </div>
