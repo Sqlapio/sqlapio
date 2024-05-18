@@ -100,7 +100,7 @@ const Meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "
 //   new Chart($("#countMedicalRecordr"), config);
 // }
 
-// function get_history_register(countHistoryRegister) {
+// function get_history_register(countMedicalRecordr) {
 //   const labels = [langJson.graficas.total_historias];
 
 //   const data = {
@@ -531,7 +531,7 @@ function get_quotes() {
     labels: ["Canceladas", "Atendidas", "Confirmadas"],
     datasets: [
       {
-        label: "Dataset 1",
+        label: "Total",
         data: [8, 5, 10],
         backgroundColor: ["#ed6c6c", "#ffba56", "#36e97b"]
       }
@@ -561,19 +561,19 @@ function get_quotes() {
   });
 }
 
-function get_quotes2() {
+function get_consultas_history(countMedicalRecordr, countHistoryRegister) {
   const data = {
-    labels: ["Canceladas", "Atendidas", "Confirmadas"],
+    labels: [langJson.graficas.num_consultas, langJson.graficas.num_historias],
     datasets: [
       {
-        label: "Dataset 1",
-        data: [8, 5, 10],
-        backgroundColor: ["#ed6c6c", "#ffba56", "#36e97b"]
+        label: "Total",
+        data: [countMedicalRecordr , countHistoryRegister],
+        backgroundColor: ["#ed6c6c", "#ffba56",]
       }
     ]
   };
 
-  new Chart($("#quotes2"), {
+  new Chart($("#consultas_history"), {
     type: "pie",
     data: data,
     options: {
@@ -588,7 +588,7 @@ function get_quotes2() {
         },
         title: {
           display: true,
-          text: "Citas",
+          text: "Consultas / Historias",
           color: "#b3b3b3"
         }
       }
@@ -606,4 +606,4 @@ window.get_appointments_attended = get_appointments_attended;
 window.get_appointments_canceled = get_appointments_canceled;
 window.get_appointments_confirmed = get_appointments_confirmed;
 window.get_quotes = get_quotes;
-window.get_quotes2 = get_quotes2;
+window.get_consultas_history = get_consultas_history;
