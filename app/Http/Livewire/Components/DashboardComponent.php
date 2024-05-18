@@ -26,7 +26,11 @@ class DashboardComponent extends Component
         $count_study = UtilsController::total_studies();
         $count_examen = UtilsController::total_exams();
         $patients = UtilsController::get_table_medical_record();
-        $queries_month = UtilsController::get_queries_month();        
+        $queries_month = UtilsController::get_queries_month();     
+        $appointments_attended = UtilsController::get_appointments_attended();     
+        $appointments_canceled = UtilsController::get_appointments_canceled();     
+        $appointments_confirmed = UtilsController::get_appointments_confirmed();   
+        $appointments_count_all = UtilsController::get_appointments_count_all();     
 
         return view(
             'livewire.components.dashboard-component',
@@ -46,7 +50,11 @@ class DashboardComponent extends Component
                 'count_study',
                 'count_examen',
                 'patients',
-                "queries_month"
+                "queries_month",
+                "appointments_attended",
+                "appointments_canceled",
+                "appointments_confirmed",
+                "appointments_count_all"
             )
         );
     }

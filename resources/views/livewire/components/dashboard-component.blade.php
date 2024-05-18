@@ -64,11 +64,11 @@
         let countHistoryRegister = @json($count_history_register);
         let count_patient_genero = @json($count_patient_genero);
         let queries_month = @json($queries_month);
-
-        console.log(queries_month);
-
         let count_study = @json($count_study);
         let count_examen = @json($count_examen);
+        let appointments_attended = @json($appointments_attended);   
+        let appointments_canceled = @json($appointments_canceled);  
+        let appointments_count_all = @json($appointments_count_all);        
         let elderly = @json($elderly);
         let boy_girl = @json($boy_girl);
         let teen = @json($teen);
@@ -82,6 +82,64 @@
 
         $(document).ready(() => {
 
+            let user = @json(Auth::user());
+
+            
+            let data_palnes = [{
+                    type_plan: 1,
+                    count_patients: 10,
+                    count_ref: 20,
+                    count_exam: 20,
+                    count_study: 20,
+                },
+                {
+                    type_plan: 2,
+                    count_patients: 40,
+                    count_ref: 40,
+                    count_exam: 80,
+                    count_study: 80,
+                },
+                {
+                    type_plan: 3,
+                    count_patients: '@lang('messages.label.ilimitado')',
+                    count_ref: '@lang('messages.label.ilimitado')',
+                    count_exam: '@lang('messages.label.ilimitado')',
+                    count_study: '@lang('messages.label.ilimitado')',
+                },
+                {
+                    type_plan: 4,
+                    description: "Plan - ILIMITADO",
+                    count_patients: 'ILIMITADO',
+                    count_ref: 'ILIMITADO',
+                    count_exam: 'ILIMITADO',
+                    count_study: 'ILIMITADO',
+                },
+                {
+                    type_plan: 5,
+                    description: "Plan - ILIMITADO",
+                    count_patients: 'ILIMITADO',
+                    count_ref: 'ILIMITADO',
+                    count_exam: 'ILIMITADO',
+                    count_study: 'ILIMITADO',
+                },
+                {
+                    type_plan: 6,
+                    description: "Plan - ILIMITADO",
+                    count_patients: 'ILIMITADO',
+                    count_ref: 'ILIMITADO',
+                    count_exam: 'ILIMITADO',
+                    count_study: 'ILIMITADO',
+                }
+            ];
+
+            const data = data_palnes.find((e) => e.type_plan == user.type_plane);
+
+            $('.card-title').text(data.description);
+            $('#pacientes').text(`${data.count_patients}`);
+            $('#consultas').text(`${data.count_ref}`);
+            $('#examenes').text(`${data.count_exam}`);
+            $('#estudios').text(`${data.count_study}`);
+
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             tooltipTriggerList.forEach(element => {
                 new bootstrap.Tooltip(element)
@@ -92,12 +150,12 @@
             // get_history_register(countHistoryRegister);
             // get_genere(boy_girl, teen);
             get_general(elderly, adult, boy_girl, teen);
-            get_quotes();
-            get_quotes2();
+            get_quotes(appointments_count_all);
             get_queries_month(queries_month);
-            get_appointments_attended();
-            get_appointments_canceled();
-            get_appointments_confirmed();
+            get_consultas_history(countMedicalRecordr, countHistoryRegister);
+            get_appointments_attended(appointments_attended);
+            get_appointments_canceled(appointments_canceled);
+            get_appointments_confirmed(appointments_confirmed);
             get_study(count_study),
                 get_examen(count_examen),
                 //validar formulario
@@ -643,11 +701,12 @@
                                                     <div class="mb-4">
                                                         <h5 class="card-title mb-0">@lang('messages.label.paciente')</h5>
                                                     </div>
-                                                    <div class="row align-items-center mb-2 d-flex">
-                                                        <div class="col-8">
+                                                    <div class="row align-items-center mb-2 d-flex" >
+                                                        <div class="col-8"  style="display: flex">
                                                             <h2 class="d-flex align-items-center mb-0">
-                                                                10/50
+                                                                {{auth()->user()->patient_counter}}/
                                                             </h2>
+                                                            <h2 id="pacientes" class="count-plan"></h2>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -661,10 +720,11 @@
                                                         <h5 class="card-title mb-0">@lang('messages.label.consulta')</h5>
                                                     </div>
                                                     <div class="row align-items-center mb-2 d-flex">
-                                                        <div class="col-8">
+                                                        <div class="col-8"  style="display: flex">
                                                             <h2 class="d-flex align-items-center mb-0">
-                                                                10/50
+                                                                {{auth()->user()->medical_record_counter}}/
                                                             </h2>
+                                                            <h3 id="consultas" class="count-plan"></h3>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -678,9 +738,10 @@
                                                         <h5 class="card-title mb-0">@lang('messages.label.examenes')</h5>
                                                     </div>
                                                     <div class="row align-items-center mb-2 d-flex">
-                                                        <div class="col-8">
+                                                        <div class="col-8"  style="display: flex">
                                                             <h2 class="d-flex align-items-center mb-0">
-                                                                10/50
+                                                                {{auth()->user()->ref_counter}}/
+                                                                <h3 id="examenes" class="count-plan"></h3>
                                                             </h2>
                                                         </div>
                                                     </div>
@@ -695,10 +756,11 @@
                                                         <h5 class="card-title mb-0">@lang('messages.label.estudios')</h5>
                                                     </div>
                                                     <div class="row align-items-center mb-2 d-flex">
-                                                        <div class="col-8">
+                                                        <div class="col-8"  style="display: flex">
                                                             <h2 class="d-flex align-items-center mb-0">
-                                                                10/50
+                                                                {{auth()->user()->ref_counter}}/
                                                             </h2>
+                                                            <h3 id="estudios" class="count-plan"></h3>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -884,7 +946,7 @@
                                                     <div class="card " style="background-color: #222f3e;">
                                                         <div class="card-body p-4" style="display: flex; justify-content: center;">
                                                             <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
-                                                                <canvas id="quotes2" style="height:auto; width:100vw"></canvas>
+                                                                <canvas id="consultas_history" style="height:auto; width:100vw"></canvas>
                                                             </div>
                                                         </div>
                                                     </div>
