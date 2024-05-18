@@ -120,7 +120,7 @@
                 <input class="pn-input__prefix input-telelfono-class" id="pn-input__prefix" value="+58"
                     type="text" name="phonenumber_prefix" id="js_number-prefix" />
                 <input class="pn-input__phonenumber input-telelfono-class phone input-phone-class" id="phone"
-                    type="tel" name="phone" value="" max="10" onclick="closeDropdown();"
+                    type="tel" name="phone" value="" max="10"
                     autocomplete="nope" />
             </div>
         </div>
