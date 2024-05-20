@@ -5,7 +5,20 @@ const lang = document.getElementById("lang").value;
 
 const langJson = JSON.parse(lang);
 
-const Meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Augosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+const Meses = [
+    langJson.graficas.enero,
+    langJson.graficas.febrero,
+    langJson.graficas.marzo,
+    langJson.graficas.abril,
+    langJson.graficas.mayo,
+    langJson.graficas.junio,
+    langJson.graficas.julio,
+    langJson.graficas.agosto,
+    langJson.graficas.septiembre,
+    langJson.graficas.octubre,
+    langJson.graficas.noviembre,
+    langJson.graficas.diciembre,
+];
 
 // function get_patient_register(countPatientRegister) {
 
@@ -261,7 +274,7 @@ function get_general(boy_girl, teen, elderly, adult) {
   };
 
   new Chart($("#countGereral2"), {
-    type: "line",
+    type: "bar",
     data: data,
     options: {
       responsive: true,
@@ -283,7 +296,7 @@ function get_general(boy_girl, teen, elderly, adult) {
         },
         title: {
           display: true,
-          text: "Pacientes",
+          text: langJson.graficas.pacientes_tipo,
           color: "#b3b3b3"
         }
       }
@@ -296,7 +309,7 @@ function get_queries_month(queries_month) {
     labels: Meses,
     datasets: [
       {
-        label: "Consultas por mes",
+        label: langJson.graficas.consultas_mes,
         data:queries_month,
         borderColor: "#2380f7",
         backgroundColor: context => {
@@ -341,7 +354,7 @@ function get_queries_month(queries_month) {
         },
         title: {
           display: true,
-          text: "Consultas por mes",
+          text: langJson.graficas.consultas_mes,
           color: "#b3b3b3"
         }
       }
@@ -354,7 +367,7 @@ function get_appointments_attended(appointments_attended) {
     labels: Meses,
     datasets: [
       {
-        label: "Citas atendidas por mes",
+        label: langJson.graficas.citas_atendidas_mes,
         data: appointments_attended,
         borderColor: "#ffba56",
         backgroundColor: context => {
@@ -399,7 +412,7 @@ function get_appointments_attended(appointments_attended) {
         },
         title: {
           display: true,
-          text: "Citas atendidas por mes",
+          text: langJson.graficas.citas_atendidas_mes,
           color: "#b3b3b3"
         }
       }
@@ -412,7 +425,7 @@ function get_appointments_canceled(appointments_canceled) {
     labels: Meses,
     datasets: [
       {
-        label: "Citas canceladas por mes",
+        label: langJson.graficas.citas_canceladas_mes,
         data: appointments_canceled,
         borderColor: "#af5a5c",
         backgroundColor: context => {
@@ -458,7 +471,7 @@ function get_appointments_canceled(appointments_canceled) {
         },
         title: {
           display: true,
-          text: "Citas canceladas por mes",
+          text: langJson.graficas.citas_canceladas_mes,
           color: "#b3b3b3"
         }
       }
@@ -471,7 +484,7 @@ function get_appointments_confirmed(appointments_confirmed) {
     labels: Meses,
     datasets: [
       {
-        label: "Citas confirmadas por mes",
+        label: langJson.graficas.citas_confirmadas_mes,
         data: appointments_confirmed,
         borderColor: "#36e97b",
         borderWidth: 2,
@@ -518,7 +531,7 @@ function get_appointments_confirmed(appointments_confirmed) {
         },
         title: {
           display: true,
-          text: "Citas confirmadas por mes",
+          text: langJson.graficas.citas_confirmadas_mes,
           color: "#b3b3b3"
         }
       }
@@ -528,10 +541,10 @@ function get_appointments_confirmed(appointments_confirmed) {
 
 function get_quotes(appointments_count_all) {
   const data = {
-    labels: ["Canceladas", "Atendidas", "Confirmadas"],
+    labels: [langJson.graficas.canceladas, langJson.graficas.atendidas, langJson.graficas.confirmadas],
     datasets: [
       {
-        label: "Total",
+        label: langJson.graficas.total,
         data: appointments_count_all,
         backgroundColor: ["#ed6c6c", "#ffba56", "#36e97b"]
       }
@@ -553,7 +566,7 @@ function get_quotes(appointments_count_all) {
         },
         title: {
           display: true,
-          text: "Citas",
+          text: langJson.graficas.citas,
           color: "#b3b3b3"
         }
       }
@@ -566,7 +579,7 @@ function get_consultas_history(countMedicalRecordr, countHistoryRegister) {
     labels: [langJson.graficas.num_consultas, langJson.graficas.num_historias],
     datasets: [
       {
-        label: "Total",
+        label: langJson.graficas.total,
         data: [countMedicalRecordr , countHistoryRegister],
         backgroundColor: ["#ed6c6c", "#ffba56",]
       }
@@ -588,7 +601,7 @@ function get_consultas_history(countMedicalRecordr, countHistoryRegister) {
         },
         title: {
           display: true,
-          text: "Consultas / Historias",
+          text: langJson.graficas.consultas_historias,
           color: "#b3b3b3"
         }
       }

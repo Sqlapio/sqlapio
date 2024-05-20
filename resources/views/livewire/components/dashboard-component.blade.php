@@ -24,8 +24,8 @@
 
     .avatar {
         border-radius: 50%;
-        width: 40px !important;
-        height: 40px !important;
+        width: 55px !important;
+        height: 55px !important;
         border: 2px solid #44525f;
         object-fit: cover;
     }
@@ -66,9 +66,9 @@
         let queries_month = @json($queries_month);
         let count_study = @json($count_study);
         let count_examen = @json($count_examen);
-        let appointments_attended = @json($appointments_attended);   
-        let appointments_canceled = @json($appointments_canceled);  
-        let appointments_count_all = @json($appointments_count_all);        
+        let appointments_attended = @json($appointments_attended);
+        let appointments_canceled = @json($appointments_canceled);
+        let appointments_count_all = @json($appointments_count_all);
         let elderly = @json($elderly);
         let boy_girl = @json($boy_girl);
         let teen = @json($teen);
@@ -84,7 +84,7 @@
 
             let user = @json(Auth::user());
 
-            
+
             let data_palnes = [{
                     type_plan: 1,
                     count_patients: 10,
@@ -650,10 +650,10 @@
         const alertInfoPaciente = (id_patient) => {
             Swal.fire({
                 icon: 'warning',
-                title: 'Debe actualizar la información del paciente!',
+                title: '@lang('messages.alert.actualizar_paciente')',
                 allowOutsideClick: false,
                 confirmButtonColor: '#42ABE2',
-                confirmButtonText: 'Aceptar'
+                confirmButtonText: '@lang('messages.botton.aceptar')'
             }).then((result) => {
 
                 let url = "{{ route('Patients', ':id_patient') }}";
@@ -704,9 +704,8 @@
                                                     <div class="row align-items-center mb-2 d-flex" >
                                                         <div class="col-8"  style="display: flex">
                                                             <h2 class="d-flex align-items-center mb-0">
-                                                                {{auth()->user()->patient_counter}}/
+                                                                {{auth()->user()->patient_counter}}
                                                             </h2>
-                                                            <h2 class="d-flex align-items-center mb-0"  id="pacientes" class="count-plan"></h2>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -722,9 +721,8 @@
                                                     <div class="row align-items-center mb-2 d-flex">
                                                         <div class="col-8"  style="display: flex">
                                                             <h2 class="d-flex align-items-center mb-0">
-                                                                {{auth()->user()->medical_record_counter}}/
+                                                                {{auth()->user()->medical_record_counter}}
                                                             </h2>
-                                                            <h2 class="d-flex align-items-center mb-0" id="consultas" class="count-plan"></h2>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -740,9 +738,8 @@
                                                     <div class="row align-items-center mb-2 d-flex">
                                                         <div class="col-8"  style="display: flex">
                                                             <h2 class="d-flex align-items-center mb-0">
-                                                                {{auth()->user()->ref_counter}}/
+                                                                {{auth()->user()->ref_counter}}
                                                             </h2>
-                                                            <h2 class="d-flex align-items-center mb-0" id="examenes" class="count-plan"></h2>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -758,9 +755,8 @@
                                                     <div class="row align-items-center mb-2 d-flex">
                                                         <div class="col-8"  style="display: flex">
                                                             <h2 class="d-flex align-items-center mb-0">
-                                                                {{auth()->user()->ref_counter}}/
+                                                                {{auth()->user()->ref_counter}}
                                                             </h2>
-                                                            <h2  class="d-flex align-items-center mb-0"  id="estudios" class="count-plan"></h2>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -889,7 +885,7 @@
                                             <div class="card" style="background-color: #222f3e;">
                                                 <div class="card-body p-4">
                                                     <div class="row" id="table-patients" style="color: #b3b3b3">
-                                                        <h5><i class="bi bi-calendar2-check" style="color: #fffff"></i> Pacientes</h5>
+                                                        <h5><i class="bi bi-calendar2-check" style="color: #fffff"></i> @lang('messages.menu.pacientes')</h5>
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
                                                             <table id="table-patient" class="table table-striped table-bordered table-dark" style="width:100%;">
                                                                 <thead>
