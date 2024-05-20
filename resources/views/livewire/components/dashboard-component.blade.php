@@ -68,6 +68,7 @@
         let count_examen = @json($count_examen);
         let appointments_attended = @json($appointments_attended);
         let appointments_canceled = @json($appointments_canceled);
+        let appointments_confirmed = @json($appointments_confirmed);
         let appointments_count_all = @json($appointments_count_all);
         let elderly = @json($elderly);
         let boy_girl = @json($boy_girl);
