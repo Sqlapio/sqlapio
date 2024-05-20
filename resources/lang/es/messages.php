@@ -260,7 +260,6 @@ return [
         'examenes_res'     => 'Exámenes con Resultados',
         'examenes_sin_res' => 'Exámenes sin Resultados',
         'pacientes_registrados' => 'Pacientes Registrado en Sistema',
-
     ],
 
     'tabla' => [
@@ -319,7 +318,6 @@ return [
         'Finalizada'          => 'Finalizada',
         'Cancelada'           => 'Cancelada',
         'seleccionar'         => 'Seleccionar',
-
     ],
 
     'placeholder' => [
@@ -571,22 +569,49 @@ return [
         'ccontraseña_8_caracteres'  => 'Contraseña debe ser menor a 8 caracteres',
         'ccontraseña_obligatorio'   => 'Confirmar contraseña es obligatoria',
         'contraseña_no_coincide'    => 'Contraseña no coinciden',
-        'recuperar_contraseña'      => 'Operación exitosa, le hemos enviado su contraseña al correo por favor verifique la información!'
+
+        'recuperar_contraseña'      => 'Operación exitosa, le hemos enviado su contraseña al correo por favor verifique la información!',
+        'actualizar_paciente'       => 'Debe actualizar la información del paciente!'
     ],
 
     'graficas' => [
-        'total_pacientes'  => 'Total de pacientes registrados',
-        'num_pacientes'    => 'Nro. de Pacientes',
-        'total_consultas'  => 'Total de consultas realizadas',
-        'num_consultas'    => 'Nro. de Consultas',
-        'total_historias'  => 'Total de historias realizadas',
-        'num_historias'    => 'Nro. Historias',
-        'niños'            => 'Niños',
-        'jovenes'          => 'Jóvenes',
-        'femenino'         => 'Femenino',
-        'masculino'        => 'Masculino',
-        'adultos'          => 'Adultos',
-        'adultos_mayores'  => 'Adultos Mayores',
+        'total_pacientes'       => 'Total de pacientes registrados',
+        'num_pacientes'         => 'Nro. de Pacientes',
+        'total_consultas'       => 'Total de consultas realizadas',
+        'num_consultas'         => 'Nro. de Consultas',
+        'total_historias'       => 'Total de historias realizadas',
+        'num_historias'         => 'Nro. Historias',
+        'niños'                 => 'Niños',
+        'jovenes'               => 'Jóvenes',
+        'femenino'              => 'Femenino',
+        'masculino'             => 'Masculino',
+        'adultos'               => 'Adultos',
+        'adultos_mayores'       => 'Adultos Mayores',
+
+        'consultas_mes'         => 'Consultas por mes',
+        'enero'                 => 'Enero',
+        'febrero'               => 'Febrero',
+        'marzo'                 => 'Marzo',
+        'abril'                 => 'Abril',
+        'mayo'                  => 'Mayo',
+        'junio'                 => 'Junio',
+        'julio'                 => 'Julio',
+        'agosto'                => 'Agosto',
+        'septiembre'            => 'Septiembre',
+        'octubre'               => 'Octubre',
+        'noviembre'             => 'Noviembre',
+        'diciembre'             => 'Diciembre',
+        'citas_atendidas_mes'   => 'Citas atendidas por mes',
+        'citas_canceladas_mes'  => 'Citas canceladas por mes',
+        'citas_confirmadas_mes' => 'Citas confirmadas por mes',
+        'canceladas'            => 'Canceladas',
+        'confirmadas'           => 'Confirmadas',
+        'atendidas'             => 'Atendidas',
+        'total'                 => 'Total',
+        'citas'                 => 'Citas',
+        'consultas_historias'   => 'Consultas / Historias',
+        'pacientes_tipo'        => 'Nro. de Pacientes por tipo',
+
     ],
 
     'pacientes' => [
