@@ -141,6 +141,7 @@ return [
         'saturacion_1'           => 'Saturación',
         'contraseña'             => 'Contraseña',
         'confirmar_contraseña'   => 'Confirmar Contraseña',
+        'fecha_examen'           => 'Fecha de exámen',
     ],
 
     'menu' => [
@@ -569,9 +570,14 @@ return [
         'ccontraseña_8_caracteres'  => 'Contraseña debe ser menor a 8 caracteres',
         'ccontraseña_obligatorio'   => 'Confirmar contraseña es obligatoria',
         'contraseña_no_coincide'    => 'Contraseña no coinciden',
-
         'recuperar_contraseña'      => 'Operación exitosa, le hemos enviado su contraseña al correo por favor verifique la información!',
-        'actualizar_paciente'       => 'Debe actualizar la información del paciente!'
+        'actualizar_paciente'       => 'Debe actualizar la información del paciente!',
+        'paciente_no_existe'        => 'Paciente no registrado',
+        'auntenticacion_inc'        => 'Auntenticación incorrecta',
+        'auntenticacion_corr'       => 'Auntenticación correcta',
+        'error_interno'             => 'Error interno',
+        'recuperacion_exitosa'      => 'Recuperación de contraseña exitosa',
+        'no_autorizado'             => 'No autorizado',
     ],
 
     'graficas' => [
@@ -587,7 +593,6 @@ return [
         'masculino'             => 'Masculino',
         'adultos'               => 'Adultos',
         'adultos_mayores'       => 'Adultos Mayores',
-
         'consultas_mes'         => 'Consultas por mes',
         'enero'                 => 'Enero',
         'febrero'               => 'Febrero',
@@ -611,11 +616,21 @@ return [
         'citas'                 => 'Citas',
         'consultas_historias'   => 'Consultas / Historias',
         'pacientes_tipo'        => 'Nro. de Pacientes por tipo',
-
     ],
 
     'pacientes' => [
         'historia_paciente'  => 'Historia del paciente',
+        'historia_clinica'   => 'Historia clinica',
+        'paciente_sin_hist'  => '¡Paciente sin historia medica!',
+        'sin_informacion'    => 'No hay información para mostrar',
+        'consulta_medica'    => 'Consultas médicas',
+        'paciente_sin_cons'  => '¡Paciente sin consulta medica!',
+        'estudios_realizado' => 'Estudios Realizados',
+        'no_estudios'        => '¡No hay estudios para mostrar de este paciente!',
+        'examenes_realizado' => 'Exámenes Realizados',
+        'no_examenes'        => '¡No hay estudios para mostrar de este paciente!',
+        'examenes_fisico'    => 'Exámenes Fisicos',
+        'no_examenes'        => '¡Paciente sin información de exámenes fisicos!',
     ],
 
     'stripe' => [
