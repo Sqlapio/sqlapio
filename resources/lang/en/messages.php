@@ -141,6 +141,7 @@ return [
         'saturacion_1'           => 'Saturation',
         'contraseña'             => 'Password',
         'confirmar_contraseña'   => 'Confirm password',
+        'fecha_examen'           => 'Exam date',
     ],
 
     'menu' => [
@@ -569,9 +570,14 @@ return [
         'ccontraseña_8_caracteres'  => 'Confirm password must be less than 8 characters',
         'ccontraseña_obligatorio'   => 'Confirm password is required',
         'contraseña_no_coincide'    => 'Password do not match',
-
         'recuperar_contraseña'      => 'Successful operation, we have sent your password to the email, please verify the information!',
-        'actualizar_paciente'       => 'You must update the patient information!'
+        'actualizar_paciente'       => 'You must update the patient information!',
+        'paciente_no_existe'        => 'Patient not registered',
+        'auntenticacion_inc'        => 'Incorrect authentication',
+        'auntenticacion_corr'       => 'Authentication successful',
+        'error_interno'             => 'Internal error',
+        'recuperacion_exitosa'      => 'Password recovery successful',
+        'no_autorizado'             => 'Unauthorized',
     ],
 
     'graficas' => [
@@ -587,7 +593,6 @@ return [
         'masculino'             => 'Male',
         'adultos'               => 'Adults',
         'adultos_mayores'       => 'Older Adults',
-
         'consultas_mes'         => 'Queries per month',
         'enero'                 => 'January',
         'febrero'               => 'February',
@@ -615,6 +620,17 @@ return [
 
     'pacientes' => [
         'historia_paciente'  => 'Patient history',
+        'historia_clinica'   => 'Clinical history',
+        'paciente_sin_hist'  => 'Patient without medical history!',
+        'sin_informacion'    => 'There is no information to display',
+        'consulta_medica'    => 'Medical consultations',
+        'paciente_sin_cons'  => 'Patient without medical consultation!',
+        'estudios_realizado' => 'Studies Conducted',
+        'no_estudios'        => 'There are no studies to show for this patient!',
+        'examenes_realizado' => 'Exams Performed',
+        'no_examenes'        => 'There are no studies to show for this patient!',
+        'examenes_fisico'    => 'Physical Exams',
+        'no_examenes'        => 'Patient without physical exam information!',
     ],
 
     'stripe' => [

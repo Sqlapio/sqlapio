@@ -32,7 +32,7 @@ class LoginPatient extends Component
                 'username.required' => __('messages.alert.usuario_requerido'),
                 'password.required' => __('messages.alert.contraseña_obligatorio'),
                 'username.min'      => __('messages.alert.usuario_3_caracteres'),
-                'username.max'      =>  __('messages.alert.usuario_50_caracteres'),
+                'username.max'      => __('messages.alert.usuario_50_caracteres'),
                 'password.min'      => __('messages.alert.campo_6_caracteres'),
             ];
 
@@ -62,24 +62,24 @@ class LoginPatient extends Component
 
                     return response()->json([
                         'success' => true,
-                        'msj'  => "autenticacoIn correcta"
+                        'msj'  => __('messages.alert.auntenticacion_corr')
                     ], 200);
                 } else { // credenciales incorrectas
                     return response()->json([
                         'success' => false,
-                        'msj'  => "autenticacoIn incorrecta"
+                        'msj'  => __('messages.alert.auntenticacion_inc')
                     ], 400);
                 }
             } else {
                 return response()->json([
                     'success' => false,
-                    'msj'  => "usuario no exitesa"
+                    'msj'  => __('messages.alert.paciente_no_existe')
                 ], 400);
             }
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
-                'msj'  => "Error interno"
+                'msj'  => __('messages.alert.error_interno')
             ], 500);
         }
     }

@@ -23,26 +23,26 @@ class RecoveryPassword extends Component
                 $mailData = [
                     'email' => $email,
                     'password' =>  $user->pass_tem,
-                    "title" => "Recuperación de contraseña exitosa"
+                    "title" => __('messages.alert.usuario_requerido')
                 ];
 
                 UtilsController::notification_mail($mailData, "recovery_pass_pat");
 
                 return response()->json([
                     'success' => true,
-                    'msj'  => "operacion exitosa"                   
+                    'msj'  =>  __('messages.alert.operacion_exitosa')
                 ], 200);
             } else {
 
                 return response()->json([
                     'success' => false,
-                    'msj'  => "no autorizado"
+                    'msj'  => __('messages.alert.no_autorizado')
                 ], 401);
             }
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
-                'msj'  => "Error interno"
+                'msj'  => __('messages.alert.error_interno')
             ], 500);
         }
     }

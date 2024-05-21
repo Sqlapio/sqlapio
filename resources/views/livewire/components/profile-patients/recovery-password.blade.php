@@ -63,7 +63,7 @@
             $("#form-recovery-pat").validate();
 
             if ($("#form-recovery-pat").valid()) {
-                
+
                 $('#btnPrimary').attr("disabled",true);
 
                 $('#spinner').show();
@@ -81,7 +81,7 @@
 
                         Swal.fire({
                             icon: 'success',
-                            title: "Operación exitosa, le hemos enviado su contraseña al correo por favor verifique la información!",
+                            title: '@lang('messages.alert.recuperar_contraseña')',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: '@lang('messages.botton.aceptar')'

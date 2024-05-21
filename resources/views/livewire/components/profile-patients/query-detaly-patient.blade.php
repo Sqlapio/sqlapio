@@ -199,6 +199,8 @@
             // end
 
             if (response.patient.get_history != null) {
+                $('#div-history').show();
+                $('#not-history').hide();
                 // Antecedentes Personales y Familiares
 
                 family_back.map((value, keyy) => {
@@ -325,7 +327,7 @@
                                         <ul class="list-group" style="border-radius: 8px;">
                                             <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
                                                 <div class="d-flex w-100 justify-content-between">
-                                                    <h5 style='font-size: 15px;' class="mb-0 text-capitalize">Antecedentes ginecologicos </h5>
+                                                    <h5 style='font-size: 15px;' class="mb-0 text-capitalize">@lang('messages.acordion.antecedentes_gine')</h5>
                                                 </div>
                                             </li>
 
@@ -391,7 +393,8 @@
                             </li>`
                         );
                     });
-                } if (response.patient.get_history.observations_allergies) {
+                }
+                if (response.patient.get_history.observations_allergies) {
                     $('.ob-alergias').append(
                         `<li class="list-group-item">
                             <div class="d-flex w-100 justify-content-between">
@@ -403,9 +406,6 @@
                             </div>
                         </li>`
                     );
-                }
-                if (response.allergies.length === 0 && !response.patient.get_history.observations_allergies) {
-                    $('#not-alergias').show();
                 }
                 // end
 
@@ -440,9 +440,6 @@
                         </li>`
                     );
                 }
-                if (response.patient.get_history.history_surgical === null && !response.patient.get_history.observations_quirurgicas) {
-                    $('#not-cirugias').show();
-                }
                 // end
 
                 // medicamentos
@@ -471,19 +468,20 @@
                     $('.ob-medicamentos').append(
                         `<li class="list-group-item">
                             <div class="d-flex w-100 justify-content-between">
-                                <br>
                                 <span class="text-justify mt-3">
                                     <strong>@lang('messages.label.observaciones'):</strong>
                                     <br>
-                                    ${response.patient.get_history.observations_medication}
+                                    ${ response.patient.get_history.observations_medication}
                                 </span>
                             </div>
                         </li>`
                     );
                 }
-                if (response.medications_supplements === null && !response.patient.get_history.observations_medication) {
-                    $('#not-medications').show();
-                }
+            } else {
+
+                $('#not-history').show();
+                $('#div-history').hide();
+
             }
             //end
 
@@ -670,11 +668,15 @@
             $("#not-examenes-fisicos").hide();
             if (response.get_physical_exams.length > 0) {
                 response.get_physical_exams.map((e, key) => {
-
+                    console.log(e)
                     let element = '';
                     if ((key % 2) == 0) {
                         element =
                             `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px; z-index: 0;">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="text-capitalize">@lang('messages.form.fecha_examen'): ${e.date}</h5>
+                                    <br>
+                                </div>
                                 <div id="table-info-consulta">
                                     <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
                                         <thead>
@@ -713,6 +715,10 @@
                     } else {
                         element =
                             `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px;">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="text-capitalize">@lang('messages.form.fecha_examen'): ${e.date}</h5>
+                                    <br>
+                                </div>
                                 <div id="table-info-consulta">
                                     <table id="table-info-consulta" class="table table-pag table-striped table-bordered" style="width:100%; ">
                                         <thead>
@@ -761,7 +767,6 @@
 
             // end
             $('#div-content').show();
-
 
         }
 
@@ -859,9 +864,19 @@
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd mt-4">
                                     <div id="wizard">
-                                        <h3>Historia clinica</h3>
+                                        <h3>@lang('messages.pacientes.historia_clinica')</h3>
                                         <section>
-                                            <div class="div-overflow">
+                                            <div style="display: none" id='not-history' class="row justify-content-center mt-2">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                                    <h5 class="card-title" style="text-align: center;">
+                                                        @lang('messages.pacientes.paciente_sin_hist')
+                                                    </h5>
+                                                </div>
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; margin-bottom: 10px; justify-content: center;">
+                                                    <img width="150" height="auto" src="{{ asset('/img/icons/no-file.png') }}" alt="avatar">
+                                                </div>
+                                            </div>
+                                            <div class="div-overflow" id='div-history'>
                                                 <div class="Examen_fisico"></div>
                                                 <div class="row p-3 mt-2">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
@@ -870,7 +885,7 @@
                                                                 style="z-index: 0;">
                                                                 <div class="d-flex w-100 justify-content-between">
                                                                     <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                        Antecedentes Personales
+                                                                        @lang('messages.acordion.antecedentes_per')
                                                                     </h5>
                                                                 </div>
                                                             </li>
@@ -887,7 +902,7 @@
                                                             <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
                                                                 <div class="d-flex w-100 justify-content-between">
                                                                     <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                        Antecedentes personales patológicos
+                                                                        @lang('messages.acordion.antecedentes_per_pa')
                                                                     </h5>
                                                                 </div>
                                                             </li>
@@ -903,7 +918,7 @@
                                                             <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
                                                                 <div class="d-flex w-100 justify-content-between">
                                                                     <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                        Antecedentes no patológicos
+                                                                        @lang('messages.acordion.antecedentes_per_no_pa')
                                                                     </h5>
                                                                 </div>
                                                             </li>
@@ -922,7 +937,7 @@
                                                             <li class="list-group-item active aa" aria-current="true" style="z-index: 0;">
                                                                 <div class="d-flex w-100 justify-content-between">
                                                                     <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                        Antecedentes alérgicos
+                                                                        @lang('messages.acordion.antecedentes_alerg')
                                                                     </h5>
                                                                 </div>
                                                             </li>
@@ -931,7 +946,7 @@
                                                             <div id="not-alergias">
                                                                 <li class="list-group-item" aria-current="true">
                                                                     <div class="d-flex w-100 justify-content-between">
-                                                                        <strong>No hay información para mostrar</strong>
+                                                                        <strong>@lang('messages.pacientes.sin_informacion')</strong>
                                                                     </div>
                                                                 </li>
                                                             </div>
@@ -945,7 +960,7 @@
                                                                 style="z-index: 0;">
                                                                 <div class="d-flex w-100 justify-content-between">
                                                                     <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                        Antecedentes quirúrgicos
+                                                                        @lang('messages.acordion.antecedentes_qx')
                                                                     </h5>
                                                                 </div>
                                                             </li>
@@ -955,7 +970,7 @@
                                                             <div id="not-cirugias">
                                                                 <li class="list-group-item" aria-current="true">
                                                                     <div class="d-flex w-100 justify-content-between">
-                                                                        <strong>No hay información para mostrar</strong>
+                                                                        <strong>@lang('messages.pacientes.sin_informacion')</strong>
                                                                     </div>
                                                                 </li>
                                                             </div>
@@ -970,7 +985,7 @@
                                                                 style="z-index: 0;">
                                                                 <div class="d-flex w-100 justify-content-between">
                                                                     <h5 style="font-size: 15px;" class="mb-0 text-capitalize">
-                                                                        Medicamentos
+                                                                        @lang('messages.acordion.medicamentos')
                                                                     </h5>
                                                                 </div>
                                                             </li>
@@ -979,7 +994,7 @@
                                                             <div id="not-medications">
                                                                 <li class="list-group-item" aria-current="true">
                                                                     <div class="d-flex w-100 justify-content-between">
-                                                                        <strong>No hay información para mostrar</strong>
+                                                                        <strong>@lang('messages.pacientes.sin_informacion')</strong>
                                                                     </div>
                                                                 </li>
                                                             </div>
@@ -988,12 +1003,12 @@
                                                 </div>
                                             </div>
                                         </section>
-                                        <h3>Consultas médicas</h3>
+                                        <h3>@lang('messages.pacientes.consulta_medica')</h3>
                                         <section>
                                             <div style="display: none" id='not-medical-record' class="row justify-content-center mt-2">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                     <h5 class="card-title" style="text-align: center;">
-                                                        ¡Paciente sin consulta medica!
+                                                        @lang('messages.pacientes.paciente_sin_cons')
                                                     </h5>
                                                 </div>
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; margin-bottom: 10px; justify-content: center;">
@@ -1002,7 +1017,7 @@
                                             </div>
                                             <div class="list-group list-con div-overflow"> </div>
                                         </section>
-                                        <h3>Estudios Realizados</h3>
+                                        <h3>@lang('messages.pacientes.estudios_realizado')</h3>
                                         <section>
                                             <div class="row p-3 div-overflow">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pmv-0">
@@ -1011,7 +1026,7 @@
                                                     <div id='not-studie' class="row justify-content-center">
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                             <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">
-                                                                ¡No hay estudios para mostrar de este paciente!
+                                                                @lang('messages.pacientes.no_estudios')
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">
@@ -1021,7 +1036,7 @@
                                                 </div>
                                             </div>
                                         </section>
-                                        <h3>Exámenes Realizados</h3>
+                                        <h3>@lang('messages.pacientes.examenes_realizado')</h3>
                                         <section>
                                             <div class="row p-3 div-overflow">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pmv-0">
@@ -1029,7 +1044,7 @@
                                                     <div id='not-exam' class="row justify-content-center">
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                             <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">
-                                                                ¡No hay exámenes para mostrar de este paciente!
+                                                                @lang('messages.pacientes.no_examenes')
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">
@@ -1039,12 +1054,12 @@
                                                 </div>
                                             </div>
                                         </section>
-                                        <h3>Exámenes Fisicos</h3>
+                                        <h3>@lang('messages.pacientes.examenes_fisico')</h3>
                                         <section>
                                             <div style="display: none" id='not-examenes-fisicos' class="row justify-content-center mt-2">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                     <h5 class="card-title" style="text-align: center;">
-                                                        ¡Paciente sin examenes fisicos!
+                                                        @lang('messages.pacientes.no_examenes')
                                                     </h5>
                                                 </div>
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; margin-bottom: 10px; justify-content: center;">
