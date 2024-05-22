@@ -25,6 +25,7 @@
 <script src="{{ asset('jquery-validation-1.19.5/dist/jquery.validate.min.js') }}" type="text/javascript"></script>
 {{-- select dos --}}
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
 <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon.ico') }}">
 

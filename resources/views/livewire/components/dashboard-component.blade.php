@@ -681,7 +681,14 @@
                             <div class="card-body" style="position: sticky; padding: 1% 2%;">
                                 <h4 class="mb-4 mt-2" style="color: #ffff">Dashboard Sqlapio</h4>
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                    <div class="row">
+
+
+                                    {{-- fitro --}}
+
+                                    <x-drag-drop/>
+
+                                    {{-- end --}}
+                                    <div class="row" style="margin-top: 5rem !important">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">
                                             <div class="card" style="background-color: #222f3e">
                                                 <div class="card-body p-4" style="display: flex; justify-content: center;" >
