@@ -38,8 +38,8 @@
 
     @media screen and (max-width: 1200px) {
         .graficas-3 canvas {
-            height:auto !important;
-            width:100% !important;
+            height: auto !important;
+            width: 100% !important;
         }
     }
 
@@ -53,7 +53,7 @@
     $lang = session()->get('locale');
     if ($lang == 'en') {
         $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/en-EN.json';
-    } else{
+    } else {
         $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json';
     }
 @endphp
@@ -237,12 +237,12 @@
                 }
             })
 
-            $('#table-patients').DataTable( {
+            $('#table-patients').DataTable({
                 pageLength: 5,
                 paging: true,
                 scroller: true,
                 scrollY: '200px',
-            } );
+            });
 
 
         });
@@ -665,6 +665,62 @@
             });
         }
 
+
+        const handleFilter = (e) => {
+            Swal.fire({
+                icon: 'warning',
+                title: `Desea filtrar por ${$("#moth_filter option:selected").text()}`,
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: 'Cancelar',
+                showCancelButton: true,
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#spinner2').show();
+
+                    let route = '{{ route('filter_month_dashboard', [':month']) }}';
+                    route = route.replace(':month', $('#moth_filter').val());
+                    $.ajax({
+                        url: route,
+                        type: 'GET',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Operación exitosa!',
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+
+
+                                updat_graphc(response);
+
+
+                            });
+                        },
+                        error: function(error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: error.responseJSON.errors,
+                                allowOutsideClick: false,
+                                confirmButtonColor: '#42ABE2',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                $('#send').show();
+                                $('#spinner2').hide();
+                                $(".holder").hide();
+                            });
+                        }
+                    });
+                }
+            });
+        }
     </script>
 @endpush
 @section('content')
@@ -681,10 +737,41 @@
                             <div class="card-body" style="position: sticky; padding: 1% 2%;">
                                 <h4 class="mb-4 mt-2" style="color: #ffff">Dashboard Sqlapio</h4>
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    {{-- fitro --}}
+                                    {{-- <x-drag-drop/> --}}
                                     <div class="row">
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-6">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="moth_filter" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px;color:white">Filtro
+                                                        por mes</label>
+                                                    <select onchange="handleFilter(event)" name="moth_filter"
+                                                        id="moth_filter" placeholder="Seleccione"class="form-control"
+                                                        class="form-control combo-textbox-input">
+                                                        <option value="">Seleccione el mes</option>
+                                                        <option value="01">Enero</option>
+                                                        <option value="02">Febrero</option>
+                                                        <option value="03">Marzo</option>
+                                                        <option value="04">Abril</option>
+                                                        <option value="05">Mayo</option>
+                                                        <option value="06">Junio</option>
+                                                        <option value="07">Julio</option>
+                                                        <option value="08">Agosto</option>
+                                                        <option value="09">Septiembre</option>
+                                                        <option value="10">Octubre</option>
+                                                        <option value="11">Noviemnre</option>
+                                                        <option value="12">Diciembre</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- end --}}
+                                    <div class="row mt-2">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">
                                             <div class="card" style="background-color: #222f3e">
-                                                <div class="card-body p-4" style="display: flex; justify-content: center;" >
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;">
                                                     <div class="c-chart-wrapper mt-2 mx-3" style="height:350px; width:100%">
                                                         <canvas id="queries_month" style="height:40vh; width:100vw"</canvas>
                                                     </div>
@@ -698,14 +785,16 @@
                                         <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
                                             <div class="card l-bg-cherry">
                                                 <div class="card-statistic-3 p-4">
-                                                    <div class="card-icon card-icon-large"><img width="120" height="auto" src="{{ asset('/img/icons/patients-w.png') }}" alt="avatar"></div>
+                                                    <div class="card-icon card-icon-large"><img width="120"
+                                                            height="auto" src="{{ asset('/img/icons/patients-w.png') }}"
+                                                            alt="avatar"></div>
                                                     <div class="mb-4">
                                                         <h5 class="card-title mb-0">@lang('messages.label.paciente')</h5>
                                                     </div>
-                                                    <div class="row align-items-center mb-2 d-flex" >
-                                                        <div class="col-8"  style="display: flex">
+                                                    <div class="row align-items-center mb-2 d-flex">
+                                                        <div class="col-8" style="display: flex">
                                                             <h2 class="d-flex align-items-center mb-0">
-                                                                {{auth()->user()->patient_counter}}
+                                                                {{ auth()->user()->patient_counter }}
                                                             </h2>
                                                         </div>
                                                     </div>
@@ -715,14 +804,17 @@
                                         <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
                                             <div class="card l-bg-blue-dark">
                                                 <div class="card-statistic-3 p-4">
-                                                    <div class="card-icon card-icon-large"> <img width="120" height="auto" src="{{ asset('/img/icons/medical-report3-w.png') }}" alt="avatar"></div>
+                                                    <div class="card-icon card-icon-large"> <img width="120"
+                                                            height="auto"
+                                                            src="{{ asset('/img/icons/medical-report3-w.png') }}"
+                                                            alt="avatar"></div>
                                                     <div class="mb-4">
                                                         <h5 class="card-title mb-0">@lang('messages.label.consulta')</h5>
                                                     </div>
                                                     <div class="row align-items-center mb-2 d-flex">
-                                                        <div class="col-8"  style="display: flex">
+                                                        <div class="col-8" style="display: flex">
                                                             <h2 class="d-flex align-items-center mb-0">
-                                                                {{auth()->user()->medical_record_counter}}
+                                                                {{ auth()->user()->medical_record_counter }}
                                                             </h2>
                                                         </div>
                                                     </div>
@@ -732,14 +824,17 @@
                                         <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
                                             <div class="card l-bg-green-dark">
                                                 <div class="card-statistic-3 p-4">
-                                                    <div class="card-icon card-icon-large"> <img width="120" height="auto" src="{{ asset('/img/icons/medical-report-w.png') }}" alt="avatar"></div>
+                                                    <div class="card-icon card-icon-large"> <img width="120"
+                                                            height="auto"
+                                                            src="{{ asset('/img/icons/medical-report-w.png') }}"
+                                                            alt="avatar"></div>
                                                     <div class="mb-4">
                                                         <h5 class="card-title mb-0">@lang('messages.label.examenes')</h5>
                                                     </div>
                                                     <div class="row align-items-center mb-2 d-flex">
-                                                        <div class="col-8"  style="display: flex">
+                                                        <div class="col-8" style="display: flex">
                                                             <h2 class="d-flex align-items-center mb-0">
-                                                                {{auth()->user()->ref_counter}}
+                                                                {{ auth()->user()->ref_counter }}
                                                             </h2>
                                                         </div>
                                                     </div>
@@ -749,14 +844,16 @@
                                         <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
                                             <div class="card l-bg-orange-dark">
                                                 <div class="card-statistic-3 p-4">
-                                                    <div class="card-icon card-icon-large"><img width="120" height="auto" src="{{ asset('/img/icons/medical1-w.png') }}" alt="avatar"></div>
+                                                    <div class="card-icon card-icon-large"><img width="120"
+                                                            height="auto" src="{{ asset('/img/icons/medical1-w.png') }}"
+                                                            alt="avatar"></div>
                                                     <div class="mb-4">
                                                         <h5 class="card-title mb-0">@lang('messages.label.estudios')</h5>
                                                     </div>
                                                     <div class="row align-items-center mb-2 d-flex">
-                                                        <div class="col-8"  style="display: flex">
+                                                        <div class="col-8" style="display: flex">
                                                             <h2 class="d-flex align-items-center mb-0">
-                                                                {{auth()->user()->ref_counter}}
+                                                                {{ auth()->user()->ref_counter }}
                                                             </h2>
                                                         </div>
                                                     </div>
@@ -769,8 +866,10 @@
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-lg-4">
                                             <div class="card" style="background-color: #222f3e">
-                                                <div class="card-body p-4" style="display: flex; justify-content: center;" >
-                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                <div class="card-body p-4"
+                                                    style="display: flex; justify-content: center;">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3"
+                                                        style="height:auto; width:100%">
                                                         <canvas id="appointments_attended"></canvas>
                                                     </div>
                                                 </div>
@@ -778,17 +877,21 @@
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-lg-4">
                                             <div class="card " style="background-color: #222f3e">
-                                                <div class="card-body p-4" style="display: flex; justify-content: center;">
-                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
-                                                        <canvas id="appointments_confirmed" ></canvas>
+                                                <div class="card-body p-4"
+                                                    style="display: flex; justify-content: center;">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3"
+                                                        style="height:auto; width:100%">
+                                                        <canvas id="appointments_confirmed"></canvas>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-lg-4">
                                             <div class="card " style="background-color: #222f3e">
-                                                <div class="card-body p-4" style="display: flex; justify-content: center;">
-                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                <div class="card-body p-4"
+                                                    style="display: flex; justify-content: center;">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3"
+                                                        style="height:auto; width:100%">
                                                         <canvas id="appointments_canceled"></canvas>
                                                     </div>
                                                 </div>
@@ -802,69 +905,104 @@
                                             <div class="card" style="background-color: #222f3e">
                                                 <div class="card-body p-4">
                                                     <div class="row" id="table-patients" style="color: #b3b3b3">
-                                                        <h5><i class="bi bi-calendar2-check" style="color: #fffff"></i> @lang('messages.acordion.citas')</h5>
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-                                                            <table id="table-patient" class="table table-striped table-bordered table-dark" style="width:100%">
+                                                        <h5><i class="bi bi-calendar2-check" style="color: #fffff"></i>
+                                                            @lang('messages.acordion.citas')</h5>
+                                                        <div
+                                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                            <table id="table-patient"
+                                                                class="table table-striped table-bordered table-dark"
+                                                                style="width:100%">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.hora') </th>
-                                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido') </th>
+                                                                        <th class="text-center w-10" scope="col">
+                                                                            @lang('messages.tabla.hora') </th>
+                                                                        <th class="text-center w-17" scope="col">
+                                                                            @lang('messages.tabla.nombre_apellido') </th>
                                                                         @if (Auth::user()->contrie == '81')
-                                                                            <th class="text-center w-10" scope="col">@lang('messages.form.CIE')</th>
+                                                                            <th class="text-center w-10" scope="col">
+                                                                                @lang('messages.form.CIE')</th>
                                                                         @else
-                                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                                            <th class="text-center w-10" scope="col">
+                                                                                @lang('messages.tabla.cedula')</th>
                                                                         @endif
-                                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.centro_salud')</th>
-                                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.estatus')</th>
-                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
+                                                                        <th class="text-center w-17" scope="col">
+                                                                            @lang('messages.tabla.centro_salud')</th>
+                                                                        <th class="text-center w-10" scope="col">
+                                                                            @lang('messages.tabla.estatus')</th>
+                                                                        <th class="text-center w-10" scope="col"
+                                                                            data-orderable="false">@lang('messages.tabla.acciones')</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                     @foreach ($appointments as $item)
                                                                         <tr>
-                                                                            <td class="text-center td-pad"> {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }} </td>
-                                                                            <td class="text-center td-pad text-capitalize"> {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }} </td>
+                                                                            <td class="text-center td-pad">
+                                                                                {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }}
+                                                                            </td>
+                                                                            <td class="text-center td-pad text-capitalize">
+                                                                                {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }}
+                                                                            </td>
                                                                             @if (Auth::user()->contrie == '81')
-                                                                                <td class="text-center td-pad"> {{  preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item['extendedProps']['ci'])  }}</td>
+                                                                                <td class="text-center td-pad">
+                                                                                    {{ preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item['extendedProps']['ci']) }}
+                                                                                </td>
                                                                             @else
-                                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['ci'] }}</td>
+                                                                                <td class="text-center td-pad">
+                                                                                    {{ $item['extendedProps']['ci'] }}</td>
                                                                             @endif
-                                                                            <td class="text-center td-pad"> {{ $item['extendedProps']['center'] }}</td>
+                                                                            <td class="text-center td-pad">
+                                                                                {{ $item['extendedProps']['center'] }}</td>
                                                                             @php
-                                                                                $status2 =  $item['extendedProps']['status'];
+                                                                                $status2 =
+                                                                                    $item['extendedProps']['status'];
                                                                             @endphp
-                                                                            <td class="text-center td-pad"> <span class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">@lang('messages.tabla.' . $status2)</span> </td>
+                                                                            <td class="text-center td-pad"> <span
+                                                                                    class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">@lang('messages.tabla.' . $status2)</span>
+                                                                            </td>
                                                                             <td>
-                                                                                <div class="d-flex" style="justify-content: center;">
-                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                <div class="d-flex"
+                                                                                    style="justify-content: center;">
+                                                                                    <div
+                                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                                         <a href="{{ $item['extendedProps']['age'] == '' ? '#' : route('MedicalRecord', $item['extendedProps']['patient_id']) }}"
                                                                                             @php
-                                                                                                $id_patient =  $item["extendedProps"]["patient_id"];
-                                                                                            @endphp
+$id_patient =  $item["extendedProps"]["patient_id"]; @endphp
                                                                                             onclick='{{ $item['extendedProps']['age'] == '' ? "alertInfoPaciente($id_patient )" : '' }}'>
                                                                                             <button type="button"
                                                                                                 data-bs-toggle="tooltip"
                                                                                                 data-bs-placement="bottom"
                                                                                                 title="@lang('messages.tooltips.consulta_medica')">
-                                                                                                <img width="35" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
+                                                                                                <img width="35"
+                                                                                                    height="auto"
+                                                                                                    src="{{ asset('/img/icons/monitor.png') }}"
+                                                                                                    alt="avatar">
                                                                                             </button>
                                                                                         </a>
                                                                                     </div>
-                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                                        <button type="button" data-bs-toggle="tooltip"
+                                                                                    <div
+                                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                        <button type="button"
+                                                                                            data-bs-toggle="tooltip"
                                                                                             data-bs-placement="bottom"
                                                                                             title="@lang('messages.tooltips.cancelar_cita')"
                                                                                             onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
-                                                                                            <img width="33" height="auto" src="{{ asset('/img/icons/canceled.png') }}" alt="avatar">
+                                                                                            <img width="33"
+                                                                                                height="auto"
+                                                                                                src="{{ asset('/img/icons/canceled.png') }}"
+                                                                                                alt="avatar">
                                                                                         </button>
                                                                                     </div>
-                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                                        <button type="button" data-bs-toggle="tooltip"
+                                                                                    <div
+                                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                        <button type="button"
+                                                                                            data-bs-toggle="tooltip"
                                                                                             data-bs-placement="bottom"
                                                                                             title="Enviar Recordatorio"
-                                                                                            {{-- onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')" --}}
-                                                                                            >
-                                                                                            <img width="35" height="auto" src="{{ asset('/img/icons/send.png') }}" alt="avatar">
+                                                                                            {{-- onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')" --}}>
+                                                                                            <img width="35"
+                                                                                                height="auto"
+                                                                                                src="{{ asset('/img/icons/send.png') }}"
+                                                                                                alt="avatar">
                                                                                         </button>
                                                                                     </div>
                                                                                 </div>
@@ -886,15 +1024,23 @@
                                             <div class="card" style="background-color: #222f3e;">
                                                 <div class="card-body p-4">
                                                     <div class="row" id="table-patients" style="color: #b3b3b3">
-                                                        <h5><i class="bi bi-calendar2-check" style="color: #fffff"></i> @lang('messages.menu.pacientes')</h5>
-                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-                                                            <table id="table-patient" class="table table-striped table-bordered table-dark" style="width:100%;">
+                                                        <h5><i class="bi bi-calendar2-check" style="color: #fffff"></i>
+                                                            @lang('messages.menu.pacientes')</h5>
+                                                        <div
+                                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                            <table id="table-patient"
+                                                                class="table table-striped table-bordered table-dark"
+                                                                style="width:100%;">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
-                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.nombre_apellido')</th>
-                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.email')</th>
-                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.telefono')</th>
+                                                                        <th class="text-center w-image" scope="col"
+                                                                            data-orderable="false">@lang('messages.tabla.foto')</th>
+                                                                        <th class="text-center w-10" scope="col"
+                                                                            data-orderable="false">@lang('messages.tabla.nombre_apellido')</th>
+                                                                        <th class="text-center w-10" scope="col"
+                                                                            data-orderable="false">@lang('messages.form.email')</th>
+                                                                        <th class="text-center w-10" scope="col"
+                                                                            data-orderable="false">@lang('messages.tabla.telefono')</th>
 
                                                                     </tr>
                                                                 </thead>
@@ -906,9 +1052,13 @@
                                                                                     src=" {{ $item->patient_img ? asset('/imgs/' . $item->patient_img) : ($item->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
                                                                                     alt="Imagen del paciente">
                                                                             </td>
-                                                                            <td class="text-center text-capitalize">{{ $item->name }} {{ $item->last_name }}</td>
-                                                                            <td class="text-center text-capitalize">{{ $item->email }}</td>
-                                                                            <td class="text-center text-capitalize">{{ $item->phone }}</td>
+                                                                            <td class="text-center text-capitalize">
+                                                                                {{ $item->name }} {{ $item->last_name }}
+                                                                            </td>
+                                                                            <td class="text-center text-capitalize">
+                                                                                {{ $item->email }}</td>
+                                                                            <td class="text-center text-capitalize">
+                                                                                {{ $item->phone }}</td>
 
                                                                         </tr>
                                                                     @endforeach
@@ -922,28 +1072,37 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 col-xxl-5">
                                             <div class="row">
                                                 <div class="col-xl-12 col-lg-12">
-                                                    <div class="card" style="background-color: #222f3e; margin-bottom: 25px;">
-                                                        <div class="card-body p-4" style="display: flex; justify-content: center;" >
-                                                            <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
-                                                                <canvas id="countGereral2" ></canvas>
+                                                    <div class="card"
+                                                        style="background-color: #222f3e; margin-bottom: 25px;">
+                                                        <div class="card-body p-4"
+                                                            style="display: flex; justify-content: center;">
+                                                            <div class="c-chart-wrapper mt-2 mx-3 graficas-3"
+                                                                style="height:auto; width:100%">
+                                                                <canvas id="countGereral2"></canvas>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6 col-lg-6">
                                                     <div class="card " style="background-color: #222f3e;">
-                                                        <div class="card-body p-4" style="display: flex; justify-content: center;">
-                                                            <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
-                                                                <canvas id="quotes" style="height:auto; width:100vw"></canvas>
+                                                        <div class="card-body p-4"
+                                                            style="display: flex; justify-content: center;">
+                                                            <div class="c-chart-wrapper mt-2 mx-3"
+                                                                style="height:auto; width:100%">
+                                                                <canvas id="quotes"
+                                                                    style="height:auto; width:100vw"></canvas>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6 col-lg-6">
                                                     <div class="card " style="background-color: #222f3e;">
-                                                        <div class="card-body p-4" style="display: flex; justify-content: center;">
-                                                            <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
-                                                                <canvas id="consultas_history" style="height:auto; width:100vw"></canvas>
+                                                        <div class="card-body p-4"
+                                                            style="display: flex; justify-content: center;">
+                                                            <div class="c-chart-wrapper mt-2 mx-3"
+                                                                style="height:auto; width:100%">
+                                                                <canvas id="consultas_history"
+                                                                    style="height:auto; width:100vw"></canvas>
                                                             </div>
                                                         </div>
                                                     </div>
