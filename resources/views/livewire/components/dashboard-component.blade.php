@@ -744,7 +744,7 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="moth_filter" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Filtro
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px;color:white">Filtro
                                                         por mes</label>
                                                     <select onchange="handleFilter(event)" name="moth_filter"
                                                         id="moth_filter" placeholder="Seleccione"class="form-control"
