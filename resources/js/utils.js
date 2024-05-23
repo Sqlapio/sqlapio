@@ -18,9 +18,11 @@ $('.alpha-no-spaces').mask("A", {
     "A": { pattern: /[a-z0-9@\-_.+]/, recursive: true }
   }
 });
+
 $("#datepicker").datepicker({
-  language: 'es',
+  language: lang_datepicker,
 });
+
 $(document).ready(() => {
   // selec dos
   $(".select_dos").select2({

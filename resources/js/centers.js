@@ -1,5 +1,5 @@
 $("#datepicker2").datepicker({
-  language:'es'
+  language: lang_datepicker
 });
 
 

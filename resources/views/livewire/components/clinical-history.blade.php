@@ -76,6 +76,12 @@
     } else{
         $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json';
     }
+
+    if($lang == 'en') {
+        $lang_datepicker = 'en';
+    } else{
+        $lang_datepicker = 'es';
+    }
 @endphp
 @push('scripts')
     <script>
@@ -98,11 +104,13 @@
         let arrayhistory_surgical = (history_surgical) ? history_surgical : [];
         let arraymedications_supplements = (medications_supplements) ? medications_supplements : [];
 
+        var lang_datepicker = @json($lang_datepicker);
+        var url = @json($url);
 
         $(document).ready(() => {
 
             $(".datePickert").datepicker({
-                language: 'es'
+                language: lang_datepicker
             });
             $('#form-mecal-histroy').validate({
                 ignore: [],
