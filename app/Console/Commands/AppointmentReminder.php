@@ -83,6 +83,7 @@ class AppointmentReminder extends Command
                 dd('Error UtilsController.sms_welcome()', $message);
             }
             }
+            $this->info('notificacion 1');
         //
     }
 }
