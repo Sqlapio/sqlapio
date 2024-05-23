@@ -41,6 +41,7 @@ use App\Http\Livewire\Components\SalesForces\RegisterUserSalesForces;
 use App\Http\Livewire\Components\Study;
 use App\Http\Middleware\VerifyPlans;
 use App\Http\Middleware\VerifyPlansActive;
+use App\Models\Appointment;
 use App\Models\Center;
 use App\Models\Exam;
 use App\Models\Patient;
@@ -335,12 +336,8 @@ Route::post('/validateCapchat', [UtilsController::class, 'validateCapchat'])->na
 Route::get('/lang/{lang}', [MultilanguajeController::class, 'lang'])->name('lang');
 
 Route::get('/prueba', function () {
-    $users = DB::table('users')
-        ->offset(5) // Starting position of records
-        ->limit(2) // Number of records to retrieve
-        ->get();
-    dd($users);
-    return view('barcode', compact('barcode'));
+    $todayAppointment = Appointment::where('date_start', date('Y-m-d'))->get();
+    dd($todayAppointment);
 });
 
 

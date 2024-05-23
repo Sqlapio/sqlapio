@@ -6,38 +6,52 @@ use Illuminate\Http\Request;
 
 class ApiServicesController extends Controller
 {
-    static public function sms_welcome($phone, $caption, $image)
+    static public function whatsapp_welcome($phone, $ubicacion, array $data)
     {
 
         try {
-            $params = array(
 
-                'token' => env('TOKEN_API_WHATSAPP'),
+            $body = <<<HTML
+            *CITA MÉDICA:*
+
+            Le informamos que tiene una cita médica agendada.
+            
+            *Fecha:* {$data['fecha']}
+            *Hora:* {$data['horario']}
+            *Doctor(a):* {$data['dr_name']}
+            *Centro:* {$data['centro']}
+            *Piso:* {$data['piso']}
+            *Consultorio:* {$data['consultorio']}
+
+            *Ubicacion GoogleMpas:* {$data['ubication']}
+            HTML;
+
+            $params=array(
+                'token' => '863lb4l0wmldpl3s',
                 'to' => $phone,
-                'image' => $image,
-                'caption' => $caption
-            );
-            $curl = curl_init();
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.ultramsg.com/instance63635/messages/image",
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 30,
-                CURLOPT_SSL_VERIFYHOST => 0,
-                CURLOPT_SSL_VERIFYPEER => 0,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "POST",
-                CURLOPT_POSTFIELDS => http_build_query($params),
-                CURLOPT_HTTPHEADER => array(
+                'body' => $body
+                );
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                  CURLOPT_URL => "https://api.ultramsg.com/instance83564/messages/chat",
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => "",
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_TIMEOUT => 30,
+                  CURLOPT_SSL_VERIFYHOST => 0,
+                  CURLOPT_SSL_VERIFYPEER => 0,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => "POST",
+                  CURLOPT_POSTFIELDS => http_build_query($params),
+                  CURLOPT_HTTPHEADER => array(
                     "content-type: application/x-www-form-urlencoded"
-                ),
-            ));
+                  ),
+                ));
 
-            $response = curl_exec($curl);
-            $err = curl_error($curl);
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
 
-            curl_close($curl);
+                curl_close($curl);
 
         } catch (\Throwable $th) {
             $message = $th->getMessage();
@@ -45,7 +59,7 @@ class ApiServicesController extends Controller
         }
     }
 
-    static public function sms_info($phone, $body)
+    static public function whatsapp_info($phone, $body)
     {
 
         try {
@@ -83,7 +97,7 @@ class ApiServicesController extends Controller
         }
     }
 
-    static public function sms_reference_info($phone, $body)
+    static public function whatsapp_reference_info($phone, $body)
     {
 
         try {
@@ -121,7 +135,7 @@ class ApiServicesController extends Controller
         }
     }
 
-    static public function sms_location_lab()
+    static public function whatsapp_location_lab()
     {
 
         try {

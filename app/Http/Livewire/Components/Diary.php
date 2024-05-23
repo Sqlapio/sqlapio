@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Components;
 
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\ApiServicesController;
 use App\Http\Controllers\UtilsController;
 use App\Models\Appointment;
 use App\Models\Center;
@@ -46,6 +47,7 @@ class Diary extends Component
 
     public function store(Request $request)
     {
+
         try {
             $rules = [
                 'date_start' => 'required',
@@ -142,6 +144,7 @@ class Diary extends Component
                 $appointment->save();
             }
 
+            /**Escribir la accion en la tabla de logs */
             $action = '7';
             ActivityLogController::store_log($action);
 
@@ -151,18 +154,21 @@ class Diary extends Component
              */
             $user = Auth::user();
             $patient = Patient::where('id',($request->patient_new == "true")?  $patient->id : $request->patient_id)->first();
-            /**
-             * Paciente menor de edad
-             */
+
+
+            /** Valido si el paciente es menor de edad y tomo el correo del representante*/
             if ($patient->is_minor == 'true') {
                 $patient_email = $patient->get_reprensetative->re_email;
             } else {
                 $patient_email = $patient->email;
             }
 
+            /**Logica para tomar la ubicacion del centro y enviar el url de GoogleMaps en la notificacion por email */
             $data_center = DoctorCenter::where('user_id', $user->id)->where('center_id', $appointment->get_center->id)->first();
             $dir = str_replace(' ', '%20', $appointment->get_center->description);
             $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $appointment->get_center->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
+
+            /**Si el medico pertenece a un plan coorporativo se toma la informacion del centro al que esta asociado */
             if (isset($center_id_corporativo)) {
                 $type = 'appointment';
                 $mailData = [
@@ -180,8 +186,8 @@ class Diary extends Component
                     'ubication'     => $ubication,
                     'link'          => 'https://system.sqlapio.com/confirmation/dairy/' . $appointment->code,
                 ];
-
                 UtilsController::notification_mail($mailData, $type);
+
             } else {
                 $type = 'appointment';
                 $mailData = [
@@ -199,8 +205,12 @@ class Diary extends Component
                     'ubication'     => $ubication,
                     'link'          => 'https://system.sqlapio.com/confirmation/dairy/' . $appointment->code,
                 ];
-
                 UtilsController::notification_mail($mailData, $type);
+
+                /**Notificacion por whatsapp */
+                $caption = 'Cita Registrada';
+                $img = 'https://system.sqlapio.com/img/notificacion_email/cita_header.jpg';
+                ApiServicesController::whatsapp_welcome($patient->phone, $ubication, $mailData);
             }
 
             return true;
