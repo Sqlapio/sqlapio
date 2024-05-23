@@ -109,6 +109,8 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
         Route::middleware(['VerifySelloDigital', 'verify_email'])->group(function () {
             Route::get('/home', [Home::class, 'render'])->name('home');
             Route::get('/dashboard', [DashboardComponent::class, 'render'])->name('DashboardComponent');
+            Route::get('/dashboard/filter_month_dashboard/{month}', [UtilsController::class, 'filter_month_dashboard'])->name('filter_month_dashboard');
+
             Route::get('/patients/{id_patient?}', [Patients::class, 'render'])->name('Patients')->middleware(['VerifyPlanExpiredPlan']);
             Route::get('/setting', [setting::class, 'render'])->name('Setting');
             Route::get('/diary', [Diary::class, 'render'])->name('Diary');

@@ -1323,8 +1323,8 @@ class UtilsController extends Controller
 		if ($row != 'cod_ref') {
 
 			$pat = Patient::where("ci", $value)
-				->whereHas('get_reprensetative', function ($q) use ($value) {
-					$q->orWhere('re_ci', $value);
+				->orwhereHas('get_reprensetative', function ($q) use ($value) {
+					$q->where('re_ci', $value);
 				})->get();
 
 			$tablePat =  ExamPatient::where('status', 2)
@@ -1422,8 +1422,8 @@ class UtilsController extends Controller
 
 
 			$pat = Patient::where("ci", $value)
-				->whereHas('get_reprensetative', function ($q) use ($value) {
-					$q->orWhere('re_ci', $value);
+				->orwhereHas('get_reprensetative', function ($q) use ($value) {
+					$q->where('re_ci', $value);
 				})->get();
 
 			$tablePat =  StudyPatient::where('status', 2)
@@ -1821,211 +1821,399 @@ class UtilsController extends Controller
 		}
 	}
 
-	static function get_queries_month()
+	static function get_queries_month($month = null)
 	{
 		try {
 
-			$January = MedicalRecord::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "01")->count();
+			if ($month) {
+				$January = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "01") ? $month : null)->count();
 
-			$February = MedicalRecord::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "02")->count();
+				$February = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "02") ? $month : null)->count();
 
-			$March = MedicalRecord::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "03")->count();
+				$March = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "03") ? $month : null)->count();
 
-			$April = MedicalRecord::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "04")->count();
+				$April = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "04") ? $month : null)->count();
 
-			$May = MedicalRecord::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "05")->count();
+				$May = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "05") ? $month : null)->count();
 
-			$June = MedicalRecord::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "06")->count();
+				$June = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "06") ? $month : null)->count();
 
-			$julio  = MedicalRecord::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "07")->count();
+				$julio  = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "07") ? $month : null)->count();
 
-			$agosto = MedicalRecord::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "08")->count();
+				$agosto = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "08") ? $month : null)->count();
 
-			$septiembre = MedicalRecord::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "09")->count();
+				$septiembre = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "09") ? $month : null)->count();
 
-			$October = MedicalRecord::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "10")->count();
+				$October = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "10") ? $month : null)->count();
 
-			$November = MedicalRecord::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "11")->count();
+				$November = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "11") ? $month : null)->count();
 
-			$December = MedicalRecord::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "12")->count();
+				$December = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "12") ? $month : null)->count();
 
-			return [
-				$January, $February,
-				$March, $April, $May,
-				$June, $julio, $agosto,
-				$septiembre, $October,
-				$November, $December
-			];
+				return [
+					$January, $February,
+					$March, $April, $May,
+					$June, $julio, $agosto,
+					$septiembre, $October,
+					$November, $December
+				];
+			} else {
+
+				$January = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "01")->count();
+
+				$February = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "02")->count();
+
+				$March = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "03")->count();
+
+				$April = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "04")->count();
+
+				$May = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "05")->count();
+
+				$June = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "06")->count();
+
+				$julio  = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "07")->count();
+
+				$agosto = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "08")->count();
+
+				$septiembre = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "09")->count();
+
+				$October = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "10")->count();
+
+				$November = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "11")->count();
+
+				$December = MedicalRecord::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "12")->count();
+
+				return [
+					$January, $February,
+					$March, $April, $May,
+					$June, $julio, $agosto,
+					$septiembre, $October,
+					$November, $December
+				];
+			}
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_image_patient()', $message);
 		}
 	}
 
-	static function get_appointments_attended()
+	static function get_appointments_attended($month = null)
 	{
 		try {
 
-			$January = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "01")->where("status","3")->count();
+			if ($month) {
+				$January = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "01") ? $month : null)->where("status", "3")->count();
 
-			$February = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "02")->where("status","3")->count();
+				$February = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "02") ? $month : null)->where("status", "3")->count();
 
-			$March = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "03")->where("status","3")->count();
+				$March = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "03") ? $month : null)->where("status", "3")->count();
 
-			$April = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "04")->where("status","3")->count();
+				$April = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "04") ? $month : null)->where("status", "3")->count();
 
-			$May = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "05")->where("status","3")->count();
+				$May = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "05") ? $month : null)->where("status", "3")->count();
 
-			$June = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "06")->where("status","3")->count();
+				$June = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "06") ? $month : null)->where("status", "3")->count();
 
-			$julio  = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "07")->where("status","3")->count();
+				$julio  = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "07") ? $month : null)->where("status", "3")->count();
 
-			$agosto = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "08")->where("status","3")->count();
+				$agosto = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "08") ? $month : null)->where("status", "3")->count();
 
-			$septiembre = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "09")->where("status","3")->count();
+				$septiembre = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "09") ? $month : null)->where("status", "3")->count();
 
-			$October = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "10")->where("status","3")->count();
+				$October = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "10") ? $month : null)->where("status", "3")->count();
 
-			$November = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "11")->where("status","3")->count();
+				$November = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "11") ? $month : null)->where("status", "3")->count();
 
-			$December = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "12")->where("status","3")->count();
+				$December = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "12") ? $month : null)->where("status", "3")->count();
 
-			return [
-				$January, $February,
-				$March, $April, $May,
-				$June, $julio, $agosto,
-				$septiembre, $October,
-				$November, $December
-			];
+				return [
+					$January, $February,
+					$March, $April, $May,
+					$June, $julio, $agosto,
+					$septiembre, $October,
+					$November, $December
+				];
+			} else {
+				$January = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "01")->where("status", "3")->count();
+
+				$February = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "02")->where("status", "3")->count();
+
+				$March = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "03")->where("status", "3")->count();
+
+				$April = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "04")->where("status", "3")->count();
+
+				$May = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "05")->where("status", "3")->count();
+
+				$June = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "06")->where("status", "3")->count();
+
+				$julio  = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "07")->where("status", "3")->count();
+
+				$agosto = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "08")->where("status", "3")->count();
+
+				$septiembre = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "09")->where("status", "3")->count();
+
+				$October = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "10")->where("status", "3")->count();
+
+				$November = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "11")->where("status", "3")->count();
+
+				$December = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "12")->where("status", "3")->count();
+
+				return [
+					$January, $February,
+					$March, $April, $May,
+					$June, $julio, $agosto,
+					$septiembre, $October,
+					$November, $December
+				];
+			}
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_image_patient()', $message);
 		}
 	}
-	static function get_appointments_canceled()
+	static function get_appointments_canceled($month = null)
 	{
 		try {
 
-			$January = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "01")->where("status","4")->count();
+			if ($month) {
 
-			$February = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "02")->where("status","4")->count();
+				$January = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "01") ? $month : null)->where("status", "4")->count();
 
-			$March = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "03")->where("status","4")->count();
+				$February = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "02") ? $month : null)->where("status", "4")->count();
 
-			$April = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "04")->where("status","4")->count();
+				$March = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "03") ? $month : null)->where("status", "4")->count();
 
-			$May = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "05")->where("status","4")->count();
+				$April = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "04") ? $month : null)->where("status", "4")->count();
 
-			$June = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "06")->where("status","4")->count();
+				$May = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "05") ? $month : null)->where("status", "4")->count();
 
-			$julio  = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "07")->where("status","4")->count();
+				$June = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "06") ? $month : null)->where("status", "4")->count();
 
-			$agosto = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "08")->where("status","4")->count();
+				$julio  = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "07") ? $month : null)->where("status", "4")->count();
 
-			$septiembre = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "09")->where("status","4")->count();
+				$agosto = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "08") ? $month : null)->where("status", "4")->count();
 
-			$October = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "10")->where("status","4")->count();
+				$septiembre = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "09") ? $month : null)->where("status", "4")->count();
 
-			$November = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "11")->where("status","4")->count();
+				$October = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "10") ? $month : null)->where("status", "4")->count();
 
-			$December = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "12")->where("status","4")->count();
+				$November = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "11") ? $month : null)->where("status", "4")->count();
 
-			return [
-				$January, $February,
-				$March, $April, $May,
-				$June, $julio, $agosto,
-				$septiembre, $October,
-				$November, $December
-			];
+				$December = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "12") ? $month : null)->where("status", "4")->count();
+
+				return [
+					$January, $February,
+					$March, $April, $May,
+					$June, $julio, $agosto,
+					$septiembre, $October,
+					$November, $December
+				];
+			} else {
+				$January = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "01")->where("status", "4")->count();
+
+				$February = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "02")->where("status", "4")->count();
+
+				$March = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "03")->where("status", "4")->count();
+
+				$April = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "04")->where("status", "4")->count();
+
+				$May = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "05")->where("status", "4")->count();
+
+				$June = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "06")->where("status", "4")->count();
+
+				$julio  = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "07")->where("status", "4")->count();
+
+				$agosto = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "08")->where("status", "4")->count();
+
+				$septiembre = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "09")->where("status", "4")->count();
+
+				$October = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "10")->where("status", "4")->count();
+
+				$November = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "11")->where("status", "4")->count();
+
+				$December = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "12")->where("status", "4")->count();
+
+				return [
+					$January, $February,
+					$March, $April, $May,
+					$June, $julio, $agosto,
+					$septiembre, $October,
+					$November, $December
+				];
+			}
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_image_patient()', $message);
 		}
 	}
 
-	static function get_appointments_confirmed()
+	static function get_appointments_confirmed($month = null)
 	{
 		try {
 
-			$January = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "01")->where("status","2")->count();
+			if ($month) {
 
-			$February = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "02")->where("status","2")->count();
+				$January = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "01") ? $month : null)->where("status", "2")->count();
 
-			$March = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "03")->where("status","2")->count();
+				$February = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "02") ? $month : null)->where("status", "2")->count();
 
-			$April = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "04")->where("status","2")->count();
+				$March = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "03") ? $month : null)->where("status", "2")->count();
 
-			$May = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "05")->where("status","2")->count();
+				$April = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "04") ? $month : null)->where("status", "2")->count();
 
-			$June = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "06")->where("status","2")->count();
+				$May = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "05") ? $month : null)->where("status", "2")->count();
 
-			$julio  = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "07")->where("status","2")->count();
+				$June = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "06") ? $month : null)->where("status", "2")->count();
 
-			$agosto = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "08")->where("status","2")->count();
+				$julio  = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "07") ? $month : null)->where("status", "2")->count();
 
-			$septiembre = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "09")->where("status","2")->count();
+				$agosto = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "08") ? $month : null)->where("status", "2")->count();
 
-			$October = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "10")->where("status","2")->count();
+				$septiembre = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "09") ? $month : null)->where("status", "2")->count();
 
-			$November = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "11")->where("status","2")->count();
+				$October = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "10") ? $month : null)->where("status", "2")->count();
 
-			$December = Appointment::where("user_id", auth()->user()->id)
-				->whereMonth("created_at", "12")->where("status","2")->count();
+				$November = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "11") ? $month : null)->where("status", "2")->count();
 
-			return [
-				$January, $February,
-				$March, $April, $May,
-				$June, $julio, $agosto,
-				$septiembre, $October,
-				$November, $December
-			];
+				$December = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "12") ? $month : null)->where("status", "2")->count();
+
+				return [
+					$January, $February,
+					$March, $April, $May,
+					$June, $julio, $agosto,
+					$septiembre, $October,
+					$November, $December
+				];
+			} else {
+
+				$January = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "01")->where("status", "2")->count();
+
+				$February = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "02")->where("status", "2")->count();
+
+				$March = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "03")->where("status", "2")->count();
+
+				$April = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "04")->where("status", "2")->count();
+
+				$May = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "05")->where("status", "2")->count();
+
+				$June = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "06")->where("status", "2")->count();
+
+				$julio  = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "07")->where("status", "2")->count();
+
+				$agosto = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "08")->where("status", "2")->count();
+
+				$septiembre = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "09")->where("status", "2")->count();
+
+				$October = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "10")->where("status", "2")->count();
+
+				$November = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "11")->where("status", "2")->count();
+
+				$December = Appointment::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "12")->where("status", "2")->count();
+
+				return [
+					$January, $February,
+					$March, $April, $May,
+					$June, $julio, $agosto,
+					$septiembre, $October,
+					$November, $December
+				];
+			}
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_image_patient()', $message);
@@ -2037,15 +2225,35 @@ class UtilsController extends Controller
 		try {
 
 			$attended = Appointment::where("user_id", auth()->user()->id)
-				->where("status","3")->count();
+				->where("status", "3")->count();
 
 			$canceled = Appointment::where("user_id", auth()->user()->id)
-				->where("status","4")->count();
+				->where("status", "4")->count();
 
 			$confirmed = Appointment::where("user_id", auth()->user()->id)
-				->where("status","2")->count();
+				->where("status", "2")->count();
 
-			return [ $canceled,$attended,$confirmed];
+			return [$canceled, $attended, $confirmed];
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_image_patient()', $message);
+		}
+	}
+
+	static function filter_month_dashboard($month)
+	{
+		try {
+			$get_queries_month = UtilsController::get_queries_month($month);
+			$get_appointments_attended = UtilsController::get_queries_month($month);
+			$get_appointments_canceled = UtilsController::get_appointments_canceled($month);
+			$get_appointments_confirmed = UtilsController::get_appointments_confirmed($month);
+
+			return [
+				'get_queries_month' => $get_queries_month,
+				'get_appointments_attended' => $get_appointments_attended,
+				'get_appointments_canceled' => $get_appointments_canceled,
+				'get_appointments_confirmed' => $get_appointments_confirmed,
+			];
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_image_patient()', $message);

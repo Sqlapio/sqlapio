@@ -20,6 +20,11 @@ const Meses = [
     langJson.graficas.diciembre,
 ];
 
+let chart_queries_month;
+let chart_appointments_attended;
+let chart_appointments_canceled;
+let chart_appointments_confirmed;
+
 // function get_patient_register(countPatientRegister) {
 
 //   const labels = [langJson.graficas.total_pacientes];
@@ -331,7 +336,7 @@ function get_queries_month(queries_month) {
     ]
   };
 
-  new Chart($("#queries_month"), {
+  chart_queries_month = new Chart($("#queries_month"), {
     type: "line",
     data: data,
     options: {
@@ -362,6 +367,20 @@ function get_queries_month(queries_month) {
   });
 }
 
+function updat_graphc(data) {
+
+  chart_queries_month.data.datasets[0].data = data.get_queries_month;
+  chart_queries_month.update();
+
+  chart_appointments_attended.data.datasets[0].data = data.get_appointments_attended;
+  chart_appointments_attended.update();
+
+  chart_appointments_canceled.data.datasets[0].data = data.get_appointments_canceled;
+  chart_appointments_canceled.update();
+
+  chart_appointments_confirmed.data.datasets[0].data = data.get_appointments_confirmed;
+  chart_appointments_confirmed.update();
+}
 function get_appointments_attended(appointments_attended) {
   const data = {
     labels: Meses,
@@ -389,7 +408,7 @@ function get_appointments_attended(appointments_attended) {
     ]
   };
 
-  new Chart($("#appointments_attended"), {
+  chart_appointments_attended = new Chart($("#appointments_attended"), {
     type: "line",
     data: data,
     options: {
@@ -448,7 +467,7 @@ function get_appointments_canceled(appointments_canceled) {
     ]
   };
 
-  new Chart($("#appointments_canceled"), {
+  chart_appointments_canceled = new Chart($("#appointments_canceled"), {
     type: "line",
     data: data,
     options: {
@@ -508,7 +527,7 @@ function get_appointments_confirmed(appointments_confirmed) {
     ]
   };
 
-  new Chart($("#appointments_confirmed"), {
+  chart_appointments_confirmed = new Chart($("#appointments_confirmed"), {
     type: "bar",
     data: data,
     options: {
@@ -612,7 +631,7 @@ function get_consultas_history(countMedicalRecordr, countHistoryRegister) {
 // window.get_patient_register = get_patient_register;
 // window.get_medical_record = get_medical_record;
 // window.get_history_register = get_history_register;
-// window.get_genere = get_genere;
+window.updat_graphc = updat_graphc;
 window.get_general = get_general;
 window.get_queries_month = get_queries_month;
 window.get_appointments_attended = get_appointments_attended;
