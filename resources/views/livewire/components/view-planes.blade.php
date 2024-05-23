@@ -907,8 +907,6 @@
 
                 span.textContent = errorMessage;
 
-
-
                 Swal.fire({
                     icon: 'error',
                     title: errorMessage,

@@ -781,7 +781,7 @@ id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
                                         </diV>
                                     </div>
                                 </div>
-   
+
                                 <div class="d-flex justify-content-center">
                                     <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 mt-2 mb-3" style="display: flex; justify-content: center;">
                                         <input class="btn btnSave send " value="@lang('messages.botton.adquiere_plan')" type="submit"

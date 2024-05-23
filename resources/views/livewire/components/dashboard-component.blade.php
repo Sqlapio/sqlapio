@@ -667,18 +667,18 @@
 
 
         const handleFilter = (e) => {
-            Swal.fire({
-                icon: 'warning',
-                title: `Desea filtrar por ${$("#moth_filter option:selected").text()}`,
-                allowOutsideClick: false,
-                confirmButtonColor: '#42ABE2',
-                confirmButtonText: 'Aceptar',
-                cancelButtonText: 'Cancelar',
-                showCancelButton: true,
+            // Swal.fire({
+            //     icon: 'warning',
+            //     title: `Desea filtrar por ${$("#moth_filter option:selected").text()}`,
+            //     allowOutsideClick: false,
+            //     confirmButtonColor: '#42ABE2',
+            //     confirmButtonText: 'Aceptar',
+            //     cancelButtonText: 'Cancelar',
+            //     showCancelButton: true,
 
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $('#spinner2').show();
+            // }).then((result) => {
+            //     if (result.isConfirmed) {
+            //         $('#spinner2').show();
 
                     let route = '{{ route('filter_month_dashboard', [':month']) }}';
                     route = route.replace(':month', $('#moth_filter').val());
@@ -690,36 +690,36 @@
                         },
                         success: function(response) {
 
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Operación exitosa!',
-                                allowOutsideClick: false,
-                                confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
-                            }).then((result) => {
+                            // Swal.fire({
+                            //     icon: 'success',
+                            //     title: 'Operación exitosa!',
+                            //     allowOutsideClick: false,
+                            //     confirmButtonColor: '#42ABE2',
+                            //     confirmButtonText: 'Aceptar'
+                            // }).then((result) => {
 
 
                                 updat_graphc(response);
 
 
-                            });
+                            // });
                         },
-                        error: function(error) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: error.responseJSON.errors,
-                                allowOutsideClick: false,
-                                confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
-                            }).then((result) => {
-                                $('#send').show();
-                                $('#spinner2').hide();
-                                $(".holder").hide();
-                            });
-                        }
+                        // error: function(error) {
+                        //     Swal.fire({
+                        //         icon: 'error',
+                        //         title: error.responseJSON.errors,
+                        //         allowOutsideClick: false,
+                        //         confirmButtonColor: '#42ABE2',
+                        //         confirmButtonText: 'Aceptar'
+                        //     }).then((result) => {
+                        //         $('#send').show();
+                        //         $('#spinner2').hide();
+                        //         $(".holder").hide();
+                        //     });
+                        // }
                     });
-                }
-            });
+            //     }
+            // });
         }
     </script>
 @endpush
@@ -736,37 +736,36 @@
                         <div class="card bg-4">
                             <div class="card-body" style="position: sticky; padding: 1% 2%;">
                                 <h4 class="mb-4 mt-2" style="color: #ffff">Dashboard Sqlapio</h4>
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                    {{-- fitro --}}
-                                    {{-- <x-drag-drop/> --}}
-                                    <div class="row">
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-6">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="moth_filter" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px;color:white">Filtro
-                                                        por mes</label>
-                                                    <select onchange="handleFilter(event)" name="moth_filter"
-                                                        id="moth_filter" placeholder="Seleccione"class="form-control"
-                                                        class="form-control combo-textbox-input">
-                                                        <option value="">Seleccione el mes</option>
-                                                        <option value="01">Enero</option>
-                                                        <option value="02">Febrero</option>
-                                                        <option value="03">Marzo</option>
-                                                        <option value="04">Abril</option>
-                                                        <option value="05">Mayo</option>
-                                                        <option value="06">Junio</option>
-                                                        <option value="07">Julio</option>
-                                                        <option value="08">Agosto</option>
-                                                        <option value="09">Septiembre</option>
-                                                        <option value="10">Octubre</option>
-                                                        <option value="11">Noviemnre</option>
-                                                        <option value="12">Diciembre</option>
-                                                    </select>
-                                                </div>
+                                <div class="row" style="justify-content: flex-end;">
+                                    <div class="col-sm-12 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <label for="moth_filter" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px;color:white">Filtro por mes</label>
+                                                <select onchange="handleFilter(event)" name="moth_filter" id="moth_filter" placeholder="Seleccione" class="form-control combo-textbox-input " style="color: #929598;
+                                                background-color: #222f3e;
+                                                border: var(--bs-border-width) solid #9d9fa1;">
+                                                    <option value="">Mes</option>
+                                                    <option value="01">@lang('messages.graficas.enero')</option>
+                                                    <option value="02">@lang('messages.graficas.febrero')</option>
+                                                    <option value="03">@lang('messages.graficas.marzo')</option>
+                                                    <option value="04">@lang('messages.graficas.abril')</option>
+                                                    <option value="05">@lang('messages.graficas.mayo')</option>
+                                                    <option value="06">@lang('messages.graficas.junio')</option>
+                                                    <option value="07">@lang('messages.graficas.julio')</option>
+                                                    <option value="08">@lang('messages.graficas.agosto')</option>
+                                                    <option value="09">@lang('messages.graficas.septiembre')</option>
+                                                    <option value="10">@lang('messages.graficas.octubre')</option>
+                                                    <option value="11">@lang('messages.graficas.noviembre')</option>
+                                                    <option value="12">@lang('messages.graficas.diciembre')</option>
+                                                </select>
+                                                <i class="bi bi-caret-down st-icon"></i>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    {{-- fitro --}}
+                                    {{-- <x-drag-drop/> --}}
                                     {{-- end --}}
                                     <div class="row mt-2">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">
@@ -785,9 +784,7 @@
                                         <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
                                             <div class="card l-bg-cherry">
                                                 <div class="card-statistic-3 p-4">
-                                                    <div class="card-icon card-icon-large"><img width="120"
-                                                            height="auto" src="{{ asset('/img/icons/patients-w.png') }}"
-                                                            alt="avatar"></div>
+                                                    <div class="card-icon card-icon-large"><img width="120" height="auto" src="{{ asset('/img/icons/patients-w.png') }}" alt="avatar"></div>
                                                     <div class="mb-4">
                                                         <h5 class="card-title mb-0">@lang('messages.label.paciente')</h5>
                                                     </div>
@@ -804,10 +801,7 @@
                                         <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
                                             <div class="card l-bg-blue-dark">
                                                 <div class="card-statistic-3 p-4">
-                                                    <div class="card-icon card-icon-large"> <img width="120"
-                                                            height="auto"
-                                                            src="{{ asset('/img/icons/medical-report3-w.png') }}"
-                                                            alt="avatar"></div>
+                                                    <div class="card-icon card-icon-large"> <img width="120" height="auto" src="{{ asset('/img/icons/medical-report3-w.png') }}" alt="avatar"></div>
                                                     <div class="mb-4">
                                                         <h5 class="card-title mb-0">@lang('messages.label.consulta')</h5>
                                                     </div>
@@ -824,10 +818,7 @@
                                         <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
                                             <div class="card l-bg-green-dark">
                                                 <div class="card-statistic-3 p-4">
-                                                    <div class="card-icon card-icon-large"> <img width="120"
-                                                            height="auto"
-                                                            src="{{ asset('/img/icons/medical-report-w.png') }}"
-                                                            alt="avatar"></div>
+                                                    <div class="card-icon card-icon-large"> <img width="120" height="auto" src="{{ asset('/img/icons/medical-report-w.png') }}" alt="avatar"></div>
                                                     <div class="mb-4">
                                                         <h5 class="card-title mb-0">@lang('messages.label.examenes')</h5>
                                                     </div>
@@ -844,9 +835,7 @@
                                         <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
                                             <div class="card l-bg-orange-dark">
                                                 <div class="card-statistic-3 p-4">
-                                                    <div class="card-icon card-icon-large"><img width="120"
-                                                            height="auto" src="{{ asset('/img/icons/medical1-w.png') }}"
-                                                            alt="avatar"></div>
+                                                    <div class="card-icon card-icon-large"><img width="120" height="auto" src="{{ asset('/img/icons/medical1-w.png') }}" alt="avatar"></div>
                                                     <div class="mb-4">
                                                         <h5 class="card-title mb-0">@lang('messages.label.estudios')</h5>
                                                     </div>
@@ -866,10 +855,8 @@
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-lg-4">
                                             <div class="card" style="background-color: #222f3e">
-                                                <div class="card-body p-4"
-                                                    style="display: flex; justify-content: center;">
-                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3"
-                                                        style="height:auto; width:100%">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
                                                         <canvas id="appointments_attended"></canvas>
                                                     </div>
                                                 </div>
@@ -877,10 +864,8 @@
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-lg-4">
                                             <div class="card " style="background-color: #222f3e">
-                                                <div class="card-body p-4"
-                                                    style="display: flex; justify-content: center;">
-                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3"
-                                                        style="height:auto; width:100%">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
                                                         <canvas id="appointments_confirmed"></canvas>
                                                     </div>
                                                 </div>
@@ -888,10 +873,8 @@
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-lg-4">
                                             <div class="card " style="background-color: #222f3e">
-                                                <div class="card-body p-4"
-                                                    style="display: flex; justify-content: center;">
-                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3"
-                                                        style="height:auto; width:100%">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
                                                         <canvas id="appointments_canceled"></canvas>
                                                     </div>
                                                 </div>
@@ -909,28 +892,19 @@
                                                             @lang('messages.acordion.citas')</h5>
                                                         <div
                                                             class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-                                                            <table id="table-patient"
-                                                                class="table table-striped table-bordered table-dark"
-                                                                style="width:100%">
+                                                            <table id="table-patient" class="table table-striped table-bordered table-dark" style="width:100%">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th class="text-center w-10" scope="col">
-                                                                            @lang('messages.tabla.hora') </th>
-                                                                        <th class="text-center w-17" scope="col">
-                                                                            @lang('messages.tabla.nombre_apellido') </th>
+                                                                        <th class="text-center w-10" scope="col"> @lang('messages.tabla.hora') </th>
+                                                                        <th class="text-center w-17" scope="col"> @lang('messages.tabla.nombre_apellido') </th>
                                                                         @if (Auth::user()->contrie == '81')
-                                                                            <th class="text-center w-10" scope="col">
-                                                                                @lang('messages.form.CIE')</th>
+                                                                            <th class="text-center w-10" scope="col"> @lang('messages.form.CIE')</th>
                                                                         @else
-                                                                            <th class="text-center w-10" scope="col">
-                                                                                @lang('messages.tabla.cedula')</th>
+                                                                            <th class="text-center w-10" scope="col"> @lang('messages.tabla.cedula')</th>
                                                                         @endif
-                                                                        <th class="text-center w-17" scope="col">
-                                                                            @lang('messages.tabla.centro_salud')</th>
-                                                                        <th class="text-center w-10" scope="col">
-                                                                            @lang('messages.tabla.estatus')</th>
-                                                                        <th class="text-center w-10" scope="col"
-                                                                            data-orderable="false">@lang('messages.tabla.acciones')</th>
+                                                                        <th class="text-center w-17" scope="col"> @lang('messages.tabla.centro_salud')</th>
+                                                                        <th class="text-center w-10" scope="col"> @lang('messages.tabla.estatus')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -947,62 +921,41 @@
                                                                                     {{ preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item['extendedProps']['ci']) }}
                                                                                 </td>
                                                                             @else
-                                                                                <td class="text-center td-pad">
-                                                                                    {{ $item['extendedProps']['ci'] }}</td>
+                                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['ci'] }}</td>
                                                                             @endif
-                                                                            <td class="text-center td-pad">
-                                                                                {{ $item['extendedProps']['center'] }}</td>
+                                                                            <td class="text-center td-pad"> {{ $item['extendedProps']['center'] }}</td>
                                                                             @php
-                                                                                $status2 =
-                                                                                    $item['extendedProps']['status'];
+                                                                                $status2 = $item['extendedProps']['status'];
                                                                             @endphp
-                                                                            <td class="text-center td-pad"> <span
-                                                                                    class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">@lang('messages.tabla.' . $status2)</span>
+                                                                            <td class="text-center td-pad">
+                                                                                <span class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">@lang('messages.tabla.' . $status2)</span>
                                                                             </td>
                                                                             <td>
-                                                                                <div class="d-flex"
-                                                                                    style="justify-content: center;">
-                                                                                    <div
-                                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                <div class="d-flex" style="justify-content: center;">
+                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                                         <a href="{{ $item['extendedProps']['age'] == '' ? '#' : route('MedicalRecord', $item['extendedProps']['patient_id']) }}"
                                                                                             @php
-$id_patient =  $item["extendedProps"]["patient_id"]; @endphp
+                                                                                                $id_patient =  $item["extendedProps"]["patient_id"];
+                                                                                            @endphp
                                                                                             onclick='{{ $item['extendedProps']['age'] == '' ? "alertInfoPaciente($id_patient )" : '' }}'>
-                                                                                            <button type="button"
-                                                                                                data-bs-toggle="tooltip"
-                                                                                                data-bs-placement="bottom"
-                                                                                                title="@lang('messages.tooltips.consulta_medica')">
-                                                                                                <img width="35"
-                                                                                                    height="auto"
-                                                                                                    src="{{ asset('/img/icons/monitor.png') }}"
-                                                                                                    alt="avatar">
+                                                                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="@lang('messages.tooltips.consulta_medica')">
+                                                                                                <img width="35" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
                                                                                             </button>
                                                                                         </a>
                                                                                     </div>
-                                                                                    <div
-                                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                                         <button type="button"
                                                                                             data-bs-toggle="tooltip"
                                                                                             data-bs-placement="bottom"
                                                                                             title="@lang('messages.tooltips.cancelar_cita')"
                                                                                             onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
-                                                                                            <img width="33"
-                                                                                                height="auto"
-                                                                                                src="{{ asset('/img/icons/canceled.png') }}"
-                                                                                                alt="avatar">
+                                                                                            <img width="33" height="auto" src="{{ asset('/img/icons/canceled.png') }}" alt="avatar">
                                                                                         </button>
                                                                                     </div>
-                                                                                    <div
-                                                                                        class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                                        <button type="button"
-                                                                                            data-bs-toggle="tooltip"
-                                                                                            data-bs-placement="bottom"
-                                                                                            title="Enviar Recordatorio"
+                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                        <button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Enviar Recordatorio"
                                                                                             {{-- onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')" --}}>
-                                                                                            <img width="35"
-                                                                                                height="auto"
-                                                                                                src="{{ asset('/img/icons/send.png') }}"
-                                                                                                alt="avatar">
+                                                                                            <img width="35" height="auto" src="{{ asset('/img/icons/send.png') }}" alt="avatar">
                                                                                         </button>
                                                                                     </div>
                                                                                 </div>
@@ -1024,13 +977,9 @@ $id_patient =  $item["extendedProps"]["patient_id"]; @endphp
                                             <div class="card" style="background-color: #222f3e;">
                                                 <div class="card-body p-4">
                                                     <div class="row" id="table-patients" style="color: #b3b3b3">
-                                                        <h5><i class="bi bi-calendar2-check" style="color: #fffff"></i>
-                                                            @lang('messages.menu.pacientes')</h5>
-                                                        <div
-                                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-                                                            <table id="table-patient"
-                                                                class="table table-striped table-bordered table-dark"
-                                                                style="width:100%;">
+                                                        <h5><i class="bi bi-calendar2-check" style="color: #fffff"></i>  @lang('messages.menu.pacientes')</h5>
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                            <table id="table-patient" class="table table-striped table-bordered table-dark" style="width:100%;">
                                                                 <thead>
                                                                     <tr>
                                                                         <th class="text-center w-image" scope="col"
@@ -1052,14 +1001,9 @@ $id_patient =  $item["extendedProps"]["patient_id"]; @endphp
                                                                                     src=" {{ $item->patient_img ? asset('/imgs/' . $item->patient_img) : ($item->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
                                                                                     alt="Imagen del paciente">
                                                                             </td>
-                                                                            <td class="text-center text-capitalize">
-                                                                                {{ $item->name }} {{ $item->last_name }}
-                                                                            </td>
-                                                                            <td class="text-center text-capitalize">
-                                                                                {{ $item->email }}</td>
-                                                                            <td class="text-center text-capitalize">
-                                                                                {{ $item->phone }}</td>
-
+                                                                            <td class="text-center text-capitalize"> {{ $item->name }} {{ $item->last_name }} </td>
+                                                                            <td class="text-center text-capitalize"> {{ $item->email }}</td>
+                                                                            <td class="text-center text-capitalize"> {{ $item->phone }}</td>
                                                                         </tr>
                                                                     @endforeach
                                                                 </tbody>
@@ -1072,12 +1016,9 @@ $id_patient =  $item["extendedProps"]["patient_id"]; @endphp
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 col-xxl-5">
                                             <div class="row">
                                                 <div class="col-xl-12 col-lg-12">
-                                                    <div class="card"
-                                                        style="background-color: #222f3e; margin-bottom: 25px;">
-                                                        <div class="card-body p-4"
-                                                            style="display: flex; justify-content: center;">
-                                                            <div class="c-chart-wrapper mt-2 mx-3 graficas-3"
-                                                                style="height:auto; width:100%">
+                                                    <div class="card" style="background-color: #222f3e; margin-bottom: 25px;">
+                                                        <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                            <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
                                                                 <canvas id="countGereral2"></canvas>
                                                             </div>
                                                         </div>
@@ -1085,24 +1026,18 @@ $id_patient =  $item["extendedProps"]["patient_id"]; @endphp
                                                 </div>
                                                 <div class="col-xl-6 col-lg-6">
                                                     <div class="card " style="background-color: #222f3e;">
-                                                        <div class="card-body p-4"
-                                                            style="display: flex; justify-content: center;">
-                                                            <div class="c-chart-wrapper mt-2 mx-3"
-                                                                style="height:auto; width:100%">
-                                                                <canvas id="quotes"
-                                                                    style="height:auto; width:100vw"></canvas>
+                                                        <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                            <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
+                                                                <canvas id="quotes" style="height:auto; width:100vw"></canvas>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6 col-lg-6">
                                                     <div class="card " style="background-color: #222f3e;">
-                                                        <div class="card-body p-4"
-                                                            style="display: flex; justify-content: center;">
-                                                            <div class="c-chart-wrapper mt-2 mx-3"
-                                                                style="height:auto; width:100%">
-                                                                <canvas id="consultas_history"
-                                                                    style="height:auto; width:100vw"></canvas>
+                                                        <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                            <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
+                                                                <canvas id="consultas_history" style="height:auto; width:100vw"></canvas>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1544,8 +1479,7 @@ $id_patient =  $item["extendedProps"]["patient_id"]; @endphp
                 <div class="modal-content">
                     <div class="modal-header title">
                         <span style="padding-left: 5px">@lang('messages.modal.titulo.carga_resultados')</span>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                            style="font-size: 12px;"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                     </div>
                     <div class="modal-body">
                         <form id="form-load-img" method="post" action="/">
@@ -1564,9 +1498,7 @@ $id_patient =  $item["extendedProps"]["patient_id"]; @endphp
                                             <tr>
                                                 <th class="text-center" scope="col">@lang('messages.modal.tabla.codigo')</th>
                                                 <th class="text-center" scope="col">@lang('messages.modal.tabla.descripcion')</th>
-                                                <th class="text-center" scope="col" data-orderable="false">
-                                                    @lang('messages.modal.tabla.carga_resultado')
-                                                </th>
+                                                <th class="text-center" scope="col" data-orderable="false"> @lang('messages.modal.tabla.carga_resultado') </th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -1575,10 +1507,8 @@ $id_patient =  $item["extendedProps"]["patient_id"]; @endphp
 
                                 <div class="col-sm-7 md-7 lg-7 xl-7 xxl-7" style="display: none">
                                     <div class="input-group flex-nowrap">
-                                        <span class="input-group-text">Total resultados
-                                        </span>
-                                        <input type="text" id="count" name="count" class="form-control"
-                                            readonly value="">
+                                        <span class="input-group-text">Total resultados </span>
+                                        <input type="text" id="count" name="count" class="form-control"  readonly value="">
                                     </div>
                                 </div>
                             </div>

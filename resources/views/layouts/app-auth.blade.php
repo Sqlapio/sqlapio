@@ -76,6 +76,7 @@
 </body>
 <script>
         var url = @json($url);
+        var lang_datepicker = @json($lang_datepicker);
         var lang_session = @json($lang);
     </script>
 <x-footer />
