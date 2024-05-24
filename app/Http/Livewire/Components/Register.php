@@ -35,7 +35,6 @@ class Register extends Component
                 'password'      => 'required',
                 'email'         => 'required|unique:users',
                 'ci'            => 'required|unique:users',
-                // 'captcha'     => 'required',
             ];
 
             $msj = [
@@ -43,12 +42,8 @@ class Register extends Component
                 'email.required'   => __('messages.alert.correo_obligatorio'),
                 'email.unique'     => __('messages.alert.correo_existente'),
                 'password'         => __('messages.alert.contraseña_obligatorio'),
-                // 'password.min'     => 'Contraseña debe ser mayor a 6 caracteres',
-                // 'password.max'     => 'Contraseña debe ser menor a 8 caracteres',
-                // 'password.regex'   => 'Formato de contraseña  incorrecto',
-                'ci.required'      =>  __('messages.alert.cedula_obligatoria'),
+                'ci.required'      => __('messages.alert.cedula_obligatoria'),
                 'ci.unique'        => __('messages.alert.cedula_existente'),
-                // 'captcha'           => 'Campo captcha requerido',
             ];
         } else {
             $rules = [
@@ -57,7 +52,6 @@ class Register extends Component
                 'password'  => 'required',
                 'email'     => 'required|unique:users',
                 'ci'        => 'required|unique:users',
-                // 'captcha'     => 'required',
             ];
 
             $msj = [
@@ -66,12 +60,8 @@ class Register extends Component
                 'email.required'    => __('messages.alert.correo_obligatorio'),
                 'email.unique'      => __('messages.alert.correo_existente'),
                 'password'          => __('messages.alert.contraseña_obligatorio'),
-                // 'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
-                // 'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
-                // 'password.regex'    => 'Formato de contraseña  incorrecto',
-                'ci.required'       =>  __('messages.alert.cedula_obligatoria'),
+                'ci.required'       => __('messages.alert.cedula_obligatoria'),
                 'ci.unique'         => __('messages.alert.cedula_existente'),
-                // 'captcha'           => 'Campo captcha requerido',
             ];
         }
 
@@ -113,11 +103,17 @@ class Register extends Component
             }
             $user->type_plane = $request->type_plan;
             $user->save();
-            $action = '3';
 
+            /**Registro la accion del usuario registrado en el log */
+            $action = '3';
             ActivityLogController::store_log($action);
 
+            /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
             $stripeCustomer = $user->createAsStripeCustomer();
+
+            /**Registro al accion de' Resgistro cliente STRIPE' en el log */
+            $action = '25';
+            ActivityLogController::store_log($action);
 
             return response()->json([
                 'success' => true,
@@ -436,12 +432,15 @@ class Register extends Component
                  */
                 EstadisticaController::accumulated_doctor($request->state);
 
+                /**Preparamos el array que recibira la funcion para enviar la notificacion via WHATSAPP */
+                $data = [
+                    'phone' => preg_replace('/[\(\)\-\" "]+/', '', $request->phone),
+                    'doctor' => $request->name . ' ' . $request->last_name,
+                    'specialty' => $request->specialty,
+                    'image' => 'https://system.sqlapio.com/img/notification_email/newsletter-header.png',
+                ];
 
-                $caption = 'Bienvenido a sqlapio.com Dr(a). ' . $request->name . ' ' . $request->last_name;
-                $image = 'http://sqldevelop.sqlapio.net/img/notification_email/newsletter-header.png';
-                $phone = preg_replace('/[\(\)\-\" "]+/', '', $request->phone);
-
-                ApiServicesController::sms_welcome($phone, $caption, $image);
+                ApiServicesController::whatsapp_register_doctor($data);
 
                 return true;
             }
