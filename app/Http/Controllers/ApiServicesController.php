@@ -15,7 +15,7 @@ class ApiServicesController extends Controller
             *CITA MÉDICA:*
 
             Le informamos que tiene una cita médica agendada.
-            
+
             *Fecha:* {$data['fecha']}
             *Hora:* {$data['horario']}
             *Doctor(a):* {$data['dr_name']}
@@ -27,13 +27,13 @@ class ApiServicesController extends Controller
             HTML;
 
             $params=array(
-                'token' => '863lb4l0wmldpl3s',
+                'token' => env('TOKEN_API_WHATSAPP'),
                 'to' => $phone,
                 'body' => $body
                 );
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
-                  CURLOPT_URL => "https://api.ultramsg.com/instance83564/messages/chat",
+                  CURLOPT_URL => env('CURLOPT_URL'),
                   CURLOPT_RETURNTRANSFER => true,
                   CURLOPT_ENCODING => "",
                   CURLOPT_MAXREDIRS => 10,

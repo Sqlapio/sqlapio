@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('app:appointment-reminder')
-        ->everyMinute()
+        ->dailyAt('9:00')
         ->emailOutputTo('gusta.acp@gmail.com');
     }
 
