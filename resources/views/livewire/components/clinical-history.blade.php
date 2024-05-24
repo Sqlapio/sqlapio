@@ -110,7 +110,7 @@
         $(document).ready(() => {
 
             $(".datePickert").datepicker({
-                language: lang_datepicker
+                language: 'es',
             });
             $('#form-mecal-histroy').validate({
                 ignore: [],

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components;
 
+use App\Http\Controllers\ActivityLogController;
 use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +22,11 @@ class ViewPlanes extends Component
 
                 auth()->user()->updateDefaultPaymentMethod($paymentMethod);
             }
+
+            /**Registro la accion de agregar metodo de pago  */
+            $action = '26';
+            ActivityLogController::store_log($action);
+
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
         }
@@ -32,6 +38,10 @@ class ViewPlanes extends Component
             return auth()->user()->defaultPaymentMethod();
 
             $this->emit('success', __('messages.alert.operacion_exitosa'));
+
+            /**Registro la accion de metodo de pago por default  */
+            $action = '27';
+            ActivityLogController::store_log($action);
 
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
@@ -46,6 +56,10 @@ class ViewPlanes extends Component
 
             $this->emit('success',  __('messages.alert.operacion_exitosa'));
 
+            /**Registro la accion de eliminar metodo de pago  */
+            $action = '28';
+            ActivityLogController::store_log($action);
+
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
         }
@@ -57,6 +71,10 @@ class ViewPlanes extends Component
             auth()->user()->updateDefaultPaymentMethod($paymentMethod);
 
             $this->emit('success', __('messages.alert.operacion_exitosa'));
+
+             /**Registro la accion de cambiar metodo de pago por defecto  */
+             $action = '29';
+             ActivityLogController::store_log($action);
 
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
@@ -126,6 +144,10 @@ class ViewPlanes extends Component
 
             $this->emit('success',  __('messages.alert.operacion_exitosa'));
 
+            /**Registro la accion de nueva subcripcion */
+            $action = '30';
+            ActivityLogController::store_log($action);
+
             return redirect()->route('Profile');
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
@@ -147,6 +169,10 @@ class ViewPlanes extends Component
                     'role' => 'temporary',
                     'duration' => ''
                 ]);
+
+            /**Registro la accion de cancelar subcripcion */
+            $action = '31';
+            ActivityLogController::store_log($action);
 
             return redirect()->route('Profile');
         } catch (\Exception $e) {
@@ -173,6 +199,10 @@ class ViewPlanes extends Component
 
             auth()->user()->refresh();
 
+            /**Registro la accion de cambiar subcripcion */
+            $action = '32';
+            ActivityLogController::store_log($action);
+
             return redirect()->route('Profile');
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
@@ -181,10 +211,21 @@ class ViewPlanes extends Component
 
     public function render()
     {
+        $type_plan = Auth::user()->type_plane;
+
+        if ($type_plan == '3') {
+            $plan_name = 'Plan Ilimitado';
+        }
+
+        if ($type_plan == '2') {
+            $plan_name = 'Plan Profesional';
+        }
 
         return view('livewire.components.view-planes', [
             'intent' => auth()->user()->createSetupIntent(),
             'paymentMethods' => auth()->user()->paymentMethods(),
+            'current_end' => auth()->user()->subscription($plan_name)->asStripeSubscription()->current_period_end,
+            'current_start' => auth()->user()->subscription($plan_name)->asStripeSubscription()->current_period_start,
         ]);
     }
 }
