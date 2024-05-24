@@ -66,7 +66,7 @@ class ApiServicesController extends Controller
             $caption = <<<HTML
             *BIENVENIDO:*
 
-            Usted acaba de actualizar sus datos como Doctor en SQLAPIO.
+            Usted acaba de actualizar sus datos como Doctor el Sistema Medico SQLAPIO.
 
             *Doctor(a):* {$data['doctor']}
             *Especialidad:* {$data['specialty']}
@@ -105,19 +105,31 @@ class ApiServicesController extends Controller
         }
     }
 
-    static public function whatsapp_reference_info($phone, $body)
+    static public function whatsapp_register_patient_doctor($phone, array $data)
     {
 
         try {
-            $params = array(
 
+            $body = <<<HTML
+            *NOTIFICACION DE REGISTRO*
+
+            Dr(a). {$data['dr_name']},
+            Le informamos que acaba de registrar al siguiente paciente el Sistema Medico SQLAPIO.
+
+            *Paciente:* {$data['patient_name']}
+            *Código:* {$data['patient_code']}
+            *Email:* {$data['patient_email']}
+            *Teléfono:* {$data['patient_phone']}
+            HTML;
+
+            $params = array(
                 'token' => env('TOKEN_API_WHATSAPP'),
                 'to' => $phone,
                 'body' => $body
             );
             $curl = curl_init();
             curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.ultramsg.com/instance63635/messages/chat",
+                CURLOPT_URL => env('CURLOPT_URL'),
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => "",
                 CURLOPT_MAXREDIRS => 10,
@@ -138,24 +150,38 @@ class ApiServicesController extends Controller
             curl_close($curl);
         } catch (\Throwable $th) {
             $message = $th->getMessage();
-            dd('Error UtilsController.sms_info()', $message);
+            dd($th);
         }
     }
 
-    static public function whatsapp_location_lab()
+    static public function whatsapp_register_patient($phone, array $data)
     {
 
         try {
+
+            $body = <<<HTML
+            Sr(a). {$data['patient_name']},
+            Le informamos que acaba de ser registrado en el Sistema Medico SQLAPIO.
+
+            *MEDICO TRATANTE:*
+            *Dr(a):* {$data['dr_name']}
+            *Especialidad:* {$data['specialty']}
+
+            *CENTRO MEDICO*
+            *Centro:* {$data['center']}
+            *Piso:* {$data['center_piso']}
+            *Consultorio:* {$data['center_consulting_room']}
+            *Teléfono:* {$data['center_phone']}
+            HTML;
+
             $params = array(
-                'token' => 'ypb31pibjltlbdwo',
-                'to' => '04127018390',
-                'address' => 'Sqlapio.com le recomienda: Laboratorios Vargas, por ser el mas cercano a su ubicacion. POR FAVOR ACCEDA AL SIGUIENTE LINK...',
-                'lat' => '10.49486428',
-                'lng' => '-66.91600772'
+                'token' => env('TOKEN_API_WHATSAPP'),
+                'to' => $phone,
+                'body' => $body
             );
             $curl = curl_init();
             curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://api.ultramsg.com/instance63415/messages/location",
+                CURLOPT_URL => env('CURLOPT_URL'),
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => "",
                 CURLOPT_MAXREDIRS => 10,
@@ -176,7 +202,9 @@ class ApiServicesController extends Controller
             curl_close($curl);
         } catch (\Throwable $th) {
             $message = $th->getMessage();
-            dd('Error UtilsController.sms_info()', $message);
+            dd($th);
         }
     }
+
+
 }
