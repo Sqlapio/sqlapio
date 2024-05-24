@@ -28,7 +28,7 @@ class Patients extends Component
 
     public function store(Request $request)
     {
-        dd('1');
+
         try {
             $user_id = Auth::user()->id;
             $user_name = "";
@@ -226,30 +226,30 @@ class Patients extends Component
                     ApiServicesController::whatsapp_register_patient($re_patient->re_phone, $mailData);
 
                 } else
-                /** Registro del medico con plan 1 2 o 3 */
-                {
-                    $type = 'patient_minor';
-                    $center_info = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
-                    $mailData = [
-                        'dr_name'                => $user->name . ' ' . $user->last_name,
-                        'center'                 => Center::where('id', $request->center_id)->first()->description,
-                        'center_piso'            => $center_info->number_floor,
-                        'center_consulting_room' => $center_info->number_consulting_room,
-                        'center_phone'           => $center_info->phone_consulting_room,
-                        'center_address'         => $center_info->address,
-                        'patient_email'          => $user->email,
-                        'patient_name'           => $patient['name'] . ' ' . $patient['last_name'],
-                        'patient_code'           => $patient['patient_code'],
-                        'patient_email'          => $re_patient->re_email,
-                        'patient_phone'          => $re_patient->re_phone,
-                    ];
+                    /** Registro del medico con plan 1 2 o 3 */
+                    {
+                        $type = 'patient_minor';
+                        $center_info = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
+                        $mailData = [
+                            'dr_name'                => $user->name . ' ' . $user->last_name,
+                            'center'                 => Center::where('id', $request->center_id)->first()->description,
+                            'center_piso'            => $center_info->number_floor,
+                            'center_consulting_room' => $center_info->number_consulting_room,
+                            'center_phone'           => $center_info->phone_consulting_room,
+                            'center_address'         => $center_info->address,
+                            'patient_email'          => $user->email,
+                            'patient_name'           => $patient['name'] . ' ' . $patient['last_name'],
+                            'patient_code'           => $patient['patient_code'],
+                            'patient_email'          => $re_patient->re_email,
+                            'patient_phone'          => $re_patient->re_phone,
+                        ];
 
-                    /**Envia de Email al paciente registrado */
-                    UtilsController::notification_mail($mailData, $type);
+                        /**Envia de Email al paciente registrado */
+                        UtilsController::notification_mail($mailData, $type);
 
-                    /**Notificacion por whatsapp */
-                    ApiServicesController::whatsapp_register_patient($re_patient->re_phone, $mailData);
-                }
+                        /**Notificacion por whatsapp */
+                        ApiServicesController::whatsapp_register_patient($re_patient->re_phone, $mailData);
+                    }
 
             } else {
                 $user_name = $request->ci;
@@ -382,7 +382,7 @@ class Patients extends Component
                     UtilsController::notification_mail($mailData, $type);
 
                     /**Notificacion por whatsapp */
-                    ApiServicesController::whatsapp_register_patient($patient['phone'], $mailData);
+                    ApiServicesController::whatsapp_register_patient_doctor($patient['phone'], $mailData);
                 }
 
                 /**
@@ -401,7 +401,6 @@ class Patients extends Component
                         'center_consulting_room' => 'prueba consultorio 1',
                         'center_phone'           => 'prueba tef 02125478596',
                         'center_address'         => 'prueba dir chacao',
-                        'patient_email'          => $user->email,
                         'patient_name'           => $patient['name'] . ' ' . $patient['last_name'],
                         'patient_code'           => $patient['patient_code'],
                         'patient_email'          => $patient['email'],
@@ -420,6 +419,7 @@ class Patients extends Component
                     $center_info = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
                     $mailData = [
                         'dr_name'                => $user->name . ' ' . $user->last_name,
+                        'specialty'             => $user->specialty,
                         'center'                 => Center::where('id', $request->center_id)->first()->description,
                         'center_piso'            => $center_info->number_floor,
                         'center_consulting_room' => $center_info->number_consulting_room,
@@ -430,7 +430,12 @@ class Patients extends Component
                         'patient_email'          => $patient['email'],
                         'patient_phone'          => $patient['phone'],
                     ];
+
+                    /**Envia de Email al paciente registrado */
                     UtilsController::notification_mail($mailData, $type);
+
+                    /**Notificacion por whatsapp */
+                    ApiServicesController::whatsapp_register_patient($patient['phone'], $mailData);
                 }
 
                 $caption = 'Bienvenido a sqlapio.com Sr(a). ' . $request->name . ' ' . $request->last_name;
