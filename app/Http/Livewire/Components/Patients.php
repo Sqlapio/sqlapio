@@ -28,6 +28,7 @@ class Patients extends Component
 
     public function store(Request $request)
     {
+        dd('1');
         try {
             $user_id = Auth::user()->id;
             $user_name = "";
@@ -134,7 +135,6 @@ class Patients extends Component
                         'is_minor'          => 'true',
                         'age'               => $request->age,
                         'contrie_doc'          => auth()->user()->contrie,
-                        // 'city'           => $request->city,
                         'address'           => $request->address,
                         'zip_code'          => $request->zip_code,
                         'user_id'           => $user_id,
@@ -179,10 +179,7 @@ class Patients extends Component
                  */
                 UtilsController::update_patient_counter($user_id);
 
-                /**
-                 * Notificacion al Medico
-                 * por haber registrado un paciente nuevo
-                 */
+                /**Notificacion al Medico por haber registrado un paciente nuevo*/
                 $user = Auth::user();
                 if ($user->email_verified_at != null) {
                     $type = 'register_patient';
@@ -221,7 +218,13 @@ class Patients extends Component
                         'patient_email'          => $re_patient->re_email,
                         'patient_phone'          => $re_patient->re_phone,
                     ];
+
+                    /**Envia de Email al paciente registrado */
                     UtilsController::notification_mail($mailData, $type);
+
+                    /**Notificacion por whatsapp */
+                    ApiServicesController::whatsapp_register_patient($re_patient->re_phone, $mailData);
+
                 } else
                 /** Registro del medico con plan 1 2 o 3 */
                 {
@@ -240,26 +243,14 @@ class Patients extends Component
                         'patient_email'          => $re_patient->re_email,
                         'patient_phone'          => $re_patient->re_phone,
                     ];
+
+                    /**Envia de Email al paciente registrado */
                     UtilsController::notification_mail($mailData, $type);
+
+                    /**Notificacion por whatsapp */
+                    ApiServicesController::whatsapp_register_patient($re_patient->re_phone, $mailData);
                 }
 
-
-
-
-                /**
-                 * Funcion para enviar el mensaje por whatsaap
-                 * de bienvenida
-                 */
-                $caption = 'Bienvenido a sqlapio.com Sr(a). ' . $request->name . ' ' . $request->last_name;
-                $body = 'Paciente: ' . $request->name . ' ' . $request->last_name . ' Codigo:' . $patient['patient_code'];
-
-                $image = 'http://sqldevelop.sqlapio.net/img/notification_email/cita_header.jpg';
-
-                $phone = preg_replace('/[\(\)\-\" "]+/', '', $request->re_phone);
-
-                // ApiServicesController::sms_welcome($phone, $caption, $image);
-
-                // ApiServicesController::sms_info($phone, $body);
             } else {
                 $user_name = $request->ci;
                 $email = $request->email;
@@ -270,13 +261,10 @@ class Patients extends Component
                     'last_name'     => 'required|min:3|max:50',
                     'ci'            => "required|min:5|max:15|unique:patients,ci,$request->id",
                     'email'         => "required|email|unique:patients,email,$request->id",
-                    // 'phone'         => 'required',
                     'profession'    => 'required',
                     'genere'        => 'required',
                     'birthdate'     => 'required',
                     'age'           => 'required',
-                    // 'state'         => 'required',
-                    // 'city'          => 'required',
                     'address'       => 'required',
                     'zip_code'      => 'required',
 
@@ -298,8 +286,6 @@ class Patients extends Component
                     'genere'            => __('messages.alert.genero_obligatorio'),
                     'birthdate'         => __('messages.alert.fecha_obligatorio'),
                     'age'               => __('messages.alert.edad_obligatorio'),
-                    // 'age.min'           => 'La edad debe ser un número valido',
-                    // 'age.max'           => 'La edad es incorrecta',
                     'estate'            => __('messages.alert.estado_obligatorio'),
                     'city'              => __('messages.alert.ciudad_obligatorio'),
                     'address'           => __('messages.alert.direccion_obligatoria'),
@@ -392,7 +378,11 @@ class Patients extends Component
                         'patient_phone' => $patient['phone'],
                     ];
 
+                    /**Envia de Email al paciente registrado */
                     UtilsController::notification_mail($mailData, $type);
+
+                    /**Notificacion por whatsapp */
+                    ApiServicesController::whatsapp_register_patient($patient['phone'], $mailData);
                 }
 
                 /**
@@ -417,7 +407,12 @@ class Patients extends Component
                         'patient_email'          => $patient['email'],
                         'patient_phone'          => $patient['phone'],
                     ];
+
+                    /**Envia de Email al paciente registrado */
                     UtilsController::notification_mail($mailData, $type);
+
+                    /**Notificacion por whatsapp */
+                    ApiServicesController::whatsapp_register_patient($patient['phone'], $mailData);
                 } else
                 /** Registro del medico con plan 1 2 o 3 */
                 {
@@ -520,6 +515,7 @@ class Patients extends Component
             dd('Error Livewire.Components.Patient.search()', $message);
         }
     }
+
     public function render($id = null)
     {
 
