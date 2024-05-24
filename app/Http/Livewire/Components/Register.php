@@ -110,10 +110,10 @@ class Register extends Component
 
             /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
             $stripeCustomer = $user->createAsStripeCustomer();
-
-            /**Registro al accion de' Resgistro cliente STRIPE' en el log */
-            $action = '25';
-            ActivityLogController::store_log($action);
+            // dd('aqui');
+            // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
+            // $action = '25';
+            // ActivityLogController::store_log($action);
 
             return response()->json([
                 'success' => true,

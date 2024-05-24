@@ -132,19 +132,28 @@ class UtilsController extends Controller
 			return 'add user to STRIPE';
 		}
         if ($value == '26') {
-			return 'add default payment method STRIPE';
+			return 'add payment method STRIPE';
 		}
         if ($value == '27') {
-			return 'delete subcription STRIPE';
-		}
-        if ($value == '28') {
 			return 'get default payment method STRIPE';
 		}
+        if ($value == '28') {
+			return 'delete payment method STRIPE';
+		}
         if ($value == '29') {
-			return 'new subcription STRIPE';
+			return 'change default payment method STRIPE';
 		}
         if ($value == '30') {
+			return 'new subcription STRIPE';
+		}
+        if ($value == '31') {
 			return 'cancel subcription STRIPE';
+		}
+        if ($value == '32') {
+			return 'change subcription STRIPE';
+		}
+        if ($value == '33') {
+			return 'new subcription STRIPE';
 		}
 	}
 

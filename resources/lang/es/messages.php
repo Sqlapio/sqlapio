@@ -374,7 +374,7 @@ return [
         'register_paciente'   => 'Registrar paciente',
         'tratamiento'         => 'Tratamiento',
         'fecha_activacion'    => 'Fecha de activación',
-        'fecha_corte'         => 'Fecha de Corte',
+        'fecha_corte'         => 'Fecha de renovación',
         'predeterminado'      => 'Predeterminado',
         'expira'              => 'Expira',
         'mes'                 => 'Mes',
