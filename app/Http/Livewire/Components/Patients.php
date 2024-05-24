@@ -77,11 +77,8 @@ class Patients extends Component
                     'birthdate'     => 'required',
                     'age'           => 'required',
                     'genere'        => 'required',
-                    // 'state'         => 'required',
-                    // 'city'          => 'required',
                     'address'       => 'required',
                     'zip_code'      => 'required',
-                    // 'patient_img'   => 'image|max:1024',
 
                 ];
                 $msj =   [
@@ -94,22 +91,14 @@ class Patients extends Component
                     're_name.max'     => __('messages.alert.nombre_50_caracteres'),
                     'last_name'       => __('messages.alert.apellido_obligatorio'),
                     're_last_name'    => __('messages.alert.apellido_obligatorio'),
-                    // 're_ci'           => 'Campo requerido',
-                    // 're_ci.min'       => 'Su cedula debe ser mayor a 5 caracteres',
-                    // 're_ci.max'       => 'Su cedula invalida.',
                     're_email'        => __('messages.alert.correo_obligatorio'),
                     're_email.unique' => __('messages.alert.correo_existente'),
                     'genere'          => __('messages.alert.genero_obligatorio'),
                     'birthdate'       => __('messages.alert.fecha_obligatorio'),
                     'age'             => __('messages.alert.edad_obligatorio'),
-                    // 'age.min'         => 'Su edad debe ser un numero valido',
-                    // 'age.max'         => 'Su edad es incorrecta',
-                    // 'estate'          => 'Campo requerido',
-                    // 'city'            => 'Campo requerido',
                     'address'         => __('messages.alert.direccion_obligatoria'),
                     'zip_code'        => __('messages.alert.codigo_obligatorio'),
                     'img.image'       => __('messages.alert.img_format'),
-                    // 'patient_img.max'       => 'La imagen debe ser menor a 1024',
 
                 ];
 
@@ -141,6 +130,7 @@ class Patients extends Component
                         'last_name'         => $request->last_name,
                         'genere'            => $request->genere,
                         'birthdate'         => $request->birthdate,
+                        'phone'             => $request->re_phone,
                         'is_minor'          => 'true',
                         'age'               => $request->age,
                         'contrie_doc'          => auth()->user()->contrie,
@@ -267,9 +257,9 @@ class Patients extends Component
 
                 $phone = preg_replace('/[\(\)\-\" "]+/', '', $request->re_phone);
 
-                ApiServicesController::sms_welcome($phone, $caption, $image);
+                // ApiServicesController::sms_welcome($phone, $caption, $image);
 
-                ApiServicesController::sms_info($phone, $body);
+                // ApiServicesController::sms_info($phone, $body);
             } else {
                 $user_name = $request->ci;
                 $email = $request->email;
@@ -455,9 +445,9 @@ class Patients extends Component
 
                 $phone = preg_replace('/[\(\)\-\" "]+/', '', $request->phone);
 
-                ApiServicesController::sms_welcome($phone, $caption, $image);
+                // ApiServicesController::sms_welcome($phone, $caption, $image);
 
-                ApiServicesController::sms_info($phone, $body);
+                // ApiServicesController::sms_info($phone, $body);
             }
 
             // registrar datos del pacientes en la table users_patients
@@ -470,10 +460,10 @@ class Patients extends Component
                 $UserPatients->username = $user_name;
                 $UserPatients->patient_id = $patient->id;
                 $UserPatients->password =  Hash::make($pass);
-                $UserPatients->pass_tem =  $pass;                
+                $UserPatients->pass_tem =  $pass;
                 $UserPatients->save();
 
-                //enviar notificaion con el password                
+                //enviar notificaion con el password
                 $mailData = [
                     'email' => $email,
                     'password' =>  $pass,
@@ -491,6 +481,7 @@ class Patients extends Component
             $patient_counter = $patient_counter + 1;
 
             return [$patient, $patient_counter];
+
         } catch (\Throwable $th) {
             $message = $th->getMessage();
             dd('Error Livewire.Components.Patient.store()', $message);
