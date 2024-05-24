@@ -134,9 +134,11 @@
 
         $(document).ready(() => {
 
+            let date_end = {{ $current_end }}
+
             let data_palnes = [{
                     type_plan: 1,
-                    description: "Plan - @lang('messages.label.free')",
+                    description: "Plan: @lang('messages.label.free')",
                     count_patients: 10,
                     count_ref: 20,
                     count_exam: 20,
@@ -144,7 +146,7 @@
                 },
                 {
                     type_plan: 2,
-                    description: `Plan - @lang('messages.label.profesional') - ${ user.duration }`,
+                    description: `Plan: @lang('messages.label.profesional') - ${ user.duration }`,
                     count_patients: 40,
                     count_ref: 40,
                     count_exam: 80,
@@ -152,7 +154,7 @@
                 },
                 {
                     type_plan: 3,
-                    description: `Plan - @lang('messages.label.ilimitado') - ${ user.duration }`,
+                    description: `Plan: @lang('messages.label.ilimitado') - ${ user.duration }`,
                     count_patients: '@lang('messages.label.ilimitado')',
                     count_ref: '@lang('messages.label.ilimitado')',
                     count_exam: '@lang('messages.label.ilimitado')',
@@ -503,10 +505,10 @@
         <h2 class="title-card fw-bold tile-planes-dos card-title mb-3"></h2>
         <hr style="margin-top: 5px">
         <strong>@lang('messages.label.fecha_activacion'):
-            {{ \Carbon\Carbon::parse(auth()->user()->date_start_plan)->format('d-m-Y') }}</strong>
+            {{ \Carbon\Carbon::parse($current_start)->format('d-m-Y') }}</strong>
         <br>
         <strong class="{{ auth()->user()->expired_plan === 1 ? 'text-danger' : '' }} mt-2">@lang('messages.label.fecha_corte'):
-            {{ \Carbon\Carbon::parse(auth()->user()->date_end_plan)->format('d-m-Y') }}</strong>
+            {{ \Carbon\Carbon::parse($current_end)->format('d-m-Y') }}</strong>
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
             <div class="row">
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3" style="display: flex; justify-content: center;">
