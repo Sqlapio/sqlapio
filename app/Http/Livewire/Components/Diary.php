@@ -186,7 +186,12 @@ class Diary extends Component
                     'ubication'     => $ubication,
                     'link'          => 'https://system.sqlapio.com/confirmation/dairy/' . $appointment->code,
                 ];
+
+                /**Notificacion por email */
                 UtilsController::notification_mail($mailData, $type);
+
+                /**Notificacion por whatsapp */
+                ApiServicesController::whatsapp_welcome($patient->phone, $ubication, $mailData);
 
             } else {
                 $type = 'appointment';
@@ -205,11 +210,11 @@ class Diary extends Component
                     'ubication'     => $ubication,
                     'link'          => 'https://system.sqlapio.com/confirmation/dairy/' . $appointment->code,
                 ];
+                
+                /**Notificacion por email */
                 UtilsController::notification_mail($mailData, $type);
 
                 /**Notificacion por whatsapp */
-                $caption = 'Cita Registrada';
-                $img = 'https://system.sqlapio.com/img/notificacion_email/cita_header.jpg';
                 ApiServicesController::whatsapp_welcome($patient->phone, $ubication, $mailData);
             }
 
