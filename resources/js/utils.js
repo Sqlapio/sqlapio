@@ -20,7 +20,7 @@ $('.alpha-no-spaces').mask("A", {
 });
 
 $("#datepicker").datepicker({
-  language: lang_datepicker,
+  language: 'es',
 });
 
 $(document).ready(() => {
