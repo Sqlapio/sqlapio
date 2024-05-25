@@ -134,8 +134,6 @@
 
         $(document).ready(() => {
 
-            let date_end = {{ $current_end }}
-
             let data_palnes = [{
                     type_plan: 1,
                     description: "Plan: @lang('messages.label.free')",
@@ -504,11 +502,11 @@
     <div class="row" style="padding: 20px;">
         <h2 class="title-card fw-bold tile-planes-dos card-title mb-3"></h2>
         <hr style="margin-top: 5px">
-        <strong>@lang('messages.label.fecha_activacion'):
-            {{ \Carbon\Carbon::parse($current_start)->format('d-m-Y') }}</strong>
+        <strong>@lang('messages.label.fecha_activacion'): {{ \Carbon\Carbon::parse($current_start)->format('d-m-Y') }}</strong>
         <br>
         <strong class="{{ auth()->user()->expired_plan === 1 ? 'text-danger' : '' }} mt-2">@lang('messages.label.fecha_corte'):
-            {{ \Carbon\Carbon::parse($current_end)->format('d-m-Y') }}</strong>
+            {{ \Carbon\Carbon::parse($current_end)->format('d-m-Y') }}
+        </strong>
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
             <div class="row">
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3" style="display: flex; justify-content: center;">
