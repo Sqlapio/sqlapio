@@ -20,6 +20,7 @@ use App\Models\Representative;
 use App\Models\Study;
 use App\Models\Symptom;
 use App\Models\StudyPatient;
+use App\Models\Treatment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -86,6 +87,7 @@ class MedicalRecord extends Component
                 $center_id_corporativo = Auth::user()->center_id;
             }
 
+            /**Funcion para actualizar si existe y si no existe se crea el registro en la base de datos */
             $medical_record = ModelsMedicalRecord::updateOrCreate(['id' => $data->medical_record_id],
             [
                 /**
@@ -105,6 +107,24 @@ class MedicalRecord extends Component
                 'sintomas'                => strtolower($symptom_strig),
                 'medications_supplements' => $data->medications_supplements,
             ]);
+
+            /**Logica para recorrer los tratamiento asignados y cargar la tabla*/
+            $data_treatment = json_decode($data->medications_supplements, true);
+
+            for ($i=0; $i < count($data_treatment) ; $i++) {
+                Treatment::create([
+                    'user_id'           => $user,
+                    'patient_id'        => $data->id,
+                    'center_id'         => isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id,
+                    'record_code'       => $medical_record['record_code'],
+                    'record_date'       => $medical_record['record_date'],
+                    'date_treatments'   => date('d-m-Y'),
+                    'medicine'          => $data_treatment[$i]['medicine'],
+                    'indication'        => $data_treatment[$i]['indication'],
+                    'treatmentDuration' => $data_treatment[$i]['treatmentDuration'],
+                    'hours'             => $data_treatment[$i]['hours'],
+                    ]);
+            }
 
             /**
              * Logica para Finalizar la cita en la agenda y mostrar el
