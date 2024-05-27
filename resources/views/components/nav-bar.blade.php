@@ -662,7 +662,8 @@
                                                 title="Dashboard">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
                                                     alt="Dashboard">
-                                                <span class="nav-link active" aria-current="page">@lang('messages.menu.dashboard')</span>
+                                                <span class="nav-link active"
+                                                    aria-current="page">@lang('messages.menu.dashboard')</span>
                                             </a>
                                         </li>
                                         <li>
@@ -723,7 +724,8 @@
                                                 title="Dashboard">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
                                                     alt="Dashboard">
-                                                <span class="nav-link active" aria-current="page">@lang('messages.menu.dashboard')</span>
+                                                <span class="nav-link active"
+                                                    aria-current="page">@lang('messages.menu.dashboard')</span>
                                             </a>
                                         </li>
                                         <li>
@@ -742,7 +744,8 @@
                                                 title="Dashboard">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
                                                     alt="Dashboard">
-                                                <span class="nav-link active" aria-current="page">@lang('messages.menu.dashboard')</span>
+                                                <span class="nav-link active"
+                                                    aria-current="page">@lang('messages.menu.dashboard')</span>
                                             </a>
                                         </li>
                                         <li>
@@ -779,11 +782,13 @@
                                                 title="Dashboard">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
                                                     alt="Dashboard">
-                                                <span class="nav-link active" aria-current="page">@lang('messages.menu.dashboard')</span>
+                                                <span class="nav-link active"
+                                                    aria-current="page">@lang('messages.menu.dashboard')</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="nav-item" href="{{ route('profile-user-force-sale') }}" title="Configuración">
+                                            <a class="nav-item" href="{{ route('profile-user-force-sale') }}"
+                                                title="Configuración">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
                                                     alt="Configuración">
                                                 <span class="nav-link active" aria-current="page"
@@ -798,11 +803,13 @@
                                                 title="Dashboard">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
                                                     alt="Dashboard">
-                                                <span class="nav-link active" aria-current="page">@lang('messages.menu.dashboard')</span>
+                                                <span class="nav-link active"
+                                                    aria-current="page">@lang('messages.menu.dashboard')</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="nav-item" href="{{ route('profile-user-force-sale') }}" title="Configuración">
+                                            <a class="nav-item" href="{{ route('profile-user-force-sale') }}"
+                                                title="Configuración">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
                                                     alt="Configuración">
                                                 <span class="nav-link active" aria-current="page"
@@ -817,11 +824,41 @@
                                                 title="Dashboard">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
                                                     alt="Dashboard">
-                                                <span class="nav-link active" aria-current="page">@lang('messages.menu.dashboard')</span>
+                                                <span class="nav-link active"
+                                                    aria-current="page">@lang('messages.menu.dashboard')</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="nav-item" href="{{ route('profile-user-force-sale') }}" title="Configuración">
+                                            <a class="nav-item" href="{{ route('profile-user-force-sale') }}"
+                                                title="Configuración">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
+                                                    alt="Configuración">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">@lang('messages.menu.configuracion')</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    @if (Auth::user()->role == 'secretary')
+                                        <li>
+                                            <a class="nav-item" href="{{ route('dashbord-secretary') }}"
+                                                title="Dashboard">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
+                                                    alt="Dashboard">
+                                                <span class="nav-link active"
+                                                    aria-current="page">@lang('messages.menu.dashboard')</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-item" href="{{ route('Diary') }}" title="Agenda">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Calendar.png') }}"
+                                                    alt="Agenda">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">@lang('messages.menu.agenda')</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-item" href="{{ route('profile-user-secretary') }}"
+                                                title="Configuración">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
                                                     alt="Configuración">
                                                 <span class="nav-link active" aria-current="page"
