@@ -665,7 +665,6 @@
             });
         }
 
-
         const handleFilter = (e) => {
             // Swal.fire({
             //     icon: 'warning',
@@ -720,6 +719,18 @@
                     });
             //     }
             // });
+        }
+
+        function resend_reminder () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Recordatorio enviado satisfactoriamente!!',
+                allowOutsideClick: false,
+                confirmButtonColor: '#42ABE2',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+
+            });
         }
     </script>
 @endpush
@@ -954,7 +965,7 @@
                                                                                     </div>
                                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                                         <button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Enviar Recordatorio"
-                                                                                            {{-- onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')" --}}>
+                                                                                            onclick="resend_reminder()">
                                                                                             <img width="35" height="auto" src="{{ asset('/img/icons/send.png') }}" alt="avatar">
                                                                                         </button>
                                                                                     </div>
