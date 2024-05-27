@@ -159,7 +159,7 @@ class ApiServicesController extends Controller
 
         try {
 
-            $body = <<<HTML
+            $caption = <<<HTML
             Sr(a). {$data['patient_name']},
             Le informamos que acaba de ser registrado en el Sistema Medico SQLAPIO.
 
@@ -177,11 +177,12 @@ class ApiServicesController extends Controller
             $params = array(
                 'token' => env('TOKEN_API_WHATSAPP'),
                 'to' => $phone,
-                'body' => $body
+                'image' => env('BANNER_SQLAPIO'),
+                'caption' => $caption
             );
             $curl = curl_init();
             curl_setopt_array($curl, array(
-                CURLOPT_URL => env('CURLOPT_URL'),
+                CURLOPT_URL => env('CURLOPT_URL_IMAGE'),
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => "",
                 CURLOPT_MAXREDIRS => 10,
@@ -203,6 +204,72 @@ class ApiServicesController extends Controller
         } catch (\Throwable $th) {
             $message = $th->getMessage();
             dd($th);
+        }
+    }
+
+    static public function whatsapp_location_lab(array $data_exams, array $data_studies, array $data, $phone)
+    {
+        /**Creo un array para los examenes */
+        $array_ex = [];
+        for ($i=0; $i < count($data_exams); $i++) {
+            $ex = $data_exams[$i]->description;
+            array_push($array_ex, $ex);# code...
+        }
+
+        /**Creo un array para los examenes */
+        $array_es = [];
+        for ($i=0; $i < count($data_studies); $i++) {
+            $es = $data_studies[$i]->description;
+            array_push($array_es, $es);# code...
+        }
+
+        $list_ex = join(', ', $array_ex);
+        $list_es = join(', ', $array_es);
+
+
+        $caption = <<<HTML
+            Sr(a). {$data['patient_name']},
+            Le informamos que de acuerdo con la consulta realizada con el Dr(a): *{$data['dr_name']}*, debe realizarse los siguientes exámenes y estudios:
+
+            *Exámanes:*
+            {$list_ex}
+
+            *Estudios:*
+            {$list_es}
+            HTML;
+
+        try {
+            $params = array(
+                'token' => env('TOKEN_API_WHATSAPP'),
+                'to' => $phone,
+                'image' => env('BANNER_SQLAPIO'),
+                'caption' => $caption
+            );
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => env('CURLOPT_URL_IMAGE'),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_SSL_VERIFYHOST => 0,
+                CURLOPT_SSL_VERIFYPEER => 0,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => http_build_query($params),
+                CURLOPT_HTTPHEADER => array(
+                    "content-type: application/x-www-form-urlencoded"
+                ),
+            ));
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+        } catch (\Throwable $th) {
+            $message = $th->getMessage();
+            dd('Error UtilsController.sms_info()', $message);
         }
     }
 
