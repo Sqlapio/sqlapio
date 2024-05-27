@@ -142,6 +142,7 @@ return [
         'contraseña'             => 'Contraseña',
         'confirmar_contraseña'   => 'Confirmar Contraseña',
         'fecha_examen'           => 'Fecha de exámen',
+        'horas'                  => 'C/horas',
     ],
 
     'menu' => [
@@ -319,6 +320,7 @@ return [
         'Finalizada'          => 'Finalizada',
         'Cancelada'           => 'Cancelada',
         'seleccionar'         => 'Seleccionar',
+        'horas'               => 'C/horas',
     ],
 
     'placeholder' => [

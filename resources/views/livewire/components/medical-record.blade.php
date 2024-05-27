@@ -1234,10 +1234,13 @@
             $("#indication_span").text('@lang('messages.alert.campo_obligatorio')');
         } else if ($('#treatmentDuration').val() === "") {
             $("#treatmentDuration_span").text('@lang('messages.alert.campo_obligatorio')');
+        } else if ($('#hours').val() === "") {
+            $("#hours_span").text('@lang('messages.alert.campo_obligatorio')');
         } else {
             $("#medicine_span").text('');
             $("#indication_span").text('');
             $("#treatmentDuration_span").text('');
+            $("#hours_span").text('');
 
             let btn =
                 `<span onclick="deleteMedication(${countMedicationAdd})" ><i style="cursor: pointer" class="bi bi-x-circle-fill"></i></span>`;
@@ -1246,6 +1249,7 @@
                 medicine: $('#medicine').val(),
                 indication: $('#indication').val(),
                 treatmentDuration: $('#treatmentDuration').val(),
+                hours: $('#hours').val(),
                 btn: btn,
                 id: countMedicationAdd
             });
@@ -1269,6 +1273,11 @@
                         {
                             data: 'indication',
                             title: '@lang('messages.tabla.indicaciones')',
+                            className: "text-center td-pad",
+                        },
+                        {
+                            data: 'hours',
+                            title: '@lang('messages.tabla.horas')',
                             className: "text-center td-pad",
                         },
                         {
@@ -2430,6 +2439,19 @@
                                                             <span id="indication_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
+                                                    <div class="col-sm-12 col-md-6 col-lg-1 col-xl-1 col-xxl-1 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="phone" class="form-label"
+                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.horas')</label>
+                                                                <input autocomplete="off"
+                                                                    class="form-control mask-only-number" id="hours"
+                                                                    name="hours" type="text" value="">
+                                                                <i class="bi bi-file-medical st-icon"></i>
+                                                            </div>
+                                                            <span id="hours_span" class="text-danger"></span>
+                                                        </diV>
+                                                    </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
@@ -2476,7 +2498,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2"
+                                                    <div class="col-sm-12 col-md-6 col-lg-1 col-xl-1 col-xxl-1 mt-2"
                                                         style="display: flex; align-items: flex-end; margin-bottom: 3px;">
                                                         <span type="" onclick="addMedacition(event)"
                                                             class="btn btnSecond addMedacition" id="btn"
@@ -2494,6 +2516,7 @@
                                                                 <tr>
                                                                     <th class="text-center w-35" scope="col"> @lang('messages.tabla.medicamento') </th>
                                                                     <th data-orderable="false" class="text-center w-55" scope="col"> @lang('messages.tabla.indicaciones') </th>
+                                                                    <th data-orderable="false" class="text-center w-55" scope="col"> @lang('messages.tabla.horas') </th>
                                                                     <th data-orderable="false" class="text-center" scope="col"> @lang('messages.tabla.duracion') </th>
                                                                     <th data-orderable="false" class="text-center w-4" scope="col"> <i style='font-size: 15px' class="bi bi-trash-fill"></i> </th>
                                                                 </tr>

@@ -25,6 +25,10 @@ class PaymentMethod extends Component
                 auth()->user()->updateDefaultPaymentMethod($paymentMethod);
             }
 
+             /**Registro la accion de agregar metodo de pago  */
+             $action = '26';
+             ActivityLogController::store_log($action);
+
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
         }
@@ -36,6 +40,10 @@ class PaymentMethod extends Component
             return auth()->user()->defaultPaymentMethod();
 
             $this->emit('success', __('messages.alert.operacion_exitosa'));
+
+             /**Registro la accion de metodo de pago por default  */
+             $action = '27';
+             ActivityLogController::store_log($action);
 
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
@@ -49,6 +57,10 @@ class PaymentMethod extends Component
 
             $this->emit('success', __('messages.alert.operacion_exitosa'));
 
+             /**Registro la accion de eliminar metodo de pago  */
+             $action = '28';
+             ActivityLogController::store_log($action);
+
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
         }
@@ -61,6 +73,10 @@ class PaymentMethod extends Component
             auth()->user()->updateDefaultPaymentMethod($paymentMethod);
 
             $this->emit('success',  __('messages.alert.operacion_exitosa'));
+
+             /**Registro la accion de cambiar metodo de pago por defecto  */
+             $action = '29';
+             ActivityLogController::store_log($action);
 
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
@@ -111,6 +127,10 @@ class PaymentMethod extends Component
 
             $this->emit('success',  __('messages.alert.operacion_exitosa'));
 
+            /**Registro la accion de nueva subcripcion */
+            $action = '30';
+            ActivityLogController::store_log($action);
+
             return redirect()->route('Profile');
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
@@ -142,6 +162,10 @@ class PaymentMethod extends Component
             auth()->user()->refresh();
 
             $this->emit('success',  __('messages.alert.operacion_exitosa'));
+
+             /**Registro la accion de cambiar subcripcion */
+             $action = '32';
+             ActivityLogController::store_log($action);
 
             return redirect()->route('Profile');
 

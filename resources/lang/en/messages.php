@@ -142,6 +142,7 @@ return [
         'contraseña'             => 'Password',
         'confirmar_contraseña'   => 'Confirm password',
         'fecha_examen'           => 'Exam date',
+        'horas'                  => 'Every / Hours',
     ],
 
     'menu' => [
@@ -319,6 +320,7 @@ return [
         'Finalizada'           => 'Finished',
         'Cancelada'            => 'Cancelled',
         'seleccionar'          => 'Select',
+        'horas'                => 'Every / Hours',
     ],
 
     'placeholder' => [
