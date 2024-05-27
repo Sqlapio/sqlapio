@@ -41,7 +41,7 @@ class TreatmentReminder extends Command
             $caption = <<<HTML
             *RECORDATORIO DE TRATAMIENTO:*
 
-            Le informamos que para el día de hoy tiene una cita médica agendada.
+            *Se tomó su medicamento?. Recuerde que debe hacerlo...*
 
             *Tratamiento Asignado por:*
             *Doctor(a):* {$doctor->name} {$doctor->last_name}
