@@ -29,6 +29,10 @@ use App\Http\Livewire\Components\PlansVerify;
 use App\Http\Livewire\Components\ProfilePatients\LoginPatient;
 use App\Http\Livewire\Components\ProfilePatients\QueryDetalyPatient;
 use App\Http\Livewire\Components\ProfilePatients\RecoveryPassword as ProfilePatientsRecoveryPassword;
+use App\Http\Livewire\Components\ProfileSecretary\DashbordSecretary;
+use App\Http\Livewire\Components\ProfileSecretary\Profile as ProfileSecretaryProfile;
+use App\Http\Livewire\Components\ProfileSecretary\Registe as RegisteSecretary;
+
 use App\Http\Livewire\Components\Statistics;
 use App\Http\Livewire\Components\Register;
 use App\Http\Livewire\Components\SalesForces\GeneralManager\Dashboard as GeneralManagerDashboard;
@@ -315,6 +319,17 @@ Route::group(array('prefix' => 'public'), function () {
     });
 });
 
+Route::middleware(['auth'])->group(function () {
+
+    //grupos de rutas rol secretaria
+    Route::group(array('prefix' => 'secretary'), function () {
+
+        Route::get('/profile-user-secretary', [ProfileSecretaryProfile::class, 'render'])->name("profile-user-secretary");
+        Route::get('/dashbord-secretary', [DashbordSecretary::class, 'render'])->name("dashbord-secretary");
+    });
+});
+
+
 /**
  * Logout
  */
@@ -334,6 +349,10 @@ Route::post('/validateCapchat', [UtilsController::class, 'validateCapchat'])->na
  * Languaje
  */
 Route::get('/lang/{lang}', [MultilanguajeController::class, 'lang'])->name('lang');
+
+Route::get('/registe-secretary/{id?}', [RegisteSecretary::class, 'render'])->name('registe-secretary');
+Route::post('/registe-secretary', [RegisteSecretary::class, 'store'])->name('registe-secretary');
+
 
 Route::get('/prueba', function () {
     $todayAppointment = Appointment::where('date_start', date('Y-m-d'))->get();

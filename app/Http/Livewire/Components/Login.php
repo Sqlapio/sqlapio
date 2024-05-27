@@ -108,7 +108,8 @@ class Login extends Component
 		return redirect('/');
 	}
 
-	public function redirecUser($user){
+	public function redirecUser($user)
+	{
 		// Redireccion segun status de registro	y rol
 		switch ($user->role) {
 			case 'corporativo':
@@ -139,6 +140,14 @@ class Login extends Component
 					return 'dashboard-medical-visitor';
 				}
 				break;
+
+			case 'secretary':
+				if ($user->status_register == 1) {
+					return 'profile-user-secretary';
+				} else {
+					return 'dashbord-secretary';
+				}
+				break;
 			default:
 				if ($user->status_register == 1) {
 					return 'Profile';
@@ -151,8 +160,8 @@ class Login extends Component
 
 	public function render()
 	{
-		$error =null;
+		$error = null;
 		$this->show = true;
-		return view('livewire.components.login',compact('error'));
+		return view('livewire.components.login', compact('error'));
 	}
 }
