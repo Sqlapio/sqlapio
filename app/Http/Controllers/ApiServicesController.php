@@ -29,11 +29,12 @@ class ApiServicesController extends Controller
             $params = array(
                 'token' => env('TOKEN_API_WHATSAPP'),
                 'to' => $phone,
-                'body' => $body
+                'image' => env('BANNER_SQLAPIO'),
+                'caption' => $body
             );
             $curl = curl_init();
             curl_setopt_array($curl, array(
-                CURLOPT_URL => env('CURLOPT_URL'),
+                CURLOPT_URL => env('CURLOPT_URL_IMAGE'),
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => "",
                 CURLOPT_MAXREDIRS => 10,
@@ -75,7 +76,7 @@ class ApiServicesController extends Controller
             $params = array(
                 'token' => env('TOKEN_API_WHATSAPP'),
                 'to' => $data['phone'],
-                'image' => env('IMAGE_REGISTER_DOCTOR'),
+                'image' => env('BANNER_SQLAPIO'),
                 'caption' => $caption
             );
             $curl = curl_init();
@@ -125,11 +126,12 @@ class ApiServicesController extends Controller
             $params = array(
                 'token' => env('TOKEN_API_WHATSAPP'),
                 'to' => $phone,
-                'body' => $body
+                'image' => env('BANNER_SQLAPIO'),
+                'caption' => $body
             );
             $curl = curl_init();
             curl_setopt_array($curl, array(
-                CURLOPT_URL => env('CURLOPT_URL'),
+                CURLOPT_URL => env('CURLOPT_URL_IMAGE'),
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => "",
                 CURLOPT_MAXREDIRS => 10,
