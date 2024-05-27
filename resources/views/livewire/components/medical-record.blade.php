@@ -922,6 +922,7 @@
                     <tr id="${countMedicationAdd}">
                     <td class="text-center">${element.medicine}</td>
                     <td class="text-center">${element.indication}</td>
+                    <th data-orderable="false" class="text-center w-55" scope="col">${element.hours}</th>
                     <td class="text-center">${element.treatmentDuration}</td>
                     <td class="text-center"><span><i class="bi bi-x-circle-fill"></i></span></td>
                     </tr>`;
@@ -1059,7 +1060,6 @@
 
         $('#floatingInput').val('');
     }
-
 
     const handlerUl = (data, id, clas, number) => {
 
@@ -1302,6 +1302,7 @@
             $('#medicine').val("");
             $('#indication').val("");
             $('#treatmentDuration').val("");
+            $('#hours').val("");
         }
 
 
@@ -2412,7 +2413,7 @@
                                                         <span class="text-warning mt-2" id='med'
                                                             style="font-size: 14px;margin-right: 10px;"></span>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -2426,7 +2427,7 @@
                                                             <span id="medicine_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -2439,7 +2440,7 @@
                                                             <span id="indication_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-6 col-lg-1 col-xl-1 col-xxl-1 mt-2">
+                                                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-1 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -2452,7 +2453,7 @@
                                                             <span id="hours_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="treatmentDuration" class="form-label"
@@ -2498,7 +2499,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-6 col-lg-1 col-xl-1 col-xxl-1 mt-2"
+                                                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2"
                                                         style="display: flex; align-items: flex-end; margin-bottom: 3px;">
                                                         <span type="" onclick="addMedacition(event)"
                                                             class="btn btnSecond addMedacition" id="btn"
