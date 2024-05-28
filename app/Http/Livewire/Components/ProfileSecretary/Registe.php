@@ -14,9 +14,9 @@ use Illuminate\Support\Str;
 
 class Registe extends Component
 {
-    public function render()
+    public function render($id=null)
     {
-        return view('livewire.components.profile-secretary.registe');
+        return view('livewire.components.profile-secretary.registe',compact("id"));
     }
 
     public function store(Request $request)
@@ -63,6 +63,7 @@ class Registe extends Component
             $user->verification_code = Str::random(30);
             $user->role = 'secretary';
             $user->email_verified_at = $date_today;
+            $user->master_corporate_id = decrypt($request->user_id);            
             $user->save();
 
             /**Registro la accion del usuario registrado en el log */
