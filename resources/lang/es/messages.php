@@ -33,6 +33,7 @@ return [
         'añadir_medicamentos' => 'Añadir Medicamentos',
         'guardar_medicamentos'=> 'Guardar Medicamentos',
         'registrar_medico'    => 'Registrar Médicos',
+        'registrar_secretaria'=> 'Registrar Secretaria',
         'consultar'           => 'Consultar',
         'aceptar'             => 'Aceptar',
         'consulta_medica'     => 'Consulta Médica',

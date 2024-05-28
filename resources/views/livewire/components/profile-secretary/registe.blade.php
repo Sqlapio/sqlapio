@@ -493,6 +493,7 @@
                     {{ Form::open(['method' => 'post', 'id' => 'registe-secretary']) }}
                     {{ csrf_field() }}
                     <div class="row">
+                       <input type="hidden" name="user_id" id="user_id" value="{{$id}}">
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="div_name">
                             <div class="form-group">
                                 <div class="Icon-inside">

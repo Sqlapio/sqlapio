@@ -920,11 +920,10 @@
             countMedicationAdd = countMedicationAdd + 1;
             var row = `
                     <tr id="${countMedicationAdd}">
-                    <td class="text-center">${element.medicine}</td>
-                    <td class="text-center">${element.indication}</td>
-                    <th data-orderable="false" class="text-center w-55" scope="col">${element.hours}</th>
-                    <td class="text-center">${element.treatmentDuration}</td>
-                    <td class="text-center"><span><i class="bi bi-x-circle-fill"></i></span></td>
+                        <td class="text-center">${element.medicine}</td>
+                        <td class="text-center">${element.indication}</td>
+                        <td class="text-center">${element.hours} horas</td>
+                        <td class="text-center">${element.treatmentDuration}</td>
                     </tr>`;
             $('#table-medicamento').find('tbody').append(row);
 

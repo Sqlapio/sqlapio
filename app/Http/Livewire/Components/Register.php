@@ -81,7 +81,7 @@ class Register extends Component
 
         // valdiar otp y capchat
         // if (HandleOtpController::verify_otp($request) && UtilsController::validateCapchat($request)) {
-            if (HandleOtpController::verify_otp($request)) {
+        if (HandleOtpController::verify_otp($request)) {
 
             $user = new User();
             $user->name = $request->name;
@@ -93,16 +93,23 @@ class Register extends Component
             $user->verification_code = Str::random(30);
             $user->password = Hash::make($request->password);
             $user->email_verified_at = $date_today;
-            if($request->type_plan == '1') {
+            if ($request->type_plan == '1') {
                 $user->role = "medico";
-            } elseif($request->type_plan == '4'){
+            } elseif ($request->type_plan == '4') {
                 $user->role = "laboratorio";
-            } else{
+            } else {
                 $user->role = "temporary";
-
             }
             $user->type_plane = $request->type_plan;
             $user->save();
+
+            if (number_format($request->type_rif) != 7) {
+
+                User::where("id", $user->id)->update([
+                    "token_corporate" => env('APP_URL') . "/" . "registe-secretary/" . encrypt($user->id)
+                ]);
+            }
+
 
             /**Registro la accion del usuario registrado en el log */
             $action = '3';

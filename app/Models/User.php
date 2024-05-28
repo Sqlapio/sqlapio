@@ -79,6 +79,7 @@ class User extends Authenticatable {
         'expired_plan',
 		'center_id',
 		'master_corporate_id',
+		"token_corporate"
 	];
 
 	/**
