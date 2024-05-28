@@ -603,6 +603,21 @@
                                     <input type="hidden" id="rol" name="rol" value="{{ Auth::user()->role }}">
                                     <div class="row Form-edit-user">
                                         @if (Auth::user()->role == 'medico')
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                                <a id="Link-medicos"
+                                                    href="{{ auth()->user()->token_corporate }}"target="_blank"
+                                                    style="text-decoration: none;">
+                                                    <button type="button" class="btn btnPrimary"
+                                                        style="padding: 7px 20px">@lang('messages.botton.registrar_secretaria')</button>
+                                                </a>
+                                                <button type="button" id="icon-copy" class="btn btn-iSecond rounded-circle"
+                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                    title="@lang('messages.botton.copiar_enlace')"
+                                                    onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
+                                                    style="margin-left: 5%;">
+                                                    <i class="bi bi-file-earmark-text"></i>
+                                                </button> <span style="padding-left: 5px" id="copied"></span>
+                                            </div>
                                             {{-- rol medico --}}
                                             <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2 ">
                                                 <x-upload-image />
@@ -695,7 +710,7 @@
                                                         </diV>
                                                     </div>
                                                     <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                        <x-phone_component :phone="$user->phone"/>
+                                                        <x-phone_component :phone="$user->phone" />
                                                         {{-- <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
