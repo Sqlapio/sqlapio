@@ -465,12 +465,16 @@ class Patients extends Component
 
                 //enviar notificaion con el password
                 $mailData = [
-                    'email' => $email,
-                    'password' =>  $pass,
-                    "title" => "Contraseña establecida exitosamente"
+                    'patient_name'  => $patient['name'] . ' ' . $patient['last_name'],
+                    'email'         => $email,
+                    'password'      =>  $pass,
+                    "title"         => "Contraseña establecida exitosamente"
                 ];
 
                 UtilsController::notification_mail($mailData, "recovery_pass_pat");
+
+                /**Notificacion por whatsapp */
+                ApiServicesController::whatsapp_portal_patiente($patient['phone'], $mailData);
             }
 
             $action = '5';

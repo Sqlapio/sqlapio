@@ -275,5 +275,55 @@ class ApiServicesController extends Controller
         }
     }
 
+    static public function whatsapp_portal_patiente($phone, array $data)
+    {
+
+        try {
+
+            $caption = <<<HTML
+            Sr(a). {$data['patient_name']},
+            Te damos acceso al *PORTAL DEL PACIENTE*, donde podrás tener tu información médica en la palma de tu mano.
+
+            *CONTRASEÑA ÚNICA:*
+            *{$data['password']}*
+
+            *LINK PORTAL DEL PACIENTE*
+            https://system.sqlapio.com/public/patient/query-detaly-patient
+
+            HTML;
+
+            $params = array(
+                'token' => env('TOKEN_API_WHATSAPP'),
+                'to' => $phone,
+                'image' => env('BANNER_SQLAPIO'),
+                'caption' => $caption
+            );
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => env('CURLOPT_URL_IMAGE'),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_SSL_VERIFYHOST => 0,
+                CURLOPT_SSL_VERIFYPEER => 0,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => http_build_query($params),
+                CURLOPT_HTTPHEADER => array(
+                    "content-type: application/x-www-form-urlencoded"
+                ),
+            ));
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+        } catch (\Throwable $th) {
+            $message = $th->getMessage();
+            dd($th);
+        }
+    }
+
 
 }
