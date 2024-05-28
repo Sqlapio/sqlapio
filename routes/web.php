@@ -50,6 +50,7 @@ use App\Models\Center;
 use App\Models\Exam;
 use App\Models\Patient;
 use App\Models\Reference;
+use App\Models\Treatment;
 use App\Models\User as ModelsUser;
 use Illuminate\Support\Str;
 use App\View\Components\VerifyplansComponent;
@@ -355,8 +356,8 @@ Route::post('/registe-secretary', [RegisteSecretary::class, 'store'])->name('reg
 
 
 Route::get('/prueba', function () {
-    $todayAppointment = Appointment::where('date_start', date('Y-m-d'))->get();
-    dd($todayAppointment);
+    $treatmentReminder = Treatment::whereBetween('hours', [4, 12])->get();
+    dd($treatmentReminder);
 });
 
 

@@ -182,4 +182,14 @@ class User extends Authenticatable {
     {
         return $this->hasMany(MedicalReport::class, 'user_id', 'id');
     }
+
+    /**
+     * Get all of the treatment for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function treatment(): HasMany
+    {
+        return $this->hasMany(Treatment::class, 'id', 'user_id');
+    }
 }

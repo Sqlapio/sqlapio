@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
+
 class ViewPlanes extends Component
 {
 
@@ -211,21 +212,19 @@ class ViewPlanes extends Component
 
     public function render()
     {
-        $type_plan = Auth::user()->type_plane;
+        $stripe = new \Stripe\StripeClient('sk_test_51OfoXBLoqeBM9Dtete0mFJXzRi4DS7DGWRKdNwenwFSd3Rvaz4sPJCXPFKi24l7YvomUy1xEbDRTGSfOBn6oPiqC00ieNiN1hs');
+        $stripe_user = Auth::user()->stripe_id;
 
-        if ($type_plan == '3') {
-            $plan_name = 'Plan Ilimitado';
-        }
+        $stripe_customer = $stripe->customers->retrieve($stripe_user, [ 'expand' => ['subscriptions'] ]);
+        $stripe_sub_id = $stripe_customer->subscriptions->data[0]->id;
 
-        if ($type_plan == '2') {
-            $plan_name = 'Plan Profesional';
-        }
+        $res = json_decode((json_encode($stripe->subscriptions->retrieve($stripe_sub_id))));
 
         return view('livewire.components.view-planes', [
             'intent' => auth()->user()->createSetupIntent(),
             'paymentMethods' => auth()->user()->paymentMethods(),
-            'current_end' => auth()->user()->subscription($plan_name)->asStripeSubscription()->current_period_end,
-            'current_start' => auth()->user()->subscription($plan_name)->asStripeSubscription()->current_period_start,
+            'current_end' => $res->current_period_end,
+            'current_start' => $res->current_period_start,
         ]);
     }
 }

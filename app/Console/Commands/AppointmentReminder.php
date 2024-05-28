@@ -46,7 +46,7 @@ class AppointmentReminder extends Command
                 $dir = str_replace(' ', '%20', $center->description);
                 $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $center->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
 
-                $body = <<<HTML
+                $caption = <<<HTML
                 *RECORDATORIO DE CITA:*
 
                 Le informamos que para el día de hoy tiene una cita médica agendada.
@@ -64,11 +64,12 @@ class AppointmentReminder extends Command
                 $params = array(
                     'token' => env('TOKEN_API_WHATSAPP'),
                     'to' => $patient->phone,
-                    'body' => $body
+                    'image' => env('BANNER_SQLAPIO'),
+                    'caption' => $caption
                 );
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => env('CURLOPT_URL'),
+                    CURLOPT_URL => env('CURLOPT_URL_IMAGE'),
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => "",
                     CURLOPT_MAXREDIRS => 10,

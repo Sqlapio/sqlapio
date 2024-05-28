@@ -44,7 +44,7 @@ class Patient extends Model
         'zip_code',
         'is_minor',
         'patient_img',
-        'verification_code',        
+        'verification_code',
         "contrie_doc"
 
     ];
@@ -128,5 +128,15 @@ class Patient extends Model
     public function get_physical_exams(): HasMany
     {
         return $this->hasMany(PhysicalExam::class, 'patient_id', 'id');
+    }
+
+    /**
+     * Get all of the treatment for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function treatment(): HasMany
+    {
+        return $this->hasMany(Treatment::class, 'id', 'patient_id');
     }
 }

@@ -69,40 +69,9 @@ class Reference extends Component
         }
 
         /**
-         * Envio de notificacion al whatsaap del paciente
-         * indicando en codigo de referencia de los examenes
-         * y/o estudio solicitados por el medico
-         */
-
-        // $center = Center::where('id', $data->center_id)->first()->description;
-        // $patient = Patient::where('id', $data->id)->first();
-        // $body = 'Sr(a). '
-        //         .$patient->name.' '.$patient->last_name.
-        //         ' acaba de recibir un consulta medica con el Dr(a). '
-        //         .$user->name.' '.$user->last_name.' en el centro de salud: '
-        //         .$center. '. El medico indico realizar ciertos Examenes y/o Estudios, el numero de Referencia es: '
-        //         .$reference->cod_ref;
-
-        // if($patient->is_minor == 'true'){
-        //     $patient_phone = preg_replace('/[\(\)\-\" "]+/', '', $patient->get_reprensetative->re_phone);
-        // }else{
-        //     $patient_phone = preg_replace('/[\(\)\-\" "]+/', '', $patient->phone);
-        // }
-
-        // ApiServicesController::sms_reference_info($patient_phone, $body);
-
-        /**
-         * Funcion para recomendar el laboratorio
-         * mas sercano
-         */
-        ApiServicesController::sms_location_lab();
-
-
-        /**
          * Logica para cargar los examenes
          * cargados en la referencia.
          */
-
         if (isset($data->exams_array)) {
 
             $data_exams = json_decode($data->exams_array);
@@ -127,7 +96,6 @@ class Reference extends Component
          * Logica para cargar los examenes
          * cargados en la referencia.
          */
-
         if (isset($data->studies_array)) {
 
             $data_studies = json_decode($data->studies_array);
@@ -176,10 +144,23 @@ class Reference extends Component
                 'reference_date' => $reference->date,
                 'patient_email' => $patient_email,
                 'patient_exam' =>  $data_exams,
-                'patient_study' =>  $data_studies ,
+                'patient_study' =>  $data_studies,
             ];
 
             UtilsController::notification_mail($mailData, $type);
+
+            /**
+             * Envio de notificacion al whatsaap del paciente
+             * indicando en codigo de referencia de los examenes
+             * y/o estudio solicitados por el medico
+             */
+            if($patient->is_minor == 'true'){
+                $patient_phone = preg_replace('/[\(\)\-\" "]+/', '', $patient->get_reprensetative->re_phone);
+            }else{
+                $patient_phone = preg_replace('/[\(\)\-\" "]+/', '', $patient->phone);
+            }
+
+            ApiServicesController::whatsapp_location_lab($data_exams, $data_studies, $mailData, $patient_phone);
         }
 
 

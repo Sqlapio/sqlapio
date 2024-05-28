@@ -920,10 +920,10 @@
             countMedicationAdd = countMedicationAdd + 1;
             var row = `
                     <tr id="${countMedicationAdd}">
-                    <td class="text-center">${element.medicine}</td>
-                    <td class="text-center">${element.indication}</td>
-                    <td class="text-center">${element.treatmentDuration}</td>
-                    <td class="text-center"><span><i class="bi bi-x-circle-fill"></i></span></td>
+                        <td class="text-center">${element.medicine}</td>
+                        <td class="text-center">${element.indication}</td>
+                        <td class="text-center">${element.hours} horas</td>
+                        <td class="text-center">${element.treatmentDuration}</td>
                     </tr>`;
             $('#table-medicamento').find('tbody').append(row);
 
@@ -1059,7 +1059,6 @@
 
         $('#floatingInput').val('');
     }
-
 
     const handlerUl = (data, id, clas, number) => {
 
@@ -1234,10 +1233,13 @@
             $("#indication_span").text('@lang('messages.alert.campo_obligatorio')');
         } else if ($('#treatmentDuration').val() === "") {
             $("#treatmentDuration_span").text('@lang('messages.alert.campo_obligatorio')');
+        } else if ($('#hours').val() === "") {
+            $("#hours_span").text('@lang('messages.alert.campo_obligatorio')');
         } else {
             $("#medicine_span").text('');
             $("#indication_span").text('');
             $("#treatmentDuration_span").text('');
+            $("#hours_span").text('');
 
             let btn =
                 `<span onclick="deleteMedication(${countMedicationAdd})" ><i style="cursor: pointer" class="bi bi-x-circle-fill"></i></span>`;
@@ -1246,6 +1248,7 @@
                 medicine: $('#medicine').val(),
                 indication: $('#indication').val(),
                 treatmentDuration: $('#treatmentDuration').val(),
+                hours: $('#hours').val(),
                 btn: btn,
                 id: countMedicationAdd
             });
@@ -1272,6 +1275,11 @@
                             className: "text-center td-pad",
                         },
                         {
+                            data: 'hours',
+                            title: '@lang('messages.tabla.horas')',
+                            className: "text-center td-pad",
+                        },
+                        {
                             data: 'treatmentDuration',
                             title: '@lang('messages.tabla.duracion')',
                             className: "text-center td-pad",
@@ -1293,6 +1301,7 @@
             $('#medicine').val("");
             $('#indication').val("");
             $('#treatmentDuration').val("");
+            $('#hours').val("");
         }
 
 
@@ -2403,7 +2412,7 @@
                                                         <span class="text-warning mt-2" id='med'
                                                             style="font-size: 14px;margin-right: 10px;"></span>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -2417,7 +2426,7 @@
                                                             <span id="medicine_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -2430,7 +2439,20 @@
                                                             <span id="indication_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-1 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="phone" class="form-label"
+                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.horas')</label>
+                                                                <input autocomplete="off"
+                                                                    class="form-control mask-only-number" id="hours"
+                                                                    name="hours" type="text" value="">
+                                                                <i class="bi bi-file-medical st-icon"></i>
+                                                            </div>
+                                                            <span id="hours_span" class="text-danger"></span>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="treatmentDuration" class="form-label"
@@ -2476,7 +2498,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2"
+                                                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2"
                                                         style="display: flex; align-items: flex-end; margin-bottom: 3px;">
                                                         <span type="" onclick="addMedacition(event)"
                                                             class="btn btnSecond addMedacition" id="btn"
@@ -2494,6 +2516,7 @@
                                                                 <tr>
                                                                     <th class="text-center w-35" scope="col"> @lang('messages.tabla.medicamento') </th>
                                                                     <th data-orderable="false" class="text-center w-55" scope="col"> @lang('messages.tabla.indicaciones') </th>
+                                                                    <th data-orderable="false" class="text-center w-55" scope="col"> @lang('messages.tabla.horas') </th>
                                                                     <th data-orderable="false" class="text-center" scope="col"> @lang('messages.tabla.duracion') </th>
                                                                     <th data-orderable="false" class="text-center w-4" scope="col"> <i style='font-size: 15px' class="bi bi-trash-fill"></i> </th>
                                                                 </tr>
