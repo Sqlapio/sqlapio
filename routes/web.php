@@ -327,6 +327,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/profile-user-secretary', [ProfileSecretaryProfile::class, 'render'])->name("profile-user-secretary");
         Route::get('/dashbord-secretary', [DashbordSecretary::class, 'render'])->name("dashbord-secretary");
+        Route::post('/dashbord-secretary', [ProfileSecretaryProfile::class, 'update'])->name("profile-secretary-update");
+
     });
 });
 

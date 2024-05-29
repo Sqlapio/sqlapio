@@ -840,7 +840,7 @@
                                     @endif
                                     @if (Auth::user()->role == 'secretary')
                                         <li>
-                                            <a class="nav-item" href="{{ route('dashbord-secretary') }}"
+                                            <a class="nav-item" href="{{ route('DashboardComponent') }}"
                                                 title="Dashboard">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Stocks.png') }}"
                                                     alt="Dashboard">

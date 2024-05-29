@@ -145,7 +145,7 @@ class Login extends Component
 				if ($user->status_register == 1) {
 					return 'profile-user-secretary';
 				} else {
-					return 'dashbord-secretary';
+					return 'DashboardComponent';
 				}
 				break;
 			default:

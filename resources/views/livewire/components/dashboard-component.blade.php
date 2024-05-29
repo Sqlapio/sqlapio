@@ -134,12 +134,14 @@
             ];
 
             const data = data_palnes.find((e) => e.type_plan == user.type_plane);
+            if(user.role!="secretary"){
 
-            $('.card-title').text(data.description);
-            $('#pacientes').text(`${data.count_patients}`);
-            $('#consultas').text(`${data.count_ref}`);
-            $('#examenes').text(`${data.count_exam}`);
-            $('#estudios').text(`${data.count_study}`);
+                $('.card-title').text(data.description);
+                $('#pacientes').text(`${data.count_patients}`);
+                $('#consultas').text(`${data.count_ref}`);
+                $('#examenes').text(`${data.count_exam}`);
+                $('#estudios').text(`${data.count_study}`);
+            }
 
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             tooltipTriggerList.forEach(element => {
@@ -737,7 +739,7 @@
 @section('content')
     <div>
         {{-- rol medico --}}
-        @if (Auth::user()->role == 'medico')
+        @if (Auth::user()->role == 'medico' || Auth::user()->role == 'secretary')
             <div id="spinner" style="display: none" class="spinner-md">
                 <x-load-spinner show="true" />
             </div>
@@ -790,6 +792,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if (Auth::user()->role == 'medico')
+
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row">
                                         <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
@@ -862,6 +866,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endif
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-lg-4">

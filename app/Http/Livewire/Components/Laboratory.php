@@ -12,13 +12,13 @@ use Livewire\Component;
 class Laboratory extends Component
 {
 
-    static function res_exams()
+    static function res_exams($id)
     {
         try {
             
             $user = Auth::user();
 
-            $laboratory = ModelsLaboratory::where('user_id', $user->id)->first();
+            $laboratory = ModelsLaboratory::where('user_id', $id)->first();
             $data_exam_res = [];
 
             /**
@@ -79,13 +79,13 @@ class Laboratory extends Component
         
     }
 
-    static function res_studies()
+    static function res_studies($id)
     {
         try {
             
             $user = Auth::user();
             $data_study_res = [];
-            $laboratory = ModelsLaboratory::where('user_id', $user->id)->first();
+            $laboratory = ModelsLaboratory::where('user_id', $id)->first();
 
             /**
              * Logica para recuperar los examenes realizados

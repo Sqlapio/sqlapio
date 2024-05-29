@@ -211,20 +211,28 @@ class ViewPlanes extends Component
     }
 
     public function render()
+
     {
-        $stripe = new \Stripe\StripeClient('sk_test_51OfoXBLoqeBM9Dtete0mFJXzRi4DS7DGWRKdNwenwFSd3Rvaz4sPJCXPFKi24l7YvomUy1xEbDRTGSfOBn6oPiqC00ieNiN1hs');
-        $stripe_user = Auth::user()->stripe_id;
+        $res =[];
+        
+        if(Auth::user()->stripe_id){
 
-        $stripe_customer = $stripe->customers->retrieve($stripe_user, [ 'expand' => ['subscriptions'] ]);
-        $stripe_sub_id = $stripe_customer->subscriptions->data[0]->id;
+            $stripe = new \Stripe\StripeClient('sk_test_51OfoXBLoqeBM9Dtete0mFJXzRi4DS7DGWRKdNwenwFSd3Rvaz4sPJCXPFKi24l7YvomUy1xEbDRTGSfOBn6oPiqC00ieNiN1hs');
+            
+            $stripe_user = Auth::user()->stripe_id;
+    
+            $stripe_customer = $stripe->customers->retrieve($stripe_user, [ 'expand' => ['subscriptions'] ]);
 
-        $res = json_decode((json_encode($stripe->subscriptions->retrieve($stripe_sub_id))));
+            $stripe_sub_id = $stripe_customer->subscriptions->data[0]->id;
+    
+            $res = json_decode((json_encode($stripe->subscriptions->retrieve($stripe_sub_id))));
+        }
 
         return view('livewire.components.view-planes', [
             'intent' => auth()->user()->createSetupIntent(),
             'paymentMethods' => auth()->user()->paymentMethods(),
-            'current_end' => $res->current_period_end,
-            'current_start' => $res->current_period_start,
+            'current_end' => (Auth::user()->stripe_id)?$res->current_period_end:"",
+            'current_start' => (Auth::user()->stripe_id)?$res->current_period_start:"",
         ]);
     }
 }

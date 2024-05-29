@@ -10,27 +10,32 @@ use Illuminate\Support\Facades\Auth;
 class DashboardComponent extends Component
 {
     public function render()
+
     {
-        $count_patient_register =  EstadisticaController::total_patient_doctors();
-        $count_medical_recordr =  EstadisticaController::total_medical_record(Auth::user()->id);
-        $count_history_register =  EstadisticaController::total_history_register();
+
+        $id= (Auth::user()->role=="secretary")?Auth::user()->master_corporate_id :Auth::user()->id;
+
+        $count_patient_register =  EstadisticaController::total_patient_doctors($id);
+        $count_medical_recordr =  EstadisticaController::total_medical_record($id);
+        $count_history_register =  EstadisticaController::total_history_register($id);
         $count_patient_genero =  EstadisticaController::total_patient_genero();
-        $appointments = UtilsController::get_appointments_dashboard(Auth::user()->id);
+        $appointments = UtilsController::get_appointments_dashboard($id);
         $elderly = UtilsController::get_patient_elderly();
         $boy_girl = UtilsController::get_patient_boy_girl();
         $teen = UtilsController::get_patient_teen();
         $adult = UtilsController::get_patient_adult();
         $ref = UtilsController::get_ref();
-        $res_exams = Laboratory::res_exams();
-        $res_studies = Laboratory::res_studies();
-        $count_study = UtilsController::total_studies();
+        $res_exams = Laboratory::res_exams($id);
+        $res_studies = Laboratory::res_studies($id);
+        $count_study = UtilsController::total_studies($id);
         $count_examen = UtilsController::total_exams();
-        $patients = UtilsController::get_table_medical_record();
-        $queries_month = UtilsController::get_queries_month();     
-        $appointments_attended = UtilsController::get_appointments_attended();     
-        $appointments_canceled = UtilsController::get_appointments_canceled();     
-        $appointments_confirmed = UtilsController::get_appointments_confirmed();   
-        $appointments_count_all = UtilsController::get_appointments_count_all();     
+        $patients = UtilsController::get_table_medical_record($id);
+        $queries_month = UtilsController::get_queries_month(null,$id);     
+        $appointments_attended = UtilsController::get_appointments_attended(null,$id);     
+        $appointments_canceled = UtilsController::get_appointments_canceled(null,$id);     
+        $appointments_confirmed = UtilsController::get_appointments_confirmed(null,$id);   
+        $appointments_count_all = UtilsController::get_appointments_count_all($id);     
+
 
         return view(
             'livewire.components.dashboard-component',

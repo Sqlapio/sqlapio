@@ -111,11 +111,11 @@ class EstadisticaController extends Controller
     /**
      * Total de historias registradas
      */
-    static function total_history_register()
+    static function total_history_register($id)
     {
         try {
 
-            $total_histories = History::where('user_id', Auth::user()->id)->count();
+            $total_histories = History::where('user_id',$id)->count();
             return $total_histories;
 
         } catch (\Throwable $th) {
@@ -130,11 +130,11 @@ class EstadisticaController extends Controller
      * asociados al medico
      * @param id
      */
-    static function total_patient_doctors()
+    static function total_patient_doctors($id)
     {
         try {
 
-            $total_patient_doctors = Patient::where('user_id', Auth::user()->id)->count();
+            $total_patient_doctors = Patient::where('user_id', $id)->count();
             return $total_patient_doctors;
 
         } catch (\Throwable $th) {
