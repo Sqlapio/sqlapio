@@ -529,7 +529,7 @@ class Patients extends Component
     {
 
         $patient = ($id) ? Patient::where('id', $id)->first() : [];
-        $patients = UtilsController::get_table_medical_record();
+        $patients = UtilsController::get_table_medical_record(auth()->user()->id);
         $cities = UtilsController::get_cities();
         $states = UtilsController::get_states();
         $centers = DoctorCenter::where('user_id', Auth::user()->id)->where('status', 1)->get();
