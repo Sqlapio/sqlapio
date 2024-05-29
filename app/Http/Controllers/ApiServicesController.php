@@ -11,19 +11,29 @@ class ApiServicesController extends Controller
 
         try {
 
+            $cita_medica = __('messages.whatsapp.cita_medica');
+            $text3 = __('messages.whatsapp.text3');
+            $fecha = __('messages.whatsapp.fecha');
+            $hora = __('messages.whatsapp.hora');
+            $doctor = __('messages.whatsapp.doctor');
+            $centro = __('messages.whatsapp.centro');
+            $piso = __('messages.whatsapp.piso');
+            $consultorio = __('messages.whatsapp.consultorio');
+            $ubicacion = __('messages.whatsapp.ubicacion');
+
             $body = <<<HTML
-            *CITA MÉDICA:*
+            *{$cita_medica}:*
 
-            Le informamos que tiene una cita médica agendada.
+            {$text3}.
 
-            *Fecha:* {$data['fecha']}
-            *Hora:* {$data['horario']}
-            *Doctor(a):* {$data['dr_name']}
-            *Centro:* {$data['centro']}
-            *Piso:* {$data['piso']}
-            *Consultorio:* {$data['consultorio']}
+            *{$fecha}:* {$data['fecha']}
+            *{$hora}:* {$data['horario']}
+            *{$doctor}:* {$data['dr_name']}
+            *{$centro}:* {$data['centro']}
+            *{$piso}:* {$data['piso']}
+            *{$consultorio}:* {$data['consultorio']}
 
-            *Ubicacion GoogleMpas:* {$data['ubication']}
+            *{$ubicacion}:* {$data['ubication']}
             HTML;
 
             $params = array(
@@ -64,13 +74,18 @@ class ApiServicesController extends Controller
 
         try {
 
+            $doctor = __('messages.whatsapp.doctor');
+            $bienvenido = __('messages.whatsapp.bienvenido');
+            $text4 = __('messages.whatsapp.text4');
+            $especialidad = __('messages.whatsapp.especialidad');
+
             $caption = <<<HTML
-            *BIENVENIDO:*
+            *{$bienvenido}:*
 
-            Usted acaba de actualizar sus datos como Doctor el Sistema Medico SQLAPIO.
+            {$text4}.
 
-            *Doctor(a):* {$data['doctor']}
-            *Especialidad:* {$data['specialty']}
+            *{$doctor}:* {$data['doctor']}
+            *{$especialidad}:* {$data['specialty']}
             HTML;
 
             $params = array(
@@ -111,16 +126,24 @@ class ApiServicesController extends Controller
 
         try {
 
+            $doctor = __('messages.whatsapp.doctor');
+            $email = __('messages.whatsapp.email');
+            $codigo = __('messages.whatsapp.codigo');
+            $pacientes = __('messages.whatsapp.pacientes');
+            $telefono = __('messages.whatsapp.telefono');
+            $notificacion = __('messages.whatsapp.notificacion');
+            $informamos = __('messages.whatsapp.informamos');
+
             $body = <<<HTML
-            *NOTIFICACION DE REGISTRO*
+            *{$notificacion}*
 
-            Dr(a). {$data['dr_name']},
-            Le informamos que acaba de registrar al siguiente paciente el Sistema Medico SQLAPIO.
+            {$doctor}. {$data['dr_name']},
+            {$informamos}.
 
-            *Paciente:* {$data['patient_name']}
-            *Código:* {$data['patient_code']}
-            *Email:* {$data['patient_email']}
-            *Teléfono:* {$data['patient_phone']}
+            *{$pacientes}:* {$data['patient_name']}
+            *{$codigo}:* {$data['patient_code']}
+            *{$email}:* {$data['patient_email']}
+            *{$telefono}:* {$data['patient_phone']}
             HTML;
 
             $params = array(
@@ -161,19 +184,30 @@ class ApiServicesController extends Controller
 
         try {
 
+            $registrado = __('messages.whatsapp.registrado');
+            $sr = __('messages.whatsapp.sr');
+            $medico = __('messages.whatsapp.medico');
+            $centro_salud = __('messages.whatsapp.centro_salud');
+            $doctor = __('messages.whatsapp.doctor');
+            $centro = __('messages.whatsapp.centro');
+            $piso = __('messages.whatsapp.piso');
+            $consultorio = __('messages.whatsapp.consultorio');
+            $especialidad = __('messages.whatsapp.especialidad');
+            $telefono = __('messages.whatsapp.telefono');
+
             $caption = <<<HTML
-            Sr(a). {$data['patient_name']},
-            Le informamos que acaba de ser registrado en el Sistema Medico SQLAPIO.
+            {$sr}. {$data['patient_name']},
+            {$registrado}.
 
-            *MEDICO TRATANTE:*
-            *Dr(a):* {$data['dr_name']}
-            *Especialidad:* {$data['specialty']}
+            *{$medico}:*
+            *{$doctor}:* {$data['dr_name']}
+            *{$especialidad}:* {$data['specialty']}
 
-            *CENTRO MEDICO*
-            *Centro:* {$data['center']}
-            *Piso:* {$data['center_piso']}
-            *Consultorio:* {$data['center_consulting_room']}
-            *Teléfono:* {$data['center_phone']}
+            *{$centro_salud}*
+            *{$centro}:* {$data['center']}
+            *{$piso}:* {$data['center_piso']}
+            *{$consultorio}:* {$data['center_consulting_room']}
+            *{$telefono}:* {$data['center_phone']}
             HTML;
 
             $params = array(
@@ -227,16 +261,20 @@ class ApiServicesController extends Controller
 
         $list_ex = join(', ', $array_ex);
         $list_es = join(', ', $array_es);
-
+        $examenes = __('messages.whatsapp.examenes');
+        $estudios = __('messages.whatsapp.estudios');
+        $sr = __('messages.whatsapp.sr');
+        $text = __('messages.whatsapp.text');
+        $text2 = __('messages.whatsapp.text2');
 
         $caption = <<<HTML
-            Sr(a). {$data['patient_name']},
-            Le informamos que de acuerdo con la consulta realizada con el Dr(a): *{$data['dr_name']}*, debe realizarse los siguientes exámenes y estudios:
+            {$sr}. {$data['patient_name']},
+            {$text}: *{$data['dr_name']}*, {$text2}:
 
-            *Exámanes:*
+            *{$examenes}:*
             {$list_ex}
 
-            *Estudios:*
+            *{$estudios}:*
             {$list_es}
             HTML;
 
@@ -280,14 +318,19 @@ class ApiServicesController extends Controller
 
         try {
 
-            $caption = <<<HTML
-            Sr(a). {$data['patient_name']},
-            Te damos acceso al *PORTAL DEL PACIENTE*, donde podrás tener tu información médica en la palma de tu mano.
+            $sr = __('messages.whatsapp.sr');
+            $acceso = __('messages.whatsapp.acceso');
+            $contasena = __('messages.whatsapp.informamos');
+            $link = __('messages.whatsapp.informamos');
 
-            *CONTRASEÑA ÚNICA:*
+            $caption = <<<HTML
+            {$sr}. {$data['patient_name']},
+            {$acceso}.
+
+            *{$contasena}:*
             *{$data['password']}*
 
-            *LINK PORTAL DEL PACIENTE*
+            *{$link}*
             https://system.sqlapio.com/public/patient/query-detaly-patient
 
             HTML;
