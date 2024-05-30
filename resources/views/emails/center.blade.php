@@ -16,7 +16,7 @@
                     width: 600px;
                     padding: 10px;">
             <p style="text-align: justify; margin-left: 20px;">
-                <h2 style="text-align: justify; margin-left: 20px;">Dr(a). {{ $mailData['dr_name'] }}</h2>
+                <h2 style="text-align: justify; margin-left: 20px;">@lang('messages.emails.doctor'). {{ $mailData['dr_name'] }}</h2>
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">

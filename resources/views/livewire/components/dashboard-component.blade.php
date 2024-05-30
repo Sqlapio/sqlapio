@@ -668,70 +668,45 @@
         }
 
         const handleFilter = (e) => {
-            // Swal.fire({
-            //     icon: 'warning',
-            //     title: `Desea filtrar por ${$("#moth_filter option:selected").text()}`,
-            //     allowOutsideClick: false,
-            //     confirmButtonColor: '#42ABE2',
-            //     confirmButtonText: 'Aceptar',
-            //     cancelButtonText: 'Cancelar',
-            //     showCancelButton: true,
 
-            // }).then((result) => {
-            //     if (result.isConfirmed) {
-            //         $('#spinner2').show();
-
-                    let route = '{{ route('filter_month_dashboard', [':month']) }}';
-                    route = route.replace(':month', $('#moth_filter').val());
-                    $.ajax({
-                        url: route,
-                        type: 'GET',
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function(response) {
-
-                            // Swal.fire({
-                            //     icon: 'success',
-                            //     title: 'Operación exitosa!',
-                            //     allowOutsideClick: false,
-                            //     confirmButtonColor: '#42ABE2',
-                            //     confirmButtonText: 'Aceptar'
-                            // }).then((result) => {
-
-
-                                updat_graphc(response);
-
-
-                            // });
-                        },
-                        // error: function(error) {
-                        //     Swal.fire({
-                        //         icon: 'error',
-                        //         title: error.responseJSON.errors,
-                        //         allowOutsideClick: false,
-                        //         confirmButtonColor: '#42ABE2',
-                        //         confirmButtonText: 'Aceptar'
-                        //     }).then((result) => {
-                        //         $('#send').show();
-                        //         $('#spinner2').hide();
-                        //         $(".holder").hide();
-                        //     });
-                        // }
-                    });
-            //     }
-            // });
+            let route = '{{ route('filter_month_dashboard', [':month']) }}';
+            route = route.replace(':month', $('#moth_filter').val());
+                $.ajax({
+                    url: route,
+                    type: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        updat_graphc(response);
+                    },
+                });
         }
 
-        function resend_reminder () {
-            Swal.fire({
-                icon: 'success',
-                title: 'Recordatorio enviado satisfactoriamente!!',
-                allowOutsideClick: false,
-                confirmButtonColor: '#42ABE2',
-                confirmButtonText: 'Aceptar'
-            }).then((result) => {
+        function resend_reminder(code) {
+            $('#spinner').show();
+            let route = '{{ route('dash-notifications', [':code']) }}';
+            route = route.replace(':code', code);
+            $.ajax({
+                url: route,
+                type: 'POST',
+                dataType: "json",
+                data: {
+                    "_token": "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    $('#spinner').hide();
 
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Recordatorio enviado satisfactoriamente!!',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#42ABE2',
+                        confirmButtonText: 'Aceptar'
+                    }).then((result) => {
+
+                    });
+                },
             });
         }
     </script>
@@ -785,7 +760,7 @@
                                             <div class="card" style="background-color: #222f3e">
                                                 <div class="card-body p-4" style="display: flex; justify-content: center;">
                                                     <div class="c-chart-wrapper mt-2 mx-3" style="height:350px; width:100%">
-                                                        <canvas id="queries_month" style="height:40vh; width:100vw"</canvas>
+                                                        <canvas id="queries_month" style="height:40vh; width:100vw" </canvas>
                                                     </div>
                                                 </div>
                                             </div>
@@ -927,7 +902,7 @@
                                                                     @foreach ($appointments as $item)
                                                                         <tr>
                                                                             <td class="text-center td-pad">
-                                                                                {{ $item['extendedProps']['data'] . ' ' . $item['extendedProps']['time_zone_start'] }}
+                                                                                {{ substr($item['extendedProps']['data'], 6) . ' ' . $item['extendedProps']['time_zone_start'] }}
                                                                             </td>
                                                                             <td class="text-center td-pad text-capitalize">
                                                                                 {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }}
@@ -970,7 +945,7 @@
                                                                                     </div>
                                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                                         <button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Enviar Recordatorio"
-                                                                                            onclick="resend_reminder()">
+                                                                                            onclick="resend_reminder('{{ $item['extendedProps']['id'] }}')">
                                                                                             <img width="35" height="auto" src="{{ asset('/img/icons/send.png') }}" alt="avatar">
                                                                                         </button>
                                                                                     </div>

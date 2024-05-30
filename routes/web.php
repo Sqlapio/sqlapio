@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiServicesController;
 use App\Http\Controllers\HandleOtpController;
 use App\Http\Controllers\MultilanguajeController;
 use App\Http\Controllers\PDFController;
@@ -124,6 +125,7 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
             Route::get('/clinical-history', [ClinicalHistory::class, 'render'])->name('ClinicalHistory');
             Route::get('/centers', [Centers::class, 'render'])->name('Centers');
             Route::post('/register-centers', [Centers::class, 'store'])->name('register-centers');
+            Route::post('/dash/notifications/{code}', [ApiServicesController::class, 'whatsapp_send_dash'])->name('dash-notifications');
             Route::post('/register-new-centers', [Centers::class, 'regiter_center'])->name('register-new-centers');
             Route::get('/statistics', [Statistics::class, 'render'])->name('Statistics');
             Route::get('/study', [Study::class, 'render'])->name('Study');

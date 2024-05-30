@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
+use App\Models\Center;
+use App\Models\User;
+use App\Models\Patient;
+use App\Models\DoctorCenter;
 use Illuminate\Http\Request;
 
 class ApiServicesController extends Controller
 {
     static public function whatsapp_welcome($phone, $ubicacion, array $data)
     {
-
         try {
 
             $cita_medica = __('messages.whatsapp.cita_medica');
             $text3 = __('messages.whatsapp.text3');
+            $sr = __('messages.whatsapp.sr');
             $fecha = __('messages.whatsapp.fecha');
             $hora = __('messages.whatsapp.hora');
             $doctor = __('messages.whatsapp.doctor');
@@ -24,6 +29,7 @@ class ApiServicesController extends Controller
             $body = <<<HTML
             *{$cita_medica}:*
 
+            {$sr}. {$data['patient_name']},
             {$text3}.
 
             *{$fecha}:* {$data['fecha']}
@@ -129,7 +135,7 @@ class ApiServicesController extends Controller
             $doctor = __('messages.whatsapp.doctor');
             $email = __('messages.whatsapp.email');
             $codigo = __('messages.whatsapp.codigo');
-            $pacientes = __('messages.whatsapp.pacientes');
+            $paciente = __('messages.whatsapp.paciente');
             $telefono = __('messages.whatsapp.telefono');
             $notificacion = __('messages.whatsapp.notificacion');
             $informamos = __('messages.whatsapp.informamos');
@@ -140,7 +146,7 @@ class ApiServicesController extends Controller
             {$doctor}. {$data['dr_name']},
             {$informamos}.
 
-            *{$pacientes}:* {$data['patient_name']}
+            *{$paciente}:* {$data['patient_name']}
             *{$codigo}:* {$data['patient_code']}
             *{$email}:* {$data['patient_email']}
             *{$telefono}:* {$data['patient_phone']}
@@ -365,6 +371,85 @@ class ApiServicesController extends Controller
         } catch (\Throwable $th) {
             $message = $th->getMessage();
             dd($th);
+        }
+    }
+
+    static public function whatsapp_send_dash($code)
+    {
+
+        try {
+
+            $cita = Appointment::where('id', $code)->first();
+            $dr = User::where('id', $cita->user_id)->first();
+            $cen = Center::where('id', $cita->center_id)->first();
+            $patient = Patient::where('id', $cita->patient_id)->first();
+            $doctor_center = DoctorCenter::where('user_id', $dr->id)->where('center_id', $cita->center_id)->first();
+
+            /**Obtenego el nombre del centro para poder crear el url de googleMpas */
+            $dir = str_replace(' ', '%20', $cen->description);
+            $hour_format = substr($cita->hour_start, 6);
+            $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $cen->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
+
+            $cita_medica = __('messages.whatsapp.cita_medica');
+            $sr = __('messages.whatsapp.sr');
+            $text3 = __('messages.whatsapp.text3');
+            $fecha = __('messages.whatsapp.fecha');
+            $hora = __('messages.whatsapp.hora');
+            $doctor = __('messages.whatsapp.doctor');
+            $centro = __('messages.whatsapp.centro');
+            $piso = __('messages.whatsapp.piso');
+            $consultorio = __('messages.whatsapp.consultorio');
+            $ubicacion = __('messages.whatsapp.ubicacion');
+
+            $body = <<<HTML
+            *{$cita_medica}:*
+
+            {$sr}. {$patient->name} {$patient->last_name},
+            {$text3}.
+
+            *{$fecha}:* {$cita->date_start}
+            *{$hora}:* {$hour_format}
+            *{$doctor}:* {$dr->name} {$dr->last_name}
+            *{$centro}:* {$cen->description}
+            *{$piso}:* {$doctor_center->number_floor}
+            *{$consultorio}:* {$doctor_center->number_consulting_room}
+
+            *{$ubicacion}:* {$ubication}
+
+            HTML;
+
+            $params = array(
+                'token' => env('TOKEN_API_WHATSAPP'),
+                'to' =>  $patient->phone,
+                'image' => env('BANNER_SQLAPIO'),
+                'caption' => $body
+            );
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => env('CURLOPT_URL_IMAGE'),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_SSL_VERIFYHOST => 0,
+                CURLOPT_SSL_VERIFYPEER => 0,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => http_build_query($params),
+                CURLOPT_HTTPHEADER => array(
+                    "content-type: application/x-www-form-urlencoded"
+                ),
+            ));
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            return true;
+        } catch (\Throwable $th) {
+            $message = $th->getMessage();
+            dd('Error UtilsController.sms_welcome()', $message);
         }
     }
 

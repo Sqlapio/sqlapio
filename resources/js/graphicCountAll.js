@@ -381,6 +381,7 @@ function updat_graphc(data) {
   chart_appointments_confirmed.data.datasets[0].data = data.get_appointments_confirmed;
   chart_appointments_confirmed.update();
 }
+
 function get_appointments_attended(appointments_attended) {
   const data = {
     labels: Meses,
@@ -600,7 +601,7 @@ function get_consultas_history(countMedicalRecordr, countHistoryRegister) {
       {
         label: langJson.graficas.total,
         data: [countMedicalRecordr , countHistoryRegister],
-        backgroundColor: ["#ed6c6c", "#ffba56",]
+        backgroundColor: ["#2380f7", "#56c1ff",]
       }
     ]
   };
