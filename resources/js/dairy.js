@@ -35,28 +35,28 @@ let arrayAm = [
         name: "Seleccione..."
     },
     {
-        value: "06:00-07:00",
-        name: "06:00 - 07:00"
+        value: "06:00-06:00",
+        name: "06:00"
     },
     {
-        value: "07:00-08:00",
-        name: "07:00 - 08:00"
+        value: "07:00-07:00",
+        name: "07:00"
     },
     {
-        value: "08:00-09:00",
-        name: "08:00 - 09:00"
+        value: "08:00-08:00",
+        name: "08:00"
     },
     {
-        value: "09:00-10:00",
-        name: "09:00 - 10:00"
+        value: "09:00-09:00",
+        name: "09:00"
     },
     {
-        value: "10:00-11:00",
-        name: "10:00 - 11:00"
+        value: "10:00-10:00",
+        name: "10:00"
     },
     {
-        value: "10:00-11:00",
-        name: "11:00 - 12:00"
+        value: "11:00-11:00",
+        name: "11:00"
     }
 ];
 
@@ -66,40 +66,40 @@ let arrayPm = [
         name: "Seleccione..."
     },
     {
-        value: "12:00-13:00",
-        name: "12:00 - 01:00"
+        value: "12:00-12:00",
+        name: "12:00"
     },
     {
-        value: "13:00-14:00",
-        name: "01:00 - 02:00"
+        value: "01:00-01:00",
+        name: "01:00"
     },
     {
-        value: "14:00-15:00",
-        name: "02:00 - 03:00"
+        value: "02:00-02:00",
+        name: "02:00"
     },
     {
-        value: "15:00-16:00",
-        name: "03:00 - 04:00"
+        value: "03:00-03:00",
+        name: "03:00"
     },
     {
-        value: "16:00-17:00",
-        name: "04:00 - 05:00"
+        value: "04:00-04:00",
+        name: "04:00"
     },
     {
-        value: "17:00-18:00",
-        name: "05:00 - 06:00"
+        value: "05:00-05:00",
+        name: "05:00"
     },
     {
-        value: "18:00-19:00",
-        name: "06:00 - 07:00"
+        value: "06:00-06:00",
+        name: "06:00"
     },
     {
-        value: "19:00-20:00",
-        name: "07:00 - 08:00"
+        value: "07:00-07:00",
+        name: "07:00"
     },
     {
-        value: "20:00-21:00",
-        name: "08:00 - 09:00"
+        value: "08:00-08:00",
+        name: "08:00"
     }
 ];
 
@@ -390,6 +390,7 @@ function setValue(data, info) {
 
     let img_url = `${ulrimge}/${info.event.extendedProps.img}`;
 
+
     if (info.event.extendedProps.img === null) {
         if (info.event.extendedProps.genere == "femenino") {
             img_url = `${avatar_imge}/avatar mujer.png`;
@@ -442,7 +443,7 @@ function setValue(data, info) {
 
     $("#appointment-data").show();
     $("#fecha").text(new Date(info.event._instance.range.start).toISOString().split("T")[0]);
-    $("#hour").text(info.event.extendedProps.data + " " + info.event.extendedProps.time_zone_start);
+    $("#hour").text(info.event.extendedProps.data.substr(6) + " " + info.event.extendedProps.time_zone_start);
     $("#center").text(info.event.extendedProps.center);
 
     $("#date-lb").hide();

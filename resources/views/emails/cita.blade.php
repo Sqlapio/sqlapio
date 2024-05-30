@@ -18,35 +18,35 @@
             height: auto;" src="{{ asset('img/notification_email/notificaciones_img_3.png') }}">
     <div style="margin: auto; width: 600px; padding: 10px;">
         <p style="text-align: justify; margin-left: 20px;">
-            <h2 style="text-align: justify; margin-left: 20px;">Cita Médica</h2>
-            <h2 style="text-align: justify; margin-left: 20px;">Sr(a). {{ $mailData['patient_name'] }}</h2>
+            <h2 style="text-align: justify; margin-left: 20px;">@lang('messages.emails.cita_medica')</h2>
+            <h2 style="text-align: justify; margin-left: 20px;">@lang('messages.emails.sr'). {{ $mailData['patient_name'] }}</h2>
         </p>
         <p style="text-align: justify; margin-left: 20px;">
-            Le informamos que tiene una cita médica agendada en Sqlapio.com
+            @lang('messages.emails.agendada')
             <br>
-            <strong>Detalles de la cita:</strong>
+            <strong> @lang('messages.emails.detalles_cita'):</strong>
         </p>
         <p style="text-align: justify; margin-left: 20px;">
             <h3 style="text-align: justify; margin-left: 20px;">
-                Dr(a): {{ $mailData['dr_name'] }}
+                @lang('messages.emails.doctor'): {{ $mailData['dr_name'] }}
                 <br>
-                Fecha: {{ $mailData['fecha'] }}
+                @lang('messages.emails.fecha'): {{ $mailData['fecha'] }}
                 <br>
-                Hora: {{ $mailData['horario'] }}
+                @lang('messages.emails.hora'): {{ $mailData['horario'] }}
                 <br>
-                Centro: {{ $mailData['centro'] }}
+                @lang('messages.emails.centro_salud'): {{ $mailData['centro'] }}
                 <br>
-                Piso: {{ $mailData['piso'] }} - Consultorio: {{ $mailData['consultorio'] }}
+                @lang('messages.emails.piso'): {{ $mailData['piso'] }} - @lang('messages.emails.num_consultorio'): {{ $mailData['consultorio'] }}
                 <br>
-                Telefono: {{ $mailData['telefono'] }}
+                @lang('messages.emails.telefono'): {{ $mailData['telefono'] }}
             </h3>
         </p>
 
         <p style="text-align: justify; margin-left: 20px;">
-            Gracias por ser parte de nosotros, Sqlapio.com, innovando para el futuro.
+            @lang('messages.emails.gracias')
         </p>
              <p style="text-align: justify; margin-left: 20px;">
-            Para confirmar su cita puede hacerlo a traves del siguiente link:
+                @lang('messages.emails.confirmar_cita'):
             <br>
             {{ $mailData['link'] }}
         </p>
@@ -67,11 +67,11 @@
                 cursor: pointer;
                 user-select: none;
                 -webkit-user-select: none;
-                touch-action: manipulation;" role="button">Ver ubicación
+                touch-action: manipulation;" role="button">@lang('messages.emails.ubicacion')
             </button>
         </a>
         <p style="text-align: justify; margin-left: 20px;">
-            Atentamente,
+            @lang('messages.emails.atentamente'),
             <br>
             <br>
             <img style="
@@ -82,7 +82,7 @@
             Ing. Jhonny Martinez<br>CEO
         </p>
         <p style="text-align: justify; font-style: italic; margin-left: 20px;">
-            Para mayor información puede comunicarse 24/7 con nuestro equipo a traves de soporte@sqlapio.com
+            @lang('messages.emails.comunicate') soporte@sqlapio.com
         </p>
     </div>
     <img style="

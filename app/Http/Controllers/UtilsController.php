@@ -329,10 +329,9 @@ class UtilsController extends Controller
 			foreach ($appointments as $key => $val) {
 				$data[$key] = [
 					'id' => $val->id,
-					'title' => $val->hour_start . " - " . $val->get_patients->name . " " . $val->get_patients->last_name,
+					'title' => substr($val->hour_start, 6) . " - " . $val->get_patients->name . " " . $val->get_patients->last_name,
 					'start' => date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 0, -9),
 					'end' =>  date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 6, -3),
-					// 'allDay'=> true,
 					'rendering' => 'background',
 					'color' => $val->color,
 					'extendedProps' => [
@@ -373,10 +372,9 @@ class UtilsController extends Controller
 			foreach ($appointments as $key => $val) {
 				$data[$key] = [
 					'id' => $val->id,
-					'title' => $val->hour_start . " - " . $val->get_patients->name . " " . $val->get_patients->last_name,
-					'start' => date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 0, -9),
+					'title' => substr($val->hour_start, 6) . " - " . $val->get_patients->name . " " . $val->get_patients->last_name,
+                    'start' => date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 0, -9),
 					'end' =>  date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 6, -3),
-					// 'allDay'=> true,
 					'rendering' => 'background',
 					'color' => $val->color,
 					'extendedProps' => [

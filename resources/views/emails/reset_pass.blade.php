@@ -22,15 +22,15 @@
             <h2 style="text-align: justify; margin-left: 20px;">Sr(a). {{ $mailData['dr_name'] }}</h2>
         </p>
         <p style="text-align: justify; margin-left: 20px;">
-            Usted a solicitado la actualización de su contraseña<br>
-            Por favor introduzca el siguiente código de validación:<br>
+            @lang('messages.emails.act_contraseña')<br>
+             @lang('messages.emails.validacion'):<br>
             <strong><h1 style="text-align: justify; margin-left: 20px;">{{ $mailData['code'] }}</h1></strong>
         </p>
         <p style="text-align: justify; margin-left: 20px;">
-            Gracias por ser parte de nosotros, Sqlapio.com, innovando para el futuro.
+            @lang('messages.emails.gracias')
         </p>
         <p style="text-align: justify; margin-left: 20px;">
-            Atentamente,
+            @lang('messages.emails.atentamente'),
             <br>
             <br>
             <img style="
@@ -41,7 +41,7 @@
             Ing. Jhonny Martinez<br>CEO
         </p>
         <p style="text-align: justify; font-style: italic; margin-left: 20px;">
-            Para mayor información puede comunicarse 24/7 con nuestro equipo a través de soporte@sqlapio.com
+            @lang('messages.emails.comunicate') soporte@sqlapio.com
         </p>
     </div>
     <img style="

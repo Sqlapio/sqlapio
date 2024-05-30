@@ -20,17 +20,17 @@
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
-                    Su contraseña es la siguiente:
+                @lang('messages.emails.contraseña'):
                 <br>
                 {{ $mailData['password'] }}
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
-                Gracias por ser parte de nosotros, Sqlapio.com, innovando para el futuro.
+                @lang('messages.emails.gracias')
             </p>
 
             <p style="text-align: justify; margin-left: 20px;">
-                Atentamente,
+                @lang('messages.emails.atentamente'),
                 <br>
                 <br>
                 <img style="
@@ -42,7 +42,7 @@
                 Ing. Jhonny Martinez<br>CEO
             </p>
             <p style="text-align: justify; font-style: italic; margin-left: 20px;">
-                Para mayor información puede comunicarse 24/7 con nuestro equipo a través de soporte@sqlapio.com
+                @lang('messages.emails.comunicate') soporte@sqlapio.com
             </p>
         </div>
     <img style="

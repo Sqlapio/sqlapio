@@ -9,7 +9,7 @@
     </style>
 </head>
 <body>
-    <h2 style="text-align: justify; margin-left: 20px;">Referencia Médica</h2>
+    <h2 style="text-align: justify; margin-left: 20px;">@lang('messages.emails.referencia_med')</h2>
     <img style="
             display: block;
             margin-left: auto;
@@ -21,42 +21,41 @@
                     width: 600px;
                     padding: 10px;">
             <p style="text-align: justify; margin-left: 20px;">
-                <h2 style="text-align: justify; margin-left: 20px;">Sr(a). {{ $mailData['patient_name'] }}</h2>
+                <h2 style="text-align: justify; margin-left: 20px;">@lang('messages.emails.sr'). {{ $mailData['patient_name'] }}</h2>
             </p>
             <p style="text-align: justify; margin-left: 20px;">
-                Nos complace informarle que usted acaba de tener una consulta médica con el <strong>Dr(a): {{ $mailData['dr_name'] }}</strong>, en el centro médico: <strong>{{ $mailData['center'] }}</strong>.
+                @lang('messages.emails.consulta_med') <strong>@lang('messages.emails.doctor'): {{ $mailData['dr_name'] }}</strong>, @lang('messages.emails.en_centro_med'): <strong>{{ $mailData['center'] }}</strong>.
             </p>
             <p style="text-align: justify; margin-left: 20px;">
-                <strong>El Dr(a): {{ $mailData['dr_name'] }}</strong> <br> generó una referencia médica con las siguientes especificaciones:
+                <strong>@lang('messages.emails.el') @lang('messages.emails.doctor'): {{ $mailData['dr_name'] }}</strong> <br> @lang('messages.emails.genero'):
             </p>
             <table style="width: 600px; margin-left: 20px;">
                 <tr>
                   <th style="text-align: center; padding: 10px">
-                    Código de referencia: {{ $mailData['reference_code'] }}
+                    @lang('messages.emails.referencia'): {{ $mailData['reference_code'] }}
                     <br>
-                    Fecha: {{ $mailData['reference_date'] }}
+                    @lang('messages.emails.fecha'): {{ $mailData['reference_date'] }}
                     <br>
-                    Exámenes solicitados:
+                    @lang('messages.emails.examenes'):
                     <br>
                         @foreach ($mailData['patient_exam'] as $item)
                                 {{ $item->description}}<br>
                         @endforeach
 
                     <br>
-                    Estudios o imagenes médicas solicitadas:
+                    @lang('messages.emails.estudios'):
                     <br>
-
-                            @foreach ($mailData['patient_study'] as $item)
-                            {{ $item->description}}<br>
-                            @endforeach
+                        @foreach ($mailData['patient_study'] as $item)
+                        {{ $item->description}}<br>
+                        @endforeach
                   </th>
                 </tr>
               </table>
               <p style="text-align: justify; margin-left: 20px;">
-                Gracias por ser parte de nosotros, Sqlapio.com, innovando para el futuro.
+                @lang('messages.emails.gracias')
             </p>
             <p style="text-align: justify; margin-left: 20px;">
-                Atentamente,
+                @lang('messages.emails.atentamente'),
                 <br>
                 <br>
                 <img style="
@@ -68,7 +67,7 @@
                 Ing. Jhonny Martinez<br>CEO
             </p>
             <p style="text-align: justify; font-style: italic; margin-left: 20px;">
-                Para mayor información puede comunicarse 24/7 con nuestro equipo a través de soporte@sqlapio.com
+                @lang('messages.emails.comunicate') soporte@sqlapio.com
             </p>
         </div>
     <img style="
