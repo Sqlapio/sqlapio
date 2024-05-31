@@ -603,7 +603,7 @@
                                     <input type="hidden" id="rol" name="rol" value="{{ Auth::user()->role }}">
                                     <div class="row Form-edit-user">
                                         @if (Auth::user()->role == 'medico')
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                            {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                 <a id="Link-medicos"
                                                     href="{{ auth()->user()->token_corporate }}"target="_blank"
                                                     style="text-decoration: none;">
@@ -617,7 +617,7 @@
                                                     style="margin-left: 5%;">
                                                     <i class="bi bi-file-earmark-text"></i>
                                                 </button> <span style="padding-left: 5px" id="copied"></span>
-                                            </div>
+                                            </div> --}}
                                             {{-- rol medico --}}
                                             <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2 ">
                                                 <x-upload-image />
@@ -1056,8 +1056,7 @@
             @if ($user->email_verified_at !== null)
                 {{-- actualizacion de correo Electronico --}}
                 <div class="row">
-                    <div
-                        class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role === 'corporativo' ? 'mb-cd mb-2' : '' }}">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role === 'corporativo' ? 'mb-cd mb-2' : '' }}">
                         <div class="accordion-item ">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"
@@ -1096,8 +1095,7 @@
                 @if (Auth::user()->role == 'medico')
                     {{-- firma Digital --}}
                     <div class="row">
-                        <div
-                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'mb-cd mb-2' : '' }}">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'mb-cd mb-2' : '' }}">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
                                     <button class="accordion-button collapsed bg-8" type="button"
@@ -1121,6 +1119,41 @@
                                                 </div>
                                             </div>
                                         </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'mb-cd mb-2' : '' }}">
+                            <div class="accordion-item">
+                                <span class="accordion-header title" id="headingFour">
+                                    <button class="accordion-button collapsed bg-8" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false"
+                                        aria-controls="collapseFour"
+                                        style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                        <i class="bi bi-file-earmark-text"></i> @lang('messages.botton.registrar_secretaria')
+                                    </button>
+                                </span>
+                                <div id="collapseFour" class="accordion-collapse collapse"
+                                    aria-labelledby="headingFour" data-bs-parent="#accordion">
+                                    <div class="accordion-body">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                            <a id="Link-medicos"
+                                                href="{{ auth()->user()->token_corporate }}"target="_blank"
+                                                style="text-decoration: none;">
+                                                <button type="button" class="btn btnPrimary"
+                                                    style="padding: 7px 20px">@lang('messages.botton.registrar_secretaria')</button>
+                                            </a>
+                                            <button type="button" id="icon-copy" class="btn btn-iSecond rounded-circle"
+                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                title="@lang('messages.botton.copiar_enlace')"
+                                                onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
+                                                style="margin-left: 5%;">
+                                                <i class="bi bi-file-earmark-text"></i>
+                                            </button> <span style="padding-left: 5px" id="copied"></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

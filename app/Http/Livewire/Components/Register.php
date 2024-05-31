@@ -97,7 +97,9 @@ class Register extends Component
                 $user->role = "medico";
             } elseif ($request->type_plan == '4') {
                 $user->role = "laboratorio";
-            } else {
+            }elseif ($request->type_plan == '7') {
+                $user->role = "corporativo";
+            }else {
                 $user->role = "temporary";
             }
             $user->type_plane = $request->type_plan;

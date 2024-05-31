@@ -244,7 +244,7 @@ class PaymentForm extends Component
             } else {
                 return response()->json([
                     'success' => false,
-                    'errors'  => "Email ya se encunetra registro"
+                    'errors'  => "Email ya se encuentra registrado"
                 ], 400);
             }
         } catch (\Throwable $th) {
