@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components\Stripe;
 
+use App\Http\Controllers\ActivityLogController;
 use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Queue\Listener;
