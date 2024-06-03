@@ -569,6 +569,9 @@
         }
     }
 </style>
+<script>
+
+</script>
 <div>
     <div class="container-fluid">
         <div class="row">
@@ -592,8 +595,7 @@
                                     </button>
                                 </div>
 
-                                <div class="col-xs-6 col-sm-6 col-md-6"
-                                    style="display: flex; justify-content: flex-end;">
+                                <div class="col-xs-6 col-sm-6 col-md-6" style="display: flex; justify-content: flex-end;">
                                     @if (Auth::user()->get_data_corporate_master)
                                         @if (Auth::user()->type_plane == '7' &&
                                                 Auth::user()->get_data_corporate_master->get_laboratorio->lab_img == null &&

@@ -619,6 +619,9 @@ return [
         'citas'                 => 'Citas',
         'consultas_historias'   => 'Consultas / Historias',
         'pacientes_tipo'        => 'Nro. de Pacientes por tipo',
+        'citas_registradas'     => 'Citas Registradas',
+        'doctores_activos'      => 'Doctores Activos',
+        'doctores_inactivos'    => 'Doctores Inactivos',
     ],
 
     'pacientes' => [

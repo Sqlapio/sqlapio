@@ -619,6 +619,9 @@ return [
         'citas'                 => 'Quotes',
         'consultas_historias'   => 'Queries / Stories',
         'pacientes_tipo'        => 'Number of Patients by type',
+        'citas_registradas'     => 'Registered Appointments',
+        'doctores_activos'      => 'Active Doctors',
+        'doctores_inactivos'    => 'Inactive Doctors',
     ],
 
     'pacientes' => [
