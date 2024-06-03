@@ -37,6 +37,17 @@ class AppointmentReminder extends Command
 
             foreach ($todayAppointment as $appointment) {
 
+                $cita_medica = __('messages.whatsapp.recordatorio_cita');
+                $text_cita = __('messages.whatsapp.text3');
+                $sr = __('messages.whatsapp.sr');
+                $fecha = __('messages.whatsapp.fecha');
+                $hora = __('messages.whatsapp.hora');
+                $dr = __('messages.whatsapp.doctor');
+                $centro = __('messages.whatsapp.centro');
+                $piso = __('messages.whatsapp.piso');
+                $consultorio = __('messages.whatsapp.consultorio');
+                $ubicacion = __('messages.whatsapp.ubicacion');
+
                 $doctor = User::where('id', $appointment->user_id)->first();
                 $center = Center::where('id', $appointment->center_id)->first();
                 $patient = Patient::where('id', $appointment->patient_id)->first();
@@ -47,18 +58,19 @@ class AppointmentReminder extends Command
                 $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $center->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
 
                 $caption = <<<HTML
-                *RECORDATORIO DE CITA:*
+                *{$cita_medica}:*
 
-                Le informamos que para el día de hoy tiene una cita médica agendada.
+                {$sr}. {$patient->name},
+                {$text_cita}.
 
-                *Fecha:* {$appointment->date_start}
-                *Hora:* {$appointment->hour_start}
-                *Doctor(a):* {$doctor->name} {$doctor->last_name}
-                *Centro:* {$center->description}
-                *Piso:* {$doctor_center->number_floor}
-                *Consultorio:* {$doctor_center->number_consulting_room}
+                *{$fecha}:* {$appointment->date_start}
+                *{$hora}:* {$appointment->hour_start}
+                *{$dr}:* {$doctor->name} {$doctor->last_name}
+                *{$centro}:* {$center->description}
+                *{$piso}:* {$doctor_center->number_floor}
+                *{$consultorio}:* {$doctor_center->number_consulting_room}
 
-                *Ubicación:* {$ubication}
+                *{$ubicacion}:* {$ubication}
                 HTML;
 
                 $params = array(
