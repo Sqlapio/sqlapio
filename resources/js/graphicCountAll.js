@@ -24,6 +24,9 @@ let chart_queries_month;
 let chart_appointments_attended;
 let chart_appointments_canceled;
 let chart_appointments_confirmed;
+let chart_recorded_appointments;
+let chart_active_doctors;
+let chart_inactive_doctors;
 
 // function get_patient_register(countPatientRegister) {
 
@@ -314,7 +317,7 @@ function get_queries_month(queries_month) {
     labels: Meses,
     datasets: [
       {
-        label: langJson.graficas.consultas_mes,
+        label: langJson.graficas.total,
         data:queries_month,
         borderColor: "#2380f7",
         backgroundColor: context => {
@@ -387,7 +390,7 @@ function get_appointments_attended(appointments_attended) {
     labels: Meses,
     datasets: [
       {
-        label: langJson.graficas.citas_atendidas_mes,
+        label: langJson.graficas.total,
         data: appointments_attended,
         borderColor: "#ffba56",
         backgroundColor: context => {
@@ -445,7 +448,7 @@ function get_appointments_canceled(appointments_canceled) {
     labels: Meses,
     datasets: [
       {
-        label: langJson.graficas.citas_canceladas_mes,
+        label: langJson.graficas.total,
         data: appointments_canceled,
         borderColor: "#af5a5c",
         backgroundColor: context => {
@@ -504,7 +507,7 @@ function get_appointments_confirmed(appointments_confirmed) {
     labels: Meses,
     datasets: [
       {
-        label: langJson.graficas.citas_confirmadas_mes,
+        label: langJson.graficas.total,
         data: appointments_confirmed,
         borderColor: "#36e97b",
         borderWidth: 2,
@@ -629,6 +632,180 @@ function get_consultas_history(countMedicalRecordr, countHistoryRegister) {
   });
 }
 
+function get_recorded_appointments() {
+    const data = {
+        labels: Meses,
+        datasets: [
+          {
+            label: langJson.graficas.total,
+            data: [2, 4, 5, 6, 7, 8, 9, 7, 4, 5, 6, 7],
+            borderColor: "#2380f7",
+            backgroundColor: context => {
+              const bgcolor = ["#2380f7", "#2380f77a", "#0000"];
+
+              if (!context.chart.chartArea) {
+                return;
+              }
+              const { ctx, data, chartArea: { top, bottom } } = context.chart;
+              const gradientBg = ctx.createLinearGradient(0, top, 0, bottom);
+              gradientBg.addColorStop(0, bgcolor[0]);
+              gradientBg.addColorStop(0.5, bgcolor[1]);
+              gradientBg.addColorStop(1, bgcolor[2]);
+              return gradientBg;
+            },
+            fill: true,
+            tension: 0.4
+          }
+        ]
+      };
+
+      chart_recorded_appointments = new Chart($("#recorded_appointments"), {
+        type: "line",
+        data: data,
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              ticks: { color: "#b3b3b3", beginAtZero: true, stepSize: 1 }
+            },
+            x: {
+              ticks: { color: "#b3b3b3", beginAtZero: true }
+            }
+          },
+          plugins: {
+            legend: {
+              position: "bottom",
+              align: "start",
+              labels: {
+                color: "#b3b3b3"
+              }
+            },
+            title: {
+              display: true,
+              text: langJson.graficas.citas_registradas,
+              color: "#b3b3b3"
+            }
+          }
+        }
+      });
+}
+
+function get_active_doctors() {
+    const data = {
+        labels: Meses,
+        datasets: [
+          {
+            label: langJson.graficas.total,
+            data: [2, 4, 5, 6, 7, 5, 7, 5, 4, 5, 6, 7],
+            borderColor: "#36e97b",
+            backgroundColor: context => {
+              const bgcolor = ["#36e97b", "#38ef7d7a", "#0000"];
+
+              if (!context.chart.chartArea) {
+                return;
+              }
+              const { ctx, data, chartArea: { top, bottom } } = context.chart;
+              const gradientBg = ctx.createLinearGradient(0, top, 0, bottom);
+              gradientBg.addColorStop(0, bgcolor[0]);
+              gradientBg.addColorStop(0.5, bgcolor[1]);
+              gradientBg.addColorStop(1, bgcolor[2]);
+              return gradientBg;
+            },
+            fill: true,
+            tension: 0.4
+          }
+        ]
+      };
+
+      chart_active_doctors = new Chart($("#active_doctors"), {
+        type: "line",
+        data: data,
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              ticks: { color: "#b3b3b3", beginAtZero: true, stepSize: 1 }
+            },
+            x: {
+              ticks: { color: "#b3b3b3", beginAtZero: true }
+            }
+          },
+          plugins: {
+            legend: {
+              position: "bottom",
+              align: "start",
+              labels: {
+                color: "#b3b3b3"
+              }
+            },
+            title: {
+              display: true,
+              text: langJson.graficas.doctores_activos,
+              color: "#b3b3b3"
+            }
+          }
+        }
+      });
+}
+
+function get_inactive_doctors() {
+    const data = {
+        labels: Meses,
+        datasets: [
+          {
+            label: langJson.graficas.total,
+            data: [2, 4, 5, 4, 7, 8, 5, 7, 4, 5, 5, 7],
+            borderColor: "#af5a5c",
+            backgroundColor: context => {
+              const bgcolor = ["#af5a5c", "#af5a5c9c", "#0000"];
+
+              if (!context.chart.chartArea) {
+                return;
+              }
+              const { ctx, data, chartArea: { top, bottom } } = context.chart;
+              const gradientBg = ctx.createLinearGradient(0, top, 0, bottom);
+              gradientBg.addColorStop(0, bgcolor[0]);
+              gradientBg.addColorStop(0.5, bgcolor[1]);
+              gradientBg.addColorStop(1, bgcolor[2]);
+              return gradientBg;
+            },
+            fill: true,
+            tension: 0.4
+          }
+        ]
+      };
+
+      chart_inactive_doctors = new Chart($("#inactive_doctors"), {
+        type: "line",
+        data: data,
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              ticks: { color: "#b3b3b3", beginAtZero: true, stepSize: 1 }
+            },
+            x: {
+              ticks: { color: "#b3b3b3", beginAtZero: true }
+            }
+          },
+          plugins: {
+            legend: {
+              position: "bottom",
+              align: "start",
+              labels: {
+                color: "#b3b3b3"
+              }
+            },
+            title: {
+              display: true,
+              text: langJson.graficas.doctores_inactivos,
+              color: "#b3b3b3"
+            }
+          }
+        }
+      });
+}
+
 // window.get_patient_register = get_patient_register;
 // window.get_medical_record = get_medical_record;
 // window.get_history_register = get_history_register;
@@ -640,3 +817,6 @@ window.get_appointments_canceled = get_appointments_canceled;
 window.get_appointments_confirmed = get_appointments_confirmed;
 window.get_quotes = get_quotes;
 window.get_consultas_history = get_consultas_history;
+window.get_recorded_appointments = get_recorded_appointments;
+window.get_active_doctors = get_active_doctors;
+window.get_inactive_doctors = get_inactive_doctors;

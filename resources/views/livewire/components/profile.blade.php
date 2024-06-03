@@ -594,10 +594,8 @@
                                 <i class="bi bi-person"></i> @lang('messages.acordion.datos_personales')
                             </button>
                         </span>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                            data-bs-parent="#accordion">
-                            <div class="accordion-body"
-                                style="{{ Auth::user()->role == 'corporativo' ? 'padding: 0px 16px' : '' }}">
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                            <div class="accordion-body" style="{{ Auth::user()->role == 'corporativo' ? 'padding: 0px 16px' : '' }}">
                                 <form id="form-profile" method="post" action="/">
                                     {{ csrf_field() }}
                                     <input type="hidden" id="rol" name="rol" value="{{ Auth::user()->role }}">
@@ -956,7 +954,6 @@
                                                     <x-ubigeo class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
                                                 </div>
                                             </div>
-
                                             <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
