@@ -29,7 +29,7 @@ class Register extends Component
     {
 
 
-        if (number_format($request->type_rif) >= 3) {
+        if (number_format($request->type_plan) == 7) {
             $rules = [
                 'business_name' => 'required',
                 'password'      => 'required',
@@ -97,9 +97,9 @@ class Register extends Component
                 $user->role = "medico";
             } elseif ($request->type_plan == '4') {
                 $user->role = "laboratorio";
-            }elseif ($request->type_plan == '7') {
+            } elseif ($request->type_plan == '7') {
                 $user->role = "corporativo";
-            }else {
+            } else {
                 $user->role = "temporary";
             }
             $user->type_plane = $request->type_plan;
@@ -112,16 +112,26 @@ class Register extends Component
                 ]);
             }
 
+            if (number_format($request->type_plan) == 7) {
+
+                $user_corporate = new Laboratory();
+                $user_corporate->user_id = $user->id;
+                $user_corporate->business_name = $request->business_name;
+                $user_corporate->rif = $request->ci;      
+                $user_corporate->email = $request->email;   
+                $user_corporate->save();
+            }
+
 
             /**Registro la accion del usuario registrado en el log */
             $action = '3';
-            ActivityLogController::store_log($action);
+            // ActivityLogController::store_log($action);
 
             /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
             $stripeCustomer = $user->createAsStripeCustomer();
             // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
             $action = '25';
-            ActivityLogController::store_log($action);
+            // ActivityLogController::store_log($action);
 
             return response()->json([
                 'success' => true,
