@@ -590,8 +590,9 @@
 
                     {{-- Input hidden for type plan --}}
                     <input id="type_plan" name="type_plan" type="hidden" value="{{ $type_plan }}">
+                    <input id="coporate_id" name="coporate_id" type="hidden" value="{!! !empty($hash) ? $hash : null !!}">
 
-                    @if ($type_plan != '7')
+                    @if ($type_plan != '7' || $type_plan =="corporate_medico" )
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="div_name">
                                 <div class="form-group">

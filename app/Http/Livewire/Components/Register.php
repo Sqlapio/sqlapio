@@ -27,8 +27,7 @@ class Register extends Component
 
     public function store(Request $request)
     {
-
-
+        
         if (number_format($request->type_plan) == 7) {
             $rules = [
                 'business_name' => 'required',
@@ -105,12 +104,14 @@ class Register extends Component
             $user->type_plane = $request->type_plan;
             $user->save();
 
-            if (number_format($request->type_rif) != 7) {
+            if (number_format($request->type_plan) == 7) {
 
                 User::where("id", $user->id)->update([
-                    "token_corporate" => env('APP_URL') . "/" . "registe-secretary/" . encrypt($user->id)
+                    "token_corporate" => env('APP_URL') . "/" . "register-user-corporate/" . encrypt($user->id)
                 ]);
             }
+
+            // guardar datos en tabla laboratorios los datos de la corporativo
 
             if (number_format($request->type_plan) == 7) {
 
@@ -125,13 +126,13 @@ class Register extends Component
 
             /**Registro la accion del usuario registrado en el log */
             $action = '3';
-            // ActivityLogController::store_log($action);
+            ActivityLogController::store_log($action);
 
             /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
             $stripeCustomer = $user->createAsStripeCustomer();
             // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
             $action = '25';
-            // ActivityLogController::store_log($action);
+            ActivityLogController::store_log($action);
 
             return response()->json([
                 'success' => true,
@@ -144,201 +145,6 @@ class Register extends Component
                 'msj'  => __('messages.alert.codigov_incorrecto')
             ], 400);
         }
-
-        // if($user != null && $request->doctor_corporate == 'false')
-        // {
-        //     if($user->role == 'medico')
-        //     {
-        //         $rules = [
-        //             'name'      => 'required',
-        //             'last_name' => 'required',
-        //             'password'  => 'required',
-        //         ];
-
-        //         $msj = [
-        //             'name'              => 'Campo requerido',
-        //             'last_name'         => 'Campo requerido',
-        //             'password'          => 'Campo requerido',
-        //             'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
-        //             'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
-        //             'password.regex'    => 'Formato de contraseña  incorrecto',
-        //         ];
-
-        //         $validator = Validator::make($request->all(), $rules, $msj);
-
-        //         if ($validator->fails()) {
-        //             return Redirect::to('/')->withErrors($validator);
-        //         }
-
-        //         try {
-
-        //             User::where('email', $request->email)
-        //                 ->update([
-        //                     'password'              => Hash::make($request->password),
-        //                     'verification_code'     => Str::random(30),
-        //                 ]);
-
-        //         /**
-        //          * Registro de accion en el log
-        //          * del sistema
-        //          */
-        //         $action = '3';
-        //         ActivityLogController::store_log($action);
-
-        //         /**
-        //          * Envio de notificacion por correo
-        //          */
-        //         $user_update = User::where('email', $request->email)->first();
-        //         $type = 'verify_email';
-        //         $mailData = [
-        //             'dr_name' => $request->name.' '.$request->last_name,
-        //             'dr_email' => $request->email,
-        //             'verify_code' => $user_update->verification_code,
-        //         ];
-
-        //         UtilsController::notification_mail($mailData, $type);
-
-        //         return redirect('/')->with('success', 'El registro inicial satisfactorio');
-
-        //         } catch (\Throwable $th) {
-        //             $message = $th->getMessage();
-        //             dd('Error Livewire.Components.Register.store()', $message);
-        //         }
-        //     }
-
-        //     if($user->role == 'laboratorio' || $user->role == 'corporativo')
-        //     {
-
-        //         $rules = [
-        //             'business_name' => 'required',
-        //             'password'  	=> 'required',
-        //         ];
-
-        //         $msj = [
-        //             'business_name'     => 'Campo requerido',
-        //             'password'          => 'Campo requerido',
-        //         ];
-
-        //         $validator = Validator::make($request->all(), $rules, $msj);
-
-        //         if ($validator->fails()) {
-        //             return response()->json([
-        //                 'success' => 'false',
-        //                 'errors'  => $validator->errors()->all()
-        //             ], 400);
-        //         }
-
-        //         try {
-
-        //             User::where('email', $request->email)
-        //             ->update([
-        //                 'password' 			=> Hash::make($request->password),
-        //                 'verification_code' => Str::random(30)
-        //             ]);
-
-        //         /**
-        //          * Registro de accion en el log
-        //          * del sistema
-        //          */
-        //         $action = '16';
-        //         ActivityLogController::store_log($action);
-
-        //         /**
-        //          * Envio de notificacion por correo
-        //          */
-        //         $user_update = User::where('email', $request->email)->first();
-        //         if($user->role == 'laboratorio')
-        //         {
-        //             $type = 'verify_email_laboratory';
-
-        //         }else{
-
-        //             $type = 'verify_email_corporate';
-        //         }
-        //         $mailData = [
-        //             'laboratory_name' => $user_update->business_name,
-        //             'laboratory_email' => $user_update->email,
-        //             'verify_code' => $user_update->verification_code,
-        //         ];
-        //         UtilsController::notification_mail($mailData, $type);
-
-        //         return redirect('/')->with('success', 'El registro inicial fue satisfactorio');
-
-        //         } catch (\Throwable $th) {
-        //             $message = $th->getMessage();
-        //             dd('Error Livewire.Components.Register.store()', $message);
-        //         }
-        //     }
-
-        // }else{
-
-        //     $rules = [
-        //         'name'      => 'required',
-        //         'last_name' => 'required',
-        //         'email'     => 'required|unique:users',
-        //         'password'  => 'required',
-        //     ];
-
-        //     $msj = [
-        //         'name'              => 'Campo requerido',
-        //         'last_name'         => 'Campo requerido',
-        //         'password'          => 'Campo requerido',
-        //         'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
-        //         'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
-        //         'password.regex'    => 'Formato de contraseña  incorrecto',
-        //         'unique'            => 'El correo electronico ya se encuentra registrado. Por favor intente con uno distinto.'
-        //     ];
-
-        //     $validator = Validator::make($request->all(), $rules, $msj);
-
-        //     if ($validator->fails()) {
-        //         return Redirect::back()->withErrors($validator);
-        //     }
-
-        //     try {
-
-        //         $user_corporate = new User();
-        //         $user_corporate->name = $request->name;
-        //         $user_corporate->last_name = $request->last_name;
-        //         $user_corporate->email = $request->email;
-        //         $user_corporate->password = $request->password;
-        //         $user_corporate->verification_code = Str::random(30);
-        //         $user_corporate->role = 'medico';
-        //         $user_corporate->type_plane = '7';
-        //         $user_corporate->center_id = $request->center_id;
-        //         $user_corporate->master_corporate_id = $request->user_corp_id;
-        //         $user_corporate->save();
-
-        //     /**
-        //      * Registro de accion en el log
-        //      * del sistema
-        //      */
-        //     $action = '3';
-        //     ActivityLogController::store_log($action);
-
-        //     /**
-        //      * Envio de notificacion por correo
-        //      */
-        //     $user_update = User::where('email', $request->email)->first();
-        //     $type = 'verify_email';
-        //     $mailData = [
-        //         'dr_name' => $request->name.' '.$request->last_name,
-        //         'dr_email' => $request->email,
-        //         'verify_code' => $user_update->verification_code,
-        //     ];
-
-        //     UtilsController::notification_mail($mailData, $type);
-
-        //     return redirect('/')->with('success', 'El registro inicial satisfactorio');
-
-        //     } catch (\Throwable $th) {
-        //         $message = $th->getMessage();
-        //         dd('Error Livewire.Components.Register.store()', $message);
-        //     }
-        // }
-
-
-
     }
 
     public function update(Request $request)
@@ -574,10 +380,10 @@ class Register extends Component
 
     public function register_doctor_corporate($hash)
     {
-        $corporate = User::where('center_id', Crypt::decryptString($hash))->first();
-        $bellied_plan = null;
-        $show = true;
-        return view('livewire.components.register', compact('show', 'bellied_plan', 'corporate'));
+        
+        $corporate = User::where('id', decrypt($hash))->first();
+        $type_plan ="corporate_medico";
+        return view('livewire.components.register', compact('corporate','type_plan'));
     }
 
     public function render($id = null)
