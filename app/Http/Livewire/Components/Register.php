@@ -28,7 +28,7 @@ class Register extends Component
     public function store(Request $request)
     {
         
-        if (number_format($request->type_plan) == 7) {
+        if ($request->type_plan == "7") {
             $rules = [
                 'business_name' => 'required',
                 'password'      => 'required',
@@ -78,6 +78,7 @@ class Register extends Component
 
         $date_today = $date_today->addDay(30)->format('Y-m-d');
 
+
         // valdiar otp y capchat
         // if (HandleOtpController::verify_otp($request) && UtilsController::validateCapchat($request)) {
         if (HandleOtpController::verify_otp($request)) {
@@ -92,19 +93,21 @@ class Register extends Component
             $user->verification_code = Str::random(30);
             $user->password = Hash::make($request->password);
             $user->email_verified_at = $date_today;
-            if ($request->type_plan == '1') {
+            if ($request->type_plan == '1' || $request->type_plan == 'corporate_medico') {
                 $user->role = "medico";
             } elseif ($request->type_plan == '4') {
                 $user->role = "laboratorio";
             } elseif ($request->type_plan == '7') {
                 $user->role = "corporativo";
-            } else {
+            } 
+            else {
                 $user->role = "temporary";
             }
+            $user->master_corporate_id = ($request->type_plan == "corporate_medico")?decrypt($request->coporate_id ):null;
             $user->type_plane = $request->type_plan;
             $user->save();
 
-            if (number_format($request->type_plan) == 7) {
+            if ($request->type_plan == "7") {
 
                 User::where("id", $user->id)->update([
                     "token_corporate" => env('APP_URL') . "/" . "register-user-corporate/" . encrypt($user->id)
@@ -113,7 +116,7 @@ class Register extends Component
 
             // guardar datos en tabla laboratorios los datos de la corporativo
 
-            if (number_format($request->type_plan) == 7) {
+            if ($request->type_plan == "7") {
 
                 $user_corporate = new Laboratory();
                 $user_corporate->user_id = $user->id;
@@ -383,7 +386,7 @@ class Register extends Component
         
         $corporate = User::where('id', decrypt($hash))->first();
         $type_plan ="corporate_medico";
-        return view('livewire.components.register', compact('corporate','type_plan'));
+        return view('livewire.components.register', compact('corporate','type_plan','hash'));
     }
 
     public function render($id = null)
