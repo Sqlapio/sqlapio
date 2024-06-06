@@ -591,7 +591,6 @@
                     {{-- Input hidden for type plan --}}
                     <input id="type_plan" name="type_plan" type="hidden" value="{{ $type_plan }}">
                     <input id="coporate_id" name="coporate_id" type="hidden" value="{!! !empty($hash) ? $hash : null !!}">
-                    <input id="role" name="role" type="hidden" value="{{ $role }}">
 
                     @if ($type_plan != '7' || $type_plan =="7" && $role == 'medico' )
                         <div class="row">

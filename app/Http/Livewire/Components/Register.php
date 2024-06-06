@@ -27,7 +27,7 @@ class Register extends Component
 
     public function store(Request $request)
     {
-        
+
         if ($request->type_plan == "7") {
             $rules = [
                 'business_name' => 'required',
@@ -70,14 +70,13 @@ class Register extends Component
 
             return response()->json([
                 'success' => false,
-                'msj'  => $validator->errors()->all()
+                'msj' => $validator->errors()->all()
             ], 400);
         }
 
         $date_today = Carbon::createFromFormat('Y-m-d', date('Y-m-d'));
 
         $date_today = $date_today->addDay(30)->format('Y-m-d');
-
 
         // valdiar otp y capchat
         // if (HandleOtpController::verify_otp($request) && UtilsController::validateCapchat($request)) {
@@ -95,52 +94,77 @@ class Register extends Component
             $user->email_verified_at = $date_today;
             if ($request->type_plan == '1' || $request->type_plan == 'corporate_medico') {
                 $user->role = "medico";
-            } elseif ($request->type_plan == '4') {
-                $user->role = "laboratorio";
-            } elseif ($request->type_plan == '7') {
-                $user->role = "corporativo";
-            } 
-            else {
-                $user->role = "temporary";
+                } elseif ($request->type_plan == '4') {
+                    $user->role = "laboratorio";
+                } elseif ($request->type_plan == '7') {
+                    $user->role = "corporativo";
+                } else {
+                    $user->role = "temporary";
             }
-            $user->master_corporate_id = ($request->type_plan == "corporate_medico")?decrypt($request->coporate_id ):null;
-            $user->type_plane = $request->type_plan;
+
+            $user->master_corporate_id = ($request->type_plan == "corporate_medico") ? decrypt($request->coporate_id ) : null;
+            $user->type_plane = ($request->type_plan == "corporate_medico") ? '7' : $request->type_plan;
             $user->save();
 
-            if ($request->type_plan == "7") {
+                if ($request->type_plan == "7") {
 
-                User::where("id", $user->id)->update([
-                    "token_corporate" => env('APP_URL') . "/" . "register-user-corporate/" . encrypt($user->id)
-                ]);
-            }
+                    User::where("id", $user->id)->update([
+                        "token_corporate" => env('APP_URL') . "/" . "register-user-corporate/" . encrypt($user->id)
+                    ]);
+                }
 
-            // guardar datos en tabla laboratorios los datos de la corporativo
+                // guardar datos en tabla laboratorios los datos de la corporativo
+                if ($request->type_plan == "7") {
+                    if ($request->type_rif == '4') {
+                        $type_rif = "F";
+                    }
+                    if ($request->type_rif == '5') {
+                        $type_rif = "J";
+                    }
+                    if ($request->type_rif == '6') {
+                        $type_rif = "C";
+                    }
+                    if ($request->type_rif == '7') {
+                        $type_rif = "G";
+                    }
 
-            if ($request->type_plan == "7") {
+                    $user_corporate = new Laboratory();
+                    $user_corporate->user_id = $user->id;
+                    $user_corporate->business_name = $request->business_name;
+                    $user_corporate->rif = $request->ci;
+                    $user_corporate->email = $request->email;
+                    $user_corporate->save();
 
-                $user_corporate = new Laboratory();
-                $user_corporate->user_id = $user->id;
-                $user_corporate->business_name = $request->business_name;
-                $user_corporate->rif = $request->ci;      
-                $user_corporate->email = $request->email;   
-                $user_corporate->save();
-            }
+                    /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
+                    $stripeCustomer = $user->createAsStripeCustomer();
+
+                    /**Registro la accion del usuario registrado en el log */
+                    $action = 'corporate_plan';
+                    ActivityLogController::store_log($action);
+
+                    // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
+                    $action = '25';
+                    ActivityLogController::store_log($action);
 
 
-            /**Registro la accion del usuario registrado en el log */
-            $action = '3';
-            ActivityLogController::store_log($action);
-
-            /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
-            $stripeCustomer = $user->createAsStripeCustomer();
-            // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
-            $action = '25';
-            ActivityLogController::store_log($action);
+                }elseif ($request->type_plan == "corporate_medico") {
+                    # code...
+                    /**Registro la accion del usuario registrado en el log */
+                    $action = 'corporate_medico';
+                    ActivityLogController::store_log($action);
+                }else{
+                    /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
+                    $stripeCustomer = $user->createAsStripeCustomer();
+                    // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
+                    $action = '25';
+                    ActivityLogController::store_log($action);
+                }
 
             return response()->json([
                 'success' => true,
                 'msj'  => __('messages.alert.registro_inicial')
             ], 200);
+
         } else {
 
             return response()->json([
@@ -218,20 +242,20 @@ class Register extends Component
                     ];
 
                     $msj = [
-                        'name'                    => __('messages.alert.nombre_obligatorio'),
-                        'last_name'               => __('messages.alert.apellido_obligatorio'),
-                        'ci'                      => __('messages.alert.cedula_obligatoria'),
-                        'birthdate'               => __('messages.alert.fecha_obligatorio'),
-                        'genere'                  => __('messages.alert.genero_obligatorio'),
-                        'specialty'               => __('messages.alert.especialidad_obligatorio'),
-                        'age'                     => __('messages.alert.edad_obligatorio'),
-                        'phone'                   => __('messages.alert.telefono_obligatorio'),
-                        'state_contrie'           => __('messages.alert.estado_obligatorio'),
-                        'city_contrie'            => __('messages.alert.ciudad_obligatorio'),
-                        'contrie'                 => __('messages.alert.pais_obligatorio'),
-                        'address'                 => __('messages.alert.direccion_obligatoria'),
-                        'zip_code'                => __('messages.alert.codigo_obligatorio'),
-                        'cod_mpps'                => __('messages.alert.mpps_obligatorio'),
+                        'name'          => __('messages.alert.nombre_obligatorio'),
+                        'last_name'     => __('messages.alert.apellido_obligatorio'),
+                        'ci'            => __('messages.alert.cedula_obligatoria'),
+                        'birthdate'     => __('messages.alert.fecha_obligatorio'),
+                        'genere'        => __('messages.alert.genero_obligatorio'),
+                        'specialty'     => __('messages.alert.especialidad_obligatorio'),
+                        'age'           => __('messages.alert.edad_obligatorio'),
+                        'phone'         => __('messages.alert.telefono_obligatorio'),
+                        'state_contrie' => __('messages.alert.estado_obligatorio'),
+                        'city_contrie'  => __('messages.alert.ciudad_obligatorio'),
+                        'contrie'       => __('messages.alert.pais_obligatorio'),
+                        'address'       => __('messages.alert.direccion_obligatoria'),
+                        'zip_code'      => __('messages.alert.codigo_obligatorio'),
+                        'cod_mpps'      => __('messages.alert.mpps_obligatorio'),
                     ];
                 }
 
@@ -240,7 +264,7 @@ class Register extends Component
                 if ($validator->fails()) {
                     return response()->json([
                         'success' => 'false',
-                        'errors'  => $validator->errors()->all()
+                        'errors' => $validator->errors()->all()
                     ], 400);
                 }
 
@@ -302,7 +326,7 @@ class Register extends Component
                 if ($validator->fails()) {
                     return response()->json([
                         'success' => 'false',
-                        'errors'  => $validator->errors()->all()
+                        'errors' => $validator->errors()->all()
                     ], 400);
                 }
 
@@ -312,7 +336,7 @@ class Register extends Component
                  */
 
                 if (Str::contains($request->img, 'base64')) {
-                    $file =  $request->img;
+                    $file = $request->img;
                     if ($file != null) {
                         $png = strstr($file, 'data:image/png;base64');
                         $jpg = strstr($file, 'data:image/jpg;base64');
@@ -345,22 +369,21 @@ class Register extends Component
                     ['id' => $request->id],
                     [
 
-                        'code_lab'              => 'SQ-LAB-' . random_int(11111111, 99999999),
-                        'user_id'               => $laboratory->id,
-                        'business_name'         => $request->business_name,
-                        'email'                 => $request->email,
-                        'rif'                   => $request->rif,
-                        'state'                 => $request->state,
-                        'city'                  => $request->city,
-                        'address'               => $request->address,
-                        // 'phone_1'               => $request->phone,
-                        'phone_1' 	            => $request->phonenumber_prefix . "-" . $request->phone,
-                        'license'               => $request->license,
-                        'type_laboratory'       => $request->type_laboratory,
-                        'responsible'           => $request->responsible,
-                        'descripcion'           => $request->descripcion,
-                        'website'               => $request->website,
-                        'lab_img'               => $nameFile
+                        'code_lab'        => 'SQ-LAB-' . random_int(11111111, 99999999),
+                        'user_id'         => $laboratory->id,
+                        'business_name'   => $request->business_name,
+                        'email'           => $request->email,
+                        'rif'             => $request->rif,
+                        'state'           => $request->state,
+                        'city'            => $request->city,
+                        'address'         => $request->address,
+                        'phone_1'         => $request->phone,
+                        'license'         => $request->license,
+                        'type_laboratory' => $request->type_laboratory,
+                        'responsible'     => $request->responsible,
+                        'descripcion'     => $request->descripcion,
+                        'website'         => $request->website,
+                        'lab_img'         => $nameFile
 
                     ]
                 );
@@ -384,7 +407,6 @@ class Register extends Component
 
     public function register_doctor_corporate($hash)
     {
-        
         $corporate = User::where('id', decrypt($hash))->first();
         $type_plan ="corporate_medico";
         return view('livewire.components.register', compact('corporate','type_plan','hash'));
