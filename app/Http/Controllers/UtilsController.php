@@ -155,6 +155,13 @@ class UtilsController extends Controller
         if ($value == '33') {
 			return 'new subcription STRIPE';
 		}
+        if ($value == 'corporate_medico') {
+			return 'register corporate medico';
+		}
+        if ($value == 'corporate_plan') {
+			return 'add register corporate plane';
+		}
+
 	}
 
 	/**
@@ -1677,15 +1684,15 @@ class UtilsController extends Controller
 
 			$doctor_update = UtilsController::get_doctor_corporate();
 
-			// $info_doctor = User::where('id', $id)->where('type_plane', '7')->first();
-			// $type = 'enable_doc';
-			// $mailData = [
-			// 	'dr_name' => $info_doctor->name . ' ' . $info_doctor->last_name,
-			// 	'dr_email' => $info_doctor->email,
-			// 	'center' => Center::where('id', $info_doctor->center_id)->first()->description
-			// ];
+			$info_doctor = User::where('id', $id)->where('type_plane', '7')->first();
+			$type = 'enable_doc';
+			$mailData = [
+				'dr_name' => $info_doctor->name . ' ' . $info_doctor->last_name,
+				'dr_email' => $info_doctor->email,
+				'center' => Center::where('id', $info_doctor->center_id)->first()->description
+			];
 
-			// UtilsController::notification_mail($mailData, $type);
+			UtilsController::notification_mail($mailData, $type);
 
 			return $doctor_update;
 		} catch (\Throwable $th) {
@@ -1707,16 +1714,16 @@ class UtilsController extends Controller
 
 			$doctor_update = UtilsController::get_doctor_corporate();
 
-			// $info_doctor = User::where('id', $id)->where('type_plane', '7')->first();
+			$info_doctor = User::where('id', $id)->where('type_plane', '7')->first();
 
-			// $type = 'disable_doc';
-			// $mailData = [
-			// 	'dr_name' => $doctor_update->name . ' ' . $doctor_update->last_name,
-			// 	'dr_email' => $doctor_update->email,
-			// 	'center' => Center::where('id', $doctor_update->center_id)->first()->description
-			// ];
+			$type = 'disable_doc';
+			$mailData = [
+				'dr_name' => $doctor_update->name . ' ' . $doctor_update->last_name,
+				'dr_email' => $doctor_update->email,
+				'center' => Center::where('id', $doctor_update->center_id)->first()->description
+			];
 
-			// UtilsController::notification_mail($mailData, $type);
+			UtilsController::notification_mail($mailData, $type);
 
 			return $doctor_update;
 		} catch (\Throwable $th) {
