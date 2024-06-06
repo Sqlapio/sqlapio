@@ -6,6 +6,19 @@
         margin-top: 3rem !important;
     }
 
+    .avatar {
+        border-radius: 50%;
+        width: 55px !important;
+        height: 55px !important;
+        border: 2px solid #44525f;
+        object-fit: cover;
+    }
+
+    .table-avatar {
+        text-align: center;
+        vertical-align: middle;
+    }
+
     @media screen and (max-width: 576px) {
         .mt-gf {
             margin-top: 0 !important;
@@ -150,28 +163,23 @@
                                                         <table id="table-patient" class="table table-striped table-bordered table-dark" style="width:100%;">
                                                             <thead>
                                                                 <tr>
-                                                                    <th class="text-center w-image" scope="col"
-                                                                        data-orderable="false">@lang('messages.tabla.foto')</th>
-                                                                    <th class="text-center w-10" scope="col"
-                                                                        data-orderable="false">@lang('messages.tabla.nombre_apellido')</th>
-                                                                    <th class="text-center w-10" scope="col"
-                                                                        data-orderable="false">@lang('messages.form.email')</th>
-                                                                    <th class="text-center w-10" scope="col"
-                                                                        data-orderable="false">@lang('messages.tabla.telefono')</th>
-
+                                                                    <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
+                                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.nombre_apellido')</th>
+                                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.email')</th>
+                                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.especialidad')</th>
+                                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.telefono')</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach ($patients as $item)
+                                                                @foreach ($dortors as $key => $item)
                                                                     <tr>
                                                                         <td class="table-avatar">
-                                                                            <img class="avatar"
-                                                                                src=" {{ $item->patient_img ? asset('/imgs/' . $item->patient_img) : ($item->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
-                                                                                alt="Imagen del paciente">
+                                                                            <img class="avatar" src=" {{ $item->user_img ? asset('/imgs/' .$item->user_img) : asset('/img/avatar/avatar.png') }}" alt="Imagen del paciente">
                                                                         </td>
-                                                                        <td class="text-center text-capitalize"> {{ $item->name }} {{ $item->last_name }} </td>
-                                                                        <td class="text-center text-capitalize"> {{ $item->email }}</td>
-                                                                        <td class="text-center text-capitalize"> {{ $item->phone }}</td>
+                                                                        <td class="text-center text-capitalize">{{ $item->name . ' ' . $item->last_name }}</td>
+                                                                        <td class="text-center">{{ $item->email }}</td>
+                                                                        <td class="text-center">{{ $item->specialty }}</td>
+                                                                        <td class="text-center">{{ $item->phone }}</td>
                                                                     </tr>
                                                                 @endforeach
                                                             </tbody>
