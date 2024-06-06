@@ -591,8 +591,9 @@
                     {{-- Input hidden for type plan --}}
                     <input id="type_plan" name="type_plan" type="hidden" value="{{ $type_plan }}">
                     <input id="coporate_id" name="coporate_id" type="hidden" value="{!! !empty($hash) ? $hash : null !!}">
+                    <input id="role" name="role" type="hidden" value="{{ $role }}">
 
-                    @if ($type_plan != '7' || $type_plan =="corporate_medico" )
+                    @if ($type_plan != '7' || $type_plan =="7" && $role == 'medico' )
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="div_name">
                                 <div class="form-group">
@@ -627,10 +628,10 @@
                                         <option value="1">@lang('messages.select.cedula')</option>
                                         <option value="2">@lang('messages.select.CIE')</option>
                                         <option value="3">@lang('messages.select.pasaporte')</option>
-                                        <option value="4">@lang('messages.select.firma_personal')</option>
+                                        {{-- <option value="4">@lang('messages.select.firma_personal')</option>
                                         <option value="5">@lang('messages.select.juridico')</option>
                                         <option value="6">@lang('messages.select.comuna')</option>
-                                        <option value="7">@lang('messages.select.gubernamental')</option>
+                                        <option value="7">@lang('messages.select.gubernamental')</option> --}}
                                     </select>
                                 </div>
                             </div>
@@ -725,7 +726,6 @@
                         </div>
                     @else
                         <div class="row">
-
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                 <div class="form-group">
                                     <div class="Icon-inside">
