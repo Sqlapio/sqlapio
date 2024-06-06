@@ -1633,7 +1633,7 @@ class UtilsController extends Controller
 		try {
 
 			$user = Auth::user();
-			$lista_doctor = User::where('center_id', $user->center_id)->where('role', 'medico')->get();
+			$lista_doctor = User::where('master_corporate_id', $user->id)->where('role', 'medico')->get();
 			return $lista_doctor;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
