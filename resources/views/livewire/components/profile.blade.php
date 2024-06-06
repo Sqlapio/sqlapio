@@ -13,6 +13,10 @@
         margin-top: 0.5rem;
     }
 
+    .mb-btnSve {
+        margin-bottom: 15px;
+    }
+
     @media only screen and (max-width: 992px) {
         .mb-btn {
             margin-top: 18px !important;
@@ -957,7 +961,7 @@
                                                     <x-ubigeo class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                            <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -976,7 +980,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                            <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -989,7 +993,7 @@
                                                     </div>
                                                 </diV>
                                             </div>
-                                            <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                            <div class="col-sm-12 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"
@@ -1005,7 +1009,7 @@
                                                 </diV>
                                             </div>
                                             <div
-                                                class="{{ Auth::user()->role == 'corporativo' ? 'col-sm-12 col-md-12 col-lg-7 col-xl-7 col-xxl-7' : 'col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10' }}">
+                                                class="{{ Auth::user()->role == 'corporativo' ? 'col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2' : 'col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10' }}">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="name" class="form-label"

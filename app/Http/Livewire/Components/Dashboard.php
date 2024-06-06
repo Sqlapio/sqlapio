@@ -15,11 +15,13 @@ class Dashboard extends Component
         $id= (Auth::user()->role=="secretary")?Auth::user()->master_corporate_id :Auth::user()->id;
 
         $patients = UtilsController::get_table_medical_record($id);
+        $dortors = UtilsController::get_doctor_corporate();
 
         return view(
             'livewire.components.profile_corporate.dashboard',
             compact(
-                'patients'
+                'patients',
+                'dortors',
             )
         );
     }
