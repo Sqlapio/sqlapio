@@ -941,7 +941,10 @@
                                                         </diV>
                                                     </div>
                                                     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                        <div class="form-group">
+                                                        
+                                                        <x-phone_component :phone="$user->get_laboratorio->phone_1" />
+
+                                                        {{-- <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label"
                                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
@@ -951,7 +954,7 @@
                                                                     value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->phone_1 : '' !!}">
                                                                 <i class="bi bi-telephone-forward st-icon"></i>
                                                             </div>
-                                                        </diV>
+                                                        </diV> --}}
                                                     </div>
                                                     <x-ubigeo class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
                                                 </div>
