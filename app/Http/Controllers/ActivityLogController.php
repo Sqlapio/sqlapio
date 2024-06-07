@@ -25,7 +25,7 @@ class ActivityLogController extends Controller {
 
             $activity_log = new ActivityLog();
 
-            if ($action == '3' || $action == '19' || $action == '21' || $action == '22' || $action == 'corporate_medico') {
+            if ($action == '3' || $action == '19' || $action == '21' || $action == '22' || $action == '25' || $action == 'corporate_medico') {
 
                 $user = User::all()->last();
                 $activity_log->user = $user->name . '' . $user->last_name;
@@ -35,7 +35,7 @@ class ActivityLogController extends Controller {
                 $activity_log->action = UtilsController::get_action($action);
                 $activity_log->save();
 
-            }elseif($action == 'corporate_plan'){
+            }elseif($action == 'corporate_plan') {
                 $laboratory = Laboratory::all()->last();
                 $activity_log->user = ($laboratory->business_name == null)?  $laboratory->get_center->description : $laboratory->business_name;
                 $activity_log->user_email = $laboratory->email;

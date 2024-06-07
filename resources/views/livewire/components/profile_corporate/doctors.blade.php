@@ -6,7 +6,7 @@
         background-color: #d70c0cb5 !important;
         border-color: #d70c0cb5 !important;
     }
-    
+
     .form-switch .form-check-input:checked {
         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e") !important;
     }
@@ -18,9 +18,9 @@
     }
 
     .table-check {
-        text-align: center; 
+        text-align: center;
         vertical-align: middle;
-        height: 50px; 
+        height: 50px;
         width: 50px;
     }
 
@@ -44,10 +44,10 @@
             if ($(`#${e.target.id}`).is(':checked')) {
                 Swal.fire({
                     icon: 'warning',
-                    title: '¿Está seguro que desea habilitar este medico?',
+                    title: '@lang('messages.alert.habilitar_medico')',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
                 }).then((result) => {
                     handlerStatus("{{ route('enabled-doctor', ':id') }}", e.target.value);
                     $('#spinner').show();
@@ -55,10 +55,10 @@
             } else {
                 Swal.fire({
                     icon: 'warning',
-                    title: '¿Está seguro que desea deshabilitar este medico?',
+                    title: '@lang('messages.alert.deshabilitar_medico')',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
                 }).then((result) => {
                     handlerStatus("{{ route('disabled-doctor', ':id') }}", e.target.value);
                     $('#spinner').show();
@@ -81,10 +81,10 @@
                     $('#spinner').hide();
                     Swal.fire({
                         icon: 'success',
-                        title: 'Operacion Exitosa',
+                        title: '@lang('messages.alert.operacion_exitosa')',
                         allowOutsideClick: false,
                         confirmButtonColor: '#42ABE2',
-                        confirmButtonText: 'Aceptar'
+                        confirmButtonText: '@lang('messages.botton.aceptar')'
                     }).then((result) => {
                         refreshTable(res);
                     });
@@ -118,18 +118,18 @@
                         ${checked}>
                     </div>`;
 
-                    
-                    
+
+
                 let imagen = `{{ URL::asset('/img/avatar/avatar.png') }}`;
-                
+
                 if (elem.user_img) {
                     imagen = `{{ URL::asset('/imgs/${elem.user_img}') }}`;
                 }
-                    
+
                 elem.img = `<img class="avatar" src="${imagen}" alt="Imagen del paciente">`;
-                    
+
                 elem.name = `${elem.name} ${elem.last_name}`
-                    
+
                 data.push(elem);
             });
             new DataTable('#table-patients-corp', {
@@ -144,38 +144,38 @@
                 columns: [
                     {
                         data: 'img',
-                        title: 'Foto',
+                        title: '@lang('messages.tabla.foto')',
                         className: "text-center w-image",
                     },
                     {
                         data: 'name',
-                        title: 'Nombre y Apellido',
+                        title: '@lang('messages.tabla.nombre_apellido')',
                         className: "text-center text-capitalize w-17",
                     },
                     {
                         data: 'ci',
-                        title: 'Cédula',
+                        title: '@lang('messages.form.cedula')',
                         className: "text-center w-10",
                     },
                     {
                         data: 'email',
-                        title: 'Correo electrónico',
+                        title: '@lang('messages.form.email')',
                         className: "text-center",
                     },
                     {
                         data: 'specialty',
-                        title: 'Especialidad',
+                        title: '@lang('messages.form.especialidad')',
                         className: "text-center w-10",
                     },
 
                     {
                         data: 'phone',
-                        title: 'Teléfono',
+                        title: '@lang('messages.tabla.telefono')',
                         className: "text-center w-10",
                     },
                     {
                         data: 'btn',
-                        title: 'Habilitar/Desahabilitar',
+                        title: '@lang('messages.tabla.acciones')',
                         className: "text-center table-check w-5",
                     }
                 ],
@@ -198,7 +198,7 @@
                             <button class="accordion-button bg-4" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                 style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                <i class="bi bi-hospital"></i>Gestión de médicos
+                                <i class="bi bi-hospital"></i>@lang('messages.acordion.gestion_pacientes')
                             </button>
                         </span>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
@@ -209,13 +209,13 @@
                                     <table id="table-patients-corp" class="table table-striped table-bordered" style="width: 100%;">
                                         <thead>
                                             <tr>
-                                                <th class="text-center w-image" scope="col" data-orderable="false">Foto</th>
-                                                <th class="text-center w-17">Nombre y Apellido</th>
-                                                <th class="text-center w-10">Cédula</th>
-                                                <th class="text-center" data-orderable="false">Correo electrónico</th>
-                                                <th class="text-center w-10">Especialidad</th>
-                                                <th class="text-center w-10" data-orderable="false">Teléfono</th>
-                                                <th class="text-center w-5" data-orderable="false">Habilitar/Deshabilitar</th>
+                                                <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
+                                                <th class="text-center w-17">@lang('messages.tabla.nombre_apellido')</th>
+                                                <th class="text-center w-10">@lang('messages.form.cedula')</th>
+                                                <th class="text-center" data-orderable="false">@lang('messages.form.email')</th>
+                                                <th class="text-center w-10">@lang('messages.form.especialidad')</th>
+                                                <th class="text-center w-10" data-orderable="false">@lang('messages.tabla.telefono')</th>
+                                                <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.acciones')</th>
                                             </tr>
                                         </thead>
                                         <tbody>
