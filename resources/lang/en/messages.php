@@ -185,6 +185,10 @@ return [
         'paciente_registrado'     => 'Patients Register',
         'nuevo_centro'            => 'Add Healh Center',
         'informacion_plan'        => 'Plan Information',
+        'registar_medico'         => 'Register Medical',
+        'registrar_secretaria'    => 'Register Secretary',
+        'gestion_pacientes'       => 'Patient Management',
+        'gestion_medicos'         => 'Doctor Management',
     ],
 
     'tooltips' => [
@@ -203,6 +207,7 @@ return [
         'cargar_estudio'       => 'Load Study',
         'agendar_cita'         => 'Schedule Appointment',
         'copiar_diagnostico'   => 'Copy Diagnosis',
+        'enviar_recordatorio'  => 'Send Reminder',
     ],
 
     'ficha_paciente' => [
@@ -387,6 +392,7 @@ return [
         'metodos_de_pago'     => 'Payment Methods',
         'citas_del_dia'       => 'Quotes of the day',
         'documento_identidad' => 'ID',
+        'consultas_medicas'   => 'Patients medical consultations',
     ],
 
     'select' => [
@@ -581,6 +587,9 @@ return [
         'error_interno'             => 'Internal error',
         'recuperacion_exitosa'      => 'Password recovery successful',
         'no_autorizado'             => 'Unauthorized',
+        'habilitar_medico'          => 'Are you sure you want to enable this doctor?',
+        'deshabilitar_medico'       => 'Are you sure you want to disable this doctor?',
+        'recordatorio_enviado'      => 'Reminder sent successfully!!',
     ],
 
     'graficas' => [
@@ -622,6 +631,8 @@ return [
         'citas_registradas'     => 'Registered Appointments',
         'doctores_activos'      => 'Active Doctors',
         'doctores_inactivos'    => 'Inactive Doctors',
+        'filtros_mes'           => 'Filter by month',
+        'mes'                   => 'Month',
     ],
 
     'pacientes' => [

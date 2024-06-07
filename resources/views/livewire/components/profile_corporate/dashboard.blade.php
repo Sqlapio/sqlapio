@@ -55,11 +55,11 @@
                                 <div class="col-sm-12 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
                                     <div class="form-group">
                                         <div class="Icon-inside">
-                                            <label for="moth_filter" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px;color:white">Filtro por mes</label>
+                                            <label for="moth_filter" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px;color:white">@lang('messages.graficas.filtros_mes')</label>
                                             <select onchange="handleFilter(event)" name="moth_filter" id="moth_filter" placeholder="Seleccione" class="form-control combo-textbox-input " style="color: #929598;
                                             background-color: #222f3e;
                                             border: var(--bs-border-width) solid #9d9fa1;">
-                                                <option value="">Mes</option>
+                                                <option value="">@lang('messages.graficas.mes')</option>
                                                 <option value="01">@lang('messages.graficas.enero')</option>
                                                 <option value="02">@lang('messages.graficas.febrero')</option>
                                                 <option value="03">@lang('messages.graficas.marzo')</option>

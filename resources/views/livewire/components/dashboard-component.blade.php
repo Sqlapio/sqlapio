@@ -214,7 +214,7 @@
                                 title: 'Centro registrado exitosamente!',
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
                             }).then((result) => {
                                 $('#ModalLoadResult').modal('toggle');
                                 $("#content-table-ref").hide();
@@ -325,7 +325,7 @@
                     title: 'Paciente sin exámenes/estudios solicitados por el médico!',
                     allowOutsideClick: false,
                     confirmButtonColor: '#42ABE2',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
                 });
             }
 
@@ -495,7 +495,7 @@
                                 title: 'No existe referencias para este documento de identidad!',
                                 allowOutsideClick: false,
                                 confirmButtonColor: '#42ABE2',
-                                confirmButtonText: 'Aceptar'
+                                confirmButtonText: '@lang('messages.botton.aceptar')'
                             })
                             $('#spinner2').hide();
                             $("#content-table-ref").hide();
@@ -506,7 +506,7 @@
                             title: 'Operación exitosa!',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         }).then((result) => {
                             $('#spinner2').hide();
                             $("#content-table-ref").show();
@@ -519,7 +519,7 @@
                             title: error.responseJSON.errors,
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         }).then((result) => {
                             $('#send').show();
                             $('#spinner2').hide();
@@ -700,10 +700,10 @@
 
                     Swal.fire({
                         icon: 'success',
-                        title: 'Recordatorio enviado satisfactoriamente!!',
+                        title: '@lang('messages.alert.recordatorio_enviado')',
                         allowOutsideClick: false,
                         confirmButtonColor: '#42ABE2',
-                        confirmButtonText: 'Aceptar'
+                        confirmButtonText: '@lang('messages.botton.aceptar')'
                     }).then((result) => {
 
                     });
@@ -729,11 +729,11 @@
                                     <div class="col-sm-12 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
                                         <div class="form-group">
                                             <div class="Icon-inside">
-                                                <label for="moth_filter" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px;color:white">Filtro por mes</label>
+                                                <label for="moth_filter" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px;color:white">@lang('messages.graficas.filtros_mes')</label>
                                                 <select onchange="handleFilter(event)" name="moth_filter" id="moth_filter" placeholder="Seleccione" class="form-control combo-textbox-input " style="color: #929598;
                                                 background-color: #222f3e;
                                                 border: var(--bs-border-width) solid #9d9fa1;">
-                                                    <option value="">Mes</option>
+                                                    <option value="">@lang('messages.graficas.mes')</option>
                                                     <option value="01">@lang('messages.graficas.enero')</option>
                                                     <option value="02">@lang('messages.graficas.febrero')</option>
                                                     <option value="03">@lang('messages.graficas.marzo')</option>
@@ -941,7 +941,7 @@
                                                                                         </button>
                                                                                     </div>
                                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                                        <button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Enviar Recordatorio"
+                                                                                        <button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="@lang('messages.tooltips.enviar_recordatorio')"
                                                                                             onclick="resend_reminder('{{ $item['extendedProps']['id'] }}')">
                                                                                             <img width="35" height="auto" src="{{ asset('/img/icons/send.png') }}" alt="avatar">
                                                                                         </button>
@@ -974,7 +974,6 @@
                                                                         <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.nombre_apellido')</th>
                                                                         <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.email')</th>
                                                                         <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.telefono')</th>
-
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>

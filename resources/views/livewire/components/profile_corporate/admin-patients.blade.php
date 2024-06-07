@@ -84,23 +84,25 @@
                         res.map((e, key) => {
                             let element = '';
                             if ((key % 2) == 0) {
-                                element = `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px;">
-                                                <div class="d-flex w-100 justify-content-between">
-                                                    <h5 class="mb- text-capitalize">Médico: ${e.full_name_doc} </h5>
-                                                    <br>
-                                                </div>
-                                                <small>Código de consulta:</small> <strong>${e.data.record_code}</strong>
+                                element =
+                                        `<li class="list-group-item mb-3 active ${key}" aria-current="true" style="border-radius: 8px;">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb- text-capitalize">@lang('messages.form.medico'): ${e.full_name_doc} </h5>
                                                 <br>
-                                                <small>Fecha de consulta:</small> <strong>${e.date}</strong>
-                                            </li>`
+                                            </div>
+                                            <small>@lang('messages.form.codigo_consulta'):</small> <strong>${e.data.record_code}</strong>
+                                            <br>
+                                            <small>@lang('messages.form.fecha_consulta'):</small> <strong>${e.date}</strong>
+                                        </li>`
                             } else {
-                                element = `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px;">
-                                                <div class="d-flex w-100 justify-content-between">
-                                                    <h5 class="mb-1 text-capitalize">Medico: ${e.full_name_doc} </h5><br>
-                                                </div>
-                                                <small>Codigo de consulta:</small> <strong>${e.data.record_code}</strong>
-                                                <br>
-                                                <small>Fecha de consulta:</small> <strong>${e.date}</strong>
+                                element =
+                                        `<li class="list-group-item mb-3 ${key}" aria-current="true" style="border-radius: 8px;">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1 text-capitalize">@lang('messages.form.medico'): ${e.full_name_doc} </h5><br>
+                                            </div>
+                                            <small>@lang('messages.form.codigo_consulta'):</small> <strong>${e.data.record_code}</strong>
+                                            <br>
+                                            <small>@lang('messages.form.fecha_consulta'):</small> <strong>${e.date}</strong>
                                         </li>`
                             }
                             $('.list-group').append(element);
@@ -110,10 +112,10 @@
                     } else {
                         Swal.fire({
                             icon: 'warning',
-                            title: 'Paciente sin consulta medica!',
+                            title: '@lang('messages.pacientes.paciente_sin_cons')',
                             allowOutsideClick: false,
                             confirmButtonColor: '#42ABE2',
-                            confirmButtonText: 'Aceptar'
+                            confirmButtonText: '@lang('messages.botton.aceptar')'
                         });
                     }
                 }
@@ -133,7 +135,7 @@
                             <button class="accordion-button bg-4" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                 style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                <i class="bi bi-hospital"></i>Gestión Pacientes
+                                <i class="bi bi-hospital"></i>@lang('messages.acordion.gestion_pacientes')
                             </button>
                         </span>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
@@ -145,16 +147,14 @@
                                         <table id="table-patient" class="table table-striped table-bordered" style="width:100%; ">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center w-image" scope="col">Foto</th>
-                                                    <th class="text-center w-10" scope="col">Código paciente</th>
-                                                    <th class="text-center" scope="col">Nombre y Apellido</th>
-                                                    <th class="text-center w-10" scope="col">Cédula</th>
-                                                    <th class="text-center w-10" scope="col">Fecha de Nacimiento </th>
-                                                    {{-- <th class="text-center" scope="col">Género</th> --}}
-                                                    <th class="text-center w-10" scope="col" data-orderable="false">Teléfono</th>
-                                                    {{-- <th class="text-center" scope="col">Email</th> --}}
-                                                    <th class="text-center" scope="col">Centro de salud</th>
-                                                    <th class="text-center w-5" scope="col" data-orderable="false">Acciones</th>
+                                                    <th class="text-center w-image" scope="col">@lang('messages.tabla.foto')</th>
+                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.codigo_paciente')</th>
+                                                    <th class="text-center" scope="col">@lang('messages.tabla.nombre_apellido')</th>
+                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')</th>
+                                                    <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_nacimiento')</th>
+                                                    <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.telefono')</th>
+                                                    <th class="text-center" scope="col">@lang('messages.tabla.centro_salud')</th>
+                                                    <th class="text-center w-5" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
 
                                                 </tr>
                                             </thead>
@@ -170,9 +170,7 @@
                                                         <td class="text-center text-capitalize"> {{ $item->name }} {{ $item->last_name }}</td>
                                                         <td class="text-center"> {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_ci . '  (Rep)' : $item->ci }} </td>
                                                         <td class="text-center"> {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>
-                                                        {{-- <td class="text-center text-capitalize"> {{ $item->genere }}</td> --}}
                                                         <td class="text-center"> {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_phone . '  (Rep)' : $item->phone }} </td>
-                                                        {{-- <td class="text-center">  {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_email . '  (Rep)' : $item->email }} </td> --}}
                                                         <td class="text-center"> {{ $item->center_id }}</td>
                                                         <td class="text-center">
                                                             <div class="d-flex" style="justify-content: center;">
@@ -208,16 +206,14 @@
                 <div class="modal-content">
                     <div class="modal-header title">
                         <i class="bi bi-calendar-week"></i>
-                        <span style="padding-left: 5px">Consultas medicas del paciente</span>
+                        <span style="padding-left: 5px">@lang('messages.label.consultas_medicas')</span>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                             style="font-size: 12px;"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-cd">
-                                <div class="list-group">
-                                </div>
-
+                                <div class="list-group"></div>
                             </div>
                         </div>
                     </div>

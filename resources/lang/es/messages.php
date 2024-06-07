@@ -185,6 +185,10 @@ return [
         'paciente_registrado'   => 'Pacientes Registrados',
         'nuevo_centro'          => 'Registrar Centro',
         'informacion_plan'      => 'Información del Plan',
+        'registar_medico'       => 'Registrar Médico',
+        'registrar_secretaria'  => 'Registrar Secretaria',
+        'gestion_pacientes'     => 'Gestión Pacientes',
+        'gestion_medicos'       => 'Gestión Médicos',
     ],
 
     'tooltips' => [
@@ -203,6 +207,7 @@ return [
         'cargar_estudio'       => 'Cargar Estudio',
         'agendar_cita'         => 'Agendar Cita',
         'copiar_diagnostico'   => 'Copiar diagnostico',
+        'enviar_recordatorio'  => 'Enviar Recordatorio',
     ],
 
     'ficha_paciente' => [
@@ -387,6 +392,7 @@ return [
         'metodos_de_pago'     => 'Métodos de Pago',
         'citas_del_dia'       => 'Citas del dia',
         'documento_identidad' => 'Documento de Identidad',
+        'consultas_medicas'   => 'Consultas medicas del paciente',
     ],
 
     'select' => [
@@ -581,6 +587,9 @@ return [
         'error_interno'             => 'Error interno',
         'recuperacion_exitosa'      => 'Recuperación de contraseña exitosa',
         'no_autorizado'             => 'No autorizado',
+        'habilitar_medico'          => '¿Está seguro que desea habilitar este medico?',
+        'deshabilitar_medico'       => '¿Está seguro que desea deshabilitar este medico?',
+        'recordatorio_enviado'      => 'Recordatorio enviado satisfactoriamente!!',
     ],
 
     'graficas' => [
@@ -622,6 +631,8 @@ return [
         'citas_registradas'     => 'Citas Registradas',
         'doctores_activos'      => 'Doctores Activos',
         'doctores_inactivos'    => 'Doctores Inactivos',
+        'filtros_mes'           => 'Filtro por mes',
+        'mes'                   => 'Mes',
     ],
 
     'pacientes' => [
