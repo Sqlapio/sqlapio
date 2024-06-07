@@ -19,8 +19,20 @@
         .col-xxxl {
             width: 20% !important;
         }
-
     }
+
+    @media only screen and (max-width: 768px) {
+        .icon_inicio {
+            display: none;
+        }
+    }
+
+    @media only screen and (max-width: 576px) {
+        .loginDric {
+            width: 75% !important;
+        }
+    }
+
 </style>
 @push('scripts')
     <script>
@@ -132,9 +144,9 @@
             <div class="row form-sq" style="position: relative">
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6"> </div>
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                        <div class="row justify-content-center mt-2">
-                            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5 loginDric">
-                                <div class="">
+                        <div class="row justify-content-center">
+                            <div class="col-xs-8 col-sm-8 col-md-5 col-lg-5 col-xl-5 col-xxl-5 loginDric">
+                                <div class="icon_inicio">
                                     <img class="img" src="{{ asset('img/iniciar-sesion.png') }}" class="">
                                 </div>
                                 {{ Form::open(['url' => '/login', 'method' => 'post', 'id' => 'form-login']) }}
