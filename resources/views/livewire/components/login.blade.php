@@ -128,60 +128,65 @@
             <div id="spinner" style="display: none">
                 <x-load-spinner />
             </div>
+
             <div class="row form-sq" style="position: relative">
-                <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-xxxl loginDric">
-                    <div class="">
-                        <img class="img" src="{{ asset('img/iniciar-sesion.png') }}" class="">
-                    </div>
-                    {{ Form::open(['url' => '/login', 'method' => 'post', 'id' => 'form-login']) }}
-                    {{ csrf_field() }}
-                    @if (session('success'))
-                        <input type="hidden" id="success-input" value="{{ session('success') }}">
-                    @endif
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6"> </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                        <div class="row justify-content-center mt-2">
+                            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5 loginDric">
+                                <div class="">
+                                    <img class="img" src="{{ asset('img/iniciar-sesion.png') }}" class="">
+                                </div>
+                                {{ Form::open(['url' => '/login', 'method' => 'post', 'id' => 'form-login']) }}
+                                {{ csrf_field() }}
+                                @if (session('success'))
+                                    <input type="hidden" id="success-input" value="{{ session('success') }}">
+                                @endif
 
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            @foreach ($errors->all() as $message)
-                                <span class="text-danger error-span"> {{ $message }}</span><br />
-                            @endforeach
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        @foreach ($errors->all() as $message)
+                                            <span class="text-danger error-span"> {{ $message }}</span><br />
+                                        @endforeach
+                                    </div>
+                                @endif
+                                <div class="form-group margin-global">
+                                    <div class="Icon-inside">
+                                        <input class="form-control" id="username" placeholder="@lang('messages.login.usuario')" name="username"
+                                            type="text" value="">
+                                        <i class="bi bi-person-fill"></i>
+                                    </div>
+                                </diV>
+                                <div class="form-group margin-global">
+                                    <div class="Icon-inside">
+                                        <input placeholder="@lang('messages.login.contraseña')" class="form-control" id="password" name="password"
+                                            type="password" value="">
+                                        <i onclick="showPass();" class="bi bi-eye-fill"></i>
+                                    </div>
+                                </div>
+
+                                <button type="" class="btn btnPrimary"><span class="">@lang('messages.login.entrar')</span></button>
+
+                            </div>
+                            {{ Form::close() }}
                         </div>
-                    @endif
-                    <div class="form-group margin-global">
-                        <div class="Icon-inside">
-                            <input class="form-control" id="username" placeholder="@lang('messages.login.usuario')" name="username"
-                                type="text" value="">
-                            <i class="bi bi-person-fill"></i>
+                        <div class="row justify-content-center mt-2">
+                            {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                <a class="links" href="https://system.sqlapio.com/public/payment-form/1">@lang('messages.login.registrate_gratis')</a>
+                            </div> --}}
+                            {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                <a class="links" href="{{ config('sidebar_item.var') }}">@lang('messages.login.adquiere_plan')</a>
+                            </div> --}}
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-bottom: 4px;">
+                                <a class="links" href="{{ route('recovery_password') }}">@lang('messages.login.recuperar_clave')</a>
+                            </div>
+                            <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center; align-items: center; }">
+                                <img width="40" src="{{ asset('img/language.png') }}" class="">
+                                <input onclick="handleLen(event);" class="links" type="button" value="es" style="background: transparent; border:none; text-transform: uppercase; pointer; font-weight: 700; padding: 0 0 0 7px;">
+                                <input onclick="handleLen(event);" class="links" type="button" value="en" style="background: transparent; border:none; text-transform: uppercase; pointer; font-weight: 700; padding: 0 0 0 7px;">
+                            </div>
                         </div>
-                    </diV>
-                    <div class="form-group margin-global">
-                        <div class="Icon-inside">
-                            <input placeholder="@lang('messages.login.contraseña')" class="form-control" id="password" name="password"
-                                type="password" value="">
-                            <i onclick="showPass();" class="bi bi-eye-fill"></i>
-                        </div>
                     </div>
-
-                    <button type="" class="btn btnPrimary"><span class="">@lang('messages.login.entrar')</span></button>
-
-                </div>
-                {{ Form::close() }}
-                <div class="row justify-content-center mt-2">
-                    {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                        <a class="links" href="https://system.sqlapio.com/public/payment-form/1">@lang('messages.login.registrate_gratis')</a>
-                    </div> --}}
-                    {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                        <a class="links" href="{{ config('sidebar_item.var') }}">@lang('messages.login.adquiere_plan')</a>
-                    </div> --}}
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="margin-bottom: 4px;">
-                        <a class="links" href="{{ route('recovery_password') }}">@lang('messages.login.recuperar_clave')</a>
-                    </div>
-                    <div class="col-sm-12 col-md-12	col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center; align-items: center; }">
-                        <img width="40" src="{{ asset('img/language.png') }}" class="">
-                        <input onclick="handleLen(event);" class="links" type="button" value="es" style="background: transparent; border:none; text-transform: uppercase; pointer; font-weight: 700; padding: 0 0 0 7px;">
-                        <input onclick="handleLen(event);" class="links" type="button" value="en" style="background: transparent; border:none; text-transform: uppercase; pointer; font-weight: 700; padding: 0 0 0 7px;">
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
