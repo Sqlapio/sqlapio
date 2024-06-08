@@ -111,6 +111,12 @@ class Register extends Component
                     User::where("id", $user->id)->update([
                         "token_corporate" => env('APP_URL') . "/" . "register-user-corporate/" . encrypt($user->id)
                     ]);
+                }else{
+
+                    User::where("id", $user->id)->update([
+                    "token_corporate" => env('APP_URL') . "/" . "registe-secretary/" . encrypt($user->id)
+                    ]);
+            
                 }
 
                 // guardar datos en tabla laboratorios los datos de la corporativo

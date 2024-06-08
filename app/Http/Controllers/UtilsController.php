@@ -1614,7 +1614,7 @@ class UtilsController extends Controller
 		try {
 
 			$user = Auth::user();
-			$lista_patient = Patient::where('center_id', $user->center_id)->get();
+			$lista_patient = Patient::where('center_id', $user->id)->get();
 			return $lista_patient;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
@@ -2297,4 +2297,37 @@ class UtilsController extends Controller
 			dd('Error UtilsController.get_image_patient()', $message);
 		}
 	}
+
+
+	static function get_doctor_active()
+	{
+		try {
+
+			$patientActive = User::where('master_corporate_id', auth()->user()->id)
+			->where('tipo_status', 1)
+			->where('role', 'medico')->count();
+
+			return $patientActive;
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_doctor_corporate()', $message);
+		}
+	}
+
+
+	static function get_doctor_inacactive()
+	{
+		try {
+
+			$patientActive = User::where('master_corporate_id', auth()->user()->id)
+			->where('tipo_status', 2)
+			->where('role', 'medico')->count();
+
+			return $patientActive;
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_doctor_corporate()', $message);
+		}
+	}
+
 }

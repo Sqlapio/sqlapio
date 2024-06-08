@@ -114,8 +114,9 @@ class Patients extends Component
                 /** Validacion para cargar el centro correcto cuando el medico
                  * esta asociado al plan corporativo
                  */
-                if (Auth::user()->center_id != null) {
-                    $center_id_corporativo = Auth::user()->center_id;
+                if ( $request->center_id == null) {
+                    $center_id_corporativo =  auth()->user()->master_corporate_id;
+                    
                 }
 
                 // Guardamos la informacion del paciente menor de edad
@@ -307,8 +308,9 @@ class Patients extends Component
                 /** Validacion para cargar el centro correcto cuando el medico
                  * esta asociado al plan corporativo
                  */
-                if (Auth::user()->center_id != null) {
-                    $center_id_corporativo = Auth::user()->center_id;
+                if ( $request->center_id == null) {
+                    $center_id_corporativo =  auth()->user()->master_corporate_id;
+
                 }
 
                 /** Logica para cargar una nueva profesion */
