@@ -81,11 +81,11 @@
     }
 
     body .medic {
-            background: url({{ asset('img/fondo-reg.jpg') }}) no-repeat top center fixed !important;
+        background: url({{ asset('img/fondo-reg.jpg') }}) no-repeat top center fixed !important;
     }
 
     body .corporate {
-            background: url({{ asset('img/fondo-reg2.jpg') }}) no-repeat top center fixed !important;
+        background: url({{ asset('img/fondo-reg2.jpg') }}) no-repeat top center fixed !important;
     }
 
 
@@ -105,8 +105,9 @@
 
     @media only screen and (max-width: 768px) {
 
-        body {
-            background: url({{ asset('img/fondo-mobile-rg-v2.jpg') }}) no-repeat top center fixed !important;
+        body .medic {
+            background: url({{ asset('img/fondo-reg-mob.jpg') }}) no-repeat top center fixed !important;
+            background-size: cover !important;
         }
 
         .btn-bg {

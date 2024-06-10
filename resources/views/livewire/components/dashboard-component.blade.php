@@ -85,6 +85,10 @@
 
             let user = @json(Auth::user());
 
+            let appointments = @json($appointments);
+
+            console.log(appointments);
+
 
             let data_palnes = [{
                     type_plan: 1,
@@ -897,9 +901,49 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     @foreach ($appointments as $item)
+                                                                        @php
+                                                                            $hora = '';
+
+                                                                                if (substr($item['extendedProps']['data'], 6)) {
+                                                                                    $hora = substr($item['extendedProps']['data'], 6);
+                                                                                }
+
+                                                                                if (substr($item['extendedProps']['data'], 6) == '13:00') {
+                                                                                    $hora = '01:00';
+                                                                                }
+
+                                                                                if (substr($item['extendedProps']['data'], 6) == '14:00') {
+                                                                                    $hora = '02:00';
+                                                                                }
+
+                                                                                if (substr($item['extendedProps']['data'], 6) == '15:00') {
+                                                                                    $hora = '03:00';
+                                                                                }
+
+                                                                                if (substr($item['extendedProps']['data'], 6) == '16:00') {
+                                                                                    $hora = '04:00';
+                                                                                }
+
+                                                                                if (substr($item['extendedProps']['data'], 6) == '17:00') {
+                                                                                    $hora = '05:00';
+                                                                                }
+
+                                                                                if (substr($item['extendedProps']['data'], 6) == '18:00') {
+                                                                                    $hora = '06:00';
+                                                                                }
+
+                                                                                if (substr($item['extendedProps']['data'], 6) == '19:00') {
+                                                                                    $hora = '07:00';
+                                                                                }
+
+                                                                                if (substr($item['extendedProps']['data'], 6) == '20:00') {
+                                                                                    $hora = '08:00';
+                                                                                }
+                                                                        @endphp
+
                                                                         <tr>
                                                                             <td class="text-center td-pad">
-                                                                                {{ substr($item['extendedProps']['data'], 6) . ' ' . $item['extendedProps']['time_zone_start'] }}
+                                                                                {{ $hora . ' ' . $item['extendedProps']['time_zone_start'] }}
                                                                             </td>
                                                                             <td class="text-center td-pad text-capitalize">
                                                                                 {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }}

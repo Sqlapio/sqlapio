@@ -15,6 +15,21 @@
         color: #42abe2;
     }
 
+    body {
+        font-family: 'Roboto-Regular',  !important;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover !important;
+        background: url({{ asset('img/fondo.jpg') }}) no-repeat center center fixed;
+    }
+
+    @media only screen and (max-width: 768px) {
+        body {
+            background: url({{ asset('img/fondo-mobile.jpg') }}) no-repeat center center fixed;
+        }
+    }
+
     @media only screen and (min-width: 1800px) {
         .col-xxxl {
             width: 20% !important;
