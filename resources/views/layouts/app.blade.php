@@ -34,7 +34,7 @@
     @import url('/fuentes/Roboto-Black.ttf');
     @import url('/fuentes/Roboto-Regular.ttf');
 
-    body {
+    /* body {
         font-family: 'Roboto-Regular',  !important;
         -webkit-background-size: cover;
         -moz-background-size: cover;
@@ -47,14 +47,14 @@
         body {
             background: url({{ asset('img/fondo-mobile.jpg') }}) no-repeat center center fixed;
         }
-    }
+    } */
 </style>
 
 <body>
     @yield('content')
 
     @livewireScripts
-    
+
     @stack('scripts')
 </body>
 

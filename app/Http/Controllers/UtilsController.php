@@ -333,10 +333,49 @@ class UtilsController extends Controller
 			$appointments = Appointment::where('user_id', $id)
 				->WhereBetween('status', [1, 2])->get();
 			$data = [];
+
 			foreach ($appointments as $key => $val) {
+                $hora = '';
+
+                if ($val->hour_start) {
+                    $hora = substr($val->hour_start, 6);
+                }
+
+                if (substr($val->hour_start, 6) == '13:00 pm') {
+                    $hora = '01:00 pm';
+                }
+
+                if (substr($val->hour_start, 6) == '14:00 pm') {
+                    $hora = '02:00 pm';
+                }
+
+                if (substr($val->hour_start, 6) == '15:00 pm') {
+                    $hora = '03:00 pm';
+                }
+
+                if (substr($val->hour_start, 6) == '16:00 pm') {
+                    $hora = '04:00 pm';
+                }
+
+                if (substr($val->hour_start, 6) == '17:00 pm') {
+                    $hora = '05:00 pm';
+                }
+
+                if (substr($val->hour_start, 6) == '18:00 pm') {
+                    $hora = '06:00 pm';
+                }
+
+                if (substr($val->hour_start, 6) == '19:00 pm') {
+                    $hora = '07:00 pm';
+                }
+
+                if (substr($val->hour_start, 6) == '20:00 pm') {
+                    $hora = '08:00 pm';
+                }
+
 				$data[$key] = [
 					'id' => $val->id,
-					'title' => substr($val->hour_start, 6) . " - " . $val->get_patients->name . " " . $val->get_patients->last_name,
+					'title' => $hora . " - " . $val->get_patients->name . " " . $val->get_patients->last_name,
 					'start' => date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 0, -9),
 					'end' =>  date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 6, -3),
 					'rendering' => 'background',
@@ -377,9 +416,47 @@ class UtilsController extends Controller
 				->where('date_start', date('Y-m-d'))->get();
 			$data = [];
 			foreach ($appointments as $key => $val) {
+                $hora = '';
+
+                if ($val->hour_start) {
+                    $hora = substr($val->hour_start, 6);
+                }
+
+                if (substr($val->hour_start, 6) == '13:00 pm') {
+                    $hora = '01:00 pm';
+                }
+
+                if (substr($val->hour_start, 6) == '14:00 pm') {
+                    $hora = '02:00 pm';
+                }
+
+                if (substr($val->hour_start, 6) == '15:00 pm') {
+                    $hora = '03:00 pm';
+                }
+
+                if (substr($val->hour_start, 6) == '16:00 pm') {
+                    $hora = '04:00 pm';
+                }
+
+                if (substr($val->hour_start, 6) == '17:00 pm') {
+                    $hora = '05:00 pm';
+                }
+
+                if (substr($val->hour_start, 6) == '18:00 pm') {
+                    $hora = '06:00 pm';
+                }
+
+                if (substr($val->hour_start, 6) == '19:00 pm') {
+                    $hora = '07:00 pm';
+                }
+
+                if (substr($val->hour_start, 6) == '20:00 pm') {
+                    $hora = '08:00 pm';
+                }
+
 				$data[$key] = [
 					'id' => $val->id,
-					'title' => substr($val->hour_start, 6) . " - " . $val->get_patients->name . " " . $val->get_patients->last_name,
+					'title' => $hora . " - " . $val->get_patients->name . " " . $val->get_patients->last_name,
                     'start' => date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 0, -9),
 					'end' =>  date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 6, -3),
 					'rendering' => 'background',

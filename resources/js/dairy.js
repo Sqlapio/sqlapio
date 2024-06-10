@@ -70,35 +70,35 @@ let arrayPm = [
         name: "12:00"
     },
     {
-        value: "01:00-01:00",
+        value: "13:00-13:00",
         name: "01:00"
     },
     {
-        value: "02:00-02:00",
+        value: "14:00-14:00",
         name: "02:00"
     },
     {
-        value: "03:00-03:00",
+        value: "15:00-15:00",
         name: "03:00"
     },
     {
-        value: "04:00-04:00",
+        value: "16:00-16:00",
         name: "04:00"
     },
     {
-        value: "05:00-05:00",
+        value: "17:00-17:00",
         name: "05:00"
     },
     {
-        value: "06:00-06:00",
+        value: "18:00-18:00",
         name: "06:00"
     },
     {
-        value: "07:00-07:00",
+        value: "19:00-19:00",
         name: "07:00"
     },
     {
-        value: "08:00-08:00",
+        value: "20:00-20:00",
         name: "08:00"
     }
 ];
@@ -441,9 +441,46 @@ function setValue(data, info) {
     $("#title-modal").text(langJson.modal.titulo.cita);
     ////
 
+    let hora = '';
+    if (info.event.extendedProps.data) {
+        hora = info.event.extendedProps.data.substr(6)
+    }
+
+    if (info.event.extendedProps.data.substr(6) == '13:00') {
+        hora = '01:00'
+    }
+
+    if (info.event.extendedProps.data.substr(6) == '14:00') {
+        hora = '02:00'
+    }
+
+    if (info.event.extendedProps.data.substr(6) == '15:00') {
+        hora = '03:00'
+    }
+
+    if (info.event.extendedProps.data.substr(6) == '16:00') {
+        hora = '04:00'
+    }
+
+    if (info.event.extendedProps.data.substr(6) == '17:00') {
+        hora = '05:00'
+    }
+
+    if (info.event.extendedProps.data.substr(6) == '18:00') {
+        hora = '06:00'
+    }
+
+    if (info.event.extendedProps.data.substr(6) == '19:00') {
+        hora = '07:00'
+    }
+
+    if (info.event.extendedProps.data.substr(6) == '20:00') {
+        hora = '08:00'
+    }
+
     $("#appointment-data").show();
     $("#fecha").text(new Date(info.event._instance.range.start).toISOString().split("T")[0]);
-    $("#hour").text(info.event.extendedProps.data.substr(6) + " " + info.event.extendedProps.time_zone_start);
+    $("#hour").text(hora + " " + info.event.extendedProps.time_zone_start);
     $("#center").text(info.event.extendedProps.center);
 
     $("#date-lb").hide();

@@ -15,6 +15,44 @@ class ApiServicesController extends Controller
     {
         try {
 
+            $hora_format = '';
+
+            if ($data['horario']) {
+                $hora_format = $data['horario'];
+            }
+
+            if ($data['horario'] == '13:00 pm') {
+                $hora_format = '01:00 pm';
+            }
+
+            if ($data['horario'] == '14:00 pm') {
+                $hora_format = '02:00 pm';
+            }
+
+            if ($data['horario'] == '15:00 pm') {
+                $hora_format = '03:00 pm';
+            }
+
+            if ($data['horario'] == '16:00 pm') {
+                $hora_format = '04:00 pm';
+            }
+
+            if ($data['horario'] == '17:00 pm') {
+                $hora_format = '05:00 pm';
+            }
+
+            if ($data['horario'] == '18:00 pm') {
+                $hora_format = '06:00 pm';
+            }
+
+            if ($data['horario'] == '19:00 pm') {
+                $hora_format = '07:00 pm';
+            }
+
+            if ($data['horario'] == '20:00 pm') {
+                $hora_format = '08:00 pm';
+            }
+            
             $cita_medica = __('messages.whatsapp.cita_medica');
             $text3 = __('messages.whatsapp.text3');
             $sr = __('messages.whatsapp.sr');
@@ -33,7 +71,7 @@ class ApiServicesController extends Controller
             {$text3}.
 
             *{$fecha}:* {$data['fecha']}
-            *{$hora}:* {$data['horario']}
+            *{$hora}:* {$hora_format}
             *{$doctor}:* {$data['dr_name']}
             *{$centro}:* {$data['centro']}
             *{$piso}:* {$data['piso']}
@@ -379,15 +417,55 @@ class ApiServicesController extends Controller
 
         try {
 
+
             $cita = Appointment::where('id', $code)->first();
             $dr = User::where('id', $cita->user_id)->first();
             $cen = Center::where('id', $cita->center_id)->first();
             $patient = Patient::where('id', $cita->patient_id)->first();
             $doctor_center = DoctorCenter::where('user_id', $dr->id)->where('center_id', $cita->center_id)->first();
 
+            $hora_format = '';
+
+
+                if ($cita->hour_start) {
+                    $hora_format = substr($cita->hour_start, 6);
+                }
+
+                if (substr($cita->hour_start, 6) == '13:00 pm') {
+                    $hora_format = '01:00 pm';
+                }
+
+                if (substr($cita->hour_start, 6) == '14:00 pm') {
+                    $hora_format = '02:00 pm';
+                }
+
+                if (substr($cita->hour_start, 6) == '15:00 pm') {
+                    $hora_format = '03:00 pm';
+                }
+
+                if (substr($cita->hour_start, 6) == '16:00 pm') {
+                    $hora_format = '04:00 pm';
+                }
+
+                if (substr($cita->hour_start, 6) == '17:00 pm') {
+                    $hora_format = '05:00 pm';
+                }
+
+                if (substr($cita->hour_start, 6) == '18:00 pm') {
+                    $hora_format = '06:00 pm';
+                }
+
+                if (substr($cita->hour_start, 6) == '19:00 pm') {
+                    $hora_format = '07:00 pm';
+                }
+
+                if (substr($cita->hour_start, 6) == '20:00 pm') {
+                    $hora_format = '08:00 pm';
+                }
+
             /**Obtenego el nombre del centro para poder crear el url de googleMpas */
             $dir = str_replace(' ', '%20', $cen->description);
-            $hour_format = substr($cita->hour_start, 6);
+            // $hour_format = substr($cita->hour_start, 6);
             $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $cen->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
 
             $cita_medica = __('messages.whatsapp.cita_medica');
@@ -408,7 +486,7 @@ class ApiServicesController extends Controller
             {$text3}.
 
             *{$fecha}:* {$cita->date_start}
-            *{$hora}:* {$hour_format}
+            *{$hora}:* {$hora_format}
             *{$doctor}:* {$dr->name} {$dr->last_name}
             *{$centro}:* {$cen->description}
             *{$piso}:* {$doctor_center->number_floor}
