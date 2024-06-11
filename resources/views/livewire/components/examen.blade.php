@@ -136,6 +136,7 @@
         let examen_sin_resul = @json($examen_sin_resul);
         let countTableDos = 0;
         let url = @json($url);
+        let  user = @json(auth()->user());
 
         $(document).ready(function() {
 

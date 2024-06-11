@@ -137,10 +137,10 @@
         let estudios_sin_resul = @json($estudios_sin_resul);
         let countTableDos = 0;
         let url = @json($url);
+        let user = @json(auth()->user())
 
         $(document).ready(function() {
 
-            let user = @json(Auth::user());
 
             countTable = data.count;
 
