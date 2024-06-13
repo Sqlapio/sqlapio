@@ -391,9 +391,12 @@ Route::get('/prueba2', function () {
 });
 
 Route::get('/pp', function () {
-    Browsershot::url('http://127.0.0.1:8000/prueba')
-    ->landscape()
-    ->save('example.pdf');
+    Browsershot::url('https://system.sqlapio.com/prueba')
+	->setNodeBinary('/usr/bin/node')
+    	->setNpmBinary('/usr/bin/npm')
+	->setChromePath('/usr/bin/chromium')    
+	->landscape()
+	->save('example.pdf');
 
 
 });
