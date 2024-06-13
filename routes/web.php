@@ -247,7 +247,8 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
      * @param id
      * Genera el pdf para las consultas de los pacientes
      */
-    Route::get('/pdf/medical-record/{id}', [PDFController::class, 'PDF_medical_record'])->name('PDF_medical_record');
+    // Route::get('/pdf/medical-record/{id}', [PDFController::class, 'PDF_medical_record'])->name('PDF_medical_record');
+    Route::view('/pdf/medical-record/{id}', 'pdf.PDF_medical_record');
 
     /**
      * @method PDF
