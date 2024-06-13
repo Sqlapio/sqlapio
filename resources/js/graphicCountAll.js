@@ -690,13 +690,13 @@ function get_recorded_appointments() {
       });
 }
 
-function get_active_doctors() {
+function get_doctors(doctors_active, doctors_inactive) {
     const data = {
-        labels: Meses,
+        labels: ['act', 'des'],
         datasets: [
           {
             label: langJson.graficas.total,
-            data: [2, 4, 5, 6, 7, 5, 7, 5, 4, 5, 6, 7],
+            data: [doctors_active, doctors_inactive],
             borderColor: "#36e97b",
             backgroundColor: context => {
               const bgcolor = ["#36e97b", "#38ef7d7a", "#0000"];
@@ -718,7 +718,7 @@ function get_active_doctors() {
       };
 
       chart_active_doctors = new Chart($("#active_doctors"), {
-        type: "line",
+        type: "bar",
         data: data,
         options: {
           responsive: true,
@@ -818,5 +818,5 @@ window.get_appointments_confirmed = get_appointments_confirmed;
 window.get_quotes = get_quotes;
 window.get_consultas_history = get_consultas_history;
 window.get_recorded_appointments = get_recorded_appointments;
-window.get_active_doctors = get_active_doctors;
+window.get_doctors = get_doctors;
 window.get_inactive_doctors = get_inactive_doctors;

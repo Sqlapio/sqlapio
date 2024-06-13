@@ -28,14 +28,17 @@
 @push('scripts')
     <script>
         let patients = @json($patients);
+        let doctors_active = @json($doctor_active);
+        let doctors_inactive = @json($doctor_inacactive);
 
         $(document).ready(() => {
 
-        let user = @json(Auth::user());
+            let user = @json(Auth::user());
 
             get_recorded_appointments();
-            get_active_doctors();
+            get_doctors(doctors_active, doctors_inactive);
             get_inactive_doctors();
+
         });
 
     </script>
