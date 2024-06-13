@@ -15,6 +15,21 @@
         color: #42abe2;
     }
 
+    body {
+        font-family: 'Roboto-Regular',  !important;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover !important;
+        background: url({{ asset('img/fondo-pac.jpg') }}) no-repeat center center fixed;
+    }
+
+    @media only screen and (max-width: 768px) {
+        body {
+            background: url({{ asset('img/fondo-mobile.jpg') }}) no-repeat center center fixed;
+        }
+    }
+
     @media only screen and (min-width: 1800px) {
         .col-xxxl {
             width: 20% !important;
@@ -108,7 +123,7 @@
         <div id="spinner" style="display: none" class="spinner-md">
             <x-load-spinner show="true" />
         </div>
-        <div class="container-fluid text-center">           
+        <div class="container-fluid text-center">
             <div class="row form-sq" style="position: relative">
                 <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 col-xxxl loginDric">
                     <div class="">

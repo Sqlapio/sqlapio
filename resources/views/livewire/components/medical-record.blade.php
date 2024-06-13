@@ -24,7 +24,6 @@
         white-space: -o-pre-wrap;
         word-wrap: break-word;
         text-align: justify;
-
     }
 
     .div-ia {
