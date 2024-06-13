@@ -47,7 +47,7 @@ class PDFController extends Controller
         //     'doctor_center' => $doctor_center,
         //     'barcode' => $barcode,
         // ];
-        return view("pdf.PDF_medical_record", compact($id));
+        return view("pdf.PDF_medical_record", compact('id'));
         // return $pdf->stream('consulta-medica.pdf');
         Browsershot::url('https://system.sqlapio.com/pdf/medical-record-pp/'.$id)
         ->setNodeBinary('/usr/bin/node')
