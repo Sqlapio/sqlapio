@@ -37,17 +37,17 @@ class PDFController extends Controller
 
     public function PDF_medical_record($id)
     {
-        // $MedicalRecord = MedicalRecord::where('id',$id)->first();
-        // $doctor_center = DoctorCenter::where('user_id', $MedicalRecord->user_id)->where('center_id', $MedicalRecord->center_id)->first();
-        // $generator = new BarcodeGeneratorPNG();
-        // $barcode = base64_encode($generator->getBarcode('SQ-16007868-543', $generator::TYPE_CODE_128));
-        // $data = [
-        //     'date' => date('m/d/Y'),
-        //     'MedicalRecord' => $MedicalRecord,
-        //     'doctor_center' => $doctor_center,
-        //     'barcode' => $barcode,
-        // ];
-        return view("pdf.PDF_medical_record", compact('id'));
+        $MedicalRecord = MedicalRecord::where('id',$id)->first();
+        $doctor_center = DoctorCenter::where('user_id', $MedicalRecord->user_id)->where('center_id', $MedicalRecord->center_id)->first();
+        $generator = new BarcodeGeneratorPNG();
+        $barcode = base64_encode($generator->getBarcode('SQ-16007868-543', $generator::TYPE_CODE_128));
+        $data = [
+            'date' => date('m/d/Y'),
+            'MedicalRecord' => $MedicalRecord,
+            'doctor_center' => $doctor_center,
+            'barcode' => $barcode,
+        ];
+        return view("pdf.PDF_medical_record", compact('MedicalRecord', 'generator', 'barcode', 'data', 'doctor_center'));
         // return $pdf->stream('consulta-medica.pdf');
         Browsershot::url('https://system.sqlapio.com/pdf/medical-record-pp/'.$id)
         ->setNodeBinary('/usr/bin/node')
