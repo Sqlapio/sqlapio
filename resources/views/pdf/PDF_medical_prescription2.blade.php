@@ -45,6 +45,20 @@
 
 @endpush
  @section('content')
+    @php
+        use App\Models\DoctorCenter;
+        use App\Models\History;
+        use App\Models\User;
+        use App\Models\MedicalRecord;
+        use App\Models\MedicalReport;
+        use App\Models\Reference;
+
+        $MedicalRecord = MedicalRecord::where('id',$id)->first();
+        $doctor_center = DoctorCenter::where('user_id', $MedicalRecord->user_id)->where('center_id', $MedicalRecord->center_id)->first();
+        $generator = new BarcodeGeneratorPNG();
+        $barcode = base64_encode($generator->getBarcode('SQ-16007868-543', $generator::TYPE_CODE_128));
+    @endphp
+
     <div>
         <div class="container-fluid" style="width: 32%; font-size: 12px">
             <div class="row" style="margin-top: 6%;">
