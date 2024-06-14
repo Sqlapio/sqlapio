@@ -37,7 +37,6 @@
 
             get_recorded_appointments();
             get_doctors(doctors_active, doctors_inactive);
-            get_inactive_doctors();
 
         });
 
@@ -99,16 +98,7 @@
                                         <div class="card" style="background-color: #222f3e">
                                             <div class="card-body p-4" style="display: flex; justify-content: center;">
                                                 <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
-                                                    <canvas id="active_doctors"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-lg-6">
-                                        <div class="card " style="background-color: #222f3e">
-                                            <div class="card-body p-4" style="display: flex; justify-content: center;">
-                                                <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
-                                                    <canvas id="inactive_doctors"></canvas>
+                                                    <canvas id="doctors"></canvas>
                                                 </div>
                                             </div>
                                         </div>
