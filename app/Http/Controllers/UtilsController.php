@@ -316,10 +316,12 @@ class UtilsController extends Controller
 		}
 	}
 
-	static function get_patients()
+	static function get_patients($id=null)
 	{
 		try {
-			$patients = Patient::where("contrie_doc", auth()->user()->contrie)->get();
+
+			$patients = Patient::where("contrie_doc", $id)->get();
+			
 			return $patients;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
