@@ -103,10 +103,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                <div class="row">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-lg-6">
                                         <div class="card" style="background-color: #222f3e;">
                                             <div class="card-body p-4">
@@ -124,7 +120,6 @@
                                                                         data-orderable="false">@lang('messages.form.email')</th>
                                                                     <th class="text-center w-10" scope="col"
                                                                         data-orderable="false">@lang('messages.tabla.telefono')</th>
-
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -147,7 +142,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-lg-6">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                <div class="row">
+
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">
                                         <div class="card" style="background-color: #222f3e;">
                                             <div class="card-body p-4">
                                                 <div class="row" id="table-patients" style="color: #b3b3b3">

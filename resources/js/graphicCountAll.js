@@ -698,7 +698,7 @@ function get_doctors(doctors_active, doctors_inactive) {
             label: langJson.graficas.total,
             data: [doctors_active, doctors_inactive],
             borderColor: "#36e97b",
-            backgroundColor: ["#36e97b", "#56c1ff"]
+            backgroundColor: ["#36e97b", "#f02c2cf0"]
 
           }
         ]
