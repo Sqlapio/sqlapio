@@ -597,7 +597,7 @@
                     },
                     success: function(resp) {
                         countTableDos = resp.count;
-                        setDataTable(resp.data);
+                        setdataDos(resp.data);
                     }
                 },
                 data: dataRef,

@@ -49,6 +49,7 @@ use App\Http\Middleware\VerifyPlansActive;
 use App\Models\Appointment;
 use App\Models\Center;
 use App\Models\Exam;
+use App\Models\MedicalRecord as ModelsMedicalRecord;
 use App\Models\Patient;
 use App\Models\Reference;
 use App\Models\Treatment;
@@ -56,6 +57,10 @@ use App\Models\User as ModelsUser;
 use Illuminate\Support\Str;
 use App\View\Components\VerifyplansComponent;
 use Illuminate\Support\Facades\DB;
+use App\Models\DoctorCenter;
+
+use Picqer\Barcode\BarcodeGeneratorPNG;
+use Spatie\Browsershot\Browsershot;
 
 /*
 |--------------------------------------------------------------------------
@@ -360,8 +365,40 @@ Route::post('/registe-secretary', [RegisteSecretary::class, 'store'])->name('reg
 
 
 Route::get('/prueba', function () {
-    $treatmentReminder = Treatment::whereBetween('hours', [4, 12])->get();
-    dd($treatmentReminder);
+        $MedicalRecord = ModelsMedicalRecord::where('id', 54)->first();
+        $doctor_center = DoctorCenter::where('user_id', $MedicalRecord->user_id)->where('center_id', $MedicalRecord->center_id)->first();
+        $generator = new BarcodeGeneratorPNG();
+        $barcode = base64_encode($generator->getBarcode('SQ-16007868-543', $generator::TYPE_CODE_128));
+        $data = [
+            'date' => date('m/d/Y'),
+            'MedicalRecord' => $MedicalRecord,
+            'barcode' => $barcode,
+        ];
+    return view("pdf.PDF_medical_record2", compact('MedicalRecord', 'generator', 'barcode', 'data', 'doctor_center'));
+});
+
+Route::get('/prueba2', function () {
+        $medical_prescription = ModelsMedicalRecord::where('id', 55)->first();
+        $doctor_center = DoctorCenter::where('user_id', $medical_prescription->user_id)->where('center_id', $medical_prescription->center_id)->first();
+        $generator = new BarcodeGeneratorPNG();
+        $barcode = base64_encode($generator->getBarcode('SQ-16007868-543', $generator::TYPE_CODE_128));
+        $data = [
+            'date' => date('m/d/Y'),
+            'medical_prescription' => $medical_prescription,
+            'barcode' => $barcode,
+        ];
+    return view("pdf.PDF_medical_prescription2", compact('medical_prescription', 'generator', 'barcode', 'data', 'doctor_center'));
+});
+
+Route::get('/pp', function () {
+    Browsershot::url('https://system.sqlapio.com/prueba')
+	->setNodeBinary('/usr/bin/node')
+    	->setNpmBinary('/usr/bin/npm')
+	->setChromePath('/usr/bin/chromium')    
+	->landscape()
+	->save('example.pdf');
+
+
 });
 
 
