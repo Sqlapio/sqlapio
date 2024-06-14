@@ -90,7 +90,7 @@ class Diary extends Component
                         // 'birthdate'     => $request->birthdate_patient,
                         'age'           => $request->age_patient,
                         'center_id'     => $request->center_id,
-                        'user_id'       => Auth::user()->id,
+                        'user_id'       => (auth()->user()->role=="secretary")?auth()->user()->get_data_corporate_master->id : auth()->user()->id,
                         'verification_code' => Str::random(30)
                     ]
                 );
@@ -105,7 +105,7 @@ class Diary extends Component
                  *
                  * Esta logica se aplica al tema de los planes
                  */
-                UtilsController::update_patient_counter(Auth::user()->id);
+                UtilsController::update_patient_counter((auth()->user()->role=="secretary")?auth()->user()->get_data_corporate_master->id : auth()->user()->id);
             }
             /** Fin de la funcion */
 
@@ -119,7 +119,7 @@ class Diary extends Component
             $date = explode('-', $request->hour_start);
             $appointment = new Appointment();
             $appointment->code = 'SQ-D-' . random_int(11111111, 99999999);
-            $appointment->user_id = Auth::user()->id;
+            $appointment->user_id = (auth()->user()->role=="secretary")?auth()->user()->get_data_corporate_master->id : auth()->user()->id;
             $appointment->patient_id =($request->patient_new == "true")?  $patient->id : $request->patient_id;
             $appointment->date_start = $request->date_start;
             $appointment->hour_start = $date[0] . '-' . $date[1] . " " . $request->timeIni;
@@ -131,7 +131,7 @@ class Diary extends Component
             $validate_dairy = Appointment::where('date_start', $request->date_start)
                 ->where('hour_start',  $date[0] . '-' . $date[1] . " " . $request->timeIni)
                 ->where('status', 1)
-                ->where('user_id', Auth::user()->id)
+                ->where('user_id', (auth()->user()->role=="secretary")?auth()->user()->get_data_corporate_master->id : auth()->user()->id)
                 ->first();
 
             if (isset($validate_dairy)) {
@@ -252,7 +252,7 @@ class Diary extends Component
 
             $validate = Appointment::where('date_start', $request->start)
                 ->where('hour_start', 'like', '%' . $request->extendedProps['data'] . '%')
-                ->where('user_id', Auth::user()->id)
+                ->where('user_id', (auth()->user()->role=="secretary")?auth()->user()->get_data_corporate_master->id : auth()->user()->id)
                 ->first();
             if ($validate != null) {
                 if ($request)
@@ -281,8 +281,12 @@ class Diary extends Component
 
     public function render()
     {
-        $appointments = UtilsController::get_appointments(Auth::user()->id);
-        $patient = UtilsController::get_patients();
+        $appointments = UtilsController::get_appointments((auth()->user()->role=="secretary")?auth()->user()->get_data_corporate_master->id : auth()->user()->id);      
+
+        $id =(auth()->user()->role=="secretary")?auth()->user()->get_data_corporate_master->contrie : auth()->user()->contrie;
+
+        $patient = UtilsController::get_patients( $id );
+
         return view('livewire.components.diary', compact('appointments', 'patient'));
     }
 }

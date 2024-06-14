@@ -249,6 +249,7 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
      */
     Route::get('/pdf/medical-record/{id}', [PDFController::class, 'PDF_medical_record'])->name('PDF_medical_record');
 
+
     /**
      * @method PDF
      * @param id
@@ -365,16 +366,16 @@ Route::post('/registe-secretary', [RegisteSecretary::class, 'store'])->name('reg
 
 
 Route::get('/prueba', function () {
-        $MedicalRecord = ModelsMedicalRecord::where('id', 54)->first();
-        $doctor_center = DoctorCenter::where('user_id', $MedicalRecord->user_id)->where('center_id', $MedicalRecord->center_id)->first();
-        $generator = new BarcodeGeneratorPNG();
-        $barcode = base64_encode($generator->getBarcode('SQ-16007868-543', $generator::TYPE_CODE_128));
-        $data = [
-            'date' => date('m/d/Y'),
-            'MedicalRecord' => $MedicalRecord,
-            'barcode' => $barcode,
-        ];
-    return view("pdf.PDF_medical_record2", compact('MedicalRecord', 'generator', 'barcode', 'data', 'doctor_center'));
+        // $MedicalRecord = ModelsMedicalRecord::where('id', 54)->first();
+        // $doctor_center = DoctorCenter::where('user_id', $MedicalRecord->user_id)->where('center_id', $MedicalRecord->center_id)->first();
+        // $generator = new BarcodeGeneratorPNG();
+        // $barcode = base64_encode($generator->getBarcode('SQ-16007868-543', $generator::TYPE_CODE_128));
+        // $data = [
+        //     'date' => date('m/d/Y'),
+        //     'MedicalRecord' => $MedicalRecord,
+        //     'barcode' => $barcode,
+        // ];
+    // return view("pdf.PDF_medical_record2", compact('MedicalRecord', 'generator', 'barcode', 'data', 'doctor_center'));
 });
 
 Route::get('/prueba2', function () {
@@ -394,7 +395,7 @@ Route::get('/pp', function () {
     Browsershot::url('https://system.sqlapio.com/prueba')
 	->setNodeBinary('/usr/bin/node')
     	->setNpmBinary('/usr/bin/npm')
-	->setChromePath('/usr/bin/chromium')    
+	->setChromePath('/usr/bin/chromium')
 	->landscape()
 	->save('example.pdf');
 
