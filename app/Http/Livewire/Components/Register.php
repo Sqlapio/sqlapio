@@ -8,7 +8,9 @@ use App\Http\Controllers\EstadisticaController;
 use App\Http\Controllers\HandleOtpController;
 use App\Http\Controllers\UtilsController;
 use App\Models\BilledPlan;
+use App\Models\Center;
 use App\Models\Laboratory;
+use App\Models\State;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,14 +32,14 @@ class Register extends Component
 
         if ($request->type_plan == "7") {
             $rules = [
-                'business_name' => 'required',
+                // 'business_name' => 'required',
                 'password'      => 'required',
                 'email'         => 'required|unique:users',
-                'ci'            => 'required|unique:users',
+                // 'ci'            => 'required|unique:users',
             ];
 
             $msj = [
-                'business_name'    => __('messages.alert.nombre_obligatorio'),
+                // 'business_name'    => __('messages.alert.nombre_obligatorio'),
                 'email.required'   => __('messages.alert.correo_obligatorio'),
                 'email.unique'     => __('messages.alert.correo_existente'),
                 'password'         => __('messages.alert.contraseña_obligatorio'),
@@ -81,11 +83,37 @@ class Register extends Component
         // valdiar otp y capchat
         // if (HandleOtpController::verify_otp($request) && UtilsController::validateCapchat($request)) {
         if (HandleOtpController::verify_otp($request)) {
+            $business_name =null;
+            $center_id =null;
+
+            if ($request->id_center == null && $request->type_plan == "7") { //nuevo centro
+
+                $business_name =$request->full_name ;
+
+                $new_centers = new Center();
+                $new_centers->address = $request->address;
+                $new_centers->description = $request->full_name;
+                $new_centers->state = $request->full_name;
+                $new_centers->state_id = $request->state_contrie;
+                $new_centers->country =$request->contrie;
+                $new_centers->city_contrie = $request->city_contrie;
+                $new_centers->color = UtilsController::color_dairy();
+                $new_centers->corporate = true;
+                $new_centers->save();
+
+                $center_id = $new_centers->id;
+
+            } else if($request->type_plan == "7" && $request->id_center != null ){
+
+                $center = Center::where('id',$request->id_center)->first();
+                $business_name = $center->description ;
+                $center_id = $request->id_center;
+            }
 
             $user = new User();
             $user->name = $request->name;
             $user->last_name = $request->last_name;
-            $user->business_name = $request->business_name;
+            $user->business_name = $business_name;
             $user->ci = $request->ci;
             $user->email = $request->email;
             $user->password = $request->password;
@@ -93,88 +121,89 @@ class Register extends Component
             $user->password = Hash::make($request->password);
             $user->email_verified_at = $date_today;
             if ($request->type_plan == '1' || $request->type_plan == 'corporate_medico') {
-                $user->role = "medico";
-                } elseif ($request->type_plan == '4') {
-                    $user->role = "laboratorio";
-                } elseif ($request->type_plan == '7') {
-                    $user->role = "corporativo";
-                } else {
-                    $user->role = "temporary";
-            }
 
-            $user->master_corporate_id = ($request->type_plan == "corporate_medico") ? decrypt($request->coporate_id ) : null;
-            $user->type_plane = ($request->type_plan == "corporate_medico") ? '7' : $request->type_plan;
+                $user->role = "medico";
+            } elseif ($request->type_plan == '4') {
+                $user->role = "laboratorio";
+            } elseif ($request->type_plan == '7') {
+                $user->role = "corporativo";
+            } else {
+                $user->role = "temporary";
+            }
+            $user->master_corporate_id = ($request->type_plan == "corporate_medico") ? decrypt($request->coporate_id) : null;
+            $user->type_plane = ($request->type_plan == "corporate_medico") ? '7' : $request->type_plan;            
+            $user->center_id = $center_id;            
             $user->save();
 
-                if ($request->type_plan == "7") {
+            if ($request->type_plan == "7") {
 
-                    User::where("id", $user->id)->update([
-                        "token_corporate" => env('APP_URL') . "/" . "register-user-corporate/" . encrypt($user->id)
-                    ]);
-                }else{
+                User::where("id", $user->id)->update([
+                    "token_corporate" => env('APP_URL') . "/" . "register-user-corporate/" . encrypt($center_id)
+                ]);
+            } else {
 
-                    User::where("id", $user->id)->update([
+                User::where("id", $user->id)->update([
                     "token_corporate" => env('APP_URL') . "/" . "registe-secretary/" . encrypt($user->id)
-                    ]);
-            
+                ]);
+            }
+
+            // guardar datos en tabla laboratorios los datos de la corporativo
+            if ($request->type_plan == "7") {
+                if ($request->type_rif == '4') {
+                    $type_rif = "F";
+                }
+                if ($request->type_rif == '5') {
+                    $type_rif = "J";
+                }
+                if ($request->type_rif == '6') {
+                    $type_rif = "C";
+                }
+                if ($request->type_rif == '7') {
+                    $type_rif = "G";
                 }
 
-                // guardar datos en tabla laboratorios los datos de la corporativo
-                if ($request->type_plan == "7") {
-                    if ($request->type_rif == '4') {
-                        $type_rif = "F";
-                    }
-                    if ($request->type_rif == '5') {
-                        $type_rif = "J";
-                    }
-                    if ($request->type_rif == '6') {
-                        $type_rif = "C";
-                    }
-                    if ($request->type_rif == '7') {
-                        $type_rif = "G";
-                    }
+                $user_corporate = new Laboratory();
+                $user_corporate->user_id = $user->id;
+                $user_corporate->business_name =  $business_name;
+                $user_corporate->rif = $request->ci;
+                $user_corporate->email = $request->email;
+                $user_corporate->save();
 
-                    $user_corporate = new Laboratory();
-                    $user_corporate->user_id = $user->id;
-                    $user_corporate->business_name = $request->business_name;
-                    $user_corporate->rif = $request->ci;
-                    $user_corporate->email = $request->email;
-                    $user_corporate->save();
+                /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
+                $stripeCustomer = $user->createAsStripeCustomer();
 
-                    /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
-                    $stripeCustomer = $user->createAsStripeCustomer();
+                /**Registro la accion del usuario registrado en el log */
+                $action = 'corporate_plan';
+                ActivityLogController::store_log($action);
 
-                    /**Registro la accion del usuario registrado en el log */
-                    $action = 'corporate_plan';
-                    ActivityLogController::store_log($action);
+                // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
+                $action = '25';
+                ActivityLogController::store_log($action);
+            } elseif ($request->type_plan == "corporate_medico") {
 
-                    // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
-                    $action = '25';
-                    ActivityLogController::store_log($action);
-
-
-                }elseif ($request->type_plan == "corporate_medico") {
-                    # code...
-                    /**Registro la accion del usuario registrado en el log */
-                    $action = 'corporate_medico';
-                    ActivityLogController::store_log($action);
-                }elseif($request->type_plan == "1") {
-                    // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
-                    $action = '3';
-                    ActivityLogController::store_log($action);
-                }else{
-                    /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
-                    $stripeCustomer = $user->createAsStripeCustomer();
-                    // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
-                    $action = '25';
-                    ActivityLogController::store_log($action);
-                }
+                User::where("id", $user->id)->update([
+                    "center_id" => decrypt($request->coporate_id)
+                ]);
+                # code...
+                /**Registro la accion del usuario registrado en el log */
+                $action = 'corporate_medico';
+                ActivityLogController::store_log($action);
+            } elseif ($request->type_plan == "1") {
+                // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
+                $action = '3';
+                ActivityLogController::store_log($action);
+            } else {
+                /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
+                $stripeCustomer = $user->createAsStripeCustomer();
+                // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
+                $action = '25';
+                ActivityLogController::store_log($action);
+            }
 
             return response()->json([
                 'success' => true,
                 'msj'  => __('messages.alert.registro_inicial')
             ], 200);
-
         } else {
 
             return response()->json([
@@ -418,20 +447,20 @@ class Register extends Component
     public function register_doctor_corporate($hash)
     {
         $corporate = User::where('id', decrypt($hash))->first();
-        $type_plan ="corporate_medico";
-        return view('livewire.components.register', compact('corporate','type_plan','hash'));
+        $type_plan = "corporate_medico";
+        return view('livewire.components.register', compact('corporate', 'type_plan', 'hash'));
     }
 
     public function render($id = null)
     {
-
         $bellied_plan = null;
+        $centers = Center::all();
 
         if ($id != null) {
             $type_plan = $id;
             // $bellied_plan = BilledPlan::where('id', decrypt($id))->first();
         }
-        $show = true;
-        return view('livewire.components.register', compact('show', 'bellied_plan', 'type_plan'));
+
+        return view('livewire.components.register', compact('type_plan', 'centers'));
     }
 }

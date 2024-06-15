@@ -231,10 +231,7 @@
                     },
                     captcha: {
                         required: true,
-                    },
-                    business_name: {
-                        required: true,
-                    }
+                    }                  
                 },
                 messages: {
                     name: {
@@ -265,10 +262,8 @@
                     },
                     captcha: {
                         required: "Codigo es obligatorio",
-                    },
-                    business_name: {
-                        required: "@lang('messages.alert.campo_obligatorio')",
                     }
+                   
                 },
                 invalidHandler: function(event, validator) {
 
@@ -575,6 +570,24 @@
 
 
         }
+
+        async function handlerSelect2(data) {
+
+            $("#form-register").trigger("reset");
+            $("#div-new-center").hide();
+            $("#id_center").val(data.id);
+
+        }
+
+        const regiterCenter = () => {
+
+            $("#form-register").trigger("reset");
+            $("#div-new-center").show();
+            $('#id_select').val(null).change();
+            $("#id_center").val(null);
+        }
+
+        window.handlerSelect2 = handlerSelect2;
     </script>
 @endpush
 @section('content')
@@ -586,108 +599,119 @@
             <div class="row form-sq pad-mb">
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                     <div class="row justify-content-center">
-                    <div class="col-sm-10 col-md-5 col-lg-5 col-xl-5 col-xxl-5">
-                    {{-- <div class="card mb-3 mt-m3" id="div-form">
+                        <div class="col-sm-10 col-md-5 col-lg-5 col-xl-5 col-xxl-5">
+                            {{-- <div class="card mb-3 mt-m3" id="div-form">
                         <div class="card-body"> --}}
 
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                        <div class="text-center">
-                            <img class="img" src="{{ asset('img/registro.png') }}" style="width: 200px;">
-                        </div>
-                    </div>
-
-                    {{ Form::open(['method' => 'post', 'id' => 'form-register']) }}
-                    {{ csrf_field() }}
-
-                    {{-- Input hidden for type plan --}}
-                    <input id="type_plan" name="type_plan" type="hidden" value="{{ $type_plan }}">
-                    <input id="coporate_id" name="coporate_id" type="hidden" value="{!! !empty($hash) ? $hash : null !!}">
-
-                    @if ($type_plan != '7' )
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="div_name">
-                                <div class="form-group">
-                                    <div class="Icon-inside">
-                                        {{-- <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label> --}}
-                                        <input autocomplete="off" class="form-control mask-text" id="name"
-                                            name="name" type="text" value="" placeholder="@lang('messages.form.nombre')">
-                                        <i class="bi bi-person-circle"></i>
-                                    </div>
-                                </diV>
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                <div class="text-center">
+                                    <img class="img" src="{{ asset('img/registro.png') }}" style="width: 200px;">
+                                </div>
                             </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="div_last_name">
-                                <div class="form-group">
-                                    <div class="Icon-inside">
-                                        {{-- <label for="last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label> --}}
-                                        <input autocomplete="off" class="form-control mask-text" id="last_name"
-                                            name="last_name" type="text" value="" placeholder="@lang('messages.form.apellido')">
-                                        <i class="bi bi-person-circle"></i>
+
+                            {{ Form::open(['method' => 'post', 'id' => 'form-register']) }}
+                            {{ csrf_field() }}
+
+                            {{-- Input hidden for type plan --}}
+                            <input id="type_plan" name="type_plan" type="hidden" value="{{ $type_plan }}">
+                            <input id="coporate_id" name="coporate_id" type="hidden" value="{!! !empty($hash) ? $hash : null !!}">
+
+                            @if ($type_plan != '7')
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" id="div_name">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                {{-- <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label> --}}
+                                                <input autocomplete="off" class="form-control mask-text" id="name"
+                                                    name="name" type="text" value=""
+                                                    placeholder="@lang('messages.form.nombre')">
+                                                <i class="bi bi-person-circle"></i>
+                                            </div>
+                                        </diV>
                                     </div>
-                                </diV>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                <div class="form-group">
-                                    {{-- <label for="type_rif" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.tipo_documento')</label> --}}
-                                    <select onchange="handlerTypeDoc(event)" name="type_rif" id="type_rif" class="form-control">
-                                        <option value="">@lang('messages.form.tipo_documento')</option>
-                                        <option value="1">@lang('messages.select.cedula')</option>
-                                        <option value="2">@lang('messages.select.CIE')</option>
-                                        <option value="3">@lang('messages.select.pasaporte')</option>
-                                        {{-- <option value="4">@lang('messages.select.firma_personal')</option>
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" id="div_last_name">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                {{-- <label for="last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label> --}}
+                                                <input autocomplete="off" class="form-control mask-text" id="last_name"
+                                                    name="last_name" type="text" value=""
+                                                    placeholder="@lang('messages.form.apellido')">
+                                                <i class="bi bi-person-circle"></i>
+                                            </div>
+                                        </diV>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="form-group">
+                                            {{-- <label for="type_rif" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.tipo_documento')</label> --}}
+                                            <select onchange="handlerTypeDoc(event)" name="type_rif" id="type_rif"
+                                                class="form-control">
+                                                <option value="">@lang('messages.form.tipo_documento')</option>
+                                                <option value="1">@lang('messages.select.cedula')</option>
+                                                <option value="2">@lang('messages.select.CIE')</option>
+                                                <option value="3">@lang('messages.select.pasaporte')</option>
+                                                {{-- <option value="4">@lang('messages.select.firma_personal')</option>
                                         <option value="5">@lang('messages.select.juridico')</option>
                                         <option value="6">@lang('messages.select.comuna')</option>
                                         <option value="7">@lang('messages.select.gubernamental')</option> --}}
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                <div class="form-group">
-                                    <div class="Icon-inside">
-                                        {{-- <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.documento_identidad')</label> --}}
-                                        <input autocomplete="off" class="form-control mask-only-number" id="ci" name="ci" type="text" value="" placeholder="@lang('messages.label.documento_identidad')">
-                                        <i class="bi bi-person-circle"></i>
+                                            </select>
+                                        </div>
                                     </div>
-                                </diV>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3" style="display: none"
-                                id="div_business_name">
-                                <div class="form-group">
-                                    <div class="Icon-inside">
-                                        {{-- <label for="business_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon_social')</label> --}}
-                                        <input autocomplete="off" placeholder="" class="form-control mask-text" id="business_name" name="business_name" type="text" value="" placeholder="@lang('messages.form.razon_social')">
-                                        <i class="bi bi-person-vcard"></i>
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                {{-- <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.documento_identidad')</label> --}}
+                                                <input autocomplete="off" class="form-control mask-only-number"
+                                                    id="ci" name="ci" type="text" value=""
+                                                    placeholder="@lang('messages.label.documento_identidad')">
+                                                <i class="bi bi-person-circle"></i>
+                                            </div>
+                                        </diV>
                                     </div>
-                                </diV>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                <div class="form-group">
-                                    <div class="Icon-inside">
-                                        {{-- <label for="email" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label> --}}
-                                        <input autocomplete="off" class="form-control" id="email" name="email" type="text" value="" placeholder="@lang('messages.form.email')">
-                                        <i class="bi bi-envelope"></i>
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3"
+                                        style="display: none" id="div_business_name">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                {{-- <label for="business_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon_social')</label> --}}
+                                                <input autocomplete="off" placeholder="" class="form-control mask-text"
+                                                    id="business_name" name="business_name" type="text" value=""
+                                                    placeholder="@lang('messages.form.razon_social')">
+                                                <i class="bi bi-person-vcard"></i>
+                                            </div>
+                                        </diV>
                                     </div>
-                                </diV>
-                            </div>
-                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
-                                <div class="form-group">
-                                    <div class="Icon-inside">
-                                        {{-- <label for="password" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.contraseña')</label> --}}
-                                        <input autocomplete="off" class="form-control" id="password" name="password" type="password" value="" placeholder="@lang('messages.form.contraseña')">
-                                        <i onclick="showPass();" class="bi bi-eye-fill"></i>
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                {{-- <label for="email" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label> --}}
+                                                <input autocomplete="off" class="form-control" id="email" name="email"
+                                                    type="text" value="" placeholder="@lang('messages.form.email')">
+                                                <i class="bi bi-envelope"></i>
+                                            </div>
+                                        </diV>
                                     </div>
-                                </diV>
-                            </div>
-                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
-                                <div class="form-group">
-                                    <div class="Icon-inside">
-                                        {{-- <label for="password_confrimation" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.confirmar_contraseña')</label> --}}
-                                        <input autocomplete="off" class="form-control" id="password_confrimation"
-                                            name="password_confrimation" type="password" value="" placeholder="@lang('messages.form.confirmar_contraseña')">
-                                        <i onclick="showPassConfimation();" class="bi bi-eye-fill"></i>
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                {{-- <label for="password" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.contraseña')</label> --}}
+                                                <input autocomplete="off" class="form-control" id="password"
+                                                    name="password" type="password" value=""
+                                                    placeholder="@lang('messages.form.contraseña')">
+                                                <i onclick="showPass();" class="bi bi-eye-fill"></i>
+                                            </div>
+                                        </diV>
                                     </div>
-                                </diV>
-                            </div>
-                            {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-21 col-xxl-12 mt-2">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                {{-- <label for="password_confrimation" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.confirmar_contraseña')</label> --}}
+                                                <input autocomplete="off" class="form-control" id="password_confrimation"
+                                                    name="password_confrimation" type="password" value=""
+                                                    placeholder="@lang('messages.form.confirmar_contraseña')">
+                                                <i onclick="showPassConfimation();" class="bi bi-eye-fill"></i>
+                                            </div>
+                                        </diV>
+                                    </div>
+                                    {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-21 col-xxl-12 mt-2">
                                     <div class="row mt-3" style="display: flex; justify-content: center;">
                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3" style="display: flex; justify-content: center;">
                                             <span id="span-captcha"> {!! Captcha::img('flat') !!}</span>
@@ -715,95 +739,134 @@
                                     </div>
                                 </div> --}}
 
-                        </div>
-                    @else
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                <div class="form-group">
-                                    <div class="Icon-inside">
-                                        {{-- <label for="business_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon_social')</label> --}}
-                                        <input autocomplete="off" placeholder="@lang('messages.form.razon_social')" class="form-control mask-text" id="business_name" name="business_name" type="text" value="" >
-                                        <i class="bi bi-person-vcard"></i>
-                                    </div>
-                                </diV>
-                            </div>
-
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                <div class="form-group">
-                                    {{-- <label for="type_rif" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.tipo_documento')</label> --}}
-                                    <select onchange="handlerTypeDoc(event)" name="type_rif" id="type_rif"
-                                        class="form-control">
-                                        <option value="">@lang('messages.form.tipo_documento')</option>
-                                        <option value="4">@lang('messages.select.firma_personal')</option>
-                                        <option value="5">@lang('messages.select.juridico')</option>
-                                        <option value="6">@lang('messages.select.comuna')</option>
-                                        <option value="7">@lang('messages.select.gubernamental')</option>
-                                    </select>
                                 </div>
-                            </div>
+                            @else
+                                <div class="row">
 
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                <div class="form-group">
-                                    <div class="Icon-inside">
-                                        {{-- <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.documento_identidad')</label> --}}
-                                        <input autocomplete="off" class="form-control mask-only-number" id="ci"
-                                            name="ci" type="text" value="" placeholder="@lang('messages.label.documento_identidad')">
-                                        <i class="bi bi-person-circle"></i>
-                                    </div>
-                                </diV>
-                            </div>
+                                    <input type="hidden" value="" name="id_center" id="id_center">
 
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                <div class="form-group">
-                                    <div class="Icon-inside">
-                                        {{-- <label for="email" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label> --}}
-                                        <input autocomplete="off" class="form-control" id="email" name="email"
-                                            type="text" value="" placeholder="@lang('messages.form.email')">
-                                        <i class="bi bi-envelope"></i>
+                                    <div style="display: flex">
+                                        <x-select-dos :data="$centers" callBack="register" />
+                                        <i style="padding-top: 49px; padding-left: 10px;" class="bi bi-plus-circle"
+                                            onclick="regiterCenter()"></i>
                                     </div>
-                                </diV>
-                            </div>
 
-                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
-                                <div class="form-group">
-                                    <div class="Icon-inside">
-                                        {{-- <label for="password" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.contraseña')</label> --}}
-                                        <input autocomplete="off" class="form-control" id="password" name="password"
-                                            type="password" value="" placeholder="@lang('messages.form.contraseña')">
-                                        <i onclick="showPass();" class="bi bi-eye-fill"></i>
-                                    </div>
-                                </diV>
-                            </div>
-                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
-                                <div class="form-group">
-                                    <div class="Icon-inside">
-                                        {{-- <label for="password_confrimation" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.confirmar_contraseña')</label> --}}
-                                        <input autocomplete="off" class="form-control" id="password_confrimation"
-                                            name="password_confrimation" type="password" value="" placeholder="@lang('messages.form.confirmar_contraseña')">
-                                        <i onclick="showPassConfimation();" class="bi bi-eye-fill"></i>
-                                    </div>
-                                </diV>
-                            </div>
-                        </div>
-                    @endif
+                                    <div id="div-new-center" style="display: none">                               
 
-                    <div class="d-flex justify-content-center">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-4 mb-3" style="display: flex; justify-content: space-around;">
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-center">
-                                <input class="btn btnPrimary" value="@lang('messages.botton.registrar')" onclick="handlerSubmit();"/>
-                            </div>
-                            {{-- <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-center">
+                                        <div style="display:flex">
+                                            <x-ubigeo_contries
+                                                class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2 pl-1" />
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre_centro')</label>
+                                                    <input autocomplete="off" class="mask-alfa-numeric form-control"
+                                                        id="full_name" name="full_name" type="text" value=""
+                                                        maxlength="100">
+                                                    <i class="bi bi-hash" style="top: 30px"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.direccion')</label>
+                                                    <textarea id="address" rows="2" name="address" class="form-control"></textarea>
+                                                    <i class="bi bi-geo st-icon"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="form-group">
+                                            {{-- <label for="type_rif" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.tipo_documento')</label> --}}
+                                            <select onchange="handlerTypeDoc(event)" name="type_rif" id="type_rif"
+                                                class="form-control">
+                                                <option value="">@lang('messages.form.tipo_documento')</option>
+                                                <option value="4">@lang('messages.select.firma_personal')</option>
+                                                <option value="5">@lang('messages.select.juridico')</option>
+                                                <option value="6">@lang('messages.select.comuna')</option>
+                                                <option value="7">@lang('messages.select.gubernamental')</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                {{-- <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.documento_identidad')</label> --}}
+                                                <input autocomplete="off" class="form-control mask-only-number"
+                                                    id="ci" name="ci" type="text" value=""
+                                                    placeholder="@lang('messages.label.documento_identidad')">
+                                                <i class="bi bi-person-circle"></i>
+                                            </div>
+                                        </diV>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                {{-- <label for="email" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label> --}}
+                                                <input autocomplete="off" class="form-control" id="email"
+                                                    name="email" type="text" value=""
+                                                    placeholder="@lang('messages.form.email')">
+                                                <i class="bi bi-envelope"></i>
+                                            </div>
+                                        </diV>
+                                    </div>
+
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                {{-- <label for="password" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.contraseña')</label> --}}
+                                                <input autocomplete="off" class="form-control" id="password"
+                                                    name="password" type="password" value=""
+                                                    placeholder="@lang('messages.form.contraseña')">
+                                                <i onclick="showPass();" class="bi bi-eye-fill"></i>
+                                            </div>
+                                        </diV>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                {{-- <label for="password_confrimation" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.confirmar_contraseña')</label> --}}
+                                                <input autocomplete="off" class="form-control" id="password_confrimation"
+                                                    name="password_confrimation" type="password" value=""
+                                                    placeholder="@lang('messages.form.confirmar_contraseña')">
+                                                <i onclick="showPassConfimation();" class="bi bi-eye-fill"></i>
+                                            </div>
+                                        </diV>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <div class="d-flex justify-content-center">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-4 mb-3"
+                                    style="display: flex; justify-content: space-around;">
+                                    <div
+                                        class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-center">
+                                        <input class="btn btnPrimary" value="@lang('messages.botton.registrar')"
+                                            onclick="handlerSubmit();" />
+                                    </div>
+                                    {{-- <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-center">
                                 <a href="/"><button type="button" class="btn btnSecond btn2">@lang('messages.botton.cancelar')</button></a>
                             </div> --}}
+                                </div>
+                            </div>
+                            {{ Form::close() }}
+                            {{-- </div>
+                    </div> --}}
                         </div>
                     </div>
-                    {{ Form::close() }}
-                    {{-- </div>
-                    </div> --}}
-                    </div>
                 </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6"> </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6"> </div>
         </div>
-    </div>
-@endsection
+    @endsection

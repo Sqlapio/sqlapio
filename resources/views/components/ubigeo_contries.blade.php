@@ -10,7 +10,16 @@
         $contrie = Contries::where('enable', true)->get();
     } else {
 
-        $contrie = Contries::where('id', Auth::user()->contrie)->first();
+        if(Auth::check()){
+            
+            $contrie = Contries::where('id', Auth::user()->contrie)->first();
+        }else{
+            $active = true;
+
+            $contrie = Contries::where('enable', true)->get();
+
+        }
+
     }
 
     $states = State::all();
