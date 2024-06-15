@@ -231,7 +231,7 @@
                     },
                     captcha: {
                         required: true,
-                    }                  
+                    }
                 },
                 messages: {
                     name: {
@@ -263,7 +263,7 @@
                     captcha: {
                         required: "Codigo es obligatorio",
                     }
-                   
+
                 },
                 invalidHandler: function(event, validator) {
 
@@ -751,12 +751,10 @@
                                             onclick="regiterCenter()"></i>
                                     </div>
 
-                                    <div id="div-new-center" style="display: none">                               
+                                    <div id="div-new-center" style="display: none">
 
-                                        <div style="display:flex">
-                                            <x-ubigeo_contries
-                                                class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2 pl-1" />
-                                        </div>
+                                        <x-ubigeo_contries
+                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 pl-1" />
 
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
@@ -774,7 +772,8 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.direccion')</label>
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.direccion')</label>
                                                     <textarea id="address" rows="2" name="address" class="form-control"></textarea>
                                                     <i class="bi bi-geo st-icon"></i>
                                                 </div>
