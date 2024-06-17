@@ -745,17 +745,12 @@
 
                                     <input type="hidden" value="" name="id_center" id="id_center">
 
-                                    <div style="display: flex">
-                                        <x-select-dos :data="$centers" callBack="register" />
-                                        <i style="padding-top: 49px; padding-left: 10px;" class="bi bi-plus-circle"
-                                            onclick="regiterCenter()"></i>
-                                    </div>
+                                    <x-select-dos :data="$centers" callBack="register" />
+
+                                        <i style="padding-top: 49px; padding-left: 10px;" class="bi bi-plus-circle" onclick="regiterCenter()"></i>
 
                                     <div id="div-new-center" style="display: none">
-
-                                        <x-ubigeo_contries
-                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 pl-1" />
-
+                                        <x-ubigeo_contries class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 pl-1" />
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
@@ -768,7 +763,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
@@ -780,9 +774,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                         <div class="form-group">
                                             {{-- <label for="type_rif" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.tipo_documento')</label> --}}
@@ -796,7 +787,6 @@
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                         <div class="form-group">
                                             <div class="Icon-inside">
@@ -808,7 +798,6 @@
                                             </div>
                                         </diV>
                                     </div>
-
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                         <div class="form-group">
                                             <div class="Icon-inside">
@@ -820,7 +809,6 @@
                                             </div>
                                         </diV>
                                     </div>
-
                                     <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-3">
                                         <div class="form-group">
                                             <div class="Icon-inside">
@@ -861,7 +849,7 @@
                             </div>
                             {{ Form::close() }}
                             {{-- </div>
-                    </div> --}}
+                            </div> --}}
                         </div>
                     </div>
                 </div>
