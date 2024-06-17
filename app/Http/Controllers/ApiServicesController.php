@@ -52,7 +52,7 @@ class ApiServicesController extends Controller
             if ($data['horario'] == '20:00 pm') {
                 $hora_format = '08:00 pm';
             }
-            
+
             $cita_medica = __('messages.whatsapp.cita_medica');
             $text3 = __('messages.whatsapp.text3');
             $sr = __('messages.whatsapp.sr');
@@ -225,7 +225,6 @@ class ApiServicesController extends Controller
 
     static public function whatsapp_register_patient($phone, array $data)
     {
-
         try {
 
             $registrado = __('messages.whatsapp.registrado');
