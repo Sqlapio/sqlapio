@@ -28,14 +28,16 @@
 @push('scripts')
     <script>
         let patients = @json($patients);
+        let doctors_active = @json($doctor_active);
+        let doctors_inactive = @json($doctor_inacactive);
 
         $(document).ready(() => {
 
-        let user = @json(Auth::user());
+            let user = @json(Auth::user());
 
             get_recorded_appointments();
-            get_active_doctors();
-            get_inactive_doctors();
+            get_doctors(doctors_active, doctors_inactive);
+
         });
 
     </script>
@@ -96,24 +98,11 @@
                                         <div class="card" style="background-color: #222f3e">
                                             <div class="card-body p-4" style="display: flex; justify-content: center;">
                                                 <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
-                                                    <canvas id="active_doctors"></canvas>
+                                                    <canvas id="doctors"></canvas>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-lg-6">
-                                        <div class="card " style="background-color: #222f3e">
-                                            <div class="card-body p-4" style="display: flex; justify-content: center;">
-                                                <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
-                                                    <canvas id="inactive_doctors"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                <div class="row">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-lg-6">
                                         <div class="card" style="background-color: #222f3e;">
                                             <div class="card-body p-4">
@@ -131,7 +120,6 @@
                                                                         data-orderable="false">@lang('messages.form.email')</th>
                                                                     <th class="text-center w-10" scope="col"
                                                                         data-orderable="false">@lang('messages.tabla.telefono')</th>
-
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -154,7 +142,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-lg-6">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                <div class="row">
+
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">
                                         <div class="card" style="background-color: #222f3e;">
                                             <div class="card-body p-4">
                                                 <div class="row" id="table-patients" style="color: #b3b3b3">

@@ -570,7 +570,6 @@
     }
 </style>
 <script>
-
 </script>
 <div>
     <div class="container-fluid">

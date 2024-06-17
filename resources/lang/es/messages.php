@@ -331,7 +331,7 @@ return [
 
     'placeholder' => [
         'seleccione'        => 'Seleccione',
-        'buscar_paciente'   => 'Buscar Paciente',
+        'buscar_paciente'   => 'Buscar',
         'info_1'            => 'Se debe agregar un medicamento a la vez',
     ],
 

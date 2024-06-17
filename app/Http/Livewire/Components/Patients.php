@@ -116,7 +116,7 @@ class Patients extends Component
                  */
                 if ( $request->center_id == null) {
                     $center_id_corporativo =  auth()->user()->master_corporate_id;
-                    
+
                 }
 
                 // Guardamos la informacion del paciente menor de edad
@@ -135,7 +135,7 @@ class Patients extends Component
                         'phone'             => $request->re_phone,
                         'is_minor'          => 'true',
                         'age'               => $request->age,
-                        'contrie_doc'          => auth()->user()->contrie,
+                        'contrie_doc'       => auth()->user()->contrie,
                         'address'           => $request->address,
                         'zip_code'          => $request->zip_code,
                         'user_id'           => $user_id,
@@ -206,13 +206,15 @@ class Patients extends Component
                     /** Registro del medico con plan corporativo */
                     $type = 'patient_minor';
                     $center_info = Center::where('id', $center_id_corporativo)->first();
+                    $center_data = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
                     $mailData = [
                         'dr_name'                => $user->name . ' ' . $user->last_name,
+                        'specialty'              => $user->specialty,
                         'center'                 => $center_info->description,
-                        'center_piso'            => 'prueba piso 1',
-                        'center_consulting_room' => 'prueba consultorio 1',
-                        'center_phone'           => 'prueba tef 02125478596',
-                        'center_address'         => 'prueba dir chacao',
+                        'center_piso'            => $center_data->number_floor,
+                        'center_consulting_room' => $center_data->number_consulting_room,
+                        'center_phone'           => $center_data->phone_consulting_room,
+                        'center_address'         => $center_data->address,
                         'patient_email'          => $user->email,
                         'patient_name'           => $patient['name'] . ' ' . $patient['last_name'],
                         'patient_code'           => $patient['patient_code'],
@@ -233,6 +235,7 @@ class Patients extends Component
                         $center_info = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
                         $mailData = [
                             'dr_name'                => $user->name . ' ' . $user->last_name,
+                            'specialty'              => $user->specialty,
                             'center'                 => Center::where('id', $request->center_id)->first()->description,
                             'center_piso'            => $center_info->number_floor,
                             'center_consulting_room' => $center_info->number_consulting_room,
@@ -337,7 +340,7 @@ class Patients extends Component
                         'genere'            => $request->genere,
                         'birthdate'         => $request->birthdate,
                         'age'               => $request->age,
-                        'contrie_doc'          => auth()->user()->contrie,
+                        'contrie_doc'       => auth()->user()->contrie,
                         'state'             => $request->state,
                         'city'              => $request->city,
                         'address'           => $request->address,
@@ -398,11 +401,12 @@ class Patients extends Component
                     $center_info = Center::where('id', $center_id_corporativo)->first();
                     $mailData = [
                         'dr_name'                => $user->name . ' ' . $user->last_name,
+                        'specialty'              => $user->specialty,
                         'center'                 => $center_info->description,
-                        'center_piso'            => 'prueba piso 1',
-                        'center_consulting_room' => 'prueba consultorio 1',
-                        'center_phone'           => 'prueba tef 02125478596',
-                        'center_address'         => 'prueba dir chacao',
+                        'center_piso'            => $center_info->number_floor,
+                        'center_consulting_room' => $center_info->number_consulting_room,
+                        'center_phone'           => $center_info->phone_consulting_room,
+                        'center_address'         => $center_info->address,
                         'patient_name'           => $patient['name'] . ' ' . $patient['last_name'],
                         'patient_code'           => $patient['patient_code'],
                         'patient_email'          => $patient['email'],
@@ -421,7 +425,7 @@ class Patients extends Component
                     $center_info = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
                     $mailData = [
                         'dr_name'                => $user->name . ' ' . $user->last_name,
-                        'specialty'             => $user->specialty,
+                        'specialty'              => $user->specialty,
                         'center'                 => Center::where('id', $request->center_id)->first()->description,
                         'center_piso'            => $center_info->number_floor,
                         'center_consulting_room' => $center_info->number_consulting_room,

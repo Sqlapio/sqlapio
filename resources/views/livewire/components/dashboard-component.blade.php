@@ -769,7 +769,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                @if (Auth::user()->role == 'medico')
+                                @if (Auth::user()->role == 'medico' && Auth::user()->type_plane != 7)
                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                     <div class="row">
                                         <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
