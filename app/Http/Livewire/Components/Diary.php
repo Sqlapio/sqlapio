@@ -77,8 +77,7 @@ class Diary extends Component
              *
              * @param patient_new == "true"
              */
-            if ($request->patient_new == "true")
-            {
+            if ($request->patient_new == "true") {
                 $patient =  Patient::updateOrCreate(
                     ['id' => $request->id],
                     [
@@ -90,7 +89,7 @@ class Diary extends Component
                         // 'birthdate'     => $request->birthdate_patient,
                         'age'           => $request->age_patient,
                         'center_id'     => $request->center_id,
-                        'user_id'       => (auth()->user()->role=="secretary")?auth()->user()->get_data_corporate_master->id : auth()->user()->id,
+                        'user_id'       => (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id,
                         'verification_code' => Str::random(30)
                     ]
                 );
@@ -105,7 +104,7 @@ class Diary extends Component
                  *
                  * Esta logica se aplica al tema de los planes
                  */
-                UtilsController::update_patient_counter((auth()->user()->role=="secretary")?auth()->user()->get_data_corporate_master->id : auth()->user()->id);
+                UtilsController::update_patient_counter((auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id);
             }
             /** Fin de la funcion */
 
@@ -119,19 +118,19 @@ class Diary extends Component
             $date = explode('-', $request->hour_start);
             $appointment = new Appointment();
             $appointment->code = 'SQ-D-' . random_int(11111111, 99999999);
-            $appointment->user_id = (auth()->user()->role=="secretary")?auth()->user()->get_data_corporate_master->id : auth()->user()->id;
-            $appointment->patient_id =($request->patient_new == "true")?  $patient->id : $request->patient_id;
+            $appointment->user_id = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id;
+            $appointment->patient_id = ($request->patient_new == "true") ?  $patient->id : $request->patient_id;
             $appointment->date_start = $request->date_start;
             $appointment->hour_start = $date[0] . '-' . $date[1] . " " . $request->timeIni;
             $appointment->center_id = isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id;
             $appointment->price = $request->price;
-            $appointment->color = Center::where('id', $request->center_id)->first()->color;
+            $appointment->color = isset($center_id_corporativo) ? Center::where('id', $center_id_corporativo)->first()->color : $request->center_id;
 
             //Validacion para evitar que la citas se registren en mismo dia a la misma hora
             $validate_dairy = Appointment::where('date_start', $request->date_start)
                 ->where('hour_start',  $date[0] . '-' . $date[1] . " " . $request->timeIni)
                 ->where('status', 1)
-                ->where('user_id', (auth()->user()->role=="secretary")?auth()->user()->get_data_corporate_master->id : auth()->user()->id)
+                ->where('user_id', (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id)
                 ->first();
 
             if (isset($validate_dairy)) {
@@ -153,7 +152,7 @@ class Diary extends Component
              * via correo electronico
              */
             $user = Auth::user();
-            $patient = Patient::where('id',($request->patient_new == "true")?  $patient->id : $request->patient_id)->first();
+            $patient = Patient::where('id', ($request->patient_new == "true") ?  $patient->id : $request->patient_id)->first();
 
 
             /** Valido si el paciente es menor de edad y tomo el correo del representante*/
@@ -164,7 +163,13 @@ class Diary extends Component
             }
 
             /**Logica para tomar la ubicacion del centro y enviar el url de GoogleMaps en la notificacion por email */
-            $data_center = DoctorCenter::where('user_id', $user->id)->where('center_id', $appointment->get_center->id)->first();
+            if (auth()->user()->role == "medico" && auth()->user()->type_plane == "7") {
+
+                $data_center = auth()->user();
+            } else {
+
+                $data_center = DoctorCenter::where('user_id', $user->id)->where('center_id', $appointment->get_center->id)->first();
+            }
             $dir = str_replace(' ', '%20', $appointment->get_center->description);
             $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $appointment->get_center->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
 
@@ -192,7 +197,6 @@ class Diary extends Component
 
                 /**Notificacion por whatsapp */
                 ApiServicesController::whatsapp_welcome($patient->phone, $ubication, $mailData);
-
             } else {
                 $type = 'appointment';
                 $mailData = [
@@ -210,7 +214,7 @@ class Diary extends Component
                     'ubication'     => $ubication,
                     'link'          => 'https://system.sqlapio.com/confirmation/dairy/' . $appointment->code,
                 ];
-                
+
                 /**Notificacion por email */
                 UtilsController::notification_mail($mailData, $type);
 
@@ -252,7 +256,7 @@ class Diary extends Component
 
             $validate = Appointment::where('date_start', $request->start)
                 ->where('hour_start', 'like', '%' . $request->extendedProps['data'] . '%')
-                ->where('user_id', (auth()->user()->role=="secretary")?auth()->user()->get_data_corporate_master->id : auth()->user()->id)
+                ->where('user_id', (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id)
                 ->first();
             if ($validate != null) {
                 if ($request)
@@ -281,11 +285,11 @@ class Diary extends Component
 
     public function render()
     {
-        $appointments = UtilsController::get_appointments((auth()->user()->role=="secretary")?auth()->user()->get_data_corporate_master->id : auth()->user()->id);      
+        $appointments = UtilsController::get_appointments((auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id);
 
-        $id =(auth()->user()->role=="secretary")?auth()->user()->get_data_corporate_master->contrie : auth()->user()->contrie;
+        $id = (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->contrie : auth()->user()->contrie;
 
-        $patient = UtilsController::get_patients( $id );
+        $patient = UtilsController::get_patients($id);
 
         return view('livewire.components.diary', compact('appointments', 'patient'));
     }

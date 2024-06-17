@@ -12,10 +12,13 @@ class SelectDos extends Component
      * Create a new component instance.
      */
     public $data;
-
-    public function __construct($data=[])
+    public $callBack;
+    
+    public function __construct($data=[],$callBack="dairy")
     {
         $this->data = $data;
+        $this->callBack = $callBack;
+
     }
 
     /**
@@ -23,6 +26,10 @@ class SelectDos extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.select-dos',['data'=>$this->data]);        
+        return view('components.select-dos',[
+            'data'=>$this->data,
+            'callBack'=>$this->callBack,
+        
+        ]);        
     }
 }
