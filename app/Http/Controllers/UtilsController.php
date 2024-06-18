@@ -532,7 +532,7 @@ class UtilsController extends Controller
 					'city'			     => $val->get_patient->city,
 					'profession'	     => $val->get_patient->profession,
 					'center_id' 	     => $val->get_patient->center_id,
-					'zip_code' 		     =>  $val->get_patient->zip_code,
+					'zip_code' 		     => $val->get_patient->zip_code,
 					'get_reprensetative' => $val->get_patient->get_reprensetative,
 				];
 			}
@@ -617,11 +617,11 @@ class UtilsController extends Controller
 			$dataCenters = DoctorCenter::where('user_id', Auth::user()->id)->get();
 			foreach ($dataCenters as $key => $val) {
 				$doctor_centers[$key] = [
-					'id'                     =>  $val->id,
-					'center'                 =>  $val->get_center->description,
-					'address'                =>  $val->address,
-					'number_floor'           =>  $val->number_floor,
-					'phone_consulting_room'  =>  $val->phone_consulting_room,
+					'id'                     => $val->id,
+					'center'                 => $val->get_center->description,
+					'address'                => $val->address,
+					'number_floor'           => $val->number_floor,
+					'phone_consulting_room'  => $val->phone_consulting_room,
 					"number_consulting_room" => $val->number_consulting_room,
 					"status"                 => $val->status,
 				];
