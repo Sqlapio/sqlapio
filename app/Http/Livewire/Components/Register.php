@@ -138,7 +138,7 @@ class Register extends Component
             if ($request->type_plan == "7") {
 
                 User::where("id", $user->id)->update([
-                    "token_corporate" => env('APP_URL') . "/" . "register-user-corporate/" . encrypt($center_id)
+                    "token_corporate" => env('APP_URL') . "/" . "register-user-corporate/" . encrypt($user->id)
                 ]);
             } else {
 
