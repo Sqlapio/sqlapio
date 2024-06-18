@@ -131,7 +131,7 @@ class Register extends Component
             } else {
                 $user->role = "temporary";
             }
-            
+
             $user->master_corporate_id = ($request->type_plan == "corporate_medico") ? decrypt($request->coporate_id) : null;
             $user->type_plane = ($request->type_plan == "corporate_medico") ? '7' : $request->type_plan;
             $user->center_id = $center_id;
@@ -204,7 +204,7 @@ class Register extends Component
 
             return response()->json([
                 'success' => true,
-                'msj'  => __('messages.alert.registro_inicial')
+                'msj'  => __('messages.alert.registro_inicial_sas')
             ], 200);
         } else {
 
