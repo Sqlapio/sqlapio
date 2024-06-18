@@ -120,6 +120,7 @@ class Register extends Component
             $user->verification_code = Str::random(30);
             $user->password = Hash::make($request->password);
             $user->email_verified_at = $date_today;
+
             if ($request->type_plan == '1' || $request->type_plan == 'corporate_medico') {
 
                 $user->role = "medico";
@@ -130,6 +131,7 @@ class Register extends Component
             } else {
                 $user->role = "temporary";
             }
+            
             $user->master_corporate_id = ($request->type_plan == "corporate_medico") ? decrypt($request->coporate_id) : null;
             $user->type_plane = ($request->type_plan == "corporate_medico") ? '7' : $request->type_plan;
             $user->center_id = $center_id;
@@ -138,7 +140,7 @@ class Register extends Component
             if ($request->type_plan == "7") {
 
                 User::where("id", $user->id)->update([
-                    "token_corporate" => env('APP_URL') . "/" . "register-user-corporate/" . encrypt($user->id)
+                    "token_corporate" => env('APP_URL') . "/" . "register-user-corporate/" . encrypt($center_id)
                 ]);
             } else {
 
@@ -182,7 +184,7 @@ class Register extends Component
             } elseif ($request->type_plan == "corporate_medico") {
 
                 User::where("id", $user->id)->update([
-                    "center_id" => decrypt($request->coporate_id)
+                    "center_id" => decrypt($center_id)
                 ]);
                 # code...
                 /**Registro la accion del usuario registrado en el log */
