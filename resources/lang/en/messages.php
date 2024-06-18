@@ -333,6 +333,10 @@ return [
         'seleccione'      => 'Select',
         'buscar_paciente' => 'Search',
         'info_1'          => 'One medication should be added at a time',
+        'selecion_estado' => 'State',
+        'selecion_ciudad' => 'City',
+        'selecion_pais'   => 'Country',
+
     ],
 
     'label' => [
@@ -571,7 +575,7 @@ return [
         'correo_actualizado'        => 'Your email was updated successfully',
         'clave_actualizada'         => 'Your password was successfully updated',
         'codigov_incorrecto'        => 'Your verification code is incorrect',
-        'registro_inicial'          => 'Successful initial registration',
+        'registro_inicial_sas'          => 'Successful initial registration',
         'sesion_duplicada'          => 'You have a duplicate session. Please try again',
         'contraseña_6_caracteres'   => 'Password must be longer than 6 characters',
         'contraseña_8_caracteres'   => 'Password must be less than 8 characters',

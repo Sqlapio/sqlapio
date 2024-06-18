@@ -35,11 +35,11 @@ class Registe extends Component
             $msj = [
                 'name'              => 'Campo requerido',
                 'last_name'         => 'Campo requerido',
-                'type_rif'         => 'Campo requerido',
+                'type_rif'          => 'Campo requerido',
                 'password'          => 'Campo requerido',
                 'password.min'      => 'Contraseña debe ser mayor a 6 caracteres',
                 'password.max'      => 'Contraseña debe ser menor a 8 caracteres',
-                'email.unique'            => 'El correo electronico ya se encuentra registrado. Por favor intente con uno distinto.'
+                'email.unique'      => 'El correo electronico ya se encuentra registrado. Por favor intente con uno distinto.'
             ];
 
             $validator = Validator::make($request->all(), $rules, $msj);
@@ -54,16 +54,17 @@ class Registe extends Component
 
             $date_today = Carbon::createFromFormat('Y-m-d', date('Y-m-d'));
             $date_today = $date_today->addDay(30)->format('Y-m-d');
-            
+
             $user = new User();
             $user->name = $request->name;
             $user->last_name = $request->last_name;
+            $user->ci = $request->ci;
             $user->email = $request->email;
             $user->password = $request->password;
             $user->verification_code = Str::random(30);
             $user->role = 'secretary';
             $user->email_verified_at = $date_today;
-            $user->master_corporate_id = decrypt($request->user_id);            
+            $user->master_corporate_id = decrypt($request->user_id);
             $user->save();
 
             /**Registro la accion del usuario registrado en el log */
@@ -72,7 +73,7 @@ class Registe extends Component
 
             return response()->json([
                 'success' => true,
-                'msj'  => __('messages.alert.registro_inicial')
+                'msj'  => __('messages.alert.registro_inicial_sas')
             ], 200);
         } catch (\Throwable $th) {
             $message = $th->getMessage();
@@ -105,18 +106,18 @@ class Registe extends Component
             ];
 
             $msj = [
-                'name'                    => __('messages.alert.nombre_obligatorio'),
-                'last_name'               => __('messages.alert.apellido_obligatorio'),
-                'ci'                      => __('messages.alert.cedula_obligatoria'),
-                'birthdate'               => __('messages.alert.fecha_obligatorio'),
-                'genere'                  => __('messages.alert.genero_obligatorio'),
-                'age'                     => __('messages.alert.edad_obligatorio'),
-                'phone'                   => __('messages.alert.telefono_obligatorio'),
-                'state_contrie'           => __('messages.alert.estado_obligatorio'),
-                'city_contrie'            => __('messages.alert.ciudad_obligatorio'),
-                'contrie'                 => __('messages.alert.pais_obligatorio'),
-                'address'                 => __('messages.alert.direccion_obligatoria'),
-                'zip_code'                => __('messages.alert.codigo_obligatorio'),
+                'name'            => __('messages.alert.nombre_obligatorio'),
+                'last_name'       => __('messages.alert.apellido_obligatorio'),
+                'ci'              => __('messages.alert.cedula_obligatoria'),
+                'birthdate'       => __('messages.alert.fecha_obligatorio'),
+                'genere'          => __('messages.alert.genero_obligatorio'),
+                'age'             => __('messages.alert.edad_obligatorio'),
+                'phone'           => __('messages.alert.telefono_obligatorio'),
+                'state_contrie'   => __('messages.alert.estado_obligatorio'),
+                'city_contrie'    => __('messages.alert.ciudad_obligatorio'),
+                'contrie'         => __('messages.alert.pais_obligatorio'),
+                'address'         => __('messages.alert.direccion_obligatoria'),
+                'zip_code'        => __('messages.alert.codigo_obligatorio'),
             ];
 
 
@@ -146,7 +147,7 @@ class Registe extends Component
 
             return response()->json([
                 'success' => true,
-                'msj'  => __('messages.alert.registro_inicial')
+                'msj'  => __('messages.alert.registro_inicial_sas')
             ], 200);
         } catch (\Throwable $th) {
             $message = $th->getMessage();

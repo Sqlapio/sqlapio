@@ -333,6 +333,9 @@ return [
         'seleccione'        => 'Seleccione',
         'buscar_paciente'   => 'Buscar',
         'info_1'            => 'Se debe agregar un medicamento a la vez',
+        'selecion_estado'   => 'Estado',
+        'selecion_ciudad'   => 'Ciudad',
+        'selecion_pais'     => 'País',
     ],
 
     'label' => [
@@ -571,7 +574,7 @@ return [
         'correo_actualizado'        => 'Su correo fue actualizada de forma exitosa',
         'clave_actualizada'         => 'Su contraseña fue actualizada de forma exitosa',
         'codigov_incorrecto'        => 'Su código de verificación es incorrecto',
-        'registro_inicial'          => 'El registro inicial satisfactorio',
+        'registro_inicial_sas'      => 'El registro inicial satisfactorio',
         'sesion_duplicada'          => 'Tiene una sesión duplicada. Por intente nuevamente',
         'contraseña_6_caracteres'   => 'Contraseña debe ser mayor a 6 caracteres',
         'contraseña_8_caracteres'   => 'Contraseña debe ser menor a 8 caracteres',
