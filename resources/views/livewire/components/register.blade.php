@@ -582,9 +582,10 @@
         const regiterCenter = () => {
 
             $("#form-register").trigger("reset");
-            $("#div-new-center").show();
+            $("#div-new-center").toggle();
             $('#id_select').val(null).change();
             $("#id_center").val(null);
+            $("#search-patients-show").hide();
         }
 
         window.handlerSelect2 = handlerSelect2;
@@ -600,8 +601,6 @@
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                     <div class="row justify-content-center">
                         <div class="col-sm-10 col-md-5 col-lg-5 col-xl-5 col-xxl-5">
-                            {{-- <div class="card mb-3 mt-m3" id="div-form">
-                        <div class="card-body"> --}}
 
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                 <div class="text-center">
@@ -650,9 +649,9 @@
                                                 <option value="2">@lang('messages.select.CIE')</option>
                                                 <option value="3">@lang('messages.select.pasaporte')</option>
                                                 {{-- <option value="4">@lang('messages.select.firma_personal')</option>
-                                        <option value="5">@lang('messages.select.juridico')</option>
-                                        <option value="6">@lang('messages.select.comuna')</option>
-                                        <option value="7">@lang('messages.select.gubernamental')</option> --}}
+                                                    <option value="5">@lang('messages.select.juridico')</option>
+                                                    <option value="6">@lang('messages.select.comuna')</option>
+                                                    <option value="7">@lang('messages.select.gubernamental')</option> --}}
                                             </select>
                                         </div>
                                     </div>
@@ -745,31 +744,33 @@
 
                                     <input type="hidden" value="" name="id_center" id="id_center">
 
-                                    <x-select-dos :data="$centers" callBack="register" />
+                                    <x-select-dos :data="$centers" callBack="register"/>
 
-                                        <i style="padding-top: 49px; padding-left: 10px;" class="bi bi-plus-circle" onclick="regiterCenter()"></i>
+                                    <div class="mt-3" style="display: flex; justify-content: flex-end;">
+                                        {{-- <i style="padding-top: 49px; padding-left: 10px;" class="bi bi-plus-circle" onclick="regiterCenter()"></i> --}}
+                                        <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px; margin-right: 4px">Agregar nuevo centro</label>
+                                        <img width="25" height="auto" src="{{ asset('/img/icons/plus.png') }}" alt="avatar" onclick="regiterCenter()">
+                                    </div>
 
                                     <div id="div-new-center" style="display: none">
-                                        <x-ubigeo_contries class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 pl-1" />
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre_centro')</label>
+                                                    {{-- <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre_centro')</label> --}}
                                                     <input autocomplete="off" class="mask-alfa-numeric form-control"
-                                                        id="full_name" name="full_name" type="text" value=""
-                                                        maxlength="100">
-                                                    <i class="bi bi-hash" style="top: 30px"></i>
+                                                    id="full_name" name="full_name" type="text" value="" placeholder="@lang('messages.form.nombre_centro')"
+                                                    maxlength="100">
+                                                    <i class="bi bi-hash"></i>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                        <x-ubigeo_contries class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 pl-1" />
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.direccion')</label>
-                                                    <textarea id="address" rows="2" name="address" class="form-control"></textarea>
-                                                    <i class="bi bi-geo st-icon"></i>
+                                                    {{-- <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.direccion')</label> --}}
+                                                    <textarea id="address" rows="2" name="address" class="form-control" placeholder="@lang('messages.modal.form.direccion')"></textarea>
+                                                    <i class="bi bi-geo"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -843,13 +844,11 @@
                                             onclick="handlerSubmit();" />
                                     </div>
                                     {{-- <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-flex justify-content-center">
-                                <a href="/"><button type="button" class="btn btnSecond btn2">@lang('messages.botton.cancelar')</button></a>
-                            </div> --}}
+                                    <a href="/"><button type="button" class="btn btnSecond btn2">@lang('messages.botton.cancelar')</button></a>
+                                    </div> --}}
                                 </div>
                             </div>
                             {{ Form::close() }}
-                            {{-- </div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>

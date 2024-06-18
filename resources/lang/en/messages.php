@@ -333,6 +333,10 @@ return [
         'seleccione'      => 'Select',
         'buscar_paciente' => 'Search',
         'info_1'          => 'One medication should be added at a time',
+        'selecion_estado' => 'State',
+        'selecion_ciudad' => 'City',
+        'selecion_pais'   => 'Country',
+
     ],
 
     'label' => [

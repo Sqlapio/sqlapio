@@ -333,6 +333,9 @@ return [
         'seleccione'        => 'Seleccione',
         'buscar_paciente'   => 'Buscar',
         'info_1'            => 'Se debe agregar un medicamento a la vez',
+        'selecion_estado'   => 'Estado',
+        'selecion_ciudad'   => 'Ciudad',
+        'selecion_pais'     => 'País',
     ],
 
     'label' => [

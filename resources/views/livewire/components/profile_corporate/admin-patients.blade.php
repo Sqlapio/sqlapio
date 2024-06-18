@@ -171,7 +171,7 @@
                                                         <td class="text-center"> {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_ci . '  (Rep)' : $item->ci }} </td>
                                                         <td class="text-center"> {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>
                                                         <td class="text-center"> {{ $item->is_minor === 'true' ? $item->get_reprensetative->re_phone . '  (Rep)' : $item->phone }} </td>
-                                                        <td class="text-center"> {{ $item->center_id }}</td>
+                                                        <td class="text-center"> {{ $item->get_center->description }}</td>
                                                         <td class="text-center">
                                                             <div class="d-flex" style="justify-content: center;">
                                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">

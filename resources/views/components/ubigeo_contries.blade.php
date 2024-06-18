@@ -11,7 +11,7 @@
     } else {
 
         if(Auth::check()){
-            
+
             $contrie = Contries::where('id', Auth::user()->contrie)->first();
         }else{
             $active = true;
@@ -33,8 +33,7 @@
     <div class="{{ $class }}">
         <div class="form-group">
             <div class="Icon-inside">
-                <label for="contrie" class="form-label"
-                    style="font-size: 13px; margin-bottom: 7px">@lang('messages.form.selecion_pais')</label>
+                <label for="contrie" class="form-label" style="font-size: 13px; margin-bottom: 7px">@lang('messages.form.selecion_pais')</label>
                 <select name="contrie" id="contrie" class="form-control" onchange="handlerState(event)">
                     <option value="">@lang('messages.placeholder.seleccione')</option>
                     @foreach ($contrie as $item)
@@ -50,8 +49,7 @@
 <div class="{{ $class }}">
     <div class="form-group">
         <div class="Icon-inside">
-            <label for="state_contrie" class="form-label"
-                style="font-size: 13px; margin-bottom: 7px">@lang('messages.form.selecion_estado')</label>
+            <label for="state_contrie" class="form-label" style="font-size: 13px; margin-bottom: 7px">@lang('messages.form.selecion_estado')</label>
             <select onchange="handlercity(event)" name="state_contrie" id="state_contrie" class="form-control">
                 <option value="">@lang('messages.placeholder.seleccione')</option>
             </select>
@@ -63,8 +61,7 @@
 <div class="{{ $class }}">
     <div class="form-group">
         <div class="Icon-inside">
-            <label for="city_contrie" class="form-label"
-                style="font-size: 13px; margin-bottom: 7px">@lang('messages.form.selecion_ciudad')</label>
+            <label for="city_contrie" class="form-label" style="font-size: 13px; margin-bottom: 7px">@lang('messages.form.selecion_ciudad')</label>
             <select name="city_contrie" id="city_contrie" class="form-control">
                 <option value="">@lang('messages.placeholder.seleccione')</option>
             </select>

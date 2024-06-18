@@ -719,7 +719,7 @@
 @section('content')
     <div>
         {{-- rol medico --}}
-        @if (Auth::user()->role == 'medico' || Auth::user()->role == 'secretary')
+        @if (Auth::user()->role == 'medico' || Auth::user()->role == 'secretary' || Auth::user()->role == 'medico' && Auth::user()->type_plane == '7')
             <div id="spinner" style="display: none" class="spinner-md">
                 <x-load-spinner show="true" />
             </div>
