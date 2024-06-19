@@ -21,10 +21,8 @@
 <div class="{{ $class }} mt-2" id="profesion-div">
     <div class="form-group">
         <div class="Icon-inside">
-            <label for="phone" class="form-label"
-                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.profesion')</label>
-            <select onchange="handleProfesion(event);" name="profession" id="profession"
-                class="form-control @error('profession') is-invalid @enderror" class="form-control combo-textbox-input">
+            <label for="profession" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.profesion')</label>
+            <select onchange="handleProfesion(event);" name="profession" id="profession" class="form-control @error('profession') is-invalid @enderror" class="form-control combo-textbox-input">
                 <option value=''>@lang('messages.placeholder.seleccione')</option>
                 @foreach ($professions as $item)
                     <option value={{ $item->description }}>{{ $item->description }}
@@ -40,7 +38,7 @@
 <div class="{{ $class }}" id="div-otros" style="display: none">
     <div class="form-group">
         <div class="Icon-inside">
-            <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+            <label for="profession_new" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                 @lang('messages.label.nueva_profesion')
             </label>
             <input autocomplete="off" class="form-control mask-text" id="profession_new" name="profession_new"

@@ -393,6 +393,29 @@
                                     `<a href="${url}"><button type="button" class="btn btnSecond">@lang('messages.botton.consulta_medica')</button></a>`
                                 );
 
+                                $('#file').attr('disabled', true);
+                                $("#name").attr('readonly', true);
+                                $("#last_name").attr('readonly', true);
+                                $("#birthdate").attr('readonly', true);
+                                $('#genere').attr('disabled', true);
+                                $('#js_number-prefix').attr('readonly', true);
+                                $('#phone').attr('disabled', true);
+                                $("#ci").attr('readonly', true);
+                                $("#address").attr('readonly', true);
+                                $("#zip_code").attr('readonly', true);
+                                $("#email").attr('readonly', true);
+                                $("#profession").attr('disabled', true);
+                                $("#center_id").attr('disabled', true);
+                                $("#re_name").attr('readonly', true);
+                                $("#re_last_name").attr('readonly', true);
+                                $("#re_ci").attr('readonly', true);
+                                $("#re_phone").attr('readonly', true);
+                                $("#re_email").attr('readonly', true);
+
+
+
+
+
                                 switch_type_plane(user.type_plane, response[1]);
                             });
                         },
@@ -457,7 +480,6 @@
 
             $("#id").val(item.id);
             $("#name").val(item.name);
-            $("#name").val(item.name);
             $("#last_name").val(item.last_name);
             if (item.is_minor !== 'true' && user.contrie == '81') {
                 let ci_dom = item.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
@@ -470,15 +492,6 @@
             $("#genere").val(item.genere).change();
             $("#email").val(item.email);
             $("#phone").val(item.phone);
-
-            // setiar valores componente telefono
-            let prefix = item.phone.substring(0, item.phone.lastIndexOf("-("));
-            let cont = countries.find((e) => e.prefix == Number(prefix.replace('+', '')));
-            $('#phone').val(item.phone.substring(item.phone.indexOf("-") + 1));
-            $('#pn-input__prefix').val(prefix);
-            $("#js_selected-flag").attr('src', cont.url_img);
-            //end
-
             $("#profession").val(item.profession);
             $("#birthdate").val(item.birthdate).change();
             $("#zip_code").val(item.zip_code);
@@ -512,6 +525,13 @@
                 $("#img").val(item.patient_img);
             }
 
+            // setiar valores componente telefono
+            let prefix = item.phone.substring(0, item.phone.lastIndexOf("-("));
+            let cont = countries.find((e) => e.prefix == Number(prefix.replace('+', '')));
+            $('#phone').val(item.phone.substring(item.phone.indexOf("-") + 1));
+            $('#pn-input__prefix').val(prefix);
+            $("#js_selected-flag").attr('src', cont.url_img);
+            //end
         }
 
         function refreshForm() {
@@ -535,6 +555,25 @@
             $('#search_patient').val('');
             let ulrImge = `{{ URL::asset('/img/V2/combinado.png') }}`;
             $(".holder").find('img').attr('src', ulrImge);
+
+            $('#file').attr('disabled', false);
+            $("#name").attr('readonly', false);
+            $("#last_name").attr('readonly', false);
+            $("#birthdate").attr('readonly', false);
+            $("#genere").attr('disabled', false);
+            $('#js_number-prefix').attr('disabled', false);
+            $('#phone').attr('disabled', false);
+            $("#ci").attr('readonly', false);
+            $("#address").attr('readonly', false);
+            $("#zip_code").attr('readonly', false);
+            $("#email").attr('readonly', false);
+            $("#profession").attr('disabled', false);
+            $("#center_id").attr('disabled', false);
+            $("#re_name").attr('readonly', false);
+            $("#re_last_name").attr('readonly', false);
+            $("#re_ci").attr('readonly', false);
+            $("#re_phone").attr('readonly', false);
+            $("#re_email").attr('readonly', false);
 
         }
 
@@ -615,7 +654,6 @@
                                         title: user.contrie === '81' ? 'CIE' : '@lang('messages.tabla.cedula')',
                                         className: "text-center w-10",
                                     },
-
                                     {
                                         data: 'birthdate',
                                         title: '@lang('messages.tabla.fecha_nacimiento')',
@@ -842,27 +880,24 @@
                                     <i class="bi bi-person-add"></i> @lang('messages.acordion.nuevo_paciente')
                                 </button>
                             </span>
-                            <div id="collapseOne" class="accordion-collapseOne accordion-collapse collapse"
-                                aria-labelledby="headingOne" data-bs-parent="#accordion">
+                            <div id="collapseOne" class="accordion-collapseOne accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row mt-3 justify-content-center" id="paciente-warnig" style="display: none">
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                             <div class="row justify-content-center">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                     <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">
-                                                        @lang('messages.label.info_1') </h5>
+                                                        @lang('messages.label.info_1')
+                                                    </h5>
                                                 </div>
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="display: flex; justify-content: center;">
-                                                    <img width="150" height="auto"
-                                                        src="{{ asset('/img/icons/icon-warning.png') }}" alt="avatar">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">
+                                                    <img width="150" height="auto" src="{{ asset('/img/icons/icon-warning.png') }}" alt="avatar">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                             style="display: flex; justify-content: flex-end;">
-                                            <a style="margin-top: 10px;" href="{{ route('verify-plans') }}"
-                                                class="btn btnSecond">
+                                            <a style="margin-top: 10px;" href="{{ route('verify-plans') }}" class="btn btnSecond">
                                                 @lang('messages.label.detalle_plan')
                                             </a>
                                         </div>
@@ -891,8 +926,7 @@
                                                         <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
-                                                                    <label for="name" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                    <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                         @lang('messages.form.nombre')
                                                                     </label>
                                                                     <input autocomplete="off"
@@ -906,8 +940,7 @@
                                                         <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
-                                                                    <label for="last_name" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                    <label for="last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                         @lang('messages.form.apellido')
                                                                     </label>
                                                                     <input autocomplete="off"
@@ -920,8 +953,7 @@
                                                         </div>
                                                         <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
-                                                                <label for="birthdate" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                <label for="birthdate" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                     @lang('messages.form.fecha_nacimiento')
                                                                 </label>
                                                                 <input class="form-control date-bd" id="birthdate"
@@ -935,34 +967,25 @@
                                                         <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
-                                                                    <label for="genere" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                    <label for="genere" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                         @lang('messages.form.genero')
                                                                     </label>
-                                                                    <select name="genere" id="genere"
-                                                                        placeholder="Seleccione"class="form-control @error('genere') is-invalid @enderror"
-                                                                        class="form-control combo-textbox-input">
+                                                                    <select name="genere" id="genere" placeholder="Seleccione"class="form-control @error('genere') is-invalid @enderror" class="form-control combo-textbox-input">
                                                                         <option value="">@lang('messages.placeholder.seleccione')</option>
-                                                                        <option value="femenino">@lang('messages.label.femenino')
-                                                                        </option>
-                                                                        <option value="masculino">@lang('messages.label.masculino')
-                                                                        </option>
+                                                                        <option value="femenino">@lang('messages.label.femenino') </option>
+                                                                        <option value="masculino">@lang('messages.label.masculino') </option>
                                                                     </select>
                                                                     <i class="bi bi-gender-ambiguous st-icon"></i>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2"
-                                                            id="ci-div">
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="ci-div">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     @if (Auth::user()->contrie == '81')
-                                                                        <label for="ci" class="form-label"
-                                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
+                                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
                                                                     @else
-                                                                        <label for="ci" class="form-label"
-                                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                            @lang('messages.form.cedula_identidad') </label>
+                                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad') </label>
                                                                     @endif
                                                                     <input autocomplete="off"
                                                                         class="form-control @error('ci') is-invalid @enderror {{ Auth::user()->contrie == '81' ? 'mask-id-dom' : '' }}"
@@ -972,8 +995,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2"
-                                                            id="div-phone">
+                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="div-phone">
                                                             <x-phone_component :phone="null"/>
 
                                                             {{-- <div class="form-group">
@@ -990,68 +1012,59 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-12 col-md-10 col-lg-10 col-xl-10 col-xxl-10">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="address" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
-                                                            <textarea id="address" name="address" class="form-control" rows="1"></textarea>
-                                                            <i class="bi bi-geo st-icon"></i>
+
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-5">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="address" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
+                                                                <textarea id="address" name="address" class="form-control" rows="1"></textarea>
+                                                                <i class="bi bi-geo st-icon"></i>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="zip_code" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.codigo_postal')</label>
-                                                            <input autocomplete="off"
-                                                                class="form-control mask-only-text @error('zip_code') is-invalid @enderror"
-                                                                id="zip_code" name="zip_code" type="text"
-                                                                value="">
-                                                            <i class="bi bi-geo st-icon"></i>
+                                                    <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-1 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="zip_code" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.codigo_postal')</label>
+                                                                <input autocomplete="off"
+                                                                    class="form-control mask-only-text @error('zip_code') is-invalid @enderror"
+                                                                    id="zip_code" name="zip_code" type="text"
+                                                                    value="">
+                                                                <i class="bi bi-geo st-icon"></i>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2"
-                                                    id="email-div">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="email" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
-                                                            @php
-                                                                $email = Auth::user()->email;
-                                                            @endphp
-                                                            <input autocomplete="off"
-                                                                onchange='handlerEmail(event,@json($email))'
-                                                                class="form-control @error('email') is-invalid @enderror"
-                                                                id="email" name="email" type="text"
-                                                                value="">
-                                                            <i class="bi bi-envelope-at st-icon"></i>
+                                                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2" id="email-div">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="email" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
+                                                                @php
+                                                                    $email = Auth::user()->email;
+                                                                @endphp
+                                                                <input autocomplete="off"
+                                                                    onchange='handlerEmail(event,@json($email))'
+                                                                    class="form-control @error('email') is-invalid @enderror"
+                                                                    id="email" name="email" type="text"
+                                                                    value="">
+                                                                    <i class="bi bi-envelope-at st-icon"></i>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <input id="age" name="age" type="hidden" value="">
-                                                <x-professions
-                                                    class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3" />
-
-
-                                                @if (Auth::user()->type_plane !== '7')
-                                                    <x-centers_user
-                                                        class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2" />
-                                                @endif
+                                                    <input id="age" name="age" type="hidden" value="">
+                                                    <x-professions class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-3" />
+                                                    @if (Auth::user()->type_plane !== '7')
+                                                    <x-centers_user class="col-sm-12 col-md-8 col-lg-4 col-xl-4 col-xxl-2 mt-2" />
+                                                    @endif
                                                 {{-- data del representante --}}
-                                                <div class="row mt-3" id="data-rep"
-                                                    style="display: none; padding-right: 0px;">
+                                                <div class="row mt-3" id="data-rep" style="display: none; padding-right: 0px;">
                                                     <hr>
                                                     <h5>@lang('messages.label.datos_representante')</h5>
                                                     <hr>
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="re_name" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
+                                                                <label for="re_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-text @error('re_name') is-invalid @enderror"
                                                                     id="re_name" name="re_name" type="text"
@@ -1063,8 +1076,7 @@
                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="re_last_name" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
+                                                                <label for="re_last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control mask-text @error('re_last_name') is-invalid @enderror"
                                                                     id="re_last_name" name="re_last_name" type="text"
@@ -1077,12 +1089,9 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 @if (Auth::user()->contrie == '81')
-                                                                    <label for="ci" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
+                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
                                                                 @else
-                                                                    <label for="ci" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                                        @lang('messages.form.cedula_identidad') </label>
+                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad') </label>
                                                                 @endif
                                                                 <input autocomplete="off"
                                                                     class="form-control @error('re_ci') is-invalid @enderror {{ Auth::user()->contrie == '81' ? 'mask-id-dom' : '' }}"
@@ -1095,8 +1104,7 @@
                                                     <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="telefono" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
+                                                                <label for="re_phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
                                                                 <input autocomplete="off"
                                                                     class="form-control phone @error('re_phone') is-invalid @enderror"
                                                                     id="re_phone" name="re_phone" type="text"
@@ -1109,8 +1117,7 @@
                                                         style="padding-right: 0;">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="email" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
+                                                                <label for="re_email" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
                                                                 <input autocomplete="off"
                                                                     onchange='handlerEmail(event,@json($email))'
                                                                     class="form-control @error('re_email') is-invalid @enderror"
@@ -1125,28 +1132,19 @@
                                             </div>
 
                                             <div class="row mt-3 justify-content-md-end">
-                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="display: flex; justify-content: flex-end; align-items: flex-end; flex-wrap: wrap;">
-                                                    <div id="bnt-dairy"
-                                                        style="display: none;margin-left: 10px; ; margin-bottom: 10px">
-                                                    </div>
-                                                    <div id="bnt-cons"
-                                                        style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
-                                                    <div id="bnt-hist"
-                                                        style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
-                                                    <input class="btn btnSave send" id="btn-save"
-                                                        value="@lang('messages.botton.guardar')" type="submit"
-                                                        style="margin-left: 10px; margin-bottom: 10px" />
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end; flex-wrap: wrap;">
+                                                    <div id="bnt-dairy" style="display: none;margin-left: 10px; ; margin-bottom: 10px"> </div>
+                                                    <div id="bnt-cons" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
+                                                    <div id="bnt-hist" style="display: none;margin-left: 10px; margin-bottom: 10px"></div>
+                                                    <input class="btn btnSave send" id="btn-save" value="@lang('messages.botton.guardar')" type="submit" style="margin-left: 10px; margin-bottom: 10px" />
                                                     <button style="margin-left: 10px; margin-bottom: 10px;" type="button"
                                                         onclick="refreshForm();" data-bs-toggle="tooltip"
                                                         data-bs-placement="bottom" data-html="true"
                                                         title="@lang('messages.label.limpiar')">
-                                                        <img width="32" height="auto"
-                                                            src="{{ asset('/img/icons/eraser.png') }}" alt="avatar">
+                                                        <img width="32" height="auto" src="{{ asset('/img/icons/eraser.png') }}" alt="avatar">
                                                     </button>
                                                 </div>
-                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                                    style="display: flex; justify-content: center;"> </div>
+                                                <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;"> </div>
                                             </div>
                                         </form>
                                     </div>
@@ -1155,20 +1153,14 @@
                                             <hr>
                                             <h5 style="margin-bottom: 17px;">@lang('messages.label.hijos_registrados')</h5>
                                             <hr>
-                                            <table id="table-show-info-pat" class="table table-striped table-bordered"
-                                                style="width:100%; ">
+                                            <table id="table-show-info-pat" class="table table-striped table-bordered" style="width:100%; ">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido')
-                                                        </th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula')
-                                                        </th>
-                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.fecha_nacimiento')
-                                                        </th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.genero')
-                                                        </th>
-                                                        <th class="text-center w-20" scope="col"
-                                                            data-orderable="false">@lang('messages.tabla.acciones')</th>
+                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.nombre_apellido') </th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.cedula') </th>
+                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.fecha_nacimiento') </th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.genero') </th>
+                                                        <th class="text-center w-20" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1221,27 +1213,16 @@
                                     </div>
                                     <div class="row mt-2">
                                         <div class="row" id="table-patients">
-                                            <div
-                                                class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-                                                <table id="table-patient" class="table table-striped table-bordered"
-                                                    style="width:100%; ">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                <table id="table-patient" class="table table-striped table-bordered" style="width:100%; ">
                                                     <thead>
                                                         <tr>
-                                                            <th class="text-center w-image" scope="col"
-                                                                data-orderable="false">@lang('messages.tabla.foto')</th>
-                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.codigo_paciente')
-                                                            </th>
-                                                            <th class="text-center w-17" scope="col">
-                                                                @lang('messages.tabla.nombre_apellido')
-                                                            </th>
-                                                            <th class="text-center w-10" scope="col">
-                                                                @lang('messages.tabla.fecha_nacimiento')
-                                                            </th>
-                                                            <th class="text-center w-30" scope="col">
-                                                                @lang('messages.tabla.centro_salud')
-                                                            </th>
-                                                            <th class="text-center w-17" scope="col"
-                                                                data-orderable="false">@lang('messages.tabla.acciones')</th>
+                                                            <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.codigo_paciente') </th>
+                                                            <th class="text-center w-17" scope="col"> @lang('messages.tabla.nombre_apellido') </th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_nacimiento') </th>
+                                                            <th class="text-center w-30" scope="col">@lang('messages.tabla.centro_salud') </th>
+                                                            <th class="text-center w-17" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
 
                                                         </tr>
                                                     </thead>
@@ -1261,53 +1242,41 @@
                                                                         data-bs-placement="bottom"
                                                                         data-bs-custom-class="custom-tooltip"
                                                                         data-html="true" title="@lang('messages.tooltips.agendar_cita')"
-                                                                        style="font-size: 13px; padding: 0px 11px 0px 11px; !important">{{ $item->patient_code }}</button>
+                                                                        style="font-size: 13px; padding: 0px 11px 0px 11px; !important">
+                                                                        {{ $item->patient_code }}
+                                                                    </button>
                                                                 </td>
-                                                                <td class="text-center text-capitalize">
-                                                                    {{ $item->name }} {{ $item->last_name }}</td>
-                                                                <td class="text-center">
-                                                                    {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>
-                                                                <td class="text-center">
-                                                                    {{ $item->get_center->description }} </td>
+                                                                <td class="text-center text-capitalize"> {{ $item->name }} {{ $item->last_name }}</td>
+                                                                <td class="text-center"> {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>
+                                                                <td class="text-center"> {{ $item->get_center->description }} </td>
                                                                 <td class="text-center">
                                                                     <div class="d-flex">
-                                                                        <div
-                                                                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <button
                                                                                 onclick="editPatien({{ json_encode($item) }},true); "
                                                                                 type="button" data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
                                                                                 title="@lang('messages.tooltips.editar')">
-                                                                                <img width="40" height="auto"
-                                                                                    src="{{ asset('/img/icons/user-edit.png') }}"
-                                                                                    alt="avatar">
+                                                                                <img width="40" height="auto" src="{{ asset('/img/icons/user-edit.png') }}" alt="avatar">
                                                                             </button>
                                                                         </div>
-                                                                        <div
-                                                                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                            <a href="{{ $item->age == '' ? '#' : route('MedicalRecord', $item->id) }}"
-                                                                                onclick='{{ $item->age == '' ? "alertInfoPaciente($item)" : '' }}'>
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                            <a href="{{ $item->age == '' ? '#' : route('MedicalRecord', $item->id) }}" onclick='{{ $item->age == '' ? "alertInfoPaciente($item)" : '' }}'>
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     title="@lang('messages.tooltips.consulta_medica')">
-                                                                                    <img width="40" height="auto"
-                                                                                        src="{{ asset('/img/icons/monitor.png') }}"
-                                                                                        alt="avatar">
+                                                                                    <img width="40" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
                                                                                 </button>
                                                                             </a>
                                                                         </div>
-                                                                        <div
-                                                                            class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                            <a href="{{ $item->age == '' ? '#' : route('ClinicalHistoryDetail', $item->id) }}"
-                                                                                onclick='{{ $item->age == '' ? "alertInfoPaciente($item)" : '' }}'>
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                            <a href="{{ $item->age == '' ? '#' : route('ClinicalHistoryDetail', $item->id) }}" onclick='{{ $item->age == '' ? "alertInfoPaciente($item)" : '' }}'>
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     title="@lang('messages.tooltips.historia')">
-                                                                                    <img width="40" height="auto"
-                                                                                        src="{{ asset('/img/icons/recipe.png') }}"
-                                                                                        alt="avatar">
+                                                                                    <img width="40" height="auto" src="{{ asset('/img/icons/recipe.png') }}" alt="avatar">
                                                                                 </button>
                                                                             </a>
                                                                         </div>
