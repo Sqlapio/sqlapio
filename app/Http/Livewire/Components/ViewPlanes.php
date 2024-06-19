@@ -28,6 +28,8 @@ class ViewPlanes extends Component
             $action = '26';
             ActivityLogController::store_log($action);
 
+            $this->redirect('/auth/setting/profile');
+
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
         }
@@ -40,9 +42,12 @@ class ViewPlanes extends Component
 
             $this->emit('success', __('messages.alert.operacion_exitosa'));
 
+
             /**Registro la accion de metodo de pago por default  */
             $action = '27';
             ActivityLogController::store_log($action);
+
+            $this->redirect('/auth/setting/profile');
 
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
@@ -61,6 +66,8 @@ class ViewPlanes extends Component
             $action = '28';
             ActivityLogController::store_log($action);
 
+            $this->redirect('/auth/setting/profile');
+
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
         }
@@ -76,6 +83,8 @@ class ViewPlanes extends Component
              /**Registro la accion de cambiar metodo de pago por defecto  */
              $action = '29';
              ActivityLogController::store_log($action);
+
+            $this->redirect('/auth/setting/profile');
 
         } catch (\Exception $e) {
             $this->emit('error', $e->getMessage());
@@ -214,17 +223,17 @@ class ViewPlanes extends Component
 
     {
         $res =[];
-        
+
         if(Auth::user()->stripe_id){
 
             $stripe = new \Stripe\StripeClient('sk_test_51OfoXBLoqeBM9Dtete0mFJXzRi4DS7DGWRKdNwenwFSd3Rvaz4sPJCXPFKi24l7YvomUy1xEbDRTGSfOBn6oPiqC00ieNiN1hs');
-            
+
             $stripe_user = Auth::user()->stripe_id;
-    
+
             $stripe_customer = $stripe->customers->retrieve($stripe_user, [ 'expand' => ['subscriptions'] ]);
 
             $stripe_sub_id = $stripe_customer->subscriptions->data[0]->id;
-    
+
             $res = json_decode((json_encode($stripe->subscriptions->retrieve($stripe_sub_id))));
         }
 

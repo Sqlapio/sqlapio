@@ -943,9 +943,7 @@
                                                         </diV>
                                                     </div>
                                                     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-
                                                         <x-phone_component :phone="$user->get_laboratorio->phone_1" />
-
                                                         {{-- <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label"

@@ -76,12 +76,6 @@
     } else{
         $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json';
     }
-
-    if($lang == 'en') {
-        $lang_datepicker = 'en';
-    } else{
-        $lang_datepicker = 'es';
-    }
 @endphp
 @push('scripts')
     <script>
@@ -104,7 +98,6 @@
         let arrayhistory_surgical = (history_surgical) ? history_surgical : [];
         let arraymedications_supplements = (medications_supplements) ? medications_supplements : [];
 
-        var lang_datepicker = @json($lang_datepicker);
         var url = @json($url);
 
         $(document).ready(() => {
@@ -1072,10 +1065,10 @@
                                                             @lang('messages.form.fecha_periodo')
                                                         </label>
                                                         <input autocomplete="off"
-                                                            class="form-control datePickert @error('fecha_ultima_regla') is-invalid @enderror"
+                                                            class="form-control @error('fecha_ultima_regla') is-invalid @enderror"
                                                             id="fecha_ultima_regla" name="fecha_ultima_regla"
-                                                            type="text" readonly value="{!! !empty($validateHistory) ? $Patient->get_history->fecha_ultima_regla : '' !!}">
-                                                        <i class="bi bi-calendar2-week st-icon"></i>
+                                                            type="date" value="{!! !empty($validateHistory) ? $Patient->get_history->fecha_ultima_regla : '' !!}">
+                                                        {{-- <i class="bi bi-calendar2-week st-icon"></i> --}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -1325,10 +1318,10 @@
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                         @lang('messages.form.fecha')
                                                     </label>
-                                                    <input autocomplete="off" class="form-control datePickert"
-                                                        id="datecirugia" readonly name="datecirugia" type="text"
+                                                    <input autocomplete="off" class="form-control"
+                                                        id="datecirugia" name="datecirugia" type="date"
                                                         value="">
-                                                    <i class="bi bi-calendar2-week st-icon"></i>
+                                                    {{-- <i class="bi bi-calendar2-week st-icon"></i> --}}
                                                 </div>
                                                 <span id="datecirugia_span" class="text-danger"></span>
                                             </div>

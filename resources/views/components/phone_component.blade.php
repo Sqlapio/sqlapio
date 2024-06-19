@@ -46,10 +46,10 @@
             let elem = JSON.stringify(country);
 
             const element = `<li class="pn-list-item ${flag === "nl" ? "pn-list-item--selected" : ""}
-                            js_pn-list-item" data-flag="${flag}" data-prefix="${prefix}" tabindex="0" role="button" aria-pressed="false">
-                            <img class="pn-list-item__flag" src="${url_img}" />
-                            <span  onclick='handlerSelectContry(${elem});'  class="pn-list-item__country js_country-name">${name}</span>
-                            <span  onclick='handlerSelectContry(${elem});' class="pn-list-item__prefix js_country-prefix">(+${prefix})</span>
+                                js_pn-list-item" data-flag="${flag}" data-prefix="${prefix}" tabindex="0" role="button" aria-pressed="false">
+                                <img class="pn-list-item__flag" src="${url_img}" />
+                                <span  onclick='handlerSelectContry(${elem});'  class="pn-list-item__country js_country-name">${name}</span>
+                                <span  onclick='handlerSelectContry(${elem});' class="pn-list-item__prefix js_country-prefix">(+${prefix})</span>
                             </li>`;
 
             $("#js_list").append(element);
@@ -108,20 +108,15 @@
     }
 </style>
 <div>
-    <label for="phone" class="form-label"
-        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
+    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
     <div class="pn-select" id="js_pn-select" style="--prefix-length: 2">
-        <button class="pn-selected-prefix" aria-label="Select phonenumber prefix" id="js_trigger-dropdown"
-            onclick="openDropdownNew();" tabindex="1" type="button">
+        <button class="pn-selected-prefix" aria-label="Select phonenumber prefix" id="js_trigger-dropdown" onclick="openDropdownNew();" tabindex="1" type="button">
             <img class="pn-selected-prefix__flag" id="js_selected-flag" src="{{ asset('img/icons_tlf/ve.png') }}" />
         </button>
         <div class="pn-input">
             <div class="pn-input__container">
-                <input class="pn-input__prefix input-telelfono-class" id="pn-input__prefix" value="+58"
-                    type="text" name="phonenumber_prefix" id="js_number-prefix" />
-                <input class="pn-input__phonenumber input-telelfono-class phone input-phone-class" id="phone"
-                    type="tel" name="phone" value="" max="10"
-                    autocomplete="nope" />
+                <input class="pn-input__prefix input-telelfono-class" id="pn-input__prefix" value="+58" type="text" name="phonenumber_prefix" id="js_number-prefix" />
+                <input class="pn-input__phonenumber input-telelfono-class phone input-phone-class" id="phone" type="tel" name="phone" value="" max="10" autocomplete="nope" />
             </div>
         </div>
         <div class="pn-dropdown" id="js_dropdown">

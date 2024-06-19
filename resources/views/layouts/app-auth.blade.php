@@ -53,12 +53,6 @@
             $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json';
         }
 
-        if($lang == 'en') {
-            $lang_datepicker = 'en';
-        } else{
-            $lang_datepicker = 'es';
-        }
-
     @endphp
 
     <x-nav-bar />
