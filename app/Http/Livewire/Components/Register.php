@@ -192,6 +192,9 @@ class Register extends Component
                 $action = 'corporate_medico';
                 ActivityLogController::store_log($action);
             } elseif ($request->type_plan == "1") {
+                /**Registro del usuario en stripe de forma directa. Usando la clase de Stripe */
+                $stripeCustomer = $user->createAsStripeCustomer();
+
                 // /**Registro al accion de' Resgistro cliente STRIPE' en el log */
                 $action = '3';
                 ActivityLogController::store_log($action);

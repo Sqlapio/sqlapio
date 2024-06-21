@@ -999,7 +999,7 @@
                     Livewire.emit('defaultPaymentMethod', paymentMethodId)
 
                     $('#spinner').show();
-                    
+
                     Livewire.on('success', function (message) {
                         $('#spinner').hide();
                         Swal.fire({

@@ -532,6 +532,8 @@
             $('#pn-input__prefix').val(prefix);
             $("#js_selected-flag").attr('src', cont.url_img);
             //end
+
+
         }
 
         function refreshForm() {
