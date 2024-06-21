@@ -132,7 +132,7 @@ class Register extends Component
                 $user->role = "temporary";
             }
 
-            $user->master_corporate_id = ($request->type_plan == "corporate_medico") ? decrypt($request->coporate_id) : null;
+            // $user->master_corporate_id = ($request->type_plan == "corporate_medico") ? decrypt($user->id) : null;
             $user->type_plane = ($request->type_plan == "corporate_medico") ? '7' : $request->type_plan;
             $user->center_id = $center_id;
             $user->save();
@@ -184,7 +184,8 @@ class Register extends Component
             } elseif ($request->type_plan == "corporate_medico") {
 
                 User::where("id", $user->id)->update([
-                    "center_id" => decrypt($request->coporate_id)
+                    "center_id" => decrypt($request->coporate_id),
+                    "master_corporate_id" =>User::where("center_id", decrypt($request->coporate_id))->where('role',"corporativo")->first()->id
                 ]);
                 # code...
                 /**Registro la accion del usuario registrado en el log */
