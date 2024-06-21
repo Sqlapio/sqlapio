@@ -122,7 +122,6 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
             Route::get('/home', [Home::class, 'render'])->name('home');
             Route::get('/dashboard', [DashboardComponent::class, 'render'])->name('DashboardComponent');
             Route::get('/dashboard/filter_month_dashboard/{month}', [UtilsController::class, 'filter_month_dashboard'])->name('filter_month_dashboard');
-
             Route::get('/patients/{id_patient?}', [Patients::class, 'render'])->name('Patients')->middleware(['VerifyPlanExpiredPlan']);
             Route::get('/setting', [setting::class, 'render'])->name('Setting');
             Route::get('/diary', [Diary::class, 'render'])->name('Diary');
@@ -141,7 +140,6 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
                 Route::post('/medical-consultation-create', [MedicalRecord::class, 'store'])->name('MedicalRecordCreate')->middleware(['VerifyPlans']);
                 Route::post('/create-informe-medico', [MedicalRecord::class, 'informe_medico'])->name('create-informe-medico')->middleware(['VerifyPlans']);
                 Route::post('/create-examen-fisico', [MedicalRecord::class, 'store_physical_exams'])->name('create-examen-fisico')->middleware(['VerifyPlans']);
-
                 Route::get('/medical-history', [MedicalHistory::class, 'render'])->name('MedicalHistory');
                 Route::post('/register-patients', [Patients::class, 'store'])->name('register-patients');
                 Route::get('/clinical-history/{id}', [ClinicalHistory::class, 'render'])->name('ClinicalHistoryDetail')->middleware(['VerifyPlans', 'VerifyPlanExpiredPlan']);
@@ -164,7 +162,6 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
             Route::post('/create-seal', [Profile::class, 'create_seal'])->name('create_seal');
             Route::get('/profile', [Profile::class, 'render'])->name('Profile');
             Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');
-
             Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');
         });
 
@@ -206,15 +203,10 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
         });
 
         //grupos de rutas fuerzas de venta
-        Route::group(array('prefix' => 'force-sale'), function () {
-
-
+            Route::group(array('prefix' => 'force-sale'), function () {
             Route::get('/dashboard/general-zone', [GeneralZoneDashboard::class, 'render'])->name('dashboard-general-zone');
-
             Route::get('/dashboard/general-manager', [GeneralManagerDashboard::class, 'render'])->name('dashboard-general-manager');
-
             Route::get('/dashboard/medical-visitor', [Deshboard::class, 'render'])->name('dashboard-medical-visitor');
-
             Route::group(array('prefix' => 'setting'), function () {
                 Route::get('/profile', [ProfileUser::class, 'render'])->name('profile-user-force-sale');
                 Route::post('/profile-update', [ProfileUser::class, 'updateProfile'])->name('update-profile-force-sale');

@@ -87,9 +87,6 @@
 
             let appointments = @json($appointments);
 
-            console.log(appointments);
-
-
             let data_palnes = [{
                     type_plan: 1,
                     count_patients: 10,
@@ -138,24 +135,12 @@
             ];
 
             const data = data_palnes.find((e) => e.type_plan == user.type_plane);
-            if(user.role!="secretary"){
-
-                $('.card-title').text(data.description);
-                $('#pacientes').text(`${data.count_patients}`);
-                $('#consultas').text(`${data.count_ref}`);
-                $('#examenes').text(`${data.count_exam}`);
-                $('#estudios').text(`${data.count_study}`);
-            }
 
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             tooltipTriggerList.forEach(element => {
                 new bootstrap.Tooltip(element)
             });
-            // get_patient_register(countPatientRegister);
-            // get_general(elderly, adult);
-            // get_medical_record(countMedicalRecordr);
-            // get_history_register(countHistoryRegister);
-            // get_genere(boy_girl, teen);
+
             get_general(elderly, adult, boy_girl, teen);
             get_quotes(appointments_count_all);
             get_queries_month(queries_month);
@@ -163,497 +148,11 @@
             get_appointments_attended(appointments_attended);
             get_appointments_canceled(appointments_canceled);
             get_appointments_confirmed(appointments_confirmed);
-            get_study(count_study),
-            get_examen(count_examen),
-
-                //validar formulario
-                $('#form-load-img').validate({
-                    ignore: [],
-                    rules: {
-                        img: {
-                            required: true,
-                        },
-                        count: {
-                            required: true,
-                        }
-                    },
-                    messages: {
-                        img: {
-                            required: 'Debe cargar un Archivo',
-                        },
-                        count: {
-                            required: 'Debe selecionar un resultado',
-                        }
-                    }
-                });
-
-            //envio del formulario
-            $("#form-load-img").submit(function(event) {
-                event.preventDefault();
-                $("#form-load-img").validate();
-                if ($("#form-load-img").valid()) {
-                    $('#send').hide();
-                    $('#spinner').show();
-                    //preparar la data para el envio
-                    let formData = $('#form-load-img').serializeArray();
-                    let data = {};
-                    formData.map((item) => data[item.name] = item.value);
-                    data["exams_array"] = JSON.stringify(exams_array);
-                    data["studies_array"] = JSON.stringify(studies_array);
-                    ////end
-                    $.ajax({
-                        url: urlPost,
-                        type: 'POST',
-                        dataType: "json",
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            "data": JSON.stringify(data),
-                        },
-                        success: function(response) {
-                            $('#send').show();
-                            $('#spinner').hide();
-                            $("#form-load-img").trigger("reset");
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Centro registrado exitosamente!',
-                                allowOutsideClick: false,
-                                confirmButtonColor: '#42ABE2',
-                                confirmButtonText: '@lang('messages.botton.aceptar')'
-                            }).then((result) => {
-                                $('#ModalLoadResult').modal('toggle');
-                                $("#content-table-ref").hide();
-                                $('#search_person').val('');
-                                get_data_table()
-                            });
-                        },
-                        error: function(error) {
-                            error.responseJSON.errors.map((elm) => {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: elm,
-                                    allowOutsideClick: false,
-                                    confirmButtonColor: '#42ABE2',
-                                    confirmButtonText: 'Click para salir'
-                                }).then((result) => {
-                                    $('#send').show();
-                                    $('#spinner').hide();
-                                });
-                            });
-                        }
-                    });
-                }
-            })
-
-            $('#table-patients').DataTable({
-                pageLength: 5,
-                paging: true,
-                scroller: true,
-                scrollY: '200px',
-            });
-
+            get_study(count_study);
+            get_examen(count_examen);
 
         });
 
-        function showModal(item, active, info) {
-            if (info.length > 0) {
-                count = 0;
-                $('#count').val('');
-                $('.holder').hide();
-                $('#code_ref').val(item.cod_ref);
-                $('#img').val('');
-                $('#ModalLoadResult').modal('show');
-                $('#table-info').find('tbody').empty();
-
-                if (active == 0) {
-                    urlPost = '{{ route('upload_result_exam') }}';
-                    $('.modal-title').text('Examen del Paciente');
-                    info.map((elemt, index) => {
-                        let elemData = JSON.stringify(elemt);
-                        let label =
-                            `<label><input type="checkbox" id="cod_exam_${index}" onclick='cuontResul(event,${elemData},0,${index});'></label>`
-                        if (Number(elemt.status) === 2) {
-                            $('#div-result').hide();
-                            $('#div-btn').hide();
-                            label =
-                                `<div  class="pad"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
-                        }
-                        if (Number(elemt.status) === 1) {
-                            ;
-                            $('#div-result').show();
-                            $('#div-btn').show();
-                        }
-                        let row = `
-                        <tr>
-                            <td class="text-center">${elemt.cod_exam}</td>
-                            <td class="text-center">${elemt.description}</td>
-                            <td class="text-center">${label}</td>
-                        </tr>`;
-                        $('#table-info').find('tbody').append(row);
-
-                    });
-                } else {
-                    urlPost = '{{ route('upload_result_study') }}';
-                    $('.modal-title').text('Información del Estudio');
-                    info.map((elemt, index) => {
-
-                        let elemData = JSON.stringify(elemt);
-                        let label =
-                            `<label><input type="checkbox"  id="cod_exam_${index}" onclick='cuontResul(event,${elemData},1,${index});'></label>`
-                        if (Number(elemt.status) === 2) {
-                            label =
-                                `<div  class="prueba"><i class="bi bi-check-circle-fill" style="color: #239B56;"></i></div>`
-                            $('#div-result').hide();
-                            $('#div-btn').hide();
-                        }
-                        if (Number(elemt.status) === 1) {
-                            ;
-                            $('#div-result').show();
-                            $('#div-btn').show();
-                        }
-                        let row = `
-                        <tr>
-                            <td class="text-center">${elemt.cod_study}</td>
-                            <td class="text-center">${elemt.description}</td>
-                            <td class="text-center">${label}</label></td>
-                        </tr>`;
-                        $('#table-info').find('tbody').append(row);
-
-                    });
-                }
-                $('#ref').text(item.cod_ref);
-                $('#id').val(item.id);
-                $('#ref-pat').text(`${item.get_patient.name} ${item.get_patient.last_name}`);
-            } else {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Paciente sin exámenes/estudios solicitados por el médico!',
-                    allowOutsideClick: false,
-                    confirmButtonColor: '#42ABE2',
-                    confirmButtonText: '@lang('messages.botton.aceptar')'
-                });
-            }
-
-        }
-
-        function cuontResul(e, item, type, key) {
-            if (type == 0) {
-                if ($(`#${e.target.id}`).is(':checked')) {
-                    exams_array.push({
-                        cod_exam: item.cod_exam
-                    });
-                    count = count + 1;
-                    $('#count').val(count);
-                } else {
-                    exams_array.splice(key, 1);
-                    count = count - 1;
-                    $('#count').val(count);
-                    if (count === 0) $('#count').val('');
-                }
-            } else {
-                if ($(`#${e.target.id}`).is(':checked')) {
-                    studies_array.push({
-                        cod_study: item.cod_study
-                    });
-                    count = count + 1;
-                    $('#count').val(count);
-                } else {
-                    studies_array.splice(key, 1);
-                    count = count - 1;
-                    $('#count').val(count);
-                    if (count === 0) $('#count').val('');
-                }
-            }
-        }
-
-        function refreshTable(datatable) {
-
-            let data = [];
-
-            datatable.map((elem) => {
-                let route = "{{ route('PDF_ref', ':id') }}";
-                route = route.replace(':id', elem.id);
-                let get_exam = JSON.stringify(elem.get_exam);
-                let get_studie = JSON.stringify(elem.get_studie);
-                let elemetData = JSON.stringify(elem);
-                elem.btn =
-                    `<button onclick='showModal(${ elemetData },0,${ get_exam })'
-                        data-bs-toggle='tooltip' data-bs-placement='right'
-                        data-bs-custom-class='custom-tooltip' data-html='true'
-                        title='Ver exámenes' type='button' class='btn btn-iPrimary rounded-circle'
-                        style="margin-right: 0px">
-                        <i class='bi bi-info-circle-fill'></i>
-                    </button>`;
-                elem.btn1 =
-                    `<button onclick='showModal(${ elemetData },1,${ get_studie } )'
-                        data-bs-toggle='tooltip' data-bs-placement='right'
-                        data-bs-custom-class='custom-tooltip' data-html='true'
-                        title='Ver estudios' type='button' class='btn btn-iPrimary rounded-circle'
-                        style="margin-right: 0px">
-                        <i class='bi bi-info-circle-fill'></i>
-                    </button>`;
-
-                elem.btn2 =
-                    `<a target='_blank' href='${route}'>
-                        <button type='button' data-bs-toggle='tooltip'
-                            data-bs-placement='right'
-                            data-bs-custom-class='custom-tooltip' data-html='true'
-                            title='Ver pdf' class='btn refresf btn-iSecond rounded-circle'
-                            style="margin-right: 0px">
-                            <i class='bi bi-filetype-pdf'></i>
-                        </button>
-                    </a>`;
-
-                data.push(elem);
-
-            });
-
-            new DataTable('#table-ref', {
-                language: {
-                    url: url,
-                },
-                reponsive: true,
-                bDestroy: true,
-                data: data,
-                "searching": false,
-                "bLengthChange": false,
-                columns: [{
-                        data: 'date',
-                        title: 'Fecha Solicitud',
-                        className: "text-center w-10",
-                    },
-                    {
-                        data: 'cod_ref',
-                        title: 'Referencia',
-                        className: "text-center w-10",
-                    },
-                    // {
-                    //     data: 'cod_medical_record',
-                    //     title: 'Referencia consulta medica',
-                    //     className: "text-center",
-                    // },
-                    {
-                        data: 'get_patient.name',
-                        title: 'Nombre y Apellido',
-                        className: "text-center text-capitalize w-17",
-                    },
-                    {
-                        data: 'get_patient.ci',
-                        title: 'Cédula',
-                        className: "text-center w-10",
-                    },
-                    // {
-                    //     data: 'get_patient.genere',
-                    //     title: 'Género',
-                    //     className: "text-center text-capitalize",
-                    // },
-                    {
-                        data: 'get_patient.phone',
-                        title: 'Teléfono',
-                        className: "text-center w-10",
-                    },
-                    {
-                        data: 'btn',
-                        title: 'Exámenes',
-                        className: "text-center w-5",
-                    },
-                    {
-                        data: 'btn1',
-                        title: 'Estudios',
-                        className: "text-center w-5",
-                    },
-                    {
-                        data: 'btn2',
-                        title: 'Acciones',
-                        className: "text-center w-5",
-                    },
-                ],
-            });
-
-        }
-
-        function handlerSearPerson(e) {
-            if (Number(e.target.value) === 0) {
-                row = 'ci';
-            } else {
-                row = 'code_ref';
-            }
-            $('#search_person').attr('disabled', false);
-        }
-
-        function searchPerson() {
-            if ($('#search_person').val() != '') {
-                $('#spinner2').show();
-                let route = '{{ route('search_person', [':value', ':row']) }}';
-                route = route.replace(':value', $('#search_person').val());
-                route = route.replace(':row', 'cod_ref');
-                $.ajax({
-                    url: route,
-                    type: 'GET',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        if (response.length === 0) {
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'No existe referencias para este documento de identidad!',
-                                allowOutsideClick: false,
-                                confirmButtonColor: '#42ABE2',
-                                confirmButtonText: '@lang('messages.botton.aceptar')'
-                            })
-                            $('#spinner2').hide();
-                            $("#content-table-ref").hide();
-                            return false;
-                        }
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Operación exitosa!',
-                            allowOutsideClick: false,
-                            confirmButtonColor: '#42ABE2',
-                            confirmButtonText: '@lang('messages.botton.aceptar')'
-                        }).then((result) => {
-                            $('#spinner2').hide();
-                            $("#content-table-ref").show();
-                            refreshTable(response);
-                        });
-                    },
-                    error: function(error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: error.responseJSON.errors,
-                            allowOutsideClick: false,
-                            confirmButtonColor: '#42ABE2',
-                            confirmButtonText: '@lang('messages.botton.aceptar')'
-                        }).then((result) => {
-                            $('#send').show();
-                            $('#spinner2').hide();
-                            $(".holder").hide();
-                        });
-                    }
-                });
-            }
-        }
-
-        function get_data_table(data) {
-            $.ajax({
-                url: '{{ route('references_res') }}',
-                type: 'GET',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    ///refrezcar table examenes
-                    new DataTable('#table-ref-examenes', {
-                        language: {
-                            url: url,
-                        },
-                        reponsive: true,
-                        bDestroy: true,
-                        data: response.data_exam_res,
-                        "searching": false,
-                        "bLengthChange": false,
-                        columns: [{
-                                data: 'date_ref',
-                                title: 'Fecha Solicitud',
-                                className: "text-center w-10",
-                            },
-                            {
-                                data: 'patient_info.full_name',
-                                title: 'Nombre y Apellido',
-                                className: "text-center w-17",
-                            },
-                            {
-                                data: 'patient_info.ci',
-                                title: 'Cédula',
-                                className: "text-center w-10",
-                            },
-                            {
-                                data: 'cod_ref',
-                                title: 'Referencia',
-                                className: "text-center w-10",
-                            },
-                            // {
-                            //     data: 'cod_exam',
-                            //     title: 'código Examen',
-                            //     className: "text-center",
-                            // },
-                            {
-                                data: 'description',
-                                title: 'Descripción',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'date_upload_res',
-                                title: 'Fecha resultado',
-                                className: "text-center w-10",
-                            },
-                            // {
-                            //     data: 'patient_info.genere',
-                            //     title: 'Género',
-                            //     className: "text-center",
-                            // }
-                        ],
-                    });
-                    ///refrezcar table estudios
-                    new DataTable('#table-ref-estudios', {
-                        language: {
-                            url: url,
-                        },
-                        reponsive: true,
-                        bDestroy: true,
-                        data: response.data_study_res,
-                        "searching": false,
-                        "bLengthChange": false,
-                        columns: [{
-                                data: 'date_ref',
-                                title: 'Fecha Solicitud',
-                                className: "text-center w-10",
-                            },
-                            {
-                                data: 'patient_info.full_name',
-                                title: 'Nombre y Apellido',
-                                className: "text-center w-17",
-                            },
-                            {
-                                data: 'patient_info.ci',
-                                title: 'Cédula',
-                                className: "text-center w-10",
-                            },
-                            {
-                                data: 'cod_ref',
-                                title: 'Referencia',
-                                className: "text-center w-10",
-                            },
-                            // {
-                            //     data: 'cod_study',
-                            //     title: 'código Examen',
-                            //     className: "text-center",
-                            // },
-                            {
-                                data: 'description',
-                                title: 'Descripción',
-                                className: "text-center",
-                            },
-                            {
-                                data: 'date_upload_res',
-                                title: 'Fecha Resultado',
-                                className: "text-center w-10",
-                            },
-                            // {
-                            //     data: 'patient_info.genere',
-                            //     title: 'Género',
-                            //     className: "text-center",
-                            // }
-                        ],
-                    });
-
-                },
-                error: function(error) {
-
-                }
-            });
-
-        }
 
         const alertInfoPaciente = (id_patient) => {
             Swal.fire({
@@ -719,7 +218,7 @@
 @section('content')
     <div>
         {{-- rol medico y secretaria natural --}}
-        @if (Auth::user()->role == 'medico' || Auth::user()->role == 'secretary')
+        @if (Auth::user()->type_plane == 1 || Auth::user()->type_plane == 2 || Auth::user()->type_plane == 3 || Auth::user()->role == 'secretary')
             <div id="spinner" style="display: none" class="spinner-md">
                 <x-load-spinner show="true" />
             </div>
@@ -770,7 +269,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                @if (Auth::user()->role == 'medico' && Auth::user()->type_plane != 7)
+                                @if (Auth::user()->role == 'medico')
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="row">
                                             <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
@@ -1079,75 +578,305 @@
                     </div>
                 </div>
             </div>
+             {{-- rol medico y secretaria corporativo --}}
+        @elseif (Auth::user()->type_plane == 7 && Auth::user()->role == "medico")
+            <div id="spinner" style="display: none" class="spinner-md">
+                <x-load-spinner show="true" />
+            </div>
+            <div class="container-fluid body" style="padding: 2% 3% 3%">
+                <div class="row mt-2">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
+                        <div class="card bg-4">
+                            <div class="card-body" style="position: sticky; padding: 1% 2%;">
+                                <h4 class="mb-4 mt-2" style="color: #ffff">Dashboard Sqlapio</h4>
+                                <div class="row" style="justify-content: flex-end;">
+                                    <div class="col-sm-12 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <label for="moth_filter" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px;color:white">@lang('messages.graficas.filtros_mes')</label>
+                                                <select onchange="handleFilter(event)" name="moth_filter" id="moth_filter" placeholder="Seleccione" class="form-control combo-textbox-input " style="color: #929598;
+                                                background-color: #222f3e;
+                                                border: var(--bs-border-width) solid #9d9fa1;">
+                                                    <option value="">@lang('messages.graficas.mes')</option>
+                                                    <option value="01">@lang('messages.graficas.enero')</option>
+                                                    <option value="02">@lang('messages.graficas.febrero')</option>
+                                                    <option value="03">@lang('messages.graficas.marzo')</option>
+                                                    <option value="04">@lang('messages.graficas.abril')</option>
+                                                    <option value="05">@lang('messages.graficas.mayo')</option>
+                                                    <option value="06">@lang('messages.graficas.junio')</option>
+                                                    <option value="07">@lang('messages.graficas.julio')</option>
+                                                    <option value="08">@lang('messages.graficas.agosto')</option>
+                                                    <option value="09">@lang('messages.graficas.septiembre')</option>
+                                                    <option value="10">@lang('messages.graficas.octubre')</option>
+                                                    <option value="11">@lang('messages.graficas.noviembre')</option>
+                                                    <option value="12">@lang('messages.graficas.diciembre')</option>
+                                                </select>
+                                                <i class="bi bi-caret-down st-icon"></i>
 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="row mt-2">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">
+                                            <div class="card" style="background-color: #222f3e">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                    <div class="c-chart-wrapper mt-2 mx-3" style="height:350px; width:100%">
+                                                        <canvas id="queries_month" style="height:40vh; width:100vw"> </canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-lg-4">
+                                            <div class="card" style="background-color: #222f3e">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                        <canvas id="appointments_attended"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-lg-4">
+                                            <div class="card " style="background-color: #222f3e">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                        <canvas id="appointments_confirmed"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-lg-4">
+                                            <div class="card " style="background-color: #222f3e">
+                                                <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                    <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                        <canvas id="appointments_canceled"></canvas>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">
+                                            <div class="card" style="background-color: #222f3e">
+                                                <div class="card-body p-4">
+                                                    <div class="row" id="table-patients" style="color: #b3b3b3">
+                                                        <h5><i class="bi bi-calendar2-check" style="color: #fffff"></i>
+                                                            @lang('messages.acordion.citas')</h5>
+                                                        <div
+                                                            class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                            <table id="table-patient" class="table table-striped table-bordered table-dark" style="width:100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center w-10" scope="col"> @lang('messages.tabla.hora') </th>
+                                                                        <th class="text-center w-17" scope="col"> @lang('messages.tabla.nombre_apellido') </th>
+                                                                        @if (Auth::user()->contrie == '81')
+                                                                            <th class="text-center w-10" scope="col"> @lang('messages.form.CIE')</th>
+                                                                        @else
+                                                                            <th class="text-center w-10" scope="col"> @lang('messages.tabla.cedula')</th>
+                                                                        @endif
+                                                                        <th class="text-center w-17" scope="col"> @lang('messages.tabla.centro_salud')</th>
+                                                                        <th class="text-center w-10" scope="col"> @lang('messages.tabla.estatus')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.acciones')</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($appointments as $item)
+                                                                        @php
+                                                                            $hora = '';
 
+                                                                                if (substr($item['extendedProps']['data'], 6)) {
+                                                                                    $hora = substr($item['extendedProps']['data'], 6);
+                                                                                }
 
+                                                                                if (substr($item['extendedProps']['data'], 6) == '13:00') {
+                                                                                    $hora = '01:00';
+                                                                                }
+
+                                                                                if (substr($item['extendedProps']['data'], 6) == '14:00') {
+                                                                                    $hora = '02:00';
+                                                                                }
+
+                                                                                if (substr($item['extendedProps']['data'], 6) == '15:00') {
+                                                                                    $hora = '03:00';
+                                                                                }
+
+                                                                                if (substr($item['extendedProps']['data'], 6) == '16:00') {
+                                                                                    $hora = '04:00';
+                                                                                }
+
+                                                                                if (substr($item['extendedProps']['data'], 6) == '17:00') {
+                                                                                    $hora = '05:00';
+                                                                                }
+
+                                                                                if (substr($item['extendedProps']['data'], 6) == '18:00') {
+                                                                                    $hora = '06:00';
+                                                                                }
+
+                                                                                if (substr($item['extendedProps']['data'], 6) == '19:00') {
+                                                                                    $hora = '07:00';
+                                                                                }
+
+                                                                                if (substr($item['extendedProps']['data'], 6) == '20:00') {
+                                                                                    $hora = '08:00';
+                                                                                }
+                                                                        @endphp
+
+                                                                        <tr>
+                                                                            <td class="text-center td-pad">
+                                                                                {{ $hora . ' ' . $item['extendedProps']['time_zone_start'] }}
+                                                                            </td>
+                                                                            <td class="text-center td-pad text-capitalize">
+                                                                                {{ $item['extendedProps']['name'] . ' ' . $item['extendedProps']['last_name'] }}
+                                                                            </td>
+                                                                            @if (Auth::user()->contrie == '81')
+                                                                                <td class="text-center td-pad">
+                                                                                    {{ preg_replace('~.*(\d{3})(\d{7})(\d{1}).*~', '$1-$2-$3', $item['extendedProps']['ci']) }}
+                                                                                </td>
+                                                                            @else
+                                                                                <td class="text-center td-pad"> {{ $item['extendedProps']['ci'] }}</td>
+                                                                            @endif
+                                                                            <td class="text-center td-pad"> {{ $item['extendedProps']['center'] }}</td>
+                                                                            @php
+                                                                                $status2 = $item['extendedProps']['status'];
+                                                                            @endphp
+                                                                            <td class="text-center td-pad">
+                                                                                <span class="badge rounded-pill bg-{{ $item['extendedProps']['status_class'] }}">@lang('messages.tabla.' . $status2)</span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="d-flex" style="justify-content: center;">
+                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                        <a href="{{ $item['extendedProps']['age'] == '' ? '#' : route('MedicalRecord', $item['extendedProps']['patient_id']) }}"
+                                                                                            @php
+                                                                                                $id_patient =  $item["extendedProps"]["patient_id"];
+                                                                                            @endphp
+                                                                                            onclick='{{ $item['extendedProps']['age'] == '' ? "alertInfoPaciente($id_patient )" : '' }}'>
+                                                                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="@lang('messages.tooltips.consulta_medica')">
+                                                                                                <img width="35" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
+                                                                                            </button>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                        <button type="button"
+                                                                                            data-bs-toggle="tooltip"
+                                                                                            data-bs-placement="bottom"
+                                                                                            title="@lang('messages.tooltips.cancelar_cita')"
+                                                                                            onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}' ,'{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}')">
+                                                                                            <img width="33" height="auto" src="{{ asset('/img/icons/canceled.png') }}" alt="avatar">
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                        <button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="@lang('messages.tooltips.enviar_recordatorio')"
+                                                                                            onclick="resend_reminder('{{ $item['extendedProps']['id'] }}')">
+                                                                                            <img width="35" height="auto" src="{{ asset('/img/icons/send.png') }}" alt="avatar">
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 col-lg-7">
+                                            <div class="card" style="background-color: #222f3e;">
+                                                <div class="card-body p-4">
+                                                    <div class="row" id="table-patients" style="color: #b3b3b3">
+                                                        <h5><i class="bi bi-people" style="color: #fffff"></i>  @lang('messages.menu.pacientes')</h5>
+                                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
+                                                            <table id="table-patient" class="table table-striped table-bordered table-dark" style="width:100%;">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.nombre_apellido')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.form.email')</th>
+                                                                        <th class="text-center w-10" scope="col" data-orderable="false">@lang('messages.tabla.telefono')</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($patients as $item)
+                                                                        <tr>
+                                                                            <td class="table-avatar">
+                                                                                <img class="avatar"
+                                                                                    src=" {{ $item->patient_img ? asset('/imgs/' . $item->patient_img) : ($item->genere == 'femenino' ? asset('/img/avatar/avatar mujer.png') : asset('/img/avatar/avatar hombre.png')) }}"
+                                                                                    alt="Imagen del paciente">
+                                                                            </td>
+                                                                            <td class="text-center text-capitalize"> {{ $item->name }} {{ $item->last_name }} </td>
+                                                                            <td class="text-center text-capitalize"> {{ $item->email }}</td>
+                                                                            <td class="text-center text-capitalize"> {{ $item->phone }}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5 col-xxl-5">
+                                            <div class="row">
+                                                <div class="col-xl-12 col-lg-12">
+                                                    <div class="card" style="background-color: #222f3e; margin-bottom: 25px;">
+                                                        <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                            <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
+                                                                <canvas id="countGereral2"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6">
+                                                    <div class="card " style="background-color: #222f3e;">
+                                                        <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                            <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
+                                                                <canvas id="quotes" style="height:auto; width:100vw"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-lg-6">
+                                                    <div class="card " style="background-color: #222f3e;">
+                                                        <div class="card-body p-4" style="display: flex; justify-content: center;">
+                                                            <div class="c-chart-wrapper mt-2 mx-3" style="height:auto; width:100%">
+                                                                <canvas id="consultas_history" style="height:auto; width:100vw"></canvas>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @else
+            {{-- rol laboratorio --}}
+            <div id="spinner2" style="display: none" class="spinner-md">
+                <x-load-spinner show="true" />
+            </div>
+            <div class="container-fluid body" style="padding: 0 3% 3%">
+                <div class="accordion" id="accordion">
+                </div>
+            </div>
         @endif
     </div>
 
 
     <!-- Modal -->
-    <div class="modal fade" id="ModalLoadResult" tabindex="-1" aria-labelledby="ModalLoadResultLabel"
-        aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
-        <div id="spinner" style="display: none">
-            <x-load-spinner show="true" />
-        </div>
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header title">
-                        <span style="padding-left: 5px">@lang('messages.modal.titulo.carga_resultados')</span>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="form-load-img" method="post" action="/">
-                            {{ csrf_field() }}
-                            <input type="hidden" id="id" name="id" value="">
-                            <input type="hidden" id="code_ref" name="code_ref" value="">
-                            <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                <strong>@lang('messages.modal.titulo.referencia'): </strong><span id="ref"></span>
-                                <br>
-                                <strong>@lang('messages.modal.titulo.paciente'): </strong><span class="text-capitalize" id="ref-pat"></span>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="info-show">
-                                    <table class="table table-striped table-bordered" id="table-info">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center" scope="col">@lang('messages.modal.tabla.codigo')</th>
-                                                <th class="text-center" scope="col">@lang('messages.modal.tabla.descripcion')</th>
-                                                <th class="text-center" scope="col" data-orderable="false"> @lang('messages.modal.tabla.carga_resultado') </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
-                                </div>
-
-                                <div class="col-sm-7 md-7 lg-7 xl-7 xxl-7" style="display: none">
-                                    <div class="input-group flex-nowrap">
-                                        <span class="input-group-text">Total resultados </span>
-                                        <input type="text" id="count" name="count" class="form-control"  readonly value="">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="input-array"></div>
-                            <div id="div-btn">
-                                <div class="row mt-2 div-result">
-                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                        <x-upload-image title="@lang('messages.modal.tabla.carga_resultado')" />
-                                    </div>
-                                </div>
-                                <div class="row text-center">
-                                    <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12">
-                                        <input class="btn btnPrimary send " value="@lang('messages.botton.guardar')" type="submit" />
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
