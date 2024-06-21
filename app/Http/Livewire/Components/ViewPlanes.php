@@ -232,16 +232,22 @@ class ViewPlanes extends Component
 
             $stripe_customer = $stripe->customers->retrieve($stripe_user, [ 'expand' => ['subscriptions'] ]);
 
-            $stripe_sub_id = $stripe_customer->subscriptions->data[0]->id;
+            $stripe_sub = count($stripe_customer->subscriptions->data);
 
-            $res = json_decode((json_encode($stripe->subscriptions->retrieve($stripe_sub_id))));
+            if(count($stripe_customer->subscriptions->data) != 0){
+
+                $stripe_sub_id = $stripe_customer->subscriptions->data[0]->id;
+
+                $res = json_decode((json_encode($stripe->subscriptions->retrieve($stripe_sub_id))));
+
+            }
         }
 
         return view('livewire.components.view-planes', [
             'intent' => auth()->user()->createSetupIntent(),
             'paymentMethods' => auth()->user()->paymentMethods(),
-            'current_end' => (Auth::user()->stripe_id)?$res->current_period_end:"",
-            'current_start' => (Auth::user()->stripe_id)?$res->current_period_start:"",
+            'current_end' => $stripe_user && $stripe_sub != 0 ? $res->current_period_end : "",
+            'current_start' => $stripe_user && $stripe_sub != 0 ? $res->current_period_start : "",
         ]);
     }
 }

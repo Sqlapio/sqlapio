@@ -26,7 +26,7 @@
                                 <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-graph-up"></i> Estadisticas
+                                    <i class="bi bi-graph-up"></i> Estadisticashhh
                                 </button>
                             </span>
                             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
