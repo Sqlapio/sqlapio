@@ -582,9 +582,9 @@
         const regiterCenter = () => {
 
             $("#form-register").trigger("reset");
-            $("#div-new-center").toggle();
-            $('#id_select').val(null).change();
+            $('#select_dos_dairy').val('').change();
             $("#id_center").val(null);
+            $("#div-new-center").toggle();
             $("#search-patients-show").hide();
         }
 
