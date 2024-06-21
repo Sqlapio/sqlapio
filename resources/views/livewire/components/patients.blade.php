@@ -172,6 +172,7 @@
             });
 
             getUrl(urlPostCreateAppointment, urlDiary);
+            
             if (user.type_plane != '7' && centers.length === 0) {
                 Swal.fire({
                     icon: 'warning',

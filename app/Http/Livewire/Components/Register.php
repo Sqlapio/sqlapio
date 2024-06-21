@@ -122,7 +122,6 @@ class Register extends Component
             $user->email_verified_at = $date_today;
 
             if ($request->type_plan == '1' || $request->type_plan == 'corporate_medico') {
-
                 $user->role = "medico";
             } elseif ($request->type_plan == '4') {
                 $user->role = "laboratorio";

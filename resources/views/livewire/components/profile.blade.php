@@ -596,8 +596,7 @@
                                 <i class="bi bi-person"></i> @lang('messages.acordion.datos_personales')
                             </button>
                         </span>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                            data-bs-parent="#accordion">
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
                             <div class="accordion-body"
                                 style="{{ Auth::user()->role == 'corporativo' ? 'padding: 0px 16px' : '' }}">
                                 <form id="form-profile" method="post" action="/">
@@ -656,11 +655,9 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 @if (Auth::user()->contrie == '81')
-                                                                    <label for="ci" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
+                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
                                                                 @else
-                                                                    <label for="ci" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
+                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
                                                                 @endif
                                                                 <input autocomplete="off" placeholder=""
                                                                     class="form-control @error('ci') is-invalid @enderror"
@@ -771,8 +768,7 @@
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="phone" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
+                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
                                                         <textarea id="address" rows="1" name="address" class="form-control @error('address') is-invalid @enderror"
                                                             value="{!! !empty($user) ? $user->address : '' !!}"></textarea>
                                                         <i class="bi bi-geo st-icon"></i>
@@ -783,8 +779,7 @@
                                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="name" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.piso_consultorio')</label>
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.piso_consultorio')</label>
                                                             <input autocomplete="off"
                                                                 class="form-control mask-alfa-numeric @error('number_floor') is-invalid @enderror"
                                                                 id="number_floor" maxlength="10" name="number_floor"
@@ -796,8 +791,7 @@
                                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="name" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_consultorio')</label>
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_consultorio')</label>
                                                             <input autocomplete="off" maxlength="10"
                                                                 class="form-control mask-alfa-numeric @error('number_consulting_room') is-invalid @enderror"
                                                                 id="number_consulting_room" name="number_consulting_room"
@@ -809,8 +803,7 @@
                                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="name" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_tel_consultorio')</label>
+                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_tel_consultorio')</label>
                                                             <input autocomplete="off"
                                                                 class="form-control phone @error('number_consulting_phone') is-invalid @enderror"
                                                                 id="number_consulting_phone"
@@ -821,8 +814,7 @@
                                                     </diV>
                                                 </div>
                                             @endif
-                                            <x-ubigeo_contries
-                                                class="{{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3' : 'col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2' }}  mt-2" />
+                                            <x-ubigeo_contries class="{{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3' : 'col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2' }}  mt-2" />
 
                                             <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                 <div class="form-group">
@@ -1019,10 +1011,8 @@
                                             </div>
                                         @endif
 
-                                        <div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl-2 mb-btn {{ Auth::user()->role == 'corporativo' ? 'mb-btnSve' : '' }}"
-                                            style="display: flex; align-items: flex-end;">
-                                            <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit"
-                                                style="margin-bottom: 1px; width: 100%;" />
+                                        <div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl-2 mb-btn {{ Auth::user()->role == 'corporativo' ? 'mb-btnSve' : '' }}" style="display: flex; align-items: flex-end;">
+                                            <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="margin-bottom: 1px; width: 100%;" />
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <div id="spinner" style="display: none">

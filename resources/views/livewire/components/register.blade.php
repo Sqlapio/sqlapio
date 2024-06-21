@@ -277,7 +277,7 @@
             $.validator.addMethod("onlyNumber", function(value, element) {
                 var pattern = /^[0-9-]*$/;
                 return pattern.test(value);
-            }, "Campo numérico");
+            }, "@lang('messages.alert.campo_numerico')");
 
             $.validator.addMethod("handlerPass", function(value, element) {
                 let validate = false;
@@ -285,7 +285,7 @@
                     validate = true;
                 }
                 return validate;
-            }, "Contraseña no coinciden");
+            }, "@lang('messages.alert.contraseña_no_coincide')");
 
         });
 

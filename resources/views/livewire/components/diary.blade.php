@@ -134,6 +134,8 @@
 @push('scripts')
     @vite(['resources/js/dairy.js'])
     <script>
+
+
         $(document).ready(() => {
             let route = "{{ route('MedicalRecord', ':id') }}";
             let routeCancelled = "{{ route('cancelled_appointments', ':id') }}";
@@ -144,10 +146,24 @@
             let imge_avatar = "{{ URL::asset('/img/avatar/') }}";
             let ulrPaciente = "{{ route('Patients', ':id_patient') }}";
             let user = @json(Auth::user());
+            let centers = @json($centers);
 
             let urlPostCreateAppointment = '{{ route('CreateAppointment') }}';
             getUrl(urlPostCreateAppointment, url2);
             getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments, imge_avatar,ulrPaciente, user);
+
+
+            if (user.type_plane != '7' && centers.length === 0) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: '@lang('messages.alert.asociar_centro')',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#42ABE2',
+                    confirmButtonText: '@lang('messages.botton.aceptar')'
+                }).then((result) => {
+                window.location.href = "{{ route('Centers') }}";
+            });
+        }
 
         });
 

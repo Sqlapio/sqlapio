@@ -527,8 +527,7 @@
                 <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3" style="display: flex; justify-content: center;">
                     <div class="card-wrap">
                         <div class="card-header one">
-                            <img width="80" height="auto" src="{{ asset('/img/icons/medical-report3.png') }}"
-                                alt="avatar">
+                            <img width="80" height="auto" src="{{ asset('/img/icons/medical-report3.png') }}" alt="avatar">
                         </div>
                         <div class="card-content">
                             <h1 class="card-title-2">@lang('messages.label.consulta')</h1>
@@ -544,8 +543,7 @@
                     style="display: flex; justify-content: center;">
                     <div class="card-wrap">
                         <div class="card-header one">
-                            <img width="80" height="auto" src="{{ asset('/img/icons/medical-report.png') }}"
-                                alt="avatar">
+                            <img width="80" height="auto" src="{{ asset('/img/icons/medical-report.png') }}" alt="avatar">
                         </div>
                         <div class="card-content">
                             <h1 class="card-title-2">@lang('messages.label.examenes')</h1>
@@ -560,8 +558,7 @@
                     style="display: flex; justify-content: center;">
                     <div class="card-wrap">
                         <div class="card-header one">
-                            <img width="80" height="auto" src="{{ asset('/img/icons/medical1.png') }}"
-                                alt="avatar">
+                            <img width="80" height="auto" src="{{ asset('/img/icons/medical1.png') }}" alt="avatar">
                         </div>
                         <div class="card-content">
                             <h1 class="card-title-2">@lang('messages.label.estudios')</h1>
@@ -595,12 +592,11 @@
                         <br>
 
                         @if (@$this->defaultPaymentMethod->id != $paymentMethod->id)
-                        <Button wire:click="$emit('delete_PaymentMethod', '{{ $paymentMethod->id }}')"><i class="bi bi-trash mt-2"></i></Button>
-                        <Button wire:click="$emit('default_PaymentMethod', '{{ $paymentMethod->id }}')"><i class="bi bi-star mt-2"></i></Button>
+                            <Button wire:click="$emit('delete_PaymentMethod', '{{ $paymentMethod->id }}')"><i class="bi bi-trash mt-2"></i></Button>
+                            <Button wire:click="$emit('default_PaymentMethod', '{{ $paymentMethod->id }}')"><i class="bi bi-star mt-2"></i></Button>
                         @endif
                         <div class="credit-card-expiry">
-                            @lang('messages.label.expira'):
-                            {{ $paymentMethod->card->exp_month }} / {{ $paymentMethod->card->exp_year }}
+                            @lang('messages.label.expira'): {{ $paymentMethod->card->exp_month }} / {{ $paymentMethod->card->exp_year }}
 
                             @if (@$this->defaultPaymentMethod->id == $paymentMethod->id)
                                 <span class="badge rounded-pill text-bg-secondary" style="margin-top: 10px">@lang('messages.label.predeterminado')</span>
@@ -621,8 +617,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        style="font-size: 12px; justify-content: center"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px; justify-content: center"></button>
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                         <div class="text-center">
                             <img class="img" src="{{ asset('img/V2/stripe.png') }}" style="width: 110px;">

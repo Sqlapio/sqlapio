@@ -16,19 +16,19 @@ class Profile extends Component
         try {
 
             $rules = [
-                'name'          => 'required',
-                'last_name'     => 'required',
-                'ci'            => 'required',
-                'genere'        => 'required',
-                'phone'         => 'required',
+                'name'      => 'required',
+                'last_name' => 'required',
+                'ci'        => 'required',
+                'genere'    => 'required',
+                'phone'     => 'required',
             ];
 
             $msj = [
-                'name'                    => __('messages.alert.nombre_obligatorio'),
-                'last_name'               => __('messages.alert.apellido_obligatorio'),
-                'ci'                      => __('messages.alert.cedula_obligatoria'),
-                'genere'                  => __('messages.alert.genero_obligatorio'),
-                'phone'                   => __('messages.alert.telefono_obligatorio'),
+                'name'      => __('messages.alert.nombre_obligatorio'),
+                'last_name' => __('messages.alert.apellido_obligatorio'),
+                'ci'        => __('messages.alert.cedula_obligatoria'),
+                'genere'    => __('messages.alert.genero_obligatorio'),
+                'phone'     => __('messages.alert.telefono_obligatorio'),
             ];
             $validator = Validator::make($request->all(), $rules, $msj);
 
@@ -41,12 +41,12 @@ class Profile extends Component
 
             User::where('id', auth()->user()->id)
                 ->update([
-                    'name'         => $request->name,
-                    'last_name' => $request->last_name,
-                    'ci'         => $request->ci,
-                    'genere'    => $request->genere,
-                    'phone'     => $request->phonenumber_prefix . "-" . $request->phone,
-                    'address'     => $request->address,
+                    'name'            => $request->name,
+                    'last_name'       => $request->last_name,
+                    'ci'              => $request->ci,
+                    'genere'          => $request->genere,
+                    'phone'           => $request->phonenumber_prefix . "-" . $request->phone,
+                    'address'         => $request->address,
                     'status_register' => '2',
                 ]);
 
@@ -65,7 +65,7 @@ class Profile extends Component
                 'success' => false,
                 'errors'  => "Error interno"
             ], 500);
-            
+
         }
     }
     public function render()

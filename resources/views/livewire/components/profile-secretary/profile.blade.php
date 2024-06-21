@@ -38,13 +38,13 @@
                     },
                     genere: {
                         required: true,
-                    },                 
+                    },
                     address: {
                         required: true,
-                    },                   
+                    },
                     phone: {
                         required: true,
-                    },                  
+                    },
                 },
                 messages: {
                     name: {
@@ -68,13 +68,13 @@
                     },
                     genere: {
                         required: "@lang('messages.alert.genero_obligatorio')",
-                    },                
+                    },
                     address: {
                         required: "@lang('messages.alert.direccion_obligatoria')",
-                    },                   
+                    },
                     phone: {
                         required: "@lang('messages.alert.telefono_obligatorio')",
-                    }                    
+                    }
                 },
 
 
@@ -148,7 +148,7 @@
                             <button class="accordion-button bg-1" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
                                 style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                <i class="bi bi-graph-up"></i> Datos del usuario
+                                <i class="bi bi-person"></i> @lang('messages.acordion.datos_personales')
                             </button>
                         </span>
                         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
@@ -163,12 +163,10 @@
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Nombres</label>
+                                                    <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
                                                     <input autocomplete="off" placeholder="" class="form-control mask-text"
                                                         id="name" name="name" type="text" {{-- value="{!! !empty($user) ? $user->name : '' !!}"> --}}
                                                         value="{{ Auth::user()->name }}">
-
                                                     <i class="bi bi-person-circle" style="top: 30px"></i>
                                                 </div>
                                             </diV>
@@ -177,8 +175,7 @@
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="last_name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Apellidos</label>
+                                                    <label for="last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
                                                     <input autocomplete="off" placeholder="" class="form-control mask-text"
                                                         id="last_name" name="last_name" type="text"
                                                         value="{{ Auth::user()->last_name }}">
@@ -191,9 +188,11 @@
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="ci" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Cédula
-                                                        de identidad</label>
+                                                    @if (Auth::user()->contrie == '81')
+                                                         <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
+                                                    @else
+                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
+                                                    @endif
                                                     <input autocomplete="off" placeholder="" type="number"
                                                         class="form-control" id="ci" name="ci" type="text"
                                                         value="{{ Auth::user()->ci }}">
@@ -205,8 +204,7 @@
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="genere" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Género</label>
+                                                    <label for="genere" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.genero')</label>
                                                     <select name="genere" id="genere"
                                                         placeholder="Seleccione"class="form-control"
                                                         class="form-control combo-textbox-input">
@@ -222,9 +220,7 @@
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="username" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Correo
-                                                        electrónico</label>
+                                                    <label for="username" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
                                                     <input autocomplete="off" placeholder="" class="form-control"
                                                         id="username" name="username" type="text" readonly
                                                         value="{{ Auth::user()->email }}">
@@ -240,8 +236,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">Dirección</label>
+                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
                                                     <textarea id="address" rows="3" name="address" class="form-control" value="{{ Auth::user()->address }}"></textarea>
                                                     <i class="bi bi-geo st-icon"></i>
                                                 </div>
@@ -253,8 +248,7 @@
                                     <div class="row mt-3 justify-content-md-end">
                                         <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                             style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                            <input class="btn btnSave send " value="Guardar" type="submit"
-                                                style="margin-left: 20px" />
+                                            <input class="btn btnSave send " value="Guardar" type="submit" style="margin-left: 20px" />
                                             {{-- <button type="button" class="btn btnSecond btn6"
                                                 style="margin-left: 20px">Cancelar</button> --}}
                                         </div>
