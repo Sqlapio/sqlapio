@@ -278,7 +278,7 @@
             $.validator.addMethod("onlyNumber", function(value, element) {
                 var pattern = /^[0-9-]*$/;
                 return pattern.test(value);
-            }, "Campo numérico");
+            }, "@lang('messages.alert.campo_numerico')");
 
             $.validator.addMethod("handlerPass", function(value, element) {
                 let validate = false;
@@ -286,7 +286,7 @@
                     validate = true;
                 }
                 return validate;
-            }, "Contraseña no coinciden");
+            }, "@lang('messages.alert.contraseña_no_coincide')");
 
         });
 
@@ -404,7 +404,6 @@
                         maxlength: 50,
                     });
 
-
                     break;
 
                 case 3:
@@ -426,58 +425,8 @@
                         maxlength: 50,
                     });
 
-
                     break;
 
-                case 4:
-
-                    $('#ci').attr("placeholder", '@lang('messages.select.firma_personal')');
-                    $('#div_name').hide();
-                    $('#div_last_name').hide();
-                    $('#div_business_name').show();
-
-                    $("#name").rules('remove');
-                    $("#last_name").rules('remove');
-
-                    break;
-
-                case 5:
-
-                    $('#ci').attr("placeholder", '@lang('messages.select.juridico')');
-                    $('#div_name').hide();
-                    $('#div_last_name').hide();
-                    $('#div_business_name').show();
-
-
-                    $("#name").rules('remove');
-                    $("#last_name").rules('remove');
-
-                    break;
-                case 6:
-
-                    $('#ci').attr("placeholder", '@lang('messages.select.comuna')');
-                    $('#div_name').hide();
-                    $('#div_last_name').hide();
-                    $('#div_business_name').show();
-
-
-                    $("#name").rules('remove');
-                    $("#last_name").rules('remove');
-
-                    break;
-
-                case 7:
-
-                    $('#ci').attr("placeholder", '@lang('messages.select.gubernamental')');
-                    $('#div_name').hide();
-                    $('#div_last_name').hide();
-                    $('#div_business_name').show();
-
-
-                    $("#name").rules('remove');
-                    $("#last_name").rules('remove');
-
-                    break;
             }
 
 
@@ -534,10 +483,6 @@
                                             <option value="1">@lang('messages.select.cedula')</option>
                                             <option value="2">@lang('messages.select.CIE')</option>
                                             <option value="3">@lang('messages.select.pasaporte')</option>
-                                            <option value="4">@lang('messages.select.firma_personal')</option>
-                                            <option value="5">@lang('messages.select.juridico')</option>
-                                            <option value="6">@lang('messages.select.comuna')</option>
-                                            <option value="7">@lang('messages.select.gubernamental')</option>
                                         </select>
                                     </div>
                                 </div>

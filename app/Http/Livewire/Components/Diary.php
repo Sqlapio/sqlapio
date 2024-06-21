@@ -291,6 +291,8 @@ class Diary extends Component
 
         $patient = UtilsController::get_patients($id);
 
-        return view('livewire.components.diary', compact('appointments', 'patient'));
+        $centers = DoctorCenter::where('user_id', Auth::user()->id)->where('status', 1)->get();
+
+        return view('livewire.components.diary', compact('appointments', 'patient', 'centers'));
     }
 }
