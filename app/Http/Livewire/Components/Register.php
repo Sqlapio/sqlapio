@@ -184,7 +184,7 @@ class Register extends Component
             } elseif ($request->type_plan == "corporate_medico") {
 
                 User::where("id", $user->id)->update([
-                    "center_id" => decrypt($center_id)
+                    "center_id" => decrypt($request->coporate_id)
                 ]);
                 # code...
                 /**Registro la accion del usuario registrado en el log */
