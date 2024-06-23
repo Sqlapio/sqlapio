@@ -397,6 +397,7 @@ return [
         'citas_del_dia'       => 'Quotes of the day',
         'documento_identidad' => 'ID',
         'consultas_medicas'   => 'Patients medical consultations',
+        'centros_doctor'       => 'Centers associated with the doctor',
     ],
 
     'select' => [

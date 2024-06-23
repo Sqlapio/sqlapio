@@ -45,6 +45,9 @@
                     phone: {
                         required: true,
                     },
+                    center_id: {
+                        required: true,
+                    },
                 },
                 messages: {
                     name: {
@@ -73,6 +76,9 @@
                         required: "@lang('messages.alert.direccion_obligatoria')",
                     },
                     phone: {
+                        required: "@lang('messages.alert.telefono_obligatorio')",
+                    },
+                    center_id: {
                         required: "@lang('messages.alert.telefono_obligatorio')",
                     }
                 },
@@ -110,7 +116,8 @@
                                 confirmButtonColor: '#42ABE2',
                                 confirmButtonText: '@lang('messages.botton.aceptar')'
                             }).then((result) => {
-                                window.location.href = "{{ route('DashboardComponent') }}";
+                                window.location.href =
+                                    "{{ route('DashboardComponent') }}";
                             });
                         },
                         error: function(error) {
@@ -135,7 +142,6 @@
                 }
             });
         });
-
     </script>
 @endpush
 @section('content')
@@ -163,7 +169,8 @@
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
+                                                    <label for="name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
                                                     <input autocomplete="off" placeholder="" class="form-control mask-text"
                                                         id="name" name="name" type="text" {{-- value="{!! !empty($user) ? $user->name : '' !!}"> --}}
                                                         value="{{ Auth::user()->name }}">
@@ -175,7 +182,8 @@
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
+                                                    <label for="last_name" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
                                                     <input autocomplete="off" placeholder="" class="form-control mask-text"
                                                         id="last_name" name="last_name" type="text"
                                                         value="{{ Auth::user()->last_name }}">
@@ -189,9 +197,11 @@
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     @if (Auth::user()->contrie == '81')
-                                                         <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
+                                                        <label for="ci" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
                                                     @else
-                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
+                                                        <label for="ci" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
                                                     @endif
                                                     <input autocomplete="off" placeholder="" type="number"
                                                         class="form-control" id="ci" name="ci" type="text"
@@ -204,7 +214,8 @@
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="genere" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.genero')</label>
+                                                    <label for="genere" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.genero')</label>
                                                     <select name="genere" id="genere"
                                                         placeholder="Seleccione"class="form-control"
                                                         class="form-control combo-textbox-input">
@@ -217,10 +228,31 @@
                                             </div>
                                         </div>
 
+
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="username" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
+                                                    <label for="center_id" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.centros_doctor')</label>
+                                                    <select name="center_id" id="center_id"
+                                                        placeholder="Seleccione"class="form-control"
+                                                        class="form-control combo-textbox-input">
+                                                        <option value="">Seleccione</option>
+                                                        @foreach ($centerDoctor as $item)
+                                                            <option value="{{ $item->center_id }}">{{ $item->address }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    <i class="bi bi-gender-ambiguous st-icon"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="username" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
                                                     <input autocomplete="off" placeholder="" class="form-control"
                                                         id="username" name="username" type="text" readonly
                                                         value="{{ Auth::user()->email }}">
@@ -236,7 +268,8 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
+                                                    <label for="phone" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
                                                     <textarea id="address" rows="3" name="address" class="form-control" value="{{ Auth::user()->address }}"></textarea>
                                                     <i class="bi bi-geo st-icon"></i>
                                                 </div>
@@ -248,7 +281,8 @@
                                     <div class="row mt-3 justify-content-md-end">
                                         <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                             style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                            <input class="btn btnSave send " value="Guardar" type="submit" style="margin-left: 20px" />
+                                            <input class="btn btnSave send " value="Guardar" type="submit"
+                                                style="margin-left: 20px" />
                                             {{-- <button type="button" class="btn btnSecond btn6"
                                                 style="margin-left: 20px">Cancelar</button> --}}
                                         </div>

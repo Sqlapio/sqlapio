@@ -21,6 +21,8 @@ class Profile extends Component
                 'ci'        => 'required',
                 'genere'    => 'required',
                 'phone'     => 'required',
+                'center_id'     => 'required',
+
             ];
 
             $msj = [
@@ -29,6 +31,7 @@ class Profile extends Component
                 'ci'        => __('messages.alert.cedula_obligatoria'),
                 'genere'    => __('messages.alert.genero_obligatorio'),
                 'phone'     => __('messages.alert.telefono_obligatorio'),
+                'center_id'     => __('messages.alert.telefono_obligatorio'),
             ];
             $validator = Validator::make($request->all(), $rules, $msj);
 
@@ -48,6 +51,7 @@ class Profile extends Component
                     'phone'           => $request->phonenumber_prefix . "-" . $request->phone,
                     'address'         => $request->address,
                     'status_register' => '2',
+                    'center_id'       => $request->center_id,                    
                 ]);
 
             $action = '4';
@@ -70,6 +74,9 @@ class Profile extends Component
     }
     public function render()
     {
-        return view('livewire.components.profile-secretary.profile');
+
+        $centerDoctor = auth()->user()->get_data_corporate_master->get_doctors;
+
+        return view('livewire.components.profile-secretary.profile',compact("centerDoctor"));
     }
 }

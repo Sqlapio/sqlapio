@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Http\Livewire\Components\Doctors;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -192,4 +194,11 @@ class User extends Authenticatable {
     {
         return $this->hasMany(Treatment::class, 'id', 'user_id');
     }
+
+	
+    public function get_doctors(): HasMany
+    {
+        return $this->hasMany(DoctorCenter::class, 'user_id', 'id');
+    }
+
 }
