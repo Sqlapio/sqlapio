@@ -263,11 +263,11 @@ return [
     ],
 
     'subtitulos' => [
-        'estudios_res'     => 'Estudios con Resultados',
-        'estudios_sin_res' => 'Estudios sin Resultados',
-        'examenes_res'     => 'Exámenes con Resultados',
-        'examenes_sin_res' => 'Exámenes sin Resultados',
-        'pacientes_registrados' => 'Pacientes Registrado en Sistema',
+        'estudios_res'          => 'Estudios con Resultados',
+        'estudios_sin_res'      => 'Estudios sin Resultados',
+        'examenes_res'          => 'Exámenes con Resultados',
+        'examenes_sin_res'      => 'Exámenes sin Resultados',
+        'pacientes_registrados' => 'Pacientes Registrados en Sistema',
     ],
 
     'tabla' => [
@@ -396,7 +396,7 @@ return [
         'citas_del_dia'       => 'Citas del dia',
         'documento_identidad' => 'Documento de Identidad',
         'consultas_medicas'   => 'Consultas medicas del paciente',
-        'centros_doctor'   => 'Centros asociados al medico',
+        'centros_doctor'      => 'Centros asociados al medico',
     ],
 
     'select' => [

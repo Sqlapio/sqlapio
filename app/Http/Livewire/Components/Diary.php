@@ -166,6 +166,32 @@ class Diary extends Component
             if (auth()->user()->role == "medico" && auth()->user()->type_plane == "7") {
 
                 $data_center = auth()->user();
+
+
+                /** cuando es una secretaria de un medico corporativo */
+            } elseif (auth()->user()->role == "secretary" && auth()->user()->get_data_corporate_master->type_plane == "7") {
+
+
+                $dataCenter = auth()->user()->get_data_corporate_master;
+
+
+                $numberFloor = $dataCenter->number_floor;
+                $nameDoctor = $dataCenter->name . ' ' . $dataCenter->last_name;
+                $numberConsultingRoom = $dataCenter->number_consulting_room;
+                $phoneConsultingRoom = $dataCenter->phone_consulting_room;
+
+                /** cuando es una secretaria de un medico natural */
+            } elseif (auth()->user()->role == "secretary") {
+
+                $dataCenter = auth()->user()->get_data_corporate_master->get_doctors;
+
+                foreach($dataCenter as $item){
+                    $nameDoctor = $item->name . ' ' . $item->last_name;
+                    $numberFloor = $item->number_floor;
+                    $numberConsultingRoom = $item->number_consulting_room;
+                    $phoneConsultingRoom = $item->phone_consulting_room;
+                }
+
             } else {
 
                 $data_center = DoctorCenter::where('user_id', $user->id)->where('center_id', $appointment->get_center->id)->first();
@@ -173,11 +199,12 @@ class Diary extends Component
             $dir = str_replace(' ', '%20', $appointment->get_center->description);
             $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $appointment->get_center->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
 
+
             /**Si el medico pertenece a un plan coorporativo se toma la informacion del centro al que esta asociado */
             if (isset($center_id_corporativo)) {
                 $type = 'appointment';
                 $mailData = [
-                    'dr_name'       => $user->name . ' ' . $user->last_name,
+                    'dr_name'       => auth()->user()->role == "secretary" ? $nameDoctor : $user->name . ' ' . $user->last_name,
                     'dr_email'      => $user->email,
                     'patient_name'  => $patient->name . ' ' . $patient->last_name,
                     'cod_patient'   => $patient->patient_code,
@@ -185,9 +212,9 @@ class Diary extends Component
                     'fecha'         => $request->date_start,
                     'horario'       => $date[0] . ' ' . $request->timeIni,
                     'centro'        => $appointment->get_center->description,
-                    'piso'          => $data_center->number_floor,
-                    'consultorio'   => $data_center->number_consulting_room,
-                    'telefono'      => $data_center->phone_consulting_room,
+                    'piso'          => auth()->user()->role == "secretary" ? $numberFloor : $data_center->number_floor,
+                    'consultorio'   => auth()->user()->role == "secretary" ? $numberConsultingRoom : $data_center->number_consulting_room,
+                    'telefono'      => auth()->user()->role == "secretary" ? $phoneConsultingRoom : $data_center->phone_consulting_room,
                     'ubication'     => $ubication,
                     'link'          => 'https://system.sqlapio.com/confirmation/dairy/' . $appointment->code,
                 ];

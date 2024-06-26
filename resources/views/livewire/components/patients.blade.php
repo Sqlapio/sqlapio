@@ -114,9 +114,7 @@
         $(document).ready(() => {
 
             if (patient.length == undefined) {
-
                 editPatien(patient, true);
-
             }
 
             let ulrImge = `{{ URL::asset('/img/V2/combinado.png') }}`;
@@ -172,7 +170,7 @@
             });
 
             getUrl(urlPostCreateAppointment, urlDiary);
-            
+
             if (user.type_plane != '7' && centers.length === 0) {
                 Swal.fire({
                     icon: 'warning',
@@ -352,7 +350,6 @@
 
                 }
             });
-
             $.validator.addMethod("onlyNumber", function(value, element) {
                 var pattern = /^[0-9-]*$/;
                 return pattern.test(value);
@@ -413,10 +410,6 @@
                                 $("#re_phone").attr('readonly', true);
                                 $("#re_email").attr('readonly', true);
 
-
-
-
-
                                 switch_type_plane(user.type_plane, response[1]);
                             });
                         },
@@ -442,12 +435,13 @@
         });
 
         function handlerAge(e) {
+            console.log(Number($("#age").val()))
             if (Number($("#age").val()) >= 18) {
-                $("#ci").rules('add', {
-                    required: true,
-                    minlength: 5,
-                    onlyNumber: true
-                });
+                // $("#ci").rules('add', {
+                //     required: true,
+                //     minlength: 5,
+                //     onlyNumber: true
+                // });
                 $('#data-rep').hide();
                 $('#is_minor').val(false);
                 $("#profesion-div").show();
@@ -478,7 +472,6 @@
             if (active) {
                 $(".accordion-collapseOne").collapse('show')
             }
-
             $("#id").val(item.id);
             $("#name").val(item.name);
             $("#last_name").val(item.last_name);
@@ -1256,7 +1249,7 @@
                                                                     <div class="d-flex">
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <button
-                                                                                onclick="editPatien({{ json_encode($item) }},true); "
+                                                                                onclick="editPatien({{ json_encode($item) }},true);"
                                                                                 type="button" data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
                                                                                 title="@lang('messages.tooltips.editar')">

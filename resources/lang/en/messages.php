@@ -263,10 +263,10 @@ return [
     ],
 
     'subtitulos' => [
-        'estudios_res'     => 'Studies with Results',
-        'estudios_sin_res' => 'Studies without Results',
-        'examenes_res'     => 'Exams with Results',
-        'examenes_sin_res' => 'Exams without Results',
+        'estudios_res'          => 'Studies with Results',
+        'estudios_sin_res'      => 'Studies without Results',
+        'examenes_res'          => 'Exams with Results',
+        'examenes_sin_res'      => 'Exams without Results',
         'pacientes_registrados' => 'Patients Registered in System',
     ],
 
@@ -397,7 +397,7 @@ return [
         'citas_del_dia'       => 'Quotes of the day',
         'documento_identidad' => 'ID',
         'consultas_medicas'   => 'Patients medical consultations',
-        'centros_doctor'       => 'Centers associated with the doctor',
+        'centros_doctor'      => 'Centers associated with the doctor',
     ],
 
     'select' => [
@@ -576,7 +576,7 @@ return [
         'correo_actualizado'        => 'Your email was updated successfully',
         'clave_actualizada'         => 'Your password was successfully updated',
         'codigov_incorrecto'        => 'Your verification code is incorrect',
-        'registro_inicial_sas'          => 'Successful initial registration',
+        'registro_inicial_sas'      => 'Successful initial registration',
         'sesion_duplicada'          => 'You have a duplicate session. Please try again',
         'contraseña_6_caracteres'   => 'Password must be longer than 6 characters',
         'contraseña_8_caracteres'   => 'Password must be less than 8 characters',
