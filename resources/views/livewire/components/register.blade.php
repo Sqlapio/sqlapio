@@ -648,10 +648,6 @@
                                                 <option value="1">@lang('messages.select.cedula')</option>
                                                 <option value="2">@lang('messages.select.CIE')</option>
                                                 <option value="3">@lang('messages.select.pasaporte')</option>
-                                                {{-- <option value="4">@lang('messages.select.firma_personal')</option>
-                                                    <option value="5">@lang('messages.select.juridico')</option>
-                                                    <option value="6">@lang('messages.select.comuna')</option>
-                                                    <option value="7">@lang('messages.select.gubernamental')</option> --}}
                                             </select>
                                         </div>
                                     </div>

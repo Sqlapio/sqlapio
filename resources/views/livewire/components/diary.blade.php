@@ -148,22 +148,35 @@
             let user = @json(Auth::user());
             let centers = @json($centers);
 
+
+
             let urlPostCreateAppointment = '{{ route('CreateAppointment') }}';
             getUrl(urlPostCreateAppointment, url2);
             getAppointments(appointments, route, routeCancelled, url2, ulrImge, update_appointments, imge_avatar,ulrPaciente, user);
 
+            if (user.type_plane != '7' && centers.length === 0 && user.role == 'medico') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '@lang('messages.alert.asociar_centro')',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#42ABE2',
+                        confirmButtonText: '@lang('messages.botton.aceptar')'
+                    }).then((result) => {
+                    window.location.href = "{{ route('Centers') }}";
+                });
+            }
 
-            if (user.type_plane != '7' && centers.length === 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: '@lang('messages.alert.asociar_centro')',
-                    allowOutsideClick: false,
-                    confirmButtonColor: '#42ABE2',
-                    confirmButtonText: '@lang('messages.botton.aceptar')'
-                }).then((result) => {
-                window.location.href = "{{ route('Centers') }}";
-            });
-        }
+            if (user.role == 'secretary' && user.center_id == null ) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '@lang('messages.alert.asociar_centro')',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#42ABE2',
+                        confirmButtonText: '@lang('messages.botton.aceptar')'
+                    }).then((result) => {
+                    window.location.href = "{{ route('profile-user-secretary') }}";
+                });
+            }
 
         });
 
@@ -172,11 +185,8 @@
             if ($(`#${e.target.id}`).is(':checked')) {
 
                 $(".form-patient-register").show();
-
                 $("#search-patients-show").hide();
-
                 $("#div-pat").hide();
-
                 $("#patient_new").val(true);
 
             } else {
@@ -186,13 +196,8 @@
                 $("#phone_patient").val('');
                 $("#email_patient").val('');
                 // $("#birthdate_patient").val('');
-
                 $("#patient_new").val(false);
-
-
                 $("#search-patients-show").show();
-
-
                 $(".form-patient-register").hide();
 
             }
@@ -209,9 +214,7 @@
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
                     <div class="card accordion-diary">
                         <div class="card-body" style="position: sticky">
-                            {{-- <div class="d-flex"> --}}
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id='calendar'></div>
-                            {{-- </div> --}}
                         </div>
                     </div>
                 </div>
@@ -223,8 +226,7 @@
                         <div class="modal-header title">
                             <i class="bi bi-calendar-week"></i>
                             <span style="padding-left: 5px" id="title-modal"></span>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                style="font-size: 12px;"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 12px;"></button>
                         </div>
                         <div class="modal-body">
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" id="date-lb">
@@ -365,8 +367,7 @@
                                             <input class="btn btnSave" id="registrer-pac" value="@lang('messages.botton.agendar_cita')" disabled  type="submit" />
                                         </div>
                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 m-xs" id="btn-con"></div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell">
-                                        </div>
+                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" id="btn-cancell"></div>
                                     </div>
                                 </div>
                             </form>

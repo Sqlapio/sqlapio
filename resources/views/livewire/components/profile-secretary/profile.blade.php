@@ -6,10 +6,9 @@
 
             let user = @json(auth()->user());
 
-
             $('#address').val(user.address).change();
-
             $('#genere').val(user.genere).change();
+            $('#center_id').val(user.center_id).change();
 
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             tooltipTriggerList.forEach(element => {
@@ -79,7 +78,7 @@
                         required: "@lang('messages.alert.telefono_obligatorio')",
                     },
                     center_id: {
-                        required: "@lang('messages.alert.telefono_obligatorio')",
+                        required: "@lang('messages.alert.centro_obligatorio')",
                     }
                 },
 
@@ -157,132 +156,110 @@
                                 <i class="bi bi-person"></i> @lang('messages.acordion.datos_personales')
                             </button>
                         </span>
-                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                            data-bs-parent="#accordion">
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
                             <div class="accordion-body">
-
                                 <form id="form-secretary" method="post" action="">
                                     {{ csrf_field() }}
                                     <div class="row Form-edit-user">
-
-
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
+                                                    <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
                                                     <input autocomplete="off" placeholder="" class="form-control mask-text"
                                                         id="name" name="name" type="text" {{-- value="{!! !empty($user) ? $user->name : '' !!}"> --}}
                                                         value="{{ Auth::user()->name }}">
-                                                    <i class="bi bi-person-circle" style="top: 30px"></i>
+                                                        <i class="bi bi-person-circle" style="top: 26px"></i>
                                                 </div>
                                             </diV>
                                         </div>
-
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="last_name" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
+                                                    <label for="last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
                                                     <input autocomplete="off" placeholder="" class="form-control mask-text"
                                                         id="last_name" name="last_name" type="text"
                                                         value="{{ Auth::user()->last_name }}">
-                                                    <i class="bi bi-person-circle" style="top: 30px"></i>
+                                                        <i class="bi bi-person-circle" style="top: 26px"></i>
                                                 </div>
                                             </diV>
                                         </div>
-
-
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     @if (Auth::user()->contrie == '81')
-                                                        <label for="ci" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
+                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
                                                     @else
-                                                        <label for="ci" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
+                                                        <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
                                                     @endif
                                                     <input autocomplete="off" placeholder="" type="number"
                                                         class="form-control" id="ci" name="ci" type="text"
                                                         value="{{ Auth::user()->ci }}">
-                                                    <i class="bi bi-person-vcard" style="top: 30px"></i>
+                                                        <i class="bi bi-person-vcard" style="top: 26px"></i>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="genere" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.genero')</label>
+                                                    <label for="genere" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.genero')</label>
                                                     <select name="genere" id="genere"
-                                                        placeholder="Seleccione"class="form-control"
+                                                        placeholder="@lang('messages.placeholder.seleccione')"class="form-control"
                                                         class="form-control combo-textbox-input">
-                                                        <option value="">Seleccione</option>
+                                                        <option value="">@lang('messages.placeholder.seleccione')</option>
                                                         <option value="femenino"> Femenino</option>
                                                         <option value="masculino">Masculino</option>
                                                     </select>
-                                                    <i class="bi bi-gender-ambiguous st-icon"></i>
+                                                    <i class="bi bi-gender-ambiguous" style="top: 26px"></i>
                                                 </div>
                                             </div>
                                         </div>
-
-
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="center_id" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.centros_doctor')</label>
+                                                    <label for="center_id" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.centros_doctor')</label>
                                                     <select name="center_id" id="center_id"
-                                                        placeholder="Seleccione"class="form-control"
+                                                        placeholder="@lang('messages.placeholder.seleccione')"class="form-control"
                                                         class="form-control combo-textbox-input">
-                                                        <option value="">Seleccione</option>
-                                                        @foreach ($centerDoctor as $item)
-                                                            <option value="{{ $item->center_id }}">{{ $item->address }}
-                                                            </option>
-                                                        @endforeach
+                                                        <option value="">@lang('messages.placeholder.seleccione')</option>
+                                                        @if (Auth::user()->role == 'secretary' && Auth::user()->get_data_corporate_master->type_plane == 7)
+                                                            <option value="{{ $centerId->center_id }}">{{ $centerId->get_center->description }}</option>
+                                                        @else
+                                                            @foreach ($centerDoctor as $item)
+                                                                <option value="{{ $item->center_id }}">{{ $item->get_center->description }}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
-                                                    <i class="bi bi-gender-ambiguous st-icon"></i>
+                                                    <i class="bi bi-gender-ambiguous" style="top: 26px"></i>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="username" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
+                                                    <label for="username" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
                                                     <input autocomplete="off" placeholder="" class="form-control"
                                                         id="username" name="username" type="text" readonly
                                                         value="{{ Auth::user()->email }}">
-                                                    <i class="bi bi-envelope-at" style="top: 30px"></i>
+                                                    <i class="bi bi-envelope-at" style="top: 26px"></i>
                                                 </div>
                                             </diV>
                                         </div>
-
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-3">
+                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
                                             <x-phone_component :phone="auth()->user()->phone" />
                                         </div>
-
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-xxl-8 mt-3">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
-                                                    <label for="phone" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
-                                                    <textarea id="address" rows="3" name="address" class="form-control" value="{{ Auth::user()->address }}"></textarea>
-                                                    <i class="bi bi-geo st-icon"></i>
+                                                    <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
+                                                    <textarea id="address" rows="1" name="address" class="form-control" value="{{ Auth::user()->address }}"></textarea>
+                                                    <i class="bi bi-geo" style="top: 26px"></i>
                                                 </div>
                                             </diV>
                                         </div>
-
-
                                     </div>
                                     <div class="row mt-3 justify-content-md-end">
-                                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                            style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                            <input class="btn btnSave send " value="Guardar" type="submit"
-                                                style="margin-left: 20px" />
+                                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                            <input class="btn btnSave send " value="Guardar" type="submit" style="margin-left: 20px" />
                                             {{-- <button type="button" class="btn btnSecond btn6"
                                                 style="margin-left: 20px">Cancelar</button> --}}
                                         </div>

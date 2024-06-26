@@ -574,7 +574,7 @@
     <div class="container-fluid" style="padding: 0 3% 3%">
         <div class="accordion" id="accordion">
 
-            {{-- datos del paciente --}}
+            {{-- datos del medico --}}
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                     @if ($user->email_verified_at === null)
@@ -597,8 +597,7 @@
                             </button>
                         </span>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
-                            <div class="accordion-body"
-                                style="{{ Auth::user()->role == 'corporativo' ? 'padding: 0px 16px' : '' }}">
+                            <div class="accordion-body" style="{{ Auth::user()->role == 'corporativo' ? 'padding: 0px 16px' : '' }}">
                                 <form id="form-profile" method="post" action="/">
                                     {{ csrf_field() }}
                                     <input type="hidden" id="rol" name="rol" value="{{ Auth::user()->role }}">
@@ -743,8 +742,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2"
-                                                        id='div-otros' style="display: none">
+                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2" id='div-otros' style="display: none">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="specialty" class="form-label"
@@ -768,7 +766,7 @@
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
+                                                        <label for="address" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
                                                         <textarea id="address" rows="1" name="address" class="form-control @error('address') is-invalid @enderror"
                                                             value="{!! !empty($user) ? $user->address : '' !!}"></textarea>
                                                         <i class="bi bi-geo st-icon"></i>
@@ -779,7 +777,7 @@
                                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.piso_consultorio')</label>
+                                                            <label for="number_floor" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.piso_consultorio')</label>
                                                             <input autocomplete="off"
                                                                 class="form-control mask-alfa-numeric @error('number_floor') is-invalid @enderror"
                                                                 id="number_floor" maxlength="10" name="number_floor"
@@ -791,7 +789,7 @@
                                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_consultorio')</label>
+                                                            <label for="number_consulting_room" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_consultorio')</label>
                                                             <input autocomplete="off" maxlength="10"
                                                                 class="form-control mask-alfa-numeric @error('number_consulting_room') is-invalid @enderror"
                                                                 id="number_consulting_room" name="number_consulting_room"
@@ -803,7 +801,7 @@
                                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                     <div class="form-group">
                                                         <div class="Icon-inside">
-                                                            <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_tel_consultorio')</label>
+                                                            <label for="number_consulting_phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_tel_consultorio')</label>
                                                             <input autocomplete="off"
                                                                 class="form-control phone @error('number_consulting_phone') is-invalid @enderror"
                                                                 id="number_consulting_phone"
