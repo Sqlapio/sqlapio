@@ -17,22 +17,21 @@ class Profile extends Component
 {
     public function update_laboratory(Request $request)
     {
-
         try {
-
+            
             $update = DB::table('laboratories')
                 ->where('id', $request->id)
                 ->update([
-                    'business_name' => $request->ci,
-                    'rif'           => $request->birthdate,
-                    'state'         => $request->age,
-                    'city'          => $request->phone,
-                    'address'       => $request->address,
-                    'phone_1'       => $request->phone_1,
+                    'business_name'   => $request->ci,
+                    'rif'             => $request->birthdate,
+                    'state'           => $request->age,
+                    'city'            => $request->phone,
+                    'address'         => $request->address,
+                    'phone_1'         => $request->phonenumber_prefix . "-" . $request->phone_1,
                     'type_laboratory' => $request->type_laboratory,
-                    'responsible'   => $request->responsible,
-                    'descripcion'   => $request->descripcion,
-                    'website'       => $request->website,
+                    'responsible'     => $request->responsible,
+                    'descripcion'     => $request->descripcion,
+                    'website'         => $request->website,
                 ]);
 
             if ($update) {
@@ -55,7 +54,6 @@ class Profile extends Component
                 'email' => $request->email,
             ]);
     }
-
 
     public function send_otp(Request $request)
     {
@@ -200,8 +198,6 @@ class Profile extends Component
 
         return true;
     }
-
-
 
     public function render()
     {
