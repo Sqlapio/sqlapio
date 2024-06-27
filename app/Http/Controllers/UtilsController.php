@@ -283,7 +283,7 @@ class UtilsController extends Controller
 					'state'           => $request->state,
 					'city'            => $request->city,
 					'address'         => $request->address,
-					'phone_1'         => $request->phone_1,
+					'phone_1'         => $request->phonenumber_prefix . "-" . $request->phone_1,
 					'phone_2'         => $request->phone_2,
 					'lab_img'         => $nameFile,
 					'status_register' => '2',

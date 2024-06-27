@@ -79,8 +79,6 @@ class Profile extends Component
 
         $centerId = auth()->user()->get_data_corporate_master;
 
-        // dd($centerDoctor, $centerId);
-
         return view('livewire.components.profile-secretary.profile',compact('centerDoctor', 'centerId'));
     }
 }

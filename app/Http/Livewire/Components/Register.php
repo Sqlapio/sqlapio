@@ -220,7 +220,6 @@ class Register extends Component
 
     public function update(Request $request)
     {
-
         try {
 
             if ($request->rol == 'medico') {
@@ -421,7 +420,7 @@ class Register extends Component
                         'state'           => $request->state,
                         'city'            => $request->city,
                         'address'         => $request->address,
-                        'phone_1'         => $request->phone,
+                        'phone_1'         => $request->phonenumber_prefix . "-" . $request->phone,
                         'license'         => $request->license,
                         'type_laboratory' => $request->type_laboratory,
                         'responsible'     => $request->responsible,
