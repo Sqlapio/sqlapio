@@ -633,13 +633,17 @@
                                                 {{ Auth::user()->business_name }} </span>
                                             <img class="avatar-user mt-text img-fluid rounded-circle me-1"
                                                 src="{{ asset('/img/avatar/avatar.png') }}" alt="Chris Wood">
-                                        @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) != null &&
-                                                Auth::user()->role == 'laboratorio')
+                                        @elseif(app('App\Http\Controllers\UtilsController')->exit_image_lab(Auth::user()->email) != null && Auth::user()->role == 'laboratorio')
                                             <span class="strong me-1" style="margin-bottom: 7px;">
                                                 {{ Auth::user()->business_name }} </span>
                                             <img class="avatar-user mt-text img-fluid rounded-circle me-1"
                                                 src="{{ asset('/imgs/' . app('App\Http\Controllers\UtilsController')->get_image_lab(Auth::user()->email)) }}"
                                                 alt="Chris Wood">
+                                        @elseif(Auth::user()->role == 'secretary')
+                                            <span class="strong me-1" style="margin-bottom: 7px;"> Sr(a).
+                                                {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
+                                            <img class="avatar-user mt-text img-fluid rounded-circle me-1"
+                                                src="{{ Auth::user()->genere == 'masculino' ? asset('/img/avatar/avatar hombre.png') : asset('/img/avatar/avatar mujer.png') }}" alt="Chris Wood">
                                         @else
                                             <span class="strong me-1" style="margin-bottom: 7px;"> Dr.
                                                 {{ Auth::user()->name }} {{ Auth::user()->last_name }}</span>
@@ -847,6 +851,14 @@
                                                     alt="Dashboard">
                                                 <span class="nav-link active"
                                                     aria-current="page">@lang('messages.menu.dashboard')</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-item" href="{{ route('Patients') }}" title="Pacientes">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Contacts.png') }}"
+                                                    alt="Pacientes">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">@lang('messages.menu.pacientes')</span>
                                             </a>
                                         </li>
                                         <li>

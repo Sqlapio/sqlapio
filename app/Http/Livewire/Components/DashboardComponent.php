@@ -13,28 +13,28 @@ class DashboardComponent extends Component
 
     {
 
-        $id= (Auth::user()->role=="secretary")?Auth::user()->master_corporate_id :Auth::user()->id;
+        $id= (Auth::user()->role=="secretary") ? Auth::user()->master_corporate_id : Auth::user()->id;
 
         $count_patient_register =  EstadisticaController::total_patient_doctors($id);
         $count_medical_recordr =  EstadisticaController::total_medical_record($id);
         $count_history_register =  EstadisticaController::total_history_register($id);
         $count_patient_genero =  EstadisticaController::total_patient_genero();
         $appointments = UtilsController::get_appointments_dashboard($id);
-        $elderly = UtilsController::get_patient_elderly();
-        $boy_girl = UtilsController::get_patient_boy_girl();
-        $teen = UtilsController::get_patient_teen();
-        $adult = UtilsController::get_patient_adult();
+        $elderly = UtilsController::get_patient_elderly($id);
+        $boy_girl = UtilsController::get_patient_boy_girl($id);
+        $teen = UtilsController::get_patient_teen($id);
+        $adult = UtilsController::get_patient_adult($id);
         $ref = UtilsController::get_ref();
         $res_exams = Laboratory::res_exams($id);
         $res_studies = Laboratory::res_studies($id);
         $count_study = UtilsController::total_studies($id);
         $count_examen = UtilsController::total_exams();
         $patients = UtilsController::get_table_medical_record($id);
-        $queries_month = UtilsController::get_queries_month(null,$id);     
-        $appointments_attended = UtilsController::get_appointments_attended(null,$id);     
-        $appointments_canceled = UtilsController::get_appointments_canceled(null,$id);     
-        $appointments_confirmed = UtilsController::get_appointments_confirmed(null,$id);   
-        $appointments_count_all = UtilsController::get_appointments_count_all($id);     
+        $queries_month = UtilsController::get_queries_month(null,$id);
+        $appointments_attended = UtilsController::get_appointments_attended(null,$id);
+        $appointments_canceled = UtilsController::get_appointments_canceled(null,$id);
+        $appointments_confirmed = UtilsController::get_appointments_confirmed(null,$id);
+        $appointments_count_all = UtilsController::get_appointments_count_all($id);
 
 
         return view(

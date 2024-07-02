@@ -32,7 +32,7 @@ class Study extends Component
     $data = StudyPatient::where('status', 2)
       ->where('user_id', Auth::user()->id)
       ->skip($skip)         // punto de partida
-      ->take($pageLength)   // limite de resgistro   
+      ->take($pageLength)   // limite de resgistro
       ->with(['get_laboratory', 'get_patient', 'get_reprensetative'])->get();
 
     $res = [
@@ -54,7 +54,7 @@ class Study extends Component
     $data = StudyPatient::where('status', 2)
       ->where('patient_id', $id)
       ->skip(0)         // punto de partida
-      ->take(10)   // limite de resgistro   
+      ->take(10)   // limite de resgistro
       ->with(['get_laboratory', 'get_patient', 'get_reprensetative'])->get();
 
     $res = [
@@ -84,7 +84,7 @@ class Study extends Component
 
     $data =  Reference::where('user_id',  Auth::user()->id)
       ->skip($skip)         // punto de partida
-      ->take($pageLength)   // limite de resgistro  
+      ->take($pageLength)   // limite de resgistro
       ->with(['get_patient', 'get_estudio_stutus_uno', 'get_reprensetative'])
       ->get();
 
@@ -101,13 +101,12 @@ class Study extends Component
   public function res_study_sin_resul_patient($id)
   {
 
-
     $count =  Reference::where('patient_id',  $id)
       ->with(['get_estudio_stutus_uno'])->get();
 
     $data =  Reference::where('patient_id',  $id)
       ->skip(0)         // punto de partida
-      ->take(10)   // limite de resgistro  
+      ->take(10)   // limite de resgistro
       ->with(['get_patient', 'get_estudio_stutus_uno', 'get_reprensetative'])
       ->get();
 

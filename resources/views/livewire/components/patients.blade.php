@@ -171,15 +171,27 @@
 
             getUrl(urlPostCreateAppointment, urlDiary);
 
-            if (user.type_plane != '7' && centers.length === 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: '@lang('messages.alert.asociar_centro')',
-                    allowOutsideClick: false,
-                    confirmButtonColor: '#42ABE2',
-                    confirmButtonText: '@lang('messages.botton.aceptar')'
-                }).then((result) => {
+            if (user.type_plane != '7' && centers.length === 0 && user.role == 'medico') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '@lang('messages.alert.asociar_centro')',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#42ABE2',
+                        confirmButtonText: '@lang('messages.botton.aceptar')'
+                    }).then((result) => {
                     window.location.href = "{{ route('Centers') }}";
+                });
+            }
+
+            if (user.role == 'secretary' && user.center_id == null ) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '@lang('messages.alert.asociar_centro')',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#42ABE2',
+                        confirmButtonText: '@lang('messages.botton.aceptar')'
+                    }).then((result) => {
+                    window.location.href = "{{ route('profile-user-secretary') }}";
                 });
             }
 
@@ -387,9 +399,11 @@
                                 url = url.replace(':id', response[0].id);
                                 $("#bnt-cons").show();
                                 $("#bnt-cons").find('a').remove();
-                                $("#bnt-cons").append(
-                                    `<a href="${url}"><button type="button" class="btn btnSecond">@lang('messages.botton.consulta_medica')</button></a>`
-                                );
+                                if(user.role == 'medico') {
+                                    $("#bnt-cons").append(
+                                        `<a href="${url}"><button type="button" class="btn btnSecond">@lang('messages.botton.consulta_medica')</button></a>`
+                                    );
+                                }
 
                                 $('#file').attr('disabled', true);
                                 $("#name").attr('readonly', true);
@@ -435,7 +449,6 @@
         });
 
         function handlerAge(e) {
-            console.log(Number($("#age").val()))
             if (Number($("#age").val()) >= 18) {
                 // $("#ci").rules('add', {
                 //     required: true,
@@ -469,6 +482,8 @@
         //seteiar data en el formalario para su edicion
         function editPatien(item, active = true) {
 
+            console.log(item)
+
             if (active) {
                 $(".accordion-collapseOne").collapse('show')
             }
@@ -499,7 +514,6 @@
                 $("#re_name").val(item.get_reprensetative.re_name);
                 $("#re_last_name").val(item.get_reprensetative.re_last_name);
                 if (user.contrie == '81') {
-
                     let ci_dom_re = item.get_reprensetative.re_ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
 
                     $("#re_ci").val(ci_dom_re);
@@ -511,10 +525,11 @@
             }
             if (item.patient_img === null) {
                 let ulrImge = `{{ URL::asset('/img/V2/combinado.png') }}`;
+
                 $(".holder").find('img').attr('src', ulrImge);
-                // $("#img").val(ulrImge);
             } else {
                 let ulrImge = `{{ URL::asset('/imgs/${item.patient_img}') }}`;
+
                 $(".holder").find('img').attr('src', ulrImge);
                 $("#img").val(item.patient_img);
             }
@@ -531,7 +546,6 @@
         }
 
         function refreshForm() {
-            // $(".holder").hide();
             $("#show-info-pat").hide();
             $("#bnt-save").show();
             $("#bnt-cons").hide();
@@ -549,9 +563,10 @@
             $("#div-phone").show();
             $("#profesion-div").show();
             $('#search_patient').val('');
-            let ulrImge = `{{ URL::asset('/img/V2/combinado.png') }}`;
-            $(".holder").find('img').attr('src', ulrImge);
 
+            let ulrImge = `{{ URL::asset('/img/V2/combinado.png') }}`;
+
+            $(".holder").find('img').attr('src', ulrImge);
             $('#file').attr('disabled', false);
             $("#name").attr('readonly', false);
             $("#last_name").attr('readonly', false);
@@ -616,13 +631,9 @@
                                 elem.name_full = `${elem.name} ${elem.last_name}`;
 
                                 if (user.contrie === '81') {
-                                    elem.ci = (elem.is_minor == "true") ? elem.get_reprensetative.re_ci
-                                        .replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3') + ' ' +
-                                        '(Rep)' : elem.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/,
-                                            '$1-$2-$3');
+                                    elem.ci = (elem.is_minor == "true") ? elem.get_reprensetative.re_ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3') + ' ' + '(Rep)' : elem.ci.replace(/^(\d{3})(\d{7})(\d{1}).*/, '$1-$2-$3');
                                 } else {
-                                    elem.ci = (elem.is_minor == "true") ? elem.get_reprensetative
-                                        .re_ci + ' ' + '(Rep)' : elem.ci;
+                                    elem.ci = (elem.is_minor == "true") ? elem.get_reprensetative.re_ci + ' ' + '(Rep)' : elem.ci;
                                 }
 
                                 let elemData = JSON.stringify(elem);
@@ -631,7 +642,6 @@
                                                 @lang('messages.botton.consultar')
                                             </button>`;
                                 data.push(elem);
-
                             })
 
                             new DataTable('#table-show-info-pat', {
@@ -674,7 +684,6 @@
                                 setValue(response[0]);
                             }
                         }
-                        // });
                     },
                     error: function(error) {
                         $('#spinner2').hide();
@@ -685,9 +694,7 @@
                             confirmButtonColor: '#42ABE2',
                             confirmButtonText: '@lang('messages.botton.aceptar')'
                         }).then((result) => {
-
                             $('#send').show();
-                            // $(".holder").hide();
                         });
                     }
                 });
@@ -709,22 +716,17 @@
             $("#bnt-cons").find('a').remove();
             $("#bnt-dairy").find('button').remove();
             $("#bnt-hist").find('button').remove();
-            $("#bnt-cons").append(
-                `<a href="${url}"><button type="button" class="btn btnSecond">@lang('messages.botton.consulta_medica')</button></a>`);
+            if(user.role == 'medico') {
+                $("#bnt-cons").append(`<a href="${url}"><button type="button" class="btn btnSecond">@lang('messages.botton.consulta_medica')</button></a>`);
+            }
             let elemData = JSON.stringify(data);
             let elemRep = JSON.stringify(data.get_reprensetative);
-            $("#bnt-dairy").append(
-                `<button onclick='agendarCita(${elemData},${elemRep});' type="button" class="btn btnPrimary">@lang('messages.botton.agendar_cita')</button>`
-            );
-            $("#bnt-hist").append(
-                `<a href="${urlhist}"><button type="button" class="btn btnSecond">@lang('messages.botton.historia_clinica')</button></a>`
-            );
+            $("#bnt-dairy").append(`<button onclick='agendarCita(${elemData},${elemRep});' type="button" class="btn btnPrimary">@lang('messages.botton.agendar_cita')</button>`);
+            $("#bnt-hist").append(`<a href="${urlhist}"><button type="button" class="btn btnSecond">@lang('messages.botton.historia_clinica')</button></a>`);
             editPatien(data, false);
         }
 
         function agendarCita(item, info) {
-
-
             $('#exampleModal').modal('show');
             if (item.is_minor == 'true') {
                 $("#name-pat").text(item.name + ' ' + item.last_name);
@@ -891,8 +893,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
-                                            style="display: flex; justify-content: flex-end;">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
                                             <a style="margin-top: 10px;" href="{{ route('verify-plans') }}" class="btn btnSecond">
                                                 @lang('messages.label.detalle_plan')
                                             </a>
@@ -1180,8 +1181,7 @@
                                     <i class="bi bi-person-add"></i> @lang('messages.acordion.paciente_registrado')
                                 </button>
                             </span>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                                data-bs-parent="#accordion">
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row mt-3" {{-- id="content-search-pat" --}}>
                                         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-3">
@@ -1246,7 +1246,7 @@
                                                                 <td class="text-center"> {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>
                                                                 <td class="text-center"> {{ $item->get_center->description }} </td>
                                                                 <td class="text-center">
-                                                                    <div class="d-flex">
+                                                                    <div class="d-flex" style="justify-content: center;">
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <button
                                                                                 onclick="editPatien({{ json_encode($item) }},true);"
@@ -1256,16 +1256,18 @@
                                                                                 <img width="40" height="auto" src="{{ asset('/img/icons/user-edit.png') }}" alt="avatar">
                                                                             </button>
                                                                         </div>
-                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                            <a href="{{ $item->age == '' ? '#' : route('MedicalRecord', $item->id) }}" onclick='{{ $item->age == '' ? "alertInfoPaciente($item)" : '' }}'>
-                                                                                <button type="button"
-                                                                                    data-bs-toggle="tooltip"
-                                                                                    data-bs-placement="bottom"
-                                                                                    title="@lang('messages.tooltips.consulta_medica')">
-                                                                                    <img width="40" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
-                                                                                </button>
-                                                                            </a>
-                                                                        </div>
+                                                                        @if (Auth::user()->role == 'medico')
+                                                                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                <a href="{{ $item->age == '' ? '#' : route('MedicalRecord', $item->id) }}" onclick='{{ $item->age == '' ? "alertInfoPaciente($item)" : '' }}'>
+                                                                                    <button type="button"
+                                                                                        data-bs-toggle="tooltip"
+                                                                                        data-bs-placement="bottom"
+                                                                                        title="@lang('messages.tooltips.consulta_medica')">
+                                                                                        <img width="40" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
+                                                                                    </button>
+                                                                                </a>
+                                                                            </div>
+                                                                        @endif
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <a href="{{ $item->age == '' ? '#' : route('ClinicalHistoryDetail', $item->id) }}" onclick='{{ $item->age == '' ? "alertInfoPaciente($item)" : '' }}'>
                                                                                 <button type="button"

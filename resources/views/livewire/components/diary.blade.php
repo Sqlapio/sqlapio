@@ -257,7 +257,7 @@
                                             <div>
                                                 <strong>@lang('messages.ficha_paciente.nombre'): </strong><span class="text-capitalize" id="name"></span>
                                                 <br>
-                                                @if (Auth::user()->contrie = '81')
+                                                @if (Auth::user()->contrie == '81')
                                                     <strong>@lang('messages.ficha_paciente.ci_rd'): </strong><span id="ci"></span>
                                                 @else
                                                     <strong>@lang('messages.ficha_paciente.ci'): </strong><span id="ci"></span>
