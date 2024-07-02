@@ -81,15 +81,16 @@ class Diary extends Component
                 $patient =  Patient::updateOrCreate(
                     ['id' => $request->id],
                     [
-                        'patient_code'  => UtilsController::get_patient_code($request->ci_patient),
-                        'name'          => $request->name_patient,
-                        'last_name'     => $request->last_name_patient,
-                        'phone'         => $request->phone,
-                        'email'         => $request->email_patient,
+                        'patient_code'      => UtilsController::get_patient_code($request->ci_patient),
+                        'name'              => $request->name_patient,
+                        'last_name'         => $request->last_name_patient,
+                        'phone'             => $request->phonenumber_prefix."-".$request->phone,
+                        'email'             => $request->email_patient,
                         // 'birthdate'     => $request->birthdate_patient,
-                        'age'           => $request->age_patient,
-                        'center_id'     => $request->center_id,
-                        'user_id'       => (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id,
+                        'age'               => $request->age_patient,
+                        'center_id'         => $request->center_id,
+                        'user_id'           => (auth()->user()->role == "secretary") ? auth()->user()->get_data_corporate_master->id : auth()->user()->id,
+                        'contrie_doc'       => auth()->user()->contrie,
                         'verification_code' => Str::random(30)
                     ]
                 );
@@ -196,6 +197,7 @@ class Diary extends Component
 
                 $data_center = DoctorCenter::where('user_id', $user->id)->where('center_id', $appointment->get_center->id)->first();
             }
+            
             $dir = str_replace(' ', '%20', $appointment->get_center->description);
             $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $appointment->get_center->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
 

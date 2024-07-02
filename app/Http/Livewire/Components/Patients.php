@@ -29,6 +29,8 @@ class Patients extends Component
     public function store(Request $request)
     {
 
+
+
         try {
             $user_id = Auth::user()->id;
             $user_name = "";
@@ -123,10 +125,11 @@ class Patients extends Component
 
                 $ci = str_replace('-', '', $request->re_ci);
 
+
+
                 $patient = Patient::updateOrCreate(
                     ['id' => $request->id],
                     [
-
                         'patient_code'      => UtilsController::get_patient_code($request->re_ci),
                         'name'              => $request->name,
                         'last_name'         => $request->last_name,
@@ -151,15 +154,18 @@ class Patients extends Component
                  * @return $id
                  */
                 $patient_id = Patient::where('user_id', $user_id)->get()->last()->id;
+                    $re_patient = Representative::updateOrCreate(
+                        ['patient_id' => $patient_id],
+                        [
+                            're_name'      => $request->re_name,
+                            're_last_name' => $request->re_last_name,
+                            're_ci'        => $ci,
+                            're_email'     => $request->re_email,
+                            're_phone'     => $request->re_phone,
+                            'patient_id'   => $patient_id,
 
-                $re_patient = new Representative();
-                $re_patient->re_name = $request->re_name;
-                $re_patient->re_last_name = $request->re_last_name;
-                $re_patient->re_ci = $ci;
-                $re_patient->re_email = $request->re_email;
-                $re_patient->re_phone = $request->re_phone;
-                $re_patient->patient_id = $patient_id;
-                $re_patient->save();
+                        ]
+                    );
 
                 $action = '9';
                 ActivityLogController::store_log($action);
@@ -326,6 +332,27 @@ class Patients extends Component
 
                 $ci = str_replace('-', '', $request->ci);
 
+                if (auth()->user()->role == "secretary" && auth()->user()->get_data_corporate_master->type_plane == "7") {
+
+
+                    $dataCenter = auth()->user()->get_data_corporate_master;
+
+                    $user_doc = $dataCenter->id;
+                    $contrie_doc = $dataCenter->contrie;
+
+                }
+
+
+                if (auth()->user()->role == "secretary") {
+
+                    $dataCenter = auth()->user()->get_data_corporate_master->get_doctors;
+                    $contrie_doc = auth()->user()->get_data_corporate_master->contrie;
+
+                    foreach($dataCenter as $item){
+                        $user_doc = $item->user_id;
+                    }
+                }
+
                 $patient =  Patient::updateOrCreate(
                     ['id' => $request->id],
                     [
@@ -340,12 +367,12 @@ class Patients extends Component
                         'genere'            => $request->genere,
                         'birthdate'         => $request->birthdate,
                         'age'               => $request->age,
-                        'contrie_doc'       => auth()->user()->contrie,
+                        'contrie_doc'       => auth()->user()->role == "secretary" ? $contrie_doc : auth()->user()->contrie,
                         'state'             => $request->state,
                         'city'              => $request->city,
                         'address'           => $request->address,
                         'zip_code'          => $request->zip_code,
-                        'user_id'           => $user_id,
+                        'user_id'           => auth()->user()->role == "secretary" ? $user_doc : $user_id,
                         'center_id'         => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
                         'patient_img'       => $nameFile,
                         'verification_code' => Str::random(30)
@@ -421,16 +448,52 @@ class Patients extends Component
                 } else
                 /** Registro del medico con plan 1 2 o 3 */
                 {
+
+                    if (auth()->user()->role == "medico" && auth()->user()->type_plane == "7") {
+
+                        $center_info = auth()->user();
+
+                        /** cuando es una secretaria de un medico corporativo */
+                    } elseif (auth()->user()->role == "secretary" && auth()->user()->get_data_corporate_master->type_plane == "7") {
+
+
+                        $dataCenter = auth()->user()->get_data_corporate_master;
+                        // dd('1', $dataCenter);
+
+                        $numberFloor = $dataCenter->number_floor;
+                        $nameDoctor = $dataCenter->name . ' ' . $dataCenter->last_name;
+                        $numberConsultingRoom = $dataCenter->number_consulting_room;
+                        $phoneConsultingRoom = $dataCenter->phone_consulting_room;
+                        $center_address = $dataCenter->address;
+
+                        /** cuando es una secretaria de un medico natural */
+                    } elseif (auth()->user()->role == "secretary") {
+
+                        $dataCenter = auth()->user()->get_data_corporate_master->get_doctors;
+
+                        foreach($dataCenter as $item){
+                            $nameDoctor = $item->name . ' ' . $item->last_name;
+                            $numberFloor = $item->number_floor;
+                            $numberConsultingRoom = $item->number_consulting_room;
+                            $phoneConsultingRoom = $item->phone_consulting_room;
+                            $center_address = $item->address;
+                        }
+
+                    } else {
+
+                        // $data_center = DoctorCenter::where('user_id', $user->id)->where('center_id', $appointment->get_center->id)->first();
+                        $center_info = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
+                    }
+
                     $type = 'patient';
-                    $center_info = DoctorCenter::where('center_id', $request->center_id)->where('user_id', Auth::user()->id)->first();
                     $mailData = [
-                        'dr_name'                => $user->name . ' ' . $user->last_name,
+                        'dr_name'                => auth()->user()->role == "secretary" ? $nameDoctor : $user->name . ' ' . $user->last_name,
                         'specialty'              => $user->specialty,
                         'center'                 => Center::where('id', $request->center_id)->first()->description,
-                        'center_piso'            => $center_info->number_floor,
-                        'center_consulting_room' => $center_info->number_consulting_room,
-                        'center_phone'           => $center_info->phone_consulting_room,
-                        'center_address'         => $center_info->address,
+                        'center_piso'            => auth()->user()->role == "secretary" ? $numberFloor : $center_info->number_floor,
+                        'center_consulting_room' => auth()->user()->role == "secretary" ? $numberConsultingRoom : $center_info->number_consulting_room,
+                        'center_phone'           => auth()->user()->role == "secretary" ? $phoneConsultingRoom : $center_info->phone_consulting_room,
+                        'center_address'         => auth()->user()->role == "secretary" ? $center_address : $center_info->address,
                         'patient_name'           => $patient['name'] . ' ' . $patient['last_name'],
                         'patient_code'           => $patient['patient_code'],
                         'patient_email'          => $patient['email'],
@@ -502,6 +565,7 @@ class Patients extends Component
     {
 
         $ci_maks = str_replace('-', '', $ci);
+
 
         try {
 

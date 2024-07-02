@@ -141,7 +141,7 @@
                 new bootstrap.Tooltip(element)
             });
 
-            get_general(elderly, adult, boy_girl, teen);
+            get_general(boy_girl, teen, adult, elderly);
             get_quotes(appointments_count_all);
             get_queries_month(queries_month);
             get_consultas_history(countMedicalRecordr, countHistoryRegister);
@@ -464,17 +464,19 @@
                                                                             </td>
                                                                             <td>
                                                                                 <div class="d-flex" style="justify-content: center;">
-                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                                                                        <a href="{{ $item['extendedProps']['age'] == '' ? '#' : route('MedicalRecord', $item['extendedProps']['patient_id']) }}"
-                                                                                            @php
-                                                                                                $id_patient =  $item["extendedProps"]["patient_id"];
-                                                                                            @endphp
-                                                                                            onclick='{{ $item['extendedProps']['age'] == '' ? "alertInfoPaciente($id_patient )" : '' }}'>
-                                                                                            <button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="@lang('messages.tooltips.consulta_medica')">
-                                                                                                <img width="35" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
-                                                                                            </button>
-                                                                                        </a>
-                                                                                    </div>
+                                                                                    @if (Auth::user()->role == 'medico')
+                                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                            <a href="{{ $item['extendedProps']['age'] == '' ? '#' : route('MedicalRecord', $item['extendedProps']['patient_id']) }}"
+                                                                                                @php
+                                                                                                    $id_patient =  $item["extendedProps"]["patient_id"];
+                                                                                                @endphp
+                                                                                                onclick='{{ $item['extendedProps']['age'] == '' ? "alertInfoPaciente($id_patient )" : '' }}'>
+                                                                                                <button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="@lang('messages.tooltips.consulta_medica')">
+                                                                                                    <img width="35" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
+                                                                                                </button>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    @endif
                                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                                         <button type="button"
                                                                                             data-bs-toggle="tooltip"

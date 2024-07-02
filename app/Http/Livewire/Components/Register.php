@@ -33,8 +33,8 @@ class Register extends Component
         if ($request->type_plan == "7") {
             $rules = [
                 // 'business_name' => 'required',
-                'password'      => 'required',
-                'email'         => 'required|unique:users',
+                'password'  => 'required',
+                'email'     => 'required|unique:users',
                 // 'ci'            => 'required|unique:users',
             ];
 
@@ -56,13 +56,13 @@ class Register extends Component
             ];
 
             $msj = [
-                'name'              => __('messages.alert.nombre_obligatorio'),
-                'last_name'         => __('messages.alert.apellido_obligatorio'),
-                'email.required'    => __('messages.alert.correo_obligatorio'),
-                'email.unique'      => __('messages.alert.correo_existente'),
-                'password'          => __('messages.alert.contraseña_obligatorio'),
-                'ci.required'       => __('messages.alert.cedula_obligatoria'),
-                'ci.unique'         => __('messages.alert.cedula_existente'),
+                'name'           => __('messages.alert.nombre_obligatorio'),
+                'last_name'      => __('messages.alert.apellido_obligatorio'),
+                'email.required' => __('messages.alert.correo_obligatorio'),
+                'email.unique'   => __('messages.alert.correo_existente'),
+                'password'       => __('messages.alert.contraseña_obligatorio'),
+                'ci.required'    => __('messages.alert.cedula_obligatoria'),
+                'ci.unique'      => __('messages.alert.cedula_existente'),
             ];
         }
 

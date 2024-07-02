@@ -262,7 +262,7 @@ let chart_inactive_doctors;
 //   });
 // }
 
-function get_general(boy_girl, teen, elderly, adult) {
+function get_general(boy_girl, teen, adult, elderly) {
   const data = {
     labels: [langJson.graficas.niños, langJson.graficas.jovenes, langJson.graficas.adultos, langJson.graficas.adultos_mayores],
     datasets: [

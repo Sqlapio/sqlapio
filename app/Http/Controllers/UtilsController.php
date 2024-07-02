@@ -460,7 +460,7 @@ class UtilsController extends Controller
 					'id'            => $val->id,
 					'title'         => $hora . " - " . $val->get_patients->name . " " . $val->get_patients->last_name,
                     'start'         => date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 0, -9),
-					'end'           =>  date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 6, -3),
+					'end'           => date("Y-m-d", strtotime($val->date_start)) . " " . substr($val->hour_start, 6, -3),
 					'rendering'     => 'background',
 					'color'         => $val->color,
 					'extendedProps' => [
@@ -983,14 +983,14 @@ class UtilsController extends Controller
 	/**
 	 * Ninos y ninas
 	 */
-	static function get_patient_boy_girl()
+	static function get_patient_boy_girl($id)
 	{
 		try {
-			$patient_genere_femenino =  Patient::where('genere', '=', 'femenino')
+			$patient_genere_femenino =  Patient::where('user_id', $id)->where('genere', '=', 'femenino')
 				->where('age', '<=', 11)
 				->count();
 
-			$patient_genere_masculino  =  Patient::where('genere', '=', 'masculino')
+			$patient_genere_masculino  =  Patient::where('user_id', $id)->where('genere', '=', 'masculino')
 				->where('age', '<=', 11)
 				->count();
 
@@ -1004,17 +1004,16 @@ class UtilsController extends Controller
 	/**
 	 * Jovenes
 	 */
-	static function get_patient_teen()
+    static function get_patient_teen($id)
 	{
 		try {
-			$patient_genere_femenino = Patient::where('genere', '=', 'femenino')
-				->WhereBetween('age', [12, 18])
+			$patient_genere_femenino = Patient::where('user_id', $id)->where('genere', '=', 'femenino')
+				->WhereBetween('age', ['12', '18'])
 				->count();
 
-			$patient_genere_masculino = Patient::where('genere', '=', 'masculino')
-				->WhereBetween('age', [12, 18])
+			$patient_genere_masculino = Patient::where('user_id', $id)->where('genere', '=', 'masculino')
+				->WhereBetween('age', ['12', '18'])
 				->count();
-
 			return ["femenino" => $patient_genere_femenino, 'masculino' => $patient_genere_masculino];
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
@@ -1025,16 +1024,15 @@ class UtilsController extends Controller
 	/**
 	 * Adultos
 	 */
-	static function get_patient_adult()
+	static function get_patient_adult($id)
 	{
 		try {
-			$patient_genere_femenino =  Patient::where('genere', '=', 'femenino')
-				->WhereBetween('age', [19, 40])
+			$patient_genere_femenino =  Patient::where('user_id', $id)->where('genere', '=', 'femenino')
+				->WhereBetween('age', ['19', '40'])
 				->count();
-			$patient_genere_masculino =  Patient::where('genere', '=', 'masculino')
-				->WhereBetween('age', [19, 40])
+			$patient_genere_masculino =  Patient::where('user_id', $id)->where('genere', '=', 'masculino')
+				->WhereBetween('age', ['19', '40'])
 				->count();
-
 			return ["femenino" => $patient_genere_femenino, 'masculino' => $patient_genere_masculino];
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
@@ -1045,16 +1043,16 @@ class UtilsController extends Controller
 	/**
 	 * Adulto mayor
 	 */
-	static function get_patient_elderly()
+	static function get_patient_elderly($id)
 	{
 		try {
-			$patient_genere_femenino =  Patient::where('genere', '=', 'femenino')
-				->where('age', '>', 41)
-				->count();
+            $patient_genere_femenino =  Patient::where('user_id', $id)->where('genere', '=', 'femenino')
+            ->where('age', '>', 41)
+            ->count();
 
-			$patient_genere_masculino =  Patient::where('genere', '=', 'masculino')
-				->where('age', '>', 41)
-				->count();
+			$patient_genere_masculino =  Patient::where('user_id', $id)->where('genere', '=', 'masculino')
+            ->where('age', '>', 41)
+            ->count();
 
 			return ["femenino" => $patient_genere_femenino, 'masculino' => $patient_genere_masculino];
 		} catch (\Throwable $th) {
@@ -1335,7 +1333,6 @@ class UtilsController extends Controller
 			dd('Error UtilsController.upload_result_study()', $message);
 		}
 	}
-
 
 	static function get_description_exam($code)
 	{
