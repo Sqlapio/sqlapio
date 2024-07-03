@@ -29,8 +29,6 @@ class Patients extends Component
     public function store(Request $request)
     {
 
-
-
         try {
             $user_id = Auth::user()->id;
             $user_name = "";
@@ -393,7 +391,11 @@ class Patients extends Component
                  *
                  * Esta logica se aplica al tema de los planes
                  */
-                UtilsController::update_patient_counter($user_id);
+                if($request->id == null || auth()->user()->role == 'secretary')
+                {
+                    UtilsController::update_patient_counter($patient['user_id']);
+                }
+
 
                 /**
                  * Notificacion al medico

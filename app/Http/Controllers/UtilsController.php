@@ -1359,14 +1359,16 @@ class UtilsController extends Controller
 	static function update_patient_counter($user_id)
 	{
 		try {
-			$value = User::where('id', $user_id)->first();
-			if ($value->type_plane != '7') {
-				$counter = DB::table('users')
-					->where('id', $user_id)
-					->update([
-						'patient_counter' => $value->patient_counter + 1,
-					]);
-			}
+
+                $value = User::where('id', $user_id)->first();
+                if ($value->type_plane != '7') {
+                    $counter = DB::table('users')
+                        ->where('id', $user_id)
+                        ->update([
+                            'patient_counter' => $value->patient_counter + 1,
+                        ]);
+                }
+
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.update_patient_counter()', $message);
