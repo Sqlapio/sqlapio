@@ -1067,6 +1067,7 @@ class UtilsController extends Controller
 	 */
 	static function confirmation_dairy($code)
 	{
+
 		try {
 
 			$update = DB::table('appointments')
@@ -1075,7 +1076,13 @@ class UtilsController extends Controller
 					'status' => 2,
 				]);
 
+            $dairy = Appointment::where('code', $code)->where('status', 2)->first();
+
+            /**Logica para guardar el acumulado de citas confirmadas por el paciente */
+            EstadisticaController::accumulated_dairy_confirmada($dairy->user_id, $dairy->center_id);
+
 			return true;
+
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.confirmation_dairy()', $message);

@@ -16,11 +16,13 @@ class EstadisticaController extends Controller
     /**
      * Acumulado para pacientes registrados
      */
-    static function accumulated_patient($state, $genere, $is_minor = null)
+    static function accumulated_patient($user_id, $center_id, $state, $genere, $is_minor = null)
     {
         try {
 
             $accumulated = new GeneralStatistic();
+            $accumulated->user_id = $user_id;
+            $accumulated->center = $center_id;
             $accumulated->patient = 1;
             $accumulated->is_minor = $is_minor;
             $accumulated->patient_genere = $genere;
@@ -31,6 +33,90 @@ class EstadisticaController extends Controller
         } catch (\Throwable $th) {
             $message = $th->getMessage();
 			dd('Error EstadisticaController.accumulated_patient()', $message);
+        }
+
+    }
+
+    /**
+     * Acumulado para citas registrados
+     */
+    static function accumulated_dairy_sin_confirmar($user_id, $center_id)
+    {
+        try {
+
+            $accumulated = new GeneralStatistic();
+            $accumulated->user_id = $user_id;
+            $accumulated->center = $center_id;
+            $accumulated->dairy_sin_confirmar = 1;
+            $accumulated->date = date('d-m-Y');
+            $accumulated->save();
+
+        } catch (\Throwable $th) {
+            $message = $th->getMessage();
+			dd('Error EstadisticaController.accumulated_doctor()', $message);
+        }
+
+    }
+
+    /**
+     * Acumulado para citas confirmadas por los pacientes
+     */
+    static function accumulated_dairy_confirmada($user_id, $center_id)
+    {
+        try {
+
+            $accumulated = new GeneralStatistic();
+            $accumulated->user_id = $user_id;
+            $accumulated->center = $center_id;
+            $accumulated->dairy_confirmar = 1;
+            $accumulated->date = date('d-m-Y');
+            $accumulated->save();
+
+        } catch (\Throwable $th) {
+            $message = $th->getMessage();
+			dd('Error EstadisticaController.accumulated_doctor()', $message);
+        }
+
+    }
+
+    /**
+     * Acumulado para citas finalizadas por los pacientes
+     */
+    static function accumulated_dairy_finalizada($user_id, $center_id)
+    {
+        try {
+
+            $accumulated = new GeneralStatistic();
+            $accumulated->user_id = $user_id;
+            $accumulated->center = $center_id;
+            $accumulated->dairy_finalizada = 1;
+            $accumulated->date = date('d-m-Y');
+            $accumulated->save();
+
+        } catch (\Throwable $th) {
+            $message = $th->getMessage();
+			dd('Error EstadisticaController.accumulated_doctor()', $message);
+        }
+
+    }
+
+    /**
+     * Acumulado para citas finalizadas por los pacientes
+     */
+    static function accumulated_dairy_cancelada($user_id, $center_id)
+    {
+        try {
+
+            $accumulated = new GeneralStatistic();
+            $accumulated->user_id = $user_id;
+            $accumulated->center = $center_id;
+            $accumulated->dairy_cancelada = 1;
+            $accumulated->date = date('d-m-Y');
+            $accumulated->save();
+
+        } catch (\Throwable $th) {
+            $message = $th->getMessage();
+			dd('Error EstadisticaController.accumulated_doctor()', $message);
         }
 
     }
