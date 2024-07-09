@@ -6,261 +6,31 @@ const lang = document.getElementById("lang").value;
 const langJson = JSON.parse(lang);
 
 const Meses = [
-    langJson.graficas.enero,
-    langJson.graficas.febrero,
-    langJson.graficas.marzo,
-    langJson.graficas.abril,
-    langJson.graficas.mayo,
-    langJson.graficas.junio,
-    langJson.graficas.julio,
-    langJson.graficas.agosto,
-    langJson.graficas.septiembre,
-    langJson.graficas.octubre,
-    langJson.graficas.noviembre,
-    langJson.graficas.diciembre,
+  langJson.graficas.enero,
+  langJson.graficas.febrero,
+  langJson.graficas.marzo,
+  langJson.graficas.abril,
+  langJson.graficas.mayo,
+  langJson.graficas.junio,
+  langJson.graficas.julio,
+  langJson.graficas.agosto,
+  langJson.graficas.septiembre,
+  langJson.graficas.octubre,
+  langJson.graficas.noviembre,
+  langJson.graficas.diciembre
 ];
 
 let chart_queries_month;
-let chart_appointments_attended;
-let chart_appointments_canceled;
-let chart_appointments_confirmed;
+let chart_general_appointments;
+let chart_general_appointments2;
 let chart_recorded_appointments;
-let chart_doctors;
 let chart_inactive_doctors;
 
-// function get_patient_register(countPatientRegister) {
-
-//   const labels = [langJson.graficas.total_pacientes];
-
-//   const data = {
-//     labels: labels,
-//     datasets: [
-//       {
-//         label: [langJson.graficas.num_pacientes],
-//         data: [countPatientRegister],
-//         backgroundColor: ["rgb(71,82,94)"],
-//         borderColor: ["rgb(255, 205, 86)"],
-//         borderRadius: 10,
-//         barPercentage: 0.3
-//       }
-//     ]
-//   };
-
-//   const config = {
-//     type: "bar",
-//     data: data,
-//     plugins: [ChartDataLabels],
-//     options: {
-//       responsive: true,
-//       scales: {
-//         y: {
-//           beginAtZero: true,
-//           ticks: {
-//             stepSize: 1
-//           }
-//         }
-//       },
-//       plugins: {
-//         datalabels: {
-//           labels: {
-//             title: {
-//               color: "white"
-//             }
-//           }
-//         }
-//       }
-//     }
-//   };
-
-//   new Chart($("#countPatientRegister"), config);
-// }
-
-// function get_medical_record(countMedicalRecordr) {
-//   const labels = [langJson.graficas.total_consultas];
-
-//   const data = {
-//     labels: labels,
-//     datasets: [
-//       {
-//         label: [langJson.graficas.num_consultas],
-//         data: [countMedicalRecordr],
-//         backgroundColor: ["rgb(41,193,237)"],
-//         borderColor: ["rgb(255, 99, 132)"],
-//         borderRadius: 10,
-//         barPercentage: 0.3
-//       }
-//     ]
-//   };
-
-//   const config = {
-//     type: "bar",
-//     data: data,
-//     plugins: [ChartDataLabels],
-//     options: {
-//       responsive: true,
-//       scales: {
-//         y: {
-//           beginAtZero: true,
-//           ticks: {
-//             stepSize: 1
-//           }
-//         }
-//       },
-//       plugins: {
-//         datalabels: {
-//           labels: {
-//             title: {
-//               color: "white"
-//             }
-//           }
-//         }
-//       }
-//     }
-//   };
-
-//   new Chart($("#countMedicalRecordr"), config);
-// }
-
-// function get_history_register(countMedicalRecordr) {
-//   const labels = [langJson.graficas.total_historias];
-
-//   const data = {
-//     labels: labels,
-//     datasets: [
-//       {
-//         label: [langJson.graficas.num_historias],
-//         data: [countHistoryRegister],
-//         backgroundColor: ["rgb(202,202,203)"],
-//         borderColor: ["rgb(255, 99, 132)"],
-//         borderRadius: 10,
-//         barPercentage: 0.3
-//       }
-//     ]
-//   };
-
-//   const config = {
-//     type: "bar",
-//     data: data,
-//     plugins: [ChartDataLabels],
-//     options: {
-//       responsive: true,
-//       scales: {
-//         y: {
-//           beginAtZero: true,
-//           ticks: {
-//             stepSize: 1
-//           }
-//         }
-//       },
-//       plugins: {
-//         datalabels: {
-//           labels: {
-//             title: {
-//               color: "white"
-//             }
-//           }
-//         }
-//       }
-//     }
-//   };
-
-//   new Chart($("#countHistoryRegister"), config);
-// }
-
-// function get_genere(boy_girl, teen) {
-//   let data = {
-//     labels: [langJson.graficas.niños, langJson.graficas.jovenes],
-//     datasets: [
-//       {
-//         label: langJson.graficas.femenino,
-//         backgroundColor: "rgb(255,218,224)",
-//         data: [boy_girl.femenino, teen.femenino],
-//         borderRadius: 10,
-//         barPercentage: 0.5
-//       },
-//       {
-//         label: langJson.graficas.masculino,
-//         backgroundColor: "rgb(170,220,254)",
-//         data: [boy_girl.masculino, teen.masculino],
-//         borderRadius: 10,
-//         barPercentage: 0.5
-//       }
-//     ]
-//   };
-
-//   new Chart($("#countGenere"), {
-//     type: "bar",
-//     data: data,
-//     plugins: [ChartDataLabels],
-//     options: {
-//       responsive: true,
-//       scales: {
-//         y: {
-//           ticks: {
-//             stepSize: 1
-//           }
-//         }
-//       },
-//       plugins: {
-//         datalabels: {
-//           labels: {
-//             title: {
-//               color: "white"
-//             }
-//           }
-//         }
-//       }
-//     }
-//   });
-// }
-
-// function get_general(elderly, adult) {
-
-//   let data = {
-//     labels: [langJson.graficas.adultos, langJson.graficas.adultos_mayores],
-//     datasets: [
-//       {
-//         label: langJson.graficas.femenino,
-//         backgroundColor: "rgb(255,218,224)",
-//         data: [adult.femenino, elderly.femenino],
-//         borderRadius: 10,
-//         barPercentage: 0.5
-//       },
-//       {
-//         label: langJson.graficas.masculino,
-//         backgroundColor: "rgb(170,220,254)",
-//         data: [adult.masculino, elderly.masculino],
-//         borderRadius: 10,
-//         barPercentage: 0.5
-//       }
-//     ]
-//   };
-
-//   new Chart($("#countGereral"), {
-//     type: "bar",
-//     data: data,
-//     plugins: [ChartDataLabels],
-//     options: {
-//       responsive: true,
-//       scales: {
-//         y: {
-//           ticks: {
-//             stepSize: 1
-//           }
-//         }
-//       },
-//       plugins: {
-//         datalabels: {
-//           labels: {
-//             title: {
-//               color: "white"
-//             }
-//           }
-//         }
-//       }
-//     }
-//   });
-// }
+/**
+ *
+ * Grafica de Pacientes por edad y sexo
+ *
+ */
 
 function get_general(boy_girl, teen, adult, elderly) {
   const data = {
@@ -270,16 +40,22 @@ function get_general(boy_girl, teen, adult, elderly) {
         label: langJson.graficas.femenino,
         data: [boy_girl.femenino, teen.femenino, adult.femenino, elderly.femenino],
         borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgb(255, 99, 132)"
+        backgroundColor: "rgb(255, 99, 132)",
+        stack: "Stack 0"
       },
       {
         label: langJson.graficas.masculino,
         data: [boy_girl.masculino, teen.masculino, adult.masculino, elderly.masculino],
         borderColor: "#2380f7",
-        backgroundColor: "#2380f7"
+        backgroundColor: "#2380f7",
+        stack: "Stack 0"
       }
     ]
   };
+
+  const totalSum = data.datasets[0].data.reduce((sum, currentValue) => {
+    return sum + currentValue;
+  }, 0);
 
   new Chart($("#countGereral2"), {
     type: "bar",
@@ -288,37 +64,52 @@ function get_general(boy_girl, teen, adult, elderly) {
       responsive: true,
       scales: {
         y: {
-          ticks: { color: "#b3b3b3", beginAtZero: true, stepSize: 1 }
+          ticks: { color: "#596167", beginAtZero: true, stepSize: 1}, grace: 2
         },
         x: {
-          ticks: { color: "#b3b3b3", beginAtZero: true }
+          ticks: { color: "#596167", beginAtZero: true }
         }
       },
       plugins: {
+        datalabels: {
+            labels: {
+                title: {
+                color: "white",
+                font: {
+                    weight: "bold",
+                    size: 14
+                }
+                }
+            },
+            formatter: function(value) {
+                return value == 0 ? '' : Math.floor(value / totalSum * 100) + "%";
+            }
+        },
         legend: {
-            position: "bottom",
-            align: "start",
+          position: "bottom",
+          align: "start",
           labels: {
-            color: "#b3b3b3"
+            color: "#596167"
           }
         },
-        title: {
-          display: true,
-          text: langJson.graficas.pacientes_tipo,
-          color: "#b3b3b3"
-        }
       }
-    }
+    },
+    plugins: [ChartDataLabels]
   });
 }
 
+/**
+ *
+ * Grafica de consultas por mes
+ *
+ */
 function get_queries_month(queries_month) {
   const data = {
     labels: Meses,
     datasets: [
       {
         label: langJson.graficas.total,
-        data:queries_month,
+        data: queries_month,
         borderColor: "#2380f7",
         backgroundColor: context => {
           const bgcolor = ["#2380f7", "#2380f77a", "#0000"];
@@ -346,10 +137,10 @@ function get_queries_month(queries_month) {
       responsive: true,
       scales: {
         y: {
-          ticks: { color: "#b3b3b3", beginAtZero: true, stepSize: 1 }
+          ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }
         },
         x: {
-          ticks: { color: "#b3b3b3", beginAtZero: true }
+          ticks: { color: "#596167", beginAtZero: true }
         }
       },
       plugins: {
@@ -357,13 +148,13 @@ function get_queries_month(queries_month) {
           position: "bottom",
           align: "start",
           labels: {
-            color: "#b3b3b3"
+            color: "#596167"
           }
         },
         title: {
           display: true,
-          text: langJson.graficas.consultas_mes,
-          color: "#b3b3b3"
+          //   text: langJson.graficas.consultas_mes,
+          color: "#596167"
         }
       }
     }
@@ -371,19 +162,28 @@ function get_queries_month(queries_month) {
 }
 
 function updat_graphc(data) {
-
   chart_queries_month.data.datasets[0].data = data.get_queries_month;
   chart_queries_month.update();
 
-  chart_appointments_attended.data.datasets[0].data = data.get_appointments_attended;
-  chart_appointments_attended.update();
+  chart_general_appointments.data.datasets[0].data = data.get_appointments_attended;
+  chart_general_appointments.data.datasets[1].data = data.get_appointments_unconfirmed;
+  chart_general_appointments.update();
 
-  chart_appointments_canceled.data.datasets[0].data = data.get_appointments_canceled;
-  chart_appointments_canceled.update();
+  chart_general_appointments2.data.datasets[0].data = data.get_appointments_unconfirmed;
+  chart_general_appointments2.data.datasets[1].data = data.get_appointments_confirmed;
+  chart_general_appointments2.data.datasets[2].data = data.get_appointments_attended;
+  chart_general_appointments2.update();
 
-  chart_appointments_confirmed.data.datasets[0].data = data.get_appointments_confirmed;
-  chart_appointments_confirmed.update();
+  chart_recorded_appointments.data.datasets[1].data = data.get_appointments_unconfirmed;
+  chart_general_appointments.update();
+
 }
+
+/**
+ *
+ * Grafica de citas atendidas por mes
+ *
+ */
 
 function get_appointments_attended(appointments_attended) {
   const data = {
@@ -419,10 +219,10 @@ function get_appointments_attended(appointments_attended) {
       responsive: true,
       scales: {
         y: {
-          ticks: { color: "#b3b3b3", beginAtZero: true, stepSize: 1 }
+          ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }
         },
         x: {
-          ticks: { color: "#b3b3b3", beginAtZero: true }
+          ticks: { color: "#596167", beginAtZero: true }
         }
       },
       plugins: {
@@ -430,18 +230,24 @@ function get_appointments_attended(appointments_attended) {
           position: "bottom",
           align: "start",
           labels: {
-            color: "#b3b3b3"
+            color: "#596167"
           }
         },
         title: {
           display: true,
           text: langJson.graficas.citas_atendidas_mes,
-          color: "#b3b3b3"
+          color: "#596167"
         }
       }
     }
   });
 }
+
+/**
+ *
+ * Grafica de citas canceladas por mes
+ *
+ */
 
 function get_appointments_canceled(appointments_canceled) {
   const data = {
@@ -452,7 +258,6 @@ function get_appointments_canceled(appointments_canceled) {
         data: appointments_canceled,
         borderColor: "#af5a5c",
         backgroundColor: context => {
-
           const bgcolor = ["#af5a5c", "#af5a5c9c", "#0000"];
 
           if (!context.chart.chartArea) {
@@ -478,10 +283,10 @@ function get_appointments_canceled(appointments_canceled) {
       responsive: true,
       scales: {
         y: {
-          ticks: { color: "#b3b3b3", beginAtZero: true, stepSize: 1 }
+          ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }
         },
         x: {
-          ticks: { color: "#b3b3b3", beginAtZero: true }
+          ticks: { color: "#596167", beginAtZero: true }
         }
       },
       plugins: {
@@ -489,18 +294,24 @@ function get_appointments_canceled(appointments_canceled) {
           position: "bottom",
           align: "start",
           labels: {
-            color: "#b3b3b3"
+            color: "#596167"
           }
         },
         title: {
           display: true,
           text: langJson.graficas.citas_canceladas_mes,
-          color: "#b3b3b3"
+          color: "#596167"
         }
       }
     }
   });
 }
+
+/**
+ *
+ * Grafica de citas confirmadas por mes
+ *
+ */
 
 function get_appointments_confirmed(appointments_confirmed) {
   const data = {
@@ -512,7 +323,7 @@ function get_appointments_confirmed(appointments_confirmed) {
         borderColor: "#36e97b",
         borderWidth: 2,
         backgroundColor: context => {
-        //   const bgcolor = ["#af5a5c", "#af5a5c9c", "#af5a5c5c"];
+          //   const bgcolor = ["#af5a5c", "#af5a5c9c", "#af5a5c5c"];
           const bgcolor = ["#36e97b", "#38ef7d7a", "#38ef7d36"];
 
           if (!context.chart.chartArea) {
@@ -538,10 +349,10 @@ function get_appointments_confirmed(appointments_confirmed) {
       responsive: true,
       scales: {
         y: {
-          ticks: { color: "#b3b3b3", beginAtZero: true, stepSize: 1 }
+          ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }
         },
         x: {
-          ticks: { color: "#b3b3b3", beginAtZero: true }
+          ticks: { color: "#596167", beginAtZero: true }
         }
       },
       plugins: {
@@ -549,51 +360,179 @@ function get_appointments_confirmed(appointments_confirmed) {
           position: "bottom",
           align: "start",
           labels: {
-            color: "#b3b3b3"
+            color: "#596167"
           }
         },
         title: {
           display: true,
           text: langJson.graficas.citas_confirmadas_mes,
-          color: "#b3b3b3"
+          color: "#596167"
         }
       }
     }
   });
 }
 
-function get_quotes(appointments_count_all) {
+/**
+ *
+ * Grafica de citas atendidas y sin confirmar por mes
+ *
+ */
+
+function get_general_appointments(appointments_attended, appointments_unconfirmed) {
   const data = {
-    labels: [langJson.graficas.canceladas, langJson.graficas.atendidas, langJson.graficas.confirmadas],
+    labels: Meses,
     datasets: [
       {
-        label: langJson.graficas.total,
-        data: appointments_count_all,
-        backgroundColor: ["#ed6c6c", "#ffba56", "#36e97b"]
+        label: langJson.graficas.citas_atendidas_mes,
+        data: appointments_attended,
+        borderColor: "#198754",
+        backgroundColor: "#198754"
+      },
+      {
+        label: langJson.graficas.citas_sinconfirmar_mes,
+        data: appointments_unconfirmed,
+        borderColor: "#6c757d",
+        backgroundColor: "#6c757d"
       }
     ]
   };
 
-  new Chart($("#quotes"), {
-    type: "pie",
+  chart_general_appointments = new Chart($("#countGereral3"), {
+    type: "bar",
     data: data,
     options: {
       responsive: true,
+      scales: {
+        y: {
+          ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }, grace: 1
+        },
+        x: {
+          ticks: { color: "#596167", beginAtZero: true }
+        }
+      },
       plugins: {
         legend: {
           position: "bottom",
           align: "start",
           labels: {
-            color: "#b3b3b3"
+            color: "#596167"
           }
         },
-        title: {
-          display: true,
-          text: langJson.graficas.citas,
-          color: "#b3b3b3"
-        }
       }
     }
+  });
+}
+
+/**
+ *
+ * Grafica de citas confirmadas y sin confirmar por mes
+ *
+ */
+
+function get_general_appointments2(appointments_unconfirmed, appointments_confirmed, appointments_attended) {
+  const data = {
+    labels: Meses,
+    datasets: [
+      {
+        label: langJson.graficas.citas_sinconfirmar_mes,
+        data: appointments_unconfirmed,
+        borderColor: "#6c757d",
+        backgroundColor: "#6c757d"
+      },
+      {
+        label: langJson.graficas.citas_confirmadas_mes,
+        data: appointments_confirmed,
+        borderColor: "#ffc107",
+        backgroundColor: "#ffc107"
+      },
+      {
+        label: langJson.graficas.citas_atendidas_mes,
+        data: appointments_attended,
+        borderColor: "#198754",
+        backgroundColor: "#198754"
+      }
+    ]
+  };
+
+  chart_general_appointments2 = new Chart($("#countGereral4"), {
+    type: "bar",
+    data: data,
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }, grace: 1
+        },
+        x: {
+          ticks: { color: "#596167", beginAtZero: true }
+        }
+      },
+      plugins: {
+        legend: {
+          position: "bottom",
+          align: "start",
+          labels: {
+            color: "#596167"
+          }
+        },
+      }
+    },
+
+  });
+}
+
+/**
+ *
+ * Grafica de citas canceladas, atendidas y confirmadas acumuladas
+ *
+ */
+function get_quotes(appointments_count_all) {
+  const data = {
+    labels: [langJson.graficas.canceladas, langJson.graficas.atendidas, langJson.graficas.sin_confirmar],
+    datasets: [
+      {
+        label: langJson.graficas.total,
+        data: appointments_count_all,
+        backgroundColor: ["#dc3545", "#198754", "#6c757d"]
+      }
+    ]
+  };
+
+  const totalSum = data.datasets[0].data.reduce((sum, currentValue) => {
+    return sum + currentValue;
+  }, 0);
+
+  new Chart($("#quotes"), {
+    type: "pie",
+    data: data,
+    options: {
+        responsive: true,
+        plugins: {
+            datalabels: {
+                labels: {
+                    title: {
+                    color: "white",
+                    font: {
+                        weight: "bold",
+                        size: 16
+                    }
+                    }
+                },
+                formatter: function(value) {
+                    return value == 0 ? '' : Math.floor(value / totalSum * 100) + "%";
+                }
+            },
+            legend: {
+                position: "bottom",
+                align: "start",
+                labels: {
+                    color: "#596167"
+                }
+            }
+        }
+    },
+    plugins: [ChartDataLabels]
   });
 }
 
@@ -603,11 +542,15 @@ function get_consultas_history(countMedicalRecordr, countHistoryRegister) {
     datasets: [
       {
         label: langJson.graficas.total,
-        data: [countMedicalRecordr , countHistoryRegister],
-        backgroundColor: ["#2380f7", "#56c1ff",]
+        data: [countMedicalRecordr, countHistoryRegister],
+        backgroundColor: ["#2380f7", "#56c1ff"]
       }
     ]
   };
+
+  const totalSum = data.datasets[0].data.reduce((sum, currentValue) => {
+    return sum + currentValue;
+  }, 0);
 
   new Chart($("#consultas_history"), {
     type: "pie",
@@ -615,97 +558,62 @@ function get_consultas_history(countMedicalRecordr, countHistoryRegister) {
     options: {
       responsive: true,
       plugins: {
+        datalabels: {
+          labels: {
+            title: {
+              color: "white",
+              font: {
+                weight: "bold",
+                size: 18
+              }
+            }
+          },
+          formatter: function(value) {
+            return value == 0 ? '' : Math.floor(value / totalSum * 100) + "%";
+          }
+        },
         legend: {
           position: "bottom",
           align: "start",
           labels: {
-            color: "#b3b3b3"
+            color: "#596167"
           }
-        },
-        title: {
-          display: true,
-          text: langJson.graficas.consultas_historias,
-          color: "#b3b3b3"
         }
       }
-    }
+    },
+    plugins: [ChartDataLabels]
   });
 }
 
-function get_recorded_appointments() {
-    const data = {
-        labels: Meses,
-        datasets: [
-          {
-            label: langJson.graficas.total,
-            data: [2, 4, 5, 6, 7, 8, 9, 7, 4, 5, 6, 7],
-            borderColor: "#2380f7",
-            backgroundColor: context => {
-              const bgcolor = ["#2380f7", "#2380f77a", "#0000"];
+function get_recorded_appointments(appointments_unconfirmed) {
+  const data = {
+    labels: Meses,
+    datasets: [
+      {
+        label: langJson.graficas.total,
+        data: appointments_unconfirmed,
+        borderColor: "#2380f7",
+        backgroundColor: context => {
+          const bgcolor = ["#2380f7", "#2380f77a", "#0000"];
 
-              if (!context.chart.chartArea) {
-                return;
-              }
-              const { ctx, data, chartArea: { top, bottom } } = context.chart;
-              const gradientBg = ctx.createLinearGradient(0, top, 0, bottom);
-              gradientBg.addColorStop(0, bgcolor[0]);
-              gradientBg.addColorStop(0.5, bgcolor[1]);
-              gradientBg.addColorStop(1, bgcolor[2]);
-              return gradientBg;
-            },
-            fill: true,
-            tension: 0.4
+          if (!context.chart.chartArea) {
+            return;
           }
-        ]
-      };
+          const { ctx, data, chartArea: { top, bottom } } = context.chart;
+          const gradientBg = ctx.createLinearGradient(0, top, 0, bottom);
+          gradientBg.addColorStop(0, bgcolor[0]);
+          gradientBg.addColorStop(0.5, bgcolor[1]);
+          gradientBg.addColorStop(1, bgcolor[2]);
+          return gradientBg;
+        },
+        fill: true,
+        tension: 0.4
+      }
+    ]
+  };
 
-      chart_recorded_appointments = new Chart($("#recorded_appointments"), {
-        type: "line",
-        data: data,
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              ticks: { color: "#b3b3b3", beginAtZero: true, stepSize: 1 }
-            },
-            x: {
-              ticks: { color: "#b3b3b3", beginAtZero: true }
-            }
-          },
-          plugins: {
-            legend: {
-              position: "bottom",
-              align: "start",
-              labels: {
-                color: "#b3b3b3"
-              }
-            },
-            title: {
-              display: true,
-              text: langJson.graficas.citas_registradas,
-              color: "#b3b3b3"
-            }
-          }
-        }
-      });
-}
-
-function get_doctors(doctors_active, doctors_inactive) {
-    const data = {
-        labels: [langJson.graficas.doctores_activos , langJson.graficas.doctores_inactivos],
-        datasets: [
-          {
-            label: langJson.graficas.total,
-            data: [doctors_active, doctors_inactive],
-            borderColor: "#36e97b",
-            backgroundColor: ["#36e97b", "#f02c2cf0"]
-
-          }
-        ]
-      };
-
-      chart_doctors = new Chart($("#doctors"), {
-        type: "bar",
+  chart_recorded_appointments = new Chart($("#recorded_appointments"), {
+    type: "line",
     data: data,
     options: {
       responsive: true,
@@ -719,20 +627,64 @@ function get_doctors(doctors_active, doctors_inactive) {
       },
       plugins: {
         legend: {
-            position: "bottom",
-            align: "start",
+          position: "bottom",
+          align: "start",
           labels: {
             color: "#b3b3b3"
           }
         },
         title: {
           display: true,
-          text: langJson.graficas.doctores_activos + ' / ' + langJson.graficas.doctores_inactivos,
+          text: langJson.graficas.citas_registradas,
           color: "#b3b3b3"
         }
       }
     }
-      });
+  });
+}
+
+function get_doctors(doctors_active, doctors_inactive) {
+  const data = {
+    labels: [langJson.graficas.doctores_activos, langJson.graficas.doctores_inactivos],
+    datasets: [
+      {
+        label: langJson.graficas.total,
+        data: [doctors_active, doctors_inactive],
+        borderColor: "#36e97b",
+        backgroundColor: ["#36e97b", "#f02c2cf0"]
+      }
+    ]
+  };
+
+  chart_doctors = new Chart($("#doctors"), {
+    type: "bar",
+    data: data,
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          ticks: { color: "#b3b3b3", beginAtZero: true, stepSize: 1 }
+        },
+        x: {
+          ticks: { color: "#b3b3b3", beginAtZero: true }
+        }
+      },
+      plugins: {
+        legend: {
+          position: "bottom",
+          align: "start",
+          labels: {
+            color: "#b3b3b3"
+          }
+        },
+        title: {
+          display: true,
+          text: langJson.graficas.doctores_activos + " / " + langJson.graficas.doctores_inactivos,
+          color: "#b3b3b3"
+        }
+      }
+    }
+  });
 }
 
 // window.get_patient_register = get_patient_register;
@@ -748,3 +700,5 @@ window.get_quotes = get_quotes;
 window.get_consultas_history = get_consultas_history;
 window.get_recorded_appointments = get_recorded_appointments;
 window.get_doctors = get_doctors;
+window.get_general_appointments = get_general_appointments;
+window.get_general_appointments2 = get_general_appointments2;

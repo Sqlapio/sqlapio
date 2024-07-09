@@ -18,6 +18,7 @@ use App\Models\DoctorCenter;
 use App\Models\Exam;
 use App\Models\ExamPatient;
 use App\Models\FamilyBackground;
+use App\Models\GeneralStatistic;
 use App\Models\History;
 use App\Models\Laboratory;
 use App\Models\Patient;
@@ -2046,44 +2047,45 @@ class UtilsController extends Controller
 
 	static function get_appointments_attended($month = null,$id)
 	{
+
 		try {
 
 			if ($month) {
-				$January = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", ($month == "01") ? $month : null)->where("status", "3")->count();
+				$January = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "01") ? $month : null)->get()->sum('dairy_finalizada');
 
-				$February = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", ($month == "02") ? $month : null)->where("status", "3")->count();
+				$February = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "02") ? $month : null)->get()->sum('dairy_finalizada');
 
-				$March = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", ($month == "03") ? $month : null)->where("status", "3")->count();
+				$March = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "03") ? $month : null)->get()->sum('dairy_finalizada');
 
-				$April = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", ($month == "04") ? $month : null)->where("status", "3")->count();
+				$April = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "04") ? $month : null)->get()->sum('dairy_finalizada');
 
-				$May = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", ($month == "05") ? $month : null)->where("status", "3")->count();
+				$May = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "05") ? $month : null)->get()->sum('dairy_finalizada');
 
-				$June = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", ($month == "06") ? $month : null)->where("status", "3")->count();
+				$June = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "06") ? $month : null)->get()->sum('dairy_finalizada');
 
-				$julio  = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", ($month == "07") ? $month : null)->where("status", "3")->count();
+				$julio  = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "07") ? $month : null)->get()->sum('dairy_finalizada');
 
-				$agosto = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", ($month == "08") ? $month : null)->where("status", "3")->count();
+				$agosto = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "08") ? $month : null)->get()->sum('dairy_finalizada');
 
-				$septiembre = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", ($month == "09") ? $month : null)->where("status", "3")->count();
+				$septiembre = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "09") ? $month : null)->get()->sum('dairy_finalizada');
 
-				$October = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", ($month == "10") ? $month : null)->where("status", "3")->count();
+				$October = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "10") ? $month : null)->get()->sum('dairy_finalizada');
 
-				$November = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", ($month == "11") ? $month : null)->where("status", "3")->count();
+				$November = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "11") ? $month : null)->get()->sum('dairy_finalizada');
 
-				$December = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", ($month == "12") ? $month : null)->where("status", "3")->count();
+				$December = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", ($month == "12") ? $month : null)->get()->sum('dairy_finalizada');
 
 				return [
 					$January, $February,
@@ -2093,41 +2095,41 @@ class UtilsController extends Controller
 					$November, $December
 				];
 			} else {
-				$January = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", "01")->where("status", "3")->count();
+				$January = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "01")->get()->sum('dairy_finalizada');
 
-				$February = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", "02")->where("status", "3")->count();
+				$February = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "02")->get()->sum('dairy_finalizada');
 
-				$March = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", "03")->where("status", "3")->count();
+				$March = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "03")->get()->sum('dairy_finalizada');
 
-				$April = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", "04")->where("status", "3")->count();
+				$April = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "04")->get()->sum('dairy_finalizada');
 
-				$May = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", "05")->where("status", "3")->count();
+				$May = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "05")->get()->sum('dairy_finalizada');
 
-				$June = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", "06")->where("status", "3")->count();
+				$June = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "06")->get()->sum('dairy_finalizada');
 
-				$julio  = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", "07")->where("status", "3")->count();
+				$julio  = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "07")->get()->sum('dairy_finalizada');
 
-				$agosto = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", "08")->where("status", "3")->count();
+				$agosto = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "08")->get()->sum('dairy_finalizada');
 
-				$septiembre = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", "09")->where("status", "3")->count();
+				$septiembre = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "09")->get()->sum('dairy_finalizada');
 
-				$October = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", "10")->where("status", "3")->count();
+				$October = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "10")->get()->sum('dairy_finalizada');
 
-				$November = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", "11")->where("status", "3")->count();
+				$November = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "11")->get()->sum('dairy_finalizada');
 
-				$December = Appointment::where("user_id", auth()->user()->id)
-					->whereMonth("created_at", "12")->where("status", "3")->count();
+				$December = GeneralStatistic::where("user_id", auth()->user()->id)
+					->whereMonth("created_at", "12")->get()->sum('dairy_finalizada');
 
 				return [
 					$January, $February,
@@ -2139,50 +2141,51 @@ class UtilsController extends Controller
 			}
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
-			dd('Error UtilsController.get_image_patient()', $message);
+			dd('Error UtilsController.get_appointments_attended()', $message);
 		}
 	}
+
 	static function get_appointments_canceled($month = null,$id)
 	{
 		try {
 
 			if ($month) {
 
-				$January = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "01") ? $month : null)->where("status", "4")->count();
+				$January = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "01") ? $month : null)->get()->sum('dairy_cancelada');
 
-				$February = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "02") ? $month : null)->where("status", "4")->count();
+				$February = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "02") ? $month : null)->get()->sum('dairy_cancelada');
 
-				$March = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "03") ? $month : null)->where("status", "4")->count();
+				$March = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "03") ? $month : null)->get()->sum('dairy_cancelada');
 
-				$April = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "04") ? $month : null)->where("status", "4")->count();
+				$April = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "04") ? $month : null)->get()->sum('dairy_cancelada');
 
-				$May = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "05") ? $month : null)->where("status", "4")->count();
+				$May = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "05") ? $month : null)->get()->sum('dairy_cancelada');
 
-				$June = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "06") ? $month : null)->where("status", "4")->count();
+				$June = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "06") ? $month : null)->get()->sum('dairy_cancelada');
 
-				$julio  = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "07") ? $month : null)->where("status", "4")->count();
+				$julio  = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "07") ? $month : null)->get()->sum('dairy_cancelada');
 
-				$agosto = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "08") ? $month : null)->where("status", "4")->count();
+				$agosto = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "08") ? $month : null)->get()->sum('dairy_cancelada');
 
-				$septiembre = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "09") ? $month : null)->where("status", "4")->count();
+				$septiembre = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "09") ? $month : null)->get()->sum('dairy_cancelada');
 
-				$October = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "10") ? $month : null)->where("status", "4")->count();
+				$October = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "10") ? $month : null)->get()->sum('dairy_cancelada');
 
-				$November = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "11") ? $month : null)->where("status", "4")->count();
+				$November = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "11") ? $month : null)->get()->sum('dairy_cancelada');
 
-				$December = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "12") ? $month : null)->where("status", "4")->count();
+				$December = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "12") ? $month : null)->get()->sum('dairy_cancelada');
 
 				return [
 					$January, $February,
@@ -2192,41 +2195,41 @@ class UtilsController extends Controller
 					$November, $December
 				];
 			} else {
-				$January = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "01")->where("status", "4")->count();
+				$January = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "01")->get()->sum('dairy_cancelada');
 
-				$February = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "02")->where("status", "4")->count();
+				$February = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "02")->get()->sum('dairy_cancelada');
 
-				$March = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "03")->where("status", "4")->count();
+				$March = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "03")->get()->sum('dairy_cancelada');
 
-				$April = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "04")->where("status", "4")->count();
+				$April = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "04")->get()->sum('dairy_cancelada');
 
-				$May = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "05")->where("status", "4")->count();
+				$May = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "05")->get()->sum('dairy_cancelada');
 
-				$June = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "06")->where("status", "4")->count();
+				$June = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "06")->get()->sum('dairy_cancelada');
 
-				$julio  = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "07")->where("status", "4")->count();
+				$julio  = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "07")->get()->sum('dairy_cancelada');
 
-				$agosto = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "08")->where("status", "4")->count();
+				$agosto = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "08")->get()->sum('dairy_cancelada');
 
-				$septiembre = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "09")->where("status", "4")->count();
+				$septiembre = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "09")->get()->sum('dairy_cancelada');
 
-				$October = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "10")->where("status", "4")->count();
+				$October = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "10")->get()->sum('dairy_cancelada');
 
-				$November = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "11")->where("status", "4")->count();
+				$November = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "11")->get()->sum('dairy_cancelada');
 
-				$December = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "12")->where("status", "4")->count();
+				$December = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "12")->get()->sum('dairy_cancelada');
 
 				return [
 					$January, $February,
@@ -2248,41 +2251,41 @@ class UtilsController extends Controller
 
 			if ($month) {
 
-				$January = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "01") ? $month : null)->where("status", "2")->count();
+				$January = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "01") ? $month : null)->get()->sum('dairy_confirmar');
 
-				$February = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "02") ? $month : null)->where("status", "2")->count();
+				$February = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "02") ? $month : null)->get()->sum('dairy_confirmar');
 
-				$March = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "03") ? $month : null)->where("status", "2")->count();
+				$March = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "03") ? $month : null)->get()->sum('dairy_confirmar');
 
-				$April = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "04") ? $month : null)->where("status", "2")->count();
+				$April = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "04") ? $month : null)->get()->sum('dairy_confirmar');
 
-				$May = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "05") ? $month : null)->where("status", "2")->count();
+				$May = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "05") ? $month : null)->get()->sum('dairy_confirmar');
 
-				$June = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "06") ? $month : null)->where("status", "2")->count();
+				$June = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "06") ? $month : null)->get()->sum('dairy_confirmar');
 
-				$julio  = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "07") ? $month : null)->where("status", "2")->count();
+				$julio  = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "07") ? $month : null)->get()->sum('dairy_confirmar');
 
-				$agosto = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "08") ? $month : null)->where("status", "2")->count();
+				$agosto = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "08") ? $month : null)->get()->sum('dairy_confirmar');
 
-				$septiembre = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "09") ? $month : null)->where("status", "2")->count();
+				$septiembre = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "09") ? $month : null)->get()->sum('dairy_confirmar');
 
-				$October = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "10") ? $month : null)->where("status", "2")->count();
+				$October = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "10") ? $month : null)->get()->sum('dairy_confirmar');
 
-				$November = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "11") ? $month : null)->where("status", "2")->count();
+				$November = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "11") ? $month : null)->get()->sum('dairy_confirmar');
 
-				$December = Appointment::where("user_id", $id)
-					->whereMonth("created_at", ($month == "12") ? $month : null)->where("status", "2")->count();
+				$December = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "12") ? $month : null)->get()->sum('dairy_confirmar');
 
 				return [
 					$January, $February,
@@ -2293,41 +2296,41 @@ class UtilsController extends Controller
 				];
 			} else {
 
-				$January = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "01")->where("status", "2")->count();
+				$January = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "01")->get()->sum('dairy_confirmar');
 
-				$February = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "02")->where("status", "2")->count();
+				$February = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "02")->get()->sum('dairy_confirmar');
 
-				$March = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "03")->where("status", "2")->count();
+				$March = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "03")->get()->sum('dairy_confirmar');
 
-				$April = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "04")->where("status", "2")->count();
+				$April = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "04")->get()->sum('dairy_confirmar');
 
-				$May = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "05")->where("status", "2")->count();
+				$May = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "05")->get()->sum('dairy_confirmar');
 
-				$June = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "06")->where("status", "2")->count();
+				$June = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "06")->get()->sum('dairy_confirmar');
 
-				$julio  = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "07")->where("status", "2")->count();
+				$julio  = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "07")->get()->sum('dairy_confirmar');
 
-				$agosto = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "08")->where("status", "2")->count();
+				$agosto = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "08")->get()->sum('dairy_confirmar');
 
-				$septiembre = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "09")->where("status", "2")->count();
+				$septiembre = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "09")->get()->sum('dairy_confirmar');
 
-				$October = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "10")->where("status", "2")->count();
+				$October = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "10")->get()->sum('dairy_confirmar');
 
-				$November = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "11")->where("status", "2")->count();
+				$November = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "11")->get()->sum('dairy_confirmar');
 
-				$December = Appointment::where("user_id", $id)
-					->whereMonth("created_at", "12")->where("status", "2")->count();
+				$December = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "12")->get()->sum('dairy_confirmar');
 
 				return [
 					$January, $February,
@@ -2339,7 +2342,108 @@ class UtilsController extends Controller
 			}
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
-			dd('Error UtilsController.get_image_patient()', $message);
+			dd('Error UtilsController.get_appointments_confirmed()', $message);
+		}
+	}
+
+    static function get_appointments_unconfirmed($month = null,$id)
+	{
+		try {
+
+			if ($month) {
+
+				$January = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "01") ? $month : null)->get()->sum('dairy_sin_confirmar');
+
+				$February = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "02") ? $month : null)->get()->sum('dairy_sin_confirmar');
+
+				$March = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "03") ? $month : null)->get()->sum('dairy_sin_confirmar');
+
+				$April = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "04") ? $month : null)->get()->sum('dairy_sin_confirmar');
+
+				$May = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "05") ? $month : null)->get()->sum('dairy_sin_confirmar');
+
+				$June = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "06") ? $month : null)->get()->sum('dairy_sin_confirmar');
+
+				$julio  = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "07") ? $month : null)->get()->sum('dairy_sin_confirmar');
+
+				$agosto = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "08") ? $month : null)->get()->sum('dairy_sin_confirmar');
+
+				$septiembre = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "09") ? $month : null)->get()->sum('dairy_sin_confirmar');
+
+				$October = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "10") ? $month : null)->get()->sum('dairy_sin_confirmar');
+
+				$November = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "11") ? $month : null)->get()->sum('dairy_sin_confirmar');
+
+				$December = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", ($month == "12") ? $month : null)->get()->sum('dairy_sin_confirmar');
+
+				return [
+					$January, $February,
+					$March, $April, $May,
+					$June, $julio, $agosto,
+					$septiembre, $October,
+					$November, $December
+				];
+			} else {
+
+				$January = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "01")->get()->sum('dairy_sin_confirmar');
+
+				$February = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "02")->get()->sum('dairy_sin_confirmar');
+
+				$March = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "03")->get()->sum('dairy_sin_confirmar');
+
+				$April = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "04")->get()->sum('dairy_sin_confirmar');
+
+				$May = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "05")->get()->sum('dairy_sin_confirmar');
+
+				$June = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "06")->get()->sum('dairy_sin_confirmar');
+
+				$julio  = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "07")->get()->sum('dairy_sin_confirmar');
+
+				$agosto = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "08")->get()->sum('dairy_sin_confirmar');
+
+				$septiembre = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "09")->get()->sum('dairy_sin_confirmar');
+
+				$October = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "10")->get()->sum('dairy_sin_confirmar');
+
+				$November = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "11")->get()->sum('dairy_sin_confirmar');
+
+				$December = GeneralStatistic::where("user_id", $id)
+					->whereMonth("created_at", "12")->get()->sum('dairy_sin_confirmar');
+
+				return [
+					$January, $February,
+					$March, $April, $May,
+					$June, $julio, $agosto,
+					$septiembre, $October,
+					$November, $December
+				];
+			}
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_appointments_unconfirmed()', $message);
 		}
 	}
 
@@ -2347,19 +2451,16 @@ class UtilsController extends Controller
 	{
 		try {
 
-			$attended = Appointment::where("user_id", $id)
-				->where("status", "3")->count();
+			$attended = GeneralStatistic::where("user_id", $id)->get()->sum('dairy_finalizada');
 
-			$canceled = Appointment::where("user_id", $id)
-				->where("status", "4")->count();
+			$canceled = GeneralStatistic::where("user_id", $id)->get()->sum('dairy_cancelada');
 
-			$confirmed = Appointment::where("user_id", $id)
-				->where("status", "2")->count();
+			$unconfirmed = GeneralStatistic::where("user_id", $id)->get()->sum('dairy_sin_confirmar');
 
-			return [$canceled, $attended, $confirmed];
+			return [$canceled, $attended, $unconfirmed];
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
-			dd('Error UtilsController.get_image_patient()', $message);
+			dd('Error UtilsController.get_appointments_count_all()', $message);
 		}
 	}
 
@@ -2370,19 +2471,21 @@ class UtilsController extends Controller
 			$id= (Auth::user()->role=="secretary")?Auth::user()->master_corporate_id :Auth::user()->id;
 
 			$get_queries_month = UtilsController::get_queries_month($month,$id);
-			$get_appointments_attended = UtilsController::get_queries_month($month,$id);
+			$get_appointments_attended = UtilsController::get_appointments_attended($month,$id);
 			$get_appointments_canceled = UtilsController::get_appointments_canceled($month,$id);
 			$get_appointments_confirmed = UtilsController::get_appointments_confirmed($month,$id);
+			$get_appointments_unconfirmed = UtilsController::get_appointments_unconfirmed($month,$id);
 
 			return [
-				'get_queries_month'          => $get_queries_month,
-				'get_appointments_attended'  => $get_appointments_attended,
-				'get_appointments_canceled'  => $get_appointments_canceled,
-				'get_appointments_confirmed' => $get_appointments_confirmed,
+				'get_queries_month'            => $get_queries_month,
+				'get_appointments_attended'    => $get_appointments_attended,
+				'get_appointments_canceled'    => $get_appointments_canceled,
+				'get_appointments_confirmed'   => $get_appointments_confirmed,
+				'get_appointments_unconfirmed' => $get_appointments_unconfirmed,
 			];
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
-			dd('Error UtilsController.get_image_patient()', $message);
+			dd('Error UtilsController.filter_month_dashboard()', $message);
 		}
 	}
 
