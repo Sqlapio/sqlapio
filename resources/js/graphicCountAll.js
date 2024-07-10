@@ -422,6 +422,22 @@ function get_general_appointments(appointments_attended, appointments_unconfirme
         }
       },
       plugins: {
+        datalabels: {
+            anchor: 'end',
+            align: 'end',
+            labels: {
+                title: {
+                    color: "#596167",
+                    font: {
+                        weight: "bold",
+                        size: 11
+                    }
+                }
+            },
+            formatter: function(value) {
+                return value == 0 ? '' : value;
+            }
+        },
         legend: {
           position: "bottom",
           align: "start",
@@ -430,7 +446,8 @@ function get_general_appointments(appointments_attended, appointments_unconfirme
           }
         },
       }
-    }
+    },
+    plugins: [ChartDataLabels]
   });
 }
 
@@ -465,20 +482,6 @@ function get_general_appointments2(appointments_unconfirmed, appointments_confir
     ]
   };
 
-  // const totalSum = data.datasets[0].data.reduce((sum, currentValue) => {
-  //   return sum + currentValue;
-  // }, 0);
-
-  // const totalSum2 = data.datasets[1].data.reduce((sum, currentValue) => {
-  //   return sum + currentValue;
-  // }, 0);
-
-  // const totalSum3 = data.datasets[2].data.reduce((sum, currentValue) => {
-  //   return sum + currentValue;
-  // }, 0);
-
-  // console.log(totalSum + totalSum2 + totalSum3)
-
   chart_general_appointments2 = new Chart($("#countGereral4"), {
     type: "bar",
     data: data,
@@ -496,7 +499,6 @@ function get_general_appointments2(appointments_unconfirmed, appointments_confir
         datalabels: {
             anchor: 'end',
             align: 'end',
-            rotation: 270,
             labels: {
                 title: {
                     color: "#596167",
@@ -507,8 +509,7 @@ function get_general_appointments2(appointments_unconfirmed, appointments_confir
                 }
             },
             formatter: function(value) {
-                // console.log(value)
-                // return value == 0 ? '' : Math.floor(value / totalSum * 100) + "%";
+                return value == 0 ? '' : value;
             }
         },
         legend: {
