@@ -39,8 +39,8 @@ function get_general(boy_girl, teen, adult, elderly) {
       {
         label: langJson.graficas.femenino,
         data: [boy_girl.femenino, teen.femenino, adult.femenino, elderly.femenino],
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgb(255, 99, 132)",
+        borderColor: "#56c1ff",
+        backgroundColor: "#56c1ff",
         stack: "Stack 0"
       },
       {
@@ -88,8 +88,6 @@ function get_general(boy_girl, teen, adult, elderly) {
                 }
             },
             formatter: function(value) {
-
-              console.log('value1', Math.round(value / totalSum * 100))
 
                 return value == 0 ? '' : Math.round(value / totalSum * 100) + "%";
 
@@ -389,22 +387,22 @@ function get_appointments_confirmed(appointments_confirmed) {
  *
  */
 
-function get_general_appointments(appointments_attended, appointments_unconfirmed) {
+function get_general_appointments(appointments_unconfirmed, appointments_canceled) {
   const data = {
     labels: Meses,
     datasets: [
-      {
-        label: langJson.graficas.citas_atendidas_mes,
-        data: appointments_attended,
-        borderColor: "#198754",
-        backgroundColor: "#198754"
-      },
-      {
-        label: langJson.graficas.citas_sinconfirmar_mes,
-        data: appointments_unconfirmed,
-        borderColor: "#6c757d",
-        backgroundColor: "#6c757d"
-      }
+        {
+            label: langJson.graficas.citas_sinconfirmar_mes,
+            data: appointments_unconfirmed,
+            borderColor: "#6c757d",
+            backgroundColor: "#6c757d"
+        },
+        {
+            label: langJson.graficas.citas_canceladas_mes,
+            data: appointments_canceled,
+            borderColor: "#dc3545",
+            backgroundColor: "#dc3545"
+        },
     ]
   };
 
@@ -453,20 +451,14 @@ function get_general_appointments(appointments_attended, appointments_unconfirme
 
 /**
  *
- * Grafica de citas confirmadas, sin confirmar y atendidas por mes
+ * Grafica de citas confirmadas y atendidas por mes
  *
  */
 
-function get_general_appointments2(appointments_unconfirmed, appointments_confirmed, appointments_attended) {
+function get_general_appointments2(appointments_confirmed, appointments_attended) {
   const data = {
     labels: Meses,
     datasets: [
-      {
-        label: langJson.graficas.citas_sinconfirmar_mes,
-        data: appointments_unconfirmed,
-        borderColor: "#6c757d",
-        backgroundColor: "#6c757d"
-      },
       {
         label: langJson.graficas.citas_confirmadas_mes,
         data: appointments_confirmed,
@@ -532,12 +524,12 @@ function get_general_appointments2(appointments_unconfirmed, appointments_confir
  */
 function get_quotes(appointments_count_all) {
   const data = {
-    labels: [langJson.graficas.canceladas, langJson.graficas.atendidas, langJson.graficas.sin_confirmar],
+    labels: [langJson.graficas.canceladas, langJson.graficas.atendidas, langJson.graficas.confirmadas],
     datasets: [
       {
         label: langJson.graficas.total,
         data: appointments_count_all,
-        backgroundColor: ["#dc3545", "#198754", "#6c757d"]
+        backgroundColor: ["#dc3545", "#198754", "#ffc107"]
       }
     ]
   };

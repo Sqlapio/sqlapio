@@ -2455,9 +2455,9 @@ class UtilsController extends Controller
 
 			$canceled = GeneralStatistic::where("user_id", $id)->get()->sum('dairy_cancelada');
 
-			$unconfirmed = GeneralStatistic::where("user_id", $id)->get()->sum('dairy_sin_confirmar');
+			$confirmada = GeneralStatistic::where("user_id", $id)->get()->sum('dairy_confirmar');
 
-			return [$canceled, $attended, $unconfirmed];
+			return [$canceled, $attended, $confirmada];
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_appointments_count_all()', $message);

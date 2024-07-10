@@ -672,7 +672,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="nav-item" href="{{ route('Patients') }}" title="Pacientes">
+                                            <a class="nav-item" href="{{ route('Patients') }}" title="@lang('messages.menu.pacientes')">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Contacts.png') }}"
                                                     alt="Pacientes">
                                                 <span class="nav-link active" aria-current="page"
@@ -680,7 +680,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="nav-item" href="{{ route('Diary') }}" title="Agenda">
+                                            <a class="nav-item" href="{{ route('Diary') }}" title="@lang('messages.menu.agenda')">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Calendar.png') }}"
                                                     alt="Agenda">
                                                 <span class="nav-link active" aria-current="page"
@@ -689,7 +689,7 @@
                                         </li>
                                         @if (Auth::user()->type_plane != '7')
                                             <li>
-                                                <a class="nav-item" href="{{ route('Centers') }}" title="Clínica">
+                                                <a class="nav-item" href="{{ route('Centers') }}" title="@lang('messages.menu.centros')">
                                                     <img class="icon-menu" src="{{ asset('img/V2/Maps.png') }}"
                                                         alt="Clínica">
                                                     <span class="nav-link active" aria-current="page"
@@ -698,7 +698,7 @@
                                             </li>
                                         @endif
                                         <li>
-                                            <a class="nav-item" href="{{ route('Examen') }}" title="Exámenes">
+                                            <a class="nav-item" href="{{ route('Examen') }}" title="@lang('messages.menu.examen')">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Reminders.png') }}"
                                                     alt="Exámenes">
                                                 <span class="nav-link active" aria-current="page"
@@ -706,7 +706,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="nav-item" href="{{ route('Study') }}" title="Estudios">
+                                            <a class="nav-item" href="{{ route('Study') }}" title="@lang('messages.menu.estudios')">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Books.png') }}"
                                                     alt="Estudios">
                                                 <span class="nav-link active" aria-current="page"
@@ -714,11 +714,11 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="nav-item" href="{{ route('Profile') }}" title="Configuración">
+                                            <a class="nav-item" href="{{ route('Profile') }}" title="@lang('messages.menu.perfil')">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
                                                     alt="Configuración">
                                                 <span class="nav-link active" aria-current="page"
-                                                    href="#">@lang('messages.menu.configuracion')</span>
+                                                    href="#">@lang('messages.menu.perfil')</span>
                                             </a>
                                         </li>
                                     @endif
