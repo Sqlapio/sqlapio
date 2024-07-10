@@ -173,7 +173,7 @@ class Patients extends Component
                  * @param state
                  * @param 1 -> menor de edad
                  */
-                EstadisticaController::accumulated_patient($request->state, $request->genere, 1);
+                EstadisticaController::accumulated_patient($user_id, $patient['center_id'], $request->state, $request->genere, 1);
 
                 /**
                  * Logica para aumentar el contador
@@ -382,7 +382,7 @@ class Patients extends Component
                  * Acumulado para el manejo de estadisticas
                  * @param state
                  */
-                EstadisticaController::accumulated_patient($request->state, $request->genere);
+                EstadisticaController::accumulated_patient($user_id, $patient['center_id'], $request->state, $request->genere);
 
                 /**
                  * Logica para aumentar el contador

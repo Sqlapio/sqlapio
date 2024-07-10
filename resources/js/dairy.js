@@ -568,45 +568,71 @@ function update_appointments(url, data) {
     });
 }
 
-function cancelled_appointments(id, url, active = null) {
-    Swal.fire({
-        icon: "warning",
-        title: langJson.alert.cancelar_cita,
-        allowOutsideClick: false,
-        confirmButtonColor: "#42ABE2",
-        confirmButtonText: langJson.botton.aceptar,
-        showCancelButton: true,
-        cancelButtonText: langJson.botton.cancelar
-    }).then(result => {
-        if (result.isConfirmed) {
-            $("#send").hide();
-            $("#spinner").show();
-            url = url.replace(":id", id);
-            $.ajax({
-                url: url,
-                type: "GET",
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-                },
-                success: function (res) {
-                    $("#spinner").hide();
-                    Swal.fire({
-                        icon: "error",
-                        title: langJson.alert.cita_cancelada,
-                        allowOutsideClick: false,
-                        confirmButtonColor: "#42ABE2",
-                        confirmButtonText: langJson.botton.aceptar
-                    }).then(result => {
-                        if (active) {
-                            window.location.href = active;
-                        } else {
-                            window.location.href = urlDairy;
-                        }
-                    });
-                }
-            });
-        }
-    });
+function cancelled_appointments(id, url, active = null, status) {
+    if (status === 'Cancelada') {
+        $('#spinner').hide();
+        Swal.fire({
+                    icon: 'error',
+                    title: 'Cita Cancelada',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#42ABE2',
+                    confirmButtonText: langJson.botton.aceptar
+                }).then((result) => {
+
+                });
+
+    } else if (status === 'Finalizada') {
+        $('#spinner').hide();
+        Swal.fire({
+                    icon: 'error',
+                    title: 'Cita Finalizada',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#42ABE2',
+                    confirmButtonText: langJson.botton.aceptar
+                }).then((result) => {
+
+                });
+    } else {
+        Swal.fire({
+            icon: "warning",
+            title: langJson.alert.cancelar_cita,
+            allowOutsideClick: false,
+            confirmButtonColor: "#42ABE2",
+            confirmButtonText: langJson.botton.aceptar,
+            showCancelButton: true,
+            cancelButtonText: langJson.botton.cancelar
+        }).then(result => {
+            if (result.isConfirmed) {
+                $("#send").hide();
+                $("#spinner").show();
+                url = url.replace(":id", id);
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                    },
+                    success: function (res) {
+                        $("#spinner").hide();
+                        Swal.fire({
+                            icon: "error",
+                            title: langJson.alert.cita_cancelada,
+                            allowOutsideClick: false,
+                            confirmButtonColor: "#42ABE2",
+                            confirmButtonText: langJson.botton.aceptar
+                        }).then(result => {
+                            if (active) {
+                                window.location.href = active;
+                            } else {
+                                window.location.href = urlDairy;
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+
 }
 
 function finalizar_appointments(id, url, active = null) {

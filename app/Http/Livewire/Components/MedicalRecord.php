@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Components;
 
 use Livewire\Component;
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\EstadisticaController;
 use App\Http\Controllers\UtilsController;
 use App\Http\Livewire\Components\Reference as ComponentsReference;
 use App\Models\Appointment;
@@ -130,12 +131,20 @@ class MedicalRecord extends Component
              * Logica para Finalizar la cita en la agenda y mostrar el
              * status de finsalizada en la tabla del dashboard
              */
+            /********************************************************************************************************/
             Appointment::where('patient_id', $data->id)
                 ->where('user_id', $user)
                 ->where('date_start', date('Y-m-d'))
                 ->update([
                     'status' => 3,   /** FINALIZADA EN LA AGENDA */
                 ]);
+
+            $dairy = Appointment::where('patient_id', $data->id)->where('user_id', $user)->where('date_start', date('Y-m-d'))->first();
+            
+            /**Logica para guardar el acumulado de citas agendadas por el medico o secretaria */
+            EstadisticaController::accumulated_dairy_finalizada($dairy->user_id, $dairy->center_id);
+
+            /********************************************************************************************************/
 
             $action = '11';
             ActivityLogController::store_log($action);

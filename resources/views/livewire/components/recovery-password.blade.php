@@ -12,6 +12,21 @@
         margin-bottom: -15% !important;
     }
 
+    body {
+        font-family: 'Roboto-Regular',  !important;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover !important;
+        background: url({{ asset('img/fondo.jpg') }}) no-repeat center center fixed;
+    }
+
+    @media only screen and (max-width: 768px) {
+        body {
+            background: url({{ asset('img/fondo-mobile.jpg') }}) no-repeat center center fixed;
+        }
+    }
+
     @media only screen and (max-width: 390px) {
         .btn2 {
             margin-left: 20px;
@@ -274,8 +289,8 @@
                     <div class="row justify-content-center">
                         <div class="col-xs-8 col-sm-8 col-md-5 col-lg-5 col-xl-5 col-xxl-5 loginDric">
                             <div class="">
-                                <div class="row mt-2" style="display: grid; justify-items: center;">
-                                    <img class="img" src="{{ asset('img/recuperar.png') }}" style="width: 355px;">
+                                <div class="row mt-2 mb-3" style="display: grid; justify-items: center;">
+                                    <img class="img" src="{{ asset('img/RECUPERAR-CONTRASEÑA.png') }}" style="width: 355px;">
                                 </div>
                             </div>
                             {{ Form::open(['url' => '', 'method' => 'post', 'id' => 'form-recovery']) }}

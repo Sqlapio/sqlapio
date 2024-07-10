@@ -13,10 +13,14 @@ return new class extends Migration
     {
         Schema::create('general_statistics', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id')->nullable();
             $table->integer('patient')->nullable();
             $table->integer('is_minor')->nullable();
             $table->string('patient_genere')->nullable();
-            $table->integer('user')->nullable();
+            $table->integer('dairy_sin_confirmar')->nullable();
+            $table->integer('dairy_confirmar')->nullable();
+            $table->integer('dairy_finalizada')->nullable();
+            $table->integer('dairy_cancelada')->nullable();
             $table->integer('center')->nullable();
             $table->string('date')->nullable();
             $table->string('state')->nullable();

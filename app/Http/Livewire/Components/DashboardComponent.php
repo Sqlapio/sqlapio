@@ -34,6 +34,7 @@ class DashboardComponent extends Component
         $appointments_attended = UtilsController::get_appointments_attended(null,$id);
         $appointments_canceled = UtilsController::get_appointments_canceled(null,$id);
         $appointments_confirmed = UtilsController::get_appointments_confirmed(null,$id);
+        $appointments_unconfirmed = UtilsController::get_appointments_unconfirmed(null,$id);
         $appointments_count_all = UtilsController::get_appointments_count_all($id);
 
 
@@ -59,6 +60,7 @@ class DashboardComponent extends Component
                 "appointments_attended",
                 "appointments_canceled",
                 "appointments_confirmed",
+                "appointments_unconfirmed",
                 "appointments_count_all"
             )
         );

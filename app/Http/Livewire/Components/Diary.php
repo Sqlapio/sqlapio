@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Components;
 
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\ApiServicesController;
+use App\Http\Controllers\EstadisticaController;
 use App\Http\Controllers\UtilsController;
 use App\Models\Appointment;
 use App\Models\Center;
@@ -142,6 +143,8 @@ class Diary extends Component
             } else {
 
                 $appointment->save();
+                /**Logica para guardar el acumulado de citas agendadas por el medico o secretaria */
+                EstadisticaController::accumulated_dairy_sin_confirmar($appointment->user_id, $appointment->center_id);
             }
 
             /**Escribir la accion en la tabla de logs */
@@ -197,7 +200,7 @@ class Diary extends Component
 
                 $data_center = DoctorCenter::where('user_id', $user->id)->where('center_id', $appointment->get_center->id)->first();
             }
-            
+
             $dir = str_replace(' ', '%20', $appointment->get_center->description);
             $ubication = 'https://maps.google.com/maps?q=' . $dir . ',%20' . $appointment->get_center->state . '&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed';
 
@@ -260,19 +263,22 @@ class Diary extends Component
 
     public function cancelled($id)
     {
+
         try {
+            
             $cancelled = DB::table('appointments')
                 ->where('id', $id)
-                /**
-                 * Status 2 => FINALIZADA
-                 * Status 3 => CANCELADA
-                 */
                 ->update(['status' => 4]);
 
             $action = '12';
             ActivityLogController::store_log($action);
 
+            $dairy = Appointment::where('id', $id)->first();
+
+            EstadisticaController::accumulated_dairy_cancelada($dairy->user_id, $dairy->center_id);
+
             return true;
+
         } catch (\Throwable $th) {
             $message = $th->getMessage();
             dd('Error Livewire.Components.Diary.cancelled()', $message);

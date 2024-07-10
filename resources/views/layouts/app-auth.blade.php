@@ -29,6 +29,7 @@
 
 {{-- chatjs --}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2 "></script>
 
 <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon.ico') }}">
 
