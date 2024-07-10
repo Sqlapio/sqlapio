@@ -57,6 +57,12 @@ function get_general(boy_girl, teen, adult, elderly) {
     return sum + currentValue;
   }, 0);
 
+  const totalSum2 = data.datasets[1].data.reduce((sum, currentValue) => {
+    return sum + currentValue;
+  }, 0);
+
+  console.log(totalSum2)
+
   new Chart($("#countGereral2"), {
     type: "bar",
     data: data,
@@ -82,7 +88,11 @@ function get_general(boy_girl, teen, adult, elderly) {
                 }
             },
             formatter: function(value) {
-                return value == 0 ? '' : Math.floor(value / totalSum * 100) + "%";
+
+              console.log('value1', Math.round(value / totalSum * 100))
+
+                return value == 0 ? '' : Math.round(value / totalSum * 100) + "%";
+
             }
         },
         legend: {
@@ -212,7 +222,7 @@ function get_appointments_attended(appointments_attended) {
     ]
   };
 
-  chart_appointments_attended = new Chart($("#appointments_attended"), {
+  new Chart($("#appointments_attended"), {
     type: "line",
     data: data,
     options: {
@@ -276,7 +286,7 @@ function get_appointments_canceled(appointments_canceled) {
     ]
   };
 
-  chart_appointments_canceled = new Chart($("#appointments_canceled"), {
+  new Chart($("#appointments_canceled"), {
     type: "line",
     data: data,
     options: {
@@ -342,7 +352,7 @@ function get_appointments_confirmed(appointments_confirmed) {
     ]
   };
 
-  chart_appointments_confirmed = new Chart($("#appointments_confirmed"), {
+  new Chart($("#appointments_confirmed"), {
     type: "bar",
     data: data,
     options: {
@@ -426,7 +436,7 @@ function get_general_appointments(appointments_attended, appointments_unconfirme
 
 /**
  *
- * Grafica de citas confirmadas y sin confirmar por mes
+ * Grafica de citas confirmadas, sin confirmar y atendidas por mes
  *
  */
 
@@ -455,6 +465,20 @@ function get_general_appointments2(appointments_unconfirmed, appointments_confir
     ]
   };
 
+  // const totalSum = data.datasets[0].data.reduce((sum, currentValue) => {
+  //   return sum + currentValue;
+  // }, 0);
+
+  // const totalSum2 = data.datasets[1].data.reduce((sum, currentValue) => {
+  //   return sum + currentValue;
+  // }, 0);
+
+  // const totalSum3 = data.datasets[2].data.reduce((sum, currentValue) => {
+  //   return sum + currentValue;
+  // }, 0);
+
+  // console.log(totalSum + totalSum2 + totalSum3)
+
   chart_general_appointments2 = new Chart($("#countGereral4"), {
     type: "bar",
     data: data,
@@ -469,6 +493,24 @@ function get_general_appointments2(appointments_unconfirmed, appointments_confir
         }
       },
       plugins: {
+        datalabels: {
+            anchor: 'end',
+            align: 'end',
+            rotation: 270,
+            labels: {
+                title: {
+                    color: "#596167",
+                    font: {
+                        weight: "bold",
+                        size: 11
+                    }
+                }
+            },
+            formatter: function(value) {
+                // console.log(value)
+                // return value == 0 ? '' : Math.floor(value / totalSum * 100) + "%";
+            }
+        },
         legend: {
           position: "bottom",
           align: "start",
@@ -478,7 +520,7 @@ function get_general_appointments2(appointments_unconfirmed, appointments_confir
         },
       }
     },
-
+    plugins: [ChartDataLabels]
   });
 }
 
@@ -520,7 +562,7 @@ function get_quotes(appointments_count_all) {
                     }
                 },
                 formatter: function(value) {
-                    return value == 0 ? '' : Math.floor(value / totalSum * 100) + "%";
+                    return value == 0 ? '' : Math.round(value / totalSum * 100) + "%";
                 }
             },
             legend: {
@@ -569,7 +611,9 @@ function get_consultas_history(countMedicalRecordr, countHistoryRegister) {
             }
           },
           formatter: function(value) {
-            return value == 0 ? '' : Math.floor(value / totalSum * 100) + "%";
+            // console.log('value', value)
+            // console.log('value2', Math.floor(value / totalSum * 100))
+            return value == 0 ? '' : Math.round(value / totalSum * 100) + "%";
           }
         },
         legend: {
