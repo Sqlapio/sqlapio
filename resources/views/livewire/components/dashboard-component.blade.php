@@ -143,8 +143,8 @@
             });
 
             get_general(boy_girl, teen, adult, elderly);
-            get_general_appointments( appointments_attended, appointments_unconfirmed )
-            get_general_appointments2(appointments_unconfirmed, appointments_confirmed, appointments_attended)
+            get_general_appointments2(appointments_confirmed, appointments_attended)
+            get_general_appointments( appointments_unconfirmed, appointments_canceled )
             get_quotes(appointments_count_all);
             get_queries_month(queries_month);
             get_consultas_history(countMedicalRecordr, countHistoryRegister);
