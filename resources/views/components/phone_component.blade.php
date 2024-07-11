@@ -84,7 +84,7 @@
 <style>
     .pn-input {
         background: transparent !important;
-        padding: 5px 15px !important;
+        padding: 5px 5px !important;
     }
 
     .pn-select {

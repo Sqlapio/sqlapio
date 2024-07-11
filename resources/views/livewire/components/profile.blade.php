@@ -79,9 +79,9 @@
                     city: {
                         required: true,
                     },
-                    address: {
-                        required: true,
-                    },
+                    // address: {
+                    //     required: true,
+                    // },
                     zip_code: {
                         required: true,
                     },
@@ -149,9 +149,9 @@
                     city: {
                         required: "@lang('messages.alert.ciudad_obligatorio')",
                     },
-                    address: {
-                        required: "@lang('messages.alert.direccion_obligatoria')",
-                    },
+                    // address: {
+                    //     required: "@lang('messages.alert.direccion_obligatoria')",
+                    // },
                     zip_code: {
                         required: "@lang('messages.alert.codigo_area_obligatorio')",
                     },
@@ -603,21 +603,6 @@
                                     <input type="hidden" id="rol" name="rol" value="{{ Auth::user()->role }}">
                                     <div class="row Form-edit-user">
                                         @if (Auth::user()->role == 'medico')
-                                            {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                                <a id="Link-medicos"
-                                                    href="{{ auth()->user()->token_corporate }}"target="_blank"
-                                                    style="text-decoration: none;">
-                                                    <button type="button" class="btn btnPrimary"
-                                                        style="padding: 7px 20px">@lang('messages.botton.registrar_secretaria')</button>
-                                                </a>
-                                                <button type="button" id="icon-copy" class="btn btn-iSecond rounded-circle"
-                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                    title="@lang('messages.botton.copiar_enlace')"
-                                                    onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
-                                                    style="margin-left: 5%;">
-                                                    <i class="bi bi-file-earmark-text"></i>
-                                                </button> <span style="padding-left: 5px" id="copied"></span>
-                                            </div> --}}
                                             {{-- rol medico --}}
                                             <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2 ">
                                                 <x-upload-image />
@@ -694,7 +679,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="username" class="form-label"
@@ -707,7 +692,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
                                                         <x-phone_component :phone="$user->phone" />
                                                         {{-- <div class="form-group">
                                                             <div class="Icon-inside">
@@ -763,7 +748,7 @@
                                                 </div>
                                             </div>
                                             <input id="age" name="age" type="hidden" value="">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                            {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="address" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
@@ -772,7 +757,7 @@
                                                         <i class="bi bi-geo st-icon"></i>
                                                     </div>
                                                 </diV>
-                                            </div>
+                                            </div> --}}
                                             @if (Auth::user()->type_plane == '7')
                                                 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                     <div class="form-group">
@@ -812,21 +797,6 @@
                                                     </diV>
                                                 </div>
                                             @endif
-                                            <x-ubigeo_contries class="{{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3' : 'col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2' }}  mt-2" />
-
-                                            <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="zip_code" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.codigo_postal')</label>
-                                                        <input autocomplete="off" placeholder=""
-                                                            class="form-control mask-only-text @error('zip_code') is-invalid @enderror"
-                                                            id="zip_code" name="zip_code" type="text"
-                                                            value="{!! !empty($user) ? $user->zip_code : '' !!}">
-                                                        <i class="bi bi-geo st-icon"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
@@ -841,6 +811,22 @@
                                                             class="form-control mask-only-number @error('cod_mpps') is-invalid @enderror"
                                                             id="cod_mpps" name="cod_mpps" type="text"
                                                             value="{!! !empty($user) ? $user->cod_mpps : '' !!}">
+                                                        <i class="bi bi-geo st-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <x-ubigeo_contries class="{{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3' : 'col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2' }}  mt-2" />
+
+                                            <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="zip_code" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.codigo_postal')</label>
+                                                        <input autocomplete="off" placeholder=""
+                                                            class="form-control mask-only-text @error('zip_code') is-invalid @enderror"
+                                                            id="zip_code" name="zip_code" type="text"
+                                                            value="{!! !empty($user) ? $user->zip_code : '' !!}">
                                                         <i class="bi bi-geo st-icon"></i>
                                                     </div>
                                                 </div>
@@ -1024,6 +1010,27 @@
                     </div>
                 </div>
             </div>
+            @if ((Auth::user()->role == 'medico' && Auth::user()->type_plane != '7'))
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3 mb-cd">
+                        <div class="accordion-item">
+                            <span class="accordion-header title" id="headingCentros">
+                                <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseCentros" aria-expanded="true" aria-controls="collapseCentros"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-hospital"></i> @lang('messages.modal.titulo.asociar_centro')
+                                </button>
+                            </span>
+                            <div id="collapseCentros" class="accordion-collapse collapse"
+                                aria-labelledby="headingCentros" data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    @livewire('components.centers')
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
             @if (Auth::user()->role == 'corporativo')
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
@@ -1058,8 +1065,7 @@
             @if ($user->email_verified_at !== null)
                 {{-- actualizacion de correo Electronico --}}
                 <div class="row">
-                    <div
-                        class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role === 'corporativo' ? 'mb-cd mb-2' : '' }}">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role === 'corporativo' ? 'mb-cd mb-2' : '' }}">
                         <div class="accordion-item ">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"
@@ -1088,7 +1094,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
                 @if (Auth::user()->role == 'medico')
                     {{-- firma Digital --}}
@@ -1119,7 +1124,7 @@
                             </div>
                         </div>
                     </div>
-
+                    {{-- Registro de Secretaria --}}
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'mb-cd mb-2' : '' }}">
                             <div class="accordion-item">
@@ -1153,7 +1158,7 @@
                     </div>
                 @endif
             @endif
-            @if ((Auth::user()->role == 'medico' && Auth::user()->type_plane != '7') || Auth::user()->role == 'laboratorio')
+            {{-- @if ((Auth::user()->role == 'medico' && Auth::user()->type_plane != '7') || Auth::user()->role == 'laboratorio')
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3 mb-cd">
                         <div class="accordion-item">
@@ -1168,13 +1173,12 @@
                                 aria-labelledby="headingPlanes" data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     @livewire('components.view-planes')
-                                    {{-- <x-view-planes /> --}}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            @endif
+            @endif --}}
         </div>
     </div>
 

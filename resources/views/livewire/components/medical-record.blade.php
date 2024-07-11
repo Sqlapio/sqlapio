@@ -426,7 +426,7 @@
                 confirmButtonColor: '#42ABE2',
                 confirmButtonText: '@lang('messages.botton.aceptar')'
             }).then((result) => {
-                window.location.href = "{{ route('Centers') }}";
+                window.location.href = "{{ route('Profile') }}";
             });
         } else if (validate_histroy === null) {
             Swal.fire({

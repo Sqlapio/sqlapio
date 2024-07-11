@@ -134,56 +134,6 @@
 
         $(document).ready(() => {
 
-            let data_palnes = [{
-                    type_plan: 1,
-                    description: "Plan: @lang('messages.label.free')",
-                    count_patients: 10,
-                    count_ref: 20,
-                    count_exam: 20,
-                    count_study: 20,
-                },
-                {
-                    type_plan: 2,
-                    description: `Plan: @lang('messages.label.profesional') - ${ user.duration }`,
-                    count_patients: 40,
-                    count_ref: 40,
-                    count_exam: 80,
-                    count_study: 80,
-                },
-                {
-                    type_plan: 3,
-                    description: `Plan: @lang('messages.label.ilimitado') - ${ user.duration }`,
-                    count_patients: '@lang('messages.label.ilimitado')',
-                    count_ref: '@lang('messages.label.ilimitado')',
-                    count_exam: '@lang('messages.label.ilimitado')',
-                    count_study: '@lang('messages.label.ilimitado')',
-                },
-                {
-                    type_plan: 4,
-                    description: "Plan - ILIMITADO",
-                    count_patients: 'ILIMITADO',
-                    count_ref: 'ILIMITADO',
-                    count_exam: 'ILIMITADO',
-                    count_study: 'ILIMITADO',
-                },
-                {
-                    type_plan: 5,
-                    description: "Plan - ILIMITADO",
-                    count_patients: 'ILIMITADO',
-                    count_ref: 'ILIMITADO',
-                    count_exam: 'ILIMITADO',
-                    count_study: 'ILIMITADO',
-                },
-                {
-                    type_plan: 6,
-                    description: "Plan - ILIMITADO",
-                    count_patients: 'ILIMITADO',
-                    count_ref: 'ILIMITADO',
-                    count_exam: 'ILIMITADO',
-                    count_study: 'ILIMITADO',
-                }
-            ];
-
             if (user.role == "laboratorio") {
                 $('#type_rif_pay').val(user.get_laboratorio.rif[0] + "-").change();
             }
@@ -191,99 +141,6 @@
             switch_type_plane(user.type_plane);
             hiddenBtn(user.type_plane);
             const data = data_palnes.find((e) => e.type_plan == user.type_plane);
-
-            $('.card-title').text(data.description);
-            $('#pacientes').text(`${data.count_patients}`);
-            $('#consultas').text(`${data.count_ref}`);
-            $('#examenes').text(`${data.count_exam}`);
-            $('#estudios').text(`${data.count_study}`);
-
-            $('#form-payment-renew').validate({
-                rules: {
-                    name: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50,
-                    },
-                    last_name: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50,
-                    },
-                    amount: {
-                        required: true,
-                    },
-                    number_id: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50,
-                    },
-                    number_card: {
-                        required: true,
-                        minlength: 3,
-                        maxlength: 50,
-
-                    },
-                    code_card: {
-                        required: true,
-                        maxlength: 3,
-                    },
-                    methodo_payment: {
-                        required: true,
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    rif_pay: {
-                        required: true,
-                    },
-                    type_rif_pay: {
-                        required: true,
-                    },
-                    business_name: {
-                        required: true,
-                    }
-                },
-                messages: {
-                    name: {
-                        required: "Nombres es obligatorio",
-                    },
-                    last_name: {
-                        required: "Apellidos es obligatorio",
-                    },
-                    amount: {
-                        required: "Monto es obligatorio",
-                    },
-                    number_id: {
-                        required: "Numero de cedula es obligatorio",
-                    },
-                    number_card: {
-                        required: "Numero de tarjeta es obligatorio",
-                    },
-                    code_card: {
-                        required: "Codigo de tarjeta es obligatorio",
-                    },
-                    methodo_payment: {
-                        required: "Debe Selecciones un metodo de pago",
-                    },
-                    email: {
-                        required: "Correo electronico es obligatorio",
-                    },
-                    type_rif_pay: {
-                        required: "Tipo de documento es obligatorio",
-                    },
-                    rif_pay: {
-                        required: "Rif es obligatorio",
-                    },
-                    business_name: {
-                        required: "Razón social es obligatorio",
-                    }
-
-                }
-            });
-
-
 
             $.validator.addMethod("onlyNumber", function(value, element) {
                 var pattern = /^\d+\.?\d*$/;
@@ -500,71 +357,77 @@
         }
     </script>
     <div class="row" style="padding: 20px;">
-        <h2 class="title-card fw-bold tile-planes-dos card-title mb-3"></h2>
+        <h2 class="title-card fw-bold tile-planes-dos card-title mb-3"> {{ $info_plan->type_plane }} - {{ $info_plan->duration }}</h2>
         <hr style="margin-top: 5px">
         <strong>@lang('messages.label.fecha_activacion'): {{ \Carbon\Carbon::parse($current_start)->format('d-m-Y') }}</strong>
         <br>
         <strong class="{{ auth()->user()->expired_plan === 1 ? 'text-danger' : '' }} mt-2">@lang('messages.label.fecha_corte'):
             {{ \Carbon\Carbon::parse($current_end)->format('d-m-Y') }}
         </strong>
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-4">
             <div class="row">
-                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3" style="display: flex; justify-content: center;">
-                    <div class="card-wrap">
-                        <div class="card-header one">
-                            <img width="80" height="auto" src="{{ asset('/img/icons/patients.png') }}" alt="avatar">
-                        </div>
-                        <div class="card-content">
-                            <h1 class="card-title-2">@lang('messages.label.paciente')</h1>
-                            <div style="display: flex">
-                                <h3 id="paciente_span" class="count-plan">{{ auth()->user()->patient_counter }}/
-                                </h3>
-                                <h3 id="pacientes" class="count-plan"></h3>
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
+                    <div class="card l-bg-cherry">
+                        <div class="card-statistic-3 p-4">
+                            <div class="card-icon card-icon-large"><img width="120" height="auto" src="{{ asset('/img/icons/patients-w.png') }}" alt="avatar"></div>
+                            <div class="mb-4">
+                                <h5 class="card-title mb-0">@lang('messages.label.paciente')</h5>
+                            </div>
+                            <div class="row align-items-center mb-2 d-flex">
+                                <div class="col-8" style="display: flex">
+                                    <h2 class="d-flex align-items-center mb-0"> {{ auth()->user()->patient_counter }}/{{ $info_plan->count_patients }}</h2>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3" style="display: flex; justify-content: center;">
-                    <div class="card-wrap">
-                        <div class="card-header one">
-                            <img width="80" height="auto" src="{{ asset('/img/icons/medical-report3.png') }}" alt="avatar">
-                        </div>
-                        <div class="card-content">
-                            <h1 class="card-title-2">@lang('messages.label.consulta')</h1>
-                            <div style="display: flex">
-                                <h3 id="consulta_span" class="count-plan">
-                                    {{ auth()->user()->medical_record_counter }}/ </h3>
-                                <h3 id="consultas" class="count-plan"></h3>
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
+                    <div class="card l-bg-blue-dark">
+                        <div class="card-statistic-3 p-4">
+                            <div class="card-icon card-icon-large"> <img width="120" height="auto" src="{{ asset('/img/icons/medical-report3-w.png') }}" alt="avatar"></div>
+                            <div class="mb-4">
+                                <h5 class="card-title mb-0">@lang('messages.label.consulta')</h5>
+                            </div>
+                            <div class="row align-items-center mb-2 d-flex">
+                                <div class="col-8" style="display: flex">
+                                    <h2 class="d-flex align-items-center mb-0">
+                                        {{ auth()->user()->medical_record_counter }}/{{ $info_plan->count_ref }}
+                                    </h2>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3"
-                    style="display: flex; justify-content: center;">
-                    <div class="card-wrap">
-                        <div class="card-header one">
-                            <img width="80" height="auto" src="{{ asset('/img/icons/medical-report.png') }}" alt="avatar">
-                        </div>
-                        <div class="card-content">
-                            <h1 class="card-title-2">@lang('messages.label.examenes')</h1>
-                            <div style="display: flex">
-                                <h3 id="examene_span" class="count-plan">{{ auth()->user()->ref_counter }}/ </h3>
-                                <h3 id="examenes" class="count-plan"></h3>
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
+                    <div class="card l-bg-green-dark">
+                        <div class="card-statistic-3 p-4">
+                            <div class="card-icon card-icon-large"> <img width="120" height="auto" src="{{ asset('/img/icons/medical-report-w.png') }}" alt="avatar"></div>
+                            <div class="mb-4">
+                                <h5 class="card-title mb-0">@lang('messages.label.examenes')</h5>
+                            </div>
+                            <div class="row align-items-center mb-2 d-flex">
+                                <div class="col-8" style="display: flex">
+                                    <h2 class="d-flex align-items-center mb-0">
+                                        {{ auth()->user()->ref_counter }}/{{ $info_plan->count_exam }}
+                                    </h2>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-3"
-                    style="display: flex; justify-content: center;">
-                    <div class="card-wrap">
-                        <div class="card-header one">
-                            <img width="80" height="auto" src="{{ asset('/img/icons/medical1.png') }}" alt="avatar">
-                        </div>
-                        <div class="card-content">
-                            <h1 class="card-title-2">@lang('messages.label.estudios')</h1>
-                            <div style="display: flex">
-                                <h3 id="estudio_span" class="count-plan">{{ auth()->user()->ref_counter }}/ </h3>
-                                <h3 id="estudios" class="count-plan"></h3>
+                <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-lg-3">
+                    <div class="card l-bg-orange-dark">
+                        <div class="card-statistic-3 p-4">
+                            <div class="card-icon card-icon-large"><img width="120" height="auto" src="{{ asset('/img/icons/medical1-w.png') }}" alt="avatar"></div>
+                            <div class="mb-4">
+                                <h5 class="card-title mb-0">@lang('messages.label.estudios')</h5>
+                            </div>
+                            <div class="row align-items-center mb-2 d-flex">
+                                <div class="col-8" style="display: flex">
+                                    <h2 class="d-flex align-items-center mb-0">
+                                        {{ auth()->user()->ref_counter }}/{{ $info_plan->count_study }}
+                                    </h2>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -612,7 +475,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal stripe -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">

@@ -237,7 +237,7 @@ class Register extends Component
                         'state_contrie'           => 'required',
                         'city_contrie'            => 'required',
                         'contrie'                 => 'required',
-                        'address'                 => 'required',
+                        // 'address'                 => 'required',
                         'zip_code'                => 'required',
                         'cod_mpps'                => 'required',
                         'number_floor'            => 'required',
@@ -257,7 +257,7 @@ class Register extends Component
                         'state_contrie'           => __('messages.alert.estado_obligatorio'),
                         'city_contrie'            => __('messages.alert.ciudad_obligatorio'),
                         'contrie'                 => __('messages.alert.pais_obligatorio'),
-                        'address'                 => __('messages.alert.direccion_obligatoria'),
+                        // 'address'                 => __('messages.alert.direccion_obligatoria'),
                         'zip_code'                => __('messages.alert.codigo_obligatorio'),
                         'cod_mpps'                => __('messages.alert.mpps_obligatorio'),
                         'number_floor'            => __('messages.alert.num_piso_obligatorio'),
@@ -279,7 +279,7 @@ class Register extends Component
                         'state_contrie' => 'required',
                         'city_contrie'  => 'required',
                         'contrie'       => 'required',
-                        'address'       => 'required',
+                        // 'address'       => 'required',
                         'zip_code'      => 'required',
                         'cod_mpps'      => 'required',
                     ];
@@ -296,7 +296,7 @@ class Register extends Component
                         'state_contrie' => __('messages.alert.estado_obligatorio'),
                         'city_contrie'  => __('messages.alert.ciudad_obligatorio'),
                         'contrie'       => __('messages.alert.pais_obligatorio'),
-                        'address'       => __('messages.alert.direccion_obligatoria'),
+                        // 'address'       => __('messages.alert.direccion_obligatoria'),
                         'zip_code'      => __('messages.alert.codigo_obligatorio'),
                         'cod_mpps'      => __('messages.alert.mpps_obligatorio'),
                     ];
@@ -323,8 +323,8 @@ class Register extends Component
                  * Acumulado para el manejo de estadisticas
                  * @param state
                  * @param 1 -> menor de edad
-                 */
-                EstadisticaController::accumulated_doctor($request->state);
+                //  */
+                // EstadisticaController::accumulated_doctor($request->state);
 
                 /**Preparamos el array que recibira la funcion para enviar la notificacion via WHATSAPP */
                 $data = [
@@ -419,7 +419,7 @@ class Register extends Component
                         'rif'             => $request->rif,
                         'state'           => $request->state,
                         'city'            => $request->city,
-                        'address'         => $request->address,
+                        // 'address'         => $request->address,
                         'phone_1'         => $request->phonenumber_prefix . "-" . $request->phone,
                         'license'         => $request->license,
                         'type_laboratory' => $request->type_laboratory,
