@@ -243,11 +243,14 @@ class ViewPlanes extends Component
             }
         }
 
+        $info_plan = Plan::where('cod_plan', Auth::user()->type_plane)->first();
+
         return view('livewire.components.view-planes', [
             'intent' => auth()->user()->createSetupIntent(),
             'paymentMethods' => auth()->user()->paymentMethods(),
             'current_end' => $stripe_user && $stripe_sub != 0 ? $res->current_period_end : "",
             'current_start' => $stripe_user && $stripe_sub != 0 ? $res->current_period_start : "",
+            'info_plan' => $info_plan
         ]);
     }
 }

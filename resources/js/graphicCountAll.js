@@ -39,8 +39,8 @@ function get_general(boy_girl, teen, adult, elderly) {
       {
         label: langJson.graficas.femenino,
         data: [boy_girl.femenino, teen.femenino, adult.femenino, elderly.femenino],
-        borderColor: "#56c1ff",
-        backgroundColor: "#56c1ff",
+        borderColor: "#f79a23",
+        backgroundColor: "#f79a23",
         stack: "Stack 0"
       },
       {
@@ -68,6 +68,7 @@ function get_general(boy_girl, teen, adult, elderly) {
     data: data,
     options: {
       responsive: true,
+      barThickness: 70,
       scales: {
         y: {
           ticks: { color: "#596167", beginAtZero: true, stepSize: 1}, grace: 2

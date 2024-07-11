@@ -1,5 +1,7 @@
-@extends('layouts.app-auth')
-@section('title', 'Centros')
+{{-- @extends('layouts.app-auth')
+@section('title', 'Centros') --}}
+
+<div>
 <style>
     .datepicker-switch {
         background-color: #44525F !important;
@@ -315,14 +317,11 @@
         }
     </script>
 @endpush
-@section('content')
+{{-- @section('content') --}}
     <div>
-        <div class="container-fluid" style="padding: 0 3% 3%">
+        {{-- <div class="container-fluid" style="padding: 0 3% 3%"> --}}
 
-            <div class="row mt-2">
-                {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end;">
-                    <h5 class="text-capitalize">Dr. {{ Auth::user()->name }} {{ Auth::user()->last_name }}</h5>
-                </div> --}}
+            {{-- <div class="row mt-2">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                     <div class="accordion" id="accordion">
                         <div class="accordion-item">
@@ -333,10 +332,9 @@
                                     <i class="bi bi-hospital"></i> @lang('messages.acordion.centros')
                                 </button>
                             </span>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                                data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <div class="row mt-2">
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                                <div class="accordion-body"> --}}
+                                    <div class="row mt-3">
                                         <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8" style="font-size:10px;">
                                             <button type="button" id="btnShow" class="btn btnPrimary" onclick="showModal()">@lang('messages.botton.asociar_centro')</button>
                                         </div>
@@ -376,12 +374,12 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
+                                {{-- </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
         </div>
 
@@ -481,4 +479,5 @@
                 </div>
             </div>
         </div>
-    @endsection
+    {{-- @endsection --}}
+    <div>

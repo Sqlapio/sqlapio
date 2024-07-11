@@ -129,7 +129,7 @@ class EstadisticaController extends Controller
         try {
 
             $accumulated = new GeneralStatistic();
-            $accumulated->user = 1;
+            $accumulated->user_id = 1;
             $accumulated->state = $state;
             $accumulated->date = date('d-m-Y');
             $accumulated->save();

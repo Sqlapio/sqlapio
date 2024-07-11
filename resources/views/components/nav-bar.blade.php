@@ -687,7 +687,7 @@
                                                     href="#">@lang('messages.menu.agenda')</span>
                                             </a>
                                         </li>
-                                        @if (Auth::user()->type_plane != '7')
+                                        {{-- @if (Auth::user()->type_plane != '7')
                                             <li>
                                                 <a class="nav-item" href="{{ route('Centers') }}" title="@lang('messages.menu.centros')">
                                                     <img class="icon-menu" src="{{ asset('img/V2/Maps.png') }}"
@@ -696,7 +696,7 @@
                                                         href="#">@lang('messages.menu.centros')</span>
                                                 </a>
                                             </li>
-                                        @endif
+                                        @endif --}}
                                         <li>
                                             <a class="nav-item" href="{{ route('Examen') }}" title="@lang('messages.menu.examen')">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Reminders.png') }}"
@@ -715,12 +715,22 @@
                                         </li>
                                         <li>
                                             <a class="nav-item" href="{{ route('Profile') }}" title="@lang('messages.menu.perfil')">
-                                                <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
+                                                <img class="icon-menu" src="{{ asset('img/V2/Profile.png') }}"
                                                     alt="Configuración">
                                                 <span class="nav-link active" aria-current="page"
                                                     href="#">@lang('messages.menu.perfil')</span>
                                             </a>
                                         </li>
+                                        @if ((Auth::user()->role == 'medico' && Auth::user()->type_plane != '7') || Auth::user()->role == 'laboratorio')
+                                            <li>
+                                                <a class="nav-item" href="{{ route('Plan') }}" title="@lang('messages.menu.configuracion')">
+                                                    <img class="icon-menu" src="{{ asset('img/V2/Settings.png') }}"
+                                                        alt="Configuración">
+                                                    <span class="nav-link active" aria-current="page"
+                                                        href="#">@lang('messages.menu.configuracion')</span>
+                                                </a>
+                                            </li>
+                                        @endif
                                     @endif
 
                                     @if (Auth::user()->role == 'laboratorio')

@@ -26,6 +26,7 @@ use App\Http\Livewire\Components\Doctors;
 use App\Http\Livewire\Components\Examen;
 use App\Http\Livewire\Components\Laboratory;
 use App\Http\Livewire\Components\PaymentForm;
+use App\Http\Livewire\Components\Plan;
 use App\Http\Livewire\Components\PlansVerify;
 use App\Http\Livewire\Components\ProfilePatients\LoginPatient;
 use App\Http\Livewire\Components\ProfilePatients\QueryDetalyPatient;
@@ -161,6 +162,7 @@ Route::middleware(['auth', 'AuthCheck', 'VerifyPlansActive'])->group(function ()
             Route::post('/verify-otp', [Profile::class, 'verify_otp'])->name('verify_otp')->middleware(['VerifySelloDigital', 'verify_email', 'VerifyPlans']);
             Route::post('/create-seal', [Profile::class, 'create_seal'])->name('create_seal');
             Route::get('/profile', [Profile::class, 'render'])->name('Profile');
+            Route::get('/plan', [Plan::class, 'render'])->name('Plan');
             Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');
             Route::get('/auth/setting/verify_plans', [PlansVerify::class, 'render'])->name('verify_plans');
         });
