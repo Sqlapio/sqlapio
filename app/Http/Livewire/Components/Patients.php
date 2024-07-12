@@ -79,7 +79,7 @@ class Patients extends Component
                     'age'           => 'required',
                     'genere'        => 'required',
                     'address'       => 'required',
-                    'zip_code'      => 'required',
+                    // 'zip_code'      => 'required',
 
                 ];
                 $msj =   [
@@ -98,7 +98,7 @@ class Patients extends Component
                     'birthdate'       => __('messages.alert.fecha_obligatorio'),
                     'age'             => __('messages.alert.edad_obligatorio'),
                     'address'         => __('messages.alert.direccion_obligatoria'),
-                    'zip_code'        => __('messages.alert.codigo_obligatorio'),
+                    // 'zip_code'        => __('messages.alert.codigo_obligatorio'),
                     'img.image'       => __('messages.alert.img_format'),
 
                 ];
@@ -274,7 +274,7 @@ class Patients extends Component
                     'birthdate'     => 'required',
                     'age'           => 'required',
                     'address'       => 'required',
-                    'zip_code'      => 'required',
+                    // 'zip_code'      => 'required',
 
                 ];
 
@@ -297,7 +297,7 @@ class Patients extends Component
                     'estate'            => __('messages.alert.estado_obligatorio'),
                     'city'              => __('messages.alert.ciudad_obligatorio'),
                     'address'           => __('messages.alert.direccion_obligatoria'),
-                    'zip_code'          => __('messages.alert.codigo_obligatorio'),
+                    // 'zip_code'          => __('messages.alert.codigo_obligatorio'),
                     'patient_img.image' => __('messages.alert.img_format'),
 
                 ];
@@ -369,7 +369,7 @@ class Patients extends Component
                         'state'             => $request->state,
                         'city'              => $request->city,
                         'address'           => $request->address,
-                        'zip_code'          => $request->zip_code,
+                        // 'zip_code'          => $request->zip_code,
                         'user_id'           => auth()->user()->role == "secretary" ? $user_doc : $user_id,
                         'center_id'         => isset($center_id_corporativo) ? $center_id_corporativo : $request->center_id,
                         'patient_img'       => $nameFile,

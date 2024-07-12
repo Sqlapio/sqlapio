@@ -57,17 +57,17 @@
     <script>
         let user = @json(Auth::user());
         $(document).ready(() => {
-            if (user.status_register === '1') {
-                Swal.fire({
-                    icon: 'warning',
-                    title: '@lang('messages.alert.registro_inicial')',
-                    allowOutsideClick: false,
-                    confirmButtonColor: '#42ABE2',
-                    confirmButtonText: '@lang('messages.botton.aceptar')'
-                }).then((result) => {
-                    window.location.href = "{{ route('Profile') }}";
-                });
-            }
+            // if (user.status_register === '1') {
+            //     Swal.fire({
+            //         icon: 'warning',
+            //         title: '@lang('messages.alert.registro_inicial')',
+            //         allowOutsideClick: false,
+            //         confirmButtonColor: '#42ABE2',
+            //         confirmButtonText: '@lang('messages.botton.aceptar')'
+            //     }).then((result) => {
+            //         window.location.href = "{{ route('Profile') }}";
+            //     });
+            // }
             $('#form-centers').validate({
                 rules: {
                     address: {

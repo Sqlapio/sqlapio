@@ -57,12 +57,6 @@ function get_general(boy_girl, teen, adult, elderly) {
     return sum + currentValue;
   }, 0);
 
-  const totalSum2 = data.datasets[1].data.reduce((sum, currentValue) => {
-    return sum + currentValue;
-  }, 0);
-
-  console.log(totalSum2)
-
   new Chart($("#countGereral2"), {
     type: "bar",
     data: data,
@@ -184,7 +178,7 @@ function updat_graphc(data) {
   chart_general_appointments2.update();
 
   chart_recorded_appointments.data.datasets[1].data = data.get_appointments_unconfirmed;
-  chart_general_appointments.update();
+  chart_recorded_appointments.update();
 
 }
 
@@ -572,6 +566,12 @@ function get_quotes(appointments_count_all) {
   });
 }
 
+/**
+ *
+ * Grafica de citas historias y consultas acumuladas
+ *
+ */
+
 function get_consultas_history(countMedicalRecordr, countHistoryRegister) {
   const data = {
     labels: [langJson.graficas.num_consultas, langJson.graficas.num_historias],
@@ -605,8 +605,6 @@ function get_consultas_history(countMedicalRecordr, countHistoryRegister) {
             }
           },
           formatter: function(value) {
-            // console.log('value', value)
-            // console.log('value2', Math.floor(value / totalSum * 100))
             return value == 0 ? '' : Math.round(value / totalSum * 100) + "%";
           }
         },
@@ -622,6 +620,12 @@ function get_consultas_history(countMedicalRecordr, countHistoryRegister) {
     plugins: [ChartDataLabels]
   });
 }
+
+/**
+ *
+ * Grafica de citas agendadas acumuladas x mes corporativo
+ *
+ */
 
 function get_recorded_appointments(appointments_unconfirmed) {
   const data = {
@@ -671,11 +675,6 @@ function get_recorded_appointments(appointments_unconfirmed) {
             color: "#b3b3b3"
           }
         },
-        title: {
-          display: true,
-          text: langJson.graficas.citas_registradas,
-          color: "#b3b3b3"
-        }
       }
     }
   });
@@ -699,29 +698,42 @@ function get_doctors(doctors_active, doctors_inactive) {
     data: data,
     options: {
       responsive: true,
+      barThickness: 70,
       scales: {
         y: {
-          ticks: { color: "#b3b3b3", beginAtZero: true, stepSize: 1 }
+          ticks: { color: "#b3b3b3", beginAtZero: true, stepSize: 1 }, grace: 1
         },
         x: {
           ticks: { color: "#b3b3b3", beginAtZero: true }
         }
       },
       plugins: {
+        datalabels: {
+            anchor: 'end',
+            align: 'end',
+            labels: {
+                title: {
+                    color: "#596167",
+                    font: {
+                        weight: "bold",
+                        size: 11
+                    }
+                }
+            },
+            formatter: function(value) {
+                return value == 0 ? '' : value;
+            }
+        },
         legend: {
           position: "bottom",
           align: "start",
           labels: {
-            color: "#b3b3b3"
+            color: "#596167"
           }
         },
-        title: {
-          display: true,
-          text: langJson.graficas.doctores_activos + " / " + langJson.graficas.doctores_inactivos,
-          color: "#b3b3b3"
-        }
       }
-    }
+    },
+    plugins: [ChartDataLabels]
   });
 }
 
