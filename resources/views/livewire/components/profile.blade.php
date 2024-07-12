@@ -1039,7 +1039,7 @@
             </div>
             @if (Auth::user()->role == 'medico' && Auth::user()->type_plane != '7')
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3 mb-cd">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingCentros">
                                 <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"
@@ -1167,7 +1167,7 @@
                     </div>
                     {{-- firma Digital --}}
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'mb-cd mb-2' : '' }}">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'mb-cd mb-2' : 'mb-cd mb-3' }}">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
                                     <button class="accordion-button collapsed bg-8" type="button"
