@@ -238,7 +238,7 @@ class Register extends Component
                         'city_contrie'            => 'required',
                         'contrie'                 => 'required',
                         // 'address'                 => 'required',
-                        'zip_code'                => 'required',
+                        // 'zip_code'                => 'required',
                         'cod_mpps'                => 'required',
                         'number_floor'            => 'required',
                         'number_consulting_room'  => 'required',
@@ -258,7 +258,7 @@ class Register extends Component
                         'city_contrie'            => __('messages.alert.ciudad_obligatorio'),
                         'contrie'                 => __('messages.alert.pais_obligatorio'),
                         // 'address'                 => __('messages.alert.direccion_obligatoria'),
-                        'zip_code'                => __('messages.alert.codigo_obligatorio'),
+                        // 'zip_code'                => __('messages.alert.codigo_obligatorio'),
                         'cod_mpps'                => __('messages.alert.mpps_obligatorio'),
                         'number_floor'            => __('messages.alert.num_piso_obligatorio'),
                         'number_consulting_room'  => __('messages.alert.num_cons_obligatorio'),
@@ -280,7 +280,7 @@ class Register extends Component
                         'city_contrie'  => 'required',
                         'contrie'       => 'required',
                         // 'address'       => 'required',
-                        'zip_code'      => 'required',
+                        // 'zip_code'      => 'required',
                         'cod_mpps'      => 'required',
                     ];
 
@@ -297,7 +297,8 @@ class Register extends Component
                         'city_contrie'  => __('messages.alert.ciudad_obligatorio'),
                         'contrie'       => __('messages.alert.pais_obligatorio'),
                         // 'address'       => __('messages.alert.direccion_obligatoria'),
-                        'zip_code'      => __('messages.alert.codigo_obligatorio'),
+                        // 'zip_code'      => __('messages.alert.codigo_obligatorio'),
+                        
                         'cod_mpps'      => __('messages.alert.mpps_obligatorio'),
                     ];
                 }

@@ -50,17 +50,17 @@
         <div class="container-fluid body" style="padding: 2% 3% 3%">
             <div class="row mt-2">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-3">
-                    <div class="card bg-4">
+                    <div class="card bg-9">
                         <div class="card-body" style="position: sticky; padding: 1% 2%;">
-                            <h4 class="mb-4 mt-2" style="color: #ffff">Dashboard Sqlapio</h4>
+                            <h4 class="mb-4 mt-2" style="color: #596167">Dashboard Sqlapio</h4>
                             <div class="row" style="justify-content: flex-end;">
                                 <div class="col-sm-12 col-md-1 col-lg-1 col-xl-1 col-xxl-1">
                                     <div class="form-group">
                                         <div class="Icon-inside">
                                             <label for="moth_filter" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px;color:white">@lang('messages.graficas.filtros_mes')</label>
                                             <select onchange="handleFilter(event)" name="moth_filter" id="moth_filter" placeholder="Seleccione" class="form-control combo-textbox-input " style="color: #929598;
-                                            background-color: #222f3e;
-                                            border: var(--bs-border-width) solid #9d9fa1;">
+                                                background-color: #eee;
+                                                border: var(--bs-border-width) solid #9d9fa1;">
                                                 <option value="">@lang('messages.graficas.mes')</option>
                                                 <option value="01">@lang('messages.graficas.enero')</option>
                                                 <option value="02">@lang('messages.graficas.febrero')</option>
@@ -83,7 +83,8 @@
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                 <div class="row mt-2">
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">
-                                        <div class="card" style="background-color: #222f3e">
+                                        <div class="card" style="background-color: #eee">
+                                            <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.citas_registradas')</h5>
                                             <div class="card-body p-4" style="display: flex; justify-content: center;">
                                                 <div class="c-chart-wrapper mt-2 mx-3" style="height:350px; width:100%">
                                                     <canvas id="recorded_appointments" style="height:40vh; width:100vw"> </canvas>
@@ -92,10 +93,12 @@
                                         </div>
                                     </div>
                                 </div>
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-lg-6">
-                                        <div class="card" style="background-color: #222f3e">
+                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-lg-6">
+                                            <div class="card" style="background-color: #eee">
+                                            <h5 style="color: #596167; padding: 1.5rem 1.5rem 0 !important;"><i class="bi bi-bar-chart"></i> @lang('messages.graficas.doctores_activos') / @lang('messages.graficas.doctores_inactivos')</h5>
+
                                             <div class="card-body p-4" style="display: flex; justify-content: center;">
                                                 <div class="c-chart-wrapper mt-2 mx-3 graficas-3" style="height:auto; width:100%">
                                                     <canvas id="doctors"></canvas>
@@ -104,12 +107,12 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6 col-lg-6">
-                                        <div class="card" style="background-color: #222f3e;">
+                                        <div class="card" style="background-color: #eee;">
                                             <div class="card-body p-4">
                                                 <div class="row" id="table-patients" style="color: #b3b3b3">
-                                                    <h5><i class="bi bi-people" style="color: #fffff"></i>  @lang('messages.menu.pacientes')</h5>
+                                                    <h5 style="color: #596167"><i class="bi bi-people"></i> @lang('messages.menu.pacientes')</h5>
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-                                                        <table id="table-patient" class="table table-striped table-bordered table-dark" style="width:100%;">
+                                                        <table id="table-patient" class="table table-striped table-bordered" style="width:100%;">
                                                             <thead>
                                                                 <tr>
                                                                     <th class="text-center w-image" scope="col"
@@ -148,12 +151,12 @@
                                 <div class="row">
 
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-lg-12">
-                                        <div class="card" style="background-color: #222f3e;">
+                                        <div class="card" style="background-color: #eee;">
                                             <div class="card-body p-4">
                                                 <div class="row" id="table-patients" style="color: #b3b3b3">
-                                                    <h5><i class="bi bi-people" style="color: #fffff"></i> Médicos</h5>
+                                                    <h5 style="color: #596167"><i class="bi bi-people"></i> Médicos</h5>
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 table-responsive">
-                                                        <table id="table-patient" class="table table-striped table-bordered table-dark" style="width:100%;">
+                                                        <table id="table-patient" class="table table-striped table-bordered" style="width:100%;">
                                                             <thead>
                                                                 <tr>
                                                                     <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>

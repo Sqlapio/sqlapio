@@ -82,9 +82,9 @@
                     // address: {
                     //     required: true,
                     // },
-                    zip_code: {
-                        required: true,
-                    },
+                    // zip_code: {
+                    //     required: true,
+                    // },
                     phone: {
                         required: true,
                     },
@@ -152,9 +152,9 @@
                     // address: {
                     //     required: "@lang('messages.alert.direccion_obligatoria')",
                     // },
-                    zip_code: {
-                        required: "@lang('messages.alert.codigo_area_obligatorio')",
-                    },
+                    // zip_code: {
+                    //     required: "@lang('messages.alert.codigo_area_obligatorio')",
+                    // },
                     phone: {
                         required: "@lang('messages.alert.telefono_obligatorio')",
                     },
@@ -573,7 +573,6 @@
     </div>
     <div class="container-fluid" style="padding: 0 3% 3%">
         <div class="accordion" id="accordion">
-
             {{-- datos del medico --}}
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
@@ -609,7 +608,8 @@
                                             </div>
                                             <div class="col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
                                                 <div class="row">
-                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-4 col-xxl-4 mt-2">
+                                                    {{-- nombre --}}
+                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label"
@@ -622,7 +622,8 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-4 col-xxl-4 mt-2">
+                                                    {{-- apellido --}}
+                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="last_name" class="form-label"
@@ -635,7 +636,8 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-2 col-xxl-2 mt-2">
+                                                    {{-- Doc. idetidad --}}
+                                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 @if (Auth::user()->contrie == '81')
@@ -651,7 +653,8 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-2 col-xxl-2 mt-2">
+                                                    {{-- fecha nacimiento --}}
+                                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <label for="birthdate" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.fecha_nacimiento')</label>
@@ -661,9 +664,8 @@
                                                                 value="" onchange="calculateAge(event,'age')">
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                    {{-- genero --}}
+                                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="genere" class="form-label"
@@ -679,7 +681,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-4 mt-2">
+                                                    {{--  correo --}}
+                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="username" class="form-label"
@@ -692,7 +695,8 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                    {{-- telefono --}}
+                                                    <div class="col-sm-6 col-md-6 col-lg-5 col-xl-4 col-xxl-4 mt-2">
                                                         <x-phone_component :phone="$user->phone" />
                                                         {{-- <div class="form-group">
                                                             <div class="Icon-inside">
@@ -706,7 +710,8 @@
                                                             </div>
                                                         </diV> --}}
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2"
+                                                    {{-- especialidad --}}
+                                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2"
                                                         id="specialty-div">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
@@ -727,7 +732,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2" id='div-otros' style="display: none">
+                                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id='div-otros' style="display: none">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="specialty" class="form-label"
@@ -745,7 +750,76 @@
                                                             </div>
                                                         </diV>
                                                     </div>
+                                                    {{-- mpps --}}
+                                                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-4 col-xxl-2 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                @if (Auth::user()->contrie == '81')
+                                                                    <label for="cod_mpps" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps_rp')</label>
+                                                                @else
+                                                                    <label for="cod_mpps" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps')</label>
+                                                                @endif
+                                                                <input autocomplete="off" placeholder="MPPS"
+                                                                    class="form-control mask-only-number @error('cod_mpps') is-invalid @enderror"
+                                                                    id="cod_mpps" name="cod_mpps" type="text"
+                                                                    value="{!! !empty($user) ? $user->cod_mpps : '' !!}">
+                                                                <i class="bi bi-geo st-icon"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @if (Auth::user()->type_plane == '7')
+                                                        {{-- piso --}}
+                                                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="number_floor" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.piso_consultorio')</label>
+                                                                    <input autocomplete="off"
+                                                                        class="form-control mask-alfa-numeric @error('number_floor') is-invalid @enderror"
+                                                                        id="number_floor" maxlength="10" name="number_floor"
+                                                                        type="text" value="{!! !empty($user != null) ? $user->number_floor : '' !!}">
+                                                                    <i class="bi bi-geo st-icon"></i>
+                                                                </div>
+                                                            </diV>
+                                                        </div>
+                                                        {{-- consultorio --}}
+                                                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="number_consulting_room" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_consultorio')</label>
+                                                                    <input autocomplete="off" maxlength="10"
+                                                                        class="form-control mask-alfa-numeric @error('number_consulting_room') is-invalid @enderror"
+                                                                        id="number_consulting_room" name="number_consulting_room"
+                                                                        type="text" value="{!! !empty($user != null) ? $user->number_consulting_room : '' !!}">
+                                                                    <i class="bi bi-geo st-icon"></i>
+                                                                </div>
+                                                            </diV>
+                                                        </div>
+                                                        {{-- telefono --}}
+                                                        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="number_consulting_phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_tel_consultorio')</label>
+                                                                    <input autocomplete="off"
+                                                                        class="form-control phone @error('number_consulting_phone') is-invalid @enderror"
+                                                                        id="number_consulting_phone"
+                                                                        name="number_consulting_phone" type="text"
+                                                                        value="{!! !empty($user != null) ? $user->number_consulting_phone : '' !!}">
+                                                                    <i class="bi bi-geo st-icon"></i>
+                                                                </div>
+                                                            </diV>
+                                                        </div>
+                                                    @endif
+                                                    {{-- ubicacion --}}
+                                                    <x-ubigeo_contries class="{{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-2' : 'col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-2' }}  mt-2" />
+                                                        <div class="col-sm-3 col-md-4 col-lg-3 col-xl-3 col-xxl-2 mb-btn {{ Auth::user()->role == 'corporativo' ? 'mb-btnSve' : '' }}" style="display: flex; align-items: flex-end;">
+                                                            <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="margin-bottom: 1px; width: 100%;" />
+                                                        </div>
                                                 </div>
+                                                <div class="row">
+                                                </div>
+
                                             </div>
                                             <input id="age" name="age" type="hidden" value="">
                                             {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
@@ -758,67 +832,7 @@
                                                     </div>
                                                 </diV>
                                             </div> --}}
-                                            @if (Auth::user()->type_plane == '7')
-                                                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="number_floor" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.piso_consultorio')</label>
-                                                            <input autocomplete="off"
-                                                                class="form-control mask-alfa-numeric @error('number_floor') is-invalid @enderror"
-                                                                id="number_floor" maxlength="10" name="number_floor"
-                                                                type="text" value="{!! !empty($user != null) ? $user->number_floor : '' !!}">
-                                                            <i class="bi bi-geo st-icon"></i>
-                                                        </div>
-                                                    </diV>
-                                                </div>
-                                                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="number_consulting_room" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_consultorio')</label>
-                                                            <input autocomplete="off" maxlength="10"
-                                                                class="form-control mask-alfa-numeric @error('number_consulting_room') is-invalid @enderror"
-                                                                id="number_consulting_room" name="number_consulting_room"
-                                                                type="text" value="{!! !empty($user != null) ? $user->number_consulting_room : '' !!}">
-                                                            <i class="bi bi-geo st-icon"></i>
-                                                        </div>
-                                                    </diV>
-                                                </div>
-                                                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                    <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="number_consulting_phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_tel_consultorio')</label>
-                                                            <input autocomplete="off"
-                                                                class="form-control phone @error('number_consulting_phone') is-invalid @enderror"
-                                                                id="number_consulting_phone"
-                                                                name="number_consulting_phone" type="text"
-                                                                value="{!! !empty($user != null) ? $user->number_consulting_phone : '' !!}">
-                                                            <i class="bi bi-geo st-icon"></i>
-                                                        </div>
-                                                    </diV>
-                                                </div>
-                                            @endif
-                                            <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        @if (Auth::user()->contrie == '81')
-                                                            <label for="cod_mpps" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps_rp')</label>
-                                                        @else
-                                                            <label for="cod_mpps" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.mpps')</label>
-                                                        @endif
-                                                        <input autocomplete="off" placeholder="MPPS"
-                                                            class="form-control mask-only-number @error('cod_mpps') is-invalid @enderror"
-                                                            id="cod_mpps" name="cod_mpps" type="text"
-                                                            value="{!! !empty($user) ? $user->cod_mpps : '' !!}">
-                                                        <i class="bi bi-geo st-icon"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <x-ubigeo_contries class="{{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3' : 'col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2' }}  mt-2" />
-
-                                            <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                            {{-- <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="zip_code" class="form-label"
@@ -830,7 +844,7 @@
                                                         <i class="bi bi-geo st-icon"></i>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         @else
                                             <div class="col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2">
                                                 @php
@@ -844,8 +858,8 @@
                                             {{-- rol laboratorio --}}
                                             <div class="col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
                                                 <div class="row">
-                                                    <input type="hidden" id="id" name="id"
-                                                        value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->id : '' !!}">
+                                                    <input type="hidden" id="id" name="id" value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->id : '' !!}">
+                                                    {{-- razon social --}}
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
@@ -863,6 +877,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
+                                                    {{-- tipo doc --}}
                                                     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <label for="name" class="form-label"
@@ -877,6 +892,7 @@
                                                             </select>
                                                         </div>
                                                     </div>
+                                                    {{-- rif --}}
                                                     <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
@@ -890,6 +906,7 @@
                                                             </div>
                                                         </diV>
                                                     </div>
+                                                    {{-- email --}}
                                                     <div class="col-sm-12 col-md-5 col-lg-5 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
@@ -903,9 +920,8 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    {{-- lic. Salud --}}
+                                                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label"
@@ -918,7 +934,8 @@
                                                             </div>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    {{-- telefono --}}
+                                                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                         <x-phone_component :phone="$user->get_laboratorio->phone_1" />
                                                         {{-- <div class="form-group">
                                                             <div class="Icon-inside">
@@ -932,72 +949,75 @@
                                                             </div>
                                                         </diV> --}}
                                                     </div>
-                                                    <x-ubigeo class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.tipo_empresa')</label>
-                                                        <select name="type_laboratory" id="type_laboratory"
-                                                            class="form-control">
-                                                            <option value="">@lang('messages.placeholder.seleccione')</option>
-                                                            <option value="clinico">@lang('messages.select.lab_clinico')</option>
-                                                            <option value="investigacion">@lang('messages.select.lab_inves')</option>
-                                                            <option value="microbiológico">@lang('messages.select.lab_micro')</option>
-                                                            <option value="centro_clinico">@lang('messages.select.centro_clinico')</option>
-                                                            <option value="hospital">@lang('messages.select.hospital')</option>
-                                                            <option value="etc">@lang('messages.select.etc')</option>
-                                                        </select>
-                                                        <i class="bi bi-flag st-icon"></i>
+                                                    {{-- ubicacion --}}
+                                                    <x-ubigeo class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
+                                                    {{-- tipo de empresa --}}
+                                                    <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="name" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.tipo_empresa')</label>
+                                                                <select name="type_laboratory" id="type_laboratory"
+                                                                    class="form-control">
+                                                                    <option value="">@lang('messages.placeholder.seleccione')</option>
+                                                                    <option value="clinico">@lang('messages.select.lab_clinico')</option>
+                                                                    <option value="investigacion">@lang('messages.select.lab_inves')</option>
+                                                                    <option value="microbiológico">@lang('messages.select.lab_micro')</option>
+                                                                    <option value="centro_clinico">@lang('messages.select.centro_clinico')</option>
+                                                                    <option value="hospital">@lang('messages.select.hospital')</option>
+                                                                    <option value="etc">@lang('messages.select.etc')</option>
+                                                                </select>
+                                                                <i class="bi bi-flag st-icon"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{-- director --}}
+                                                    <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="name" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.responsable_director')</label>
+                                                                <input autocomplete="off" placeholder=""
+                                                                    class="form-control mask-only-text @error('responsible') is-invalid @enderror"
+                                                                    id="responsible" name="responsible" type="text"
+                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->responsible : '' !!}">
+                                                                <i class="bi bi-geo st-icon"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    {{-- sitio web --}}
+                                                    <div class="col-sm-12 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.web')</label>
+                                                                <input autocomplete="off" placeholder=""
+                                                                    class="form-control @error('website') is-invalid @enderror"
+                                                                    id="website" name="website" type="text" style=""
+                                                                    value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->website : '' !!}">
+                                                                <i class="bi bi-globe2 st-icon"></i>
+                                                            </div>
+                                                            <small style="font-size: 12px" class="collapseBtn">https://www.sitioweb.com</small>
+                                                        </diV>
+                                                    </div>
+                                                    {{-- direccion --}}
+                                                    <div class="{{ Auth::user()->role == 'corporativo' ? 'col-sm-12 col-md-8 col-lg-4 col-xl-4 col-xxl-4 mt-2' : 'col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10' }}">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="name" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
+                                                                <textarea id="address" rows="1" id="address" name="address"
+                                                                    class="form-control @error('address') is-invalid @enderror" value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->address : '' !!}"></textarea>
+                                                                <i class="bi bi-geo st-icon"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl-2 mb-btn {{ Auth::user()->role == 'corporativo' ? 'mb-btnSve' : '' }}" style="display: flex; align-items: flex-end;">
+                                                        <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="margin-bottom: 1px; width: 100%;" />
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.responsable_director')</label>
-                                                        <input autocomplete="off" placeholder=""
-                                                            class="form-control mask-only-text @error('responsible') is-invalid @enderror"
-                                                            id="responsible" name="responsible" type="text"
-                                                            value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->responsible : '' !!}">
-                                                        <i class="bi bi-geo st-icon"></i>
-                                                    </div>
-                                                </diV>
-                                            </div>
-                                            <div class="col-sm-12 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.web')</label>
-                                                        <input autocomplete="off" placeholder=""
-                                                            class="form-control @error('website') is-invalid @enderror"
-                                                            id="website" name="website" type="text" style=""
-                                                            value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->website : '' !!}">
-                                                        <i class="bi bi-globe2 st-icon"></i>
-                                                    </div>
-                                                    <small style="font-size: 12px"
-                                                        class="collapseBtn">https://www.sitioweb.com</small>
-                                                </diV>
-                                            </div>
-                                            <div class="{{ Auth::user()->role == 'corporativo' ? 'col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-2' : 'col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10' }}">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="name" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
-                                                        <textarea id="address" rows="1" id="address" name="address"
-                                                            class="form-control @error('address') is-invalid @enderror" value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->address : '' !!}"></textarea>
-                                                        <i class="bi bi-geo st-icon"></i>
-                                                    </div>
-                                                </diV>
                                             </div>
                                         @endif
 
-                                        <div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl-2 mb-btn {{ Auth::user()->role == 'corporativo' ? 'mb-btnSve' : '' }}" style="display: flex; align-items: flex-end;">
-                                            <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="margin-bottom: 1px; width: 100%;" />
-                                        </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <div id="spinner" style="display: none">
                                                 <x-load-spinner />
@@ -1096,6 +1116,38 @@
                     </div>
                 </div>
                 @if (Auth::user()->role == 'medico')
+                {{-- Registro de Secretaria --}}
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                        <div class="accordion-item">
+                            <span class="accordion-header title" id="headingFour">
+                                <button class="accordion-button collapsed bg-8" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false"
+                                    aria-controls="collapseFour"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.registrar_secretaria')
+                                </button>
+                            </span>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                                data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                        <a id="Link-medicos" href="{{ auth()->user()->token_corporate }}"target="_blank" style="text-decoration: none;">
+                                            <button type="button" class="btn btnPrimary" style="padding: 7px 20px">@lang('messages.botton.registrar_secretaria')</button>
+                                        </a>
+                                        <button type="button" id="icon-copy" class="btn btn-iSecond rounded-circle"
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                            title="@lang('messages.botton.copiar_enlace')"
+                                            onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
+                                            style="margin-left: 5%;">
+                                            <i class="bi bi-file-earmark-text"></i>
+                                        </button> <span style="padding-left: 5px" id="copied"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                     {{-- firma Digital --}}
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'mb-cd mb-2' : '' }}">
@@ -1124,38 +1176,7 @@
                             </div>
                         </div>
                     </div>
-                    {{-- Registro de Secretaria --}}
-                    <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'mb-cd mb-2' : '' }}">
-                            <div class="accordion-item">
-                                <span class="accordion-header title" id="headingFour">
-                                    <button class="accordion-button collapsed bg-8" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false"
-                                        aria-controls="collapseFour"
-                                        style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                        <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.registrar_secretaria')
-                                    </button>
-                                </span>
-                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-                                    data-bs-parent="#accordion">
-                                    <div class="accordion-body">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                            <a id="Link-medicos" href="{{ auth()->user()->token_corporate }}"target="_blank" style="text-decoration: none;">
-                                                <button type="button" class="btn btnPrimary" style="padding: 7px 20px">@lang('messages.botton.registrar_secretaria')</button>
-                                            </a>
-                                            <button type="button" id="icon-copy" class="btn btn-iSecond rounded-circle"
-                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                title="@lang('messages.botton.copiar_enlace')"
-                                                onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
-                                                style="margin-left: 5%;">
-                                                <i class="bi bi-file-earmark-text"></i>
-                                            </button> <span style="padding-left: 5px" id="copied"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 @endif
             @endif
             {{-- @if ((Auth::user()->role == 'medico' && Auth::user()->type_plane != '7') || Auth::user()->role == 'laboratorio')
