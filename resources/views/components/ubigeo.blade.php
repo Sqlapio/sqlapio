@@ -9,9 +9,9 @@
     <div class="form-group">
         <div class="Icon-inside">
             @if (Auth::user()->contrie == '81')
-            <label for="state" class="form-label" style="font-size: 13px; margin-bottom: 7px">@lang('messages.form.provincia')</label>
+            <label for="state" class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.provincia')</label>
             @else
-            <label for="state" class="form-label" style="font-size: 13px; margin-bottom: 7px">@lang('messages.form.selecion_estado')</label>
+            <label for="state" class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.selecion_estado')</label>
             @endif
             <select name="state" id="state" class="form-control"
                 onchange="handlerState(event,{{ $cities }})">
@@ -28,7 +28,7 @@
 <div class="{{ $class }}">
     <div class="form-group">
         <div class="Icon-inside">
-            <label for="city" class="form-label" style="font-size: 13px; margin-bottom: 7px">@lang('messages.form.selecion_ciudad')</label>
+            <label for="city" class="form-label"style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.selecion_ciudad')</label>
             <select name="city" id="city" class="form-control">
                 <option value="">@lang('messages.placeholder.seleccione')</option>
             </select>
