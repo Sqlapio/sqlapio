@@ -1,388 +1,361 @@
-{{-- @extends('layouts.app-auth')
-@section('title', 'Centros') --}}
 
 <div>
-<style>
-    .datepicker-switch {
-        background-color: #44525F !important;
-    }
+    <style>
+        .datepicker-switch {
+            background-color: #44525F !important;
+        }
 
-    .check {
-        display: flex;
-        justify-content: center;
-    }
+        .check {
+            display: flex;
+            justify-content: center;
+        }
 
-    .table-check {
-        width: 50px;
-        height: 50px;
-        text-align: center;
-        vertical-align: middle;
-    }
+        .table-check {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            vertical-align: middle;
+        }
 
-    .w-5 {
-        width: 5% !important;
-    }
+        .w-5 {
+            width: 5% !important;
+        }
 
-    .w-30 {
-        width: 30% !important;
-    }
+        .w-30 {
+            width: 30% !important;
+        }
 
-    .w-45 {
-        width: 45% !important;
-    }
+        .w-45 {
+            width: 45% !important;
+        }
 
-    .w-10 {
-        width: 10% !important;
-    }
+        .w-10 {
+            width: 10% !important;
+        }
 
-    .pl-1 {
-        padding-left: 5px !important;
-        padding-right: 5px !important;
-    }
+        .pl-1 {
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+        }
 
-    form {
-        margin-block-end: 0;
-    }
-</style>
-@php
-    $lang = session()->get('locale');
-    if ($lang == 'en') {
-        $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/en-EN.json';
-    } else{
-        $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json';
-    }
-@endphp
-@push('scripts')
-    @vite(['resources/js/centers.js'])
-    <script>
-        let user = @json(Auth::user());
-        $(document).ready(() => {
-            // if (user.status_register === '1') {
-            //     Swal.fire({
-            //         icon: 'warning',
-            //         title: '@lang('messages.alert.registro_inicial')',
-            //         allowOutsideClick: false,
-            //         confirmButtonColor: '#42ABE2',
-            //         confirmButtonText: '@lang('messages.botton.aceptar')'
-            //     }).then((result) => {
-            //         window.location.href = "{{ route('Profile') }}";
-            //     });
-            // }
-            $('#form-centers').validate({
-                rules: {
-                    address: {
-                        required: true,
-                        minlength: 3,
-                    },
-                    number_floor: {
-                        required: true,
-                    },
-                    number_consulting_room: {
-                        required: true,
-                    },
-                    center_id: {
-                        required: true,
-                    },
-                    state_contrie: {
-                        required: true,
-                    },
-                    city_contrie: {
-                        required: true,
-                    },
-                    full_name: {
-                        required: true,
-                    }
-                },
-                messages: {
-                    center_id: {
-                        required: '@lang('messages.alert.centro_obligatorio')',
-                    },
-                    address: {
-                        required: "@lang('messages.alert.direccion_obligatoria')",
-                        minlength: "@lang('messages.alert.direccion_3_caracteres')",
-                    },
-                    number_floor: {
-                        required: "@lang('messages.alert.num_piso_obligatorio')",
-                    },
-
-                    number_consulting_room: {
-                        required: "@lang('messages.alert.num_cons_obligatorio')",
-                    },
-                    state_contrie: {
-                        required: "@lang('messages.alert.estado_obligatorio')",
-                    },
-                    city_contrie: {
-                        required: "@lang('messages.alert.ciudad_obligatorio')",
-                    },
-                    full_name: {
-                        required: "@lang('messages.alert.nombre_centro_obligatorio')",
-                    }
-                }
-            });
-
-            $.validator.addMethod("onlyNumber", function(value, element) {
-                var pattern = /^\d+\.?\d*$/;
-                return pattern.test(value);
-            }, "Campo numérico");
-
-            //envio del formulario
-            $("#form-centers").submit(function(event) {
-                event.preventDefault();
-                $("#form-centers").validate();
-                if ($("#form-centers").valid()) {
-                    $('#send').hide();
-                    $('#spinner').show();
-                    var data = $('#form-centers').serialize();
-                    $.ajax({
-                        url: '{{ route('register-centers') }}',
-                        type: 'POST',
-                        data: data,
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        form {
+            margin-block-end: 0;
+        }
+    </style>
+    @php
+        $lang = session()->get('locale');
+        if ($lang == 'en') {
+            $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/en-EN.json';
+        } else{
+            $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json';
+        }
+    @endphp
+    @push('scripts')
+        @vite(['resources/js/centers.js'])
+        <script>
+            let user = @json(Auth::user());
+            $(document).ready(() => {
+                // if (user.status_register === '1') {
+                //     Swal.fire({
+                //         icon: 'warning',
+                //         title: '@lang('messages.alert.registro_inicial')',
+                //         allowOutsideClick: false,
+                //         confirmButtonColor: '#42ABE2',
+                //         confirmButtonText: '@lang('messages.botton.aceptar')'
+                //     }).then((result) => {
+                //         window.location.href = "{{ route('Profile') }}";
+                //     });
+                // }
+                $('#form-centers').validate({
+                    rules: {
+                        address: {
+                            required: true,
+                            minlength: 3,
                         },
-                        success: function(response) {
-
-                            $('#send').show();
-
-                            $('#spinner').hide();
-
-                            $("#form-centers").trigger("reset");
-
-                            $('#div-new-center').hide();
-
-                            Swal.fire({
-                                icon: 'success',
-                                title: '@lang('messages.alert.centro_registrado')',
-                                allowOutsideClick: false,
-                                confirmButtonColor: '#42ABE2',
-                                confirmButtonText: '@lang('messages.botton.aceptar')'
-                            }).then((result) => {
-                                $('#modalCenter').modal('toggle');
-                                refreshTable();
-                            });
+                        number_floor: {
+                            required: true,
                         },
-                        error: function(error) {
+                        number_consulting_room: {
+                            required: true,
+                        },
+                        center_id: {
+                            required: true,
+                        },
+                        state_contrie: {
+                            required: true,
+                        },
+                        city_contrie: {
+                            required: true,
+                        },
+                        full_name: {
+                            required: true,
+                        }
+                    },
+                    messages: {
+                        center_id: {
+                            required: '@lang('messages.alert.centro_obligatorio')',
+                        },
+                        address: {
+                            required: "@lang('messages.alert.direccion_obligatoria')",
+                            minlength: "@lang('messages.alert.direccion_3_caracteres')",
+                        },
+                        number_floor: {
+                            required: "@lang('messages.alert.num_piso_obligatorio')",
+                        },
 
-                            error.responseJSON.errors.map((elm) => {
+                        number_consulting_room: {
+                            required: "@lang('messages.alert.num_cons_obligatorio')",
+                        },
+                        state_contrie: {
+                            required: "@lang('messages.alert.estado_obligatorio')",
+                        },
+                        city_contrie: {
+                            required: "@lang('messages.alert.ciudad_obligatorio')",
+                        },
+                        full_name: {
+                            required: "@lang('messages.alert.nombre_centro_obligatorio')",
+                        }
+                    }
+                });
+
+                $.validator.addMethod("onlyNumber", function(value, element) {
+                    var pattern = /^\d+\.?\d*$/;
+                    return pattern.test(value);
+                }, "Campo numérico");
+
+                //envio del formulario
+                $("#form-centers").submit(function(event) {
+                    event.preventDefault();
+                    $("#form-centers").validate();
+                    if ($("#form-centers").valid()) {
+                        $('#send').hide();
+                        $('#spinner').show();
+                        var data = $('#form-centers').serialize();
+                        $.ajax({
+                            url: '{{ route('register-centers') }}',
+                            type: 'POST',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(response) {
+
+                                $('#send').show();
+
+                                $('#spinner').hide();
+
+                                $("#form-centers").trigger("reset");
+
+                                $('#div-new-center').hide();
+
                                 Swal.fire({
-                                    icon: 'error',
-                                    title: elm,
+                                    icon: 'success',
+                                    title: '@lang('messages.alert.centro_registrado')',
                                     allowOutsideClick: false,
                                     confirmButtonColor: '#42ABE2',
                                     confirmButtonText: '@lang('messages.botton.aceptar')'
                                 }).then((result) => {
-
-                                    $('#send').show();
-                                    $('#spinner').hide();
+                                    $('#modalCenter').modal('toggle');
+                                    refreshTable();
                                 });
-                            });
-                        }
-                    });
-                }
-            });
-
-        });
-
-        function showModal() {
-            $('#modalCenter').modal('show');
-        }
-
-        function handlerCenter(e) {
-            if ($(`#${e.target.id}`).is(':checked')) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: '@lang('messages.alert.habilitar_centro')',
-                    allowOutsideClick: false,
-                    confirmButtonColor: '#42ABE2',
-                    confirmButtonText: '@lang('messages.botton.aceptar')'
-                }).then((result) => {
-                    handlerStatus("{{ route('center_enabled', ':id') }}", e.target.value);
-                });
-            } else {
-                Swal.fire({
-                    icon: 'warning',
-                    title: '@lang('messages.alert.deshabilitar_centro')',
-                    allowOutsideClick: false,
-                    confirmButtonColor: '#42ABE2',
-                    confirmButtonText: '@lang('messages.botton.aceptar')'
-                }).then((result) => {
-                    handlerStatus("{{ route('center_disabled', ':id') }}", e.target.value);
-                });
-            }
-        }
-
-        function refreshTable() {
-            // ajax para refrezcar la tabla
-            $.ajax({
-                url: '{{ route('get_doctor_centers') }}',
-                type: 'GET',
-                headers: {
-                    'X-CSRF-TOKEN': $(
-                        'meta[name="csrf-token"]').attr(
-                        'content')
-                },
-                success: function(res) {
-                    let data = [];
-                    let checked = ''
-                    res.map((elem) => {
-                        if (elem.status == "1") {
-                            checked = "checked";
-
-                        } else {
-                            checked = '';
-                        }
-                        elem.btn =
-                            ` <div class="form-check form-switch">
-                                <input onchange="handlerCenter(event);" style="width: 5em" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="${elem.id}" ${checked}>
-                            </div>`;
-
-                        data.push(elem);
-                    });
-                    new DataTable('#table-centers', {
-                        language: {
-                            url: url,
-                        },
-                        reponsive: true,
-                        bDestroy: true,
-                        data: data,
-                        "searching": false,
-                        "bLengthChange": false,
-                        columns: [{
-                                data: 'center',
-                                title: '@lang('messages.tabla.centro_salud')',
-                                className: "text-center w-30",
                             },
-                            {
-                                data: 'address',
-                                title: '@lang('messages.tabla.direccion')',
-                                className: "text-center w-50",
-                            },
-                            {
-                                data: 'number_floor',
-                                title: '@lang('messages.tabla.piso')',
-                                className: "text-center w-5",
-                            },
-                            {
-                                data: 'number_consulting_room',
-                                title: '@lang('messages.tabla.consultorio')',
-                                className: "text-center w-5",
-                            },
+                            error: function(error) {
 
-                            {
-                                data: 'phone_consulting_room',
-                                title: '@lang('messages.tabla.telefono')',
-                                className: "text-center w-10",
-                            },
-                            {
-                                data: 'btn',
-                                title: '@lang('messages.tabla.estatus')',
-                                className: "text-center table-check w-5",
+                                error.responseJSON.errors.map((elm) => {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: elm,
+                                        allowOutsideClick: false,
+                                        confirmButtonColor: '#42ABE2',
+                                        confirmButtonText: '@lang('messages.botton.aceptar')'
+                                    }).then((result) => {
+
+                                        $('#send').show();
+                                        $('#spinner').hide();
+                                    });
+                                });
                             }
-                        ],
+                        });
+                    }
+                });
+
+            });
+
+            function showModal() {
+                $('#modalCenter').modal('show');
+            }
+
+            function handlerCenter(e) {
+                if ($(`#${e.target.id}`).is(':checked')) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '@lang('messages.alert.habilitar_centro')',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#42ABE2',
+                        confirmButtonText: '@lang('messages.botton.aceptar')'
+                    }).then((result) => {
+                        handlerStatus("{{ route('center_enabled', ':id') }}", e.target.value);
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: '@lang('messages.alert.deshabilitar_centro')',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#42ABE2',
+                        confirmButtonText: '@lang('messages.botton.aceptar')'
+                    }).then((result) => {
+                        handlerStatus("{{ route('center_disabled', ':id') }}", e.target.value);
                     });
                 }
-            });
+            }
 
-        }
+            function refreshTable() {
+                // ajax para refrezcar la tabla
+                $.ajax({
+                    url: '{{ route('get_doctor_centers') }}',
+                    type: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': $(
+                            'meta[name="csrf-token"]').attr(
+                            'content')
+                    },
+                    success: function(res) {
+                        let data = [];
+                        let checked = ''
+                        res.map((elem) => {
+                            if (elem.status == "1") {
+                                checked = "checked";
 
-        function handlerStatus(route, id) {
-            route = route.replace(':id', id);
-            $.ajax({
-                url: route,
-                type: 'GET',
-                headers: {
-                    'X-CSRF-TOKEN': $(
-                        'meta[name="csrf-token"]').attr(
-                        'content')
-                },
-                success: function(res) {
-                    refreshTable();
-                }
-            });
+                            } else {
+                                checked = '';
+                            }
+                            elem.btn =
+                                ` <div class="form-check form-switch">
+                                    <input onchange="handlerCenter(event);" style="width: 5em" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" value="${elem.id}" ${checked}>
+                                </div>`;
 
-        }
+                            data.push(elem);
+                        });
+                        new DataTable('#table-centers', {
+                            language: {
+                                url: url,
+                            },
+                            reponsive: true,
+                            bDestroy: true,
+                            data: data,
+                            "searching": false,
+                            "bLengthChange": false,
+                            columns: [{
+                                    data: 'center',
+                                    title: '@lang('messages.tabla.centro_salud')',
+                                    className: "text-center w-30",
+                                },
+                                {
+                                    data: 'address',
+                                    title: '@lang('messages.tabla.direccion')',
+                                    className: "text-center w-50",
+                                },
+                                {
+                                    data: 'number_floor',
+                                    title: '@lang('messages.tabla.piso')',
+                                    className: "text-center w-5",
+                                },
+                                {
+                                    data: 'number_consulting_room',
+                                    title: '@lang('messages.tabla.consultorio')',
+                                    className: "text-center w-5",
+                                },
 
-        const handlerCenterSelect = (e) => {
-
-            if(Number(e.target.value)=== 0){
-
-                $('#div-new-center').show();
-
-            }else{
-
-                $('#div-new-center').hide();
+                                {
+                                    data: 'phone_consulting_room',
+                                    title: '@lang('messages.tabla.telefono')',
+                                    className: "text-center w-10",
+                                },
+                                {
+                                    data: 'btn',
+                                    title: '@lang('messages.tabla.estatus')',
+                                    className: "text-center table-check w-5",
+                                }
+                            ],
+                        });
+                    }
+                });
 
             }
 
-        }
-    </script>
-@endpush
-{{-- @section('content') --}}
+            function handlerStatus(route, id) {
+                route = route.replace(':id', id);
+                $.ajax({
+                    url: route,
+                    type: 'GET',
+                    headers: {
+                        'X-CSRF-TOKEN': $(
+                            'meta[name="csrf-token"]').attr(
+                            'content')
+                    },
+                    success: function(res) {
+                        refreshTable();
+                    }
+                });
+
+            }
+
+            const handlerCenterSelect = (e) => {
+
+                if(Number(e.target.value)=== 0){
+
+                    $('#div-new-center').show();
+
+                }else{
+
+                    $('#div-new-center').hide();
+
+                }
+
+            }
+        </script>
+    @endpush
     <div>
-        {{-- <div class="container-fluid" style="padding: 0 3% 3%"> --}}
-
-            {{-- <div class="row mt-2">
-                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                    <div class="accordion" id="accordion">
-                        <div class="accordion-item">
-                            <span class="accordion-header title" id="headingOne">
-                                <button class="accordion-button bg-4" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-hospital"></i> @lang('messages.acordion.centros')
-                                </button>
-                            </span>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
-                                <div class="accordion-body"> --}}
-                                    <div class="row mt-3">
-                                        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8" style="font-size:10px;">
-                                            <button type="button" id="btnShow" class="btn btnPrimary" onclick="showModal()">@lang('messages.botton.asociar_centro')</button>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="table-responsive" id="table-patients" style="margin-top: 20px; width: 100%;">
-                                        <table id="table-centers" class="table table-striped table-bordered" style="width: 100%;">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center w-30">@lang('messages.tabla.centro_salud')</th>
-                                                    <th class="text-center w-45" data-orderable="false">@lang('messages.tabla.direccion') </th>
-                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.piso') </th>
-                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.consultorio') </th>
-                                                    <th class="text-center w-10" data-orderable="false">@lang('messages.tabla.telefono') </th>
-                                                    <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.estatus') </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($doctor_centers as $key => $item)
-                                                    <tr>
-                                                        <td class="text-center pt-2">{{ $item['center'] }}</td>
-                                                        <td class="text-center">{{ $item['address'] }}</td>
-                                                        <td class="text-center">{{ $item['number_floor'] }}</td>
-                                                        <td class="text-center">{{ $item['number_consulting_room'] }}</td>
-                                                        <td class="text-center">{{ $item['phone_consulting_room'] }}</td>
-                                                        <td class="text-center table-check ">
-                                                            <div class="form-check form-switch ">
-                                                                <input onchange="handlerCenter(event);" style="width: 5em"
-                                                                    class="form-check-input" type="checkbox"
-                                                                    role="switch" id="flexSwitchCheckChecked"
-                                                                    value="{{ $item['id'] }}"
-                                                                    {{ $item['status'] != '1' ? '' : 'checked' }}>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                {{-- </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-
+        <div class="row mt-3">
+            <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8" style="font-size:10px;">
+                <button type="button" id="btnShow" class="btn btnPrimary" onclick="showModal()">@lang('messages.botton.asociar_centro')</button>
+            </div>
         </div>
-
+        <hr>
+        <div class="table-responsive" id="table-patients" style="margin-top: 20px; width: 100%;">
+            <table id="table-centers" class="table table-striped table-bordered" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th class="text-center w-30">@lang('messages.tabla.centro_salud')</th>
+                        <th class="text-center w-45" data-orderable="false">@lang('messages.tabla.direccion') </th>
+                        <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.piso') </th>
+                        <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.consultorio') </th>
+                        <th class="text-center w-10" data-orderable="false">@lang('messages.tabla.telefono') </th>
+                        <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.estatus') </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($doctor_centers as $key => $item)
+                        <tr>
+                            <td class="text-center pt-2">{{ $item['center'] }}</td>
+                            <td class="text-center">{{ $item['address'] }}</td>
+                            <td class="text-center">{{ $item['number_floor'] }}</td>
+                            <td class="text-center">{{ $item['number_consulting_room'] }}</td>
+                            <td class="text-center">{{ $item['phone_consulting_room'] }}</td>
+                            <td class="text-center table-check ">
+                                <div class="form-check form-switch ">
+                                    <input onchange="handlerCenter(event);" style="width: 5em"
+                                        class="form-check-input" type="checkbox"
+                                        role="switch" id="flexSwitchCheckChecked"
+                                        value="{{ $item['id'] }}"
+                                        {{ $item['status'] != '1' ? '' : 'checked' }}>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         <!-- Modal -->
         <div class="modal fade" id="modalCenter" tabindex="-1" aria-labelledby="modalCenterLabel" aria-hidden="true">
             <div id="spinner" style="display: none">
@@ -479,5 +452,6 @@
                 </div>
             </div>
         </div>
-    {{-- @endsection --}}
-    <div>
+    </div>
+</div>
+

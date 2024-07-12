@@ -641,9 +641,11 @@
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 @if (Auth::user()->contrie == '81')
-                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
+                                                                    <label for="ci" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
                                                                 @else
-                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
+                                                                    <label for="ci" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad')</label>
                                                                 @endif
                                                                 <input autocomplete="off" placeholder=""
                                                                     class="form-control @error('ci') is-invalid @enderror"
@@ -774,11 +776,13 @@
                                                         <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
-                                                                    <label for="number_floor" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.piso_consultorio')</label>
+                                                                    <label for="number_floor" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.piso_consultorio')</label>
                                                                     <input autocomplete="off"
                                                                         class="form-control mask-alfa-numeric @error('number_floor') is-invalid @enderror"
-                                                                        id="number_floor" maxlength="10" name="number_floor"
-                                                                        type="text" value="{!! !empty($user != null) ? $user->number_floor : '' !!}">
+                                                                        id="number_floor" maxlength="10"
+                                                                        name="number_floor" type="text"
+                                                                        value="{!! !empty($user != null) ? $user->number_floor : '' !!}">
                                                                     <i class="bi bi-geo st-icon"></i>
                                                                 </div>
                                                             </diV>
@@ -787,11 +791,13 @@
                                                         <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
-                                                                    <label for="number_consulting_room" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_consultorio')</label>
+                                                                    <label for="number_consulting_room" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_consultorio')</label>
                                                                     <input autocomplete="off" maxlength="10"
                                                                         class="form-control mask-alfa-numeric @error('number_consulting_room') is-invalid @enderror"
-                                                                        id="number_consulting_room" name="number_consulting_room"
-                                                                        type="text" value="{!! !empty($user != null) ? $user->number_consulting_room : '' !!}">
+                                                                        id="number_consulting_room"
+                                                                        name="number_consulting_room" type="text"
+                                                                        value="{!! !empty($user != null) ? $user->number_consulting_room : '' !!}">
                                                                     <i class="bi bi-geo st-icon"></i>
                                                                 </div>
                                                             </diV>
@@ -800,7 +806,9 @@
                                                         <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
-                                                                    <label for="number_consulting_phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_tel_consultorio')</label>
+                                                                    <label for="number_consulting_phone"
+                                                                        class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.num_tel_consultorio')</label>
                                                                     <input autocomplete="off"
                                                                         class="form-control phone @error('number_consulting_phone') is-invalid @enderror"
                                                                         id="number_consulting_phone"
@@ -813,13 +821,10 @@
                                                     @endif
                                                     {{-- ubicacion --}}
                                                     <x-ubigeo_contries class="{{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-2' : 'col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-2' }}  mt-2" />
-                                                        <div class="col-sm-3 col-md-4 col-lg-3 col-xl-3 col-xxl-2 mb-btn {{ Auth::user()->role == 'corporativo' ? 'mb-btnSve' : '' }}" style="display: flex; align-items: flex-end;">
-                                                            <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="margin-bottom: 1px; width: 100%;" />
-                                                        </div>
+                                                    <div class="col-sm-3 col-md-4 col-lg-3 col-xl-3 col-xxl-2 mb-btn {{ Auth::user()->role == 'corporativo' ? 'mb-btnSve' : '' }}" style="display: flex; align-items: flex-end;">
+                                                        <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="margin-bottom: 1px; width: 100%;" />
+                                                    </div>
                                                 </div>
-                                                <div class="row">
-                                                </div>
-
                                             </div>
                                             <input id="age" name="age" type="hidden" value="">
                                             {{-- <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
@@ -860,7 +865,7 @@
                                                 <div class="row">
                                                     <input type="hidden" id="id" name="id" value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->id : '' !!}">
                                                     {{-- razon social --}}
-                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 col-xxl-4 mt-2">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label"
@@ -878,7 +883,7 @@
                                                         </diV>
                                                     </div>
                                                     {{-- tipo doc --}}
-                                                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-xxl-2 mt-2">
+                                                    <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <label for="name" class="form-label"
                                                                 style="font-size: 13px; margin-bottom: 5px; margin-top: 2px">@lang('messages.form.tipo_documento')</label>
@@ -893,7 +898,7 @@
                                                         </div>
                                                     </div>
                                                     {{-- rif --}}
-                                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label"
@@ -907,7 +912,7 @@
                                                         </diV>
                                                     </div>
                                                     {{-- email --}}
-                                                    <div class="col-sm-12 col-md-5 col-lg-5 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-12 col-md-5 col-lg-5 col-xl-4 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label"
@@ -921,7 +926,7 @@
                                                         </diV>
                                                     </div>
                                                     {{-- lic. Salud --}}
-                                                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-4 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label"
@@ -935,7 +940,7 @@
                                                         </diV>
                                                     </div>
                                                     {{-- telefono --}}
-                                                    <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-3 mt-2">
                                                         <x-phone_component :phone="$user->get_laboratorio->phone_1" />
                                                         {{-- <div class="form-group">
                                                             <div class="Icon-inside">
@@ -949,10 +954,22 @@
                                                             </div>
                                                         </diV> --}}
                                                     </div>
+                                                    {{-- direccion --}}
+                                                    <div class="{{ Auth::user()->role == 'corporativo' ? 'col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-6 mt-2' : 'col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10' }}">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="name" class="form-label"
+                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
+                                                                <textarea id="address" rows="1" id="address" name="address"
+                                                                    class="form-control @error('address') is-invalid @enderror" value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->address : '' !!}"></textarea>
+                                                                <i class="bi bi-geo st-icon"></i>
+                                                            </div>
+                                                        </diV>
+                                                    </div>
                                                     {{-- ubicacion --}}
-                                                    <x-ubigeo class="col-sm-6 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2" />
+                                                    <x-ubigeo class="col-sm-6 col-md-6 col-lg-6 col-xl-4 col-xxl-3 mt-2" />
                                                     {{-- tipo de empresa --}}
-                                                    <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label"
@@ -961,9 +978,12 @@
                                                                     class="form-control">
                                                                     <option value="">@lang('messages.placeholder.seleccione')</option>
                                                                     <option value="clinico">@lang('messages.select.lab_clinico')</option>
-                                                                    <option value="investigacion">@lang('messages.select.lab_inves')</option>
-                                                                    <option value="microbiológico">@lang('messages.select.lab_micro')</option>
-                                                                    <option value="centro_clinico">@lang('messages.select.centro_clinico')</option>
+                                                                    <option value="investigacion">@lang('messages.select.lab_inves')
+                                                                    </option>
+                                                                    <option value="microbiológico">@lang('messages.select.lab_micro')
+                                                                    </option>
+                                                                    <option value="centro_clinico">@lang('messages.select.centro_clinico')
+                                                                    </option>
                                                                     <option value="hospital">@lang('messages.select.hospital')</option>
                                                                     <option value="etc">@lang('messages.select.etc')</option>
                                                                 </select>
@@ -972,7 +992,7 @@
                                                         </div>
                                                     </div>
                                                     {{-- director --}}
-                                                    <div class="col-sm-6 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label"
@@ -986,7 +1006,7 @@
                                                         </diV>
                                                     </div>
                                                     {{-- sitio web --}}
-                                                    <div class="col-sm-12 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                    {{-- <div class="col-sm-12 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.web')</label>
@@ -998,26 +1018,13 @@
                                                             </div>
                                                             <small style="font-size: 12px" class="collapseBtn">https://www.sitioweb.com</small>
                                                         </diV>
-                                                    </div>
-                                                    {{-- direccion --}}
-                                                    <div class="{{ Auth::user()->role == 'corporativo' ? 'col-sm-12 col-md-8 col-lg-4 col-xl-4 col-xxl-4 mt-2' : 'col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10' }}">
-                                                        <div class="form-group">
-                                                            <div class="Icon-inside">
-                                                                <label for="name" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
-                                                                <textarea id="address" rows="1" id="address" name="address"
-                                                                    class="form-control @error('address') is-invalid @enderror" value="{!! !empty($user->get_laboratorio != null) ? $user->get_laboratorio->address : '' !!}"></textarea>
-                                                                <i class="bi bi-geo st-icon"></i>
-                                                            </div>
-                                                        </diV>
-                                                    </div>
-                                                    <div class="col-sm-3 col-md-3 col-lg-2 col-xl-2 col-xxl-2 mb-btn {{ Auth::user()->role == 'corporativo' ? 'mb-btnSve' : '' }}" style="display: flex; align-items: flex-end;">
-                                                        <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="margin-bottom: 1px; width: 100%;" />
+                                                    </div> --}}
+                                                    <div class="col-sm-3 col-md-4 col-lg-4 col-xl-2 col-xxl-2 mb-btn" style="display: flex; align-items: flex-end;">
+                                                        <input class="btn btnSave send" value="@lang('messages.botton.guardar')"  type="submit" style="margin-bottom: 1px; width: 100%;" />
                                                     </div>
                                                 </div>
                                             </div>
                                         @endif
-
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                             <div id="spinner" style="display: none">
                                                 <x-load-spinner />
@@ -1030,21 +1037,20 @@
                     </div>
                 </div>
             </div>
-            @if ((Auth::user()->role == 'medico' && Auth::user()->type_plane != '7'))
+            @if (Auth::user()->role == 'medico' && Auth::user()->type_plane != '7')
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3 mb-cd">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingCentros">
                                 <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseCentros" aria-expanded="true" aria-controls="collapseCentros"
+                                    data-bs-target="#collapseCentros" aria-expanded="true"
+                                    aria-controls="collapseCentros"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-hospital"></i> @lang('messages.modal.titulo.asociar_centro')
                                 </button>
                             </span>
-                            <div id="collapseCentros" class="accordion-collapse collapse"
-                                aria-labelledby="headingCentros" data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    @livewire('components.centers')
+                            <div id="collapseCentros" class="accordion-collapse collapse" aria-labelledby="headingCentros" data-bs-parent="#accordion">
+                                <div class="accordion-body">  @livewire('components.centers')
                                 </div>
                             </div>
                         </div>
@@ -1057,83 +1063,19 @@
                         <div class="accordion-item ">
                             <span class="accordion-header title" id="headingRegister">
                                 <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseRegister" aria-expanded="false" aria-controls="collapseRegister"
+                                    data-bs-target="#collapseRegister" aria-expanded="false"
+                                    aria-controls="collapseRegister"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
                                     <i class="bi bi-person st-icon"></i> @lang('messages.acordion.registar_medico')
                                 </button>
                             </span>
-                            <div id="collapseRegister" class="accordion-collapse collapse" aria-labelledby="headingRegister" data-bs-parent="#accordion">
+                            <div id="collapseRegister" class="accordion-collapse collapse"
+                                aria-labelledby="headingRegister" data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mb-btn mb-btnRtr" style="display: flex; justify-content: space-around; align-items: flex-end; margin-bottom: 1px;">
-                                        <a id="Link-medicos" href="{{ Auth::user()->token_corporate }}"target="_blank" style="text-decoration: none;">
+                                        <a id="Link-medicos" href="{{ Auth::user()->token_corporate }}"target="_blank"
+                                            style="text-decoration: none;">
                                             <button type="button" class="btn btnPrimary" style="padding: 7px 20px">@lang('messages.botton.registrar_medico')</button>
-                                        </a>
-                                        <button type="button" id="icon-copy"
-                                            class="btn btn-iSecond rounded-circle" data-bs-toggle="tooltip"
-                                            data-bs-placement="bottom" title="@lang('messages.botton.copiar_enlace')"
-                                            onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
-                                            style="margin-left: 5%;">
-                                            <i class="bi bi-file-earmark-text"></i>
-                                        </button> <span style="padding-left: 5px" id="copied"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-            @if ($user->email_verified_at !== null)
-                {{-- actualizacion de correo Electronico --}}
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role === 'corporativo' ? 'mb-cd mb-2' : '' }}">
-                        <div class="accordion-item ">
-                            <span class="accordion-header title" id="headingTwo">
-                                <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-envelope-at st-icon"></i> @lang('messages.acordion.actualizacion_correo')
-                                </button>
-                            </span>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 col-xxl-3" id="email-div">
-                                        <div class="form-group">
-                                            <div class="Icon-inside">
-                                                <label for="phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
-                                                <input autocomplete="off" class="form-control alpha-no-spaces" id="act-email" name="act-email" type="text" value="">
-                                                <i class="bi bi-envelope-at st-icon"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2 justify-content-md-end">
-                                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end;">
-                                            <input class="btn btnSave send " onclick="handlerEmial()" value="@lang('messages.botton.guardar')" type="submit" style="margin-left: 20px" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @if (Auth::user()->role == 'medico')
-                {{-- Registro de Secretaria --}}
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                        <div class="accordion-item">
-                            <span class="accordion-header title" id="headingFour">
-                                <button class="accordion-button collapsed bg-8" type="button"
-                                    data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false"
-                                    aria-controls="collapseFour"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.registrar_secretaria')
-                                </button>
-                            </span>
-                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-                                data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
-                                        <a id="Link-medicos" href="{{ auth()->user()->token_corporate }}"target="_blank" style="text-decoration: none;">
-                                            <button type="button" class="btn btnPrimary" style="padding: 7px 20px">@lang('messages.botton.registrar_secretaria')</button>
                                         </a>
                                         <button type="button" id="icon-copy" class="btn btn-iSecond rounded-circle"
                                             data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -1148,9 +1090,84 @@
                         </div>
                     </div>
                 </div>
+            @endif
+            @if ($user->email_verified_at !== null)
+                {{-- actualizacion de correo Electronico --}}
+                <div class="row">
+                    <div
+                        class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role === 'corporativo' ? 'mb-cd mb-2' : '' }}">
+                        <div class="accordion-item ">
+                            <span class="accordion-header title" id="headingTwo">
+                                <button class="accordion-button collapsed bg-8" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"
+                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                    <i class="bi bi-envelope-at st-icon"></i> @lang('messages.acordion.actualizacion_correo')
+                                </button>
+                            </span>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordion">
+                                <div class="accordion-body">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 col-xxl-3" id="email-div">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <label for="phone" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
+                                                <input autocomplete="off" class="form-control alpha-no-spaces"
+                                                    id="act-email" name="act-email" type="text" value="">
+                                                <i class="bi bi-envelope-at st-icon"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2 justify-content-md-end">
+                                        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
+                                            style="display: flex; justify-content: flex-end; align-items: flex-end;">
+                                            <input class="btn btnSave send " onclick="handlerEmial()"
+                                                value="@lang('messages.botton.guardar')" type="submit" style="margin-left: 20px" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if (Auth::user()->role == 'medico')
+                    {{-- Registro de Secretaria --}}
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                            <div class="accordion-item">
+                                <span class="accordion-header title" id="headingFour">
+                                    <button class="accordion-button collapsed bg-8" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false"
+                                        aria-controls="collapseFour"
+                                        style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
+                                        <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.registrar_secretaria')
+                                    </button>
+                                </span>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordion">
+                                    <div class="accordion-body">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+                                            <a id="Link-medicos"
+                                                href="{{ auth()->user()->token_corporate }}"target="_blank"
+                                                style="text-decoration: none;">
+                                                <button type="button" class="btn btnPrimary"
+                                                    style="padding: 7px 20px">@lang('messages.botton.registrar_secretaria')</button>
+                                            </a>
+                                            <button type="button" id="icon-copy" class="btn btn-iSecond rounded-circle"
+                                                data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                title="@lang('messages.botton.copiar_enlace')"
+                                                onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
+                                                style="margin-left: 5%;">
+                                                <i class="bi bi-file-earmark-text"></i>
+                                            </button> <span style="padding-left: 5px" id="copied"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {{-- firma Digital --}}
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'mb-cd mb-2' : '' }}">
+                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 {{ Auth::user()->role == 'medico' && Auth::user()->type_plane === '7' ? 'mb-cd mb-2' : 'mb-cd mb-3' }}">
                             <div class="accordion-item">
                                 <span class="accordion-header title" id="headingThree">
                                     <button class="accordion-button collapsed bg-8" type="button"
@@ -1176,31 +1193,8 @@
                             </div>
                         </div>
                     </div>
-
                 @endif
             @endif
-            {{-- @if ((Auth::user()->role == 'medico' && Auth::user()->type_plane != '7') || Auth::user()->role == 'laboratorio')
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-3 mb-cd">
-                        <div class="accordion-item">
-                            <span class="accordion-header title" id="headingPlanes">
-                                <button class="accordion-button bg-8" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapsePlanes" aria-expanded="true" aria-controls="collapsePlanes"
-                                    style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-info-lg"></i> @lang('messages.acordion.informacion_plan')
-                                </button>
-                            </span>
-                            <div id="collapsePlanes" class="accordion-collapse collapse show"
-                                aria-labelledby="headingPlanes" data-bs-parent="#accordion">
-                                <div class="accordion-body">
-                                    @livewire('components.view-planes')
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif --}}
         </div>
     </div>
-
 @endsection
