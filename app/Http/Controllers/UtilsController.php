@@ -943,7 +943,7 @@ class UtilsController extends Controller
 			return $inmunizations;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
-			dd('Error UtilsController.get_history_non_pathology_back()', $message);
+			dd('Error UtilsController.get_inmunizations()', $message);
 		}
 	}
 
@@ -956,7 +956,7 @@ class UtilsController extends Controller
 			return $mental_healths;
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
-			dd('Error UtilsController.get_history_non_pathology_back()', $message);
+			dd('Error UtilsController.get_mental_healths()', $message);
 		}
 	}
 
