@@ -161,7 +161,9 @@ class History extends Model
         'observations_back_family',
         'observations_diagnosis',
         'observations_not_pathological',
-        'observations_quirurgicas'
+        'observations_quirurgicas',
+        'observations_inmunization',
+        'observations_mental_healths'
     ];
 
     public function  get_paciente(): HasOne

@@ -159,6 +159,8 @@ class MedicalHistory extends Component
                 'observations_back_family'  => $data->observations_back_family,
                 'observations_allergies'=> $data->observations_allergies,
                 'observations_quirurgicas'  => $data->observations_quirurgicas,
+                'observations_inmunization'   =>(isset($data->observations_inmunization) ? $data->observations_inmunization : null) ,
+                'observations_mental_healths'   =>(isset($data->observations_mental_healths) ? $data->observations_mental_healths : null) ,
             ]);
 
             $action = '6';
