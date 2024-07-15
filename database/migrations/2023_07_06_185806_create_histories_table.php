@@ -20,87 +20,119 @@ return new class extends Migration
             $table->string('cod_patient');
             // fecha de registro de la historia clinica
             $table->string('history_date');
-            // peso
-            $table->string('weight');
-            // altura
-            $table->string('height');
-            /**
-             * Campos agregados para mejorar la
-             * historia del paciente
-             */
-            $table->string('reason');
-            $table->string('current_illness');
-            $table->string('strain');
-            $table->string('temperature');
-            $table->string('breaths');
-            $table->string('pulse');
-            $table->string('saturation');
-            $table->string('condition');
-            $table->string('applied_studies')->nullable();
-            $table->json('info_add')->nullable();
-
-
-            //signos vitales
-            $table->text('hidratado')->nullable();
-            $table->text('eupenico')->nullable();
-            $table->text('febril')->nullable();
-            $table->text('esfera_neurologica')->nullable();
-            $table->text('glasgow')->nullable();
-            $table->text('esfera_orl')->nullable();
-            $table->text('esfera_cardiopulmonar')->nullable();
-            $table->text('esfera_abdominal')->nullable();
-            $table->text('extremidades')->nullable();
 
             //Antecedentes Personales y Familiares
-            $table->text('cancer')->nullable();
-            $table->text('diabetes')->nullable();
-            $table->text('tension_alta')->nullable();
-            $table->text('cardiacos')->nullable();
-            $table->text('psiquiatricas')->nullable();
-            $table->text('alteraciones_coagulacion')->nullable();
-            $table->text('trombosis_embolas')->nullable();
-            $table->text('tranfusiones_sanguineas')->nullable();
-            $table->text('COVID19')->nullable();
-            $table->text('no_aplica_back')->nullable();
+            $table->text('FB_EC')->nullable();
+            $table->text('FB_HA')->nullable();
+            $table->text('FB_D')->nullable();
+            $table->text('FB_C')->nullable();
+            $table->text('FB_C_input')->nullable();
+            $table->text('FB_AL')->nullable();
+            $table->text('FB_EM')->nullable();
+            $table->text('FB_EDP')->nullable();
+            $table->text('FB_TSM')->nullable();
+            $table->text('FB_AR')->nullable();
+            $table->text('FB_LES')->nullable();
+            $table->text('FB_EHC')->nullable();
+            $table->text('FB_TDT')->nullable();
+            $table->text('FB_ER')->nullable();
+            $table->text('FB_DM')->nullable();
+            $table->text('FB_NA')->nullable();
 
             //Antecedentes personales patológicos
-            $table->text('hepatitis')->nullable();
-            $table->text('VIH_SIDA')->nullable();
-            $table->text('gastritis_ulceras')->nullable();
-            $table->text('neurologia')->nullable();
-            $table->text('ansiedad_angustia')->nullable();
-            $table->text('tiroides')->nullable();
-            $table->text('lupus')->nullable();
-            $table->text('enfermedad_autoimmune')->nullable();
-            $table->text('diabetes_mellitus')->nullable();
-            $table->text('presion_arterial_alta')->nullable();
-            $table->text('tiene_cateter_venoso')->nullable();
-            $table->text('fracturas')->nullable();
-            $table->text('trombosis_venosa')->nullable();
-            $table->text('embolia_pulmonar')->nullable();
-            $table->text('varices_piernas')->nullable();
-            $table->text('insuficiencia_arterial')->nullable();
-            $table->text('coagulacion_anormal')->nullable();
-            $table->text('moretones_frecuentes')->nullable();
-            $table->text('sangrado_cirugias_previas')->nullable();
-            $table->text('sangrado_cepillado_dental')->nullable();
-            $table->text('no_aplic_pathology')->nullable();
+            $table->text('PB_HA')->nullable();
+            $table->text('PB_EC')->nullable();
+            $table->text('PB_A')->nullable();
+            $table->text('PB_EPOC')->nullable();
+            $table->text('PB_ADS')->nullable();
+            $table->text('PB_D')->nullable();
+            $table->text('PB_H')->nullable();
+            $table->text('PB_C')->nullable();
+            $table->text('FB_C_input')->nullable();
+            $table->text('PB_P')->nullable();
+            $table->text('PB_AL')->nullable();
+            $table->text('PB_M')->nullable();
+            $table->text('PB_AR')->nullable();
+            $table->text('PB_EM')->nullable();
+            $table->text('PB_U')->nullable();
+            $table->text('PB_G')->nullable();
+            $table->text('PB_SII')->nullable();
+            $table->text('PB_TDT')->nullable();
+            $table->text('PB_EHC')->nullable();
+            $table->text('PB_ERC')->nullable();
+            $table->text('PB_OO')->nullable();
+            $table->text('PB_FA')->nullable();
+            $table->text('PB_GLA')->nullable();
+            $table->text('PB_PCODC')->nullable();
+            $table->text('PB_TS')->nullable();
+            $table->text('PB_NA')->nullable();
 
             //Historia no patológica
-            $table->text('alcohol')->nullable();
-            $table->text('drogas')->nullable();
-            $table->text('vacunas_recientes')->nullable();
-            $table->text('transfusiones_sanguineas')->nullable();
-            $table->text('no_aplica_no_pathology')->nullable();
+            $table->text('NPB_CA')->nullable();
+            $table->text('NPB_CFGYPL')->nullable();
+            $table->text('NPB_CFAAA')->nullable();
+            $table->text('NPB_CC')->nullable();
+            $table->text('NPB_CCD')->nullable();
+            $table->text('NPB_UFMVL')->nullable();
+            $table->text('NPB_EF')->nullable();
+            $table->text('NPB_SIPD')->nullable();
+            $table->text('NPB_NA')->nullable();
+
+            //Inmunizacion
+            $table->text('IM_V')->nullable();
+            $table->text('IM_BCG')->nullable();
+            $table->text('IM_HB')->nullable();
+            $table->text('IM_DTP')->nullable();
+            $table->text('IM_IPV_OPV')->nullable();
+            $table->text('IM_HIB')->nullable();
+            $table->text('IM_PCV')->nullable();
+            $table->text('IM_R')->nullable();
+            $table->text('IM_MMR')->nullable();
+            $table->text('IM_V')->nullable();
+            $table->text('IM_I')->nullable();
+            $table->text('IM_HA')->nullable();
+            $table->text('IM_M')->nullable();
+            $table->text('IM_VPH')->nullable();
+            $table->text('IM_N')->nullable();
+            $table->text('IM_HZ')->nullable();
+            $table->text('IM_NA')->nullable();
+
+            //info covid19
+            $table->text('IMC19_covid')->nullable();
+            $table->text('IMC19_dosis')->nullable();
+            $table->text('IMC19_fecha_ultima_dosis')->nullable();
+            $table->text('IMC19_marca')->nullable();
+
+            //Enfermedades Mentales
+            $table->text('EM_DMR')->nullable();
+            $table->text('EM_TB')->nullable();
+            $table->text('EM_TAG')->nullable();
+            $table->text('EM_TCO')->nullable();
+            $table->text('EM_TP')->nullable();
+            $table->text('EM_TEPT')->nullable();
+            $table->text('EM_E')->nullable();
+            $table->text('EM_TLP')->nullable();
+            $table->text('EM_TAAB')->nullable();
+            $table->text('EM_TCS')->nullable();
+            $table->text('EM_TCS')->nullable();
+            $table->text('EM_NA')->nullable();
 
             //Historia ginecologicos si aplica
-            $table->text('edad_primera_menstruation')->nullable();
-            $table->text('fecha_ultima_regla')->nullable();
-            $table->text('numero_embarazos')->nullable();
-            $table->text('numero_partos')->nullable();
-            $table->text('numero_abortos')->nullable();
-            $table->text('pregunta')->nullable();
-            $table->text('cesareas')->nullable();
+            $table->text('GINE_menarquia')->nullable();
+            $table->text('GINE_duracion')->nullable();
+            $table->text('GINE_infecciones')->nullable();
+            $table->text('GINE_metodo_anti')->nullable();
+            $table->text('GINE_ex_gine_previos')->nullable();
+            $table->text('OBSTE_gravides')->nullable();
+            $table->text('OBSTE_partos')->nullable();
+            $table->text('OBSTE_cesareas')->nullable();
+            $table->text('OBSTE_abortos')->nullable();
+            $table->text('OBSTE_complicaciones')->nullable();
+            $table->text('MENOSPA_fecha_ini')->nullable();
+            $table->text('MENOSPA_sintomas')->nullable();
+            $table->text('MENOSPA_tratamiento')->nullable();
+            $table->text('ACTSEX_activo')->nullable();
+            $table->text('ACTSEX_enfermedades_ts')->nullable();
 
             // alergias
             $table->json('allergies')->nullable();
