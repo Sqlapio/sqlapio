@@ -45,7 +45,15 @@ class Patient extends Model
         'is_minor',
         'patient_img',
         'verification_code',
-        "contrie_doc"
+        "contrie_doc",
+        'blood_type',
+        'ce_phone',
+        'ce_name',
+        'ce_last_name',
+        'relationship',
+        'company',
+        'validity',
+        'contact',
 
     ];
 

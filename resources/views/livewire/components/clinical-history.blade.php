@@ -130,10 +130,6 @@
                         required: "@lang('messages.alert.selec_antpnp')"
                     }
                 },
-                // errorPlacement: function(error, element) {
-                //     $("#collapseTwo").collapse('show');
-                //     return false;
-                // }
             });
 
 
@@ -225,6 +221,7 @@
             autoTextarea('observations_back_family');
             autoTextarea('observations_diagnosis');
             autoTextarea('observations_not_pathological');
+            autoTextarea('observations_mental_healths');
             autoTextarea('observations_ginecologica');
             autoTextarea('observations_allergies');
             autoTextarea('observations_quirurgicas');
@@ -233,11 +230,11 @@
 
         const handlerBackFamiliy = (e) => {
 
+
             if ($(`#${e.target.id}`).is(':checked')) {
 
                 //cambiar atributo input checkbook cunaod niega
                 if (e.target.id == "no_aplica") {
-
                     $('#checkbok-input input[type="checkbox"]').prop('checked', false);
 
                     $('#checkbok-input input[type="checkbox"]').val(null);
@@ -415,6 +412,88 @@
 
         }
 
+        const handlerMentalHealths = (e) => {
+            console.log(e.target.id)
+
+            if ($(`#${e.target.id}`).is(':checked')) {
+
+                //cambiar atributo input checkbook cunaod niega
+                if (e.target.id == "no_aplica_mental_healths") {
+
+                    $('#div_mental_healths input[type="checkbox"]').prop('checked', false);
+
+                    $('#div_mental_healths input[type="checkbox"]').val(null);
+
+                    $(`#${e.target.id}`).prop('checked', true);
+
+                    $(`#${e.target.id}`).val(1);
+
+                    countMentalHealths = 0;
+
+                } else {
+
+                    $('#no_aplica_mental_healths').prop('checked', false);
+
+                    $('#no_aplica_mental_healths').val(null);
+
+
+                    $(`#${e.target.id}`).val(1);
+
+                    countMentalHealths = countMentalHealths + 1;
+                }
+
+            } else {
+
+                $(`#${e.target.id}`).val(null);
+
+                countMentalHealths = (countMentalHealths==0)? '' : countMentalHealths - 1;
+            }
+
+            $('#countMentalHealths').val(countMentalHealths);
+
+        }
+
+        const handlerInmunizations = (e) => {
+            console.log(e.target.id)
+
+            if ($(`#${e.target.id}`).is(':checked')) {
+
+                //cambiar atributo input checkbook cunaod niega
+                if (e.target.id == "no_aplica_inmunizations") {
+
+                    $('#div_inmunizations input[type="checkbox"]').prop('checked', false);
+
+                    $('#div_inmunizations input[type="checkbox"]').val(null);
+
+                    $(`#${e.target.id}`).prop('checked', true);
+
+                    $(`#${e.target.id}`).val(1);
+
+                    countInmunizations = 0;
+
+                } else {
+
+                    $('#no_aplica_inmunizations').prop('checked', false);
+
+                    $('#no_aplica_inmunizations').val(null);
+
+
+                    $(`#${e.target.id}`).val(1);
+
+                    countInmunizations = countInmunizations + 1;
+                }
+
+            } else {
+
+                $(`#${e.target.id}`).val(null);
+
+                countInmunizations = (countInmunizations==0)? '' : countInmunizations - 1;
+            }
+
+            $('#countInmunizations').val(countInmunizations);
+
+        }
+
         function handlerGynecological(e) {
             if ($(`#${e.target.id}`).is(':checked')) {
                 $(`#${e.target.id}`).val(1);
@@ -495,26 +574,11 @@
                                 title: '@lang('messages.tabla.patologia')',
                                 className: "text-center td-pad",
                             },
-                            // {
-                            //     data: 'viaAdmin',
-                            //     title: 'Via de administración',
-                            //     className: "text-center td-pad",
-                            // },
                             {
                                 data: 'treatmentDuration',
                                 title: '@lang('messages.tabla.duracion')',
                                 className: "text-center td-pad",
                             },
-                            // {
-                            //     data: 'dateIniTreatment',
-                            //     title: 'Fecha inicio',
-                            //     className: "text-center td-pad w-10",
-                            // },
-                            // {
-                            //     data: 'dateEndTreatment',
-                            //     title: 'Fecha fin',
-                            //     className: "text-center td-pad w-10",
-                            // },
                             {
                                 data: 'btn',
                                 title: '@lang('messages.tabla.eliminar')',
@@ -825,7 +889,7 @@
                                 <button class="accordion-button collapsed bg-5" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"
                                     style="width: -webkit-fill-available; width: -moz-available; width: fill-available;">
-                                    <i class="bi bi-clipboard2-pulse"></i> @lang('messages.acordion.antecedentes_per')
+                                    <i class="bi bi-clipboard2-pulse"></i> @lang('messages.acordion.antecedentes_med')
                                 </button>
                             </span>
                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
@@ -833,11 +897,13 @@
                                 <div class="accordion-body">
 
                                     {{-- antecedentes personales --}}
+                                    <hr style="margin-bottom: 0;">
+                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">@lang('messages.acordion.antecedentes_per')</h6>
+                                    <hr style="margin-bottom: 0;">
 
                                     <div class="row" id="checkbok-input">
                                         <div style="display: flex">
-                                            <span class="text-warning mt-2" id='APF'
-                                                style="font-size: 15px;margin-right: 10px;"></span>
+                                            <span class="text-warning mt-2" id='APF' style="font-size: 15px;margin-right: 10px;"></span>
                                         </div>
                                         @php
                                             $count_back_bamiliy = 0;
@@ -875,7 +941,6 @@
                                     </div>
 
                                     <div class="row mt-2">
-
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                             <div class="input-group flex-nowrap">
                                                 <input type="hidden" id="countBackFamily" name="countBackFamily"
@@ -891,9 +956,6 @@
                                                     name="observations_back_family" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_back_family : '' !!}</textarea>
                                             </div>
                                         </div>
-
-
-
                                     </div>
                                     {{-- end --}}
                                     <hr style="margin-bottom: 0;">
@@ -1014,11 +1076,131 @@
                                                 <label for="observations_not_pathological" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
                                                 <textarea id="observations_not_pathological" rows="{!! !empty($Patient->get_history->observations_not_pathological) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_not_pathological" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_not_pathological : '' !!}</textarea>
                                             </div>
-                                            {{-- <a>{{$Patient->get_history->observations_not_pathological}}</a> --}}
                                         </div>
                                     </div>
                                     {{-- end --}}
 
+                                    <hr style="margin-bottom: 0;">
+                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px"> @lang('messages.acordion.antecedentes_salud')</h6>
+                                    <hr style="margin-bottom: 0;">
+                                    {{-- Salud Mental --}}
+
+                                    <div class="row" id="div_mental_healths">
+                                        <div style="display: flex">
+                                            <span class="text-warning mt-2" id="ANP"
+                                                style="font-size: 15px;margin-right: 10px;"></span>
+                                        </div>
+                                        @php
+                                            $count_mental_healths = 0;
+                                        @endphp
+                                        @foreach ($mental_healths as $item)
+                                            @php
+                                                if ($validateHistory) {
+                                                    $name = $item->name;
+                                                    $value = $Patient->get_history->$name;
+                                                    if ($value === '1') {
+                                                        $count_mental_healths++;
+                                                    }
+                                                }
+                                            @endphp
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                <div class="floating-label-group">
+                                                    <div class="form-check" style="display: flex; ">
+                                                        <div style="margin-right: 30px;">
+                                                            <input onclick="handlerMentalHealths(event);"
+                                                                class="form-check" name="{{ $item->name }}"
+                                                                type="checkbox" id="{{ $item->name }}"
+                                                                value="{!! !empty($validateHistory) ? 1 : null !!}"
+                                                                {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
+                                                        </div>
+                                                        <div>
+                                                            <label style="font-size: 14px;" class="form-check-label"
+                                                                for="flexCheckDefault">
+                                                                {{ $item->text }}
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            <div class="input-group flex-nowrap">
+                                                <input type="hidden" id="countMentalHealths"
+                                                    name="countMentalHealths" class="form-control" readonly
+                                                    value="{!! !empty($validateHistory) ? $count_mental_healths : '' !!}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                            <div class="form-group">
+                                                <label for="observations_mental_healths" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                <textarea id="observations_mental_healths" rows="{!! !empty($Patient->get_history->observations_mental_healths) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_mental_healths" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_mental_healths : '' !!}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- end --}}
+
+                                    <hr style="margin-bottom: 0;">
+                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px"> @lang('messages.acordion.inmunizaciones')</h6>
+                                    <hr style="margin-bottom: 0;">
+                                    {{-- inmunizaciones --}}
+
+                                    <div class="row" id="div_inmunizations">
+                                        <div style="display: flex">
+                                            <span class="text-warning mt-2" id="ANP"
+                                                style="font-size: 15px;margin-right: 10px;"></span>
+                                        </div>
+                                        @php
+                                            $count_inmunizations = 0;
+                                        @endphp
+                                        @foreach ($inmunizations as $item)
+                                            @php
+                                                if ($validateHistory) {
+                                                    $name = $item->name;
+                                                    $value = $Patient->get_history->$name;
+                                                    if ($value === '1') {
+                                                        $count_inmunizations++;
+                                                    }
+                                                }
+                                            @endphp
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                <div class="floating-label-group">
+                                                    <div class="form-check" style="display: flex; ">
+                                                        <div style="margin-right: 30px;">
+                                                            <input onclick="handlerInmunizations(event);"
+                                                                class="form-check" name="{{ $item->name }}"
+                                                                type="checkbox" id="{{ $item->name }}"
+                                                                value="{!! !empty($validateHistory) ? 1 : null !!}"
+                                                                {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
+                                                        </div>
+                                                        <div>
+                                                            <label style="font-size: 14px;" class="form-check-label"
+                                                                for="flexCheckDefault">
+                                                                {{ $item->text }}
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            <div class="input-group flex-nowrap">
+                                                <input type="hidden" id="countInmunizations"
+                                                    name="countInmunizations" class="form-control" readonly
+                                                    value="{!! !empty($validateHistory) ? $count_inmunizations : '' !!}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                            <div class="form-group">
+                                                <label for="observations_inmunizations" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                <textarea id="observations_inmunizations" rows="{!! !empty($Patient->get_history->observations_inmunizations) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_inmunizations" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_inmunizations : '' !!}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

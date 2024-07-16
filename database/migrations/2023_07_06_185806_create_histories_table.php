@@ -48,7 +48,7 @@ return new class extends Migration
             $table->text('PB_D')->nullable();
             $table->text('PB_H')->nullable();
             $table->text('PB_C')->nullable();
-            $table->text('FB_C_input')->nullable();
+            $table->text('PB_C_input')->nullable();
             $table->text('PB_P')->nullable();
             $table->text('PB_AL')->nullable();
             $table->text('PB_M')->nullable();
@@ -88,7 +88,7 @@ return new class extends Migration
             $table->text('IM_PCV')->nullable();
             $table->text('IM_R')->nullable();
             $table->text('IM_MMR')->nullable();
-            $table->text('IM_V')->nullable();
+            $table->text('IM_VVV')->nullable();
             $table->text('IM_I')->nullable();
             $table->text('IM_HA')->nullable();
             $table->text('IM_M')->nullable();
@@ -113,7 +113,6 @@ return new class extends Migration
             $table->text('EM_E')->nullable();
             $table->text('EM_TLP')->nullable();
             $table->text('EM_TAAB')->nullable();
-            $table->text('EM_TCS')->nullable();
             $table->text('EM_TCS')->nullable();
             $table->text('EM_NA')->nullable();
 
@@ -151,6 +150,7 @@ return new class extends Migration
             $table->string('observations_back_family')->nullable();
             $table->string('observations_diagnosis')->nullable();
             $table->string('observations_not_pathological')->nullable();
+            $table->string('observations_quirurgicas')->nullable();
 
             $table->timestamps();
         });

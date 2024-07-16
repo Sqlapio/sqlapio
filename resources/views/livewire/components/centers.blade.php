@@ -327,7 +327,8 @@
                 <thead>
                     <tr>
                         <th class="text-center w-30">@lang('messages.tabla.centro_salud')</th>
-                        <th class="text-center w-45" data-orderable="false">@lang('messages.tabla.direccion') </th>
+                        <th class="text-center w-30" data-orderable="false">@lang('messages.tabla.direccion') </th>
+                        <th class="text-center w-10" data-orderable="false">@lang('messages.tabla.edificio') </th>
                         <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.piso') </th>
                         <th class="text-center w-5" data-orderable="false">@lang('messages.tabla.consultorio') </th>
                         <th class="text-center w-10" data-orderable="false">@lang('messages.tabla.telefono') </th>
@@ -338,6 +339,7 @@
                     @foreach ($doctor_centers as $key => $item)
                         <tr>
                             <td class="text-center pt-2">{{ $item['center'] }}</td>
+                            <td class="text-center">{{ $item['address'] }}</td>
                             <td class="text-center">{{ $item['address'] }}</td>
                             <td class="text-center">{{ $item['number_floor'] }}</td>
                             <td class="text-center">{{ $item['number_consulting_room'] }}</td>
@@ -407,7 +409,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                        <div class="form-group">
+                                            <div class="Icon-inside">
+                                                <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.edificio')</label>
+                                                <input autocomplete="off" class="mask-alfa-numeric form-control"
+                                                    id="number_floor" name="number_floor" type="text" value=""
+                                                    maxlength="2">
+                                                <i class="bi bi-hash st-icon"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.piso')</label>
@@ -418,7 +431,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                         <div class="form-group">
                                             <div class="Icon-inside">
                                                 <label for="name" class="form-label" style="font-size: 12px; margin-bottom: 5px; margin-top: 4px">@lang('messages.modal.form.consultorio')</label>

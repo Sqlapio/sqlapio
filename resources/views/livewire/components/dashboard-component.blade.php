@@ -391,30 +391,30 @@
                                                                             <td>
                                                                                 <div class="d-flex" style="justify-content: center;">
                                                                                     @if (Auth::user()->role == 'medico')
-                                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" style="display: flex; justify-content: center;">
                                                                                             @php
                                                                                                 $id_patient =  $item["extendedProps"]["patient_id"];
                                                                                                 $age =  $item['extendedProps']['age'];
                                                                                             @endphp
                                                                                         <button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="@lang('messages.tooltips.consulta_medica')"
                                                                                             onclick="alertInfoPaciente('{{ $id_patient }}','{{ $age }}', '{{ $status2 }}')">
-                                                                                            <img width="35" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
+                                                                                            <img width="51" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
                                                                                         </button>
                                                                                         </div>
                                                                                     @endif
-                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" style="display: flex; justify-content: center;">
                                                                                         <button type="button"
                                                                                             data-bs-toggle="tooltip"
                                                                                             data-bs-placement="bottom"
                                                                                             title="@lang('messages.tooltips.cancelar_cita')"
                                                                                             onclick="cancelled_appointments('{{ $item['extendedProps']['id'] }}','{{ route('cancelled_appointments', ':id') }}','{{ route('DashboardComponent') }}', '{{  $status2 }}')">
-                                                                                            <img width="33" height="auto" src="{{ asset('/img/icons/canceled.png') }}" alt="avatar">
+                                                                                            <img width="51" height="auto" src="{{ asset('/img/icons/canceled.png') }}" alt="avatar">
                                                                                         </button>
                                                                                     </div>
-                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4" style="display: flex; justify-content: center;">
                                                                                         <button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="@lang('messages.tooltips.enviar_recordatorio')"
                                                                                             onclick="resend_reminder('{{ $item['extendedProps']['id'] }}', '{{  $status2 }}')">
-                                                                                            <img width="35" height="auto" src="{{ asset('/img/icons/send.png') }}" alt="avatar">
+                                                                                            <img width="55" height="auto" src="{{ asset('/img/icons/send.png') }}" alt="avatar">
                                                                                         </button>
                                                                                     </div>
                                                                                 </div>
@@ -645,7 +645,7 @@
                                                                                                 @endphp
                                                                                                 onclick='{{ $item['extendedProps']['age'] == '' ? "alertInfoPaciente($id_patient )" : '' }} '>
                                                                                                 <button type="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="@lang('messages.tooltips.consulta_medica')">
-                                                                                                    <img width="35" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
+                                                                                                    <img width="51" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
                                                                                                 </button>
                                                                                             </a>
                                                                                         </div>
