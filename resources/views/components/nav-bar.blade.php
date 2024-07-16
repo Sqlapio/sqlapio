@@ -672,6 +672,14 @@
                                             </a>
                                         </li>
                                         <li>
+                                            <a class="nav-item" href="{{ route('Profile') }}" title="@lang('messages.menu.perfil')">
+                                                <img class="icon-menu" src="{{ asset('img/V2/Profile.png') }}"
+                                                    alt="Configuración">
+                                                <span class="nav-link active" aria-current="page"
+                                                    href="#">@lang('messages.menu.perfil')</span>
+                                            </a>
+                                        </li>
+                                        <li>
                                             <a class="nav-item" href="{{ route('Patients') }}" title="@lang('messages.menu.pacientes')">
                                                 <img class="icon-menu" src="{{ asset('img/V2/Contacts.png') }}"
                                                     alt="Pacientes">
@@ -713,14 +721,7 @@
                                                     href="#">@lang('messages.menu.estudios')</span>
                                             </a>
                                         </li>
-                                        <li>
-                                            <a class="nav-item" href="{{ route('Profile') }}" title="@lang('messages.menu.perfil')">
-                                                <img class="icon-menu" src="{{ asset('img/V2/Profile.png') }}"
-                                                    alt="Configuración">
-                                                <span class="nav-link active" aria-current="page"
-                                                    href="#">@lang('messages.menu.perfil')</span>
-                                            </a>
-                                        </li>
+
                                         @if ((Auth::user()->role == 'medico' && Auth::user()->type_plane != '7') || Auth::user()->role == 'laboratorio')
                                             <li>
                                                 <a class="nav-item" href="{{ route('Plan') }}" title="@lang('messages.menu.configuracion')">

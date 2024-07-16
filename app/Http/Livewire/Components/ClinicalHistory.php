@@ -97,6 +97,8 @@ class ClinicalHistory extends Component
         $family_back = UtilsController::get_history_family_back();
         $pathology_back = UtilsController::get_history_pathology_back();
         $non_pathology_back = UtilsController::get_history_non_pathology_back();
+        $mental_healths = UtilsController::get_mental_healths();
+        $inmunizations = UtilsController::get_inmunizations();
         $get_condition = UtilsController::get_condition();
         return view('livewire.components.clinical-history',
         compact(
@@ -107,6 +109,8 @@ class ClinicalHistory extends Component
             'family_back',
             'pathology_back',
             'non_pathology_back',
+            'mental_healths',
+            'inmunizations',
             'get_condition'
         ));
 

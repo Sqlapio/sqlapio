@@ -2590,10 +2590,8 @@
                                                         <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha') </th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.medico_tratante')</th>
                                                         <th class="text-center w-30" scope="col">@lang('messages.tabla.centro_salud') </th>
-                                                        <th data-orderable="false" class="text-center w-20" scope="col">@lang('messages.tabla.acciones') </th>
-                                                        {{-- <th class="text-center" scope="col">Código de la referencia </th> --}}
-                                                        {{-- <th class="text-center" scope="col">Nombre del paciente</th> --}}
-                                                        {{-- <th class="text-center" scope="col">Género</th> --}}
+                                                        <th data-orderable="false" class="text-center w-20" scope="col">@lang('messages.tabla.ordenes') </th>
+                                                        <th data-orderable="false" class="text-center w-8" scope="col">@lang('messages.tabla.informe') </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -2603,13 +2601,10 @@
                                                             <td class="text-center td-pad" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['date'] }}</td>
                                                             <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});">Dr. {{ $item['full_name_doc'] }} </td>
                                                             <td class="text-center td-pad"  onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['center'] }}</td>
-                                                            {{-- <td class="text-center td-pad"  onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['data']['cod_ref'] }}</td> --}}
-                                                            {{-- <td class="text-center td-pad text-capitalize" onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['name_patient'] }} </td> --}}
-                                                            {{-- <td class="text-center td-pad text-capitalize"  onclick="showDataEdit({{ json_encode($item) }});"> {{ $item['genere'] }} </td> --}}
                                                             <td class="text-center td-pad">
                                                                 <div class="d-flex">
                                                                     @if ($item['data']['status_exam'])
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <a href="{{ route('mr_exam', $item['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
@@ -2617,14 +2612,14 @@
                                                                                     data-bs-custom-class="custom-tooltip"
                                                                                     data-html="true"
                                                                                     title="@lang('messages.tooltips.ver_examenes')">
-                                                                                    <img width="32" height="auto"
-                                                                                        src="{{ asset('/img/icons/doc.png') }}"
+                                                                                    <img width="60" height="auto"
+                                                                                        src="{{ asset('/img/icons/pdf-orden-exam.png') }}"
                                                                                         alt="avatar">
                                                                                 </button>
                                                                             </a>
                                                                         </div>
                                                                     @else
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <button type="button" onclick="showAlertNotExam();">
                                                                                 <img width="32" height="auto"
                                                                                     src="{{ asset('/img/icons/not-file-icon.png') }}"
@@ -2633,7 +2628,7 @@
                                                                         </div>
                                                                     @endif
                                                                     @if ($item['data']['status_study'])
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <a href="{{ route('mr_study', $item['patient_id']) }}">
                                                                                 <button type="button"
                                                                                     data-bs-toggle="tooltip"
@@ -2641,25 +2636,23 @@
                                                                                     data-bs-custom-class="custom-tooltip"
                                                                                     data-html="true"
                                                                                     title="@lang('messages.tooltips.ver_estudios')">
-                                                                                    <img width="32" height="auto"
-                                                                                        src="{{ asset('/img/icons/doc.png') }}"
+                                                                                    <img width="60" height="auto"
+                                                                                        src="{{ asset('/img/icons/pdf-orden-study.png') }}"
                                                                                         alt="avatar">
                                                                                 </button>
                                                                             </a>
                                                                         </div>
                                                                     @else
-                                                                        <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                            <button type="button"
-                                                                                onclick="showAlertNotStudy();">
-                                                                                <img width="32" height="auto"
+                                                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                            <button type="button" onclick="showAlertNotStudy();">
+                                                                                <img width="42" height="auto"
                                                                                     src="{{ asset('/img/icons/not-file-icon.png') }}"
                                                                                     alt="avatar">
                                                                             </button>
                                                                         </div>
                                                                     @endif
-                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                        <a target="_blank"
-                                                                            href="{{ route('pdf_medical_prescription', $item['id']) }}">
+                                                                    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
+                                                                        <a target="_blank" href="{{ route('pdf_medical_prescription', $item['id']) }}">
                                                                             <button type="button">
                                                                                 <img width="32" height="auto"
                                                                                     src="{{ asset('/img/icons/pdf-file.png') }}"
@@ -2672,12 +2665,15 @@
                                                                             </button>
                                                                         </a>
                                                                     </div>
+                                                                </div>
+                                                            </td>
+                                                            <td class="text-center td-pad">
+                                                                <div class="d-flex">
                                                                     <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
-                                                                        <a target="_blank"
-                                                                            href="{{ route('PDF_medical_record', $item['id']) }}">
+                                                                        <a target="_blank" href="{{ route('PDF_medical_record', $item['id']) }}">
                                                                             <button type="button">
-                                                                                <img width="32" height="auto"
-                                                                                    src="{{ asset('/img/icons/pdf-file.png') }}"
+                                                                                <img width="60" height="auto"
+                                                                                    src="{{ asset('/img/icons/pdf-consulta.png') }}"
                                                                                     alt="avatar"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
@@ -2742,12 +2738,12 @@
                                                             <td class="text-center td-pad">
                                                                 <a target="_blank" href="{{ route('PDF_informe_medico', $item->id) }}">
                                                                     <button type="button">
-                                                                        <img width="32" height="auto"
-                                                                            src="{{ asset('/img/icons/pdf-file.png') }}"
+                                                                        <img width="60" height="auto"
+                                                                            src="{{ asset('/img/icons/pdf-informe.png') }}"
                                                                             alt="avatar" data-bs-toggle="tooltip"
                                                                             data-bs-placement="bottom"
                                                                             data-bs-custom-class="custom-tooltip"
-                                                                            data-html="true" title="@lang('messages.tooltips.ver_informe')">
+                                                                            data-html="true" title="@lang('messages.tooltips.informe')">
                                                                     </button>
                                                                 </a>
                                                             </td>

@@ -29,6 +29,7 @@ class Centers extends Component
                 'address'                => 'required',
                 'number_floor'           => 'required',
                 'number_consulting_room' => 'required',
+                'building_house'         => 'required',
             ];
 
             $msj = [
@@ -36,6 +37,7 @@ class Centers extends Component
                 'address.required'                => __('messages.alert.direccion_obligatoria'),
                 'number_floor.required'           => __('messages.alert.num_piso_obligatorio'),
                 'number_consulting_room.required' => __('messages.alert.num_cons_obligatorio'),
+                'building_house.required'         => __('messages.alert.'),
 
             ];
 
@@ -60,6 +62,7 @@ class Centers extends Component
                 $new_centers->country = Auth::user()->contrie;
                 $new_centers->user_id = Auth::user()->id;
                 $new_centers->city_contrie = $request->city_contrie;
+                $new_centers->building_house = $request->building_house;
                 $new_centers->color = UtilsController::color_dairy();
                 $new_centers->save();
 
@@ -69,6 +72,7 @@ class Centers extends Component
                 $doctor_centers->number_floor = $request->number_floor;
                 $doctor_centers->number_consulting_room = $request->number_consulting_room;
                 $doctor_centers->phone_consulting_room = $request->phone_consulting_room;
+                $doctor_centers->building_house = $request->building_house;
                 $doctor_centers->user_id = Auth::user()->id;
                 $doctor_centers->center_id = $new_centers->id;
                 $doctor_centers->save();
@@ -91,6 +95,7 @@ class Centers extends Component
                          'dr_email'               => $user->email,
                          'center_name'            => $new_centers->description,
                          'center_address'         => $doctor_centers->address,
+                         'building_house'         => $doctor_centers->building_house,
                          'center_floor'           => $doctor_centers->number_floor,
                          'center_consulting_room' => $doctor_centers->number_consulting_room,
                          'center_phone'           => $doctor_centers->phone_consulting_room,
@@ -116,6 +121,7 @@ class Centers extends Component
                 $doctor_centers->address = $request->address;
                 $doctor_centers->number_floor = $request->number_floor;
                 $doctor_centers->number_consulting_room = $request->number_consulting_room;
+                $doctor_centers->building_house = $request->building_house;
                 $doctor_centers->phone_consulting_room = $request->phone_consulting_room;
                 $doctor_centers->user_id = $user->id;
                 $doctor_centers->center_id = $request->center_id;
@@ -143,6 +149,7 @@ class Centers extends Component
                         'dr_email'               => $user->email,
                         'center_name'            => $centers->description,
                         'center_address'         => $doctor_centers->address,
+                        'building_house'         => $doctor_centers->building_house,
                         'center_floor'           => $doctor_centers->number_floor,
                         'center_consulting_room' => $doctor_centers->number_consulting_room,
                         'center_phone'           => $doctor_centers->phone_consulting_room,

@@ -252,9 +252,9 @@
                     address: {
                         required: true,
                     },
-                    zip_code: {
-                        required: true,
-                    },
+                    // zip_code: {
+                    //     required: true,
+                    // },
                     re_name: {
                         required: true,
                         minlength: 3,
@@ -282,9 +282,9 @@
                     phone: {
                         required: true,
                     },
-                    profession: {
-                        required: true,
-                    },
+                    // profession: {
+                    //     required: true,
+                    // },
                     center_id: {
                         required: true,
                     }
@@ -325,9 +325,9 @@
                     address: {
                         required: "@lang('messages.alert.direccion_obligatoria')",
                     },
-                    zip_code: {
-                        required: "@lang('messages.alert.codigo_obligatorio')",
-                    },
+                    // zip_code: {
+                    //     required: "@lang('messages.alert.codigo_obligatorio')",
+                    // },
                     re_name: {
                         required: "@lang('messages.alert.nombre_obligatorio')",
                         minlength: "@lang('messages.alert.nombre_3_caracteres')",
@@ -423,6 +423,17 @@
                                 $("#re_ci").attr('readonly', true);
                                 $("#re_phone").attr('readonly', true);
                                 $("#re_email").attr('readonly', true);
+
+                                $("#blood_type").attr('readonly', true);
+                                $("#ce_name").attr('readonly', true);
+                                $("#ce_last_name").attr('readonly', true);
+                                $("#ce_phone").attr('readonly', true);
+                                $("#relationship").attr('readonly', true);
+                                $("#company").attr('readonly', true);
+                                $('#validity').attr('disabled', true);
+                                $("#contact").attr('readonly', true);
+
+
 
                                 switch_type_plane(user.type_plane, response[1]);
                             });
@@ -540,6 +551,15 @@
             $('#phone').val(item.phone.substring(item.phone.indexOf("-") + 1));
             $('#pn-input__prefix').val(prefix);
             $("#js_selected-flag").attr('src', cont.url_img);
+
+            $("#blood_type").val(item.blood_type);
+            $("#ce_name").val(item.ce_name);
+            $("#ce_last_name").val(item.ce_last_name);
+            $("#ce_phone").val(item.ce_phone);
+            $("#relationship").val(item.relationship);
+            $("#company").val(item.company);
+            $('#validity').val(item.validity);
+            $("#contact").val(item.contact);
             //end
 
 
@@ -585,6 +605,15 @@
             $("#re_ci").attr('readonly', false);
             $("#re_phone").attr('readonly', false);
             $("#re_email").attr('readonly', false);
+
+            $("#blood_type").attr('readonly', false);
+            $("#ce_name").attr('readonly', false);
+            $("#ce_last_name").attr('readonly', false);
+            $("#ce_phone").attr('readonly', false);
+            $("#relationship").attr('readonly', false);
+            $("#company").attr('readonly', false);
+            $('#validity').attr('disabled', false);
+            $("#contact").attr('readonly', false);
 
         }
 
@@ -902,7 +931,7 @@
                                     <div id="content-patient">
                                         <form id="form-patients" method="post" action="/" style="margin-bottom: 0px">
                                             {{ csrf_field() }}
-                                            <div class="row" style="align-items: flex-end;">
+                                            <div class="row">
                                                 <input type="hidden" name="is_minor" id="is_minor" value="false">
                                                 <input type="hidden" name="id" id="id" value="">
                                                 @if ($errors->any())
@@ -920,7 +949,11 @@
                                                 </div>
                                                 <div class="col-sm-12 col-md-12 col-lg-10 col-xl-10 col-xxl-10">
                                                     <div class="row">
-                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        <hr class="mt-3">
+                                                        <h5>@lang('messages.acordion.datos_personales')</h5>
+                                                        <hr>
+                                                        {{-- nombre --}}
+                                                        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -934,7 +967,8 @@
                                                                 </div>
                                                             </diV>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        {{-- apellido --}}
+                                                        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -948,7 +982,8 @@
                                                                 </div>
                                                             </diV>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        {{-- fecha Nacimiento --}}
+                                                        <div class="col-sm-12 col-md-3 col-lg-4 col-xl-2 col-xxl-2 mt-2">
                                                             <div class="form-group">
                                                                 <label for="birthdate" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                                     @lang('messages.form.fecha_nacimiento')
@@ -959,9 +994,8 @@
                                                                     onchange="calculateAge(event,'age'), handlerAge(event)">
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2">
+                                                        {{-- Genero --}}
+                                                        <div class="col-sm-12 col-md-3 col-lg-4 col-xl-2 col-xxl-2 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     <label for="genere" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
@@ -976,7 +1010,30 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="ci-div">
+                                                        {{-- Tipo de sangre --}}
+                                                        <div class="col-sm-12 col-md-3 col-lg-4 col-xl-2 col-xxl-2 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="blood_type" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                        @lang('messages.label.tipo_sangre')
+                                                                    </label>
+                                                                    <select name="blood_type" id="blood_type" placeholder="Seleccione"class="form-control @error('blood_type') is-invalid @enderror" class="form-control combo-textbox-input">
+                                                                        <option value="">@lang('messages.placeholder.seleccione')</option>
+                                                                        <option value="AB+">AB+</option>
+                                                                        <option value="AB-">AB-</option>
+                                                                        <option value="A+">A+</option>
+                                                                        <option value="A-">A-</option>
+                                                                        <option value="B+">B+</option>
+                                                                        <option value="B-">B-</option>
+                                                                        <option value="O+">O+</option>
+                                                                        <option value="O-">O-</option>
+                                                                    </select>
+                                                                    <i class="bi bi-gender-ambiguous st-icon"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{-- Documento de identidad --}}
+                                                        <div class="col-sm-12 col-md-3 col-lg-4 col-xl-2 col-xxl-2 mt-2" id="ci-div">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
                                                                     @if (Auth::user()->contrie == '81')
@@ -992,7 +1049,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-2" id="div-phone">
+                                                        {{-- telefono --}}
+                                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 mt-2" id="div-phone">
                                                             <x-phone_component :phone="null"/>
 
                                                             {{-- <div class="form-group">
@@ -1007,127 +1065,233 @@
                                                                 </div>
                                                             </div> --}}
                                                         </div>
-                                                    </div>
-                                                </div>
-
-                                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-5">
-                                                        <div class="form-group">
-                                                            <div class="Icon-inside">
-                                                                <label for="address" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
-                                                                <textarea id="address" name="address" class="form-control" rows="1"></textarea>
-                                                                <i class="bi bi-geo st-icon"></i>
+                                                        {{-- correo --}}
+                                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 mt-2" id="email-div">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="email" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
+                                                                    @php
+                                                                        $email = Auth::user()->email;
+                                                                    @endphp
+                                                                    <input autocomplete="off"
+                                                                        onchange='handlerEmail(event,@json($email))'
+                                                                        class="form-control @error('email') is-invalid @enderror"
+                                                                        id="email" name="email" type="text"
+                                                                        value="">
+                                                                        <i class="bi bi-envelope-at st-icon"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{-- direccion --}}
+                                                        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-4 col-xxl-5 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="address" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.direccion')</label>
+                                                                    <textarea id="address" name="address" class="form-control" rows="1"></textarea>
+                                                                    <i class="bi bi-geo st-icon"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <input id="age" name="age" type="hidden" value="">
+                                                        {{-- profesion --}}
+                                                        <x-professions class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-2 mt-2" />
+                                                        {{-- centros --}}
+                                                        @if (Auth::user()->type_plane !== '7')
+                                                        <x-centers_user class="col-sm-12 col-md-6 col-lg-12 col-xl-4 col-xxl-5 mt-2" />
+                                                        @endif
+                                                        {{-- data del representante --}}
+                                                        <div class="row mt-3" id="data-rep" style="display: none; padding-right: 0px;">
+                                                            <hr>
+                                                            <h5>@lang('messages.label.datos_representante')</h5>
+                                                            <hr>
+                                                            <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                                <div class="form-group">
+                                                                    <div class="Icon-inside">
+                                                                        <label for="re_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
+                                                                        <input autocomplete="off"
+                                                                            class="form-control mask-text @error('re_name') is-invalid @enderror"
+                                                                            id="re_name" name="re_name" type="text"
+                                                                            value="">
+                                                                        <i class="bi bi-person-circle st-icon"></i>
+                                                                    </div>
+                                                                </diV>
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                                <div class="form-group">
+                                                                    <div class="Icon-inside">
+                                                                        <label for="re_last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
+                                                                        <input autocomplete="off"
+                                                                            class="form-control mask-text @error('re_last_name') is-invalid @enderror"
+                                                                            id="re_last_name" name="re_last_name" type="text"
+                                                                            value="">
+                                                                        <i class="bi bi-person-circle st-icon"></i>
+                                                                    </div>
+                                                                </diV>
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                                <div class="form-group">
+                                                                    <div class="Icon-inside">
+                                                                        @if (Auth::user()->contrie == '81')
+                                                                            <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
+                                                                        @else
+                                                                            <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad') </label>
+                                                                        @endif
+                                                                        <input autocomplete="off"
+                                                                            class="form-control @error('re_ci') is-invalid @enderror {{ Auth::user()->contrie == '81' ? 'mask-id-dom' : '' }}"
+                                                                            id="re_ci" name="re_ci" type="text"
+                                                                            value="">
+                                                                        <i class="bi bi-person-vcard st-icon"></i>
+                                                                    </div>
+                                                                </diV>
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                                                <div class="form-group">
+                                                                    <div class="Icon-inside">
+                                                                        <label for="re_phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
+                                                                        <input autocomplete="off"
+                                                                            class="form-control phone @error('re_phone') is-invalid @enderror"
+                                                                            id="re_phone" name="re_phone" type="text"
+                                                                            value="">
+                                                                        <i class="bi bi-telephone-forward st-icon"></i>
+                                                                    </div>
+                                                                </diV>
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2"
+                                                                style="padding-right: 0;">
+                                                                <div class="form-group">
+                                                                    <div class="Icon-inside">
+                                                                        <label for="re_email" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
+                                                                        <input autocomplete="off"
+                                                                            onchange='handlerEmail(event,@json($email))'
+                                                                            class="form-control @error('re_email') is-invalid @enderror"
+                                                                            id="re_email" name="re_email" type="text"
+                                                                            value="">
+                                                                        <i class="bi bi-envelope-at st-icon"></i>
+                                                                    </div>
+                                                                </diV>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-1 mt-2">
-                                                        <div class="form-group">
-                                                            <div class="Icon-inside">
-                                                                <label for="zip_code" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.codigo_postal')</label>
-                                                                <input autocomplete="off"
-                                                                    class="form-control mask-only-text @error('zip_code') is-invalid @enderror"
-                                                                    id="zip_code" name="zip_code" type="text"
-                                                                    value="">
-                                                                <i class="bi bi-geo st-icon"></i>
+                                                    {{-- contacto de emergencia --}}
+                                                    <div class="row">
+                                                        <hr class="mt-3">
+                                                        <h5>@lang('messages.label.contacto_emergencia')</h5>
+                                                        <hr>
+                                                        {{-- nombre --}}
+                                                        <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="ce_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                        @lang('messages.form.nombre')
+                                                                    </label>
+                                                                    <input autocomplete="off"
+                                                                        class="form-control mask-text @error('ce_name') is-invalid @enderror"
+                                                                        id="ce_name" name="ce_name" type="text"
+                                                                        value="">
+                                                                    <i class="bi bi-person-circle st-icon"></i>
+                                                                </div>
+                                                            </diV>
+                                                        </div>
+                                                        {{-- apellido --}}
+                                                        <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="ce_last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                        @lang('messages.form.apellido')
+                                                                    </label>
+                                                                    <input autocomplete="off"
+                                                                        class="form-control mask-text @error('ce_last_name') is-invalid @enderror"
+                                                                        id="ce_last_name" name="ce_last_name" type="text"
+                                                                        value="">
+                                                                    <i class="bi bi-person-circle st-icon"></i>
+                                                                </div>
+                                                            </diV>
+                                                        </div>
+                                                        {{-- telefono --}}
+                                                        <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="ce_phone" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
+                                                                    <input autocomplete="off" placeholder=""
+                                                                        class="form-control phone @error('ce_phone') is-invalid @enderror"
+                                                                        id="ce_phone" name="ce_phone" type="text"
+                                                                        value="">
+                                                                    <i class="bi bi-telephone-forward st-icon"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{-- Parentesco --}}
+                                                        <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="genere" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                        @lang('messages.label.parentesco')
+                                                                    </label>
+                                                                    <input autocomplete="off"
+                                                                        class="form-control mask-text @error('relationship') is-invalid @enderror"
+                                                                        id="relationship" name="relationship" type="text"
+                                                                        value="">
+                                                                    <i class="bi bi-person-circle st-icon"></i>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2" id="email-div">
-                                                        <div class="form-group">
-                                                            <div class="Icon-inside">
-                                                                <label for="email" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
-                                                                @php
-                                                                    $email = Auth::user()->email;
-                                                                @endphp
-                                                                <input autocomplete="off"
-                                                                    onchange='handlerEmail(event,@json($email))'
-                                                                    class="form-control @error('email') is-invalid @enderror"
-                                                                    id="email" name="email" type="text"
-                                                                    value="">
-                                                                    <i class="bi bi-envelope-at st-icon"></i>
+                                                    {{-- datos seguro --}}
+                                                    <div class="row">
+                                                        <hr class="mt-3">
+                                                        <h5>@lang('messages.label.datos_seguro')</h5>
+                                                        <hr>
+                                                        {{-- Compañia --}}
+                                                        <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="company" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                        @lang('messages.label.compañia')
+                                                                    </label>
+                                                                    <input autocomplete="off"
+                                                                        class="form-control mask-text @error('company') is-invalid @enderror"
+                                                                        id="company" name="company" type="text"
+                                                                        value="">
+                                                                    <i class="bi bi-person-circle st-icon"></i>
+                                                                </div>
+                                                            </diV>
+                                                        </div>
+                                                        {{-- Vigencia --}}
+                                                        <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="validity" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                                        @lang('messages.label.vigencia')
+                                                                    </label>
+                                                                    <select name="validity" id="validity" placeholder="Seleccione"class="form-control @error('validity') is-invalid @enderror" class="form-control combo-textbox-input">
+                                                                        <option value="">@lang('messages.placeholder.seleccione')</option>
+                                                                        <option value="1">@lang('messages.label.activo') </option>
+                                                                        <option value="0">@lang('messages.label.inactivo') </option>
+                                                                    </select>
+                                                                    <i class="bi bi-person-circle st-icon"></i>
+                                                                </div>
+                                                            </diV>
+                                                        </div>
+                                                        {{-- Numer de contacto --}}
+                                                        <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="contact" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.num_contacto')</label>
+                                                                    <input autocomplete="off" placeholder=""
+                                                                        class="form-control phone @error('contact') is-invalid @enderror"
+                                                                        id="contact" name="contact" type="text"
+                                                                        value="">
+                                                                    <i class="bi bi-telephone-forward st-icon"></i>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    <input id="age" name="age" type="hidden" value="">
-                                                    <x-professions class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-3" />
-                                                    @if (Auth::user()->type_plane !== '7')
-                                                    <x-centers_user class="col-sm-12 col-md-8 col-lg-4 col-xl-4 col-xxl-2 mt-2" />
-                                                    @endif
-                                                {{-- data del representante --}}
-                                                <div class="row mt-3" id="data-rep" style="display: none; padding-right: 0px;">
-                                                    <hr>
-                                                    <h5>@lang('messages.label.datos_representante')</h5>
-                                                    <hr>
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                        <div class="form-group">
-                                                            <div class="Icon-inside">
-                                                                <label for="re_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.nombre')</label>
-                                                                <input autocomplete="off"
-                                                                    class="form-control mask-text @error('re_name') is-invalid @enderror"
-                                                                    id="re_name" name="re_name" type="text"
-                                                                    value="">
-                                                                <i class="bi bi-person-circle st-icon"></i>
-                                                            </div>
-                                                        </diV>
-                                                    </div>
-                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                        <div class="form-group">
-                                                            <div class="Icon-inside">
-                                                                <label for="re_last_name" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.apellido')</label>
-                                                                <input autocomplete="off"
-                                                                    class="form-control mask-text @error('re_last_name') is-invalid @enderror"
-                                                                    id="re_last_name" name="re_last_name" type="text"
-                                                                    value="">
-                                                                <i class="bi bi-person-circle st-icon"></i>
-                                                            </div>
-                                                        </diV>
-                                                    </div>
-                                                    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
-                                                        <div class="form-group">
-                                                            <div class="Icon-inside">
-                                                                @if (Auth::user()->contrie == '81')
-                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.CIE')</label>
-                                                                @else
-                                                                    <label for="ci" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.cedula_identidad') </label>
-                                                                @endif
-                                                                <input autocomplete="off"
-                                                                    class="form-control @error('re_ci') is-invalid @enderror {{ Auth::user()->contrie == '81' ? 'mask-id-dom' : '' }}"
-                                                                    id="re_ci" name="re_ci" type="text"
-                                                                    value="">
-                                                                <i class="bi bi-person-vcard st-icon"></i>
-                                                            </div>
-                                                        </diV>
-                                                    </div>
-                                                    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2">
-                                                        <div class="form-group">
-                                                            <div class="Icon-inside">
-                                                                <label for="re_phone" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.telefono')</label>
-                                                                <input autocomplete="off"
-                                                                    class="form-control phone @error('re_phone') is-invalid @enderror"
-                                                                    id="re_phone" name="re_phone" type="text"
-                                                                    value="">
-                                                                <i class="bi bi-telephone-forward st-icon"></i>
-                                                            </div>
-                                                        </diV>
-                                                    </div>
-                                                    <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2"
-                                                        style="padding-right: 0;">
-                                                        <div class="form-group">
-                                                            <div class="Icon-inside">
-                                                                <label for="re_email" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.email')</label>
-                                                                <input autocomplete="off"
-                                                                    onchange='handlerEmail(event,@json($email))'
-                                                                    class="form-control @error('re_email') is-invalid @enderror"
-                                                                    id="re_email" name="re_email" type="text"
-                                                                    value="">
-                                                                <i class="bi bi-envelope-at st-icon"></i>
-                                                            </div>
-                                                        </diV>
-                                                    </div>
-                                                </div>
                                                 {{-- end --}}
+                                                </div>
                                             </div>
-
+                                            {{-- botones --}}
                                             <div class="row mt-3 justify-content-md-end">
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: flex-end; align-items: flex-end; flex-wrap: wrap;">
                                                     <div id="bnt-dairy" style="display: none;margin-left: 10px; ; margin-bottom: 10px"> </div>
@@ -1138,13 +1302,14 @@
                                                         onclick="refreshForm();" data-bs-toggle="tooltip"
                                                         data-bs-placement="bottom" data-html="true"
                                                         title="@lang('messages.label.limpiar')">
-                                                        <img width="32" height="auto" src="{{ asset('/img/icons/eraser.png') }}" alt="avatar">
+                                                        <img width="70" height="auto" src="{{ asset('/img/icons/eraser.png') }}" alt="avatar">
                                                     </button>
                                                 </div>
                                                 <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;"> </div>
                                             </div>
                                         </form>
                                     </div>
+                                    {{-- tabla pacientes --}}
                                     <div class="row" id="show-info-pat" style="display: none">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive">
                                             <hr>
@@ -1172,7 +1337,7 @@
                 </div>
                 {{-- Pacientes registrados  --}}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-cd">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-cd mb-4">
                         <div class="accordion-item">
                             <span class="accordion-header title" id="headingTwo">
                                 <button class="accordion-button bg-5" type="button" data-bs-toggle="collapse"
@@ -1215,6 +1380,7 @@
                                                         <tr>
                                                             <th class="text-center w-image" scope="col" data-orderable="false">@lang('messages.tabla.foto')</th>
                                                             <th class="text-center w-10" scope="col">@lang('messages.tabla.codigo_paciente') </th>
+                                                            <th class="text-center w-10" scope="col">@lang('messages.tabla.tipo_sangre') </th>
                                                             <th class="text-center w-17" scope="col"> @lang('messages.tabla.nombre_apellido') </th>
                                                             <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_nacimiento') </th>
                                                             <th class="text-center w-30" scope="col">@lang('messages.tabla.centro_salud') </th>
@@ -1224,6 +1390,7 @@
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($patients as $item)
+
                                                             <tr>
                                                                 <td class="table-avatar">
                                                                     <img class="avatar"
@@ -1242,6 +1409,18 @@
                                                                         {{ $item->patient_code }}
                                                                     </button>
                                                                 </td>
+                                                                <td class="text-center">
+                                                                    <span class="badge text-bg-info" style="font-size: 17px; color: #fff !important; width: 50px; !important">{{ $item->blood_type }}</span>
+                                                                    {{-- <button
+                                                                        type="button" class="btn btnSecond"
+                                                                        data-bs-toggle="tooltip"
+                                                                        data-bs-placement="bottom"
+                                                                        data-bs-custom-class="custom-tooltip"
+                                                                        data-html="true" title="@lang('messages.tooltips.agendar_cita')"
+                                                                        style="font-size: 13px; padding: 0px 11px 0px 11px; !important">
+                                                                        tipo
+                                                                    </button> --}}
+                                                                </td>
                                                                 <td class="text-center text-capitalize"> {{ $item->name }} {{ $item->last_name }}</td>
                                                                 <td class="text-center"> {{ date('d-m-Y', strtotime($item->birthdate)) }} </td>
                                                                 <td class="text-center"> {{ $item->get_center->description }} </td>
@@ -1253,7 +1432,7 @@
                                                                                 type="button" data-bs-toggle="tooltip"
                                                                                 data-bs-placement="bottom"
                                                                                 title="@lang('messages.tooltips.editar')">
-                                                                                <img width="40" height="auto" src="{{ asset('/img/icons/user-edit.png') }}" alt="avatar">
+                                                                                <img width="65" height="auto" src="{{ asset('/img/icons/user-edit.png') }}" alt="avatar">
                                                                             </button>
                                                                         </div>
                                                                         @if (Auth::user()->role == 'medico')
@@ -1263,7 +1442,7 @@
                                                                                         data-bs-toggle="tooltip"
                                                                                         data-bs-placement="bottom"
                                                                                         title="@lang('messages.tooltips.consulta_medica')">
-                                                                                        <img width="40" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
+                                                                                        <img width="60" height="auto" src="{{ asset('/img/icons/monitor.png') }}" alt="avatar">
                                                                                     </button>
                                                                                 </a>
                                                                             </div>
@@ -1274,7 +1453,7 @@
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
                                                                                     title="@lang('messages.tooltips.historia')">
-                                                                                    <img width="40" height="auto" src="{{ asset('/img/icons/recipe.png') }}" alt="avatar">
+                                                                                    <img width="70" height="auto" src="{{ asset('/img/icons/recipe.png') }}" alt="avatar">
                                                                                 </button>
                                                                             </a>
                                                                         </div>

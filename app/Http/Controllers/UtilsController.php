@@ -11,6 +11,8 @@ use App\Mail\NotificationReferences;
 use App\Mail\SendMail;
 use App\Models\AiContainer;
 use App\Models\Appointment;
+use App\Models\Immunization;
+use App\Models\MentalHealth;
 use App\Models\Center;
 use App\Models\City;
 use App\Models\Condition;
@@ -929,6 +931,32 @@ class UtilsController extends Controller
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_history_non_pathology_back()', $message);
+		}
+	}
+
+    static function get_inmunizations()
+	{
+		try {
+
+			$inmunizations = Immunization::all();
+
+			return $inmunizations;
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_inmunizations()', $message);
+		}
+	}
+
+    static function get_mental_healths()
+	{
+		try {
+
+			$mental_healths = MentalHealth::all();
+
+			return $mental_healths;
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_mental_healths()', $message);
 		}
 	}
 
