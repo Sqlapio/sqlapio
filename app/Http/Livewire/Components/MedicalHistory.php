@@ -136,8 +136,9 @@ class MedicalHistory extends Component
 
                 //Antecedentes ginecologicos
                 'GINE_menarquia'            => (isset($data->GINE_menarquia) ? $data->GINE_menarquia : null),
+                'GINE_fecha_ultimo_pe'      => (isset($data->GINE_fecha_ultimo_pe) ? $data->GINE_fecha_ultimo_pe : null),
                 'GINE_duracion'             => (isset($data->GINE_duracion) ? $data->GINE_duracion : null),
-                'GINE_infecciones'          => (isset($data->GINE_duracion) ? $data->GINE_duracion : null),
+                'GINE_infecciones'          => (isset($data->GINE_infecciones) ? $data->GINE_infecciones : null),
                 'GINE_metodo_anti'          => (isset($data->GINE_metodo_anti) ? $data->GINE_metodo_anti : null),
                 'GINE_ex_gine_previos'      => (isset($data->GINE_ex_gine_previos) ? $data->GINE_ex_gine_previos : null),
                 'OBSTE_gravides'            => (isset($data->OBSTE_gravides) ? $data->OBSTE_gravides : null),
@@ -151,6 +152,10 @@ class MedicalHistory extends Component
                 'ACTSEX_activo'             => (isset($data->ACTSEX_activo) ? $data->ACTSEX_activo : null),
                 'ACTSEX_enfermedades_ts'    => (isset($data->ACTSEX_enfermedades_ts) ? $data->ACTSEX_enfermedades_ts : null),
 
+                'allergies'                 => (isset($data->arrayAllergies) ? $data->arrayAllergies : []),
+                'history_surgical'          => (isset($data->arrayhistory_surgical) ? $data->arrayhistory_surgical : []),
+                'medications_supplements'   => (isset($data->arraymedications_supplements) ? $data->arraymedications_supplements : []),
+
                 //observaciones
                 'observations_ginecologica'   =>(isset($data->observations_ginecologica) ? $data->observations_ginecologica : null) ,
                 'observations_medication'   => $data->observations_medication,
@@ -161,6 +166,7 @@ class MedicalHistory extends Component
                 'observations_quirurgicas'  => $data->observations_quirurgicas,
                 'observations_inmunization'   =>(isset($data->observations_inmunization) ? $data->observations_inmunization : null) ,
                 'observations_mental_healths'   =>(isset($data->observations_mental_healths) ? $data->observations_mental_healths : null) ,
+                'observations_medical_devices'   =>(isset($data->observations_medical_devices) ? $data->observations_medical_devices : null) ,
             ]);
 
             $action = '6';

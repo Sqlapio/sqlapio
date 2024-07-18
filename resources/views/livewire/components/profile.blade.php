@@ -536,10 +536,10 @@
             link = `${token}`;
             try {
                 await navigator.clipboard.writeText(link);
-                $("#icon-copy").css("background", "#04AA6D");
+                // $("#icon-copy").css("background", "#04AA6D");
                 setTimeout(function() {
                     $('#copied').hide();
-                }, 2000);
+                }, 2500);
                 $("#copied").text('@lang('messages.alert.enlace_copiado')');
 
             } catch (err) {
@@ -1082,7 +1082,7 @@
                                             title="@lang('messages.botton.copiar_enlace')"
                                             onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
                                             style="margin-left: 5%;">
-                                            <i class="bi bi-file-earmark-text"></i>
+                                            <img width="70" height="auto" src="{{ asset('/img/icons/copiar-link.png') }}" alt="avatar">
                                         </button> <span style="padding-left: 5px" id="copied"></span>
                                     </div>
                                 </div>
@@ -1152,12 +1152,12 @@
                                                 <button type="button" class="btn btnPrimary"
                                                     style="padding: 7px 20px">@lang('messages.botton.registrar_secretaria')</button>
                                             </a>
-                                            <button type="button" id="icon-copy" class="btn btn-iSecond rounded-circle"
+                                            <button type="button" id="icon-copy" class="btn rounded-circle"
                                                 data-bs-toggle="tooltip" data-bs-placement="bottom"
                                                 title="@lang('messages.botton.copiar_enlace')"
                                                 onclick="triggerExample('{{ Auth::user()->token_corporate }}');"
                                                 style="margin-left: 5%;">
-                                                <i class="bi bi-file-earmark-text"></i>
+                                                <img width="70" height="auto" src="{{ asset('/img/icons/copiar-link.png') }}" alt="avatar">
                                             </button> <span style="padding-left: 5px" id="copied"></span>
                                         </div>
                                     </div>
