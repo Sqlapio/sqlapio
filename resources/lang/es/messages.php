@@ -158,8 +158,6 @@ return [
         'IMC19_marca'              => 'Marca',
         'frecuencia'               => 'Frecuencia',
         'efectividad'              => 'Efectividad',
-
-
     ],
 
     'menu' => [
@@ -438,6 +436,12 @@ return [
         'centros_doctor'      => 'Centros asociados al medico',
         'activo'              => 'Activo',
         'inactivo'            => 'Inactivo',
+
+        'evaluacion_general'  => 'Evalución General',
+        'nivel_de_conciencia' => 'Nivel de Conciencia',
+        'postura'             => 'Postura',
+        'signos_vitales'      => 'Signos Vitales',
+        'exploracion_fisica'  => 'Exploracion Física',
     ],
 
     'select' => [

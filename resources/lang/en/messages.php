@@ -438,6 +438,12 @@ return [
         'centros_doctor'      => 'Centers associated with the doctor',
         'activo'              => 'Active',
         'inactivo'            => 'Inactive',
+
+        'evaluacion_general'  => 'General Evaluation',
+        'nivel_de_conciencia' => 'Level of Consciousness',
+        'postura'             => 'Posture',
+        'signos_vitales'      => 'Vital Signs',
+        'exploracion_fisica'  => 'Physical Exploration',
     ],
 
     'select' => [

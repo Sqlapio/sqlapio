@@ -590,9 +590,9 @@ class UtilsController extends Controller
 					'data' => [
 						'center_id'               => $val->get_center->id,
 						'record_code' 	          => $val->record_code,
-						'cod_ref' 	              => $val->get_reference->cod_ref,
+						// 'cod_ref' 	              => $val->get_reference->cod_ref,
 						'record_type' 	          => $val->record_type,
-						'background' 	          => $val->background,
+						// 'background' 	          => $val->background,
 						'razon' 		          => $val->razon,
 						'diagnosis' 	          => $val->diagnosis,
 						'exams' 		          => $val->exams,
@@ -606,7 +606,6 @@ class UtilsController extends Controller
 					],
 				];
 			}
-
 			return $medical_record_user;
 			//code...
 		} catch (\Throwable $th) {
