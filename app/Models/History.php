@@ -140,6 +140,7 @@ class History extends Model
         'EM_NA',
         //Historia ginecologicos si aplica
         'GINE_menarquia',
+        'GINE_fecha_ultimo_pe',
         'GINE_duracion',
         'GINE_infecciones',
         'GINE_metodo_anti',
@@ -154,6 +155,11 @@ class History extends Model
         'MENOSPA_tratamiento',
         'ACTSEX_activo',
         'ACTSEX_enfermedades_ts',
+
+        'allergies',
+        'history_surgical',
+        'medications_supplements',
+
         //observaciones
         'observations_ginecologica',
         'observations_allergies',
@@ -163,7 +169,8 @@ class History extends Model
         'observations_not_pathological',
         'observations_quirurgicas',
         'observations_inmunization',
-        'observations_mental_healths'
+        'observations_mental_healths',
+        'observations_medical_devices'
     ];
 
     public function  get_paciente(): HasOne

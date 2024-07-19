@@ -14,6 +14,8 @@ use App\Models\Appointment;
 use App\Models\Immunization;
 use App\Models\MentalHealth;
 use App\Models\Center;
+use App\Models\Allergies;
+use App\Models\Allergy_symptoms;
 use App\Models\City;
 use App\Models\Condition;
 use App\Models\DoctorCenter;
@@ -590,7 +592,7 @@ class UtilsController extends Controller
 						'record_code' 	          => $val->record_code,
 						'cod_ref' 	              => $val->get_reference->cod_ref,
 						'record_type' 	          => $val->record_type,
-						'background' 	          => $val->background,
+						// 'background' 	          => $val->background,
 						'razon' 		          => $val->razon,
 						'diagnosis' 	          => $val->diagnosis,
 						'exams' 		          => $val->exams,
@@ -604,7 +606,6 @@ class UtilsController extends Controller
 					],
 				];
 			}
-
 			return $medical_record_user;
 			//code...
 		} catch (\Throwable $th) {
@@ -905,6 +906,32 @@ class UtilsController extends Controller
 		} catch (\Throwable $th) {
 			$message = $th->getMessage();
 			dd('Error UtilsController.get_history_family_back()', $message);
+		}
+	}
+
+    static function get_allergies()
+	{
+		try {
+
+			$family_back = Allergies::all();
+
+			return $family_back;
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_allergies()', $message);
+		}
+	}
+
+    static function get_allergy_symptoms()
+	{
+		try {
+
+			$family_back = Allergy_symptoms::all();
+
+			return $family_back;
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.allergy_symptoms()', $message);
 		}
 	}
 

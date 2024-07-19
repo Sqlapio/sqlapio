@@ -68,14 +68,12 @@ class MedicalRecord extends Component
             }
 
             $rules = [
-                'background'              => 'required',
                 'razon'                   => 'required',
                 'diagnosis'               => 'required',
                 'medications_supplements' => 'required',
             ];
 
             $msj = [
-                'background'              => __('messages.alert.antecedentes_obligatorio'),
                 'razon'                   => __('messages.alert.razon_obligatorio'),
                 'diagnosis'               => __('messages.alert.diagnostico_obligatorio'),
                 'medications_supplements' => __('messages.alert.tratamiento_obligatorio'),
@@ -97,12 +95,12 @@ class MedicalRecord extends Component
                  * Este metodo recibe como llaves principales el id del medico, id del paciente y el
                  * id del centro.
                  */
-                'user_id'                 => $user,
+                'user_id'                 => Auth::user()->id,
                 'patient_id'              => $data->id,
                 'center_id'               => isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id,
                 'record_code'             => 'SQ-C-'.random_int(11111111, 99999999),
                 'record_date'             => date('d-m-Y'),
-                'background'              => $data->background,
+                // 'background'              => $data->background,
                 'razon'                   => $data->razon,
                 'diagnosis'               => $data->diagnosis,
                 'sintomas'                => strtolower($symptom_strig),
@@ -114,7 +112,7 @@ class MedicalRecord extends Component
 
             for ($i=0; $i < count($data_treatment) ; $i++) {
                 Treatment::create([
-                    'user_id'           => $user,
+                    'user_id'           => Auth::user()->id,
                     'patient_id'        => $data->id,
                     'center_id'         => isset($center_id_corporativo) ? $center_id_corporativo : $data->center_id,
                     'record_code'       => $medical_record['record_code'],
@@ -132,17 +130,15 @@ class MedicalRecord extends Component
              * status de finsalizada en la tabla del dashboard
              */
             /********************************************************************************************************/
-            Appointment::where('patient_id', $data->id)
-                ->where('user_id', $user)
-                ->where('date_start', date('Y-m-d'))
-                ->update([
-                    'status' => 3,   /** FINALIZADA EN LA AGENDA */
-                ]);
 
-            $dairy = Appointment::where('patient_id', $data->id)->where('user_id', $user)->where('date_start', date('Y-m-d'))->first();
-            
-            /**Logica para guardar el acumulado de citas agendadas por el medico o secretaria */
-            EstadisticaController::accumulated_dairy_finalizada($dairy->user_id, $dairy->center_id);
+            $cita_patient = Appointment::where('patient_id', $data->id)->where('user_id', $user)->where('date_start', date('Y-m-d'))->where('status', 2)->first();
+            if(isset($cita_patient))
+            {
+                $cita_patient->update([
+                    'status' => 3,   /** FINALIZADA EN LA AGENDA -> STATUS = 3 */
+                ]);
+                EstadisticaController::accumulated_dairy_finalizada($cita_patient->user_id, $cita_patient->center_id);
+            }
 
             /********************************************************************************************************/
 
@@ -234,6 +230,8 @@ class MedicalRecord extends Component
             $physical_exams->saturation = $request->saturation;
             $physical_exams->condition = $request->condition;
             $physical_exams->observations = $request->observations;
+            $physical_exams->awareness = $request->awareness;
+            $physical_exams->position = $request->position;
             $physical_exams->save();
 
             $action = '24';
