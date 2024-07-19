@@ -457,9 +457,9 @@
                 treatment: {
                     required: true,
                 },
-                sintomas: {
-                    validateSintoma: true,
-                },
+                // sintomas: {
+                //     validateSintoma: true,
+                // },
                 center_id: {
                     required: true,
                 },
@@ -474,7 +474,6 @@
                 razon: {
                     required: "@lang('messages.alert.razon_obligatorio')",
                 },
-
                 diagnosis: {
                     required: "@lang('messages.alert.diagnostico_obligatorio')",
                 },
@@ -597,6 +596,8 @@
                 data["exams_array"] = JSON.stringify(exams_array);
                 data["symptom_array"] = JSON.stringify(symptom_array);
                 data["studies_array"] = JSON.stringify(studies_array);
+
+                
                 data["medications_supplements"] = JSON.stringify(medications_supplements);
 
                 ////end
@@ -627,6 +628,7 @@
                                 "{{ route('MedicalRecord', ':id') }}";
                             url = url.replace(':id', id);
                             window.location.href = url;
+                            // setDatatableConsulta(data)
                         });
                     },
                     error: function(error) {
@@ -853,6 +855,12 @@
                 $("#exman-text").hide();
                 $("#text_area_studies").show();
                 $("#studies-text").hide();
+                $("#symptoms_card1").show();
+                $("#exam_study").show();
+                $('#not-studie').hide();
+                $('#not-exam').hide();
+                $('#medicine').show();
+
             }
         });
 
@@ -864,6 +872,18 @@
         if (active) {
             $(".accordion-collapse2").collapse('show')
         }
+        if(item.data.sintomas === '') {
+            $("#symptoms_card1").hide();
+        }
+        if(item.data.study.length === 0 && item.data.exam.length === 0){
+            $('#not-studie').show();
+            $('#not-exam').show();
+        }
+
+        if(item.data.medications_supplements.length === 0){
+            $('#medicine').hide();
+        }
+
         $("#medical_record_id").val(item.id);
         $("#center_id").val(item.data.center_id).change().attr('disabled', true);
         // $("#background").val(item.data.background).attr('disabled', true);
@@ -1774,6 +1794,14 @@
                 ],
             });
     }
+
+    const setDatatableConsulta = (data) => {
+
+        console.log(data)
+
+
+    }
+
 </script>
 @endpush
 @section('content')
@@ -2058,10 +2086,8 @@
                                             <hr>
                                             <h5> @lang('messages.tabla.historial_examenes')</h5>
                                             <hr>
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                                style="margin-top: 20px;">
-                                                <table id="table-examen-fisico" class="table table-striped table-bordered"
-                                                    style="width:100%; ">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px;">
+                                                <table id="table-examen-fisico" class="table table-striped table-bordered" style="width:100%; ">
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center w-30" scope="col">@lang('messages.tabla.centro_salud')</th>
@@ -2091,21 +2117,18 @@
 
                                                         @foreach ($physical_exams as $item)
                                                             <tr>
-                                                                <td class="text-center td-pad">
-                                                                    {{ $item->get_center->description }}</td>
+                                                                <td class="text-center td-pad"> {{ $item->get_center->description }}</td>
                                                                 <td class="text-center td-pad"> {{ $item->date }} </td>
                                                                 <td class="text-center td-pad"> {{ $item->weight }} </td>
                                                                 <td class="text-center td-pad"> {{ $item->height }} </td>
                                                                 <td class="text-center td-pad"> {{ $item->strain }}</td>
-                                                                <td class="text-center td-pad"> {{ $item->temperature }}
-                                                                </td>
+                                                                <td class="text-center td-pad"> {{ $item->temperature }}</td>
                                                                 <td class="text-center td-pad"> {{ $item->breaths }}</td>
                                                                 <td class="text-center td-pad"> {{ $item->pulse }}</td>
                                                                 <td class="text-center td-pad"> {{ $item->saturation }}
                                                                 </td>
                                                                 <td class="text-center td-pad">
-                                                                    <button
-                                                                        onclick='handleObservaciones({{ $item }})'>
+                                                                    <button onclick='handleObservaciones({{ $item }})'>
                                                                         <img width="25" height="auto"
                                                                             src="{{ asset('/img/icons/justify.png') }}"
                                                                             alt="avatar" type="button"
@@ -2138,7 +2161,7 @@
                                     <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.consulta_medica')
                                 </button>
                             </span>
-                            <div id="collapseThree" class="accordion-collapse2 collapse" aria-labelledby="headingThree"
+                            <div id="collapseThree" class="accordion-collapse2 collapse " aria-labelledby="headingThree"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body m-mb">
                                     <form id="form-consulta" method="post" action="/">
@@ -2152,19 +2175,7 @@
                                                     <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" />
                                                 </div>
                                             @endif
-                                            <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style'
-                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
-                                                {{-- <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
-                                                    <div class="form-group">
-                                                        <label for="background" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.antecedentes')</label>
-                                                        <textarea id="background" rows="1" name="background" class="form-control"></textarea>
-                                                        <pre class="pre-textarea"
-                                                            style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
-                                                            id="background-text"></pre>
-                                                    </div>
-                                                </div> --}}
-
+                                            <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style' style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pl-5">
                                                     <div class="form-group">
                                                         <label for="razon" class="form-label"
@@ -2204,7 +2215,6 @@
                                                             style="padding-inline-start: 0; display: flex; flex-wrap: wrap; margin-bottom: 0">
                                                         </ul>
                                                     </div>
-
                                                     <div id='symptoms_card3'
                                                         class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                         style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; margin-top: 0.5rem">
@@ -2217,8 +2227,6 @@
                                                                 id="sintomas-text"></pre>
                                                         </div>
                                                     </div>
-
-
                                                 </div>
                                                 <div class="row" id="div_spinner">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
@@ -2255,11 +2263,9 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style"
-                                                style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display: flex;">
+                                            <div id="exam_study" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display: flex;">
                                                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
-                                                    <div
-                                                        style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <div style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                                             <div class="form-group" id='search_exam'
                                                                 style="display: flex; align-items: center;">
@@ -2355,7 +2361,7 @@
                                             </div>
 
                                             {{-- Medicacion --}}
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
+                                            <div id="medicine" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                 <label style="font-size: 14px">@lang('messages.label.tratamiento')</label>
                                                 <hr style="margin-bottom: 0; margin-top: 5px">
@@ -2505,7 +2511,7 @@
                                             </div>
                                         </div>
                                         <div class="row mt-2 justify-content-md-end">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 btn-mb" id="send" style="display: flex; justify-content: flex-end; padding-right: 30px;">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 btn-mb" id="send" style="display: flex; justify-content: flex-end; padding-right: 30px; align-items: flex-end;">
                                                 <input class="btn btnSave send" value="@lang('messages.botton.guardar')" type="submit" style="padding: 8px" />
                                                 <button style="margin-left: 20px;" type="button" onclick="resetForm();"
                                                     data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
@@ -2531,7 +2537,7 @@
                                     <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.ultimas_consultas')
                                 </button>
                             </span>
-                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                            <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row" id="table-one">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
@@ -2598,7 +2604,7 @@
                                                                     @else
                                                                         <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                             <button type="button" onclick="showAlertNotStudy();">
-                                                                                <img width="42" height="auto"
+                                                                                <img width="32" height="auto"
                                                                                     src="{{ asset('/img/icons/not-file-icon.png') }}"
                                                                                     alt="avatar">
                                                                             </button>
@@ -2607,8 +2613,8 @@
                                                                     <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                                                                         <a target="_blank" href="{{ route('pdf_medical_prescription', $item['id']) }}">
                                                                             <button type="button">
-                                                                                <img width="32" height="auto"
-                                                                                    src="{{ asset('/img/icons/pdf-file.png') }}"
+                                                                                <img width="50" height="auto"
+                                                                                    src="{{ asset('/img/icons/pdf-recipe.png') }}"
                                                                                     alt="avatar"
                                                                                     data-bs-toggle="tooltip"
                                                                                     data-bs-placement="bottom"
@@ -2622,7 +2628,7 @@
                                                             </td>
                                                             <td class="text-center td-pad">
                                                                 <div class="d-flex">
-                                                                    <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                                                                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="display: flex; justify-content: center;">
                                                                         <a target="_blank" href="{{ route('PDF_medical_record', $item['id']) }}">
                                                                             <button type="button">
                                                                                 <img width="60" height="auto"
