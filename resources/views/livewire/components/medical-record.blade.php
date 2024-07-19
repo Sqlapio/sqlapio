@@ -375,7 +375,7 @@
 
     $(document).ready(() => {
         $("#diagnosis-text").hide();
-        $("#background-text").hide();
+        // $("#background-text").hide();
         $("#razon-text").hide();
         $("#sintomas-text").hide();
         $("#exman-text").hide();
@@ -445,9 +445,9 @@
         $('#form-consulta').validate({
             ignore: [],
             rules: {
-                background: {
-                    required: true,
-                },
+                // background: {
+                //     required: true,
+                // },
                 razon: {
                     required: true,
                 },
@@ -468,9 +468,9 @@
                 // }
             },
             messages: {
-                background: {
-                    required: "@lang('messages.alert.antecedentes_obligatorio')",
-                },
+                // background: {
+                //     required: "@lang('messages.alert.antecedentes_obligatorio')",
+                // },
                 razon: {
                     required: "@lang('messages.alert.razon_obligatorio')",
                 },
@@ -770,7 +770,7 @@
             }, false);
         }
 
-        autoTextarea('background');
+        // autoTextarea('background');
         autoTextarea('sintomas');
         autoTextarea('razon');
         autoTextarea('diagnosis');
@@ -801,7 +801,7 @@
                 // $("#indication").show();
                 // $("#treatmentDuration").show();
                 $("#center_id").attr('disabled', false);
-                $("#background").attr('disabled', false);
+                // $("#background").attr('disabled', false);
                 $("#razon").attr('disabled', false);
                 $("#diagnosis").attr('disabled', false);
                 $("#treatment").attr('disabled', false);
@@ -843,8 +843,8 @@
 
                 $("#diagnosis").show();
                 $("#diagnosis-text").hide();
-                $("#background").show();
-                $("#background-text").hide();
+                // $("#background").show();
+                // $("#background-text").hide();
                 $("#razon").show();
                 $("#razon-text").hide();
                 $("#sintomas").show();
@@ -866,7 +866,7 @@
         }
         $("#medical_record_id").val(item.id);
         $("#center_id").val(item.data.center_id).change().attr('disabled', true);
-        $("#background").val(item.data.background).attr('disabled', true);
+        // $("#background").val(item.data.background).attr('disabled', true);
         $("#razon").val(item.data.razon).attr('disabled', true);
         $("#diagnosis").val(item.data.diagnosis).attr('disabled', true);
         $("#treatment").val(item.data.treatment).attr('disabled', true);
@@ -904,8 +904,8 @@
 
         $("#diagnosis").hide();
         $("#diagnosis-text").show().text(item.data.diagnosis);
-        $("#background").hide();
-        $("#background-text").show().text(item.data.background);
+        // $("#background").hide();
+        // $("#background-text").show().text(item.data.background);
         $("#razon").hide();
         $("#razon-text").show().text(item.data.razon);
         $("#sintomas").hide();
@@ -1853,35 +1853,63 @@
                                                 value="{{ $Patient->id }}">
                                             <div class="row">
                                                 <div style="display: flex">
-                                                    <span class="text-warning mt-2" id="EF"
-                                                        style="font-size: 15px;margin-right: 10px;"></span>
+                                                    <span class="text-warning mt-2" id="EF" style="font-size: 15px;margin-right: 10px;"></span>
                                                 </div>
 
                                                 @if (Auth::user()->type_plane !== '7')
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                         <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" />
-                                                        {{-- <div class="form-group">
-                                                            <div class="Icon-inside">
-                                                                <label for="phone" class="form-label"
-                                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.centro_salud')</label>
-                                                                <select name="center_id" id="center_id"
-                                                                    placeholder="Seleccione"class="form-control"
-                                                                    class="form-control combo-textbox-input">
-                                                                    <option value="">@lang('messages.label.seleccione')</option>
-                                                                    @foreach ($doctor_centers as $item)
-                                                                        <option value="{{ $item->center_id }}">
-                                                                            {{ $item->get_center->description }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                                <i class="bi bi-hospital st-icon"></i>
-                                                                <span id="type_alergia_span" class="text-danger"></span>
-                                                            </div>
-                                                        </div> --}}
                                                     </div>
                                                 @endif
-                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2"
-                                                    style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                     <div class="row">
+                                                        <label style="font-size: 14px">@lang('messages.label.evaluacion_general')</label>
+                                                        <hr style="margin-top: 5px">
+                                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="condition" class="form-label"
+                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.condicion')</label>
+                                                                    <select name="condition" id="condition"
+                                                                        placeholder="Seleccione"class="form-control"
+                                                                        class="EF form-control combo-textbox-input">
+                                                                        <option value="">@lang('messages.label.seleccione')</option>
+                                                                        @foreach ($get_condition as $item)
+                                                                            <option value="{{ $item->description }}">
+                                                                                {{ $item->description }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    <i class="bi bi-activity st-icon"></i>
+                                                                    <span id="condition_span" class="text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="awareness" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.nivel_de_conciencia')</label>
+                                                                    <input autocomplete="off" class="form-control" id="awareness" name="awareness" type="text" value="">
+                                                                    <i class="bi bi-activity st-icon"></i>
+                                                                    <span id="awareness_span" class="text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
+                                                            <div class="form-group">
+                                                                <div class="Icon-inside">
+                                                                    <label for="position" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.postura')</label>
+                                                                    <input autocomplete="off" class="form-control" id="position" name="position" type="text" value="">
+                                                                    <i class="bi bi-activity st-icon"></i>
+                                                                    <span id="position_span" class="text-danger"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
+                                                    <div class="row">
+                                                        <label style="font-size: 14px">@lang('messages.label.signos_vitales')</label>
+                                                        <hr style="margin-top: 5px">
                                                         <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
                                                             <div class="form-group">
                                                                 <div class="Icon-inside">
@@ -1998,36 +2026,17 @@
                                                                 </div>
                                                             </diV>
                                                         </div>
-                                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mt-2">
-                                                            <div class="form-group">
-                                                                <div class="Icon-inside">
-                                                                    <label for="condition" class="form-label"
-                                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.condicion')</label>
-                                                                    <select name="condition" id="condition"
-                                                                        placeholder="Seleccione"class="form-control"
-                                                                        class="EF form-control combo-textbox-input">
-                                                                        <option value="">@lang('messages.label.seleccione')</option>
-                                                                        @foreach ($get_condition as $item)
-                                                                            <option value="{{ $item->description }}">
-                                                                                {{ $item->description }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                    <i class="bi bi-activity st-icon"></i>
-                                                                    <span id="condition_span" class="text-danger"></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row mt-2">
-
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"
                                                     style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                                         <div class="form-group">
                                                             <label for="observations" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.exploracion_fisica')</label>
                                                             <textarea id="observations" rows="1" name="observations" class="form-control"></textarea>
                                                         </div>
                                                     </div>
@@ -2044,9 +2053,8 @@
                                                 </div>
                                             </div>
                                         </form>
-
+                                        {{-- tabla.historial_examenes --}}
                                         <div class="row mt-3">
-
                                             <hr>
                                             <h5> @lang('messages.tabla.historial_examenes')</h5>
                                             <hr>
@@ -2065,8 +2073,6 @@
                                                             <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.respiraciones')</th>
                                                             <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.pulso')</th>
                                                             <th class="text-center" scope="col" data-orderable="false">@lang('messages.tabla.saturacion')</th>
-                                                            {{-- <th class="text-center" scope="col">Condición general</th> --}}
-                                                            {{-- <th class="text-center" scope="col">Signos vitales</th> --}}
                                                             <th class="text-center w-5" scope="col" data-orderable="false">@lang('messages.tabla.observaciones')</th>
                                                         </tr>
                                                     </thead>
@@ -2097,40 +2103,6 @@
                                                                 <td class="text-center td-pad"> {{ $item->pulse }}</td>
                                                                 <td class="text-center td-pad"> {{ $item->saturation }}
                                                                 </td>
-                                                                {{-- <td class="text-center td-pad"> {{ $item->condition }}</td> --}}
-                                                                {{-- @php
-                                                                    if ($item->hidratado) {
-                                                                        $hidratado = 'Hidratado';
-                                                                    }
-                                                                    if ($item->eupenio) {
-                                                                        $eupenio = ',Eupenio';
-                                                                    }
-                                                                    if ($item->febril) {
-                                                                        $febril = ',Febril';
-                                                                    }
-                                                                    if ($item->esfera_neurologica) {
-                                                                        $esfera_neurologica = 'Enfera Neurologica';
-                                                                    }
-                                                                    if ($item->glasgow) {
-                                                                        $glasgow = ',Glasgow';
-                                                                    }
-                                                                    if ($item->esfera_orl) {
-                                                                        $esfera_orl = ',Esfera oral';
-                                                                    }
-                                                                    if ($item->esfera_cardiopulmonar) {
-                                                                        $esfera_cardiopulmonar = 'Cardio Pulmorar';
-                                                                    }
-                                                                    if ($item->esfera_abdominal) {
-                                                                        $esfera_abdominal = ',Esfera Abdominal';
-                                                                    }
-                                                                    if ($item->extremidades) {
-                                                                        $extremidades = ',Extremidades';
-                                                                    }
-                                                                @endphp
-                                                                <td class="text-center td-pad">
-                                                                    {{ $hidratado.$eupenio.$febril.$esfera_neurologica.$glasgow.$esfera_orl.$esfera_cardiopulmonar.$esfera_abdominal.$extremidades }}
-                                                                </td> --}}
-                                                                {{-- <td class="text-center td-pad"> {{ $item->observations }}</td> --}}
                                                                 <td class="text-center td-pad">
                                                                     <button
                                                                         onclick='handleObservaciones({{ $item }})'>
@@ -2171,37 +2143,18 @@
                                 <div class="accordion-body m-mb">
                                     <form id="form-consulta" method="post" action="/">
                                         {{ csrf_field() }}
-                                        <input type="hidden" name="medical_record_id" id="medical_record_id"
-                                            value="">
-                                        <input type="hidden" name="id" id="id"
-                                            value="{{ $Patient->id }}">
+                                        <input type="hidden" name="medical_record_id" id="medical_record_id" value="">
+                                        <input type="hidden" name="id" id="id" value="{{ $Patient->id }}">
                                         <div id="input-array"></div>
                                         <div class="row mt-2" style="margin: 0px 16px;">
                                             @if (Auth::user()->type_plane !== '7')
                                                 <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px;">
                                                     <x-centers_user class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2" />
-                                                    {{-- <div class="form-group">
-                                                        <div class="Icon-inside">
-                                                            <label for="phone" class="form-label"
-                                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.centro_salud')</label>
-                                                            <select name="center_id" id="center_id"
-                                                                placeholder="Seleccione"class="form-control"
-                                                                class="form-control combo-textbox-input">
-                                                                <option value="">@lang('messages.label.seleccione')</option>
-                                                                @foreach ($doctor_centers as $item)
-                                                                    <option value="{{ $item->center_id }}">
-                                                                        {{ $item->get_center->description }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                            <i class="bi bi-hospital st-icon"></i>
-                                                            <span id="type_alergia_span" class="text-danger"></span>
-                                                        </div>
-                                                    </div> --}}
                                                 </div>
                                             @endif
                                             <div class='col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2 mb-style'
                                                 style="border: 0.5px solid #4595948c; box-shadow: 0px 0px 3px 0px rgba(66,60,60,0.55); border-radius: 9px; padding: 16px; display:flex">
-                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
+                                                {{-- <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pr-5">
                                                     <div class="form-group">
                                                         <label for="background" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.antecedentes')</label>
@@ -2210,9 +2163,9 @@
                                                             style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"
                                                             id="background-text"></pre>
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
-                                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 pl-5">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 pl-5">
                                                     <div class="form-group">
                                                         <label for="razon" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.razon')</label>
@@ -2557,7 +2510,7 @@
                                                 <button style="margin-left: 20px;" type="button" onclick="resetForm();"
                                                     data-bs-toggle="tooltip" data-bs-placement="bottom" data-html="true"
                                                     title="@lang('messages.label.limpiar')">
-                                                    <img width="32" height="auto" src="{{ asset('/img/icons/eraser.png') }}" alt="avatar">
+                                                    <img width="60" height="auto" src="{{ asset('/img/icons/eraser.png') }}" alt="avatar">
                                                 </button>
                                             </div>
                                         </div>

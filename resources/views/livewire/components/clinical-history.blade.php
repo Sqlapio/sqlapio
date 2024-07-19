@@ -73,7 +73,7 @@
     $lang = session()->get('locale');
     if ($lang == 'en') {
         $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/en-EN.json';
-    } else{
+    } else {
         $url = '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json';
     }
 @endphp
@@ -82,9 +82,9 @@
         let valueAllergies = '';
         let valueMedications_supplements = '';
         let valueHistory_surgical = '';
-        let allergies = @json($validateHistory ? json_decode($validateHistory->allergies, true) : null);
-        let history_surgical = @json($validateHistory ? json_decode($validateHistory->history_surgical, true) : null);
-        let medications_supplements = @json($validateHistory ? json_decode($validateHistory->medications_supplements, true) : null);
+        let allergies = @json($validateHistory ? json_decode($validateHistory->allergies, true) : []);
+        let history_surgical = @json($validateHistory ? json_decode($validateHistory->history_surgical, true) : []);
+        let medications_supplements = @json($validateHistory ? json_decode($validateHistory->medications_supplements, true) : []);
         ///count
         let countAllergies = (allergies) ? allergies.length : 0;
         let countSurgical = (history_surgical) ? history_surgical.length : 0;
@@ -93,6 +93,7 @@
         let countNotPathological = 0;
         let countGynecological = 0;
         let countBackFamily = 0;
+        let countAllergySymptoms = 0;
         ////
         let arrayAllergies = (allergies) ? allergies : [];
         let arrayhistory_surgical = (history_surgical) ? history_surgical : [];
@@ -204,7 +205,7 @@
                             });
                         }
                     });
-                }else{
+                } else {
                     $("#collapseTwo").collapse('show');
                 }
             })
@@ -222,6 +223,7 @@
             autoTextarea('observations_diagnosis');
             autoTextarea('observations_not_pathological');
             autoTextarea('observations_mental_healths');
+            autoTextarea('observations_medical_devices');
             autoTextarea('observations_ginecologica');
             autoTextarea('observations_allergies');
             autoTextarea('observations_quirurgicas');
@@ -258,11 +260,17 @@
                     countBackFamily = countBackFamily + 1;
                 }
 
+                if(e.target.id == 'FB_C' && $(`#${e.target.id}`).is(':checked') == true) {
+                    console.log('1')
+                } else {
+                    console.log('2')
+                }
+
             } else {
 
                 $(`#${e.target.id}`).val(null);
 
-                countBackFamily = (countBackFamily==0)? '' : countBackFamily - 1;
+                countBackFamily = (countBackFamily == 0) ? '' : countBackFamily - 1;
 
             }
 
@@ -284,7 +292,7 @@
 
                 arrayAllergies.push({
                     type_alergia: $('#type_alergia').val(),
-                    detalle_alergia: $('#detalle_alergia').val(),
+                    // detalle_alergia: $('#detalle_alergia').val(),
                     btn: btn,
                     id: countAllergies
                 });
@@ -365,7 +373,7 @@
 
                 $(`#${e.target.id}`).val(null);
 
-                countDiagnosis = (countDiagnosis==0)? '' : countDiagnosis - 1;
+                countDiagnosis = (countDiagnosis == 0) ? '' : countDiagnosis - 1;
             }
 
             $('#countDiagnosis').val(countDiagnosis);
@@ -405,7 +413,7 @@
 
                 $(`#${e.target.id}`).val(null);
 
-                countNotPathological = (countNotPathological==0)? '' : countNotPathological - 1;
+                countNotPathological = (countNotPathological == 0) ? '' : countNotPathological - 1;
             }
 
             $('#countNotPathological').val(countNotPathological);
@@ -413,7 +421,6 @@
         }
 
         const handlerMentalHealths = (e) => {
-            console.log(e.target.id)
 
             if ($(`#${e.target.id}`).is(':checked')) {
 
@@ -446,7 +453,7 @@
 
                 $(`#${e.target.id}`).val(null);
 
-                countMentalHealths = (countMentalHealths==0)? '' : countMentalHealths - 1;
+                countMentalHealths = (countMentalHealths == 0) ? '' : countMentalHealths - 1;
             }
 
             $('#countMentalHealths').val(countMentalHealths);
@@ -454,7 +461,6 @@
         }
 
         const handlerInmunizations = (e) => {
-            console.log(e.target.id)
 
             if ($(`#${e.target.id}`).is(':checked')) {
 
@@ -487,7 +493,7 @@
 
                 $(`#${e.target.id}`).val(null);
 
-                countInmunizations = (countInmunizations==0)? '' : countInmunizations - 1;
+                countInmunizations = (countInmunizations == 0) ? '' : countInmunizations - 1;
             }
 
             $('#countInmunizations').val(countInmunizations);
@@ -546,6 +552,10 @@
                     treatmentDuration: $('#treatmentDuration').val(),
                     dateIniTreatment: $('#dateIniTreatment').val(),
                     dateEndTreatment: $('#dateEndTreatment').val(),
+
+                    frequency: $('#frequency').val(),
+                    side_effects: $('#side_effects').val(),
+                    effectiveness: $('#effectiveness').val(),
                     btn: btn,
                     id: countMedicationAdd
                 });
@@ -600,7 +610,11 @@
                 $('#treatmentDuration').val("")
                 $('#dateIniTreatment').val("")
                 $('#dateEndTreatment').val("")
-                $('#form-medication').hide();
+                $('#form-medication').hide()
+
+                $('#frequency').val("")
+                $('#side_effects').val("")
+                $('#effectiveness').val("")
             }
         }
 
@@ -818,7 +832,6 @@
                     break;
             }
         }
-
     </script>
 @endpush
 @section('content')
@@ -840,8 +853,7 @@
                                     <i class="bi bi-person"></i></i>@lang('messages.label.datos_paciente')
                                 </button>
                             </span>
-                            <div id="collapseD" class="accordion-collapse collapse show" aria-labelledby="headingD"
-                                data-bs-parent="#accordion">
+                            <div id="collapseD" class="accordion-collapse collapse show" aria-labelledby="headingD" data-bs-parent="#accordion">
                                 <div class="accordion-body">
                                     <div class="row mt-2">
                                         <div class="d-flex" style="align-items: center;">
@@ -853,7 +865,8 @@
                                             </div>
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6 data-medical">
                                                 <strong>@lang('messages.ficha_paciente.nombre'):</strong>
-                                                <span class="text-capitalize"> {{ $Patient->last_name . ', ' . $Patient->name }}</span>
+                                                <span class="text-capitalize">
+                                                    {{ $Patient->last_name . ', ' . $Patient->name }}</span>
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.fecha_nacimiento'):</strong>
                                                 <span> {{ date('d-m-Y', strtotime($Patient->birthdate)) }}</span>
@@ -866,13 +879,16 @@
                                                 @else
                                                     <strong>@lang('messages.ficha_paciente.ci') {{ $Patient->is_minor === 'true' ? '(Rep)' : '' }}:</strong>
                                                 @endif
-                                                <span> {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
+                                                <span>
+                                                    {{ $Patient->is_minor === 'true' ? $Patient->get_reprensetative->re_ci : $Patient->ci }}</span>
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.genero'):</strong>
                                                 <span class="text-capitalize"> {{ $Patient->genere }}</span>
                                                 <br>
                                                 <strong>@lang('messages.ficha_paciente.nro_historias'):</strong>
-                                                <span> {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }} </span>
+                                                <span>
+                                                    {{ $Patient->get_history != null ? $Patient->get_history->cod_history : '' }}
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -898,12 +914,14 @@
 
                                     {{-- antecedentes personales --}}
                                     <hr style="margin-bottom: 0;">
-                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">@lang('messages.acordion.antecedentes_per')</h6>
+                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">@lang('messages.acordion.antecedentes_per')
+                                    </h6>
                                     <hr style="margin-bottom: 0;">
 
                                     <div class="row" id="checkbok-input">
                                         <div style="display: flex">
-                                            <span class="text-warning mt-2" id='APF' style="font-size: 15px;margin-right: 10px;"></span>
+                                            <span class="text-warning mt-2" id='APF'
+                                                style="font-size: 15px;margin-right: 10px;"></span>
                                         </div>
                                         @php
                                             $count_back_bamiliy = 0;
@@ -935,6 +953,21 @@
                                                             </label>
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2" id='input_c' style="display: none">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="detalle_alergia" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.detalle')
+                                                        </label>
+                                                        <input autocomplete="off" class="form-control mask-only-text"
+                                                            id="detalle_alergia" name="detalle_alergia" type="text"
+                                                            value="">
+                                                        <i class="bi bi-file-medical st-icon"></i>
+                                                    </div>
+                                                    <span id="detalle_alergia_span" class="text-danger"></span>
                                                 </div>
                                             </div>
                                         @endforeach
@@ -1020,14 +1053,13 @@
                                     </div>
                                     {{-- end --}}
                                     <hr style="margin-bottom: 0;">
-                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px"> @lang('messages.acordion.antecedentes_per_no_pa')</h6>
+                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">@lang('messages.acordion.antecedentes_per_no_pa')</h6>
                                     <hr style="margin-bottom: 0;">
                                     {{-- Antecedentes Personales No Patológicos --}}
 
                                     <div class="row" id="div_no_aplica_no_pathology">
                                         <div style="display: flex">
-                                            <span class="text-warning mt-2" id="ANP"
-                                                style="font-size: 15px;margin-right: 10px;"></span>
+                                            <span class="text-warning mt-2" id="ANP" style="font-size: 15px;margin-right: 10px;"></span>
                                         </div>
                                         @php
                                             $count_notpathologica = 0;
@@ -1053,8 +1085,7 @@
                                                                 {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
                                                         </div>
                                                         <div>
-                                                            <label style="font-size: 14px;" class="form-check-label"
-                                                                for="flexCheckDefault">
+                                                            <label style="font-size: 14px;" class="form-check-label" for="flexCheckDefault">
                                                                 {{ $item->text }}
                                                             </label>
                                                         </div>
@@ -1073,15 +1104,18 @@
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
-                                                <label for="observations_not_pathological" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_not_pathological" rows="{!! !empty($Patient->get_history->observations_not_pathological) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_not_pathological" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_not_pathological : '' !!}</textarea>
+                                                <label for="observations_not_pathological" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                <textarea id="observations_not_pathological" rows="{!! !empty($Patient->get_history->observations_not_pathological) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}"
+                                                    name="observations_not_pathological" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_not_pathological : '' !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
                                     {{-- end --}}
 
                                     <hr style="margin-bottom: 0;">
-                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px"> @lang('messages.acordion.antecedentes_salud')</h6>
+                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                        @lang('messages.acordion.antecedentes_salud')</h6>
                                     <hr style="margin-bottom: 0;">
                                     {{-- Salud Mental --}}
 
@@ -1127,15 +1161,16 @@
                                     <div class="row mt-2">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                             <div class="input-group flex-nowrap">
-                                                <input type="hidden" id="countMentalHealths"
-                                                    name="countMentalHealths" class="form-control" readonly
-                                                    value="{!! !empty($validateHistory) ? $count_mental_healths : '' !!}">
+                                                <input type="hidden" id="countMentalHealths" name="countMentalHealths"
+                                                    class="form-control" readonly value="{!! !empty($validateHistory) ? $count_mental_healths : '' !!}">
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
-                                                <label for="observations_mental_healths" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_mental_healths" rows="{!! !empty($Patient->get_history->observations_mental_healths) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_mental_healths" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_mental_healths : '' !!}</textarea>
+                                                <label for="observations_mental_healths" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                <textarea id="observations_mental_healths" rows="{!! !empty($Patient->get_history->observations_mental_healths) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}"
+                                                    name="observations_mental_healths" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_mental_healths : '' !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -1143,7 +1178,8 @@
                                     {{-- end --}}
 
                                     <hr style="margin-bottom: 0;">
-                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px"> @lang('messages.acordion.inmunizaciones')</h6>
+                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                        @lang('messages.acordion.inmunizaciones')</h6>
                                     <hr style="margin-bottom: 0;">
                                     {{-- inmunizaciones --}}
 
@@ -1185,23 +1221,157 @@
                                                 </div>
                                             </div>
                                         @endforeach
+                                        <hr class="mt-3" style="margin-bottom: 0;">
+                                        <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                            @lang('messages.form.IMC19_covid')</h6>
+                                        <hr style="margin-bottom: 0;">
+                                        <div class="row">
+                                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-3">
+                                                <div class="floating-label-group">
+                                                    <div class="form-check" style="display: flex; ">
+                                                        <div style="margin-right: 30px;">
+                                                            <input onclick="handlerInmunizations(event);"
+                                                                class="form-check" name="IMC19_covid" type="checkbox"
+                                                                id="IMC19_covid" value="{!! !empty($validateHistory) ? 1 : null !!}"
+                                                                {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
+                                                        </div>
+                                                        <div>
+                                                            <label style="font-size: 14px;" class="form-check-label"
+                                                                for="flexCheckDefault">
+                                                                @lang('messages.form.IMC19_covid')
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="IMC19_dosis" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.IMC19_dosis')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control mask-only-text @error('IMC19_dosis') is-invalid @enderror"
+                                                            id="IMC19_dosis" name="IMC19_dosis" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->IMC19_dosis : '' !!}">
+                                                        <i class="bi bi-capsule st-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="IMC19_fecha_ultima_dosis" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.IMC19_fecha_ultima_dosis')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control @error('IMC19_fecha_ultima_dosis') is-invalid @enderror"
+                                                            id="IMC19_fecha_ultima_dosis" name="IMC19_fecha_ultima_dosis"
+                                                            type="date" value="{!! !empty($validateHistory) ? $Patient->get_history->IMC19_fecha_ultima_dosis : '' !!}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="IMC19_marca" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.IMC19_marca')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control mask-only-text @error('IMC19_marca') is-invalid @enderror"
+                                                            id="IMC19_marca" name="IMC19_marca" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->IMC19_marca : '' !!}">
+                                                        <i class="bi bi-capsule st-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <div class="row mt-2">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                             <div class="input-group flex-nowrap">
-                                                <input type="hidden" id="countInmunizations"
-                                                    name="countInmunizations" class="form-control" readonly
-                                                    value="{!! !empty($validateHistory) ? $count_inmunizations : '' !!}">
+                                                <input type="hidden" id="countInmunizations" name="countInmunizations"
+                                                    class="form-control" readonly value="{!! !empty($validateHistory) ? $count_inmunizations : '' !!}">
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
-                                                <label for="observations_inmunizations" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_inmunizations" rows="{!! !empty($Patient->get_history->observations_inmunizations) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_inmunizations" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_inmunizations : '' !!}</textarea>
+                                                <label for="observations_inmunizations" class="form-label"
+                                                    style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                <textarea id="observations_inmunizations" rows="{!! !empty($Patient->get_history->observations_inmunizations) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}"
+                                                    name="observations_inmunizations" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_inmunizations : '' !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
+                                    {{-- end --}}
+
+                                    <hr style="margin-bottom: 0;">
+                                    <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px"> @lang('messages.acordion.dispositivos_medicos')
+                                    </h6>
+                                    <hr style="margin-bottom: 0;">
+                                    {{-- Dispositivos medicos --}}
+
+                                    <div class="row" id="div_medical_devices">
+                                        <div style="display: flex">
+                                            <span class="text-warning mt-2" id="ANP"
+                                                style="font-size: 15px;margin-right: 10px;"></span>
+                                        </div>
+                                        {{-- @php
+                                                $count_medical_devices = 0;
+                                            @endphp
+                                            @foreach ($medical_devices as $item)
+                                                @php
+                                                    if ($validateHistory) {
+                                                        $name = $item->name;
+                                                        $value = $Patient->get_history->$name;
+                                                        if ($value === '1') {
+                                                            $count_medical_devices++;
+                                                        }
+                                                    }
+                                                @endphp
+                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                    <div class="floating-label-group">
+                                                        <div class="form-check" style="display: flex; ">
+                                                            <div style="margin-right: 30px;">
+                                                                <input onclick="handlermedical_devices(event);"
+                                                                    class="form-check" name="{{ $item->name }}"
+                                                                    type="checkbox" id="{{ $item->name }}"
+                                                                    value="{!! !empty($validateHistory) ? 1 : null !!}"
+                                                                    {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
+                                                            </div>
+                                                            <div>
+                                                                <label style="font-size: 14px;" class="form-check-label"
+                                                                    for="flexCheckDefault">
+                                                                    {{ $item->text }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                                <div class="input-group flex-nowrap">
+                                                    <input type="hidden" id="countmedical_devices"
+                                                        name="countmedical_devices" class="form-control" readonly
+                                                        value="{!! !empty($validateHistory) ? $count_medical_devices : '' !!}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                                <div class="form-group">
+                                                    <label for="observations_medical_devices" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                    <textarea id="observations_medical_devices" rows="{!! !empty($Patient->get_history->observations_medical_devices) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_medical_devices" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_medical_devices : '' !!}</textarea>
+                                                </div>
+                                            </div>
+                                        </div> --}}
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -1223,18 +1393,21 @@
                                     data-bs-parent="#accordion">
                                     <div class="accordion-body">
                                         <div class="row">
+                                            <hr class="mt-3" style="margin-bottom: 0;">
+                                            <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                                @lang('messages.subtitulos.ginecologicos')</h6>
+                                            <hr style="margin-bottom: 0;">
                                             <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="edad_primera_menstruation" class="form-label"
+                                                        <label for="GINE_menarquia" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                             @lang('messages.form.edad_mestruacion')
                                                         </label>
                                                         <input autocomplete="off"
-                                                            class="form-control  mask-only-number @error('edad_primera_menstruation') is-invalid @enderror"
-                                                            id="edad_primera_menstruation"
-                                                            name="edad_primera_menstruation" type="text"
-                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->edad_primera_menstruation : '' !!}">
+                                                            class="form-control  mask-only-number @error('GINE_menarquia') is-invalid @enderror"
+                                                            id="GINE_menarquia" name="GINE_menarquia" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->GINE_menarquia : '' !!}">
                                                         <i class="bi bi-calendar-event st-icon"></i>
                                                     </div>
                                                 </div>
@@ -1242,89 +1415,222 @@
                                             <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="fecha_ultima_regla" class="form-label"
+                                                        <label for="GINE_fecha_ultimo_pe" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                             @lang('messages.form.fecha_periodo')
                                                         </label>
                                                         <input autocomplete="off"
-                                                            class="form-control @error('fecha_ultima_regla') is-invalid @enderror"
-                                                            id="fecha_ultima_regla" name="fecha_ultima_regla"
-                                                            type="date" value="{!! !empty($validateHistory) ? $Patient->get_history->fecha_ultima_regla : '' !!}">
-                                                        {{-- <i class="bi bi-calendar2-week st-icon"></i> --}}
+                                                            class="form-control @error('GINE_fecha_ultimo_pe') is-invalid @enderror"
+                                                            id="GINE_fecha_ultimo_pe" name="GINE_fecha_ultimo_pe"
+                                                            type="date" value="{!! !empty($validateHistory) ? $Patient->get_history->GINE_fecha_ultimo_pe : '' !!}">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="numero_embarazos" class="form-label"
+                                                        <label for="GINE_duracion" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                            @lang('messages.form.nro_embarazos')
+                                                            @lang('messages.form.ciclo_menstrual')
                                                         </label>
                                                         <input autocomplete="off"
-                                                            class="form-control mask-only-number @error('numero_embarazos') is-invalid @enderror"
-                                                            id="numero_embarazos" name="numero_embarazos" type="text"
-                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->numero_embarazos : '' !!}">
-                                                        <i class="bi bi-hash st-icon"></i>
+                                                            class="form-control mask-only-text @error('GINE_duracion') is-invalid @enderror"
+                                                            id="GINE_duracion" name="GINE_duracion" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->GINE_duracion : '' !!}">
+                                                        <i class="bi bi-capsule st-icon"></i>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="numero_partos" class="form-label"
+                                                        <label for="GINE_infecciones" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                            @lang('messages.form.nro_partos')
+                                                            @lang('messages.form.infecciones')
                                                         </label>
                                                         <input autocomplete="off"
-                                                            class="form-control mask-only-number @error('numero_partos') is-invalid @enderror"
-                                                            id="numero_partos" name="numero_partos" type="text"
-                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->numero_partos : '' !!}">
-                                                        <i class="bi bi-hash st-icon"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="cesareas" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                            @lang('messages.form.nro_cesareas')
-                                                        </label>
-                                                        <input autocomplete="off"
-                                                            class="form-control mask-only-number @error('cesareas') is-invalid @enderror"
-                                                            id="cesareas" name="cesareas" type="text"
-                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->cesareas : '' !!}">
-                                                        <i class="bi bi-hash st-icon"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                                <div class="form-group">
-                                                    <div class="Icon-inside">
-                                                        <label for="numero_abortos" class="form-label"
-                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                            @lang('messages.form.nro_abortos')
-                                                        </label>
-                                                        <input autocomplete="off"
-                                                            class="form-control mask-only-number @error('numero_abortos') is-invalid @enderror"
-                                                            id="numero_abortos" name="numero_abortos" type="text"
-                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->numero_abortos : '' !!}">
-                                                        <i class="bi bi-hash st-icon"></i>
+                                                            class="form-control mask-only-text @error('GINE_infecciones') is-invalid @enderror"
+                                                            id="GINE_infecciones" name="GINE_infecciones" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->GINE_infecciones : '' !!}">
+                                                        <i class="bi bi-capsule st-icon"></i>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
-                                                        <label for="pregunta" class="form-label"
+                                                        <label for="GINE_ex_gine_previos" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.exam_previos')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control mask-only-text @error('GINE_ex_gine_previos') is-invalid @enderror"
+                                                            id="GINE_ex_gine_previos" name="GINE_ex_gine_previos"
+                                                            type="text" value="{!! !empty($validateHistory) ? $Patient->get_history->GINE_ex_gine_previos : '' !!}">
+                                                        <i class="bi bi-capsule st-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="GINE_metodo_anti" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                             @lang('messages.form.anticonceptivo')
                                                         </label>
                                                         <input autocomplete="off"
-                                                            class="form-control mask-only-text @error('pregunta') is-invalid @enderror"
-                                                            id="pregunta" name="pregunta" type="text"
-                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->pregunta : '' !!}">
+                                                            class="form-control mask-only-text @error('GINE_metodo_anti') is-invalid @enderror"
+                                                            id="GINE_metodo_anti" name="GINE_metodo_anti" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->GINE_metodo_anti : '' !!}">
+                                                        <i class="bi bi-capsule st-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="mt-3" style="margin-bottom: 0;">
+                                            <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                                @lang('messages.subtitulos.obstetricos')</h6>
+                                            <hr style="margin-bottom: 0;">
+                                            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="OBSTE_gravides" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.nro_embarazos')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control mask-only-number @error('OBSTE_gravides') is-invalid @enderror"
+                                                            id="OBSTE_gravides" name="OBSTE_gravides" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->OBSTE_gravides : '' !!}">
+                                                        <i class="bi bi-hash st-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="OBSTE_partos" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.nro_partos')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control mask-only-number @error('OBSTE_partos') is-invalid @enderror"
+                                                            id="OBSTE_partos" name="OBSTE_partos" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->OBSTE_partos : '' !!}">
+                                                        <i class="bi bi-hash st-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="OBSTE_cesareas" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.nro_cesareas')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control mask-only-number @error('OBSTE_cesareas') is-invalid @enderror"
+                                                            id="OBSTE_cesareas" name="OBSTE_cesareas" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->OBSTE_cesareas : '' !!}">
+                                                        <i class="bi bi-hash st-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="OBSTE_abortos" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.nro_abortos')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control mask-only-number @error('OBSTE_abortos') is-invalid @enderror"
+                                                            id="OBSTE_abortos" name="OBSTE_abortos" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->OBSTE_abortos : '' !!}">
+                                                        <i class="bi bi-hash st-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="mt-3" style="margin-bottom: 0;">
+                                            <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                                @lang('messages.subtitulos.menopausia')</h6>
+                                            <hr style="margin-bottom: 0;">
+                                            <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="MENOSPA_fecha_ini" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.MENOSPA_fecha_ini')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control @error('MENOSPA_fecha_ini') is-invalid @enderror"
+                                                            id="MENOSPA_fecha_ini" name="MENOSPA_fecha_ini"
+                                                            type="date" value="{!! !empty($validateHistory) ? $Patient->get_history->MENOSPA_fecha_ini : '' !!}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="MENOSPA_sintomas" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.MENOSPA_sintomas')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control mask-only-text @error('MENOSPA_sintomas') is-invalid @enderror"
+                                                            id="MENOSPA_sintomas" name="MENOSPA_sintomas" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->MENOSPA_sintomas : '' !!}">
+                                                        <i class="bi bi-capsule st-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="MENOSPA_tratamiento" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.MENOSPA_tratamiento')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control mask-only-text @error('MENOSPA_tratamiento') is-invalid @enderror"
+                                                            id="MENOSPA_tratamiento" name="MENOSPA_tratamiento"
+                                                            type="text" value="{!! !empty($validateHistory) ? $Patient->get_history->MENOSPA_tratamiento : '' !!}">
+                                                        <i class="bi bi-capsule st-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="mt-3" style="margin-bottom: 0;">
+                                            <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
+                                                @lang('messages.subtitulos.act_sexual')</h6>
+                                            <hr style="margin-bottom: 0;">
+                                            <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="ACTSEX_activo" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.ACTSEX_activo')
+                                                        </label>
+                                                        <select name="ACTSEX_activo" id="ACTSEX_activo"
+                                                            placeholder="Seleccione"class="form-control"
+                                                            class="form-control combo-textbox-input">
+                                                            <option value="">@lang('messages.label.seleccione')</option>
+                                                            <option value="1">@lang('messages.label.activo')</option>
+                                                            <option value="0">@lang('messages.label.inactivo')</option>
+                                                        </select>
+                                                        <i class="bi bi-file-medical st-icon"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 mt-2">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="ACTSEX_enfermedades_ts" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.ACTSEX_enfermedades_ts')
+                                                        </label>
+                                                        <input autocomplete="off"
+                                                            class="form-control mask-only-text @error('ACTSEX_enfermedades_ts') is-invalid @enderror"
+                                                            id="ACTSEX_enfermedades_ts" name="ACTSEX_enfermedades_ts"
+                                                            type="text" value="{!! !empty($validateHistory) ? $Patient->get_history->ACTSEX_enfermedades_ts : '' !!}">
                                                         <i class="bi bi-capsule st-icon"></i>
                                                     </div>
                                                 </div>
@@ -1358,10 +1664,10 @@
                             <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
                                 data-bs-parent="#accordion">
                                 <div class="accordion-body">
-                                    <div class="row mt-2" style="align-items: flex-end;">
+                                    <div class="row mt-2" >
                                         <h6 class="collapseBtn" style="margin-bottom: 10px;">@lang('messages.label.añadir_alergia')</h6>
                                         <hr style="margin-bottom: 0">
-                                        <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                        <div class="col-sm-4 col-md-4 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="tipo_alergia" class="form-label"
@@ -1372,34 +1678,57 @@
                                                         placeholder="Seleccione"class="form-control"
                                                         class="form-control combo-textbox-input">
                                                         <option value="">@lang('messages.label.seleccione')</option>
-                                                        <option value="@lang('messages.select.Medicinas')">@lang('messages.select.Medicinas')</option>
-                                                        <option value="@lang('messages.select.Alimentos')">@lang('messages.select.Alimentos')</option>
-                                                        <option value="@lang('messages.select.Latex')">@lang('messages.select.Latex')</option>
-                                                        <option value="@lang('messages.select.Otros')">@lang('messages.select.Otros')</option>
+                                                        @foreach ($allergies as $item)
+                                                        <option value={{ $item->description }}>{{ $item->description }}</option>
+                                                        @endforeach
                                                     </select>
                                                     <i class="bi bi-file-medical st-icon"></i>
                                                     <span id="type_alergia_span " class="text-danger"></span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mt-2">
-                                            <div class="form-group">
-                                                <div class="Icon-inside">
-                                                    <label for="detalle_alergia" class="form-label"
-                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                        @lang('messages.form.detalle')
-                                                    </label>
-                                                    <input autocomplete="off" class="form-control mask-only-text"
-                                                        id="detalle_alergia" name="detalle_alergia" type="text"
-                                                        value="">
-                                                    <i class="bi bi-file-medical st-icon"></i>
-                                                </div>
-                                                <span id="detalle_alergia_span" class="text-danger"></span>
+                                        <div class="col-sm-6 col-md-8 col-lg-8 col-xl-8 col-xxl-8" style="display: flex; flex-direction: row; flex-wrap: wrap; align-items: center;">
+                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12" >
+                                                <label for="detalle" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                    @lang('messages.form.detalle')
+                                                </label>
                                             </div>
+                                        @php
+                                            $count_allergy_symptoms = 0;
+                                        @endphp
+                                            @foreach ($allergy_symptoms as $item)
+                                                @php
+                                                    if ($validateHistory) {
+                                                        $name = $item->name;
+                                                        $value = $Patient->get_history->$name;
+                                                        if ($value === '1') {
+                                                            $count_allergy_symptoms++;
+                                                        }
+                                                    }
+                                                @endphp
+                                                <div class="col-sm-6 col-md-8 col-lg-8 col-xl-8 col-xxl-3">
+                                                    <div class="floating-label-group">
+                                                        <div class="form-check" style="display: flex; ">
+                                                            <div style="margin-right: 30px;">
+                                                                <input
+                                                                    class="form-check" name="detalle_alergia"
+                                                                    type="checkbox" id="detalle_alergia"
+                                                                    value="{{ $item->description }}"
+                                                                    {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
+                                                            </div>
+                                                            <div>
+                                                                <label style="font-size: 14px;" class="form-check-label"
+                                                                    for="flexCheckDefault">
+                                                                    {{ $item->description }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
-                                        <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 mt-cr">
-                                            <span type="" onclick="handlerAllergies(event)" class="btn btnSecond"
-                                                id="btn">@lang('messages.botton.añadir_alergia')</span>
+                                        <div class="col-sm-4 col-md-3 col-lg-2 col-xl-2 col-xxl-2 mt-cr" style="display: flex; align-content: center; align-items: center; justify-content: center;">
+                                            <span type="" onclick="handlerAllergies(event)" class="btn btnSecond" id="btn">@lang('messages.botton.añadir_alergia')</span>
                                         </div>
                                         {{-- Tabla --}}
                                         <div class="col-sm-5 col-md-5 col-lg-5 col-xl-5 col-xxl-5 table-responsive"
@@ -1407,9 +1736,11 @@
                                             <table class="table table-striped table-bordered" id="table-alergias">
                                                 <thead>
                                                     <tr>
-                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.tipo_alergias')</th>
+                                                        <th class="text-center w-17" scope="col">@lang('messages.tabla.tipo_alergias')
+                                                        </th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.detalle')</th>
-                                                        <th class="text-center w-5" scope="col" data-orderable="false">@lang('messages.tabla.eliminar')</th>
+                                                        <th class="text-center w-5" scope="col"
+                                                            data-orderable="false">@lang('messages.tabla.eliminar')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -1417,11 +1748,17 @@
                                                         @if ($validateHistory->allergies != 'null')
                                                             @php
                                                                 $dataAllergies = json_decode($validateHistory->allergies, true);
+                                                                if($dataAllergies == null)
+                                                                {
+                                                                    $dataAllergies = [];
+                                                                }
                                                             @endphp
                                                             @foreach ($dataAllergies as $key => $item)
                                                                 <tr id="{{ $key }}">
-                                                                    <td class="text-center"> {{ $item['type_alergia'] }} </td>
-                                                                    <td class="text-center"> {{ $item['detalle_alergia'] }} </td>
+                                                                    <td class="text-center"> {{ $item['type_alergia'] }}
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        {{ $item['detalle_alergia'] }} </td>
                                                                     <td class="text-center w-5"><span
                                                                             onclick="deleteAllergie({{ $key }})"><img
                                                                                 width="30" height="auto"
@@ -1500,9 +1837,8 @@
                                                         style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
                                                         @lang('messages.form.fecha')
                                                     </label>
-                                                    <input autocomplete="off" class="form-control"
-                                                        id="datecirugia" name="datecirugia" type="date"
-                                                        value="">
+                                                    <input autocomplete="off" class="form-control" id="datecirugia"
+                                                        name="datecirugia" type="text" value="">
                                                     {{-- <i class="bi bi-calendar2-week st-icon"></i> --}}
                                                 </div>
                                                 <span id="datecirugia_span" class="text-danger"></span>
@@ -1521,15 +1857,23 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.cirugia')</th>
-                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha') </th>
-                                                        <th class="text-center w-5" scope="col" data-orderable="false">@lang('messages.tabla.eliminar')</th>
+                                                        <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha')
+                                                        </th>
+                                                        <th class="text-center w-5" scope="col"
+                                                            data-orderable="false">@lang('messages.tabla.eliminar')</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @if ($validateHistory)
                                                         @if ($validateHistory->history_surgical != 'null')
                                                             @php
+
                                                                 $history_surgical = json_decode($validateHistory->history_surgical, true);
+                                                                if($history_surgical == null)
+                                                                {
+                                                                    $history_surgical = [];
+                                                                }
+
                                                             @endphp
                                                             @foreach ($history_surgical as $key => $item)
                                                                 <tr id="{{ $key }}">
@@ -1598,6 +1942,7 @@
                                         style="align-items: flex-end; display: none">
                                         <h6 class="collapseBtn" style="margin-bottom: 10px">@lang('messages.label.añadir_medicamentos')</h6>
                                         <hr style="margin-bottom: 0;">
+                                        {{-- medicamento --}}
                                         <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
@@ -1612,7 +1957,8 @@
                                                 <span id="medicine_span" class="text-danger"></span>
                                             </diV>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                        {{-- dosis --}}
+                                        <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="dosis" class="form-label"
@@ -1626,6 +1972,22 @@
                                                 <span id="dose_span" class="text-danger"></span>
                                             </diV>
                                         </div>
+                                        {{-- frecuencia --}}
+                                        <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="frequency" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                        @lang('messages.form.frecuencia')
+                                                    </label>
+                                                    <input autocomplete="off" class="form-control mask-only-text"
+                                                        id="frequency" name="frequency" type="text" value="">
+                                                    <i class="bi bi-file-medical st-icon"></i>
+                                                </div>
+                                                <span id="frequency_span" class="text-danger"></span>
+                                            </diV>
+                                        </div>
+                                        {{-- patologia --}}
                                         <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
@@ -1640,7 +2002,8 @@
                                                 <span id="patologi_span" class="text-danger"></span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                        {{-- via administracion --}}
+                                        <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="viaAdmin_span" class="form-label"
@@ -1654,7 +2017,8 @@
                                                 <span id="viaAdmin_span" class="text-danger"></span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                        {{-- Duracion --}}
+                                        <div class="col-sm-6 col-md-6 col-lg-2 col-xl-2 col-xxl-2 mt-2">
                                             <div class="form-group">
                                                 <div class="Icon-inside">
                                                     <label for="treatmentDuration" class="form-label"
@@ -1687,7 +2051,43 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        {{-- efectos secundarios --}}
+                                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="side_effects" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                        @lang('messages.form.efectos_secundarios')
+                                                    </label>
+                                                    <input autocomplete="off" class="form-control mask-only-text"
+                                                        id="side_effects" name="side_effects" type="text" value="">
+                                                    <i class="bi bi-file-medical st-icon"></i>
+                                                </div>
+                                                <span id="side_effects_span" class="text-danger"></span>
+                                            </diV>
+                                        </div>
+                                        {{-- efectividad --}}
+                                        <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="effectiveness" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                        @lang('messages.form.efectividad')
+                                                    </label>
+                                                    <select name="effectiveness" id="effectiveness"
+                                                        placeholder="Seleccione"class="form-control"
+                                                        class="form-control combo-textbox-input">
+                                                        <option value="">@lang('messages.label.seleccione')</option>
+                                                        <option value="baja">@lang('messages.select.baja')</option>
+                                                        <option value="media">@lang('messages.select.media')</option>
+                                                        <option value="alta">@lang('messages.select.alta')</option>
 
+                                                    </select>
+                                                    <i class="bi bi-calendar-range st-icon"></i>
+                                                    <span id="effectiveness" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-3 mt-2">
                                             <span type="" onclick="addMedacition(event)" class="btn btnSave"
                                                 id="btn">@lang('messages.botton.guardar_medicamentos')</span>
@@ -1707,7 +2107,7 @@
                                                         <th class="text-center" scope="col">@lang('messages.tabla.medicamento')</th>
                                                         <th class="text-center" data-orderable="false" scope="col"> @lang('messages.tabla.dosis')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.patologia')</th>
-                                                        {{-- <th class="text-center" scope="col">@lang('messages.tabla.via_administracion')</th> --}}
+                                                        <th class="text-center" scope="col">@lang('messages.tabla.efectividad')</th>
                                                         <th class="text-center" scope="col">@lang('messages.tabla.duracion')</th>
                                                         {{-- <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_ini')</th> --}}
                                                         {{-- <th class="text-center w-10" scope="col">@lang('messages.tabla.fecha_fin')</th> --}}
@@ -1719,6 +2119,11 @@
                                                         @if ($validateHistory->medications_supplements != 'null')
                                                             @php
                                                                 $medications_supplements = json_decode($validateHistory->medications_supplements, true);
+                                                                if($medications_supplements == null)
+                                                                {
+                                                                    $medications_supplements = [];
+                                                                }
+                                                                // dd($medications_supplements);
                                                             @endphp
                                                             @foreach ($medications_supplements as $key => $item)
                                                                 <tr id="{{ $key }}">
@@ -1726,8 +2131,9 @@
                                                                         {{ $item['medicine'] }}</td>
                                                                     <td class="text-center"> {{ $item['dose'] }} </td>
                                                                     <td class="text-center"> {{ $item['patologi'] }} </td>
-                                                                    {{-- <td class="text-center"> {{ $item['viaAdmin'] }} </td> --}}
-                                                                    <td class="text-center"> {{ $item['treatmentDuration'] }}</td>
+                                                                    <td class="text-center"> {{ $item['effectiveness'] }} </td>
+                                                                    <td class="text-center">
+                                                                        {{ $item['treatmentDuration'] }}</td>
                                                                     {{-- <td class="text-center"> {{ $item['dateIniTreatment'] }}</td> --}}
                                                                     {{-- <td class="text-center"> {{ $item['dateEndTreatment'] }}</td> --}}
                                                                     <td class="text-center"><span
@@ -1763,8 +2169,10 @@
 
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
                                         <div class="form-group">
-                                            <label for="observations_medication" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                            <textarea id="observations_medication" rows="{!! !empty($Patient->get_history->observations_medication) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_medication" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_medication : '' !!}</textarea>
+                                            <label for="observations_medication" class="form-label"
+                                                style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                            <textarea id="observations_medication" rows="{!! !empty($Patient->get_history->observations_medication) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}"
+                                                name="observations_medication" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_medication : '' !!}</textarea>
                                         </div>
                                     </div>
                                 </div>

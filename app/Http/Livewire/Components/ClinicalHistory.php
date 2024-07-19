@@ -100,6 +100,8 @@ class ClinicalHistory extends Component
         $mental_healths = UtilsController::get_mental_healths();
         $inmunizations = UtilsController::get_inmunizations();
         $get_condition = UtilsController::get_condition();
+        $allergies = UtilsController::get_allergies();
+        $allergy_symptoms = UtilsController::get_allergy_symptoms();
         return view('livewire.components.clinical-history',
         compact(
             'history',
@@ -111,7 +113,9 @@ class ClinicalHistory extends Component
             'non_pathology_back',
             'mental_healths',
             'inmunizations',
-            'get_condition'
+            'get_condition',
+            'allergies',
+            'allergy_symptoms',
         ));
 
     }
