@@ -200,7 +200,7 @@ return [
         'medicamentos'            => 'Current Treatment',
         'datos_paciente'          => 'Patients Data',
         'consulta_medica'         => 'Medical Consultation',
-        'ultimas_consultas'       => 'Latest Queries',
+        'ultimas_consultas'       => 'Consultation Log',
         'informes_medico'         => 'Medical Reports',
         'paciente_referencia'     => 'Patients with References',
         'paciente_registrado'     => 'Patients Register',

@@ -20,6 +20,8 @@ use App\Models\City;
 use App\Models\Condition;
 use App\Models\DoctorCenter;
 use App\Models\Exam;
+use App\Models\Medicines;
+use App\Models\Medicines_vias;
 use App\Models\ExamPatient;
 use App\Models\FamilyBackground;
 use App\Models\GeneralStatistic;
@@ -29,6 +31,7 @@ use App\Models\Patient;
 use App\Models\State;
 use App\Models\MedicalRecord;
 use App\Models\MedicalReport;
+use App\Models\MedicalDevice;
 use App\Models\NonPathologicalBackground;
 use App\Models\PathologicalBackground;
 use App\Models\Reference;
@@ -590,7 +593,7 @@ class UtilsController extends Controller
 					'data' => [
 						'center_id'               => $val->get_center->id,
 						'record_code' 	          => $val->record_code,
-						'cod_ref' 	              => $val->get_reference->cod_ref,
+						// 'cod_ref' 	              => $val->get_reference->cod_ref,
 						'record_type' 	          => $val->record_type,
 						// 'background' 	          => $val->background,
 						'razon' 		          => $val->razon,
@@ -2576,4 +2579,36 @@ class UtilsController extends Controller
 		}
 	}
 
+    static function get_medicines()
+	{
+		try {
+			$medicines = Medicines::all();
+			return $medicines;
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_medicines()', $message);
+		}
+	}
+
+    static function get_medicines_vias()
+	{
+		try {
+			$medicines_vias = Medicines_vias::all();
+			return $medicines_vias;
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_medicines_vias()', $message);
+		}
+	}
+
+    static function get_medical_device()
+	{
+		try {
+			$medical_device = MedicalDevice::all();
+			return $medical_device;
+		} catch (\Throwable $th) {
+			$message = $th->getMessage();
+			dd('Error UtilsController.get_medical_device()', $message);
+		}
+	}
 }

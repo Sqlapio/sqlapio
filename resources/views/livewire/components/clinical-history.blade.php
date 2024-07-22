@@ -94,12 +94,16 @@
         let countGynecological = 0;
         let countBackFamily = 0;
         let countAllergySymptoms = 0;
+        let count_medical_devices = 0;
         ////
         let arrayAllergies = (allergies) ? allergies : [];
         let arrayhistory_surgical = (history_surgical) ? history_surgical : [];
         let arraymedications_supplements = (medications_supplements) ? medications_supplements : [];
 
         var url = @json($url);
+
+        let history = @json($validateHistory)
+
 
         $(document).ready(() => {
 
@@ -132,6 +136,10 @@
                     }
                 },
             });
+
+            if(history) {
+                $('#ACTSEX_activo').val(history.ACTSEX_activo).change();
+            }
 
 
             $.validator.addMethod("onlyText", function(value, element) {
@@ -228,8 +236,9 @@
             autoTextarea('observations_allergies');
             autoTextarea('observations_quirurgicas');
             autoTextarea('observations_medication');
+            autoTextarea('observations_inmunizations');
         })
-
+        // Antecedentes Familiares //
         const handlerBackFamiliy = (e) => {
 
 
@@ -260,12 +269,6 @@
                     countBackFamily = countBackFamily + 1;
                 }
 
-                if(e.target.id == 'FB_C' && $(`#${e.target.id}`).is(':checked') == true) {
-                    console.log('1')
-                } else {
-                    console.log('2')
-                }
-
             } else {
 
                 $(`#${e.target.id}`).val(null);
@@ -277,8 +280,218 @@
             $('#countBackFamily').val(countBackFamily);
 
         }
+
+        // Antecedentes Personales Patológicos //
+        const handlerDiagnosis = (e) => {
+
+            if ($(`#${e.target.id}`).is(':checked')) {
+
+                //cambiar atributo input checkbook cunaod niega
+                if (e.target.id == "PB_NA") {
+
+                    $('#checkbok-input-diagnosis input[type="checkbox"]').prop('checked', false);
+
+                    $('#checkbok-input-diagnosis input[type="checkbox"]').val(null);
+
+                    $(`#${e.target.id}`).prop('checked', true);
+
+                    $(`#${e.target.id}`).val(1);
+
+                    countDiagnosis = 0;
+
+                } else {
+
+                    $('#PB_NA').prop('checked', false);
+
+                    $('#PB_NA').val(null);
+
+
+                    $(`#${e.target.id}`).val(1);
+
+                    countDiagnosis = countDiagnosis + 1;
+                }
+
+            } else {
+
+                $(`#${e.target.id}`).val(null);
+
+                countDiagnosis = (countDiagnosis == 0) ? '' : countDiagnosis - 1;
+            }
+
+            $('#countDiagnosis').val(countDiagnosis);
+
+        }
+
+        // Antecedentes Personales No Patológicos //
+        const handlerNotPathologica = (e) => {
+
+            if ($(`#${e.target.id}`).is(':checked')) {
+
+                //cambiar atributo input checkbook cunaod niega
+                if (e.target.id == "NPB_NA") {
+
+                    $('#div_NPB_NA input[type="checkbox"]').prop('checked', false);
+
+                    $('#div_NPB_NA input[type="checkbox"]').val(null);
+
+                    $(`#${e.target.id}`).prop('checked', true);
+
+                    $(`#${e.target.id}`).val(1);
+
+                    countNotPathological = 0;
+
+                } else {
+
+                    $('#NPB_NA').prop('checked', false);
+
+                    $('#NPB_NA').val(null);
+
+
+                    $(`#${e.target.id}`).val(1);
+
+                    countNotPathological = countNotPathological + 1;
+                }
+
+            } else {
+
+                $(`#${e.target.id}`).val(null);
+
+                countNotPathological = (countNotPathological == 0) ? '' : countNotPathological - 1;
+            }
+
+            $('#countNotPathological').val(countNotPathological);
+
+        }
+
+        // Salud mental //
+        const handlerMentalHealths = (e) => {
+
+            if ($(`#${e.target.id}`).is(':checked')) {
+
+                //cambiar atributo input checkbook cunaod niega
+                if (e.target.id == "no_aplica_mental_healths") {
+
+                    $('#div_mental_healths input[type="checkbox"]').prop('checked', false);
+
+                    $('#div_mental_healths input[type="checkbox"]').val(null);
+
+                    $(`#${e.target.id}`).prop('checked', true);
+
+                    $(`#${e.target.id}`).val(1);
+
+                    countMentalHealths = 0;
+
+                } else {
+
+                    $('#no_aplica_mental_healths').prop('checked', false);
+
+                    $('#no_aplica_mental_healths').val(null);
+
+
+                    $(`#${e.target.id}`).val(1);
+
+                    countMentalHealths = countMentalHealths + 1;
+                }
+
+            } else {
+
+                $(`#${e.target.id}`).val(null);
+
+                countMentalHealths = (countMentalHealths == 0) ? '' : countMentalHealths - 1;
+            }
+
+            $('#countMentalHealths').val(countMentalHealths);
+
+        }
+
+        // inmunizaciones //
+        const handlerInmunizations = (e) => {
+
+            if ($(`#${e.target.id}`).is(':checked')) {
+
+                //cambiar atributo input checkbook cunaod niega
+                if (e.target.id == "IM_NA") {
+
+                    $('#div_inmunizations input[type="checkbox"]').prop('checked', false);
+
+                    $('#div_inmunizations input[type="checkbox"]').val(null);
+
+                    $(`#${e.target.id}`).prop('checked', true);
+
+                    $(`#${e.target.id}`).val(1);
+
+                    countInmunizations = 0;
+
+                } else {
+
+                    $('#IM_NA').prop('checked', false);
+
+                    $('#IM_NA').val(null);
+
+
+                    $(`#${e.target.id}`).val(1);
+
+                    countInmunizations = countInmunizations + 1;
+                }
+
+            } else {
+
+                $(`#${e.target.id}`).val(null);
+
+                countInmunizations = (countInmunizations == 0) ? '' : countInmunizations - 1;
+            }
+
+            $('#countInmunizations').val(countInmunizations);
+
+        }
+
+        // dispositivos medicos //
+        const handlerMedicalDevices = (e) => {
+
+            if ($(`#${e.target.id}`).is(':checked')) {
+
+                console.log(e.target.id)
+
+                //cambiar atributo input checkbook cunaod niega
+                if (e.target.id == "MD_NA") {
+
+                    $('#div_medical_devices input[type="checkbox"]').prop('checked', false);
+
+                    $('#div_medical_devices input[type="checkbox"]').val(null);
+
+                    $(`#${e.target.id}`).prop('checked', true);
+
+                    $(`#${e.target.id}`).val(1);
+
+                    count_medical_devices = 0;
+
+                } else {
+
+                    $('#MD_NA').prop('checked', false);
+
+                    $('#MD_NA').val(null);
+
+
+                    $(`#${e.target.id}`).val(1);
+
+                    count_medical_devices = count_medical_devices + 1;
+                }
+
+            } else {
+
+                $(`#${e.target.id}`).val(null);
+
+                count_medical_devices = (count_medical_devices == 0) ? '' : count_medical_devices - 1;
+            }
+
+            $('#count_medical_devices').val(count_medical_devices);
+
+        }
+
         //agregar alergia
         function handlerAllergies(e) {
+            console.log($('#type_alergia').val())
+
             // validaciones para agragar cirugia
             if ($('#type_alergia').val() === "") {
                 $("#type_alergia_span").text('@lang('messages.alert.campo_obligatorio')');
@@ -297,6 +510,7 @@
                     id: countAllergies
                 });
 
+                console.log(arrayAllergies)
 
                 new DataTable(
                     '#table-alergias', {
@@ -338,166 +552,6 @@
                 $('#type_alergia').val("");
                 $('#detalle_alergia').val("");
             }
-        }
-
-        const handlerDiagnosis = (e) => {
-
-            if ($(`#${e.target.id}`).is(':checked')) {
-
-                //cambiar atributo input checkbook cunaod niega
-                if (e.target.id == "no_aplic_pathology") {
-
-                    $('#checkbok-input-diagnosis input[type="checkbox"]').prop('checked', false);
-
-                    $('#checkbok-input-diagnosis input[type="checkbox"]').val(null);
-
-                    $(`#${e.target.id}`).prop('checked', true);
-
-                    $(`#${e.target.id}`).val(1);
-
-                    countDiagnosis = 0;
-
-                } else {
-
-                    $('#no_aplic_pathology').prop('checked', false);
-
-                    $('#no_aplic_pathology').val(null);
-
-
-                    $(`#${e.target.id}`).val(1);
-
-                    countDiagnosis = countDiagnosis + 1;
-                }
-
-            } else {
-
-                $(`#${e.target.id}`).val(null);
-
-                countDiagnosis = (countDiagnosis == 0) ? '' : countDiagnosis - 1;
-            }
-
-            $('#countDiagnosis').val(countDiagnosis);
-
-        }
-
-        const handlerNotPathologica = (e) => {
-
-            if ($(`#${e.target.id}`).is(':checked')) {
-
-                //cambiar atributo input checkbook cunaod niega
-                if (e.target.id == "no_aplica_no_pathology") {
-
-                    $('#div_no_aplica_no_pathology input[type="checkbox"]').prop('checked', false);
-
-                    $('#div_no_aplica_no_pathology input[type="checkbox"]').val(null);
-
-                    $(`#${e.target.id}`).prop('checked', true);
-
-                    $(`#${e.target.id}`).val(1);
-
-                    countNotPathological = 0;
-
-                } else {
-
-                    $('#no_aplica_no_pathology').prop('checked', false);
-
-                    $('#no_aplica_no_pathology').val(null);
-
-
-                    $(`#${e.target.id}`).val(1);
-
-                    countNotPathological = countNotPathological + 1;
-                }
-
-            } else {
-
-                $(`#${e.target.id}`).val(null);
-
-                countNotPathological = (countNotPathological == 0) ? '' : countNotPathological - 1;
-            }
-
-            $('#countNotPathological').val(countNotPathological);
-
-        }
-
-        const handlerMentalHealths = (e) => {
-
-            if ($(`#${e.target.id}`).is(':checked')) {
-
-                //cambiar atributo input checkbook cunaod niega
-                if (e.target.id == "no_aplica_mental_healths") {
-
-                    $('#div_mental_healths input[type="checkbox"]').prop('checked', false);
-
-                    $('#div_mental_healths input[type="checkbox"]').val(null);
-
-                    $(`#${e.target.id}`).prop('checked', true);
-
-                    $(`#${e.target.id}`).val(1);
-
-                    countMentalHealths = 0;
-
-                } else {
-
-                    $('#no_aplica_mental_healths').prop('checked', false);
-
-                    $('#no_aplica_mental_healths').val(null);
-
-
-                    $(`#${e.target.id}`).val(1);
-
-                    countMentalHealths = countMentalHealths + 1;
-                }
-
-            } else {
-
-                $(`#${e.target.id}`).val(null);
-
-                countMentalHealths = (countMentalHealths == 0) ? '' : countMentalHealths - 1;
-            }
-
-            $('#countMentalHealths').val(countMentalHealths);
-
-        }
-
-        const handlerInmunizations = (e) => {
-
-            if ($(`#${e.target.id}`).is(':checked')) {
-
-                //cambiar atributo input checkbook cunaod niega
-                if (e.target.id == "no_aplica_inmunizations") {
-
-                    $('#div_inmunizations input[type="checkbox"]').prop('checked', false);
-
-                    $('#div_inmunizations input[type="checkbox"]').val(null);
-
-                    $(`#${e.target.id}`).prop('checked', true);
-
-                    $(`#${e.target.id}`).val(1);
-
-                    countInmunizations = 0;
-
-                } else {
-
-                    $('#no_aplica_inmunizations').prop('checked', false);
-
-                    $('#no_aplica_inmunizations').val(null);
-
-
-                    $(`#${e.target.id}`).val(1);
-
-                    countInmunizations = countInmunizations + 1;
-                }
-
-            } else {
-
-                $(`#${e.target.id}`).val(null);
-
-                countInmunizations = (countInmunizations == 0) ? '' : countInmunizations - 1;
-            }
-
-            $('#countInmunizations').val(countInmunizations);
-
         }
 
         function handlerGynecological(e) {
@@ -699,6 +753,7 @@
             });
 
         }
+
         //borrar cirugia
         function deleteSurgical(count) {
             Swal.fire({
@@ -720,6 +775,7 @@
             });
 
         }
+
         //borrar alergias
         function deleteAllergie(count) {
 
@@ -908,8 +964,7 @@
                                     <i class="bi bi-clipboard2-pulse"></i> @lang('messages.acordion.antecedentes_med')
                                 </button>
                             </span>
-                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                                data-bs-parent="#accordion">
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion">
                                 <div class="accordion-body">
 
                                     {{-- antecedentes personales --}}
@@ -972,7 +1027,6 @@
                                             </div>
                                         @endforeach
                                     </div>
-
                                     <div class="row mt-2">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
                                             <div class="input-group flex-nowrap">
@@ -995,8 +1049,8 @@
                                     <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
                                         @lang('messages.acordion.antecedentes_per_pa')</h6>
                                     <hr style="margin-bottom: 0;">
-                                    {{-- Antecedentes Personales Patológicos --}}
 
+                                    {{-- Antecedentes Personales Patológicos --}}
                                     <div class="row" id="checkbok-input-diagnosis">
                                         <div style="display: flex">
                                             <span class="text-warning mt-2" id="APP"
@@ -1055,9 +1109,9 @@
                                     <hr style="margin-bottom: 0;">
                                     <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">@lang('messages.acordion.antecedentes_per_no_pa')</h6>
                                     <hr style="margin-bottom: 0;">
-                                    {{-- Antecedentes Personales No Patológicos --}}
 
-                                    <div class="row" id="div_no_aplica_no_pathology">
+                                    {{-- Antecedentes Personales No Patológicos --}}
+                                    <div class="row" id="div_NPB_NA">
                                         <div style="display: flex">
                                             <span class="text-warning mt-2" id="ANP" style="font-size: 15px;margin-right: 10px;"></span>
                                         </div>
@@ -1227,13 +1281,12 @@
                                         <hr style="margin-bottom: 0;">
                                         <div class="row">
                                             <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-3">
-                                                <div class="floating-label-group">
+                                                <div class="floating-label-group" style="margin-top: 30px;">
                                                     <div class="form-check" style="display: flex; ">
                                                         <div style="margin-right: 30px;">
-                                                            <input onclick="handlerInmunizations(event);"
-                                                                class="form-check" name="IMC19_covid" type="checkbox"
+                                                            <input class="form-check" name="IMC19_covid" type="checkbox"
                                                                 id="IMC19_covid" value="{!! !empty($validateHistory) ? 1 : null !!}"
-                                                                {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
+                                                                {{ $validateHistory ? ( $validateHistory->IMC19_covid === '1' ? 'checked' : '') : '' }}>
                                                         </div>
                                                         <div>
                                                             <label style="font-size: 14px;" class="form-check-label"
@@ -1300,10 +1353,10 @@
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
                                             <div class="form-group">
-                                                <label for="observations_inmunizations" class="form-label"
+                                                <label for="observations_inmunization" class="form-label"
                                                     style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                <textarea id="observations_inmunizations" rows="{!! !empty($Patient->get_history->observations_inmunizations) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}"
-                                                    name="observations_inmunizations" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_inmunizations : '' !!}</textarea>
+                                                <textarea id="observations_inmunization" rows="{!! !empty($Patient->get_history->observations_inmunization) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}"
+                                                    name="observations_inmunization" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_inmunization : '' !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -1320,55 +1373,54 @@
                                             <span class="text-warning mt-2" id="ANP"
                                                 style="font-size: 15px;margin-right: 10px;"></span>
                                         </div>
-                                        {{-- @php
-                                                $count_medical_devices = 0;
-                                            @endphp
-                                            @foreach ($medical_devices as $item)
-                                                @php
-                                                    if ($validateHistory) {
-                                                        $name = $item->name;
-                                                        $value = $Patient->get_history->$name;
-                                                        if ($value === '1') {
-                                                            $count_medical_devices++;
-                                                        }
+                                        @php
+                                            $count_medical_devices = 0;
+                                        @endphp
+                                        @foreach ($medical_devices as $item)
+                                            @php
+                                                if ($validateHistory) {
+                                                    $name = $item->name;
+                                                    $value = $Patient->get_history->$name;
+                                                    if ($value === '1') {
+                                                        $count_medical_devices++;
                                                     }
-                                                @endphp
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-                                                    <div class="floating-label-group">
-                                                        <div class="form-check" style="display: flex; ">
-                                                            <div style="margin-right: 30px;">
-                                                                <input onclick="handlermedical_devices(event);"
-                                                                    class="form-check" name="{{ $item->name }}"
-                                                                    type="checkbox" id="{{ $item->name }}"
-                                                                    value="{!! !empty($validateHistory) ? 1 : null !!}"
-                                                                    {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
-                                                            </div>
-                                                            <div>
-                                                                <label style="font-size: 14px;" class="form-check-label"
-                                                                    for="flexCheckDefault">
-                                                                    {{ $item->text }}
-                                                                </label>
-                                                            </div>
+                                                }
+                                            @endphp
+                                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                                <div class="floating-label-group">
+                                                    <div class="form-check" style="display: flex; ">
+                                                        <div style="margin-right: 30px;">
+                                                            <input onclick="handlerMedicalDevices(event);"
+                                                                class="form-check" name="{{ $item->name }}"
+                                                                type="checkbox" id="{{ $item->name }}"
+                                                                value="{!! !empty($validateHistory) ? 1 : null !!}"
+                                                                {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
+                                                        </div>
+                                                        <div>
+                                                            <label style="font-size: 14px;" class="form-check-label"
+                                                                for="flexCheckDefault">
+                                                                {{ $item->description }}
+                                                            </label>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            @endforeach
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
+                                            <div class="input-group flex-nowrap">
+                                                <input type="hidden" id="countmedical_devices"
+                                                    name="countmedical_devices" class="form-control" readonly
+                                                    value="{!! !empty($validateHistory) ? $count_medical_devices : '' !!}">
+                                            </div>
                                         </div>
-                                        <div class="row mt-2">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">
-                                                <div class="input-group flex-nowrap">
-                                                    <input type="hidden" id="countmedical_devices"
-                                                        name="countmedical_devices" class="form-control" readonly
-                                                        value="{!! !empty($validateHistory) ? $count_medical_devices : '' !!}">
-                                                </div>
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
+                                            <div class="form-group">
+                                                <label for="observations_medical_devices" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
+                                                <textarea id="observations_medical_devices" rows="{!! !empty($Patient->get_history->observations_medical_devices) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_medical_devices" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_medical_devices : '' !!}</textarea>
                                             </div>
-                                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-1">
-                                                <div class="form-group">
-                                                    <label for="observations_medical_devices" class="form-label" style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">@lang('messages.label.observaciones')</label>
-                                                    <textarea id="observations_medical_devices" rows="{!! !empty($Patient->get_history->observations_medical_devices) ? '8' : '1' !!}" style="{!! !empty($validateHistory) ? 'height: auto' : '' !!}" name="observations_medical_devices" class="form-control">{!! !empty($validateHistory) ? $Patient->get_history->observations_medical_devices : '' !!}</textarea>
-                                                </div>
-                                            </div>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                 </div>
 

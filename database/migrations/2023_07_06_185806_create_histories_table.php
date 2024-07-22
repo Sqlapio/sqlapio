@@ -118,6 +118,7 @@ return new class extends Migration
 
             //Historia ginecologicos si aplica
             $table->text('GINE_menarquia')->nullable();
+            $table->text('GINE_fecha_ultimo_pe')->nullable();
             $table->text('GINE_duracion')->nullable();
             $table->text('GINE_infecciones')->nullable();
             $table->text('GINE_metodo_anti')->nullable();
@@ -132,6 +133,24 @@ return new class extends Migration
             $table->text('MENOSPA_tratamiento')->nullable();
             $table->text('ACTSEX_activo')->nullable();
             $table->text('ACTSEX_enfermedades_ts')->nullable();
+
+            // Dispositivos medicos
+            $table->text('MD_MP')->nullable();
+            $table->text('MD_DAI')->nullable();
+            $table->text('MD_IC')->nullable();
+            $table->text('MD_SC')->nullable();
+            $table->text('MD_PCR')->nullable();
+            $table->text('MD_BI')->nullable();
+            $table->text('MD_CVC')->nullable();
+            $table->text('MD_VC')->nullable();
+            $table->text('MD_ID')->nullable();
+            $table->text('MD_NEME')->nullable();
+            $table->text('MD_IR')->nullable();
+            $table->text('MD_DFV')->nullable();
+            $table->text('MD_MQ')->nullable();
+            $table->text('MD_PP')->nullable();
+            $table->text('MD_DII')->nullable();
+            $table->text('MD_NA')->nullable();
 
             // alergias
             $table->json('allergies')->nullable();
@@ -151,6 +170,7 @@ return new class extends Migration
             $table->string('observations_diagnosis')->nullable();
             $table->string('observations_not_pathological')->nullable();
             $table->string('observations_quirurgicas')->nullable();
+            $table->string('observations_medical_devices')->nullable();
 
             $table->timestamps();
         });

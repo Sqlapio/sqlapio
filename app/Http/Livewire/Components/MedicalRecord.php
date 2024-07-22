@@ -307,21 +307,25 @@ class MedicalRecord extends Component
         $symptoms = Symptom::all();
         $vital_sing = UtilsController::get_history_vital_sing();
         $get_condition = UtilsController::get_condition();
+        $medicines = UtilsController::get_medicines();
+        $medicines_vias = UtilsController::get_medicines_vias();
         $physical_exams = PhysicalExam::where('patient_id', $id)->get();
 
         return view('livewire.components.medical-record',compact(
-            'Patient',
-             'doctor_centers',
-             'validate_histroy',
-             'medical_record_user',
-             'id',
-             'exam',
-             'study',
-             'symptoms',
-             'medical_report',
-             'vital_sing',
-             'get_condition',
-            "physical_exams"
+                'Patient',
+                'doctor_centers',
+                'validate_histroy',
+                'medical_record_user',
+                'id',
+                'exam',
+                'study',
+                'symptoms',
+                'medical_report',
+                'vital_sing',
+                'get_condition',
+                "physical_exams",
+                "medicines",
+                "medicines_vias"
             ));
     }
 }

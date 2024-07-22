@@ -198,7 +198,7 @@ return [
         'medicamentos'          => 'Tratamiento actual',
         'datos_paciente'        => 'Datos del Paciente',
         'consulta_medica'       => 'Consulta Médica',
-        'ultimas_consultas'     => 'Últimas Consultas',
+        'ultimas_consultas'     => 'Registro de Consultas',
         'informes_medico'       => 'Informes Médicos',
         'paciente_referencia'   => 'Pacientes con Referencias',
         'paciente_registrado'   => 'Pacientes Registrados',

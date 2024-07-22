@@ -572,19 +572,6 @@
         $("#form-consulta").submit(function(event) {
             event.preventDefault();
             $("#form-consulta").validate();
-            // if (countMedicationAdd === 0) {
-            //     $("#med").html(
-            //         `Debe agregar al menos un tratamiento <i style="font-size:18px; margin-top: 11px" class="bi bi-exclamation-triangle st-icon text-warning "></i>`
-            //     );
-            //     Swal.fire({
-            //         icon: 'warning',
-            //         title: 'Debe agregar al menos un tratamiento',
-            //         allowOutsideClick: false,
-            //         confirmButtonColor: '#42ABE2',
-            //         confirmButtonText: 'Aceptar'
-            //     });
-            //     return false;
-            // }
             if ($("#form-consulta").valid()) {
                 $('#send').hide();
                 $('#spinner').show();
@@ -597,8 +584,10 @@
                 data["symptom_array"] = JSON.stringify(symptom_array);
                 data["studies_array"] = JSON.stringify(studies_array);
 
-                
+
                 data["medications_supplements"] = JSON.stringify(medications_supplements);
+
+                console.log(formData)
 
                 ////end
                 $.ajax({
@@ -628,7 +617,6 @@
                                 "{{ route('MedicalRecord', ':id') }}";
                             url = url.replace(':id', id);
                             window.location.href = url;
-                            // setDatatableConsulta(data)
                         });
                     },
                     error: function(error) {
@@ -718,6 +706,7 @@
                 }
             }
         });
+
         $("#form-examen-fisico").submit(function(event) {
             event.preventDefault();
             $("#form-examen-fisico").validate();
@@ -1246,7 +1235,7 @@
     const addMedacition = (e) => {
 
         // validaciones para agragar medicacion
-        if ($('#medicine').val() === "") {
+        if ($('#medicines').val() === "") {
             $("#medicine_span").text('@lang('messages.alert.campo_obligatorio')');
         } else if ($('#indication').val() === "") {
             $("#indication_span").text('@lang('messages.alert.campo_obligatorio')');
@@ -1263,15 +1252,17 @@
             let btn =
                 `<span onclick="deleteMedication(${countMedicationAdd})" ><i style="cursor: pointer" class="bi bi-x-circle-fill"></i></span>`;
 
+                console.log($('#medicines').val())
+
             medications_supplements.push({
-                medicine: $('#medicine').val(),
+                medicine: $('#medicines').val(),
+                route: $('#route').val(),
                 indication: $('#indication').val(),
                 treatmentDuration: $('#treatmentDuration').val(),
                 hours: $('#hours').val(),
                 btn: btn,
                 id: countMedicationAdd
             });
-
 
             new DataTable(
                 '#table-medicamento', {
@@ -1283,9 +1274,15 @@
                     data: medications_supplements,
                     "searching": false,
                     "bLengthChange": false,
-                    columns: [{
+                    columns: [
+                        {
                             data: 'medicine',
                             title: '@lang('messages.tabla.medicamento')',
+                            className: "text-center td-pad",
+                        },
+                        {
+                            data: 'route',
+                            title: '@lang('messages.tabla.via')',
                             className: "text-center td-pad",
                         },
                         {
@@ -1317,7 +1314,8 @@
             countMedicationAdd = countMedicationAdd + 1;
             $('#countMedicationAdd').val(countMedicationAdd);
             // limpiar campos
-            $('#medicine').val("");
+            $('#medicines').val("");
+            $('#route').val("");
             $('#indication').val("");
             $('#treatmentDuration').val("");
             $('#hours').val("");
@@ -1798,6 +1796,96 @@
     const setDatatableConsulta = (data) => {
 
         console.log(data)
+
+        let row = []
+
+        data.map((item) => {
+
+            let elemData = JSON.stringify(item);
+
+
+            item.btn =
+                `<button onclick='handleObservaciones(${elemData})'>
+                    <img width="25" height="auto"
+                    src="{{ asset('/img/icons/justify.png') }}"
+                    alt="avatar"
+                    type="button"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="bottom"
+                    title="@lang('messages.tooltips.observaciones')">
+                </button>`;
+
+
+
+            row.push(item);
+        });
+
+        console.log('row', row)
+
+        new DataTable(
+            '#table-examen-fisico', {
+                // language: {
+                //     url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json',
+                // },
+                // reponsive: true,
+                order: [[1, 'desc']],
+                bDestroy: true,
+                data: row,
+                "searching": false,
+                "bLengthChange": false,
+                columns: [{
+                        data: 'get_center.description',
+                        title: '@lang('messages.tabla.centro_salud')',
+                        className: "text-center td-pad w-30",
+                    },
+                    {
+                        data: 'date',
+                        title: '@lang('messages.tabla.fecha')',
+                        className: "text-center td-pad w-10",
+                        order: 'desc',
+                    },
+                    {
+                        data: 'weight',
+                        title: '@lang('messages.tabla.peso')',
+                        className: "text-center td-pad",
+                    },
+                    {
+                        data: 'height',
+                        title: '@lang('messages.tabla.altura')',
+                        className: "text-center td-pad",
+                    },
+                    {
+                        data: 'strain',
+                        title: '@lang('messages.tabla.presion_arterial')',
+                        className: "text-center td-pad",
+                    },
+                    {
+                        data: 'temperature',
+                        title: '@lang('messages.tabla.temperatura')',
+                        className: "text-center td-pad",
+                    },
+                    {
+                        data: 'breaths',
+                        title: '@lang('messages.tabla.respiraciones')',
+                        className: "text-center td-pad",
+                    },
+                    {
+                        data: 'pulse',
+                        title: '@lang('messages.tabla.pulso')',
+                        className: "text-center td-pad",
+                    },
+                    {
+                        data: 'saturation',
+                        title: '@lang('messages.tabla.saturacion')',
+                        className: "text-center td-pad",
+                    },
+                    {
+                        data: `btn`,
+                        title: '@lang('messages.tabla.observaciones')',
+                        className: "text-center td-pad",
+                    }
+                ],
+            });
 
 
     }
@@ -2373,18 +2461,40 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
-                                                                <label for="phone" class="form-label"
-                                                                    style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.medicamento')</label>
-                                                                <input autocomplete="off"
-                                                                    class="form-control mask-only-text" id="medicine"
-                                                                    placeholder="@lang('messages.placeholder.info_1')" name="medicine"
-                                                                    type="text" value="">
+                                                                <label for="phone" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.medicamento')</label>
+                                                                    <select name="medicines" id="medicines"
+                                                                    placeholder="Seleccione"class="form-control"
+                                                                    class="form-control combo-textbox-input">
+                                                                    <option value="">@lang('messages.label.seleccione')</option>
+                                                                    @foreach ($medicines as $item)
+                                                                    <option value={{ $item->description }}>{{ $item->description }} - {{ $item->concentration }} - {{ $item->shape }} </option>
+                                                                    @endforeach
+                                                                </select>
                                                                 <i class="bi bi-capsule st-icon"></i>
                                                             </div>
                                                             <span id="medicine_span" class="text-danger"></span>
+
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4 mt-2">
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-2 mt-2">
+                                                        <div class="form-group">
+                                                            <div class="Icon-inside">
+                                                                <label for="route" class="form-label" style="font-size: 14px; margin-bottom: 5px; margin-top: 4px">@lang('messages.form.via')</label>
+                                                                    <select name="route" id="route"
+                                                                    placeholder="@lang('messages.label.seleccione')" class="form-control"
+                                                                    class="form-control combo-textbox-input">
+                                                                    <option value="">@lang('messages.label.seleccione')</option>
+                                                                    @foreach ($medicines_vias as $item)
+                                                                    <option value={{ $item->description }}>{{ $item->description }} </option>
+                                                                    @endforeach
+                                                                </select>
+                                                                <i class="bi bi-capsule st-icon"></i>
+                                                            </div>
+                                                            <span id="medicine_span" class="text-danger"></span>
+
+                                                        </diV>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-3 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="phone" class="form-label"
@@ -2410,7 +2520,7 @@
                                                             <span id="hours_span" class="text-danger"></span>
                                                         </diV>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-2 mt-2">
+                                                    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-1 mt-2">
                                                         <div class="form-group">
                                                             <div class="Icon-inside">
                                                                 <label for="treatmentDuration" class="form-label"
@@ -2431,15 +2541,11 @@
                                                                     </option>
                                                                     <option value="@lang('messages.select.6_dia')">@lang('messages.select.6_dia')
                                                                     </option>
-                                                                    <option value="@lang('messages.select.7_dia')">@lang('messages.select.7_dia')
-                                                                    </option>
                                                                     <option value="@lang('messages.select.1_semana')">@lang('messages.select.1_semana')
                                                                     </option>
                                                                     <option value="@lang('messages.select.2_semana')">@lang('messages.select.2_semana')
                                                                     </option>
                                                                     <option value="@lang('messages.select.3_semana')">@lang('messages.select.3_semana')
-                                                                    </option>
-                                                                    <option value="@lang('messages.select.4_semana')">@lang('messages.select.4_semana')
                                                                     </option>
                                                                     <option value="@lang('messages.select.1_mes')">@lang('messages.select.1_mes')
                                                                     </option>
@@ -2473,6 +2579,7 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th class="text-center w-35" scope="col"> @lang('messages.tabla.medicamento') </th>
+                                                                    <th class="text-center w-10" scope="col"> @lang('messages.tabla.via') </th>
                                                                     <th data-orderable="false" class="text-center w-55" scope="col"> @lang('messages.tabla.indicaciones') </th>
                                                                     <th data-orderable="false" class="text-center w-55" scope="col"> @lang('messages.tabla.horas') </th>
                                                                     <th data-orderable="false" class="text-center" scope="col"> @lang('messages.tabla.duracion') </th>
@@ -2537,11 +2644,10 @@
                                     <i class="bi bi-file-earmark-text"></i> @lang('messages.acordion.ultimas_consultas')
                                 </button>
                             </span>
-                            <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <div class="row" id="table-one">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive"
-                                            style="margin-top: 20px;">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 table-responsive" style="margin-top: 20px;">
                                             <table id="table-medical-record" class="table table-striped table-bordered" style="width:100%; ">
                                                 <thead>
                                                     <tr>
