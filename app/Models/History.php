@@ -56,6 +56,7 @@ class History extends Model
         'FB_HA',
         'FB_D',
         'FB_C',
+        'FB_C_input',
         'FB_AL',
         'FB_EM',
         'FB_EDP',

@@ -278,11 +278,14 @@
 
             $('#countBackFamily').val(countBackFamily);
 
-            if(e.target.id == 'FB_C' && $(`#${e.target.id}`).is(':checked') == true) {
-                    console.log('1')
-                } else {
-                    console.log('2')
-                }
+            if(e.target.id == 'FB_C' && $(`#${'FB_C'}`).is(':checked') == true) {
+                $('#FB_C_input').show();
+                console.log('1')
+
+            } else {
+                $('#FB_C_input').hide();
+                console.log('2')
+            }
 
         }
 
@@ -998,16 +1001,32 @@
                                                                 id="{{ $item->name }}" value="{!! !empty($validateHistory) ? 1 : null !!}"
                                                                 {{ $validateHistory ? ($value != null ? 'checked' : '') : '' }}>
                                                         </div>
-                                                        <div>
+                                                        <div style="display: flex; align-items: center;">
                                                             <label style="font-size: 14px;" class="form-check-label"
                                                                 for="flexCheckDefault">
                                                                 {{ $item->text }}
                                                             </label>
+
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        @endforeach
+                                            @endforeach
+                                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2" id="FB_C_input" style="{!! !empty($validateHistory) ? '' : 'display: none' !!}">
+                                                <div class="form-group">
+                                                    <div class="Icon-inside">
+                                                        <label for="FB_C_input" class="form-label"
+                                                            style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                            @lang('messages.form.tipo_cancer')
+                                                        </label>
+                                                        <input autocomplete="off" class="form-control mask-only-text"
+                                                            id="FB_C_input" name="FB_C_input" type="text"
+                                                            value="{!! !empty($validateHistory) ? $Patient->get_history->FB_C_input : '' !!}">
+                                                        <i class="bi bi-file-medical st-icon"></i>
+                                                    </div>
+                                                    <span id="FB_C_input" class="text-danger"></span>
+                                                </div>
+                                            </div>
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-3">

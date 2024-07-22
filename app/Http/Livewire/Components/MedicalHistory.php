@@ -46,6 +46,7 @@ class MedicalHistory extends Component
                 'FB_HA'      => (isset($data->FB_HA) ? $data->FB_HA : null),
                 'FB_D'       => (isset($data->FB_D) ? $data->FB_D : null),
                 'FB_C'       => (isset($data->FB_C) ? $data->FB_C : null),
+                'FB_C_input' => (isset($data->FB_C_input) ? $data->FB_C_input : null),
                 'FB_AL'      => (isset($data->FB_AL) ? $data->FB_AL : null),
                 'FB_EM'      => (isset($data->FB_EM) ? $data->FB_EM : null),
                 'FB_EDP'     => (isset($data->FB_EDP) ? $data->FB_EDP : null),
