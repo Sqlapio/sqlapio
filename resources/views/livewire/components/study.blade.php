@@ -815,7 +815,7 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($estudios_sin_resul['data'] as $item)
-                                                    @if (count($item->get_estudio_stutus_uno) > 1)
+                                                    @if (count($item->get_estudio_stutus_uno) >= 1)
                                                         <tr>
                                                             <td class="table-avatar">
                                                                 <img class="avatar"
