@@ -483,6 +483,9 @@ return [
         'hospital'      => 'Hospital',
         'etc'           => 'Etc',
         'CIE'           => 'CIE',
+        'baja'           => 'Low',
+        'media'          => 'Media',
+        'alta'           => 'High',
     ],
 
     'alert' => [

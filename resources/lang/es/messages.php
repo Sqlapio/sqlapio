@@ -158,6 +158,7 @@ return [
         'IMC19_marca'              => 'Marca',
         'frecuencia'               => 'Frecuencia',
         'efectividad'              => 'Efectividad',
+        'efectos_secundarios'      => 'Efectos secundarios',
     ],
 
     'menu' => [
@@ -481,6 +482,9 @@ return [
         'hospital'       => 'Hospital',
         'etc'            => 'Etc',
         'CIE'            => 'CIE',
+        'baja'           => 'Baja',
+        'media'          => 'Media',
+        'alta'           => 'Alto',
     ],
 
     'alert' => [
