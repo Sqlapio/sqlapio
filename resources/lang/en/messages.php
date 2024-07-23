@@ -444,6 +444,7 @@ return [
         'postura'             => 'Posture',
         'signos_vitales'      => 'Vital Signs',
         'exploracion_fisica'  => 'Physical Exploration',
+        'tipo_cancer'         => 'Type of cancer'
     ],
 
     'select' => [

@@ -80,6 +80,7 @@ return new class extends Migration
 
             //Inmunizacion
             $table->text('IM_V')->nullable();
+            $table->text('IM_V_input')->nullable();
             $table->text('IM_BCG')->nullable();
             $table->text('IM_HB')->nullable();
             $table->text('IM_DTP')->nullable();
@@ -96,6 +97,7 @@ return new class extends Migration
             $table->text('IM_N')->nullable();
             $table->text('IM_HZ')->nullable();
             $table->text('IM_NA')->nullable();
+            $table->text('IM_O')->nullable();
 
             //info covid19
             $table->text('IMC19_covid')->nullable();

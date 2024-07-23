@@ -106,6 +106,7 @@ class History extends Model
         'NPB_NA',
         //INMUNIZACION
         'IM_V',
+        'IM_V_input',
         'IM_BCG',
         'IM_HB',
         'IM_DTP',
@@ -122,11 +123,14 @@ class History extends Model
         'IM_N',
         'IM_HZ',
         'IM_NA',
+        'IM_O',
+
         //info covid19
         'IMC19_covid',
         'IMC19_dosis',
         'IMC19_fecha_ultima_dosis',
         'IMC19_marca',
+
         //ENFERMEDADES MENTALES
         'EM_DMR',
         'EM_TB',
@@ -139,6 +143,7 @@ class History extends Model
         'EM_TAAB',
         'EM_TCS',
         'EM_NA',
+
         //Historia ginecologicos si aplica
         'GINE_menarquia',
         'GINE_fecha_ultimo_pe',

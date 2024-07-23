@@ -443,6 +443,7 @@ return [
         'postura'             => 'Postura',
         'signos_vitales'      => 'Signos Vitales',
         'exploracion_fisica'  => 'Exploracion Física',
+        'tipo_cancer'         => 'Tipo de Cáncer',
     ],
 
     'select' => [

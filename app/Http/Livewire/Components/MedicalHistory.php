@@ -128,6 +128,8 @@ class MedicalHistory extends Component
                 'IM_N'                    => (isset($data->IM_N) ? $data->IM_N : null),
                 'IM_HZ'                   => (isset($data->IM_HZ) ? $data->IM_HZ : null),
                 'IM_NA'                   => (isset($data->IM_NA) ? $data->IM_NA : null),
+                'IM_O'                    => (isset($data->IM_O) ? $data->IM_O : null),
+                'IM_V_input'              => (isset($data->IM_V_input) ? $data->IM_V_input : null),
 
                 //info covid19
                 'IMC19_covid'               => (isset($data->IMC19_covid) ? $data->IMC19_covid : null),

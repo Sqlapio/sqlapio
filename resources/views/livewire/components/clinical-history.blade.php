@@ -281,7 +281,6 @@
             if(e.target.id == 'FB_C' && $(`#${'FB_C'}`).is(':checked') == true) {
                 $('#FB_C_input').show();
                 console.log('1')
-
             } else {
                 $('#FB_C_input').hide();
                 console.log('2')
@@ -417,6 +416,7 @@
 
             if ($(`#${e.target.id}`).is(':checked')) {
 
+
                 //cambiar atributo input checkbook cunaod niega
                 if (e.target.id == "IM_NA") {
 
@@ -450,6 +450,13 @@
             }
 
             $('#countInmunizations').val(countInmunizations);
+
+
+            if(e.target.id == 'IM_O' && $(`#${'IM_O'}`).is(':checked') == true) {
+                $('#IM_V_input').show();
+            } else {
+                $('#IM_V_input').hide();
+            }
 
         }
 
@@ -1012,12 +1019,12 @@
                                                 </div>
                                             </div>
                                             @endforeach
-                                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2" id="FB_C_input" style="{!! !empty($validateHistory) ? '' : 'display: none' !!}">
+                                            <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2" id="FB_C_input" style="{!! !empty($validateHistory->FB_C) ? '' : 'display: none' !!}">
                                                 <div class="form-group">
                                                     <div class="Icon-inside">
                                                         <label for="FB_C_input" class="form-label"
                                                             style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
-                                                            @lang('messages.form.tipo_cancer')
+                                                            @lang('messages.label.tipo_cancer')
                                                         </label>
                                                         <input autocomplete="off" class="form-control mask-only-text"
                                                             id="FB_C_input" name="FB_C_input" type="text"
@@ -1272,6 +1279,21 @@
                                                 </div>
                                             </div>
                                         @endforeach
+                                        <div class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2 mt-2" id="IM_V_input" style="{!! !empty($validateHistory->IM_O) ? '' : 'display: none' !!}">
+                                            <div class="form-group">
+                                                <div class="Icon-inside">
+                                                    <label for="IM_V_input" class="form-label"
+                                                        style="font-size: 13px; margin-bottom: 5px; margin-top: 4px">
+                                                        @lang('messages.label.otros')
+                                                    </label>
+                                                    <input autocomplete="off" class="form-control mask-only-text"
+                                                        id="IM_V_input" name="IM_V_input" type="text"
+                                                        value="{!! !empty($validateHistory) ? $Patient->get_history->IM_V_input : '' !!}">
+                                                    <i class="bi bi-file-medical st-icon"></i>
+                                                </div>
+                                                <span id="IM_V_input" class="text-danger"></span>
+                                            </div>
+                                        </div>
                                         <hr class="mt-3" style="margin-bottom: 0;">
                                         <h6 class="collapseBtn" style="margin-bottom: 10px; margin-top: 10px">
                                             @lang('messages.form.IMC19_covid')</h6>
