@@ -159,6 +159,7 @@ return [
         'frecuencia'               => 'Frecuencia',
         'efectividad'              => 'Efectividad',
         'efectos_secundarios'      => 'Efectos secundarios',
+        'via'                      => 'Via',
     ],
 
     'menu' => [

@@ -159,6 +159,7 @@ return [
         'frecuencia'               => 'Frequency',
         'efectos_secundarios'      => 'Side effects',
         'efectividad'              => 'Effectiveness',
+        'via'                      => 'Through',
 
     ],
 
@@ -359,8 +360,8 @@ return [
         'seleccionar'          => 'Select',
         'horas'                => 'Every / Hours',
         'tipo_sangre'          => 'Blood Type',
-        'efectividad'          => 'effectiveness',
-        'via'                  => 'through',
+        'efectividad'          => 'Effectiveness',
+        'via'                  => 'Through',
     ],
 
     'placeholder' => [

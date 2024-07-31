@@ -345,7 +345,15 @@
         display: none;
     }
 
-    .dataTables_empty {
+    .table-info-allergies .dataTables_empty {
+        display: none;
+    }
+
+    .table-info-medicines .dataTables_empty {
+        display: none;
+    }
+
+    .table-info-cirugias .dataTables_empty {
         display: none;
     }
 
@@ -2500,7 +2508,7 @@
                                                 <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_alerg')</h6>
                                                 <hr style="margin-top: 5px">
                                                 <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="table-info-allergies">
-                                                    <table class="table table-striped table-bordered" id="table-info-allergies">
+                                                    <table class="table table-striped table-bordered table-info-allergies" id="table-info-allergies">
                                                          <thead>
                                                             <tr>
                                                                 <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.tipo_alergia')</th>
@@ -2519,7 +2527,7 @@
                                                 <h6 style="font-size: 18px">@lang('messages.acordion.antecedentes_qx')</h6>
                                                 <hr style="margin-top: 5px">
                                                 <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="table-info-cirugias">
-                                                    <table class="table table-striped table-bordered" id="table-info-cirugias">
+                                                    <table class="table table-striped table-bordered table-info-cirugias" id="table-info-cirugias">
                                                          <thead>
                                                             <tr>
                                                                 <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.tipo_cirugia')</th>
@@ -2538,7 +2546,7 @@
                                                 <h6 style="font-size: 18px">@lang('messages.acordion.medicamentos')</h6>
                                                 <hr style="margin-top: 5px">
                                                 <div class="col-sm-12 md-12 lg-12 xl-12 xxl-12 mt-2 table-responsive" id="table-info-medicines">
-                                                    <table class="table table-striped table-bordered" id="table-info-medicines">
+                                                    <table class="table table-striped table-bordered table-info-medicines" id="table-info-medicines">
                                                          <thead>
                                                             <tr>
                                                                 <th class="text-center" scope="col" data-orderable="false">@lang('messages.form.medicamento')</th>
