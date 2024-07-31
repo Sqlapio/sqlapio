@@ -211,6 +211,7 @@ return [
         'gestion_pacientes'       => 'Patient Management',
         'gestion_medicos'         => 'Doctor Management',
         'dispositivos_medicos'    => 'Medical Devices',
+        'historia_medica'         => 'Medical History',
     ],
 
     'tooltips' => [
@@ -359,6 +360,7 @@ return [
         'horas'                => 'Every / Hours',
         'tipo_sangre'          => 'Blood Type',
         'efectividad'          => 'effectiveness',
+        'via'                  => 'through',
     ],
 
     'placeholder' => [

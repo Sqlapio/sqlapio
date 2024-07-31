@@ -280,11 +280,13 @@
 
             if(e.target.id == 'FB_C' && $(`#${'FB_C'}`).is(':checked') == true) {
                 $('#FB_C_input').show();
-                console.log('1')
-            } else {
+
+            } else if($(`#${'FB_C'}`).is(':checked') == false) {
+
                 $('#FB_C_input').hide();
-                console.log('2')
+                $('#FB_C_input').val('');
             }
+
 
         }
 
@@ -454,8 +456,10 @@
 
             if(e.target.id == 'IM_O' && $(`#${'IM_O'}`).is(':checked') == true) {
                 $('#IM_V_input').show();
-            } else {
+
+            } else if($(`#${'IM_O'}`).is(':checked') == false) {
                 $('#IM_V_input').hide();
+                $('#IM_V_input').val('');
             }
 
         }

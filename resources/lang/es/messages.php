@@ -210,6 +210,8 @@ return [
         'gestion_pacientes'     => 'Gestión Pacientes',
         'gestion_medicos'       => 'Gestión Médicos',
         'dispositivos_medicos'  => 'Dispositivos Médicos',
+        'historia_medica'       => 'Historia Médica',
+
     ],
 
     'tooltips' => [
@@ -358,6 +360,7 @@ return [
         'horas'               => 'C/horas',
         'tipo_sangre'         => 'Grupo Sanguíneo',
         'efectividad'         => 'Efectividad',
+        'via'                 => 'Via',
     ],
 
     'placeholder' => [
