@@ -158,6 +158,8 @@ return [
         'IMC19_marca'              => 'Marca',
         'frecuencia'               => 'Frecuencia',
         'efectividad'              => 'Efectividad',
+        'efectos_secundarios'      => 'Efectos secundarios',
+        'via'                      => 'Via',
     ],
 
     'menu' => [
@@ -198,7 +200,7 @@ return [
         'medicamentos'          => 'Tratamiento actual',
         'datos_paciente'        => 'Datos del Paciente',
         'consulta_medica'       => 'Consulta Médica',
-        'ultimas_consultas'     => 'Últimas Consultas',
+        'ultimas_consultas'     => 'Registro de Consultas',
         'informes_medico'       => 'Informes Médicos',
         'paciente_referencia'   => 'Pacientes con Referencias',
         'paciente_registrado'   => 'Pacientes Registrados',
@@ -209,6 +211,8 @@ return [
         'gestion_pacientes'     => 'Gestión Pacientes',
         'gestion_medicos'       => 'Gestión Médicos',
         'dispositivos_medicos'  => 'Dispositivos Médicos',
+        'historia_medica'       => 'Historia Médica',
+
     ],
 
     'tooltips' => [
@@ -357,6 +361,7 @@ return [
         'horas'               => 'C/horas',
         'tipo_sangre'         => 'Grupo Sanguíneo',
         'efectividad'         => 'Efectividad',
+        'via'                 => 'Via',
     ],
 
     'placeholder' => [
@@ -442,6 +447,7 @@ return [
         'postura'             => 'Postura',
         'signos_vitales'      => 'Signos Vitales',
         'exploracion_fisica'  => 'Exploracion Física',
+        'tipo_cancer'         => 'Tipo de Cáncer',
     ],
 
     'select' => [
@@ -481,6 +487,9 @@ return [
         'hospital'       => 'Hospital',
         'etc'            => 'Etc',
         'CIE'            => 'CIE',
+        'baja'           => 'Baja',
+        'media'          => 'Media',
+        'alta'           => 'Alto',
     ],
 
     'alert' => [

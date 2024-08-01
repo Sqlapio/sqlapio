@@ -159,6 +159,7 @@ return [
         'frecuencia'               => 'Frequency',
         'efectos_secundarios'      => 'Side effects',
         'efectividad'              => 'Effectiveness',
+        'via'                      => 'Through',
 
     ],
 
@@ -200,7 +201,7 @@ return [
         'medicamentos'            => 'Current Treatment',
         'datos_paciente'          => 'Patients Data',
         'consulta_medica'         => 'Medical Consultation',
-        'ultimas_consultas'       => 'Latest Queries',
+        'ultimas_consultas'       => 'Consultation Log',
         'informes_medico'         => 'Medical Reports',
         'paciente_referencia'     => 'Patients with References',
         'paciente_registrado'     => 'Patients Register',
@@ -211,6 +212,7 @@ return [
         'gestion_pacientes'       => 'Patient Management',
         'gestion_medicos'         => 'Doctor Management',
         'dispositivos_medicos'    => 'Medical Devices',
+        'historia_medica'         => 'Medical History',
     ],
 
     'tooltips' => [
@@ -358,7 +360,8 @@ return [
         'seleccionar'          => 'Select',
         'horas'                => 'Every / Hours',
         'tipo_sangre'          => 'Blood Type',
-        'efectividad'          => 'effectiveness',
+        'efectividad'          => 'Effectiveness',
+        'via'                  => 'Through',
     ],
 
     'placeholder' => [
@@ -444,6 +447,7 @@ return [
         'postura'             => 'Posture',
         'signos_vitales'      => 'Vital Signs',
         'exploracion_fisica'  => 'Physical Exploration',
+        'tipo_cancer'         => 'Type of cancer'
     ],
 
     'select' => [
@@ -483,6 +487,9 @@ return [
         'hospital'      => 'Hospital',
         'etc'           => 'Etc',
         'CIE'           => 'CIE',
+        'baja'           => 'Low',
+        'media'          => 'Media',
+        'alta'           => 'High',
     ],
 
     'alert' => [

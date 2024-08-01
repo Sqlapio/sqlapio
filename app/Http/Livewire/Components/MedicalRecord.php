@@ -307,21 +307,39 @@ class MedicalRecord extends Component
         $symptoms = Symptom::all();
         $vital_sing = UtilsController::get_history_vital_sing();
         $get_condition = UtilsController::get_condition();
+        $medicines = UtilsController::get_medicines();
+        $medicines_vias = UtilsController::get_medicines_vias();
         $physical_exams = PhysicalExam::where('patient_id', $id)->get();
 
+        $family_back = UtilsController::get_history_family_back();
+        $pathology_back = UtilsController::get_history_pathology_back();
+		$non_pathology_back = UtilsController::get_history_non_pathology_back();
+        $mental_healths = UtilsController::get_mental_healths();
+        $inmunizations = UtilsController::get_inmunizations();
+		$medical_devices = UtilsController::get_medical_device();
+
         return view('livewire.components.medical-record',compact(
-            'Patient',
-             'doctor_centers',
-             'validate_histroy',
-             'medical_record_user',
-             'id',
-             'exam',
-             'study',
-             'symptoms',
-             'medical_report',
-             'vital_sing',
-             'get_condition',
-            "physical_exams"
+                'Patient',
+                'doctor_centers',
+                'validate_histroy',
+                'medical_record_user',
+                'id',
+                'exam',
+                'study',
+                'symptoms',
+                'medical_report',
+                'vital_sing',
+                'get_condition',
+                "physical_exams",
+                "medicines",
+                "medicines_vias",
+
+                'family_back',
+                'pathology_back',
+                'non_pathology_back',
+                'mental_healths',
+                'inmunizations',
+                'medical_devices',
             ));
     }
 }

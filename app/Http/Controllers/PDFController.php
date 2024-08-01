@@ -8,9 +8,10 @@ use App\Models\User;
 use App\Models\MedicalRecord;
 use App\Models\MedicalReport;
 use App\Models\Reference;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Picqer\Barcode\BarcodeGeneratorPNG;
+use Spatie\LaravelPdf\Facades\Pdf;
+use Spatie\LaravelPdf\Enums\Format;
 use Spatie\Browsershot\Browsershot;
 
 class PDFController extends Controller
@@ -37,6 +38,7 @@ class PDFController extends Controller
 
     public function PDF_medical_record($id)
     {
+        $pdf = 'prueba_'.date('YmdHms').'.pdf';
         $MedicalRecord = MedicalRecord::where('id',$id)->first();
         $doctor_center = DoctorCenter::where('user_id', $MedicalRecord->user_id)->where('center_id', $MedicalRecord->center_id)->first();
         $generator = new BarcodeGeneratorPNG();
@@ -47,14 +49,36 @@ class PDFController extends Controller
             'doctor_center' => $doctor_center,
             'barcode' => $barcode,
         ];
-        return view("pdf.PDF_medical_record", compact('MedicalRecord', 'generator', 'barcode', 'data', 'doctor_center'));
-        // return $pdf->stream('consulta-medica.pdf');
-        return Browsershot::url('https://system.sqlapio.com/pdf/medical-record/'.$id)
-        ->setNodeBinary('/usr/bin/node')
-    	->setNpmBinary('/usr/bin/npm')
-        ->setChromePath('/usr/bin/chromium')
-        ->landscape()
-        ->save($id.'_example.pdf');
+        pdf::view('pdf.PDF_medical_record',
+                [
+                    'data' => $data,
+                    'MedicalRecord' => $MedicalRecord,
+                    'doctor_center' => $doctor_center,
+                    'generator' => $generator,
+                    'barcode' => $barcode,
+                    'bg' => Auth::user()->background_pdf == 'white.png' ? '' : Auth::user()->background_pdf,
+                ])
+                ->withBrowsershot(function (Browsershot $browsershot) {
+                        $browsershot->setNodeBinary('/usr/local/bin/node'); //location of node
+                        $browsershot->setNpmBinary('/usr/local/bin/npm');
+                        // $browsershot->setChromePath(env('CHROMIUM'));
+                    })
+                ->format(Format::Letter)
+                ->margins(0, 0, 0, 0)
+                ->headerView('pdf.header', [
+                    'nombre'        => Auth::user()->name.' '.Auth::user()->last_name,
+                    'especialidad'  => Auth::user()->specialty,
+                    'mpps'          => Auth::user()->cod_mpps,
+                    'ci'            => Auth::user()->ci,
+                ])
+                ->footerView('pdf.footer', [
+                    'direccion'         => $doctor_center->address,
+                    'piso'              => $doctor_center->number_floor,
+                    'consultorio_num'   => $doctor_center->number_consulting_room,
+                    'consultorio_tel'   => $doctor_center->phone_consulting_room,
+                    'personal_tel'      => Auth::user()->phone,
+                ])
+                ->save($pdf);
     }
 
     public function PDF_history($id)

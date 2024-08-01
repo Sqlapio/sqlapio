@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Medicines extends Model
+class MedicalDevice extends Model
 {
     use HasFactory;
 
-     /**
+    /**
      * Define table
      */
-    protected $table = 'medicines';
+    protected $table = 'medical_devices';
 
     /**
      * The attributes that are mass assignable.
@@ -20,10 +20,8 @@ class Medicines extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id',
+        'name',
         'description',
         'description_en',
-        'concentration',
-        'shape',
     ];
 }

@@ -105,8 +105,11 @@ function get_general(boy_girl, teen, adult, elderly) {
  *
  * Grafica de consultas por mes
  *
- */
+*/
+
+
 function get_queries_month(queries_month) {
+
   const data = {
     labels: Meses,
     datasets: [
@@ -142,9 +145,20 @@ function get_queries_month(queries_month) {
         y: {
           ticks: { color: "#596167", beginAtZero: true, stepSize: 1 }
         },
-        x: {
-          ticks: { color: "#596167", beginAtZero: true }
-        }
+        x: [{
+            type: 'time',
+            time: {
+                unit: 'month'
+            },
+            scaleLabel: {
+                display: true,
+                labelString: 'Date'
+              }
+        }]
+        // x: {
+        //     ticks: { color: "#596167", beginAtZero: true },
+        //     type: 'time',
+        // }
       },
       plugins: {
         legend: {

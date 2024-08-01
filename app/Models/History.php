@@ -56,6 +56,7 @@ class History extends Model
         'FB_HA',
         'FB_D',
         'FB_C',
+        'FB_C_input',
         'FB_AL',
         'FB_EM',
         'FB_EDP',
@@ -105,6 +106,7 @@ class History extends Model
         'NPB_NA',
         //INMUNIZACION
         'IM_V',
+        'IM_V_input',
         'IM_BCG',
         'IM_HB',
         'IM_DTP',
@@ -121,11 +123,14 @@ class History extends Model
         'IM_N',
         'IM_HZ',
         'IM_NA',
+        'IM_O',
+
         //info covid19
         'IMC19_covid',
         'IMC19_dosis',
         'IMC19_fecha_ultima_dosis',
         'IMC19_marca',
+
         //ENFERMEDADES MENTALES
         'EM_DMR',
         'EM_TB',
@@ -138,6 +143,7 @@ class History extends Model
         'EM_TAAB',
         'EM_TCS',
         'EM_NA',
+
         //Historia ginecologicos si aplica
         'GINE_menarquia',
         'GINE_fecha_ultimo_pe',
@@ -155,6 +161,24 @@ class History extends Model
         'MENOSPA_tratamiento',
         'ACTSEX_activo',
         'ACTSEX_enfermedades_ts',
+
+        // Dispositivos medicos
+        'MD_MP',
+        'MD_DAI',
+        'MD_IC',
+        'MD_SC',
+        'MD_PCR',
+        'MD_BI',
+        'MD_CVC',
+        'MD_VC',
+        'MD_ID',
+        'MD_NEME',
+        'MD_IR',
+        'MD_DFV',
+        'MD_MQ',
+        'MD_PP',
+        'MD_DII',
+        'MD_NA',
 
         'allergies',
         'history_surgical',
